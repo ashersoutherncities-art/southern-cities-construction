@@ -21,7 +21,7 @@ export default function Home() {
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
               <img 
-                src="/sc-construction-logo.png" 
+                src="/southern-cities-construction/sc-construction-logo.png" 
                 alt="Southern Cities Construction" 
                 className="h-10 w-auto md:h-12"
               />
@@ -231,7 +231,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <img 
-              src="/sc-construction-logo.png" 
+              src="/southern-cities-construction/sc-construction-logo.png" 
               alt="Southern Cities Construction" 
               className="h-12 w-auto mx-auto mb-4"
             />
