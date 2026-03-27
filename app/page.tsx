@@ -23,7 +23,7 @@ export default function Home() {
               <img 
                 src="/southern-cities-construction/sc-construction-logo.png" 
                 alt="Southern Cities Construction" 
-                className="h-10 w-auto md:h-12"
+                className="h-14 w-auto md:h-16"
               />
             </div>
             <div className="hidden md:flex space-x-8">
@@ -40,6 +40,14 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-navy via-navy to-blue-900">
         <div className="absolute inset-0 bg-black opacity-30"></div>
+        {/* Large centered icon logo */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-20">
+          <img 
+            src="/southern-cities-construction/sc-construction-icon.png" 
+            alt="Southern Cities Construction Icon" 
+            className="h-64 md:h-96 w-auto"
+          />
+        </div>
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animation-fade-in">
             Building Excellence.<br />
