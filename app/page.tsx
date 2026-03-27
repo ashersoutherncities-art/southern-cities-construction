@@ -20,9 +20,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <span className="text-2xl font-bold text-white">
-                Southern Cities <span className="text-gold">Construction</span>
-              </span>
+              <img 
+                src="/sc-construction-logo.png" 
+                alt="Southern Cities Construction" 
+                className="h-10 w-auto md:h-12"
+              />
             </div>
             <div className="hidden md:flex space-x-8">
               <a href="#services" className="text-white hover:text-gold transition">Services</a>
@@ -228,7 +230,11 @@ export default function Home() {
       <footer className="bg-navy text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-lg font-semibold mb-2">Southern Cities Construction</p>
+            <img 
+              src="/sc-construction-logo.png" 
+              alt="Southern Cities Construction" 
+              className="h-12 w-auto mx-auto mb-4"
+            />
             <p className="text-gray-400 text-sm mb-2">A Division of Southern Cities Enterprises</p>
             <p className="text-gray-400 text-sm">GC License L.107724 (Myriad Investments LLC) | Qualifier Q.108200</p>
             <p className="text-gray-400 text-sm mt-4">© {new Date().getFullYear()} Southern Cities Construction. All rights reserved.</p>
