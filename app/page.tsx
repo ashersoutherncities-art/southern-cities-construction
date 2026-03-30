@@ -1,9 +1,152 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+// Intersection Observer hook for scroll animations
+function useAnimateOnScroll() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, visible };
+}
+
+// SVG Icons as components
+const icons = {
+  construction: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" />
+    </svg>
+  ),
+  renovation: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
+    </svg>
+  ),
+  site: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+    </svg>
+  ),
+  permit: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+    </svg>
+  ),
+  management: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+    </svg>
+  ),
+  team: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+    </svg>
+  ),
+  shield: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+    </svg>
+  ),
+  bolt: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+    </svg>
+  ),
+  clipboard: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.049 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75" />
+    </svg>
+  ),
+  currency: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  users: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+    </svg>
+  ),
+  eye: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  ),
+  arrow: (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+    </svg>
+  ),
+  phone: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+    </svg>
+  ),
+  mail: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+    </svg>
+  ),
+  location: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+    </svg>
+  ),
+  document: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+    </svg>
+  ),
+  externalLink: (
+    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+    </svg>
+  ),
+  menu: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+  ),
+  close: (
+    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  ),
+};
+
+// Animated section wrapper
+function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const { ref, visible } = useAnimateOnScroll();
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,239 +156,629 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = [
+    { href: '#services', label: 'Services' },
+    { href: '#process', label: 'Process' },
+    { href: '#tools', label: 'Tools' },
+    { href: '#projects', label: 'Projects' },
+    { href: '#contact', label: 'Contact' },
+  ];
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-navy shadow-lg' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-navy/95 backdrop-blur-md shadow-2xl shadow-navy/20' : 'bg-transparent'}`}>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div className="flex justify-between items-center h-20 lg:h-24">
             <div className="flex items-center">
-              <img 
-                src="/southern-cities-construction/sc-construction-logo.png" 
-                alt="Southern Cities Construction" 
-                className="h-14 w-auto md:h-16"
+              <img
+                src="/southern-cities-construction/sc-construction-logo.png"
+                alt="Southern Cities Construction"
+                className="h-12 w-auto md:h-14 lg:h-16"
               />
             </div>
-            <div className="hidden md:flex space-x-8">
-              <a href="#services" className="text-white hover:text-gold transition">Services</a>
-              <a href="#process" className="text-white hover:text-gold transition">Process</a>
-              <a href="#tools" className="text-white hover:text-gold transition">Tools</a>
-              <a href="#projects" className="text-white hover:text-gold transition">Projects</a>
-              <a href="#contact" className="text-white hover:text-gold transition">Contact</a>
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                className="ml-4 bg-orange hover:bg-orange-500 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange/30"
+              >
+                Get a Quote
+              </a>
             </div>
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-white p-2"
+            >
+              {mobileMenuOpen ? icons.close : icons.menu}
+            </button>
           </div>
         </div>
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-navy/98 backdrop-blur-lg border-t border-white/10">
+            <div className="px-5 py-6 space-y-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-white/90 hover:text-orange px-4 py-3 rounded-lg text-lg font-medium transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block mt-4 bg-orange text-white text-center px-6 py-3.5 rounded-full text-lg font-semibold"
+              >
+                Get a Quote
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-navy via-navy to-blue-900">
-        <div className="absolute inset-0 bg-black opacity-30"></div>
-        {/* Large centered icon logo */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-20">
-          <img 
-            src="/southern-cities-construction/sc-construction-icon.png" 
-            alt="Southern Cities Construction Icon" 
-            className="h-64 md:h-96 w-auto"
+      <section className="relative min-h-screen flex items-center bg-navy overflow-hidden">
+        {/* Background gradient mesh */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-navy via-navy-800 to-navy-900" />
+          <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-orange/5 blur-[120px]" />
+          <div className="absolute -bottom-20 -left-32 w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-[100px]" />
+        </div>
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        {/* Large icon watermark */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-[0.04] hidden lg:block">
+          <img
+            src="/southern-cities-construction/sc-construction-icon.png"
+            alt=""
+            className="h-[600px] w-auto"
           />
         </div>
-        <div className="relative z-10 text-center px-4">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animation-fade-in">
-            Building Excellence.<br />
-            <span className="text-gold">Managing Every Detail.</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-200 mb-8">
-            Licensed General Contractor in Charlotte, NC
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact" className="bg-gold text-navy px-8 py-4 rounded-lg font-semibold hover:bg-yellow-500 transition text-lg">
-              Get a Quote
-            </a>
-            <a href="#projects" className="bg-white text-navy px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition text-lg">
-              View Projects
-            </a>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 w-full">
+          <div className="max-w-3xl pt-24 lg:pt-0">
+            <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-5 py-2 mb-8 animation-fade-in">
+              <span className="w-2 h-2 rounded-full bg-orange animate-pulse" />
+              <span className="text-white/80 text-sm font-medium tracking-wide">Licensed General Contractor — Charlotte, NC</span>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 animation-fade-in">
+              Building<br />
+              Excellence.
+              <span className="block mt-2 gradient-text">Managing Every Detail.</span>
+            </h1>
+
+            <p className="text-lg sm:text-xl text-white/60 max-w-xl mb-12 leading-relaxed animation-fade-in font-light">
+              Full-service general contracting with AI-powered estimates, transparent draw processes, and expert subcontractor coordination.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 animation-fade-in">
+              <a
+                href="#contact"
+                className="btn-glow inline-flex items-center justify-center bg-orange hover:bg-orange-500 text-white px-10 py-4.5 rounded-full text-lg font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-orange/25 hover:-translate-y-0.5"
+              >
+                Get a Free Quote
+                <span className="ml-2">{icons.arrow}</span>
+              </a>
+              <a
+                href="#projects"
+                className="inline-flex items-center justify-center bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-sm border border-white/15 text-white px-10 py-4.5 rounded-full text-lg font-medium transition-all duration-300 hover:-translate-y-0.5"
+              >
+                View Our Work
+              </a>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10 animation-fade-in">
+              {[
+                { num: '8+', label: 'Active Projects' },
+                { num: '100%', label: 'Licensed & Insured' },
+                { num: 'AI', label: 'Powered Estimates' },
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col">
+                  <span className="text-2xl sm:text-3xl font-bold text-orange">{stat.num}</span>
+                  <span className="text-sm text-white/50 mt-1 font-medium">{stat.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+          <span className="text-white/30 text-xs tracking-widest uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-navy text-center mb-12">Our Services</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section id="services" className="py-24 sm:py-32 bg-white relative">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">What We Do</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
+                Full-Service General Contracting
+              </h2>
+              <p className="mt-5 text-lg text-gray-500 leading-relaxed">
+                From ground-up construction to complex renovations — we manage every detail so you don&apos;t have to.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: 'New Construction', desc: 'Ground-up builds from foundation to finish' },
-              { title: 'Renovations & Remodels', desc: 'Transform existing spaces with expert craftsmanship' },
-              { title: 'Site Improvements', desc: 'Enhance property value with strategic upgrades' },
-              { title: 'Permit Management', desc: 'Expert permit pulling and coordination' },
-              { title: 'Project Management', desc: 'Comprehensive oversight from start to finish' },
-              { title: 'Subcontractor Coordination', desc: 'Vetted professionals, seamless execution' }
+              { icon: icons.construction, title: 'New Construction', desc: 'Ground-up builds from foundation to finish. Residential and commercial projects delivered on time and on budget.', accent: 'from-navy to-navy-700' },
+              { icon: icons.renovation, title: 'Renovations & Remodels', desc: 'Transform existing spaces with expert craftsmanship. Full gut rehabs to strategic cosmetic updates.', accent: 'from-orange to-orange-600' },
+              { icon: icons.site, title: 'Site Improvements', desc: 'Enhance property value with strategic upgrades. Grading, utilities, paving, and landscaping.', accent: 'from-navy-700 to-blue-800' },
+              { icon: icons.permit, title: 'Permit Management', desc: 'Expert permit pulling and coordination with local authorities. We navigate the red tape.', accent: 'from-orange-600 to-orange-700' },
+              { icon: icons.management, title: 'Project Management', desc: 'Comprehensive oversight from start to finish. Real-time dashboards and transparent reporting.', accent: 'from-navy to-navy-600' },
+              { icon: icons.team, title: 'Subcontractor Coordination', desc: 'Vetted professionals we trust, seamless execution. 8+ active jobs managed simultaneously.', accent: 'from-orange to-orange-500' },
             ].map((service, i) => (
-              <div key={i} className="bg-gray-50 p-6 rounded-lg hover:shadow-lg transition">
-                <h3 className="text-xl font-bold text-navy mb-3">{service.title}</h3>
-                <p className="text-gray-600">{service.desc}</p>
-              </div>
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="group card-hover bg-white rounded-2xl p-8 border border-gray-100 hover:border-orange/20 h-full">
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.accent} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-navy mb-3 tracking-tight">{service.title}</h3>
+                  <p className="text-gray-500 leading-relaxed text-[15px]">{service.desc}</p>
+                </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section id="process" className="py-20 bg-navy text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Process</h2>
-          <div className="grid md:grid-cols-5 gap-6">
-            {[
-              { num: '1', title: 'Submit Project', desc: 'Fill out our intake form' },
-              { num: '2', title: 'AI Budget Analysis', desc: 'Get automated estimate' },
-              { num: '3', title: 'Permit Coordination', desc: 'We handle all permits' },
-              { num: '4', title: 'Construction', desc: 'Expert oversight & execution' },
-              { num: '5', title: 'Final Handoff', desc: 'Inspection & completion' }
-            ].map((step, i) => (
-              <div key={i} className="text-center">
-                <div className="w-16 h-16 bg-gold text-navy rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {step.num}
-                </div>
-                <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                <p className="text-gray-300 text-sm">{step.desc}</p>
+      {/* Process Section — Modern Timeline */}
+      <section id="process" className="py-24 sm:py-32 bg-navy relative overflow-hidden">
+        {/* Background accents */}
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-orange/5 blur-[80px]" />
+        <div className="absolute bottom-0 left-0 w-[200px] h-[200px] rounded-full bg-blue-500/5 blur-[60px]" />
+
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">How It Works</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+                From Inquiry to Completion
+              </h2>
+              <p className="mt-5 text-lg text-white/50 leading-relaxed">
+                Our streamlined 5-step process ensures every project runs smoothly from day one.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          {/* Desktop timeline */}
+          <div className="hidden lg:block">
+            <div className="relative">
+              {/* Connecting line */}
+              <div className="absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-orange/20 via-orange/40 to-orange/20" />
+
+              <div className="grid grid-cols-5 gap-6">
+                {[
+                  { num: '01', title: 'Submit Project', desc: 'Fill out our digital intake form with your project details and requirements.' },
+                  { num: '02', title: 'AI Budget Analysis', desc: 'Our AI engine generates an accurate preliminary estimate within hours.' },
+                  { num: '03', title: 'Permit Coordination', desc: 'We handle all permit applications, reviews, and inspections.' },
+                  { num: '04', title: 'Construction', desc: 'Expert oversight with real-time progress tracking via your dashboard.' },
+                  { num: '05', title: 'Final Handoff', desc: 'Final inspection, punch list, and keys in hand. Project complete.' },
+                ].map((step, i) => (
+                  <AnimatedSection key={i} delay={i * 150}>
+                    <div className="relative text-center group">
+                      {/* Step number node */}
+                      <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-orange to-orange-600 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange/20 group-hover:scale-105 transition-transform duration-300">
+                        <span className="text-2xl font-extrabold text-white">{step.num}</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-white mb-3 tracking-tight">{step.title}</h3>
+                      <p className="text-white/40 text-sm leading-relaxed">{step.desc}</p>
+                    </div>
+                  </AnimatedSection>
+                ))}
               </div>
+            </div>
+          </div>
+
+          {/* Mobile timeline */}
+          <div className="lg:hidden space-y-8">
+            {[
+              { num: '01', title: 'Submit Project', desc: 'Fill out our digital intake form with your project details and requirements.' },
+              { num: '02', title: 'AI Budget Analysis', desc: 'Our AI engine generates an accurate preliminary estimate within hours.' },
+              { num: '03', title: 'Permit Coordination', desc: 'We handle all permit applications, reviews, and inspections.' },
+              { num: '04', title: 'Construction', desc: 'Expert oversight with real-time progress tracking via your dashboard.' },
+              { num: '05', title: 'Final Handoff', desc: 'Final inspection, punch list, and keys in hand. Project complete.' },
+            ].map((step, i) => (
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="flex gap-5">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-orange to-orange-600 flex items-center justify-center shadow-lg shadow-orange/20">
+                    <span className="text-lg font-extrabold text-white">{step.num}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-1">{step.title}</h3>
+                    <p className="text-white/40 text-sm leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Tools & Portals Section */}
-      <section id="tools" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-navy text-center mb-12">Client Tools & Portals</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section id="tools" className="py-24 sm:py-32 bg-gray-50 relative">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Client Access</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
+                Tools & Portals
+              </h2>
+              <p className="mt-5 text-lg text-gray-500 leading-relaxed">
+                Real-time access to your project data, permits, and financials — all in one place.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { name: 'Client Intake Form', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/' },
-              { name: 'Permit Manager', url: 'https://ashersoutherncities-art.github.io/permit-manager/' },
-              { name: 'Construction Manager', url: 'https://sce-construction-manager.vercel.app' },
-              { name: 'Draw Manager', url: 'https://construction-draw-manager-mu.vercel.app' },
-              { name: 'Business Partners', url: 'https://ashersoutherncities-art.github.io/business-partners-db/' }
+              { name: 'Client Intake Form', desc: 'Submit new project details and requirements', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/', icon: icons.clipboard },
+              { name: 'Permit Manager', desc: 'Track permit status and inspections', url: 'https://ashersoutherncities-art.github.io/permit-manager/', icon: icons.document },
+              { name: 'Construction Manager', desc: 'Real-time project progress dashboard', url: 'https://sce-construction-manager.vercel.app', icon: icons.management },
+              { name: 'Draw Manager', desc: 'Payment schedules and draw tracking', url: 'https://construction-draw-manager-mu.vercel.app', icon: icons.currency },
+              { name: 'Business Partners', desc: 'Vetted subcontractor directory', url: 'https://ashersoutherncities-art.github.io/business-partners-db/', icon: icons.users },
             ].map((tool, i) => (
-              <a key={i} href={tool.url} target="_blank" rel="noopener noreferrer" 
-                 className="bg-white p-6 rounded-lg border-2 border-navy hover:bg-navy hover:text-white transition group">
-                <h3 className="text-lg font-bold mb-2">{tool.name}</h3>
-                <span className="text-gold group-hover:text-gold">Access Tool →</span>
-              </a>
+              <AnimatedSection key={i} delay={i * 100}>
+                <a
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group card-hover flex items-start gap-5 bg-white rounded-2xl p-7 border border-gray-100 hover:border-orange/20"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-navy/5 group-hover:bg-orange/10 flex items-center justify-center text-navy group-hover:text-orange transition-colors duration-300">
+                    {tool.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-navy mb-1 group-hover:text-orange transition-colors duration-200 flex items-center">
+                      {tool.name}
+                      {icons.externalLink}
+                    </h3>
+                    <p className="text-gray-400 text-sm">{tool.desc}</p>
+                  </div>
+                </a>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Projects Portfolio Section */}
-      <section id="projects" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-navy text-center mb-12">Recent Projects</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-gray-100 rounded-lg overflow-hidden hover:shadow-xl transition">
-                <div className="h-64 bg-gradient-to-br from-navy to-blue-900 flex items-center justify-center">
-                  <span className="text-white text-lg">Project {i}</span>
+      <section id="projects" className="py-24 sm:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Our Work</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
+                Recent Projects
+              </h2>
+              <p className="mt-5 text-lg text-gray-500 leading-relaxed">
+                A selection of our latest builds and renovations across the Charlotte metro area.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: 'Full Renovation', location: 'Charlotte, NC', type: 'Residential Rehab', year: '2026' },
+              { title: 'Ground-Up Build', location: 'Charlotte, NC', type: 'New Construction', year: '2026' },
+              { title: 'Commercial Upfit', location: 'Charlotte, NC', type: 'Commercial', year: '2026' },
+              { title: 'Multi-Unit Rehab', location: 'Charlotte, NC', type: 'Multi-Family', year: '2025' },
+              { title: 'Lot Development', location: 'Charlotte, NC', type: 'Site Work', year: '2025' },
+              { title: 'Historic Restoration', location: 'Charlotte, NC', type: 'Renovation', year: '2025' },
+            ].map((project, i) => (
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="group card-hover rounded-2xl overflow-hidden bg-white border border-gray-100">
+                  <div className="relative h-56 sm:h-64 bg-gradient-to-br from-navy via-navy-700 to-navy-900 flex items-center justify-center overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent z-10" />
+                    <span className="relative z-20 text-white/20 text-7xl font-extrabold group-hover:text-white/30 transition-colors duration-500">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 z-20 bg-orange/0 group-hover:bg-orange/10 transition-colors duration-500 flex items-center justify-center">
+                      <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold flex items-center gap-2">
+                        View Details {icons.arrow}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-lg font-bold text-navy tracking-tight">{project.title}</h3>
+                      <span className="text-xs font-semibold text-orange bg-orange/10 px-3 py-1 rounded-full">{project.year}</span>
+                    </div>
+                    <p className="text-sm text-gray-400">{project.location}</p>
+                    <p className="text-sm text-gray-500 font-medium mt-1">{project.type}</p>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="font-bold text-navy mb-2">Project Title</h3>
-                  <p className="text-sm text-gray-600 mb-1">Charlotte, NC</p>
-                  <p className="text-sm text-gray-600 mb-1">New Construction</p>
-                  <p className="text-sm text-gold font-semibold">Completed 2026</p>
-                </div>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-navy text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Why Choose Us</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="py-24 sm:py-32 bg-gray-50 relative">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Why Us</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
+                Built Different
+              </h2>
+              <p className="mt-5 text-lg text-gray-500 leading-relaxed">
+                Technology-forward construction management that sets us apart from every other GC.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: 'Licensed & Insured', desc: 'GC License L.107724, fully bonded and insured' },
-              { title: 'AI-Powered Estimates', desc: 'Fast, accurate budget analysis using cutting-edge technology' },
-              { title: 'Full Permit Management', desc: 'We handle all permitting and inspections' },
-              { title: 'Transparent Draw Process', desc: 'Clear payment schedules and progress tracking' },
-              { title: 'Vetted Subcontractors', desc: 'Experienced professionals we trust' },
-              { title: 'Project Oversight', desc: 'Daily management and quality control' }
+              { icon: icons.shield, title: 'Licensed & Insured', desc: 'GC License L.107724, fully bonded and insured. Complete peace of mind.' },
+              { icon: icons.bolt, title: 'AI-Powered Estimates', desc: 'Fast, accurate budget analysis using cutting-edge technology. No more guesswork.' },
+              { icon: icons.clipboard, title: 'Full Permit Management', desc: 'We handle all permitting, inspections, and code compliance. Zero hassle for you.' },
+              { icon: icons.currency, title: 'Transparent Draws', desc: 'Clear payment schedules with real-time progress tracking. See where every dollar goes.' },
+              { icon: icons.users, title: 'Vetted Subcontractors', desc: 'Experienced professionals we trust, rigorously screened and performance-tracked.' },
+              { icon: icons.eye, title: 'Daily Oversight', desc: 'Hands-on project management with daily quality control and progress reporting.' },
             ].map((item, i) => (
-              <div key={i} className="text-center">
-                <div className="w-16 h-16 bg-gold rounded-full mx-auto mb-4"></div>
-                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                <p className="text-gray-300">{item.desc}</p>
-              </div>
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="flex gap-5 p-6 rounded-2xl hover:bg-white hover:shadow-lg hover:shadow-navy/5 transition-all duration-300 group">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-orange/10 group-hover:bg-orange flex items-center justify-center text-orange group-hover:text-white transition-all duration-300">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-navy mb-2 tracking-tight">{item.title}</h3>
+                    <p className="text-gray-500 text-[15px] leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
+      {/* CTA Banner */}
+      <section className="py-20 sm:py-24 bg-navy relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-orange/5 blur-[100px]" />
+        </div>
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center relative z-10">
+          <AnimatedSection>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-6">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-lg text-white/50 mb-10 max-w-2xl mx-auto">
+              Get a free estimate today. Our AI-powered analysis delivers accurate budget projections faster than any traditional GC.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#contact"
+                className="btn-glow inline-flex items-center justify-center bg-orange hover:bg-orange-500 text-white px-10 py-4.5 rounded-full text-lg font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-orange/25 hover:-translate-y-0.5"
+              >
+                Get Your Free Quote
+                <span className="ml-2">{icons.arrow}</span>
+              </a>
+              <a
+                href="tel:7042992742"
+                className="inline-flex items-center justify-center bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-sm border border-white/15 text-white px-10 py-4.5 rounded-full text-lg font-medium transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <span className="mr-2">{icons.phone}</span>
+                (704) 299-2742
+              </a>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-navy text-center mb-12">Get in Touch</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold text-navy mb-6">Contact Information</h3>
-              <div className="space-y-4">
-                <div>
-                  <p className="font-semibold text-navy">Phone</p>
-                  <a href="tel:7042992742" className="text-gold hover:underline">(704) 299-2742</a>
-                </div>
-                <div>
-                  <p className="font-semibold text-navy">Email</p>
-                  <a href="mailto:construction@developthesouth.com" className="text-gold hover:underline">construction@developthesouth.com</a>
-                </div>
-                <div>
-                  <p className="font-semibold text-navy">Location</p>
-                  <p className="text-gray-600">Charlotte, NC</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-navy">License</p>
-                  <p className="text-gray-600">GC License L.107724</p>
-                  <p className="text-gray-600">Qualifier Q.108200</p>
+      <section id="contact" className="py-24 sm:py-32 bg-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Contact</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
+                Let&apos;s Build Together
+              </h2>
+              <p className="mt-5 text-lg text-gray-500 leading-relaxed">
+                Reach out for a free consultation and project estimate.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
+            {/* Contact info */}
+            <AnimatedSection className="lg:col-span-2">
+              <div className="space-y-8">
+                {[
+                  { icon: icons.phone, label: 'Phone', value: '(704) 299-2742', href: 'tel:7042992742' },
+                  { icon: icons.mail, label: 'Email', value: 'construction@developthesouth.com', href: 'mailto:construction@developthesouth.com' },
+                  { icon: icons.location, label: 'Location', value: 'Charlotte, NC', href: null },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-400 font-medium mb-0.5">{item.label}</p>
+                      {item.href ? (
+                        <a href={item.href} className="text-navy hover:text-orange font-semibold transition-colors text-[15px]">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-navy font-semibold text-[15px]">{item.value}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+
+                <div className="pt-6 border-t border-gray-100">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy">
+                      {icons.document}
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-400 font-medium mb-0.5">License</p>
+                      <p className="text-navy font-semibold text-[15px]">GC License L.107724</p>
+                      <p className="text-gray-500 text-sm">Qualifier Q.108200</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-navy font-semibold mb-2">Name</label>
-                  <input type="text" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gold" />
+            </AnimatedSection>
+
+            {/* Contact form */}
+            <AnimatedSection className="lg:col-span-3" delay={200}>
+              <form className="space-y-5">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-navy font-semibold text-sm mb-2">Name</label>
+                    <input
+                      type="text"
+                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-navy font-semibold text-sm mb-2">Email</label>
+                    <input
+                      type="email"
+                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
+                      placeholder="your@email.com"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-navy font-semibold mb-2">Email</label>
-                  <input type="email" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gold" />
+                  <label className="block text-navy font-semibold text-sm mb-2">Project Address</label>
+                  <input
+                    type="text"
+                    className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
+                    placeholder="Start typing address..."
+                  />
                 </div>
                 <div>
-                  <label className="block text-navy font-semibold mb-2">Project Address</label>
-                  <input type="text" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gold" placeholder="Start typing address..." />
+                  <label className="block text-navy font-semibold text-sm mb-2">Project Details</label>
+                  <textarea
+                    rows={5}
+                    className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px] resize-none"
+                    placeholder="Tell us about your project..."
+                  />
                 </div>
-                <div>
-                  <label className="block text-navy font-semibold mb-2">Message</label>
-                  <textarea rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gold"></textarea>
-                </div>
-                <button type="submit" className="w-full bg-gold text-navy px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition">
+                <button
+                  type="submit"
+                  className="btn-glow w-full bg-navy hover:bg-navy-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-navy/20 flex items-center justify-center gap-2"
+                >
                   Send Message
+                  <span>{icons.arrow}</span>
                 </button>
               </form>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-navy text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <img 
-              src="/southern-cities-construction/sc-construction-logo.png" 
-              alt="Southern Cities Construction" 
-              className="h-12 w-auto mx-auto mb-4"
-            />
-            <p className="text-gray-400 text-sm mb-2">A Division of Southern Cities Enterprises</p>
-            <p className="text-gray-400 text-sm">GC License L.107724 (Myriad Investments LLC) | Qualifier Q.108200</p>
-            <p className="text-gray-400 text-sm mt-4">© {new Date().getFullYear()} Southern Cities Construction. All rights reserved.</p>
+      <footer className="bg-navy pt-16 pb-8 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            {/* Brand */}
+            <div className="lg:col-span-1">
+              <img
+                src="/southern-cities-construction/sc-construction-logo.png"
+                alt="Southern Cities Construction"
+                className="h-12 w-auto mb-5"
+              />
+              <p className="text-white/40 text-sm leading-relaxed mb-5">
+                A Division of Southern Cities Enterprises. Licensed general contracting serving the Charlotte metro area.
+              </p>
+              <p className="text-white/30 text-xs">
+                GC License L.107724<br />
+                Qualifier Q.108200
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Quick Links</h4>
+              <ul className="space-y-3">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <a href={link.href} className="text-white/40 hover:text-orange text-sm transition-colors duration-200">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Tools */}
+            <div>
+              <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Client Portals</h4>
+              <ul className="space-y-3">
+                {[
+                  { name: 'Client Intake', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/' },
+                  { name: 'Permit Manager', url: 'https://ashersoutherncities-art.github.io/permit-manager/' },
+                  { name: 'Construction Manager', url: 'https://sce-construction-manager.vercel.app' },
+                  { name: 'Draw Manager', url: 'https://construction-draw-manager-mu.vercel.app' },
+                ].map((tool) => (
+                  <li key={tool.url}>
+                    <a href={tool.url} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-orange text-sm transition-colors duration-200">
+                      {tool.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Contact</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href="tel:7042992742" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
+                    <span className="text-orange">{icons.phone}</span>
+                    (704) 299-2742
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:construction@developthesouth.com" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
+                    <span className="text-orange">{icons.mail}</span>
+                    construction@developthesouth.com
+                  </a>
+                </li>
+                <li className="flex items-center gap-2 text-white/40 text-sm">
+                  <span className="text-orange">{icons.location}</span>
+                  Charlotte, NC
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-white/25 text-sm">
+              © {new Date().getFullYear()} Southern Cities Construction. All rights reserved.
+            </p>
+            <p className="text-white/20 text-xs">
+              Powered by Southern Cities Enterprises
+            </p>
           </div>
         </div>
       </footer>
