@@ -172,7 +172,7 @@ export default function Home() {
           <div className="flex justify-between items-center h-20 lg:h-24">
             <div className="flex items-center">
               <img
-                src="/southern-cities-construction/sc-construction-logo.png"
+                src="/sc-construction-logo.png"
                 alt="Southern Cities Construction"
                 className="h-12 w-auto md:h-14 lg:h-16"
               />
@@ -242,7 +242,7 @@ export default function Home() {
         {/* Large icon watermark */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-[0.04] hidden lg:block">
           <img
-            src="/southern-cities-construction/sc-construction-icon.png"
+            src="/sc-construction-icon.png"
             alt=""
             className="h-[600px] w-auto"
           />
@@ -432,7 +432,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { name: 'Client Intake Form', desc: 'Submit new project details and requirements', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/', icon: icons.clipboard },
+              { name: 'Permit Intake Form', desc: 'Submit new project details and requirements', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/', icon: icons.clipboard },
               { name: 'Permit Manager', desc: 'Track permit status and inspections', url: 'https://ashersoutherncities-art.github.io/permit-manager/', icon: icons.document },
               { name: 'Construction Manager', desc: 'Real-time project progress dashboard', url: 'https://sce-construction-manager.vercel.app', icon: icons.management },
               { name: 'Draw Manager', desc: 'Payment schedules and draw tracking', url: 'https://construction-draw-manager-mu.vercel.app', icon: icons.currency },
@@ -701,7 +701,7 @@ export default function Home() {
             {/* Brand */}
             <div className="lg:col-span-1">
               <img
-                src="/southern-cities-construction/sc-construction-logo.png"
+                src="/sc-construction-logo.png"
                 alt="Southern Cities Construction"
                 className="h-12 w-auto mb-5"
               />
@@ -733,7 +733,7 @@ export default function Home() {
               <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Client Portals</h4>
               <ul className="space-y-3">
                 {[
-                  { name: 'Client Intake', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/' },
+                  { name: 'Permit Intake', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/' },
                   { name: 'Permit Manager', url: 'https://ashersoutherncities-art.github.io/permit-manager/' },
                   { name: 'Construction Manager', url: 'https://sce-construction-manager.vercel.app' },
                   { name: 'Draw Manager', url: 'https://construction-draw-manager-mu.vercel.app' },
