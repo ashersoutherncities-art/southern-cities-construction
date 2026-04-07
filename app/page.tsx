@@ -664,26 +664,23 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: 'Full Renovation', location: 'Charlotte, NC', type: 'Residential Rehab', year: '2026' },
-              { title: 'Ground-Up Build', location: 'Charlotte, NC', type: 'New Construction', year: '2026' },
-              { title: 'Commercial Upfit', location: 'Charlotte, NC', type: 'Commercial', year: '2026' },
-              { title: 'Multi-Unit Rehab', location: 'Charlotte, NC', type: 'Multi-Family', year: '2025' },
-              { title: 'Lot Development', location: 'Charlotte, NC', type: 'Site Work', year: '2025' },
-              { title: 'Historic Restoration', location: 'Charlotte, NC', type: 'Renovation', year: '2025' },
+              { title: 'Full Renovation', location: 'North Carolina', type: 'Residential Rehab', year: '2026', img: '/project-1.jpg' },
+              { title: 'Ground-Up Build', location: 'North Carolina', type: 'New Construction', year: '2026', img: '/project-2.jpg' },
+              { title: 'Commercial Upfit', location: 'North Carolina', type: 'Commercial', year: '2026', img: '/project-3.jpg' },
+              { title: 'Kitchen Remodel', location: 'North Carolina', type: 'Interior Renovation', year: '2025', img: '/project-4.jpg' },
+              { title: 'Custom Home Build', location: 'North Carolina', type: 'New Construction', year: '2025', img: '/project-5.jpg' },
+              { title: 'Multi-Unit Rehab', location: 'North Carolina', type: 'Multi-Family', year: '2025', img: '/project-6.jpg' },
             ].map((project, i) => (
               <AnimatedSection key={i} delay={i * 100}>
                 <div className="group card-hover rounded-2xl overflow-hidden bg-white border border-gray-100">
-                  <div className="relative h-56 sm:h-64 bg-gradient-to-br from-navy via-navy-700 to-navy-900 flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent z-10" />
-                    <span className="relative z-20 text-white/20 text-7xl font-extrabold group-hover:text-white/30 transition-colors duration-500">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 z-20 bg-orange/0 group-hover:bg-orange/10 transition-colors duration-500 flex items-center justify-center">
-                      <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold flex items-center gap-2">
-                        View Details {icons.arrow}
-                      </span>
-                    </div>
+                  <div className="relative h-56 sm:h-64 overflow-hidden">
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent z-10" />
+                    <div className="absolute inset-0 z-20 bg-orange/0 group-hover:bg-orange/10 transition-colors duration-500" />
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
