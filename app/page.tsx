@@ -729,15 +729,15 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
                 { img: '/airbnb-exterior.jpg', label: 'Exterior' },
+                { img: '/airbnb-kitchen.jpg', label: 'Kitchen' },
+                { img: '/airbnb-living-2.jpg', label: 'TV & Entryway' },
+                { img: '/airbnb-dining.jpg', label: 'Dining Room' },
+                { img: '/airbnb-bath-1.jpg', label: 'Bathroom' },
+                { img: '/airbnb-bedroom-3.jpg', label: 'Living Room' },
                 { img: '/airbnb-living-1.jpg', label: 'Living Room' },
-                { img: '/airbnb-living-2.jpg', label: 'Living Room' },
-                { img: '/airbnb-kitchen.jpg', label: 'Full Kitchen' },
-                { img: '/airbnb-bedroom-1.jpg', label: 'Bedroom 1' },
-                { img: '/airbnb-bedroom-2.jpg', label: 'Bedroom 2' },
-                { img: '/airbnb-bedroom-3.jpg', label: 'Bedroom 3' },
-                { img: '/airbnb-bath-1.jpg', label: 'Full Bathroom' },
-                { img: '/airbnb-bath-2.jpg', label: 'Full Bathroom' },
-                { img: '/airbnb-dining.jpg', label: 'Dining Area' },
+                { img: '/airbnb-bedroom-1.jpg', label: 'Bedroom' },
+                { img: '/airbnb-bedroom-2.jpg', label: 'Bedroom' },
+                { img: '/airbnb-bath-2.jpg', label: 'Bathroom' },
               ].map((item, i) => (
                 <div key={i} className="relative group rounded-xl overflow-hidden aspect-[4/3]">
                   <img src={item.img} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
