@@ -419,7 +419,7 @@ export default function Home() {
             <div className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10 animation-fade-in">
               {[
                 { num: '50+', label: 'Projects Completed' },
-                { num: '$5M+', label: 'In Project Value' },
+                { num: '$20M+', label: 'In Project Value' },
                 { num: 'NC', label: 'Licensed & Insured' },
               ].map((stat, i) => (
                 <div key={i} className="flex flex-col">
