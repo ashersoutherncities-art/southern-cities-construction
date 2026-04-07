@@ -715,10 +715,10 @@ export default function Home() {
             <div className="mb-12">
               <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Featured Project</span>
               <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-                Turnkey Airbnb Rehab
+                1930s Mill House — Turnkey Airbnb Rehab
               </h2>
               <p className="text-white/60 text-lg max-w-2xl leading-relaxed mb-8">
-                Full gut rehab converted to a fully furnished, income-producing short-term rental. Every inch of this property was touched — walls demolished and rebuilt, foundation leveled, all flooring replaced, and complete kitchen and bathroom remodels from scratch. Turnkey STR setup, ready to earn from day one.
+                A 1930s mill house — fully gutted and upgraded to a modern, income-producing short-term rental. Every inch of this property was touched: walls demolished and rebuilt, foundation leveled, all flooring replaced, and complete kitchen and bathroom remodels from scratch. Historic character preserved, modern finishes throughout. Turnkey STR setup, ready to earn from day one.
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-2xl">
                 {[
