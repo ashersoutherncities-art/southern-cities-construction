@@ -707,6 +707,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Airbnb Rehab Feature Section */}
+      <section className="py-24 sm:py-32 bg-navy relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-orange/5 blur-[100px]" />
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+          <AnimatedSection>
+            <div className="mb-12">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Featured Project</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+                Turnkey Airbnb Rehab
+              </h2>
+              <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
+                Full gut rehab converted to a fully furnished, income-producing short-term rental. Exterior restoration, complete interior renovation, and turnkey STR setup — ready to earn from day one.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          {/* Exterior before/after slider */}
+          <AnimatedSection className="mb-8">
+            <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Exterior — Before &amp; After</p>
+            <div className="rounded-2xl overflow-hidden">
+              <BeforeAfterSlider
+                before="/before-3.jpg"
+                after="/airbnb-exterior.jpg"
+                title="Exterior Transformation"
+                type="Full Exterior Rehab"
+                year="2025"
+              />
+            </div>
+          </AnimatedSection>
+
+          {/* Interior photo grid */}
+          <AnimatedSection>
+            <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-4">Interior — Finished &amp; Furnished</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                { img: '/airbnb-living-1.jpg', label: 'Living Room' },
+                { img: '/airbnb-living-2.jpg', label: 'Living Room' },
+                { img: '/airbnb-kitchen.jpg', label: 'Full Kitchen' },
+                { img: '/airbnb-bedroom-1.jpg', label: 'Bedroom 1' },
+                { img: '/airbnb-bedroom-2.jpg', label: 'Bedroom 2' },
+                { img: '/airbnb-bedroom-3.jpg', label: 'Bedroom 3' },
+                { img: '/airbnb-bath-1.jpg', label: 'Full Bathroom' },
+                { img: '/airbnb-bath-2.jpg', label: 'Full Bathroom' },
+                { img: '/airbnb-dining.jpg', label: 'Dining Area' },
+              ].map((item, i) => (
+                <div key={i} className="relative group rounded-xl overflow-hidden aspect-[4/3]">
+                  <img src={item.img} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <span className="text-white text-sm font-semibold">{item.label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              {[
+                { label: '3 Bedrooms' },
+                { label: '2 Full Bathrooms' },
+                { label: 'Full Kitchen Renovation' },
+                { label: 'New Flooring Throughout' },
+                { label: 'Exterior Restoration' },
+                { label: 'Turnkey STR Ready' },
+              ].map((tag, i) => (
+                <span key={i} className="bg-white/[0.08] border border-white/10 text-white/70 text-sm font-medium px-4 py-2 rounded-full">{tag.label}</span>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
       {/* Projects Portfolio Section */}
       <section id="projects" className="py-24 sm:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
