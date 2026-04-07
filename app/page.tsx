@@ -826,7 +826,7 @@ export default function Home() {
             <AnimatedSection className="lg:col-span-2">
               <div className="space-y-8">
                 {[
-                  { icon: icons.phone, label: 'Phone', value: '(704) 965-5353', href: 'tel:+17049655353' },
+                  { icon: icons.phone, label: 'Phone', value: '(252) 339-6146', href: 'tel:+12523396146' },
                   { icon: icons.mail, label: 'Email', value: 'info@southerncitiesconstruction.com', href: 'mailto:info@southerncitiesconstruction.com' },
                   { icon: icons.location, label: 'Location', value: 'Charlotte, NC', href: null },
                 ].map((item, i) => (
@@ -854,8 +854,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-400 font-medium mb-0.5">License</p>
-                      <p className="text-navy font-semibold text-[15px]">Fully Licensed GC</p>
-                      <p className="text-gray-500 text-sm">Qualifier L.107724</p>
+                      <p className="text-navy font-semibold text-[15px]">Fully Licensed & Insured GC</p>
                     </div>
                   </div>
                 </div>
@@ -958,8 +957,7 @@ export default function Home() {
                 A Division of Southern Cities Enterprises. Licensed general contracting serving North Carolina.
               </p>
               <p className="text-white/30 text-xs">
-                Fully Licensed & Insured General Contractor<br />
-                Qualifier L.107724
+                Fully Licensed & Insured General Contractor
               </p>
             </div>
 
@@ -1001,9 +999,9 @@ export default function Home() {
               <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Contact</h4>
               <ul className="space-y-3">
                 <li>
-                  <a href="tel:+17049655353" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
+                  <a href="tel:+12523396146" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
                     <span className="text-orange">{icons.phone}</span>
-                    (704) 965-5353
+                    (252) 339-6146
                   </a>
                 </li>
                 <li>
