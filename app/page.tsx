@@ -745,7 +745,7 @@ export default function Home() {
               {[
                 { img: '/airbnb-exterior.jpg', label: 'Living Room' },
                 { img: '/airbnb-kitchen.jpg', label: 'Dining Room' },
-                { img: '/airbnb-living-2.jpg', label: 'Entryway' },
+                { img: '/airbnb-living-2.jpg', label: 'Living Room' },
                 { img: '/airbnb-dining.jpg', label: 'Bathroom' },
                 { img: '/airbnb-bath-1.jpg', label: 'Bedroom' },
                 { img: '/airbnb-bedroom-3.jpg', label: 'Living Room' },
