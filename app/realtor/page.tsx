@@ -250,6 +250,14 @@ export default function RealtorPage() {
                   <div>
                     <p className="font-semibold text-[16px] text-white">Pre-Listing Renovation</p>
                     <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>Prepare the property before it hits the market</p>
+                    <ul className="mt-2 space-y-0.5">
+                      {['Paint, flooring, kitchen & bath updates', 'Fast turnaround to meet your listing date', 'Detailed written estimate within 48 hours', 'No upfront cost — bill at closing available'].map((item, i) => (
+                        <li key={i} className="flex items-center gap-1.5 text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                          <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: '#fa8c41' }} />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
                 <span className="text-2xl font-light transition-transform duration-200 ml-4 flex-shrink-0" style={{ color: '#fa8c41', transform: selected === 'pre_listing' ? 'rotate(45deg)' : 'none' }}>+</span>
@@ -402,6 +410,14 @@ export default function RealtorPage() {
                   <div>
                     <p className="font-semibold text-[16px] text-white">Inspection Response</p>
                     <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>Address inspection items before closing</p>
+                    <ul className="mt-2 space-y-0.5">
+                      {['Structural, electrical, plumbing & more', 'Prioritized repair list with pricing', 'Work completed before your closing date', 'Licensed, insured — approvable by lenders'].map((item, i) => (
+                        <li key={i} className="flex items-center gap-1.5 text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                          <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: '#fa8c41' }} />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
                 <span className="text-2xl font-light transition-transform duration-200 ml-4 flex-shrink-0" style={{ color: '#fa8c41', transform: selected === 'inspection_response' ? 'rotate(45deg)' : 'none' }}>+</span>
