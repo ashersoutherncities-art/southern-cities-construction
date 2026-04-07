@@ -723,25 +723,12 @@ export default function Home() {
             </div>
           </AnimatedSection>
 
-          {/* Exterior before/after slider */}
-          <AnimatedSection className="mb-8">
-            <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Exterior — Before &amp; After</p>
-            <div className="rounded-2xl overflow-hidden">
-              <BeforeAfterSlider
-                before="/before-3.jpg"
-                after="/airbnb-exterior.jpg"
-                title="Exterior Transformation"
-                type="Full Exterior Rehab"
-                year="2025"
-              />
-            </div>
-          </AnimatedSection>
-
           {/* Interior photo grid */}
           <AnimatedSection>
-            <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-4">Interior — Finished &amp; Furnished</p>
+            <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-4">Finished &amp; Furnished</p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
+                { img: '/airbnb-exterior.jpg', label: 'Exterior' },
                 { img: '/airbnb-living-1.jpg', label: 'Living Room' },
                 { img: '/airbnb-living-2.jpg', label: 'Living Room' },
                 { img: '/airbnb-kitchen.jpg', label: 'Full Kitchen' },
