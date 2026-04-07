@@ -174,7 +174,7 @@ export default function RealtorPage() {
           <div className="flex items-center gap-6">
             <a href="/" className="text-white/70 hover:text-white text-sm transition-colors hidden sm:inline">← Back to Site</a>
             <a
-              href="mailto:asher@developthesouth.com"
+              href="mailto:info@southerncitiesconstruction.com"
               className="text-sm font-semibold px-4 py-2 rounded-full text-white transition-opacity hover:opacity-90"
               style={{ background: '#fa8c41' }}
             >
@@ -221,7 +221,7 @@ export default function RealtorPage() {
             <span className="text-2xl">✅</span>
             <div>
               <p className="font-bold text-green-800 mb-1">Inspection Response Request Received!</p>
-              <p className="text-green-700 text-sm">Our team has been notified. Please email your inspection report to <strong>asher@developthesouth.com</strong> with subject <strong>Inspection Response - [address]</strong> and we&apos;ll follow up promptly.</p>
+              <p className="text-green-700 text-sm">Our team has been notified. Please email your inspection report to <strong>permits@southerncitiesconstruction.com</strong> with subject <strong>Inspection Response - [address]</strong> and we&apos;ll follow up promptly.</p>
             </div>
           </div>
         )}
@@ -510,8 +510,8 @@ export default function RealtorPage() {
                     <p className="font-semibold text-blue-800 mb-1">Inspection Report PDF</p>
                     <p className="text-blue-700">
                       Email inspection report to{' '}
-                      <a href="mailto:asher@developthesouth.com" className="font-semibold underline">
-                        asher@developthesouth.com
+                      <a href="mailto:info@southerncitiesconstruction.com" className="font-semibold underline">
+                        info@southerncitiesconstruction.com
                       </a>{' '}
                       with subject:{' '}
                       <span className="font-mono bg-blue-100 px-1 rounded">
@@ -581,8 +581,8 @@ export default function RealtorPage() {
       <footer className="border-t border-gray-200 bg-white py-8 px-6 text-center">
         <p className="text-sm text-gray-400">
           Questions? Email us at{' '}
-          <a href="mailto:asher@developthesouth.com" className="font-semibold" style={{ color: '#fa8c41' }}>
-            asher@developthesouth.com
+          <a href="mailto:info@southerncitiesconstruction.com" className="font-semibold" style={{ color: '#fa8c41' }}>
+            info@southerncitiesconstruction.com
           </a>
           {' '}— Southern Cities Construction LLC · North Carolina · Fully Licensed & Insured
         </p>
