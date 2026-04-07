@@ -664,12 +664,12 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: 'Full Renovation', location: 'North Carolina', type: 'Residential Rehab', year: '2026', img: '/project-1.jpg' },
-              { title: 'Ground-Up Build', location: 'North Carolina', type: 'New Construction', year: '2026', img: '/project-2.jpg' },
-              { title: 'Commercial Upfit', location: 'North Carolina', type: 'Commercial', year: '2026', img: '/project-3.jpg' },
+              { title: 'Full Exterior Renovation', location: 'North Carolina', type: 'Residential Rehab', year: '2026', img: '/project-real-1.jpg' },
+              { title: 'Siding & Porch Rebuild', location: 'North Carolina', type: 'Exterior Renovation', year: '2026', img: '/project-real-2.jpg' },
+              { title: 'Full Exterior Rehab', location: 'North Carolina', type: 'Residential Rehab', year: '2026', img: '/project-real-3.jpg' },
               { title: 'Kitchen Remodel', location: 'North Carolina', type: 'Interior Renovation', year: '2025', img: '/project-4.jpg' },
               { title: 'Custom Home Build', location: 'North Carolina', type: 'New Construction', year: '2025', img: '/project-5.jpg' },
-              { title: 'Multi-Unit Rehab', location: 'North Carolina', type: 'Multi-Family', year: '2025', img: '/project-6.jpg' },
+              { title: 'Commercial Upfit', location: 'North Carolina', type: 'Commercial', year: '2025', img: '/project-3.jpg' },
             ].map((project, i) => (
               <AnimatedSection key={i} delay={i * 100}>
                 <div className="group card-hover rounded-2xl overflow-hidden bg-white border border-gray-100">
