@@ -743,16 +743,16 @@ export default function Home() {
             <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-4">Finished &amp; Furnished</p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
-                { img: '/airbnb-exterior.jpg', label: 'Exterior' },
-                { img: '/airbnb-kitchen.jpg', label: 'Kitchen' },
-                { img: '/airbnb-living-2.jpg', label: 'TV & Entryway' },
-                { img: '/airbnb-dining.jpg', label: 'Dining Room' },
-                { img: '/airbnb-bath-1.jpg', label: 'Bathroom' },
+                { img: '/airbnb-exterior.jpg', label: 'Living Room' },
+                { img: '/airbnb-kitchen.jpg', label: 'Dining Room' },
+                { img: '/airbnb-living-2.jpg', label: 'Entryway' },
+                { img: '/airbnb-dining.jpg', label: 'Bathroom' },
+                { img: '/airbnb-bath-1.jpg', label: 'Bedroom' },
                 { img: '/airbnb-bedroom-3.jpg', label: 'Living Room' },
-                { img: '/airbnb-living-1.jpg', label: 'Living Room' },
-                { img: '/airbnb-bedroom-1.jpg', label: 'Bedroom' },
-                { img: '/airbnb-bedroom-2.jpg', label: 'Bedroom' },
-                { img: '/airbnb-bath-2.jpg', label: 'Bathroom' },
+                { img: '/airbnb-living-1.jpg', label: 'Kitchen' },
+                { img: '/airbnb-bedroom-1.jpg', label: 'Bathroom' },
+                { img: '/airbnb-bedroom-2.jpg', label: 'Living Room' },
+                { img: '/airbnb-bath-2.jpg', label: 'Bedroom' },
               ].map((item, i) => (
                 <div key={i} className="relative group rounded-xl overflow-hidden aspect-[4/3]">
                   <img src={item.img} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
