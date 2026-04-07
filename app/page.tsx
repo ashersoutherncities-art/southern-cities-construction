@@ -717,9 +717,24 @@ export default function Home() {
               <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
                 Turnkey Airbnb Rehab
               </h2>
-              <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
-                Full gut rehab converted to a fully furnished, income-producing short-term rental. Exterior restoration, complete interior renovation, and turnkey STR setup — ready to earn from day one.
+              <p className="text-white/60 text-lg max-w-2xl leading-relaxed mb-8">
+                Full gut rehab converted to a fully furnished, income-producing short-term rental. Every inch of this property was touched — walls demolished and rebuilt, foundation leveled, all flooring replaced, and complete kitchen and bathroom remodels from scratch. Turnkey STR setup, ready to earn from day one.
               </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-2xl">
+                {[
+                  'Walls Demolished & Rebuilt',
+                  'Foundation Leveled',
+                  'All Floors Replaced',
+                  'Full Kitchen Remodel',
+                  'All Bathrooms Remodeled',
+                  'Turnkey STR Ready',
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2.5 bg-white/[0.06] border border-white/10 rounded-xl px-4 py-3">
+                    <div className="w-2 h-2 rounded-full bg-orange flex-shrink-0" />
+                    <span className="text-white/80 text-sm font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </AnimatedSection>
 
@@ -747,18 +762,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="mt-8 flex flex-wrap gap-4">
-              {[
-                { label: '3 Bedrooms' },
-                { label: '2 Full Bathrooms' },
-                { label: 'Full Kitchen Renovation' },
-                { label: 'New Flooring Throughout' },
-                { label: 'Exterior Restoration' },
-                { label: 'Turnkey STR Ready' },
-              ].map((tag, i) => (
-                <span key={i} className="bg-white/[0.08] border border-white/10 text-white/70 text-sm font-medium px-4 py-2 rounded-full">{tag.label}</span>
-              ))}
-            </div>
+
           </AnimatedSection>
         </div>
       </section>
