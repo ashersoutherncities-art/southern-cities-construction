@@ -130,6 +130,66 @@ const icons = {
   ),
 };
 
+// Before/After Slider Component
+function BeforeAfterSlider({ before, after, title, type, year }: { before: string; after: string; title: string; type: string; year: string }) {
+  const [sliderPos, setSliderPos] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+
+  const updateSlider = (clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    setSliderPos((x / rect.width) * 100);
+  };
+
+  const onMouseDown = () => { isDragging.current = true; };
+  const onMouseMove = (e: React.MouseEvent) => { if (isDragging.current) updateSlider(e.clientX); };
+  const onMouseUp = () => { isDragging.current = false; };
+  const onTouchMove = (e: React.TouchEvent) => { updateSlider(e.touches[0].clientX); };
+
+  return (
+    <div className="group card-hover rounded-2xl overflow-hidden bg-white border border-gray-100">
+      <div
+        ref={containerRef}
+        className="relative h-64 sm:h-72 select-none cursor-col-resize overflow-hidden"
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
+        onTouchMove={onTouchMove}
+      >
+        {/* After image (base) */}
+        <img src={after} alt="After" className="absolute inset-0 w-full h-full object-cover" />
+        {/* Before image (clipped) */}
+        <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
+          <img src={before} alt="Before" className="absolute inset-0 w-full h-full object-cover" style={{ width: containerRef.current?.offsetWidth || 800 }} />
+        </div>
+        {/* Divider line */}
+        <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg z-20" style={{ left: `${sliderPos}%` }}>
+          <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white shadow-xl flex items-center justify-center z-30">
+            <svg className="w-5 h-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l-3 3 3 3M16 9l3 3-3 3" />
+            </svg>
+          </div>
+        </div>
+        {/* Labels */}
+        <div className="absolute top-3 left-3 z-10 bg-black/50 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">BEFORE</div>
+        <div className="absolute top-3 right-3 z-10 bg-orange/90 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">AFTER</div>
+      </div>
+      <div className="p-5">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-lg font-bold text-navy tracking-tight">{title}</h3>
+          <span className="text-xs font-semibold text-orange bg-orange/10 px-3 py-1 rounded-full">{year}</span>
+        </div>
+        <p className="text-sm text-gray-400">North Carolina</p>
+        <p className="text-sm text-gray-500 font-medium mt-0.5">{type}</p>
+        <p className="text-xs text-gray-400 mt-2 italic">Drag to compare</p>
+      </div>
+    </div>
+  );
+}
+
 // Animated section wrapper
 function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const { ref, visible } = useAnimateOnScroll();
@@ -651,49 +711,69 @@ export default function Home() {
       <section id="projects" className="py-24 sm:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <AnimatedSection>
-            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+            <div className="text-center max-w-2xl mx-auto mb-6">
               <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Our Work</span>
               <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
                 Recent Projects
               </h2>
               <p className="mt-5 text-lg text-gray-500 leading-relaxed">
-                A selection of our latest builds and renovations across the Charlotte metro area.
+                Real transformations across North Carolina. Drag the slider to see before and after.
               </p>
             </div>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { title: 'Full Exterior Renovation', location: 'North Carolina', type: 'Residential Rehab', year: '2026', img: '/project-real-1.jpg' },
-              { title: 'Siding & Porch Rebuild', location: 'North Carolina', type: 'Exterior Renovation', year: '2026', img: '/project-real-2.jpg' },
-              { title: 'Exterior Rehab — After', location: 'North Carolina', type: 'Residential Rehab', year: '2026', img: '/project-real-3.jpg' },
-              { title: 'Historic Home Restoration', location: 'North Carolina', type: 'Full Rehab', year: '2025', img: '/project-real-4.jpg' },
-              { title: 'Farmhouse Renovation', location: 'North Carolina', type: 'Residential Rehab', year: '2025', img: '/project-real-5.jpg' },
-              { title: 'Distressed to Restored', location: 'North Carolina', type: 'Full Rehab', year: '2025', img: '/project-real-6.jpg' },
-            ].map((project, i) => (
-              <AnimatedSection key={i} delay={i * 100}>
-                <div className="group card-hover rounded-2xl overflow-hidden bg-white border border-gray-100">
-                  <div className="relative h-56 sm:h-64 overflow-hidden">
-                    <img
-                      src={project.img}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent z-10" />
-                    <div className="absolute inset-0 z-20 bg-orange/0 group-hover:bg-orange/10 transition-colors duration-500" />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-bold text-navy tracking-tight">{project.title}</h3>
-                      <span className="text-xs font-semibold text-orange bg-orange/10 px-3 py-1 rounded-full">{project.year}</span>
-                    </div>
-                    <p className="text-sm text-gray-400">{project.location}</p>
-                    <p className="text-sm text-gray-500 font-medium mt-1">{project.type}</p>
-                  </div>
+          {/* Before/After Sliders */}
+          <AnimatedSection className="mb-6">
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <BeforeAfterSlider
+                before="/before-1.jpg"
+                after="/project-real-1.jpg"
+                title="Full Exterior Renovation"
+                type="Residential Rehab"
+                year="2026"
+              />
+              <BeforeAfterSlider
+                before="/before-2.jpg"
+                after="/project-real-2.jpg"
+                title="Siding & Porch Rebuild"
+                type="Exterior Renovation"
+                year="2026"
+              />
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <BeforeAfterSlider
+                before="/before-3.jpg"
+                after="/project-real-5.jpg"
+                title="Farmhouse Full Rehab"
+                type="Full Rehabilitation"
+                year="2025"
+              />
+              <BeforeAfterSlider
+                before="/before-4.jpg"
+                after="/after-4.jpg"
+                title="Historic Home Restoration"
+                type="Full Rehabilitation"
+                year="2025"
+              />
+            </div>
+          </AnimatedSection>
+
+          {/* Additional project photos */}
+          <AnimatedSection>
+            <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">More Project Photos</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                '/project-real-3.jpg',
+                '/project-real-4.jpg',
+                '/project-real-6.jpg',
+                '/project-real-1.jpg',
+              ].map((img, i) => (
+                <div key={i} className="rounded-xl overflow-hidden aspect-square">
+                  <img src={img} alt="Project" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                 </div>
-              </AnimatedSection>
-            ))}
-          </div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
