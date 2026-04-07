@@ -147,6 +147,33 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', address: '', message: '' });
+  const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus('loading');
+    try {
+      const res = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: `Project Address: ${formData.address}\n\n${formData.message}`,
+        }),
+      });
+      if (res.ok) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', phone: '', address: '', message: '' });
+      } else {
+        setFormStatus('error');
+      }
+    } catch {
+      setFormStatus('error');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -163,6 +190,9 @@ export default function Home() {
     { href: '#projects', label: 'Projects' },
     { href: '#contact', label: 'Contact' },
   ];
+
+  const pricingLink = { href: '/services', label: 'Pricing' };
+  const realtorLink = { href: '/realtor', label: 'Realtor Services' };
 
   return (
     <div className="min-h-screen overflow-x-hidden">
@@ -188,8 +218,29 @@ export default function Home() {
                 </a>
               ))}
               <a
+                href={pricingLink.href}
+                className="text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5"
+              >
+                {pricingLink.label}
+              </a>
+              <a
+                href={realtorLink.href}
+                className="text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5"
+              >
+                {realtorLink.label}
+              </a>
+              <a
+                href="https://clients.southerncitiesconstruction.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 bg-orange hover:bg-orange-500 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange/30 flex items-center gap-1.5"
+              >
+                Client Portal
+                {icons.externalLink}
+              </a>
+              <a
                 href="#contact"
-                className="ml-4 bg-orange hover:bg-orange-500 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange/30"
+                className="ml-2 bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
               >
                 Get a Quote
               </a>
@@ -218,9 +269,32 @@ export default function Home() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href={pricingLink.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-white/90 hover:text-orange px-4 py-3 rounded-lg text-lg font-medium transition-colors"
+              >
+                {pricingLink.label}
+              </a>
+              <a
+                href={realtorLink.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-white/90 hover:text-orange px-4 py-3 rounded-lg text-lg font-medium transition-colors"
+              >
+                {realtorLink.label}
+              </a>
+              <a
+                href="https://clients.southerncitiesconstruction.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block mt-4 bg-orange text-white text-center px-6 py-3.5 rounded-full text-lg font-semibold"
+              >
+                Client Portal
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block mt-2 bg-white/[0.08] border border-white/15 text-white text-center px-6 py-3.5 rounded-full text-lg font-semibold"
               >
                 Get a Quote
               </a>
@@ -252,7 +326,7 @@ export default function Home() {
           <div className="max-w-3xl pt-24 lg:pt-0">
             <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-5 py-2 mb-8 animation-fade-in">
               <span className="w-2 h-2 rounded-full bg-orange animate-pulse" />
-              <span className="text-white/80 text-sm font-medium tracking-wide">Licensed General Contractor — Charlotte, NC</span>
+              <span className="text-white/80 text-sm font-medium tracking-wide">Licensed General Contractor — Serving North Carolina</span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 animation-fade-in">
@@ -284,9 +358,9 @@ export default function Home() {
             {/* Trust indicators */}
             <div className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10 animation-fade-in">
               {[
-                { num: '8+', label: 'Active Projects' },
-                { num: '100%', label: 'Licensed & Insured' },
-                { num: 'AI', label: 'Powered Estimates' },
+                { num: '50+', label: 'Projects Completed' },
+                { num: '$5M+', label: 'In Project Value' },
+                { num: 'NC', label: 'Licensed & Insured' },
               ].map((stat, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-2xl sm:text-3xl font-bold text-orange">{stat.num}</span>
@@ -297,11 +371,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-white/30 text-xs tracking-widest uppercase">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
-        </div>
+
       </section>
 
       {/* Services Section */}
@@ -432,11 +502,11 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { name: 'Permit Intake Form', desc: 'Submit new project details and requirements', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/', icon: icons.clipboard },
-              { name: 'Permit Manager', desc: 'Track permit status and inspections', url: 'https://ashersoutherncities-art.github.io/permit-manager/', icon: icons.document },
+              { name: 'Client Portal', desc: 'Submit permits, track status & manage projects', url: 'https://clients.southerncitiesconstruction.com', icon: icons.shield },
+
               { name: 'Construction Manager', desc: 'Real-time project progress dashboard', url: 'https://sce-construction-manager.vercel.app', icon: icons.management },
               { name: 'Draw Manager', desc: 'Payment schedules and draw tracking', url: 'https://construction-draw-manager-mu.vercel.app', icon: icons.currency },
-              { name: 'Business Partners', desc: 'Vetted subcontractor directory', url: 'https://ashersoutherncities-art.github.io/business-partners-db/', icon: icons.users },
+              { name: 'Subcontractor Portal', desc: 'Subcontractor login, task tracking & invoicing', url: 'https://sub-portal-nine.vercel.app', icon: icons.users },
             ].map((tool, i) => (
               <AnimatedSection key={i} delay={i * 100}>
                 <a
@@ -456,6 +526,121 @@ export default function Home() {
                     <p className="text-gray-400 text-sm">{tool.desc}</p>
                   </div>
                 </a>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Permit Portal CTA Section */}
+      <section className="py-20 sm:py-24 bg-navy relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full bg-orange/5 blur-[100px]" />
+        </div>
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+          <AnimatedSection>
+            <div className="bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-3xl p-10 sm:p-14 flex flex-col lg:flex-row items-center gap-10">
+              <div className="flex-1">
+                <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Online Access</span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+                  Submit &amp; Track Your Permits Online
+                </h2>
+                <p className="text-white/50 text-lg leading-relaxed mb-8">
+                  Our Client Portal gives you real-time visibility into permit status, inspection schedules, and project milestones — all from one dashboard.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href="https://clients.southerncitiesconstruction.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-glow inline-flex items-center justify-center bg-orange hover:bg-orange-500 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-orange/25 hover:-translate-y-0.5 gap-2"
+                  >
+                    Open Client Portal
+                    {icons.externalLink}
+                  </a>
+                </div>
+              </div>
+              <div className="flex-shrink-0 hidden lg:flex w-48 h-48 rounded-2xl bg-gradient-to-br from-orange/20 to-orange/5 items-center justify-center">
+                <div className="text-orange scale-[3]">
+                  {icons.document}
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Services & Pricing Banner */}
+      <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="rounded-3xl p-10 sm:p-14 flex flex-col lg:flex-row items-center gap-8 border-2" style={{ backgroundColor: '#132452', borderColor: '#132452' }}>
+              <div className="flex-1 text-center lg:text-left">
+                <span className="block text-sm font-bold tracking-widest uppercase mb-3" style={{ color: '#fa8c41' }}>Services &amp; Pricing</span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+                  Solutions for Every Client Type
+                </h2>
+                <p className="text-white/55 text-lg leading-relaxed mb-8 max-w-xl">
+                  GCs, investors, subcontractors, and homeowners — we have tailored packages with transparent pricing for all.
+                </p>
+                <a
+                  href="/services"
+                  className="inline-flex items-center justify-center text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-xl hover:-translate-y-0.5 gap-2"
+                  style={{ backgroundColor: '#fa8c41' }}
+                >
+                  View Services &amp; Pricing
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                </a>
+              </div>
+              <div className="flex-shrink-0 hidden lg:grid grid-cols-2 gap-3">
+                {[
+                  { label: 'For GCs' },
+                  { label: 'For Investors' },
+                  { label: 'For Subs' },
+                  { label: 'For Homeowners' },
+                ].map((item) => (
+                  <a
+                    key={item.label}
+                    href="/services"
+                    className="inline-flex items-center gap-3 rounded-xl px-5 py-3 border border-white/10 transition-all duration-200 hover:brightness-110 hover:border-white/20"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}
+                  >
+                    <span className="text-white font-semibold text-sm">{item.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Turnkey Section */}
+      <section className="py-20 sm:py-24 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="max-w-3xl mb-10">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Full-Service Construction</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-navy tracking-tight mb-5">
+                Turnkey from Start to Finish
+              </h2>
+              <p className="text-gray-500 text-lg leading-relaxed">
+                Southern Cities Construction handles everything from ground-up new construction to full-scale renovations. Whether you&apos;re managing an investment property rehab, a custom new build, or a complete home renovation — we are your single point of contact from permit to punch list. Our turnkey approach means no coordinating multiple contractors, no missed deadlines, no surprises.
+              </p>
+            </div>
+          </AnimatedSection>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              { title: 'Ground-Up Construction', desc: 'New builds from foundation to finish' },
+              { title: 'Full Renovations', desc: 'Complete rehabs, additions, and remodels' },
+              { title: 'Turnkey Delivery', desc: 'Permits, subs, inspections — all managed for you' },
+            ].map((stat, i) => (
+              <AnimatedSection key={stat.title} delay={i * 100}>
+                <div className="flex items-start gap-4 p-6 rounded-2xl border border-gray-100 bg-gray-50 hover:shadow-md transition-shadow">
+                  <div>
+                    <p className="font-bold text-base text-navy mb-1">{stat.title}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">{stat.desc}</p>
+                  </div>
+                </div>
               </AnimatedSection>
             ))}
           </div>
@@ -515,6 +700,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-24 sm:py-32 bg-navy relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-orange/5 blur-[80px]" />
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+          <AnimatedSection>
+            <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Client Feedback</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+                What Clients Say
+              </h2>
+            </div>
+          </AnimatedSection>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { quote: 'Southern Cities handled our full gut rehab from permits to punch list. Communication was excellent and they delivered on time.', name: 'Real Estate Investor', location: 'Charlotte, NC' },
+              { quote: 'As a realtor, I refer Southern Cities to my investor clients regularly. Their permit management alone saves weeks on every deal.', name: 'Licensed Realtor', location: 'Mecklenburg County' },
+              { quote: 'Transparent draw process, vetted subs, and a team that actually shows up. Exactly what you want in a GC partner.', name: 'Multifamily Developer', location: 'Charlotte, NC' },
+            ].map((t, i) => (
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="bg-white/[0.06] border border-white/10 rounded-2xl p-8 flex flex-col h-full">
+                  <div className="text-orange text-4xl font-serif leading-none mb-4">&ldquo;</div>
+                  <p className="text-white/70 text-[15px] leading-relaxed flex-1 mb-6">{t.quote}</p>
+                  <div>
+                    <p className="text-white font-semibold text-sm">{t.name}</p>
+                    <p className="text-white/40 text-xs mt-0.5">{t.location}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us Section */}
       <section className="py-24 sm:py-32 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
@@ -532,7 +750,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: icons.shield, title: 'Licensed & Insured', desc: 'GC License L.107724, fully bonded and insured. Complete peace of mind.' },
+              { icon: icons.shield, title: 'Licensed & Insured', desc: 'Fully licensed, bonded, and insured. Complete peace of mind.' },
               { icon: icons.bolt, title: 'AI-Powered Estimates', desc: 'Fast, accurate budget analysis using cutting-edge technology. No more guesswork.' },
               { icon: icons.clipboard, title: 'Full Permit Management', desc: 'We handle all permitting, inspections, and code compliance. Zero hassle for you.' },
               { icon: icons.currency, title: 'Transparent Draws', desc: 'Clear payment schedules with real-time progress tracking. See where every dollar goes.' },
@@ -577,11 +795,11 @@ export default function Home() {
                 <span className="ml-2">{icons.arrow}</span>
               </a>
               <a
-                href="tel:7042992742"
+                href="mailto:info@southerncitiesconstruction.com"
                 className="inline-flex items-center justify-center bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-sm border border-white/15 text-white px-10 py-4.5 rounded-full text-lg font-medium transition-all duration-300 hover:-translate-y-0.5"
               >
-                <span className="mr-2">{icons.phone}</span>
-                (704) 299-2742
+                <span className="mr-2">{icons.mail}</span>
+                Email Us
               </a>
             </div>
           </AnimatedSection>
@@ -608,8 +826,8 @@ export default function Home() {
             <AnimatedSection className="lg:col-span-2">
               <div className="space-y-8">
                 {[
-                  { icon: icons.phone, label: 'Phone', value: '(704) 299-2742', href: 'tel:7042992742' },
-                  { icon: icons.mail, label: 'Email', value: 'construction@developthesouth.com', href: 'mailto:construction@developthesouth.com' },
+                  { icon: icons.phone, label: 'Phone', value: '(704) 965-5353', href: 'tel:+17049655353' },
+                  { icon: icons.mail, label: 'Email', value: 'info@southerncitiesconstruction.com', href: 'mailto:info@southerncitiesconstruction.com' },
                   { icon: icons.location, label: 'Location', value: 'Charlotte, NC', href: null },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
@@ -636,8 +854,8 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-400 font-medium mb-0.5">License</p>
-                      <p className="text-navy font-semibold text-[15px]">GC License L.107724</p>
-                      <p className="text-gray-500 text-sm">Qualifier Q.108200</p>
+                      <p className="text-navy font-semibold text-[15px]">Fully Licensed GC</p>
+                      <p className="text-gray-500 text-sm">Qualifier L.107724</p>
                     </div>
                   </div>
                 </div>
@@ -646,29 +864,47 @@ export default function Home() {
 
             {/* Contact form */}
             <AnimatedSection className="lg:col-span-3" delay={200}>
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-navy font-semibold text-sm mb-2">Name</label>
+                    <label className="block text-navy font-semibold text-sm mb-2">Name *</label>
                     <input
                       type="text"
+                      required
+                      value={formData.name}
+                      onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
                       className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
                       placeholder="Your name"
                     />
                   </div>
                   <div>
-                    <label className="block text-navy font-semibold text-sm mb-2">Email</label>
+                    <label className="block text-navy font-semibold text-sm mb-2">Email *</label>
                     <input
                       type="email"
+                      required
+                      value={formData.email}
+                      onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
                       className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
                       placeholder="your@email.com"
                     />
                   </div>
                 </div>
                 <div>
+                  <label className="block text-navy font-semibold text-sm mb-2">Phone</label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))}
+                    className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
+                    placeholder="(704) 000-0000"
+                  />
+                </div>
+                <div>
                   <label className="block text-navy font-semibold text-sm mb-2">Project Address</label>
                   <input
                     type="text"
+                    value={formData.address}
+                    onChange={e => setFormData(p => ({ ...p, address: e.target.value }))}
                     className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
                     placeholder="Start typing address..."
                   />
@@ -677,16 +913,29 @@ export default function Home() {
                   <label className="block text-navy font-semibold text-sm mb-2">Project Details</label>
                   <textarea
                     rows={5}
+                    value={formData.message}
+                    onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
                     className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px] resize-none"
                     placeholder="Tell us about your project..."
                   />
                 </div>
+                {formStatus === 'success' && (
+                  <div className="rounded-xl bg-green-50 border border-green-200 px-5 py-4 text-green-800 font-medium text-sm">
+                    Message sent. We will be in touch within 24 hours.
+                  </div>
+                )}
+                {formStatus === 'error' && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 px-5 py-4 text-red-700 font-medium text-sm">
+                    Something went wrong. Please email us directly at info@southerncitiesconstruction.com
+                  </div>
+                )}
                 <button
                   type="submit"
-                  className="btn-glow w-full bg-navy hover:bg-navy-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-navy/20 flex items-center justify-center gap-2"
+                  disabled={formStatus === 'loading' || formStatus === 'success'}
+                  className="btn-glow w-full bg-navy hover:bg-navy-700 disabled:opacity-60 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-navy/20 flex items-center justify-center gap-2"
                 >
-                  Send Message
-                  <span>{icons.arrow}</span>
+                  {formStatus === 'loading' ? 'Sending...' : formStatus === 'success' ? 'Sent' : 'Send Message'}
+                  {formStatus !== 'loading' && formStatus !== 'success' && <span>{icons.arrow}</span>}
                 </button>
               </form>
             </AnimatedSection>
@@ -706,11 +955,11 @@ export default function Home() {
                 className="h-12 w-auto mb-5"
               />
               <p className="text-white/40 text-sm leading-relaxed mb-5">
-                A Division of Southern Cities Enterprises. Licensed general contracting serving the Charlotte metro area.
+                A Division of Southern Cities Enterprises. Licensed general contracting serving North Carolina.
               </p>
               <p className="text-white/30 text-xs">
-                GC License L.107724<br />
-                Qualifier Q.108200
+                Fully Licensed & Insured General Contractor<br />
+                Qualifier L.107724
               </p>
             </div>
 
@@ -733,8 +982,8 @@ export default function Home() {
               <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Client Portals</h4>
               <ul className="space-y-3">
                 {[
-                  { name: 'Permit Intake', url: 'https://ashersoutherncities-art.github.io/permit-client-intake/' },
-                  { name: 'Permit Manager', url: 'https://ashersoutherncities-art.github.io/permit-manager/' },
+                  { name: 'Client Portal', url: 'https://clients.southerncitiesconstruction.com' },
+
                   { name: 'Construction Manager', url: 'https://sce-construction-manager.vercel.app' },
                   { name: 'Draw Manager', url: 'https://construction-draw-manager-mu.vercel.app' },
                 ].map((tool) => (
@@ -752,15 +1001,15 @@ export default function Home() {
               <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Contact</h4>
               <ul className="space-y-3">
                 <li>
-                  <a href="tel:7042992742" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
+                  <a href="tel:+17049655353" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
                     <span className="text-orange">{icons.phone}</span>
-                    (704) 299-2742
+                    (704) 965-5353
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:construction@developthesouth.com" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
+                  <a href="mailto:info@southerncitiesconstruction.com" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
                     <span className="text-orange">{icons.mail}</span>
-                    construction@developthesouth.com
+                    info@southerncitiesconstruction.com
                   </a>
                 </li>
                 <li className="flex items-center gap-2 text-white/40 text-sm">
@@ -774,10 +1023,10 @@ export default function Home() {
           {/* Bottom bar */}
           <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-white/25 text-sm">
-              © {new Date().getFullYear()} Southern Cities Construction. All rights reserved.
+              © {new Date().getFullYear()} Southern Cities Construction LLC. All rights reserved.
             </p>
             <p className="text-white/20 text-xs">
-              Powered by Southern Cities Enterprises
+              Fully Licensed & Insured General Contractor · Fully Licensed & Insured
             </p>
           </div>
         </div>
