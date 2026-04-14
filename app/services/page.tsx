@@ -26,9 +26,10 @@ const SERVICE_OPTIONS: Record<string, string[]> = {
     'Overflow Project Partner',
   ],
   Investor: [
-    'Deal Analyzer + Scope ($599)',
-    'Investor Retainer ($799/mo)',
-    'Full Rehab Management',
+    'Buy Box Review',
+    'Deal Audit',
+    'Operator Strategy Call',
+    'Southern Cities Investors Advisory Services',
   ],
   Subcontractor: ['Sub Network Membership ($149/mo)'],
   Homeowner: [
@@ -98,13 +99,25 @@ function Card({
           ))}
         </ul>
 
-        <button
-          onClick={onCTAClick}
-          className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:opacity-90 hover:shadow-lg"
-          style={{ backgroundColor: ORANGE }}
-        >
-          {card.cta}
-        </button>
+        {card.ctaHref ? (
+          <a
+            href={card.ctaHref}
+            target={card.ctaHref.startsWith('http') ? '_blank' : undefined}
+            rel={card.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:opacity-90 hover:shadow-lg text-center"
+            style={{ backgroundColor: ORANGE, display: 'inline-block' }}
+          >
+            {card.cta}
+          </a>
+        ) : (
+          <button
+            onClick={onCTAClick}
+            className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:opacity-90 hover:shadow-lg"
+            style={{ backgroundColor: ORANGE }}
+          >
+            {card.cta}
+          </button>
+        )}
       </div>
     </div>
   );
@@ -292,40 +305,53 @@ export default function ServicesPage() {
   // ─── Investor Cards ──────────────────────────────────────────────────────────
   const investorCards: PricingCard[] = [
     {
-      title: 'Deal Analyzer + Scope',
-      price: '$599/deal',
+      title: 'Buy Box Review',
+      price: '$147',
       features: [
-        'Full property scope assessment',
-        'AI-powered cost breakdown by trade',
-        'ARV analysis + rehab budget',
-        'Delivered within 48 hours',
+        'Clear feedback on your acquisition criteria',
+        'Practical guidance on market fit and deal selection',
+        'Designed for investors tightening their buy box',
+        'Fast turnaround with direct recommendations',
       ],
-      cta: 'Submit a Deal',
+      cta: 'View Service',
+      ctaHref: 'https://southerncitiesinvestors.com/services/buy-box-review',
     },
     {
-      title: 'Investor Retainer',
-      price: '$799/mo',
+      title: 'Deal Audit',
+      price: '$297',
       features: [
-        'Unlimited deal reviews',
-        'Permit management on active projects',
-        'Priority scheduling on all rehabs',
-        'Monthly market update + pipeline check-in',
-        'Dedicated project manager',
+        'Second-look review before you commit',
+        'Buyer-facing analysis on risk, scope, and next steps',
+        'Built for active investors evaluating real opportunities',
+        'Delivered with clear action-oriented feedback',
       ],
-      cta: 'Subscribe',
-      badge: 'Most Popular',
+      cta: 'View Service',
+      badge: 'Popular',
+      ctaHref: 'https://southerncitiesinvestors.com/services/deal-audit',
     },
     {
-      title: 'Full Rehab Management',
-      price: '15–20% of project',
+      title: 'Operator Strategy Call',
+      price: '$97',
       features: [
-        'End-to-end project management',
-        'Subcontractor sourcing + management',
-        'Draw management + lender coordination',
-        'Weekly photo + progress reports',
-        'You stay hands-off',
+        'Focused conversation around your next acquisition move',
+        'Get clarity on priorities, obstacles, and execution',
+        'Ideal for investors who want direct guidance now',
+        'Simple starting point before deeper advisory work',
       ],
-      cta: 'Get a Quote',
+      cta: 'View Service',
+      ctaHref: 'https://southerncitiesinvestors.com/services/operator-strategy-call',
+    },
+    {
+      title: 'Southern Cities Investors Advisory Services',
+      price: 'See full offers',
+      features: [
+        'Access the full investor services platform',
+        'Explore reviews, advisory offers, and ongoing support',
+        'Submit deals and see current investor-focused services',
+        'Visit the dedicated investor site for full details',
+      ],
+      cta: 'Visit Southern Cities Investors',
+      ctaHref: 'https://southerncitiesinvestors.com',
     },
   ];
 
@@ -541,9 +567,23 @@ export default function ServicesPage() {
       <Section id="investors" bg="#f8f9fa">
         <SectionHeader
           tag="Investors"
-          headline="Your Rehab Partner from Day One"
-          sub="From deal review to certificate of occupancy"
+          headline="Investor services built for better decisions and stronger execution"
+          sub="Explore investor-specific reviews, advisory support, and direct access to Southern Cities Investors"
         />
+        <div className="mb-8 rounded-2xl border border-orange/20 bg-white p-6 sm:p-8">
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+            For investor-focused reviews, advisory services, and deal support, we now direct clients to our dedicated platform at{' '}
+            <a
+              href="https://southerncitiesinvestors.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#132452] underline decoration-[#fa8c41] underline-offset-4"
+            >
+              SouthernCitiesInvestors.com
+            </a>
+            . The offers below reflect the same investor-facing positioning and link directly to the current live services.
+          </p>
+        </div>
         <CardsGrid cards={investorCards} onCTAClick={scrollToContact} />
       </Section>
 
