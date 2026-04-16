@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Southern Cities Construction | Licensed General Contractor — Charlotte, NC",
-  description: "Southern Cities Construction is a licensed general contractor in Charlotte, NC specializing in residential renovation, new construction, and ground-up development.",
-  keywords: "general contractor Charlotte NC, licensed general contractor, residential renovation Charlotte, new construction Charlotte, ground-up development, permit management, Southern Cities Construction",
+  description: "Southern Cities Construction is a licensed general contractor in Charlotte, NC specializing in residential renovation, new construction, permit administration, and construction oversight.",
+  keywords: "general contractor Charlotte NC, licensed general contractor, residential renovation Charlotte, new construction Charlotte, ground-up development, permit management, permit administration, construction oversight, Southern Cities Construction",
   metadataBase: new URL("https://southerncitiesconstruction.com"),
   alternates: {
     canonical: "https://southerncitiesconstruction.com",
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://southerncitiesconstruction.com",
     title: "Southern Cities Construction | Licensed General Contractor — Charlotte, NC",
-    description: "Southern Cities Construction is a licensed general contractor in Charlotte, NC specializing in residential renovation, new construction, and ground-up development.",
+    description: "Southern Cities Construction is a licensed general contractor in Charlotte, NC specializing in residential renovation, new construction, permit administration, and construction oversight.",
     siteName: "Southern Cities Construction",
   },
   twitter: {
     card: "summary_large_image",
     title: "Southern Cities Construction | Licensed General Contractor — Charlotte, NC",
-    description: "Licensed GC in Charlotte, NC. New construction, renovations, permit management & ground-up development.",
+    description: "Licensed GC in Charlotte, NC. New construction, renovations, permit administration, and construction oversight.",
   },
   icons: {
     icon: [

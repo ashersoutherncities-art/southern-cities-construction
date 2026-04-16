@@ -207,7 +207,7 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', address: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', address: '', audience_type: '', service: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -221,12 +221,14 @@ export default function Home() {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          audience_type: formData.audience_type || 'Website lead',
+          service: formData.service || 'General inquiry',
           message: `Project Address: ${formData.address}\n\n${formData.message}`,
         }),
       });
       if (res.ok) {
         setFormStatus('success');
-        setFormData({ name: '', email: '', phone: '', address: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', address: '', audience_type: '', service: '', message: '' });
       } else {
         setFormStatus('error');
       }
@@ -244,6 +246,7 @@ export default function Home() {
   }, []);
 
   const navLinks = [
+    { href: '#flagship-service', label: 'Flagship Service' },
     { href: '#services', label: 'Services' },
     { href: '#process', label: 'Process' },
     { href: '#tools', label: 'Tools' },
@@ -251,7 +254,7 @@ export default function Home() {
     { href: '#contact', label: 'Contact' },
   ];
 
-  const pricingLink = { href: '/services', label: 'Pricing' };
+  const pricingLink = { href: '/services', label: 'Services & Pricing' };
   const realtorLink = { href: '/realtor', label: 'Realtor Services' };
 
   return (
@@ -395,8 +398,8 @@ export default function Home() {
               <span className="block mt-2 gradient-text">Managing Every Detail.</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-white/60 max-w-xl mb-12 leading-relaxed animation-fade-in font-light">
-              Full-service general contracting with AI-powered estimates, transparent draw processes, and expert subcontractor coordination.
+            <p className="text-lg sm:text-xl text-white/60 max-w-2xl mb-12 leading-relaxed animation-fade-in font-light">
+              Full-service general contracting, permit administration, and structured construction oversight for owners who want a cleaner path to keep projects moving.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 animation-fade-in">
@@ -404,7 +407,7 @@ export default function Home() {
                 href="#contact"
                 className="btn-glow inline-flex items-center justify-center bg-orange hover:bg-orange-500 text-white px-10 py-4.5 rounded-full text-lg font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-orange/25 hover:-translate-y-0.5"
               >
-                Get a Free Quote
+                Start Permit + Oversight
                 <span className="ml-2">{icons.arrow}</span>
               </a>
               <a
@@ -432,6 +435,112 @@ export default function Home() {
         </div>
 
 
+
+      </section>
+
+      {/* Flagship Service */}
+      <section id="flagship-service" className="py-24 sm:py-32 bg-gray-50 relative">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+          <AnimatedSection>
+            <div className="max-w-3xl mb-14">
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Flagship Service</span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
+                Permit Administration + Construction Oversight
+              </h2>
+              <p className="mt-5 text-lg text-gray-600 leading-relaxed">
+                This is built for owners who want Southern Cities Construction to handle permit administration, milestone compliance, and structured oversight while a designated project manager runs day-to-day site coordination.
+              </p>
+              <p className="mt-4 text-base text-gray-500 leading-relaxed">
+                The project manager can be the client or a third-party representative, but the project must stay inside our required documentation, inspection, and compliance workflow to remain in good standing.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid lg:grid-cols-3 gap-6 mb-12">
+            {[
+              {
+                title: 'What Southern Cities Handles',
+                items: [
+                  'Permit administration and submission support',
+                  'Scope and compliance kickoff review',
+                  'Milestone tracking and inspection checkpoints',
+                  'Issue escalation when work drifts from plan',
+                ],
+              },
+              {
+                title: 'What the Project Manager Handles',
+                items: [
+                  'Day-to-day site coordination',
+                  'Trade scheduling and field communication',
+                  'Required progress-photo uploads',
+                  'Prompt response to correction requests and milestone approvals',
+                ],
+              },
+              {
+                title: 'What the Purchase Includes',
+                items: [
+                  'Structured onboarding after payment',
+                  'Portal access and required document checklist',
+                  'Contract package ready for e-signature',
+                  'Invoice/receipt confirmation and compliance start sequence',
+                ],
+              },
+            ].map((card, i) => (
+              <AnimatedSection key={card.title} delay={i * 100}>
+                <div className="h-full rounded-2xl bg-white border border-gray-100 p-8 shadow-sm">
+                  <h3 className="text-xl font-bold text-navy mb-5">{card.title}</h3>
+                  <ul className="space-y-3">
+                    {card.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-gray-600 text-[15px] leading-relaxed">
+                        <span className="mt-1 text-orange">{icons.clipboard}</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <AnimatedSection>
+            <div className="rounded-3xl bg-navy p-8 sm:p-10 lg:p-12">
+              <div className="grid lg:grid-cols-2 gap-10 items-start">
+                <div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/80 mb-5">
+                    <span className="text-orange">{icons.shield}</span>
+                    Compliance-first delivery model
+                  </span>
+                  <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-5">
+                    Designed for owners who want control without losing structure.
+                  </h3>
+                  <p className="text-white/65 text-lg leading-relaxed mb-6">
+                    We are not marketing this as a paper-only permit pull. This service is built around required oversight, documentation, inspections, and formal client obligations.
+                  </p>
+                  <div className="space-y-3 text-white/70 text-[15px]">
+                    <p>- Required progress-photo uploads at defined milestones</p>
+                    <p>- Major inspections must be scheduled and paid as required</p>
+                    <p>- Support can be paused if the project falls outside the compliance process</p>
+                    <p>- Final responsibilities are defined in the signed client agreement for each project</p>
+                  </div>
+                </div>
+                <div className="rounded-2xl bg-white p-8">
+                  <p className="text-sm font-semibold tracking-widest uppercase text-orange mb-3">Post-purchase flow</p>
+                  <h4 className="text-2xl font-bold text-navy mb-5">What happens after someone buys</h4>
+                  <ol className="space-y-4 text-gray-600 text-[15px] leading-relaxed">
+                    <li><strong className="text-navy">1.</strong> Buyer enters project, owner, billing, and project-manager details during checkout.</li>
+                    <li><strong className="text-navy">2.</strong> Payment confirmation is issued and the order routes to <strong>orders@southerncitiesconstruction.com</strong>.</li>
+                    <li><strong className="text-navy">3.</strong> Buyer receives receipt/invoice plus portal login instructions.</li>
+                    <li><strong className="text-navy">4.</strong> Contract and any supporting documents wait in the portal for e-signature.</li>
+                    <li><strong className="text-navy">5.</strong> Once signed, the compliance checklist and milestone workflow begin.</li>
+                  </ol>
+                  <a href="#contact" className="mt-8 inline-flex items-center justify-center bg-orange hover:bg-orange-500 text-white px-7 py-3.5 rounded-full text-base font-semibold transition-all duration-300">
+                    Build My Permit + Oversight Plan
+                  </a>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
       </section>
 
       {/* Services Section */}
@@ -953,7 +1062,7 @@ export default function Home() {
                 Let&apos;s Build Together
               </h2>
               <p className="mt-5 text-lg text-gray-500 leading-relaxed">
-                Reach out for a free consultation and project estimate.
+                Reach out for a free consultation, a project estimate, or to start the Permit Administration + Construction Oversight onboarding flow.
               </p>
             </div>
           </AnimatedSection>
@@ -964,7 +1073,8 @@ export default function Home() {
               <div className="space-y-8">
                 {[
                   { icon: icons.phone, label: 'Phone', value: '(252) 339-6146', href: 'tel:+12523396146' },
-                  { icon: icons.mail, label: 'Email', value: 'info@southerncitiesconstruction.com', href: 'mailto:info@southerncitiesconstruction.com' },
+                  { icon: icons.mail, label: 'Orders', value: 'orders@southerncitiesconstruction.com', href: 'mailto:orders@southerncitiesconstruction.com' },
+                  { icon: icons.mail, label: 'General', value: 'info@southerncitiesconstruction.com', href: 'mailto:info@southerncitiesconstruction.com' },
                   { icon: icons.location, label: 'Location', value: 'Charlotte, NC', href: null },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
@@ -991,7 +1101,8 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-400 font-medium mb-0.5">License</p>
-                      <p className="text-navy font-semibold text-[15px]">Fully Licensed & Insured GC</p>
+                      <p className="text-navy font-semibold text-[15px]">NC General Contractor License L.107724</p>
+                      <p className="text-gray-500 text-sm mt-1">Qualifier Q.108200 · Fully Licensed &amp; Insured</p>
                     </div>
                   </div>
                 </div>
@@ -1035,6 +1146,36 @@ export default function Home() {
                     placeholder="(704) 000-0000"
                   />
                 </div>
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-navy font-semibold text-sm mb-2">Service Type</label>
+                    <select
+                      value={formData.service}
+                      onChange={e => setFormData(p => ({ ...p, service: e.target.value }))}
+                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
+                    >
+                      <option value="">Select service</option>
+                      <option value="Permit Administration + Construction Oversight">Permit Administration + Construction Oversight</option>
+                      <option value="General Contracting Quote">General Contracting Quote</option>
+                      <option value="Permit Management Service">Permit Management Service</option>
+                      <option value="Realtor / Listing Support">Realtor / Listing Support</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-navy font-semibold text-sm mb-2">Who will act as project manager?</label>
+                    <select
+                      value={formData.audience_type}
+                      onChange={e => setFormData(p => ({ ...p, audience_type: e.target.value }))}
+                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px]"
+                    >
+                      <option value="">Select one</option>
+                      <option value="Client will act as project manager">Client will act as project manager</option>
+                      <option value="Third-party PM will manage the project">Third-party PM will manage the project</option>
+                      <option value="Need Southern Cities guidance on structure">Need Southern Cities guidance on structure</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-navy font-semibold text-sm mb-2">Project Address</label>
                   <input
@@ -1052,17 +1193,17 @@ export default function Home() {
                     value={formData.message}
                     onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
                     className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-orange focus:bg-white transition-all text-[15px] resize-none"
-                    placeholder="Tell us about your project..."
+                    placeholder="Tell us about your project, scope, timeline, and whether you want the Permit Administration + Construction Oversight service..."
                   />
                 </div>
                 {formStatus === 'success' && (
                   <div className="rounded-xl bg-green-50 border border-green-200 px-5 py-4 text-green-800 font-medium text-sm">
-                    Message sent. We will be in touch within 24 hours.
+                    Message sent. Orders and onboarding requests are reviewed through orders@southerncitiesconstruction.com, and we will be in touch within 24 hours.
                   </div>
                 )}
                 {formStatus === 'error' && (
                   <div className="rounded-xl bg-red-50 border border-red-200 px-5 py-4 text-red-700 font-medium text-sm">
-                    Something went wrong. Please email us directly at info@southerncitiesconstruction.com
+                    Something went wrong. Please email us directly at orders@southerncitiesconstruction.com for purchases or info@southerncitiesconstruction.com for general inquiries
                   </div>
                 )}
                 <button
@@ -1093,8 +1234,8 @@ export default function Home() {
               <p className="text-white/40 text-sm leading-relaxed mb-5">
                 A Division of Southern Cities Enterprises. Licensed general contracting serving North Carolina.
               </p>
-              <p className="text-white/30 text-xs">
-                Fully Licensed & Insured General Contractor
+            <p className="text-white/30 text-xs">
+                NC General Contractor License L.107724 · Qualifier Q.108200
               </p>
             </div>
 
@@ -1142,6 +1283,12 @@ export default function Home() {
                   </a>
                 </li>
                 <li>
+                  <a href="mailto:orders@southerncitiesconstruction.com" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
+                    <span className="text-orange">{icons.mail}</span>
+                    orders@southerncitiesconstruction.com
+                  </a>
+                </li>
+                <li>
                   <a href="mailto:info@southerncitiesconstruction.com" className="text-white/40 hover:text-orange text-sm transition-colors duration-200 flex items-center gap-2">
                     <span className="text-orange">{icons.mail}</span>
                     info@southerncitiesconstruction.com
@@ -1161,7 +1308,7 @@ export default function Home() {
               © {new Date().getFullYear()} Southern Cities Construction LLC. All rights reserved.
             </p>
             <p className="text-white/20 text-xs">
-              Fully Licensed & Insured General Contractor · Fully Licensed & Insured
+              NC General Contractor License L.107724 · Qualifier Q.108200 · Fully Licensed & Insured
             </p>
           </div>
         </div>

@@ -15,6 +15,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, email, phone, audience_type, service, message } = body;
 
+    const normalizedAudienceType = audience_type || null;
+    const normalizedService = service || null;
+
     if (!name || !email) {
       return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
     }
@@ -23,8 +26,8 @@ export async function POST(req: NextRequest) {
       name,
       email,
       phone: phone || null,
-      audience_type: audience_type || null,
-      service: service || null,
+      audience_type: normalizedAudienceType,
+      service: normalizedService,
       message: message || null,
       status: 'new',
     });
@@ -39,7 +42,7 @@ export async function POST(req: NextRequest) {
       const botToken = process.env.TELEGRAM_BOT_TOKEN;
       const chatId = process.env.TELEGRAM_CHAT_ID;
       if (botToken && chatId) {
-        const text = `🔔 *New Service Inquiry*\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone || 'Not provided'}\n*Type:* ${audience_type || 'Not specified'}\n*Service:* ${service || 'Not specified'}${message ? `\n*Message:* ${message}` : ''}\n\n_Reply to:_ ${email}`;
+        const text = `🔔 *New Service Inquiry*\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone || 'Not provided'}\n*Type:* ${normalizedAudienceType || 'Not specified'}\n*Service:* ${normalizedService || 'Not specified'}${message ? `\n*Message:* ${message}` : ''}\n\n_Reply to:_ ${email}`;
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
