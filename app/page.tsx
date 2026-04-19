@@ -396,11 +396,6 @@ export default function Home() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 w-full">
           <div className="max-w-3xl pt-24 lg:pt-0">
-            <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-full px-5 py-2 mb-8 animation-fade-in">
-              <span className="w-2 h-2 rounded-full bg-orange animate-pulse" />
-              <span className="text-white/80 text-sm font-medium tracking-wide">Licensed General Contractor — Serving North Carolina</span>
-            </div>
-
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 animation-fade-in">
               Permit Administration.<br />
               Construction Oversight.
