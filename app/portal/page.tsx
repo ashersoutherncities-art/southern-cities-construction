@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const NAVY = '#132452';
@@ -34,6 +35,38 @@ export default function PortalPage() {
     const params = new URLSearchParams(window.location.search);
     const status = params.get('checkout');
     const sessionId = params.get('session_id');
+    const item = params.get('item');
+    const amount = params.get('amount');
+
+    if (item) {
+      const defaults: Record<string, { amount: string; scope_notes: string }> = {
+        'permit-management-service': {
+          amount: amount || '1500',
+          scope_notes: 'Permit management service selected from cart.',
+        },
+        'sub-network-access': {
+          amount: amount || '349',
+          scope_notes: 'Sub network access selected from cart.',
+        },
+        'pre-listing-renovation': {
+          amount: amount || '5000',
+          scope_notes: 'Pre-listing renovation selected from cart.',
+        },
+        'inspection-response-service': {
+          amount: amount || '299',
+          scope_notes: 'Inspection response service selected from cart.',
+        },
+      };
+
+      const selected = defaults[item];
+      if (selected) {
+        setForm((prev) => ({
+          ...prev,
+          amount: selected.amount,
+          scope_notes: prev.scope_notes || selected.scope_notes,
+        }));
+      }
+    }
 
     if (status === 'success' && sessionId) {
       fetch('/api/permit-oversight-checkout/complete', {
@@ -98,6 +131,11 @@ export default function PortalPage() {
             <span className="inline-flex rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em]" style={{ background: 'rgba(250,140,65,0.12)', color: ORANGE }}>
               Client Portal + Checkout
             </span>
+            <div className="mt-4">
+              <Link href="/cart" className="text-sm font-semibold" style={{ color: NAVY }}>
+                Review cart
+              </Link>
+            </div>
             <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight" style={{ color: NAVY }}>
               Buy the flagship service and launch onboarding in one flow.
             </h1>

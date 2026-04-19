@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import AddToCartButton from '@/components/AddToCartButton';
 
 const NAVY = '#132452';
 const ORANGE = '#fa8c41';
@@ -15,6 +16,7 @@ interface PricingCard {
   cta: string;
   badge?: string;
   ctaHref?: string;
+  itemKey?: string;
 }
 
 // ─── Service options per audience ────────────────────────────────────────────
@@ -109,6 +111,12 @@ function Card({
           >
             {card.cta}
           </a>
+        ) : card.itemKey ? (
+          <AddToCartButton
+            itemKey={card.itemKey}
+            label={card.cta}
+            className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:opacity-90 hover:shadow-lg text-center inline-block"
+          />
         ) : (
           <button
             onClick={onCTAClick}
@@ -276,7 +284,8 @@ export default function ServicesPage() {
         'Follow-up until approval',
         'Status tracking via Client Portal',
       ],
-      cta: 'Get Started',
+      cta: 'Add to Cart',
+      itemKey: 'permit-management-service',
     },
     {
       title: 'Sub Network Access',
@@ -287,7 +296,8 @@ export default function ServicesPage() {
         'Digital task + invoice management',
         'Dedicated project coordinator',
       ],
-      cta: 'Subscribe',
+      cta: 'Add to Cart',
+      itemKey: 'sub-network-access',
     },
     {
       title: 'Overflow Project Partner',
@@ -382,7 +392,8 @@ export default function ServicesPage() {
         'AI-powered condition analysis',
         'No obligation',
       ],
-      cta: 'Book Assessment',
+      cta: 'Add to Cart',
+      itemKey: 'inspection-response-service',
     },
     {
       title: 'Starter Renovation',
@@ -612,8 +623,8 @@ export default function ServicesPage() {
         <SectionHeader tag="Realtors" headline="For real estate agents trying to keep deals moving" sub="Use Southern Cities when inspection items, listing prep, or renovation scope is threatening timeline, price, or close probability." />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {([
-            { title: 'Pre-Listing Renovation', price: '$5,000–$15,000', badge: null, cta: 'Get a Quote', features: ['Kitchen + bath refresh before listing', 'Paint, flooring, curb appeal', 'Fast 2–3 week turnaround', 'Helps listings sell faster & for more', 'Coordinated around your timeline'], link: '/realtor?service=pre_listing' },
-            { title: 'Inspection Response Service', price: '$299 assessment', badge: 'Fast Turnaround', cta: 'Submit Inspection', features: ['Buyer receives inspection report', 'We assess all repair requests within 24hrs', 'Fixed-price repairs quoted upfront', 'Helps deals close instead of fall apart', 'Serving clients across North Carolina'], link: '/realtor?service=inspection_response' },
+            { title: 'Pre-Listing Renovation', price: '$5,000–$15,000', badge: null, cta: 'Add to Cart', itemKey: 'pre-listing-renovation', features: ['Kitchen + bath refresh before listing', 'Paint, flooring, curb appeal', 'Fast 2–3 week turnaround', 'Helps listings sell faster & for more', 'Coordinated around your timeline'], link: '/realtor?service=pre_listing' },
+            { title: 'Inspection Response Service', price: '$299 assessment', badge: 'Fast Turnaround', cta: 'Add to Cart', itemKey: 'inspection-response-service', features: ['Buyer receives inspection report', 'We assess all repair requests within 24hrs', 'Fixed-price repairs quoted upfront', 'Helps deals close instead of fall apart', 'Serving clients across North Carolina'], link: '/realtor?service=inspection_response' },
             { title: 'Referral Partner Program', price: '5–10% referral fee', badge: null, cta: 'Become a Partner', features: ['Refer clients needing renovation work', 'Earn 5–10% of every completed project', 'No cost to you or your client', 'We handle everything after intro', 'Monthly referral tracking dashboard'], link: '/realtor' },
           ] as (PricingCard & { link?: string })[]).map((card) => (
             <Card key={card.title} card={card} onCTAClick={() => window.location.href = card.link || '/realtor'} />
