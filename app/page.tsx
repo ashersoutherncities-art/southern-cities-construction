@@ -393,13 +393,13 @@ export default function Home() {
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 animation-fade-in">
-              Building<br />
-              Excellence.
-              <span className="block mt-2 gradient-text">Managing Every Detail.</span>
+              Permit Administration.<br />
+              Construction Oversight.
+              <span className="block mt-2 gradient-text">Real project execution.</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-white/60 max-w-2xl mb-12 leading-relaxed animation-fade-in font-light">
-              Full-service general contracting, permit administration, and structured construction oversight for owners who want a cleaner path to keep projects moving.
+            <p className="text-lg sm:text-xl text-white/60 max-w-3xl mb-12 leading-relaxed animation-fade-in font-light">
+              Southern Cities Construction helps owners, operators, and project managers keep residential projects moving through permits, inspections, documentation, oversight, and contractor coordination. This is built for real projects that need structure, not vague consulting.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 animation-fade-in">
@@ -421,9 +421,9 @@ export default function Home() {
             {/* Trust indicators */}
             <div className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10 animation-fade-in">
               {[
-                { num: '50+', label: 'Projects Completed' },
-                { num: '$20M+', label: 'In Project Value' },
                 { num: 'NC', label: 'Licensed & Insured' },
+                { num: '24h', label: 'Target initial response window' },
+                { num: 'Portal', label: 'Documented intake and milestone flow' },
               ].map((stat, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-2xl sm:text-3xl font-bold text-orange">{stat.num}</span>
@@ -448,10 +448,10 @@ export default function Home() {
                 Permit Administration + Construction Oversight
               </h2>
               <p className="mt-5 text-lg text-gray-600 leading-relaxed">
-                This is built for owners who want Southern Cities Construction to handle permit administration, milestone compliance, and structured oversight while a designated project manager runs day-to-day site coordination.
+                This service is for owners who need permit administration, milestone compliance, inspection coordination, and structured project oversight without guessing what happens next.
               </p>
               <p className="mt-4 text-base text-gray-500 leading-relaxed">
-                The project manager can be the client or a third-party representative, but the project must stay inside our required documentation, inspection, and compliance workflow to remain in good standing.
+                The day-to-day project manager can be the owner or a third-party representative, but the job has to stay inside our required documentation, inspection, and compliance workflow to remain active.
               </p>
             </div>
           </AnimatedSection>
@@ -548,24 +548,24 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <AnimatedSection>
             <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">What We Do</span>
+              <span className="text-orange font-semibold text-sm tracking-widest uppercase mb-4 block">Where We Help</span>
               <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
-                Full-Service General Contracting
+                Construction services built around real project bottlenecks
               </h2>
               <p className="mt-5 text-lg text-gray-500 leading-relaxed">
-                From ground-up construction to complex renovations — we manage every detail so you don&apos;t have to.
+                We are most useful when a project needs permits, oversight, scheduling discipline, inspections, or a stronger execution structure to get from scope to closeout.
               </p>
             </div>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: icons.construction, title: 'New Construction', desc: 'Ground-up builds from foundation to finish. Residential and commercial projects delivered on time and on budget.', accent: 'from-navy to-navy-700' },
-              { icon: icons.renovation, title: 'Renovations & Remodels', desc: 'Transform existing spaces with expert craftsmanship. Full gut rehabs to strategic cosmetic updates.', accent: 'from-orange to-orange-600' },
-              { icon: icons.site, title: 'Site Improvements', desc: 'Enhance property value with strategic upgrades. Grading, utilities, paving, and landscaping.', accent: 'from-navy-700 to-blue-800' },
-              { icon: icons.permit, title: 'Permit Management', desc: 'Expert permit pulling and coordination with local authorities. We navigate the red tape.', accent: 'from-orange-600 to-orange-700' },
-              { icon: icons.management, title: 'Project Management', desc: 'Comprehensive oversight from start to finish. Real-time dashboards and transparent reporting.', accent: 'from-navy to-navy-600' },
-              { icon: icons.team, title: 'Subcontractor Coordination', desc: 'Vetted professionals we trust, seamless execution. 8+ active jobs managed simultaneously.', accent: 'from-orange to-orange-500' },
+              { icon: icons.construction, title: 'Ground-Up and Major Residential Work', desc: 'Built for projects that need a licensed contractor, documented coordination, and a real path from pre-construction to closeout.', accent: 'from-navy to-navy-700' },
+              { icon: icons.renovation, title: 'Renovations and Repositioning', desc: 'For owners improving a property before sale, refinance, hold, or occupancy, with scope clarity and execution structure.', accent: 'from-orange to-orange-600' },
+              { icon: icons.site, title: 'Site and Scope Readiness', desc: 'Useful when a project is stuck on early logistics, coordination gaps, or readiness issues before trades can move cleanly.', accent: 'from-navy-700 to-blue-800' },
+              { icon: icons.permit, title: 'Permit Administration', desc: 'Application support, submission coordination, correction handling, and inspection sequencing tied to the actual project workflow.', accent: 'from-orange-600 to-orange-700' },
+              { icon: icons.management, title: 'Construction Oversight', desc: 'Milestone tracking, compliance checkpoints, issue escalation, and structured oversight so the project does not drift.', accent: 'from-navy to-navy-600' },
+              { icon: icons.team, title: 'Subcontractor Coordination', desc: 'Trade coordination and contractor communication built around schedule discipline, documentation, and fewer avoidable breakdowns.', accent: 'from-orange to-orange-500' },
             ].map((service, i) => (
               <AnimatedSection key={i} delay={i * 100}>
                 <div className="group card-hover bg-white rounded-2xl p-8 border border-gray-100 hover:border-orange/20 h-full">

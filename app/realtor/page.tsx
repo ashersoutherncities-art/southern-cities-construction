@@ -195,10 +195,10 @@ export default function RealtorPage() {
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-5">
             Realtor Services<br />
-            <span style={{ color: '#fa8c41' }}>Get Started</span>
+            <span style={{ color: '#fa8c41' }}>That help deals move</span>
           </h1>
-          <p className="text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
-            Pre-Listing Renovations &amp; Inspection Response. Fast turnaround, licensed &amp; insured.
+          <p className="text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            Use Southern Cities Construction when listing prep, inspection issues, or renovation scope is threatening price, timeline, or close probability.
           </p>
         </div>
       </section>
@@ -230,7 +230,7 @@ export default function RealtorPage() {
           <h2 className="text-2xl sm:text-3xl font-extrabold mb-3" style={{ color: '#132452' }}>
             What Do You Need?
           </h2>
-          <p className="text-gray-500">Select a service below to get started. Click a card to expand the form.</p>
+          <p className="text-gray-500">Choose the service that matches the deal problem, then submit the details so we can evaluate the fastest next step.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-2" ref={formRef}>
@@ -249,7 +249,7 @@ export default function RealtorPage() {
                   </div>
                   <div>
                     <p className="font-semibold text-[16px] text-white">Pre-Listing Renovation</p>
-                    <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>Prepare the property before it hits the market</p>
+                    <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>Use this when the house needs work before photos, showings, or list-date launch</p>
                     <ul className="mt-2 space-y-0.5">
                       {['Paint, flooring, kitchen & bath updates', 'Fast turnaround to meet your listing date', 'Detailed written estimate within 48 hours', 'No upfront cost — bill at closing available'].map((item, i) => (
                         <li key={i} className="flex items-center gap-1.5 text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>

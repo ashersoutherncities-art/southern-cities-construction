@@ -557,8 +557,8 @@ export default function ServicesPage() {
       <Section id="gc" bg="#ffffff">
         <SectionHeader
           tag="General Contractors"
-          headline="Built for General Contractors"
-          sub="We handle what you can't — permits, subs, overflow projects"
+          headline="Built for general contractors who need real execution support"
+          sub="Use Southern Cities when permitting, trade coverage, or project load starts breaking the schedule"
         />
         <CardsGrid cards={gcCards} onCTAClick={scrollToContact} />
       </Section>
@@ -567,12 +567,12 @@ export default function ServicesPage() {
       <Section id="investors" bg="#f8f9fa">
         <SectionHeader
           tag="Investors"
-          headline="Investor services built for better decisions and stronger execution"
-          sub="Explore investor-specific reviews, advisory support, and direct access to Southern Cities Investors"
+          headline="Investor services routed through the Southern Cities Investors platform"
+          sub="If you need deal review, operator guidance, or acquisition support, start on the dedicated investor side"
         />
         <div className="mb-8 rounded-2xl border border-orange/20 bg-white p-6 sm:p-8">
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-            For investor-focused reviews, advisory services, and deal support, we now direct clients to our dedicated platform at{' '}
+            Construction-side investor conversations usually start when someone is deciding whether to improve, reposition, renovate, or hand execution to an operator. Those buyer-facing reviews and advisory offers now live at{' '}
             <a
               href="https://southerncitiesinvestors.com"
               target="_blank"
@@ -581,7 +581,7 @@ export default function ServicesPage() {
             >
               SouthernCitiesInvestors.com
             </a>
-            . The offers below reflect the same investor-facing positioning and link directly to the current live services.
+            , so the offers below link directly into the current investor platform.
           </p>
         </div>
         <CardsGrid cards={investorCards} onCTAClick={scrollToContact} />
@@ -591,8 +591,8 @@ export default function ServicesPage() {
       <Section id="subs" bg="#ffffff">
         <SectionHeader
           tag="Subcontractors"
-          headline="Steady Work. On-Time Pay."
-          sub="Join our network and get matched to jobs in your trade"
+          headline="Built for subs who want cleaner handoffs and repeat work"
+          sub="Join the network if you want structured scopes, documented communication, and a contractor who is trying to run jobs properly"
         />
         <CardsGrid cards={subCards} cols={1} onCTAClick={scrollToContact} />
       </Section>
@@ -601,15 +601,15 @@ export default function ServicesPage() {
       <Section id="homeowners" bg="#f8f9fa">
         <SectionHeader
           tag="Homeowners"
-          headline="One Contractor for Everything"
-          sub="From your first call to your final walkthrough"
+          headline="For homeowners who want a real plan, not contractor chaos"
+          sub="Best fit for projects that need scope clarity, documented coordination, and a cleaner path from estimate to completion"
         />
         <CardsGrid cards={homeownerCards} cols={2} onCTAClick={scrollToContact} />
       </Section>
 
       {/* ── FOR REALTORS ────────────────────────────────────────────────────── */}
       <Section id="realtors" bg="#f8f9fc">
-        <SectionHeader tag="Realtors" headline="For Real Estate Agents" sub="More closings. Happier clients. Stronger referral partnerships." />
+        <SectionHeader tag="Realtors" headline="For real estate agents trying to keep deals moving" sub="Use Southern Cities when inspection items, listing prep, or renovation scope is threatening timeline, price, or close probability." />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {([
             { title: 'Pre-Listing Renovation', price: '$5,000–$15,000', badge: null, cta: 'Get a Quote', features: ['Kitchen + bath refresh before listing', 'Paint, flooring, curb appeal', 'Fast 2–3 week turnaround', 'Helps listings sell faster & for more', 'Coordinated around your timeline'], link: '/realtor?service=pre_listing' },
@@ -640,7 +640,7 @@ export default function ServicesPage() {
             </h2>
             <div className="w-12 h-1 rounded mx-auto mb-4" style={{ backgroundColor: ORANGE }} />
             <p className="text-white/60 text-lg">
-              Fill out the form below and we&apos;ll get back to you within 24 hours.
+              Fill out the form below and we&apos;ll review the project, the service fit, and the fastest next step.
             </p>
           </div>
 
