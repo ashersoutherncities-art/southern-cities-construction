@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import AddToCartButton from '@/components/AddToCartButton';
+import CartNavLink from '@/components/CartNavLink';
 
 const NAVY = '#132452';
 const ORANGE = '#fa8c41';
@@ -464,6 +465,7 @@ export default function ServicesPage() {
             >
               Services
             </Link>
+            <CartNavLink className="text-white/70 hover:text-white text-sm font-medium transition-colors hidden sm:block" />
             <a
               href="https://clients.southerncitiesconstruction.com"
               target="_blank"

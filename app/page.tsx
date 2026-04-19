@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import CartNavLink from '@/components/CartNavLink';
 
 // Intersection Observer hook for scroll animations
 function useAnimateOnScroll() {
@@ -292,6 +293,7 @@ export default function Home() {
               >
                 {realtorLink.label}
               </a>
+              <CartNavLink className="ml-2 text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5 hidden lg:block" />
               <a
                 href="https://clients.southerncitiesconstruction.com"
                 target="_blank"
@@ -344,6 +346,13 @@ export default function Home() {
                 className="block text-white/90 hover:text-orange px-4 py-3 rounded-lg text-lg font-medium transition-colors"
               >
                 {realtorLink.label}
+              </a>
+              <a
+                href="/cart"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-white/90 hover:text-orange px-4 py-3 rounded-lg text-lg font-medium transition-colors"
+              >
+                Cart
               </a>
               <a
                 href="https://clients.southerncitiesconstruction.com"
