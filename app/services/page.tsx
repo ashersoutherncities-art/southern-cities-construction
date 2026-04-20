@@ -422,8 +422,43 @@ const OTHER_CLIENTS: OtherClientCard[] = [
 function SectionHeader({ title, text, light = false }: { title: string; text: string; light?: boolean }) {
   return (
     <div className="mb-12 max-w-3xl">
-      <h2 className="mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ color: light ? '#fff' : NAVY }}>{title}</h2>
-      <p className="text-lg leading-relaxed" style={{ color: light ? 'rgba(255,255,255,0.7)' : '#6b7280' }}>{text}</p>
+      <h2 className="mb-3 text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ color: light ? '#fff' : NAVY }}>{title}</h2>
+      <p className="text-base leading-relaxed sm:text-lg" style={{ color: light ? 'rgba(255,255,255,0.72)' : '#6b7280' }}>{text}</p>
+    </div>
+  );
+}
+
+function FlagshipCard({ card }: { card: ServiceCard }) {
+  return (
+    <div className="relative overflow-hidden rounded-[2rem] border border-white/10 p-8 shadow-2xl sm:p-10" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04))' }}>
+      <div className="absolute right-5 top-5 rounded-full px-4 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white" style={{ backgroundColor: ORANGE }}>
+        {card.badge || 'Flagship'}
+      </div>
+      <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+        <div>
+          <h2 className="max-w-3xl text-3xl font-extrabold leading-tight text-white sm:text-5xl">{card.title}</h2>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/72">{card.description}</p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/62 sm:text-base">{card.forWho}</p>
+        </div>
+        <div className="rounded-[1.75rem] border border-white/10 bg-white/95 p-6 text-left shadow-xl">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gray-500">What you get</p>
+          <ul className="mt-5 space-y-4">
+            {card.deliverables.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-gray-700">
+                <span className="mt-1.5 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: ORANGE }} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={card.ctaHref || '#contact'}
+            className="mt-7 inline-block w-full rounded-full py-3.5 text-center text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
+            style={{ backgroundColor: ORANGE }}
+          >
+            {card.cta}
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
@@ -542,21 +577,30 @@ export default function ServicesPage() {
 
       <section className="relative overflow-hidden py-24 sm:py-32" style={{ backgroundColor: NAVY }}>
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="relative z-10 mx-auto max-w-5xl px-5 text-center sm:px-8">
-          <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
-            We pull permits, manage oversight, and keep residential projects moving.
-          </h1>
-          <p className="mx-auto mb-10 max-w-3xl text-lg leading-relaxed text-white/65 sm:text-xl">
-            Southern Cities Construction works with homeowners, general contractors, realtors, and investors who need clear pricing, real execution, and a direct way to get started.
-          </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <a href="#contact" className="rounded-full px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90" style={{ backgroundColor: ORANGE }}>
-              Request a Quote
+        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="max-w-4xl">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-white/55 sm:text-sm">Southern Cities Construction</p>
+            <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
+              We help owners move jobs forward when permits, oversight, pricing, or execution start slowing the project down.
+            </h1>
+            <p className="max-w-3xl text-lg leading-relaxed text-white/68 sm:text-xl">
+              Start with the service that fits the job. Buy fixed-price work now, price out scoped work in minutes, or send the project for review when it needs a real quote.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a href="#flagship" className="rounded-full px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90" style={{ backgroundColor: ORANGE }}>
+              See the Main Service
             </a>
             <a href="#services" className="rounded-full border border-white/15 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/10">
-              View Services
+              Browse All Services
             </a>
           </div>
+        </div>
+      </section>
+
+      <section id="flagship" className="-mt-10 pb-8 sm:pb-10">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <FlagshipCard card={FLAGSHIP_SERVICE} />
         </div>
       </section>
 
@@ -564,7 +608,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Add to Cart"
-            text="These services have a fixed price and can be added to cart right now."
+            text="Start here when you already know what you need and want a fixed-price service you can buy now."
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {[...STANDARD_PRODUCTS, BUNDLES[0], FEE_BASED_SERVICES[1]].map((card) => (
@@ -578,7 +622,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Calculated Price"
-            text="These services need a few project details first. Enter the details, get the price, then add them to cart."
+            text="Use these when the scope is still standard but the price depends on project size, unit count, or job type."
           />
           <div className="grid gap-6 lg:grid-cols-2">
             {[BUNDLES[1], BUNDLES[2], FEE_BASED_SERVICES[0], FEE_BASED_SERVICES[2]].map((card) => (
@@ -592,10 +636,10 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Request a Quote"
-            text="These jobs need a project review before pricing. Send the details and we will scope the next step."
+            text="Send these in when the job needs a real scope review before anyone should talk price."
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {[FLAGSHIP_SERVICE, FEE_BASED_SERVICES[3], ...PROJECT_DEPENDENT_SERVICES].map((card) => (
+            {[FEE_BASED_SERVICES[3], ...PROJECT_DEPENDENT_SERVICES].map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
@@ -606,7 +650,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Other Clients"
-            text="Reach out directly if you fit one of these groups."
+            text="If you work with Southern Cities in a repeat relationship, start here."
           />
           <div className="grid gap-5 md:grid-cols-2">
             {OTHER_CLIENTS.map((item) => (
