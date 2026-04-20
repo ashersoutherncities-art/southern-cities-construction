@@ -20,7 +20,24 @@ type ServiceCard = {
   badge?: string;
 };
 
-const ALACARTE_SERVICES: ServiceCard[] = [
+const BUNDLES: ServiceCard[] = [
+  {
+    title: 'Pre-Listing Work',
+    description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
+    forWho: 'For realtors and sellers who need a house cleaned up before listing.',
+    deliverables: [
+      'Scope review',
+      'Listing-prep work plan',
+      'Repair and refresh coordination',
+      'Timeline built around the listing date',
+    ],
+    price: '$5,000-$15,000',
+    cta: 'Add to Cart',
+    itemKey: 'pre-listing-renovation',
+  },
+];
+
+const STANDARD_PRODUCTS: ServiceCard[] = [
   {
     title: 'Permit Help',
     description: 'We handle permit paperwork, submission, follow-up, and inspection coordination.',
@@ -35,6 +52,9 @@ const ALACARTE_SERVICES: ServiceCard[] = [
     cta: 'Add to Cart',
     itemKey: 'permit-management-service',
   },
+];
+
+const FEE_BASED_SERVICES: ServiceCard[] = [
   {
     title: 'Home Assessment',
     description: 'We walk the property, review the work, and tell you what needs to happen next.',
@@ -63,9 +83,23 @@ const ALACARTE_SERVICES: ServiceCard[] = [
     cta: 'Add to Cart',
     itemKey: 'inspection-response-service',
   },
+  {
+    title: 'Referral Partners',
+    description: 'We work with agents who need a contractor they can keep sending people to.',
+    forWho: 'For realtors who want a repeat relationship for renovation work, listing prep, and repair projects.',
+    deliverables: [
+      'Referral relationship setup',
+      'Project handoff after intro',
+      'Repeat project support',
+      'Referral tracking',
+    ],
+    price: '5-10% referral fee',
+    cta: 'Become a Partner',
+    ctaHref: '/realtor',
+  },
 ];
 
-const STANDARD_PRODUCTS: ServiceCard[] = [
+const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
   {
     title: 'Construction Oversight',
     description: 'We keep the job documented, tracked, and moving when the work needs tighter control.',
@@ -107,37 +141,6 @@ const STANDARD_PRODUCTS: ServiceCard[] = [
     price: 'Custom quote',
     cta: 'Request a Quote',
     ctaHref: '#contact',
-  },
-  {
-    title: 'Pre-Listing Work',
-    description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
-    forWho: 'For realtors and sellers who need a house cleaned up before listing.',
-    deliverables: [
-      'Scope review',
-      'Listing-prep work plan',
-      'Repair and refresh coordination',
-      'Timeline built around the listing date',
-    ],
-    price: '$5,000-$15,000',
-    cta: 'Add to Cart',
-    itemKey: 'pre-listing-renovation',
-  },
-];
-
-const REALTOR_SERVICES: ServiceCard[] = [
-  {
-    title: 'Referral Partners',
-    description: 'We work with agents who need a contractor they can keep sending people to.',
-    forWho: 'For realtors who want a repeat relationship for renovation work, listing prep, and repair projects.',
-    deliverables: [
-      'Referral relationship setup',
-      'Project handoff after intro',
-      'Repeat project support',
-      'Referral tracking',
-    ],
-    price: '5-10% referral fee',
-    cta: 'Become a Partner',
-    ctaHref: '/realtor',
   },
 ];
 
@@ -287,11 +290,11 @@ export default function ServicesPage() {
       <section id="services" className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="A La Carte"
-            text="Use these when you need a single service with a clear starting price and a direct way to buy."
+            title="Bundles"
+            text="These are packaged scopes of work with a defined service package and starting price."
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {ALACARTE_SERVICES.map((card) => (
+            {BUNDLES.map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
@@ -302,7 +305,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Standard Products"
-            text="Use these when the job needs a fuller scope, a custom quote, or a larger package of work."
+            text="These are fixed services with a clear starting price and a direct way to buy."
           />
           <div className="grid gap-6 lg:grid-cols-2">
             {STANDARD_PRODUCTS.map((card) => (
@@ -315,11 +318,25 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Realtors"
-            text="We help when inspection items, repairs, or listing work are slowing the deal down."
+            title="Fee-Based Services"
+            text="These are paid services where you are paying for review, assessment, or referral-based support."
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {REALTOR_SERVICES.map((card) => (
+            {FEE_BASED_SERVICES.map((card) => (
+              <Card key={card.title} card={card} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionHeader
+            title="Project-Dependent Services"
+            text="These jobs need project review before pricing because the scope can change based on size, condition, and timeline."
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            {PROJECT_DEPENDENT_SERVICES.map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
