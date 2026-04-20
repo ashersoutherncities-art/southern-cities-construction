@@ -450,8 +450,10 @@ function Card({ card }: { card: ServiceCard }) {
         </ul>
         {card.price && (
           <div className="mb-6 rounded-2xl border px-4 py-4 text-center" style={{ borderColor: 'rgba(250,140,65,0.25)', backgroundColor: 'rgba(250,140,65,0.08)' }}>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-gray-500">Starting Price</p>
-            <p className="mt-2 text-3xl font-extrabold leading-none" style={{ color: ORANGE }}>{card.price}</p>
+            {(card.price.includes('-') || card.price.toLowerCase().includes('calculated')) && (
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-gray-500">Starting Price</p>
+            )}
+            <p className={`${card.price.includes('-') || card.price.toLowerCase().includes('calculated') ? 'mt-2' : ''} text-3xl font-extrabold leading-none`} style={{ color: ORANGE }}>{card.price}</p>
           </div>
         )}
         {card.calculator ? (
