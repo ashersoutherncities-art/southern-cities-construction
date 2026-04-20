@@ -506,13 +506,39 @@ export default function ServicesPage() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight tracking-tight mb-6">
-            Construction Services &amp;{' '}
-            <span style={{ color: ORANGE }}>Subscriptions</span>
+            Choose the right{' '}
+            <span style={{ color: ORANGE }}>construction service</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Tailored solutions for General Contractors, Investors, Subcontractors, and Homeowners
+          <p className="text-lg sm:text-xl text-white/60 max-w-3xl mx-auto mb-8 leading-relaxed">
+            This page works best when it answers three questions fast: who you are, what you need, and whether you can buy now or need a custom quote.
           </p>
+
+          <div className="grid gap-4 sm:grid-cols-3 max-w-4xl mx-auto mb-12 text-left">
+            {[
+              {
+                title: 'Buy now',
+                desc: 'Fixed-starting-price services that can go straight into cart and checkout.',
+              },
+              {
+                title: 'Request a quote',
+                desc: 'Custom-scope work that needs project review before pricing.',
+              },
+              {
+                title: 'Choose your path',
+                desc: 'Start with the audience section that matches your role and project.',
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-white/10 p-5"
+                style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
+              >
+                <p className="text-white font-semibold mb-2">{item.title}</p>
+                <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
 
           {/* Audience anchor pills */}
           <div className="flex flex-wrap justify-center gap-3">
@@ -535,6 +561,43 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* ── START HERE ──────────────────────────────────────────────────────── */}
+      <Section id="start-here" bg="#ffffff">
+        <SectionHeader
+          tag="Start Here"
+          headline="Simple way to use this page"
+          sub="Pick the section that matches you, then either add a fixed-price service to cart or request a quote for custom work"
+        />
+        <div className="grid gap-6 lg:grid-cols-3">
+          {[
+            {
+              title: 'General Contractors',
+              desc: 'Best when you need permitting help, overflow execution, or access to trade coverage.',
+              href: '#gc',
+            },
+            {
+              title: 'Homeowners and Realtors',
+              desc: 'Best when you need a clear starting point, inspection-related help, or listing prep work.',
+              href: '#homeowners',
+            },
+            {
+              title: 'Investors and Subcontractors',
+              desc: 'Investors go to the investor platform. Subs join the network and enter the structured workflow.',
+              href: '#investors',
+            },
+          ].map((item) => (
+            <a
+              key={item.title}
+              href={item.href}
+              className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <p className="text-lg font-bold mb-2" style={{ color: NAVY }}>{item.title}</p>
+              <p className="text-gray-600 leading-relaxed text-sm">{item.desc}</p>
+            </a>
+          ))}
+        </div>
+      </Section>
 
       {/* ── TURNKEY BANNER ──────────────────────────────────────────────────── */}
       <Section id="turnkey" bg="#ffffff">
@@ -570,9 +633,15 @@ export default function ServicesPage() {
       <Section id="gc" bg="#ffffff">
         <SectionHeader
           tag="General Contractors"
-          headline="Built for general contractors who need real execution support"
-          sub="Use Southern Cities when permitting, trade coverage, or project load starts breaking the schedule"
+          headline="For general contractors who need help keeping jobs moving"
+          sub="Start here if you need permit administration, overflow capacity, or trade coverage support"
         />
+        <div className="mb-8 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <p className="font-semibold mb-2" style={{ color: NAVY }}>Best way to read this section</p>
+          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+            If the service has an <span className="font-semibold">Add to Cart</span> button, it has a defined starting price and checkout path. If it says <span className="font-semibold">Let&apos;s Talk</span>, it is custom work that needs scope review first.
+          </p>
+        </div>
         <CardsGrid cards={gcCards} onCTAClick={scrollToContact} />
       </Section>
 
@@ -580,8 +649,8 @@ export default function ServicesPage() {
       <Section id="investors" bg="#f8f9fa">
         <SectionHeader
           tag="Investors"
-          headline="Investor services routed through the Southern Cities Investors platform"
-          sub="If you need deal review, operator guidance, or acquisition support, start on the dedicated investor side"
+          headline="Investors should start on the investor platform"
+          sub="This construction page is not the best first stop for deal review or advisory work, so we route those requests into the dedicated investor side"
         />
         <div className="mb-8 rounded-2xl border border-orange/20 bg-white p-6 sm:p-8">
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
@@ -604,9 +673,15 @@ export default function ServicesPage() {
       <Section id="subs" bg="#ffffff">
         <SectionHeader
           tag="Subcontractors"
-          headline="Built for subs who want cleaner handoffs and repeat work"
-          sub="Join the network if you want structured scopes, documented communication, and a contractor who is trying to run jobs properly"
+          headline="For subcontractors who want repeat work inside a clearer system"
+          sub="Join the network if you want cleaner handoffs, documented scopes, and better communication around jobs and payment"
         />
+        <div className="mb-8 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
+          <p className="font-semibold mb-2" style={{ color: NAVY }}>What this is</p>
+          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+            This is a membership-style entry point for subcontractors who want to work inside the Southern Cities workflow. It is not a one-time retail service.
+          </p>
+        </div>
         <CardsGrid cards={subCards} cols={1} onCTAClick={scrollToContact} />
       </Section>
 
@@ -614,15 +689,21 @@ export default function ServicesPage() {
       <Section id="homeowners" bg="#f8f9fa">
         <SectionHeader
           tag="Homeowners"
-          headline="For homeowners who want a real plan, not contractor chaos"
-          sub="Best fit for projects that need scope clarity, documented coordination, and a cleaner path from estimate to completion"
+          headline="For homeowners who need a clear next step"
+          sub="Start with the assessment if you need scope clarity first. Request a quote if the project is larger and needs custom pricing."
         />
+        <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 sm:p-7">
+          <p className="font-semibold mb-2" style={{ color: NAVY }}>Recommended order</p>
+          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+            If you are unsure where to begin, start with <span className="font-semibold">Home Assessment</span>. It is the cleanest entry point for defining scope before moving into renovation pricing.
+          </p>
+        </div>
         <CardsGrid cards={homeownerCards} cols={2} onCTAClick={scrollToContact} />
       </Section>
 
       {/* ── FOR REALTORS ────────────────────────────────────────────────────── */}
       <Section id="realtors" bg="#f8f9fc">
-        <SectionHeader tag="Realtors" headline="For real estate agents trying to keep deals moving" sub="Use Southern Cities when inspection items, listing prep, or renovation scope is threatening timeline, price, or close probability." />
+        <SectionHeader tag="Realtors" headline="For real estate agents trying to keep deals from slowing down" sub="Use Southern Cities when inspection items, listing prep, or renovation scope is threatening timeline, price, or close probability." />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {([
             { title: 'Pre-Listing Renovation', price: '$5,000–$15,000', badge: null, cta: 'Add to Cart', itemKey: 'pre-listing-renovation', features: ['Kitchen + bath refresh before listing', 'Paint, flooring, curb appeal', 'Fast 2–3 week turnaround', 'Helps listings sell faster & for more', 'Coordinated around your timeline'], link: '/realtor?service=pre_listing' },
@@ -635,6 +716,29 @@ export default function ServicesPage() {
       </Section>
 
       {/* ── GET STARTED FORM ────────────────────────────────────────────────── */}
+      <Section bg="#ffffff">
+        <div className="rounded-3xl border border-gray-200 bg-gray-50 p-8 sm:p-10">
+          <p className="text-sm font-bold tracking-widest uppercase mb-3" style={{ color: ORANGE }}>Need it even simpler?</p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4" style={{ color: NAVY }}>
+            Use this rule of thumb
+          </h2>
+          <div className="grid gap-5 md:grid-cols-3 text-sm sm:text-base">
+            <div className="rounded-2xl bg-white p-6 border border-gray-200">
+              <p className="font-semibold mb-2" style={{ color: NAVY }}>Buy now</p>
+              <p className="text-gray-600 leading-relaxed">If you see Add to Cart, the service has a defined checkout path and starting price.</p>
+            </div>
+            <div className="rounded-2xl bg-white p-6 border border-gray-200">
+              <p className="font-semibold mb-2" style={{ color: NAVY }}>Request a quote</p>
+              <p className="text-gray-600 leading-relaxed">If the scope can vary a lot, use the contact form instead of expecting instant pricing.</p>
+            </div>
+            <div className="rounded-2xl bg-white p-6 border border-gray-200">
+              <p className="font-semibold mb-2" style={{ color: NAVY }}>Not your lane?</p>
+              <p className="text-gray-600 leading-relaxed">If you are an investor needing deal review or operator guidance, go to Southern Cities Investors.</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       <section
         id="contact"
         className="py-20 sm:py-28"
