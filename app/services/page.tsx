@@ -8,216 +8,221 @@ import CartNavLink from '@/components/CartNavLink';
 const NAVY = '#132452';
 const ORANGE = '#fa8c41';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-interface PricingCard {
+type ServiceCard = {
   title: string;
   price: string;
-  features: string[];
+  summary: string;
+  bullets: string[];
   cta: string;
-  badge?: string;
-  ctaHref?: string;
   itemKey?: string;
-}
-
-// ─── Service options per audience ────────────────────────────────────────────
-
-const SERVICE_OPTIONS: Record<string, string[]> = {
-  'General Contractor': [
-    'Permit Management Service',
-    'Sub Network Access ($349/mo)',
-    'Overflow Project Partner',
-  ],
-  Investor: [
-    'Buy Box Review',
-    'Deal Audit',
-    'Operator Strategy Call',
-    'Southern Cities Investors Advisory Services',
-  ],
-  Subcontractor: ['Sub Network Membership ($149/mo)'],
-  Homeowner: [
-    'Home Assessment ($299)',
-    'Starter Renovation',
-    'Mid Renovation',
-    'Home Maintenance Plan ($199/mo)',
-  ],
-  Realtor: [
-    'Pre-Listing Renovation',
-    'Inspection Response Service ($299)',
-    'Referral Partner Program',
-  ],
+  ctaHref?: string;
+  badge?: string;
 };
 
-// ─── Pricing card component ───────────────────────────────────────────────────
+const START_HERE_CARDS: ServiceCard[] = [
+  {
+    title: 'Permit Administration',
+    price: '$1,500-$3,500 per permit',
+    summary: 'Best when you need help getting plans, submissions, corrections, and inspections across the line.',
+    bullets: [
+      'Permit application and submission support',
+      'Correction handling and follow-up',
+      'Inspection coordination',
+      'Clear path into checkout and onboarding',
+    ],
+    cta: 'Add to Cart',
+    itemKey: 'permit-management-service',
+    badge: 'Buy Now',
+  },
+  {
+    title: 'Home Assessment',
+    price: '$299',
+    summary: 'Best first step when you need scope clarity before deciding on repairs or renovation work.',
+    bullets: [
+      'Property walkthrough',
+      'Scope and condition review',
+      'Clear next-step recommendation',
+      'Useful before quoting larger work',
+    ],
+    cta: 'Add to Cart',
+    itemKey: 'inspection-response-service',
+    badge: 'Best First Step',
+  },
+  {
+    title: 'Custom Project Quote',
+    price: 'Custom pricing',
+    summary: 'Best when the project is larger, more variable, or needs review before a real number can be given.',
+    bullets: [
+      'Renovations and larger scopes',
+      'Ground-up or major residential work',
+      'Overflow project execution',
+      'Use the form below to start',
+    ],
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+    badge: 'Custom Scope',
+  },
+];
 
-function Card({
-  card,
-  onCTAClick,
-}: {
-  card: PricingCard;
-  onCTAClick?: () => void;
-}) {
+const CORE_SERVICES: ServiceCard[] = [
+  {
+    title: 'Permit Administration',
+    price: '$1,500-$3,500 per permit',
+    summary: 'For owners, contractors, and operators who need permit handling done correctly and pushed through.',
+    bullets: [
+      'Application prep and submission',
+      'Municipal follow-up',
+      'Correction response coordination',
+      'Inspection scheduling support',
+    ],
+    cta: 'Add to Cart',
+    itemKey: 'permit-management-service',
+  },
+  {
+    title: 'Construction Oversight',
+    price: 'Custom scope',
+    summary: 'For projects that need more structure, milestone control, documentation, and issue escalation.',
+    bullets: [
+      'Milestone tracking',
+      'Project compliance checkpoints',
+      'Progress documentation expectations',
+      'Oversight tied to signed project obligations',
+    ],
+    cta: 'Request Oversight Plan',
+    ctaHref: '#contact',
+  },
+  {
+    title: 'Overflow Project Partner',
+    price: '15-20% of project',
+    summary: 'For general contractors who need help carrying overflow work without dropping execution quality.',
+    bullets: [
+      'Overflow capacity support',
+      'Southern Cities execution layer',
+      'Weekly progress reporting',
+      'Custom review before onboarding',
+    ],
+    cta: 'Let\'s Talk',
+    ctaHref: '#contact',
+  },
+];
+
+const AUDIENCE_PATHS = [
+  {
+    title: 'General Contractors',
+    text: 'Start with Permit Administration if the main problem is permitting. Use Overflow Project Partner if the problem is capacity.',
+  },
+  {
+    title: 'Homeowners',
+    text: 'Start with Home Assessment if you need clarity first. Use the quote form if you already know the project is bigger.',
+  },
+  {
+    title: 'Realtors',
+    text: 'Use inspection-response or listing-prep style services when deals are slowing down because of repair scope.',
+  },
+  {
+    title: 'Subcontractors',
+    text: 'The right path is network membership and structured workflow participation, not retail checkout.',
+  },
+  {
+    title: 'Investors',
+    text: 'If you need deal review, operator guidance, or acquisition-side support, go to Southern Cities Investors.',
+  },
+];
+
+const REALTOR_SERVICES: ServiceCard[] = [
+  {
+    title: 'Pre-Listing Renovation',
+    price: '$5,000-$15,000',
+    summary: 'For agents and owners who need a property cleaned up before going to market.',
+    bullets: [
+      'Paint, flooring, bath, and kitchen refresh scope',
+      'Fast-turn listing prep',
+      'Coordinated around listing timeline',
+      'Quote required before full start',
+    ],
+    cta: 'Add to Cart',
+    itemKey: 'pre-listing-renovation',
+  },
+  {
+    title: 'Inspection Response Service',
+    price: '$299 assessment',
+    summary: 'For deals where inspection items are threatening close probability and someone needs a fast read.',
+    bullets: [
+      'Inspection issue review',
+      'Repair-path recommendation',
+      'Useful before committing to full repair scope',
+      'Fast-turn starting point',
+    ],
+    cta: 'Add to Cart',
+    itemKey: 'inspection-response-service',
+  },
+  {
+    title: 'Referral Partner Program',
+    price: '5-10% referral fee',
+    summary: 'For agents who want a repeat referral relationship with renovation and project support behind it.',
+    bullets: [
+      'Referral-based relationship',
+      'We handle project execution after intro',
+      'Best for agents with repeat renovation needs',
+      'Relationship setup required',
+    ],
+    cta: 'Become a Partner',
+    ctaHref: '/realtor',
+  },
+];
+
+function Card({ card }: { card: ServiceCard }) {
   return (
-    <div
-      className="relative flex flex-col bg-white rounded-2xl shadow-md overflow-hidden h-full"
-      style={{ borderTop: `4px solid ${NAVY}` }}
-    >
+    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm" style={{ borderTop: `4px solid ${NAVY}` }}>
       {card.badge && (
-        <span
-          className="absolute top-4 right-4 text-xs font-bold text-white px-3 py-1 rounded-full"
-          style={{ backgroundColor: ORANGE }}
-        >
+        <span className="absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-bold text-white" style={{ backgroundColor: ORANGE }}>
           {card.badge}
         </span>
       )}
 
-      <div className="p-8 flex flex-col flex-1">
-        <h3 className="text-xl font-extrabold mb-1" style={{ color: NAVY }}>
-          {card.title}
-        </h3>
-        <p
-          className="text-2xl font-bold mb-6"
-          style={{ color: ORANGE }}
-        >
-          {card.price}
-        </p>
+      <div className="flex flex-1 flex-col p-8">
+        <h3 className="mb-2 text-2xl font-extrabold" style={{ color: NAVY }}>{card.title}</h3>
+        <p className="mb-4 text-2xl font-bold" style={{ color: ORANGE }}>{card.price}</p>
+        <p className="mb-6 text-sm leading-relaxed text-gray-600">{card.summary}</p>
 
-        <ul className="space-y-2 flex-1 mb-8">
-          {card.features.map((f) => (
-            <li key={f} className="flex items-start gap-2 text-gray-600 text-[15px]">
-              <svg
-                className="flex-shrink-0 mt-0.5 w-4 h-4"
-                style={{ color: ORANGE }}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              {f}
+        <ul className="mb-8 flex-1 space-y-3">
+          {card.bullets.map((bullet) => (
+            <li key={bullet} className="flex items-start gap-2 text-[15px] text-gray-600">
+              <span className="mt-1 h-2 w-2 rounded-full" style={{ backgroundColor: ORANGE }} />
+              <span>{bullet}</span>
             </li>
           ))}
         </ul>
 
-        {card.ctaHref ? (
-          <a
-            href={card.ctaHref}
-            target={card.ctaHref.startsWith('http') ? '_blank' : undefined}
-            rel={card.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:opacity-90 hover:shadow-lg text-center"
-            style={{ backgroundColor: ORANGE, display: 'inline-block' }}
-          >
-            {card.cta}
-          </a>
-        ) : card.itemKey ? (
+        {card.itemKey ? (
           <AddToCartButton
             itemKey={card.itemKey}
             label={card.cta}
-            className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:opacity-90 hover:shadow-lg text-center inline-block"
+            className="inline-block w-full rounded-full py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
           />
         ) : (
-          <button
-            onClick={onCTAClick}
-            className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all duration-300 hover:opacity-90 hover:shadow-lg"
+          <a
+            href={card.ctaHref || '#contact'}
+            className="inline-block w-full rounded-full py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
             style={{ backgroundColor: ORANGE }}
           >
             {card.cta}
-          </button>
+          </a>
         )}
       </div>
     </div>
   );
 }
 
-// ─── Section wrapper ──────────────────────────────────────────────────────────
-
-function Section({
-  id,
-  bg,
-  children,
-}: {
-  id?: string;
-  bg?: string;
-  children: React.ReactNode;
-}) {
+function SectionHeader({ eyebrow, title, text, light = false }: { eyebrow: string; title: string; text: string; light?: boolean }) {
   return (
-    <section
-      id={id}
-      className="py-20 sm:py-28"
-      style={{ backgroundColor: bg ?? '#fff' }}
-    >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">{children}</div>
-    </section>
-  );
-}
-
-function SectionHeader({
-  tag,
-  headline,
-  sub,
-  light = false,
-}: {
-  tag: string;
-  headline: string;
-  sub: string;
-  light?: boolean;
-}) {
-  return (
-    <div className="mb-14 sm:mb-16">
-      <span
-        className="block text-sm font-bold tracking-widest uppercase mb-3"
-        style={{ color: ORANGE }}
-      >
-        {tag}
-      </span>
-      <h2
-        className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4"
-        style={{ color: light ? '#fff' : NAVY }}
-      >
-        {headline}
-      </h2>
-      <div className="w-12 h-1 rounded mb-4" style={{ backgroundColor: ORANGE }} />
-      <p
-        className="text-lg max-w-2xl"
-        style={{ color: light ? 'rgba(255,255,255,0.6)' : '#6b7280' }}
-      >
-        {sub}
-      </p>
+    <div className="mb-12 max-w-3xl">
+      <p className="mb-3 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>{eyebrow}</p>
+      <h2 className="mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ color: light ? '#fff' : NAVY }}>{title}</h2>
+      <p className="text-lg leading-relaxed" style={{ color: light ? 'rgba(255,255,255,0.7)' : '#6b7280' }}>{text}</p>
     </div>
   );
 }
-
-// ─── Cards grid ──────────────────────────────────────────────────────────────
-
-function CardsGrid({
-  cards,
-  cols = 3,
-  onCTAClick,
-}: {
-  cards: PricingCard[];
-  cols?: number;
-  onCTAClick?: () => void;
-}) {
-  const gridCols =
-    cols === 1
-      ? 'grid-cols-1 max-w-md mx-auto'
-      : cols === 2
-      ? 'grid-cols-1 sm:grid-cols-2'
-      : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
-
-  return (
-    <div className={`grid gap-6 ${gridCols}`}>
-      {cards.map((c) => (
-        <Card key={c.title} card={c} onCTAClick={onCTAClick} />
-      ))}
-    </div>
-  );
-}
-
-// ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function ServicesPage() {
   const [formData, setFormData] = useState({
@@ -232,20 +237,11 @@ export default function ServicesPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
 
-  const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-      // reset service when audience changes
-      ...(name === 'audience_type' ? { service: '' } : {}),
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -274,677 +270,192 @@ export default function ServicesPage() {
     }
   };
 
-  // ─── GC Cards ───────────────────────────────────────────────────────────────
-  const gcCards: PricingCard[] = [
-    {
-      title: 'Permit Management Service',
-      price: '$1,500–$3,500/permit',
-      features: [
-        'Full permit application + submission',
-        'Inspection coordination',
-        'Follow-up until approval',
-        'Status tracking via Client Portal',
-      ],
-      cta: 'Add to Cart',
-      itemKey: 'permit-management-service',
-    },
-    {
-      title: 'Sub Network Access',
-      price: '$349/mo',
-      features: [
-        'Access to vetted subcontractor network',
-        'Priority scheduling on overflow work',
-        'Digital task + invoice management',
-        'Dedicated project coordinator',
-      ],
-      cta: 'Add to Cart',
-      itemKey: 'sub-network-access',
-    },
-    {
-      title: 'Overflow Project Partner',
-      price: '15–20% of project',
-      features: [
-        'We take your overflow projects',
-        'Full project management',
-        'Your brand, our execution',
-        'Weekly progress reports',
-      ],
-      cta: "Let's Talk",
-    },
-  ];
-
-  // ─── Investor Cards ──────────────────────────────────────────────────────────
-  const investorCards: PricingCard[] = [
-    {
-      title: 'Buy Box Review',
-      price: '$147',
-      features: [
-        'Clear feedback on your acquisition criteria',
-        'Practical guidance on market fit and deal selection',
-        'Designed for investors tightening their buy box',
-        'Fast turnaround with direct recommendations',
-      ],
-      cta: 'View Service',
-      ctaHref: 'https://southerncitiesinvestors.com/services/buy-box-review',
-    },
-    {
-      title: 'Deal Audit',
-      price: '$297',
-      features: [
-        'Second-look review before you commit',
-        'Buyer-facing analysis on risk, scope, and next steps',
-        'Built for active investors evaluating real opportunities',
-        'Delivered with clear action-oriented feedback',
-      ],
-      cta: 'View Service',
-      badge: 'Popular',
-      ctaHref: 'https://southerncitiesinvestors.com/services/deal-audit',
-    },
-    {
-      title: 'Operator Strategy Call',
-      price: '$97',
-      features: [
-        'Focused conversation around your next acquisition move',
-        'Get clarity on priorities, obstacles, and execution',
-        'Ideal for investors who want direct guidance now',
-        'Simple starting point before deeper advisory work',
-      ],
-      cta: 'View Service',
-      ctaHref: 'https://southerncitiesinvestors.com/services/operator-strategy-call',
-    },
-    {
-      title: 'Southern Cities Investors Advisory Services',
-      price: 'See full offers',
-      features: [
-        'Access the full investor services platform',
-        'Explore reviews, advisory offers, and ongoing support',
-        'Submit deals and see current investor-focused services',
-        'Visit the dedicated investor site for full details',
-      ],
-      cta: 'Visit Southern Cities Investors',
-      ctaHref: 'https://southerncitiesinvestors.com',
-    },
-  ];
-
-  // ─── Sub Cards ───────────────────────────────────────────────────────────────
-  const subCards: PricingCard[] = [
-    {
-      title: 'Sub Network Membership',
-      price: '$149/mo',
-      features: [
-        'Get matched to jobs in your trade area',
-        'Digital task management via Sub Portal',
-        'Faster payment processing',
-        'Invoice submission + tracking',
-        'Priority consideration for all SC projects',
-      ],
-      cta: 'Join the Network',
-    },
-  ];
-
-  // ─── Homeowner Cards ──────────────────────────────────────────────────────────
-  const homeownerCards: PricingCard[] = [
-    {
-      title: 'Home Assessment',
-      price: '$299',
-      features: [
-        'Full property walkthrough',
-        'Detailed scope + cost report',
-        'AI-powered condition analysis',
-        'No obligation',
-      ],
-      cta: 'Add to Cart',
-      itemKey: 'inspection-response-service',
-    },
-    {
-      title: 'Starter Renovation',
-      price: 'Starting at $12,000',
-      features: [
-        'Kitchen OR bathroom OR single room',
-        'Licensed + insured work',
-        'Permit handling included',
-        '30-day typical timeline',
-      ],
-      cta: 'Get a Quote',
-    },
-    {
-      title: 'Mid Renovation',
-      price: 'Starting at $30,000',
-      features: [
-        'Multiple rooms or major systems',
-        'Full project management',
-        'Sub coordination included',
-        '60-90 day typical timeline',
-      ],
-      cta: 'Get a Quote',
-    },
-    {
-      title: 'Home Maintenance Plan',
-      price: '$199/mo',
-      features: [
-        'Quarterly property inspection + report',
-        'Priority scheduling on all repairs',
-        '10% discount on all work',
-        'Emergency response within 48 hours',
-      ],
-      cta: 'Subscribe',
-      badge: 'Best Value',
-    },
-  ];
-
-  const serviceOptions = formData.audience_type
-    ? SERVICE_OPTIONS[formData.audience_type] ?? []
-    : [];
-
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      {/* ── NAVBAR ─────────────────────────────────────────────────────────── */}
-      <nav
-        className="sticky top-0 z-50 border-b border-white/10"
-        style={{ backgroundColor: NAVY }}
-      >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex justify-between items-center h-20">
+    <div className="min-h-screen overflow-x-hidden bg-white">
+      <nav className="sticky top-0 z-50 border-b border-white/10" style={{ backgroundColor: NAVY }}>
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
           <Link href="/">
-            <img
-              src="/sc-construction-logo.png"
-              alt="Southern Cities Construction"
-              className="h-11 w-auto"
-            />
+            <img src="/sc-construction-logo.png" alt="Southern Cities Construction" className="h-11 w-auto" />
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
-            <Link
-              href="/"
-              className="text-white/70 hover:text-white text-sm font-medium transition-colors hidden sm:block"
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              className="text-white font-semibold text-sm border-b-2 pb-0.5"
-              style={{ borderColor: ORANGE }}
-            >
-              Services
-            </Link>
-            <CartNavLink className="text-white/70 hover:text-white text-sm font-medium transition-colors hidden sm:block" />
-            <a
-              href="https://clients.southerncitiesconstruction.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all hover:opacity-90"
-              style={{ backgroundColor: ORANGE }}
-            >
-              Client Portal
-            </a>
+            <Link href="/" className="hidden text-sm font-medium text-white/70 transition-colors hover:text-white sm:block">Home</Link>
+            <Link href="/services" className="border-b-2 pb-0.5 text-sm font-semibold text-white" style={{ borderColor: ORANGE }}>Services</Link>
+            <CartNavLink className="hidden text-sm font-medium text-white/70 transition-colors hover:text-white sm:block" />
+            <a href="https://clients.southerncitiesconstruction.com" target="_blank" rel="noopener noreferrer" className="rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90" style={{ backgroundColor: ORANGE }}>Client Portal</a>
           </div>
         </div>
       </nav>
 
-      {/* ── HERO ───────────────────────────────────────────────────────────── */}
-      <section
-        className="relative py-24 sm:py-32 overflow-hidden"
-        style={{ backgroundColor: NAVY }}
-      >
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-        <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none" style={{ backgroundColor: `${ORANGE}10` }} />
-
-        <div className="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 text-center">
-          <div
-            className="inline-flex items-center gap-2 border border-white/10 rounded-full px-5 py-2 mb-8"
-            style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-          >
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: ORANGE }} />
-            <span className="text-white/70 text-sm font-medium tracking-wide">
-              Fully Licensed & Insured General Contractor
-            </span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight tracking-tight mb-6">
-            Choose the right{' '}
-            <span style={{ color: ORANGE }}>construction service</span>
+      <section className="relative overflow-hidden py-24 sm:py-32" style={{ backgroundColor: NAVY }}>
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        <div className="relative z-10 mx-auto max-w-5xl px-5 text-center sm:px-8">
+          <p className="mb-4 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>Construction Services</p>
+          <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Clear services, clear starting points, clear next step
           </h1>
-
-          <p className="text-lg sm:text-xl text-white/60 max-w-3xl mx-auto mb-8 leading-relaxed">
-            This page works best when it answers three questions fast: who you are, what you need, and whether you can buy now or need a custom quote.
+          <p className="mx-auto mb-10 max-w-3xl text-lg leading-relaxed text-white/65 sm:text-xl">
+            This page should help someone understand what Southern Cities Construction actually sells, what can be bought now, and what needs a custom quote.
           </p>
-
-          <div className="grid gap-4 sm:grid-cols-3 max-w-4xl mx-auto mb-12 text-left">
-            {[
-              {
-                title: 'Buy now',
-                desc: 'Fixed-starting-price services that can go straight into cart and checkout.',
-              },
-              {
-                title: 'Request a quote',
-                desc: 'Custom-scope work that needs project review before pricing.',
-              },
-              {
-                title: 'Choose your path',
-                desc: 'Start with the audience section that matches your role and project.',
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl border border-white/10 p-5"
-                style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-              >
-                <p className="text-white font-semibold mb-2">{item.title}</p>
-                <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 p-6 text-left" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
+              <p className="mb-2 font-semibold text-white">Buy now</p>
+              <p className="text-sm leading-relaxed text-white/65">Use cart checkout for fixed-entry services with a defined starting price.</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 p-6 text-left" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
+              <p className="mb-2 font-semibold text-white">Request a quote</p>
+              <p className="text-sm leading-relaxed text-white/65">Use the form for larger or variable-scope work that needs review first.</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 p-6 text-left" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
+              <p className="mb-2 font-semibold text-white">Need investor help?</p>
+              <p className="text-sm leading-relaxed text-white/65">Acquisition and operator advisory work belongs on Southern Cities Investors, not here.</p>
+            </div>
           </div>
+        </div>
+      </section>
 
-          {/* Audience anchor pills */}
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              { href: '#gc', label: 'For GCs' },
-              { href: '#investors', label: 'For Investors' },
-              { href: '#subs', label: 'For Subs' },
-              { href: '#homeowners', label: 'For Homeowners' },
-              { href: '#realtors', label: 'For Realtors' },
-            ].map((pill) => (
-              <a
-                key={pill.href}
-                href={pill.href}
-                className="group inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/10 transition-all duration-300 hover:brightness-110 hover:border-white/20"
-                style={{ backgroundColor: NAVY }}
-              >
-                <span className="text-white font-semibold text-[15px]">{pill.label}</span>
-              </a>
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionHeader
+            eyebrow="Start Here"
+            title="Most visitors only need one of these three paths"
+            text="Instead of sorting through five different audience lanes first, start with the service type that matches the actual job to be done."
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            {START_HERE_CARDS.map((card) => (
+              <Card key={card.title} card={card} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── START HERE ──────────────────────────────────────────────────────── */}
-      <Section id="start-here" bg="#ffffff">
-        <SectionHeader
-          tag="Start Here"
-          headline="Simple way to use this page"
-          sub="Pick the section that matches you, then either add a fixed-price service to cart or request a quote for custom work"
-        />
-        <div className="grid gap-6 lg:grid-cols-3">
-          {[
-            {
-              title: 'General Contractors',
-              desc: 'Best when you need permitting help, overflow execution, or access to trade coverage.',
-              href: '#gc',
-            },
-            {
-              title: 'Homeowners and Realtors',
-              desc: 'Best when you need a clear starting point, inspection-related help, or listing prep work.',
-              href: '#homeowners',
-            },
-            {
-              title: 'Investors and Subcontractors',
-              desc: 'Investors go to the investor platform. Subs join the network and enter the structured workflow.',
-              href: '#investors',
-            },
-          ].map((item) => (
-            <a
-              key={item.title}
-              href={item.href}
-              className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <p className="text-lg font-bold mb-2" style={{ color: NAVY }}>{item.title}</p>
-              <p className="text-gray-600 leading-relaxed text-sm">{item.desc}</p>
-            </a>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── TURNKEY BANNER ──────────────────────────────────────────────────── */}
-      <Section id="turnkey" bg="#ffffff">
-        <div className="max-w-3xl mb-10">
-          <span className="block text-sm font-bold tracking-widest uppercase mb-3" style={{ color: ORANGE }}>Full-Service Construction</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-5" style={{ color: NAVY }}>
-            Turnkey from Start to Finish
-          </h2>
-          <p className="text-gray-500 text-lg leading-relaxed mb-4">
-            Southern Cities Construction handles everything from ground-up new construction to full-scale renovations. Whether you&apos;re managing an investment property rehab, a custom new build, or a complete home renovation — we are your single point of contact from permit to punch list.
-          </p>
-          <p className="text-gray-500 text-lg leading-relaxed">
-            Our turnkey approach means no coordinating multiple contractors, no missed deadlines, no surprises.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {[
-            { title: 'Ground-Up Construction', desc: 'New builds from foundation to finish' },
-            { title: 'Full Renovations', desc: 'Complete rehabs, additions, and remodels' },
-            { title: 'Turnkey Delivery', desc: 'Permits, subs, inspections — all managed for you' },
-          ].map((stat) => (
-            <div key={stat.title} className="flex items-start gap-4 p-6 rounded-2xl border border-gray-100 bg-gray-50">
-              <div>
-                <p className="font-bold text-base mb-1" style={{ color: NAVY }}>{stat.title}</p>
-                <p className="text-sm text-gray-500 leading-relaxed">{stat.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── SECTION 1: GCs ─────────────────────────────────────────────────── */}
-      <Section id="gc" bg="#ffffff">
-        <SectionHeader
-          tag="General Contractors"
-          headline="For general contractors who need help keeping jobs moving"
-          sub="Start here if you need permit administration, overflow capacity, or trade coverage support"
-        />
-        <div className="mb-8 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
-          <p className="font-semibold mb-2" style={{ color: NAVY }}>Best way to read this section</p>
-          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-            If the service has an <span className="font-semibold">Add to Cart</span> button, it has a defined starting price and checkout path. If it says <span className="font-semibold">Let&apos;s Talk</span>, it is custom work that needs scope review first.
-          </p>
-        </div>
-        <CardsGrid cards={gcCards} onCTAClick={scrollToContact} />
-      </Section>
-
-      {/* ── SECTION 2: Investors ────────────────────────────────────────────── */}
-      <Section id="investors" bg="#f8f9fa">
-        <SectionHeader
-          tag="Investors"
-          headline="Investors should start on the investor platform"
-          sub="This construction page is not the best first stop for deal review or advisory work, so we route those requests into the dedicated investor side"
-        />
-        <div className="mb-8 rounded-2xl border border-orange/20 bg-white p-6 sm:p-8">
-          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-            Construction-side investor conversations usually start when someone is deciding whether to improve, reposition, renovate, or hand execution to an operator. Those buyer-facing reviews and advisory offers now live at{' '}
-            <a
-              href="https://southerncitiesinvestors.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-[#132452] underline decoration-[#fa8c41] underline-offset-4"
-            >
-              SouthernCitiesInvestors.com
-            </a>
-            , so the offers below link directly into the current investor platform.
-          </p>
-        </div>
-        <CardsGrid cards={investorCards} onCTAClick={scrollToContact} />
-      </Section>
-
-      {/* ── SECTION 3: Subcontractors ───────────────────────────────────────── */}
-      <Section id="subs" bg="#ffffff">
-        <SectionHeader
-          tag="Subcontractors"
-          headline="For subcontractors who want repeat work inside a clearer system"
-          sub="Join the network if you want cleaner handoffs, documented scopes, and better communication around jobs and payment"
-        />
-        <div className="mb-8 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-7">
-          <p className="font-semibold mb-2" style={{ color: NAVY }}>What this is</p>
-          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-            This is a membership-style entry point for subcontractors who want to work inside the Southern Cities workflow. It is not a one-time retail service.
-          </p>
-        </div>
-        <CardsGrid cards={subCards} cols={1} onCTAClick={scrollToContact} />
-      </Section>
-
-      {/* ── SECTION 4: Homeowners ───────────────────────────────────────────── */}
-      <Section id="homeowners" bg="#f8f9fa">
-        <SectionHeader
-          tag="Homeowners"
-          headline="For homeowners who need a clear next step"
-          sub="Start with the assessment if you need scope clarity first. Request a quote if the project is larger and needs custom pricing."
-        />
-        <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 sm:p-7">
-          <p className="font-semibold mb-2" style={{ color: NAVY }}>Recommended order</p>
-          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-            If you are unsure where to begin, start with <span className="font-semibold">Home Assessment</span>. It is the cleanest entry point for defining scope before moving into renovation pricing.
-          </p>
-        </div>
-        <CardsGrid cards={homeownerCards} cols={2} onCTAClick={scrollToContact} />
-      </Section>
-
-      {/* ── FOR REALTORS ────────────────────────────────────────────────────── */}
-      <Section id="realtors" bg="#f8f9fc">
-        <SectionHeader tag="Realtors" headline="For real estate agents trying to keep deals from slowing down" sub="Use Southern Cities when inspection items, listing prep, or renovation scope is threatening timeline, price, or close probability." />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {([
-            { title: 'Pre-Listing Renovation', price: '$5,000–$15,000', badge: null, cta: 'Add to Cart', itemKey: 'pre-listing-renovation', features: ['Kitchen + bath refresh before listing', 'Paint, flooring, curb appeal', 'Fast 2–3 week turnaround', 'Helps listings sell faster & for more', 'Coordinated around your timeline'], link: '/realtor?service=pre_listing' },
-            { title: 'Inspection Response Service', price: '$299 assessment', badge: 'Fast Turnaround', cta: 'Add to Cart', itemKey: 'inspection-response-service', features: ['Buyer receives inspection report', 'We assess all repair requests within 24hrs', 'Fixed-price repairs quoted upfront', 'Helps deals close instead of fall apart', 'Serving clients across North Carolina'], link: '/realtor?service=inspection_response' },
-            { title: 'Referral Partner Program', price: '5–10% referral fee', badge: null, cta: 'Become a Partner', features: ['Refer clients needing renovation work', 'Earn 5–10% of every completed project', 'No cost to you or your client', 'We handle everything after intro', 'Monthly referral tracking dashboard'], link: '/realtor' },
-          ] as (PricingCard & { link?: string })[]).map((card) => (
-            <Card key={card.title} card={card} onCTAClick={() => window.location.href = card.link || '/realtor'} />
-          ))}
-        </div>
-      </Section>
-
-      {/* ── GET STARTED FORM ────────────────────────────────────────────────── */}
-      <Section bg="#ffffff">
-        <div className="rounded-3xl border border-gray-200 bg-gray-50 p-8 sm:p-10">
-          <p className="text-sm font-bold tracking-widest uppercase mb-3" style={{ color: ORANGE }}>Need it even simpler?</p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4" style={{ color: NAVY }}>
-            Use this rule of thumb
-          </h2>
-          <div className="grid gap-5 md:grid-cols-3 text-sm sm:text-base">
-            <div className="rounded-2xl bg-white p-6 border border-gray-200">
-              <p className="font-semibold mb-2" style={{ color: NAVY }}>Buy now</p>
-              <p className="text-gray-600 leading-relaxed">If you see Add to Cart, the service has a defined checkout path and starting price.</p>
-            </div>
-            <div className="rounded-2xl bg-white p-6 border border-gray-200">
-              <p className="font-semibold mb-2" style={{ color: NAVY }}>Request a quote</p>
-              <p className="text-gray-600 leading-relaxed">If the scope can vary a lot, use the contact form instead of expecting instant pricing.</p>
-            </div>
-            <div className="rounded-2xl bg-white p-6 border border-gray-200">
-              <p className="font-semibold mb-2" style={{ color: NAVY }}>Not your lane?</p>
-              <p className="text-gray-600 leading-relaxed">If you are an investor needing deal review or operator guidance, go to Southern Cities Investors.</p>
-            </div>
+      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionHeader
+            eyebrow="Core Services"
+            title="What Southern Cities Construction is actually offering"
+            text="These are the main service buckets. Some have a defined checkout path. Others need custom review before pricing and onboarding."
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            {CORE_SERVICES.map((card) => (
+              <Card key={card.title} card={card} />
+            ))}
           </div>
         </div>
-      </Section>
+      </section>
 
-      <section
-        id="contact"
-        className="py-20 sm:py-28"
-        style={{ backgroundColor: NAVY }}
-      >
-        <div className="max-w-2xl mx-auto px-5 sm:px-8">
-          <div className="text-center mb-12">
-            <span
-              className="block text-sm font-bold tracking-widest uppercase mb-3"
-              style={{ color: ORANGE }}
-            >
-              Get Started
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-              Let&apos;s Talk About Your Project
-            </h2>
-            <div className="w-12 h-1 rounded mx-auto mb-4" style={{ backgroundColor: ORANGE }} />
-            <p className="text-white/60 text-lg">
-              Fill out the form below and we&apos;ll review the project, the service fit, and the fastest next step.
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionHeader
+            eyebrow="Audience Guide"
+            title="If you still want to sort by audience, use this"
+            text="This keeps the audience guidance short and useful instead of forcing the whole page to be organized around role labels."
+          />
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {AUDIENCE_PATHS.map((path) => (
+              <div key={path.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <p className="mb-2 text-lg font-bold" style={{ color: NAVY }}>{path.title}</p>
+                <p className="text-sm leading-relaxed text-gray-600">{path.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionHeader
+            eyebrow="Realtor Services"
+            title="Useful when a deal is slowing down because of condition, repairs, or listing readiness"
+            text="These are the clearest agent-facing services on the construction side."
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            {REALTOR_SERVICES.map((card) => (
+              <Card key={card.title} card={card} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <div className="rounded-3xl border border-gray-200 bg-gray-50 p-8 sm:p-10">
+            <p className="mb-3 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>Simple Rule</p>
+            <h2 className="mb-4 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>If you can buy it now, we show a starting price. If not, we ask for the project first.</h2>
+            <p className="max-w-3xl text-base leading-relaxed text-gray-600 sm:text-lg">
+              That is the cleanest way to understand this page. Fixed-entry services go through cart and portal checkout. Bigger scopes, renovations, and oversight-heavy work go through project review first.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="py-20 sm:py-28" style={{ backgroundColor: NAVY }}>
+        <div className="mx-auto max-w-2xl px-5 sm:px-8">
+          <div className="mb-12 text-center">
+            <p className="mb-3 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>Request a Quote</p>
+            <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Tell us about the project</h2>
+            <p className="text-lg text-white/60">Use this for custom pricing, larger scopes, oversight requests, or anything that does not fit a simple buy-now path.</p>
           </div>
 
           {submitted ? (
-            <div
-              className="rounded-2xl p-10 text-center"
-              style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: `1px solid ${ORANGE}` }}
-            >
-
-              <h3 className="text-2xl font-bold text-white mb-2">
-                We&apos;ve received your inquiry!
-              </h3>
-              <p className="text-white/60">
-                Our team will reach out within 24 hours to discuss your project.
-              </p>
-              <button
-                onClick={() => setSubmitted(false)}
-                className="mt-6 text-sm font-semibold underline"
-                style={{ color: ORANGE }}
-              >
-                Submit another inquiry
-              </button>
+            <div className="rounded-2xl p-10 text-center" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: `1px solid ${ORANGE}` }}>
+              <h3 className="mb-2 text-2xl font-bold text-white">We received your request.</h3>
+              <p className="text-white/60">We will review the project and follow up with the right next step.</p>
+              <button onClick={() => setSubmitted(false)} className="mt-6 text-sm font-semibold underline" style={{ color: ORANGE }}>Submit another request</button>
             </div>
           ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="rounded-2xl p-8 sm:p-10 space-y-5"
-              style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
-            >
-              {/* Name */}
+            <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl p-8 sm:p-10" style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
               <div>
-                <label className="block text-white/80 font-semibold text-sm mb-2">
-                  Name <span style={{ color: ORANGE }}>*</span>
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="Your full name"
-                  className="w-full px-4 py-3 rounded-xl text-white text-[15px] focus:outline-none transition-all"
-                  style={{
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = ORANGE)}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-                />
+                <label className="mb-2 block text-sm font-semibold text-white/80">Name</label>
+                <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Your full name" className="w-full rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
               </div>
 
-              {/* Email + Phone */}
-              <div className="grid sm:grid-cols-2 gap-5">
+              <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="block text-white/80 font-semibold text-sm mb-2">
-                    Email <span style={{ color: ORANGE }}>*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="you@email.com"
-                    className="w-full px-4 py-3 rounded-xl text-white text-[15px] focus:outline-none transition-all"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.15)',
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = ORANGE)}
-                    onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-                  />
+                  <label className="mb-2 block text-sm font-semibold text-white/80">Email</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="you@email.com" className="w-full rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
                 </div>
                 <div>
-                  <label className="block text-white/80 font-semibold text-sm mb-2">Phone</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="(704) 000-0000"
-                    className="w-full px-4 py-3 rounded-xl text-white text-[15px] focus:outline-none transition-all"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.15)',
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = ORANGE)}
-                    onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-                  />
+                  <label className="mb-2 block text-sm font-semibold text-white/80">Phone</label>
+                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="(704) 000-0000" className="w-full rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
                 </div>
               </div>
 
-              {/* Audience */}
-              <div>
-                <label className="block text-white/80 font-semibold text-sm mb-2">
-                  I am a...
-                </label>
-                <select
-                  name="audience_type"
-                  value={formData.audience_type}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl text-white text-[15px] focus:outline-none transition-all appearance-none cursor-pointer"
-                  style={{
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                  }}
-                >
-                  <option value="" style={{ color: '#000' }}>Select one...</option>
-                  <option value="General Contractor" style={{ color: '#000' }}>General Contractor</option>
-                  <option value="Investor" style={{ color: '#000' }}>Investor</option>
-                  <option value="Subcontractor" style={{ color: '#000' }}>Subcontractor</option>
-                  <option value="Homeowner" style={{ color: '#000' }}>Homeowner</option>
-                  <option value="Realtor" style={{ color: '#000' }}>Real Estate Agent / Realtor</option>
-                </select>
-              </div>
-
-              {/* Service (conditional) */}
-              {formData.audience_type && (
+              <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="block text-white/80 font-semibold text-sm mb-2">
-                    Service interested in
-                  </label>
-                  <select
-                    name="service"
-                    value={formData.service}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl text-white text-[15px] focus:outline-none transition-all appearance-none cursor-pointer"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.15)',
-                    }}
-                  >
-                    <option value="" style={{ color: '#000' }}>Select a service...</option>
-                    {serviceOptions.map((opt) => (
-                      <option key={opt} value={opt} style={{ color: '#000' }}>
-                        {opt}
-                      </option>
-                    ))}
+                  <label className="mb-2 block text-sm font-semibold text-white/80">I am a...</label>
+                  <select name="audience_type" value={formData.audience_type} onChange={handleChange} className="w-full cursor-pointer appearance-none rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}>
+                    <option value="" style={{ color: '#000' }}>Select one...</option>
+                    <option value="General Contractor" style={{ color: '#000' }}>General Contractor</option>
+                    <option value="Investor" style={{ color: '#000' }}>Investor</option>
+                    <option value="Subcontractor" style={{ color: '#000' }}>Subcontractor</option>
+                    <option value="Homeowner" style={{ color: '#000' }}>Homeowner</option>
+                    <option value="Realtor" style={{ color: '#000' }}>Realtor</option>
                   </select>
                 </div>
-              )}
-
-              {/* Message */}
-              <div>
-                <label className="block text-white/80 font-semibold text-sm mb-2">Message</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  placeholder="Tell us about your project or question..."
-                  className="w-full px-4 py-3 rounded-xl text-white text-[15px] focus:outline-none transition-all resize-none"
-                  style={{
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = ORANGE)}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-                />
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-white/80">Service</label>
+                  <input type="text" name="service" value={formData.service} onChange={handleChange} placeholder="Permit help, oversight, renovation quote, listing prep..." className="w-full rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
+                </div>
               </div>
 
-              {error && (
-                <p className="text-red-400 text-sm text-center">{error}</p>
-              )}
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-white/80">Project details</label>
+                <textarea name="message" value={formData.message} onChange={handleChange} rows={5} placeholder="Tell us what the project is, where it stands, and what kind of help you need..." className="w-full resize-none rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
+              </div>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-4 rounded-full text-white font-bold text-lg transition-all duration-300 hover:opacity-90 hover:shadow-xl disabled:opacity-60"
-                style={{ backgroundColor: ORANGE }}
-              >
-                {submitting ? 'Submitting...' : 'Submit Inquiry'}
+              {error && <p className="text-center text-sm text-red-400">{error}</p>}
+
+              <button type="submit" disabled={submitting} className="w-full rounded-full py-4 text-lg font-bold text-white transition-all duration-300 hover:opacity-90 disabled:opacity-60" style={{ backgroundColor: ORANGE }}>
+                {submitting ? 'Submitting...' : 'Submit Request'}
               </button>
             </form>
           )}
         </div>
       </section>
 
-      {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
-      <footer
-        className="py-8 border-t border-white/5 text-center"
-        style={{ backgroundColor: NAVY }}
-      >
-        <p className="text-white/30 text-sm">
-          © {new Date().getFullYear()} Southern Cities Construction LLC — Fully Licensed & Insured General Contractor
-        </p>
-        <p className="text-white/20 text-xs mt-1">North Carolina · Licensed &amp; Insured · Powered by Southern Cities Enterprises</p>
+      <footer className="border-t border-white/5 py-8 text-center" style={{ backgroundColor: NAVY }}>
+        <p className="text-sm text-white/30">© {new Date().getFullYear()} Southern Cities Construction LLC</p>
+        <p className="mt-1 text-xs text-white/20">North Carolina · Licensed & Insured · Powered by Southern Cities Enterprises</p>
       </footer>
     </div>
   );
