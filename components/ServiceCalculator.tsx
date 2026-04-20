@@ -119,15 +119,15 @@ export default function ServiceCalculator({ config }: { config: ServiceCalculato
       <button
         type="button"
         onClick={handleCalculate}
-        className="mt-4 inline-block w-full rounded-full border py-3 text-center text-sm font-semibold transition-all duration-300 hover:opacity-90"
-        style={{ borderColor: ORANGE, color: NAVY }}
+        className="mt-4 inline-block w-full rounded-full py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
+        style={{ backgroundColor: ORANGE }}
       >
-        Calculate Price
+        {config.actionLabel}
       </button>
 
       {price !== null && (
         <div className="mt-4 rounded-2xl border border-white bg-white p-4 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">Estimated price</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">Calculated price</p>
           <p className="mt-1 text-2xl font-extrabold" style={{ color: ORANGE }}>{formatPrice(price)}</p>
           {config.actionType === 'cart' ? (
             <Link
