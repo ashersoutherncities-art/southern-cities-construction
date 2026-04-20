@@ -291,7 +291,7 @@ export default function Home() {
               >
                 {realtorLink.label}
               </a>
-              <CartNavLink className="ml-1 lg:ml-2 text-white/90 hover:text-orange px-2.5 lg:px-3 py-2 rounded-lg text-[13px] lg:text-[14px] font-medium tracking-normal transition-colors duration-200 hover:bg-white/5 whitespace-nowrap hidden xl:block" />
+              <CartNavLink className="ml-1 lg:ml-2 text-white/90 hover:text-orange px-2.5 lg:px-3 py-2 rounded-lg text-[13px] lg:text-[14px] font-medium tracking-normal transition-colors duration-200 hover:bg-white/5 whitespace-nowrap hidden lg:block" />
               <a
                 href="https://clients.southerncitiesconstruction.com"
                 target="_blank"
