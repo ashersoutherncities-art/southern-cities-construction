@@ -561,37 +561,11 @@ export default function ServicesPage() {
       <section id="services" className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Flagship Service"
-            text="Our lead service is permit administration and construction oversight for jobs that need structure, compliance, and tighter execution control."
-          />
-          <div className="grid gap-6 lg:grid-cols-1">
-            <Card card={FLAGSHIP_SERVICE} />
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          <SectionHeader
-            title="Standard Products"
-            text="Fixed services with a clear starting price and a direct way to buy."
-          />
-          <div className="grid gap-6 lg:grid-cols-2">
-            {STANDARD_PRODUCTS.map((card) => (
-              <Card key={card.title} card={card} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 sm:py-24">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          <SectionHeader
-            title="Bundles"
-            text="Packaged scopes of work with a defined service package and starting price."
+            title="Add to Cart"
+            text="These services have a fixed price and can be added to cart right now."
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {BUNDLES.map((card) => (
+            {[...STANDARD_PRODUCTS, BUNDLES[0], FEE_BASED_SERVICES[1]].map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
@@ -601,11 +575,11 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Fee-Based Services"
-            text="Paid reviews, assessments, and consulting before you commit to a project."
+            title="Calculated Price"
+            text="These services need a few project details first. Enter the details, get the price, then add them to cart."
           />
           <div className="grid gap-6 lg:grid-cols-2">
-            {FEE_BASED_SERVICES.map((card) => (
+            {[BUNDLES[1], BUNDLES[2], FEE_BASED_SERVICES[0], FEE_BASED_SERVICES[2]].map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
@@ -615,14 +589,12 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Project-Dependent Services"
-            text="Larger jobs that need a project review before pricing. Scope changes based on size, condition, and timeline."
+            title="Request a Quote"
+            text="These jobs need a project review before pricing. Send the details and we will scope the next step."
           />
-          <div className="flex flex-wrap justify-center gap-6">
-            {PROJECT_DEPENDENT_SERVICES.map((card) => (
-              <div key={card.title} className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
-                <Card card={card} />
-              </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[FLAGSHIP_SERVICE, FEE_BASED_SERVICES[3], ...PROJECT_DEPENDENT_SERVICES].map((card) => (
+              <Card key={card.title} card={card} />
             ))}
           </div>
         </div>
