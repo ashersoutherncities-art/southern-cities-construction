@@ -27,7 +27,7 @@ const FLAGSHIP_SERVICE: ServiceCard = {
   deliverables: [
     'Permit administration and submission support',
     'Inspection coordination and milestone tracking',
-    'Progress documentation requirements',
+    'Progress documentation and compliance checkpoints',
     'Issue escalation when the work drifts off track',
   ],
   price: 'Custom quote',
@@ -35,23 +35,6 @@ const FLAGSHIP_SERVICE: ServiceCard = {
   ctaHref: '#contact',
   badge: 'Flagship',
 };
-
-const BUNDLES: ServiceCard[] = [
-  {
-    title: 'Pre-Listing Work',
-    description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
-    forWho: 'For realtors and sellers who need a house cleaned up before listing.',
-    deliverables: [
-      'Scope review',
-      'Listing-prep work plan',
-      'Repair and refresh coordination',
-      'Timeline built around the listing date',
-    ],
-    price: '$5,000-$15,000',
-    cta: 'Add to Cart',
-    itemKey: 'pre-listing-renovation',
-  },
-];
 
 const STANDARD_PRODUCTS: ServiceCard[] = [
   {
@@ -69,6 +52,34 @@ const STANDARD_PRODUCTS: ServiceCard[] = [
     itemKey: 'permit-management-service',
   },
   {
+    title: 'Inspection Response',
+    description: 'We review inspection issues and help define the repair path fast.',
+    forWho: 'For realtors and buyers trying to keep a deal alive after the inspection report comes back.',
+    deliverables: [
+      'Inspection issue review',
+      'Repair-scope recommendation',
+      'Fast starting assessment',
+      'Next-step guidance',
+    ],
+    price: '$299',
+    cta: 'Add to Cart',
+    itemKey: 'inspection-response-service',
+  },
+  {
+    title: 'Home Assessment',
+    description: 'We walk the property, review the condition, and tell you what needs to happen next.',
+    forWho: 'For homeowners who need a real starting point before taking on repairs or renovation work.',
+    deliverables: [
+      'Property walkthrough',
+      'Scope review',
+      'Condition notes',
+      'Clear next-step recommendation',
+    ],
+    price: '$299',
+    cta: 'Add to Cart',
+    itemKey: 'inspection-response-service',
+  },
+  {
     title: 'Sub Network Access',
     description: 'We provide access to vetted subcontractor coverage and structured coordination support.',
     forWho: 'For partner contractors who need labor coverage, cleaner coordination, and better overflow support.',
@@ -81,6 +92,51 @@ const STANDARD_PRODUCTS: ServiceCard[] = [
     price: '$349/mo',
     cta: 'Add to Cart',
     itemKey: 'sub-network-access',
+  },
+];
+
+const BUNDLES: ServiceCard[] = [
+  {
+    title: 'Pre-Listing Work',
+    description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
+    forWho: 'For realtors and sellers who need a house cleaned up before listing.',
+    deliverables: [
+      'Scope review',
+      'Listing-prep work plan',
+      'Repair and refresh coordination',
+      'Timeline built around the listing date',
+    ],
+    price: '$5,000-$15,000',
+    cta: 'Add to Cart',
+    itemKey: 'pre-listing-renovation',
+  },
+  {
+    title: 'Rent-Ready Turn',
+    description: 'We get a vacant unit cleaned up, repaired, and ready for a new tenant.',
+    forWho: 'For investors and property managers who need a unit turned fast without cutting corners.',
+    deliverables: [
+      'Unit walkthrough and scope',
+      'Repair and refresh coordination',
+      'Cleaning and punchlist closeout',
+      'Turnover timeline management',
+    ],
+    price: '[CONFIRM: price]',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+  },
+  {
+    title: 'Permit + Inspection Package',
+    description: 'We handle permit submission and inspection coordination together so nothing falls through the cracks.',
+    forWho: 'For contractors and owners running permitted jobs who want one point of contact for the paperwork side.',
+    deliverables: [
+      'Permit application and submission',
+      'Correction response coordination',
+      'Inspection scheduling and follow-up',
+      'Status tracking through closeout',
+    ],
+    price: '[CONFIRM: price]',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
   },
 ];
 
@@ -100,52 +156,94 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
     ctaHref: '#contact',
   },
   {
-    title: 'Inspection Response',
-    description: 'We review inspection issues and help define the repair path fast.',
-    forWho: 'For realtors and buyers trying to keep a deal alive after the inspection report comes back.',
+    title: 'Realtor Inspection Review',
+    description: 'We review inspection findings and give you a clear repair path to keep the deal moving.',
+    forWho: 'For realtors who need fast construction-side guidance after an inspection report.',
     deliverables: [
-      'Inspection issue review',
+      'Inspection report review',
       'Repair-scope recommendation',
-      'Fast starting assessment',
+      'Timeline and cost range estimate',
       'Next-step guidance',
     ],
-    price: '$299 assessment',
+    price: '$299',
     cta: 'Add to Cart',
     itemKey: 'inspection-response-service',
   },
   {
-    title: 'Referral Partners',
-    description: 'We work with agents who need a contractor they can keep sending people to.',
-    forWho: 'For realtors and real estate professionals who want a repeat relationship for repair, listing prep, and renovation work.',
+    title: 'Owner Consultation',
+    description: 'We sit down with you, review the project, and help you figure out the right plan before you spend money.',
+    forWho: 'For property owners who want construction-side guidance before committing to a scope or contractor.',
     deliverables: [
-      'Referral relationship setup',
-      'Project handoff after intro',
-      'Repeat project support',
-      'Referral tracking',
+      'Project review and discussion',
+      'Scope and budget guidance',
+      'Risk and timeline notes',
+      'Written next-step recommendation',
     ],
-    price: '5-10% referral fee',
-    cta: 'Become a Partner',
-    ctaHref: '/realtor',
+    price: '[CONFIRM: price]',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+  },
+  {
+    title: 'Construction Feasibility Review',
+    description: 'We review the property, the numbers, and the scope to tell you whether the project makes sense before you start.',
+    forWho: 'For investors, developers, and owners evaluating whether a project is worth pursuing.',
+    deliverables: [
+      'Property and scope review',
+      'Budget feasibility assessment',
+      'Risk and timeline notes',
+      'Go / no-go recommendation',
+    ],
+    price: 'Custom quote',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
   },
 ];
 
 const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
   {
-    title: 'Construction Oversight',
-    description: 'We keep the job documented, tracked, and moving when the work needs tighter control.',
-    forWho: 'For owners and project leads who need more structure around progress, compliance, and project accountability.',
+    title: 'Full Renovation',
+    description: 'We manage full renovation projects from scope through completion.',
+    forWho: 'For homeowners planning bigger repairs, remodels, or full renovation work.',
     deliverables: [
-      'Milestone tracking',
-      'Progress documentation requirements',
-      'Issue escalation',
-      'Inspection and compliance checkpoints',
+      'Project scope and planning',
+      'Subcontractor coordination',
+      'Progress tracking and reporting',
+      'Inspection and closeout management',
     ],
     price: 'Custom quote',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
   {
-    title: 'Overflow Projects',
+    title: 'Addition / Major Remodel',
+    description: 'We handle additions and major remodel projects that require permits, engineering, and phased execution.',
+    forWho: 'For homeowners adding square footage or making structural changes to the property.',
+    deliverables: [
+      'Scope development and planning',
+      'Permit and engineering coordination',
+      'Phased construction management',
+      'Final inspection and closeout',
+    ],
+    price: 'Custom quote',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+  },
+  {
+    title: 'Ground-Up Residential',
+    description: 'We build new residential construction from site prep through certificate of occupancy.',
+    forWho: 'For developers and landowners building new homes or small residential projects.',
+    deliverables: [
+      'Pre-construction planning',
+      'Permit and compliance coordination',
+      'Full construction management',
+      'Final inspection and CO delivery',
+    ],
+    price: 'Custom quote',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+  },
+  {
+    title: 'Overflow Project Support',
     description: 'We step in when you have more work than your current team can carry.',
     forWho: 'For general contractors who need help finishing jobs without letting quality or timelines slip.',
     deliverables: [
@@ -154,19 +252,19 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
       'Weekly progress reporting',
       'Clear scope and coordination',
     ],
-    price: '15-20% of project',
+    price: 'Custom quote',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
   {
-    title: 'Renovation Quote',
-    description: 'We price larger renovation work after we review the property and scope.',
-    forWho: 'For homeowners planning bigger repairs, remodels, or full renovation work.',
+    title: 'Owner Rep / Oversight',
+    description: 'We represent the owner on the job site and make sure the work matches the plan.',
+    forWho: 'For property owners and developers who want an independent set of eyes on the project.',
     deliverables: [
-      'Project scope review',
-      'Work-plan discussion',
-      'Pricing after review',
-      'Next-step recommendation',
+      'Regular site visits and reporting',
+      'Progress verification against scope',
+      'Issue identification and escalation',
+      'Draw and payment review support',
     ],
     price: 'Custom quote',
     cta: 'Request a Quote',
@@ -180,8 +278,10 @@ const OTHER_CLIENTS = [
     text: 'Subcontractors who want repeat work can contact us about network participation and upcoming jobs.',
   },
   {
-    title: 'Investors',
-    text: 'Investors who need deal review, operator guidance, or acquisition support should use Southern Cities Investors.',
+    title: 'Referral Partners',
+    text: 'Realtors and real estate professionals who want a repeat contractor relationship for repair, listing prep, and renovation work.',
+    link: '/realtor',
+    linkText: 'Become a Partner',
   },
 ];
 
@@ -332,22 +432,8 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Bundles"
-            text="These are packaged scopes of work with a defined service package and starting price."
-          />
-          <div className="grid gap-6 lg:grid-cols-3">
-            {BUNDLES.map((card) => (
-              <Card key={card.title} card={card} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          <SectionHeader
             title="Standard Products"
-            text="These are fixed services with a clear starting price and a direct way to buy."
+            text="Fixed services with a clear starting price and a direct way to buy."
           />
           <div className="grid gap-6 lg:grid-cols-2">
             {STANDARD_PRODUCTS.map((card) => (
@@ -360,11 +446,11 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Fee-Based Services"
-            text="These are paid services where you are paying for review, assessment, or referral-based support."
+            title="Bundles"
+            text="Packaged scopes of work with a defined service package and starting price."
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {FEE_BASED_SERVICES.map((card) => (
+            {BUNDLES.map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
@@ -374,8 +460,22 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
+            title="Fee-Based Services"
+            text="Paid reviews, assessments, and consulting before you commit to a project."
+          />
+          <div className="grid gap-6 lg:grid-cols-2">
+            {FEE_BASED_SERVICES.map((card) => (
+              <Card key={card.title} card={card} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionHeader
             title="Project-Dependent Services"
-            text="These jobs need project review before pricing because the scope can change based on size, condition, and timeline."
+            text="Larger jobs that need a project review before pricing. Scope changes based on size, condition, and timeline."
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {PROJECT_DEPENDENT_SERVICES.map((card) => (
@@ -389,13 +489,16 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Other Clients"
-            text="Some work starts outside standard checkout. Reach out directly if you fit one of these groups."
+            text="Reach out directly if you fit one of these groups."
           />
           <div className="grid gap-5 md:grid-cols-2">
             {OTHER_CLIENTS.map((item) => (
               <div key={item.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 <h3 className="mb-2 text-2xl font-extrabold" style={{ color: NAVY }}>{item.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-600">{item.text}</p>
+                <p className="mb-3 text-sm leading-relaxed text-gray-600">{item.text}</p>
+                {'link' in item && item.link && (
+                  <a href={item.link} className="text-sm font-semibold" style={{ color: ORANGE }}>{(item as any).linkText || 'Learn More'}</a>
+                )}
               </div>
             ))}
           </div>
