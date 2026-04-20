@@ -31,10 +31,10 @@ type OtherClientCard = {
 
 const FLAGSHIP_SERVICE: ServiceCard = {
   title: 'Permit Administration + Construction Oversight',
-  description: 'We handle permit coordination, inspection tracking, documentation, and project oversight for jobs that need tighter control.',
-  forWho: 'For owners, investors, and partner contractors who need a licensed contractor involved in keeping the project moving correctly.',
+  description: 'We pull the permit, run the inspections, and oversee the construction as the licensed general contractor of record.',
+  forWho: 'For owners and investors who need a licensed GC to take responsibility for the job end to end.',
   deliverables: [
-    'Permit administration and submission support',
+    'Permit pulled under our license',
     'Inspection coordination and milestone tracking',
     'Progress documentation and compliance checkpoints',
     'Issue escalation when the work drifts off track',
@@ -48,13 +48,13 @@ const FLAGSHIP_SERVICE: ServiceCard = {
 const STANDARD_PRODUCTS: ServiceCard[] = [
   {
     title: 'Permit Help',
-    description: 'We handle permit paperwork, submission, follow-up, and inspection coordination.',
-    forWho: 'For homeowners, partner contractors, and operators who need permit work pushed through without dragging the job down.',
+    description: 'We handle the permit paperwork, submission, correction responses, and inspection scheduling on your behalf.',
+    forWho: 'For licensed contractors who want to stay on the permit but hand off the administrative work.',
     deliverables: [
-      'Permit application support',
-      'Submission and follow-up',
+      'Permit application prep and submission',
       'Correction response coordination',
-      'Inspection scheduling support',
+      'Inspection scheduling and follow-up',
+      'Status tracking through closeout',
     ],
     price: '$1,500-$3,500 per permit',
     cta: 'Add to Cart',
