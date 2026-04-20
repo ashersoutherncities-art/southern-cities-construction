@@ -10,166 +10,156 @@ const ORANGE = '#fa8c41';
 
 type ServiceCard = {
   title: string;
+  description: string;
+  forWho: string;
+  deliverables: string[];
   price: string;
-  summary: string;
-  bullets: string[];
   cta: string;
   itemKey?: string;
   ctaHref?: string;
   badge?: string;
 };
 
-const START_HERE_CARDS: ServiceCard[] = [
-  {
-    title: 'Permit Administration',
-    price: '$1,500-$3,500 per permit',
-    summary: 'Best when you need help getting plans, submissions, corrections, and inspections across the line.',
-    bullets: [
-      'Permit application and submission support',
-      'Correction handling and follow-up',
-      'Inspection coordination',
-      'Clear path into checkout and onboarding',
-    ],
-    cta: 'Add to Cart',
-    itemKey: 'permit-management-service',
-    badge: 'Buy Now',
-  },
-  {
-    title: 'Home Assessment',
-    price: '$299',
-    summary: 'Best first step when you need scope clarity before deciding on repairs or renovation work.',
-    bullets: [
-      'Property walkthrough',
-      'Scope and condition review',
-      'Clear next-step recommendation',
-      'Useful before quoting larger work',
-    ],
-    cta: 'Add to Cart',
-    itemKey: 'inspection-response-service',
-    badge: 'Best First Step',
-  },
-  {
-    title: 'Custom Project Quote',
-    price: 'Custom pricing',
-    summary: 'Best when the project is larger, more variable, or needs review before a real number can be given.',
-    bullets: [
-      'Renovations and larger scopes',
-      'Ground-up or major residential work',
-      'Overflow project execution',
-      'Use the form below to start',
-    ],
-    cta: 'Request a Quote',
-    ctaHref: '#contact',
-    badge: 'Custom Scope',
-  },
-];
-
 const CORE_SERVICES: ServiceCard[] = [
   {
-    title: 'Permit Administration',
-    price: '$1,500-$3,500 per permit',
-    summary: 'For owners, contractors, and operators who need permit handling done correctly and pushed through.',
-    bullets: [
-      'Application prep and submission',
-      'Municipal follow-up',
+    title: 'Permit Help',
+    description: 'We handle permit paperwork, submission, follow-up, and inspection coordination.',
+    forWho: 'For homeowners, contractors, and operators who need permit work pushed through without dragging the job down.',
+    deliverables: [
+      'Permit application support',
+      'Submission and follow-up',
       'Correction response coordination',
       'Inspection scheduling support',
     ],
+    price: '$1,500-$3,500 per permit',
     cta: 'Add to Cart',
     itemKey: 'permit-management-service',
   },
   {
     title: 'Construction Oversight',
-    price: 'Custom scope',
-    summary: 'For projects that need more structure, milestone control, documentation, and issue escalation.',
-    bullets: [
+    description: 'We keep the job documented, tracked, and moving when the work needs tighter control.',
+    forWho: 'For owners and project leads who need more structure around progress, compliance, and project accountability.',
+    deliverables: [
       'Milestone tracking',
-      'Project compliance checkpoints',
-      'Progress documentation expectations',
-      'Oversight tied to signed project obligations',
+      'Progress documentation requirements',
+      'Issue escalation',
+      'Inspection and compliance checkpoints',
     ],
-    cta: 'Request Oversight Plan',
+    price: 'Custom quote',
+    cta: 'Request a Quote',
     ctaHref: '#contact',
   },
   {
-    title: 'Overflow Project Partner',
-    price: '15-20% of project',
-    summary: 'For general contractors who need help carrying overflow work without dropping execution quality.',
-    bullets: [
-      'Overflow capacity support',
-      'Southern Cities execution layer',
+    title: 'Overflow Projects',
+    description: 'We step in when you have more work than your current team can carry.',
+    forWho: 'For general contractors who need help finishing jobs without letting quality or timelines slip.',
+    deliverables: [
+      'Project review before start',
+      'Execution support from our team',
       'Weekly progress reporting',
-      'Custom review before onboarding',
+      'Clear scope and coordination',
     ],
-    cta: 'Let\'s Talk',
+    price: '15-20% of project',
+    cta: 'Request a Quote',
     ctaHref: '#contact',
   },
 ];
 
-const AUDIENCE_PATHS = [
+const HOMEOWNER_SERVICES: ServiceCard[] = [
   {
-    title: 'General Contractors',
-    text: 'Start with Permit Administration if the main problem is permitting. Use Overflow Project Partner if the problem is capacity.',
+    title: 'Home Assessment',
+    description: 'We walk the property, review the work, and tell you what needs to happen next.',
+    forWho: 'For homeowners who need a real starting point before taking on repairs or renovation work.',
+    deliverables: [
+      'Property walkthrough',
+      'Scope review',
+      'Condition notes',
+      'Clear next-step recommendation',
+    ],
+    price: '$299',
+    cta: 'Book an Assessment',
+    itemKey: 'inspection-response-service',
   },
   {
-    title: 'Homeowners',
-    text: 'Start with Home Assessment if you need clarity first. Use the quote form if you already know the project is bigger.',
-  },
-  {
-    title: 'Realtors',
-    text: 'Use inspection-response or listing-prep style services when deals are slowing down because of repair scope.',
-  },
-  {
-    title: 'Subcontractors',
-    text: 'The right path is network membership and structured workflow participation, not retail checkout.',
-  },
-  {
-    title: 'Investors',
-    text: 'If you need deal review, operator guidance, or acquisition-side support, go to Southern Cities Investors.',
+    title: 'Renovation Quote',
+    description: 'We price larger renovation work after we review the property and scope.',
+    forWho: 'For homeowners planning bigger repairs, remodels, or full renovation work.',
+    deliverables: [
+      'Project scope review',
+      'Work-plan discussion',
+      'Pricing after review',
+      'Next-step recommendation',
+    ],
+    price: 'Custom quote',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
   },
 ];
 
 const REALTOR_SERVICES: ServiceCard[] = [
   {
-    title: 'Pre-Listing Renovation',
-    price: '$5,000-$15,000',
-    summary: 'For agents and owners who need a property cleaned up before going to market.',
-    bullets: [
-      'Paint, flooring, bath, and kitchen refresh scope',
-      'Fast-turn listing prep',
-      'Coordinated around listing timeline',
-      'Quote required before full start',
+    title: 'Pre-Listing Work',
+    description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
+    forWho: 'For realtors and sellers who need a house cleaned up before listing.',
+    deliverables: [
+      'Scope review',
+      'Listing-prep work plan',
+      'Repair and refresh coordination',
+      'Timeline built around the listing date',
     ],
+    price: '$5,000-$15,000',
     cta: 'Add to Cart',
     itemKey: 'pre-listing-renovation',
   },
   {
-    title: 'Inspection Response Service',
-    price: '$299 assessment',
-    summary: 'For deals where inspection items are threatening close probability and someone needs a fast read.',
-    bullets: [
+    title: 'Inspection Response',
+    description: 'We review inspection issues and help define the repair path fast.',
+    forWho: 'For realtors and buyers trying to keep a deal alive after the inspection report comes back.',
+    deliverables: [
       'Inspection issue review',
-      'Repair-path recommendation',
-      'Useful before committing to full repair scope',
-      'Fast-turn starting point',
+      'Repair-scope recommendation',
+      'Fast starting assessment',
+      'Next-step guidance',
     ],
+    price: '$299 assessment',
     cta: 'Add to Cart',
     itemKey: 'inspection-response-service',
   },
   {
-    title: 'Referral Partner Program',
-    price: '5-10% referral fee',
-    summary: 'For agents who want a repeat referral relationship with renovation and project support behind it.',
-    bullets: [
-      'Referral-based relationship',
-      'We handle project execution after intro',
-      'Best for agents with repeat renovation needs',
-      'Relationship setup required',
+    title: 'Referral Partners',
+    description: 'We work with agents who need a contractor they can keep sending people to.',
+    forWho: 'For realtors who want a repeat relationship for renovation work, listing prep, and repair projects.',
+    deliverables: [
+      'Referral relationship setup',
+      'Project handoff after intro',
+      'Repeat project support',
+      'Referral tracking',
     ],
+    price: '5-10% referral fee',
     cta: 'Become a Partner',
     ctaHref: '/realtor',
   },
 ];
+
+const OTHER_CLIENTS = [
+  {
+    title: 'Subcontractors',
+    text: 'Subcontractors who want repeat work can contact us about network participation and upcoming jobs.',
+  },
+  {
+    title: 'Investors',
+    text: 'Investors who need deal review, operator guidance, or acquisition support should use Southern Cities Investors.',
+  },
+];
+
+function SectionHeader({ title, text, light = false }: { title: string; text: string; light?: boolean }) {
+  return (
+    <div className="mb-12 max-w-3xl">
+      <h2 className="mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ color: light ? '#fff' : NAVY }}>{title}</h2>
+      <p className="text-lg leading-relaxed" style={{ color: light ? 'rgba(255,255,255,0.7)' : '#6b7280' }}>{text}</p>
+    </div>
+  );
+}
 
 function Card({ card }: { card: ServiceCard }) {
   return (
@@ -179,21 +169,19 @@ function Card({ card }: { card: ServiceCard }) {
           {card.badge}
         </span>
       )}
-
       <div className="flex flex-1 flex-col p-8">
-        <h3 className="mb-2 text-2xl font-extrabold" style={{ color: NAVY }}>{card.title}</h3>
-        <p className="mb-4 text-2xl font-bold" style={{ color: ORANGE }}>{card.price}</p>
-        <p className="mb-6 text-sm leading-relaxed text-gray-600">{card.summary}</p>
-
-        <ul className="mb-8 flex-1 space-y-3">
-          {card.bullets.map((bullet) => (
-            <li key={bullet} className="flex items-start gap-2 text-[15px] text-gray-600">
+        <h3 className="mb-3 text-2xl font-extrabold" style={{ color: NAVY }}>{card.title}</h3>
+        <p className="mb-3 text-sm leading-relaxed text-gray-700">{card.description}</p>
+        <p className="mb-5 text-sm leading-relaxed text-gray-600">{card.forWho}</p>
+        <ul className="mb-6 flex-1 space-y-3">
+          {card.deliverables.map((item) => (
+            <li key={item} className="flex items-start gap-2 text-[15px] text-gray-600">
               <span className="mt-1 h-2 w-2 rounded-full" style={{ backgroundColor: ORANGE }} />
-              <span>{bullet}</span>
+              <span>{item}</span>
             </li>
           ))}
         </ul>
-
+        <p className="mb-6 text-xl font-bold" style={{ color: ORANGE }}>{card.price}</p>
         {card.itemKey ? (
           <AddToCartButton
             itemKey={card.itemKey}
@@ -210,16 +198,6 @@ function Card({ card }: { card: ServiceCard }) {
           </a>
         )}
       </div>
-    </div>
-  );
-}
-
-function SectionHeader({ eyebrow, title, text, light = false }: { eyebrow: string; title: string; text: string; light?: boolean }) {
-  return (
-    <div className="mb-12 max-w-3xl">
-      <p className="mb-3 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>{eyebrow}</p>
-      <h2 className="mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ color: light ? '#fff' : NAVY }}>{title}</h2>
-      <p className="text-lg leading-relaxed" style={{ color: light ? 'rgba(255,255,255,0.7)' : '#6b7280' }}>{text}</p>
     </div>
   );
 }
@@ -289,51 +267,28 @@ export default function ServicesPage() {
       <section className="relative overflow-hidden py-24 sm:py-32" style={{ backgroundColor: NAVY }}>
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="relative z-10 mx-auto max-w-5xl px-5 text-center sm:px-8">
-          <p className="mb-4 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>Construction Services</p>
           <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
-            Clear services, clear starting points, clear next step
+            We pull permits, manage oversight, and keep residential projects moving.
           </h1>
           <p className="mx-auto mb-10 max-w-3xl text-lg leading-relaxed text-white/65 sm:text-xl">
-            This page should help someone understand what Southern Cities Construction actually sells, what can be bought now, and what needs a custom quote.
+            Southern Cities Construction works with homeowners, general contractors, realtors, and investors who need clear pricing, real execution, and a direct way to get started.
           </p>
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 p-6 text-left" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
-              <p className="mb-2 font-semibold text-white">Buy now</p>
-              <p className="text-sm leading-relaxed text-white/65">Use cart checkout for fixed-entry services with a defined starting price.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 p-6 text-left" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
-              <p className="mb-2 font-semibold text-white">Request a quote</p>
-              <p className="text-sm leading-relaxed text-white/65">Use the form for larger or variable-scope work that needs review first.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 p-6 text-left" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
-              <p className="mb-2 font-semibold text-white">Need investor help?</p>
-              <p className="text-sm leading-relaxed text-white/65">Acquisition and operator advisory work belongs on Southern Cities Investors, not here.</p>
-            </div>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <a href="#contact" className="rounded-full px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90" style={{ backgroundColor: ORANGE }}>
+              Request a Quote
+            </a>
+            <a href="#services" className="rounded-full border border-white/15 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/10">
+              View Services
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="py-20 sm:py-24">
+      <section id="services" className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            eyebrow="Start Here"
-            title="Most visitors only need one of these three paths"
-            text="Instead of sorting through five different audience lanes first, start with the service type that matches the actual job to be done."
-          />
-          <div className="grid gap-6 lg:grid-cols-3">
-            {START_HERE_CARDS.map((card) => (
-              <Card key={card.title} card={card} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          <SectionHeader
-            eyebrow="Core Services"
-            title="What Southern Cities Construction is actually offering"
-            text="These are the main service buckets. Some have a defined checkout path. Others need custom review before pricing and onboarding."
+            title="Core Services"
+            text="We handle permit work, oversight, and project support for residential construction and renovation work in Charlotte and the surrounding area."
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {CORE_SERVICES.map((card) => (
@@ -343,30 +298,25 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24">
+      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            eyebrow="Audience Guide"
-            title="If you still want to sort by audience, use this"
-            text="This keeps the audience guidance short and useful instead of forcing the whole page to be organized around role labels."
+            title="Homeowners"
+            text="Book an assessment if you need to know what the job will take before you commit to bigger work. Request a quote if you already know the project needs a larger scope."
           />
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {AUDIENCE_PATHS.map((path) => (
-              <div key={path.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <p className="mb-2 text-lg font-bold" style={{ color: NAVY }}>{path.title}</p>
-                <p className="text-sm leading-relaxed text-gray-600">{path.text}</p>
-              </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            {HOMEOWNER_SERVICES.map((card) => (
+              <Card key={card.title} card={card} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
+      <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            eyebrow="Realtor Services"
-            title="Useful when a deal is slowing down because of condition, repairs, or listing readiness"
-            text="These are the clearest agent-facing services on the construction side."
+            title="Realtors"
+            text="We help when inspection items, repairs, or listing work are slowing the deal down."
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {REALTOR_SERVICES.map((card) => (
@@ -376,14 +326,19 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24">
+      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-          <div className="rounded-3xl border border-gray-200 bg-gray-50 p-8 sm:p-10">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>Simple Rule</p>
-            <h2 className="mb-4 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>If you can buy it now, we show a starting price. If not, we ask for the project first.</h2>
-            <p className="max-w-3xl text-base leading-relaxed text-gray-600 sm:text-lg">
-              That is the cleanest way to understand this page. Fixed-entry services go through cart and portal checkout. Bigger scopes, renovations, and oversight-heavy work go through project review first.
-            </p>
+          <SectionHeader
+            title="Other Clients"
+            text="Some work starts outside standard checkout. Reach out directly if you fit one of these groups."
+          />
+          <div className="grid gap-5 md:grid-cols-2">
+            {OTHER_CLIENTS.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h3 className="mb-2 text-2xl font-extrabold" style={{ color: NAVY }}>{item.title}</h3>
+                <p className="text-sm leading-relaxed text-gray-600">{item.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -391,15 +346,14 @@ export default function ServicesPage() {
       <section id="contact" className="py-20 sm:py-28" style={{ backgroundColor: NAVY }}>
         <div className="mx-auto max-w-2xl px-5 sm:px-8">
           <div className="mb-12 text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest" style={{ color: ORANGE }}>Request a Quote</p>
-            <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Tell us about the project</h2>
-            <p className="text-lg text-white/60">Use this for custom pricing, larger scopes, oversight requests, or anything that does not fit a simple buy-now path.</p>
+            <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Get a Quote</h2>
+            <p className="text-lg text-white/60">Tell us what the project is, what stage it is in, and what kind of help you need.</p>
           </div>
 
           {submitted ? (
             <div className="rounded-2xl p-10 text-center" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: `1px solid ${ORANGE}` }}>
               <h3 className="mb-2 text-2xl font-bold text-white">We received your request.</h3>
-              <p className="text-white/60">We will review the project and follow up with the right next step.</p>
+              <p className="text-white/60">We will review the project and follow up with the next step.</p>
               <button onClick={() => setSubmitted(false)} className="mt-6 text-sm font-semibold underline" style={{ color: ORANGE }}>Submit another request</button>
             </div>
           ) : (
@@ -434,13 +388,13 @@ export default function ServicesPage() {
                 </div>
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-white/80">Service</label>
-                  <input type="text" name="service" value={formData.service} onChange={handleChange} placeholder="Permit help, oversight, renovation quote, listing prep..." className="w-full rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
+                  <input type="text" name="service" value={formData.service} onChange={handleChange} placeholder="Permit help, oversight, renovation quote..." className="w-full rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
                 </div>
               </div>
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-white/80">Project details</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} rows={5} placeholder="Tell us what the project is, where it stands, and what kind of help you need..." className="w-full resize-none rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
+                <textarea name="message" value={formData.message} onChange={handleChange} rows={5} placeholder="Tell us what the project is and what kind of help you need..." className="w-full resize-none rounded-xl px-4 py-3 text-[15px] text-white focus:outline-none" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }} />
               </div>
 
               {error && <p className="text-center text-sm text-red-400">{error}</p>}
@@ -455,7 +409,7 @@ export default function ServicesPage() {
 
       <footer className="border-t border-white/5 py-8 text-center" style={{ backgroundColor: NAVY }}>
         <p className="text-sm text-white/30">© {new Date().getFullYear()} Southern Cities Construction LLC</p>
-        <p className="mt-1 text-xs text-white/20">North Carolina · Licensed & Insured · Powered by Southern Cities Enterprises</p>
+        <p className="mt-1 text-xs text-white/20">Charlotte, NC · Licensed General Contractor · Powered by Southern Cities Enterprises</p>
       </footer>
     </div>
   );
