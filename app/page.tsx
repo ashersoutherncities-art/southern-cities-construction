@@ -247,67 +247,65 @@ export default function Home() {
   }, []);
 
   const navLinks = [
-    { href: '#flagship-service', label: 'Flagship Service' },
-    { href: '#services', label: 'Services' },
+    { href: '#flagship-service', label: 'Flagship' },
     { href: '#process', label: 'Process' },
-    { href: '#tools', label: 'Tools' },
     { href: '#projects', label: 'Projects' },
     { href: '#contact', label: 'Contact' },
   ];
 
-  const pricingLink = { href: '/services', label: 'Services & Pricing' };
-  const realtorLink = { href: '/realtor', label: 'Realtor Services' };
+  const pricingLink = { href: '/services', label: 'Pricing' };
+  const realtorLink = { href: '/realtor', label: 'Realtors' };
 
   return (
     <div className="min-h-screen overflow-x-hidden">
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-navy/95 backdrop-blur-md shadow-2xl shadow-navy/20' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="flex justify-between items-center h-20 lg:h-24">
-            <div className="flex items-center">
+          <div className="flex justify-between items-center h-20 lg:h-24 gap-4 lg:gap-6">
+            <div className="flex items-center shrink-0">
               <img
                 src="/sc-construction-logo.png"
                 alt="Southern Cities Construction"
-                className="h-12 w-auto md:h-14 lg:h-16"
+                className="h-10 w-auto md:h-12 lg:h-14"
               />
             </div>
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center justify-end flex-1 min-w-0 gap-1 lg:gap-1.5">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5"
+                  className="text-white/90 hover:text-orange px-2.5 lg:px-3 py-2 rounded-lg text-[13px] lg:text-[14px] font-medium tracking-normal transition-colors duration-200 hover:bg-white/5 whitespace-nowrap"
                 >
                   {link.label}
                 </a>
               ))}
               <a
                 href={pricingLink.href}
-                className="text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5"
+                className="text-white/90 hover:text-orange px-2.5 lg:px-3 py-2 rounded-lg text-[13px] lg:text-[14px] font-medium tracking-normal transition-colors duration-200 hover:bg-white/5 whitespace-nowrap"
               >
                 {pricingLink.label}
               </a>
               <a
                 href={realtorLink.href}
-                className="text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5"
+                className="text-white/90 hover:text-orange px-2.5 lg:px-3 py-2 rounded-lg text-[13px] lg:text-[14px] font-medium tracking-normal transition-colors duration-200 hover:bg-white/5 whitespace-nowrap"
               >
                 {realtorLink.label}
               </a>
-              <CartNavLink className="ml-2 text-white/90 hover:text-orange px-4 py-2 rounded-lg text-[15px] font-medium tracking-wide transition-colors duration-200 hover:bg-white/5 hidden lg:block" />
+              <CartNavLink className="ml-1 lg:ml-2 text-white/90 hover:text-orange px-2.5 lg:px-3 py-2 rounded-lg text-[13px] lg:text-[14px] font-medium tracking-normal transition-colors duration-200 hover:bg-white/5 whitespace-nowrap hidden xl:block" />
               <a
                 href="https://clients.southerncitiesconstruction.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 bg-orange hover:bg-orange-500 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange/30 flex items-center gap-1.5"
+                className="ml-1 lg:ml-2 bg-orange hover:bg-orange-500 text-white px-4 lg:px-4.5 py-2.5 rounded-full text-[13px] lg:text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-orange/30 flex items-center gap-1.5 whitespace-nowrap shrink-0"
               >
-                Client Portal
+                Portal
                 {icons.externalLink}
               </a>
               <a
                 href="#contact"
-                className="ml-2 bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+                className="ml-1 lg:ml-2 bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 text-white px-4 lg:px-4.5 py-2.5 rounded-full text-[13px] lg:text-sm font-semibold transition-all duration-300 whitespace-nowrap shrink-0"
               >
-                Get a Quote
+                Quote
               </a>
             </div>
             {/* Mobile menu button */}
