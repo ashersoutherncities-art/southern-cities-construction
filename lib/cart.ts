@@ -10,6 +10,17 @@ export type ConstructionCartProduct = {
   checkoutAmount: string;
 };
 
+export type CartSelection = {
+  key: string;
+  amount?: number;
+};
+
+export type CartLineItem = {
+  key: string;
+  amount: number;
+  product: ConstructionCartProduct;
+};
+
 export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
   'permit-management-service': {
     key: 'permit-management-service',
@@ -47,37 +58,98 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'Assessment-first service for inspection issues that are threatening close probability.',
     checkoutAmount: '299',
   },
+  'home-assessment': {
+    key: 'home-assessment',
+    name: 'Home Assessment',
+    shortName: 'Home Assessment',
+    price: 29900,
+    priceLabel: '$299 assessment',
+    description: 'Property walkthrough, condition review, and a clear next-step recommendation before repairs or renovation.',
+    checkoutAmount: '299',
+  },
+  'realtor-inspection-review': {
+    key: 'realtor-inspection-review',
+    name: 'Realtor Inspection Review',
+    shortName: 'Realtor Review',
+    price: 29900,
+    priceLabel: '$299 review',
+    description: 'Inspection report review with repair-path guidance built for agents trying to keep a deal on track.',
+    checkoutAmount: '299',
+  },
 };
 
-export function sanitizeCartItems(items: string[]): string[] {
+function normalizeAmount(value: string | undefined): number | undefined {
+  if (!value) return undefined;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed <= 0) return undefined;
+  return Math.round(parsed * 100);
+}
+
+function sanitizeCartSelections(items: CartSelection[]): CartSelection[] {
   const seen = new Set<string>();
-  const output: string[] = [];
+  const output: CartSelection[] = [];
   for (const item of items) {
-    if (!CART_PRODUCTS[item] || seen.has(item)) continue;
-    seen.add(item);
-    output.push(item);
+    if (!CART_PRODUCTS[item.key] || seen.has(item.key)) continue;
+    seen.add(item.key);
+    output.push(item.amount ? { key: item.key, amount: item.amount } : { key: item.key });
   }
   return output;
 }
 
-export function buildCartHref(items: string[]): string {
-  const valid = sanitizeCartItems(items);
-  if (!valid.length) return '/cart';
-  return `/cart?${CART_QUERY_KEY}=${encodeURIComponent(valid.join(','))}`;
+export function sanitizeCartItems(items: string[]): string[] {
+  return sanitizeCartSelections(items.map((item) => ({ key: item }))).map((item) => item.key);
 }
 
-export function parseCartParam(value: string | null | undefined): string[] {
+function serializeCartSelection(item: CartSelection): string {
+  if (!item.amount) return item.key;
+  return `${item.key}:${(item.amount / 100).toString()}`;
+}
+
+export function buildCartHref(items: Array<string | CartSelection>): string {
+  const selections = items.map((item) => (typeof item === 'string' ? { key: item } : item));
+  const valid = sanitizeCartSelections(selections);
+  if (!valid.length) return '/cart';
+  return `/cart?${CART_QUERY_KEY}=${encodeURIComponent(valid.map(serializeCartSelection).join(','))}`;
+}
+
+export function parseCartParam(value: string | null | undefined): CartSelection[] {
   if (!value) return [];
-  return sanitizeCartItems(
+  return sanitizeCartSelections(
     value
       .split(',')
-      .map((v) => v.trim())
+      .map((entry) => entry.trim())
       .filter(Boolean)
+      .map((entry) => {
+        const [key, rawAmount] = entry.split(':');
+        return { key, amount: normalizeAmount(rawAmount) };
+      })
   );
 }
 
-export function getCartProducts(items: string[]): ConstructionCartProduct[] {
-  return sanitizeCartItems(items).map((item) => CART_PRODUCTS[item]).filter(Boolean);
+export function getCartProducts(items: Array<string | CartSelection>): ConstructionCartProduct[] {
+  const selections = items.map((item) => (typeof item === 'string' ? { key: item } : item));
+  return sanitizeCartSelections(selections).map((item) => CART_PRODUCTS[item.key]).filter(Boolean);
+}
+
+export function getCartLineItems(items: CartSelection[]): CartLineItem[] {
+  return sanitizeCartSelections(items)
+    .map((item) => {
+      const product = CART_PRODUCTS[item.key];
+      if (!product) return null;
+      return {
+        key: item.key,
+        amount: item.amount ?? product.price,
+        product,
+      };
+    })
+    .filter((item): item is CartLineItem => item !== null);
+}
+
+export function buildDirectCheckoutHref(item: CartSelection): string {
+  const product = CART_PRODUCTS[item.key];
+  const amount = item.amount ?? product?.price;
+  if (!product || !amount) return '/portal';
+  return `/portal?item=${product.key}&amount=${encodeURIComponent((amount / 100).toString())}`;
 }
 
 export function formatPrice(cents: number): string {

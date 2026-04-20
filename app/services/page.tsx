@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import AddToCartButton from '@/components/AddToCartButton';
 import CartNavLink from '@/components/CartNavLink';
+import ServiceCalculator, { ServiceCalculatorConfig } from '@/components/ServiceCalculator';
 
 const NAVY = '#132452';
 const ORANGE = '#fa8c41';
@@ -18,6 +19,14 @@ type ServiceCard = {
   itemKey?: string;
   ctaHref?: string;
   badge?: string;
+  calculator?: ServiceCalculatorConfig;
+};
+
+type OtherClientCard = {
+  title: string;
+  text: string;
+  link?: string;
+  linkText?: string;
 };
 
 const FLAGSHIP_SERVICE: ServiceCard = {
@@ -77,7 +86,7 @@ const STANDARD_PRODUCTS: ServiceCard[] = [
     ],
     price: '$299',
     cta: 'Add to Cart',
-    itemKey: 'inspection-response-service',
+    itemKey: 'home-assessment',
   },
   {
     title: 'Sub Network Access',
@@ -120,9 +129,47 @@ const BUNDLES: ServiceCard[] = [
       'Cleaning and punchlist closeout',
       'Turnover timeline management',
     ],
-    price: '[CONFIRM: price]',
-    cta: 'Request a Quote',
-    ctaHref: '#contact',
+    price: 'Calculated by unit mix',
+    cta: 'Add to Cart',
+    calculator: {
+      itemKey: 'pre-listing-renovation',
+      actionLabel: 'Add to Cart',
+      actionType: 'cart',
+      fields: [
+        { name: 'units', label: 'Number of units', type: 'number', min: 1, max: 10, defaultValue: 1 },
+        {
+          name: 'squareFootage',
+          label: 'Approximate square footage per unit',
+          type: 'select',
+          defaultValue: 'under-800',
+          options: [
+            { value: 'under-800', label: 'Under 800' },
+            { value: '800-1200', label: '800-1200' },
+            { value: '1200-1600', label: '1200-1600' },
+            { value: '1600-plus', label: '1600+' },
+          ],
+        },
+        {
+          name: 'condition',
+          label: 'Condition',
+          type: 'select',
+          defaultValue: 'light-refresh',
+          options: [
+            { value: 'light-refresh', label: 'Light refresh' },
+            { value: 'moderate', label: 'Moderate' },
+            { value: 'heavy', label: 'Heavy' },
+          ],
+        },
+      ],
+      calculatePrice: (values) => {
+        const units = Number(values.units);
+        const squareFootage = String(values.squareFootage);
+        const condition = String(values.condition);
+        const conditionAdd = condition === 'heavy' ? 150000 : condition === 'moderate' ? 50000 : 0;
+        const squareFootageAdd = squareFootage === '1600-plus' ? 100000 : squareFootage === '1200-1600' ? 50000 : 0;
+        return units * (250000 + conditionAdd + squareFootageAdd);
+      },
+    },
   },
   {
     title: 'Permit + Inspection Package',
@@ -134,9 +181,33 @@ const BUNDLES: ServiceCard[] = [
       'Inspection scheduling and follow-up',
       'Status tracking through closeout',
     ],
-    price: '[CONFIRM: price]',
-    cta: 'Request a Quote',
-    ctaHref: '#contact',
+    price: 'Calculated by permit count',
+    cta: 'Add to Cart',
+    calculator: {
+      itemKey: 'permit-management-service',
+      actionLabel: 'Add to Cart',
+      actionType: 'cart',
+      fields: [
+        { name: 'permits', label: 'Number of permits', type: 'number', min: 1, max: 5, defaultValue: 1 },
+        {
+          name: 'jobType',
+          label: 'Job type',
+          type: 'select',
+          defaultValue: 'residential',
+          options: [
+            { value: 'residential', label: 'Residential' },
+            { value: 'commercial', label: 'Commercial' },
+            { value: 'mixed-use', label: 'Mixed-use' },
+          ],
+        },
+      ],
+      calculatePrice: (values) => {
+        const permits = Number(values.permits);
+        const jobType = String(values.jobType);
+        const perPermit = jobType === 'mixed-use' ? 320000 : jobType === 'commercial' ? 280000 : 200000;
+        return permits * perPermit;
+      },
+    },
   },
 ];
 
@@ -151,9 +222,33 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
       'Construction-side feedback',
       'Direct referral to investor platform when needed',
     ],
-    price: '[CONFIRM: price]',
+    price: 'Calculated by property count',
     cta: 'Request a Quote',
-    ctaHref: '#contact',
+    calculator: {
+      actionLabel: 'Request a Quote',
+      actionType: 'link',
+      actionHref: '#contact',
+      fields: [
+        { name: 'properties', label: 'Number of properties', type: 'number', min: 1, max: 10, defaultValue: 1 },
+        {
+          name: 'projectType',
+          label: 'Project type',
+          type: 'select',
+          defaultValue: 'rehab',
+          options: [
+            { value: 'rehab', label: 'Rehab' },
+            { value: 'ground-up', label: 'Ground-up' },
+            { value: 'reposition', label: 'Reposition' },
+          ],
+        },
+      ],
+      calculatePrice: (values) => {
+        const properties = Number(values.properties);
+        const projectType = String(values.projectType);
+        const perProperty = projectType === 'ground-up' ? 75000 : projectType === 'reposition' ? 65000 : 50000;
+        return properties * perProperty;
+      },
+    },
   },
   {
     title: 'Realtor Inspection Review',
@@ -167,7 +262,7 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
     ],
     price: '$299',
     cta: 'Add to Cart',
-    itemKey: 'inspection-response-service',
+    itemKey: 'realtor-inspection-review',
   },
   {
     title: 'Owner Consultation',
@@ -179,9 +274,46 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
       'Risk and timeline notes',
       'Written next-step recommendation',
     ],
-    price: '[CONFIRM: price]',
-    cta: 'Request a Quote',
-    ctaHref: '#contact',
+    price: 'Calculated by project size',
+    cta: 'Book Consultation',
+    calculator: {
+      actionLabel: 'Book Consultation',
+      actionType: 'link',
+      actionHref: '#contact',
+      fields: [
+        {
+          name: 'projectType',
+          label: 'Project type',
+          type: 'select',
+          defaultValue: 'renovation',
+          options: [
+            { value: 'renovation', label: 'Renovation' },
+            { value: 'new-build', label: 'New build' },
+            { value: 'addition', label: 'Addition' },
+            { value: 'other', label: 'Other' },
+          ],
+        },
+        {
+          name: 'projectSize',
+          label: 'Estimated project size',
+          type: 'select',
+          defaultValue: 'under-50k',
+          options: [
+            { value: 'under-50k', label: 'Under $50k' },
+            { value: '50k-150k', label: '$50k-$150k' },
+            { value: '150k-500k', label: '$150k-$500k' },
+            { value: '500k-plus', label: '$500k+' },
+          ],
+        },
+      ],
+      calculatePrice: (values) => {
+        const projectSize = String(values.projectSize);
+        if (projectSize === '500k-plus') return 100000;
+        if (projectSize === '150k-500k') return 75000;
+        if (projectSize === '50k-150k') return 50000;
+        return 35000;
+      },
+    },
   },
   {
     title: 'Construction Feasibility Review',
@@ -272,10 +404,12 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
   },
 ];
 
-const OTHER_CLIENTS = [
+const OTHER_CLIENTS: OtherClientCard[] = [
   {
     title: 'Subcontractors',
     text: 'Subcontractors who want repeat work can contact us about network participation and upcoming jobs.',
+    link: '#contact',
+    linkText: 'Request a Quote',
   },
   {
     title: 'Referral Partners',
@@ -315,7 +449,9 @@ function Card({ card }: { card: ServiceCard }) {
           ))}
         </ul>
         <p className="mb-6 text-xl font-bold" style={{ color: ORANGE }}>{card.price}</p>
-        {card.itemKey ? (
+        {card.calculator ? (
+          <ServiceCalculator config={card.calculator} />
+        ) : card.itemKey ? (
           <AddToCartButton
             itemKey={card.itemKey}
             label={card.cta}
@@ -368,7 +504,7 @@ export default function ServicesPage() {
       });
 
       if (!res.ok) {
-        const data = await res.json();
+        const data = (await res.json()) as { error?: string };
         throw new Error(data.error || 'Failed to submit');
       }
 
@@ -496,8 +632,8 @@ export default function ServicesPage() {
               <div key={item.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 <h3 className="mb-2 text-2xl font-extrabold" style={{ color: NAVY }}>{item.title}</h3>
                 <p className="mb-3 text-sm leading-relaxed text-gray-600">{item.text}</p>
-                {'link' in item && (item as { link?: string; linkText?: string }).link && (
-                  <a href={(item as { link: string }).link} className="text-sm font-semibold" style={{ color: ORANGE }}>{(item as { linkText?: string }).linkText || 'Learn More'}</a>
+                {item.link && (
+                  <a href={item.link} className="text-sm font-semibold" style={{ color: ORANGE }}>{item.linkText || 'Learn More'}</a>
                 )}
               </div>
             ))}
