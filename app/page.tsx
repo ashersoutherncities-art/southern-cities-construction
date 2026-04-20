@@ -376,7 +376,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-navy overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-navy overflow-hidden pt-28 md:pt-32 lg:pt-36">
         {/* Background gradient mesh */}
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-navy via-navy-800 to-navy-900" />
@@ -395,7 +395,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 w-full">
-          <div className="max-w-3xl pt-24 lg:pt-0">
+          <div className="max-w-3xl">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 animation-fade-in">
               Permit Administration.<br />
               Construction Oversight.
