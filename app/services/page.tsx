@@ -496,8 +496,8 @@ export default function ServicesPage() {
               <div key={item.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 <h3 className="mb-2 text-2xl font-extrabold" style={{ color: NAVY }}>{item.title}</h3>
                 <p className="mb-3 text-sm leading-relaxed text-gray-600">{item.text}</p>
-                {'link' in item && item.link && (
-                  <a href={item.link} className="text-sm font-semibold" style={{ color: ORANGE }}>{(item as any).linkText || 'Learn More'}</a>
+                {'link' in item && (item as { link?: string; linkText?: string }).link && (
+                  <a href={(item as { link: string }).link} className="text-sm font-semibold" style={{ color: ORANGE }}>{(item as { linkText?: string }).linkText || 'Learn More'}</a>
                 )}
               </div>
             ))}
