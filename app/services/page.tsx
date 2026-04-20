@@ -20,7 +20,7 @@ type ServiceCard = {
   badge?: string;
 };
 
-const CORE_SERVICES: ServiceCard[] = [
+const ALACARTE_SERVICES: ServiceCard[] = [
   {
     title: 'Permit Help',
     description: 'We handle permit paperwork, submission, follow-up, and inspection coordination.',
@@ -35,6 +35,37 @@ const CORE_SERVICES: ServiceCard[] = [
     cta: 'Add to Cart',
     itemKey: 'permit-management-service',
   },
+  {
+    title: 'Home Assessment',
+    description: 'We walk the property, review the work, and tell you what needs to happen next.',
+    forWho: 'For homeowners who need a real starting point before taking on repairs or renovation work.',
+    deliverables: [
+      'Property walkthrough',
+      'Scope review',
+      'Condition notes',
+      'Clear next-step recommendation',
+    ],
+    price: '$299',
+    cta: 'Book an Assessment',
+    itemKey: 'inspection-response-service',
+  },
+  {
+    title: 'Inspection Response',
+    description: 'We review inspection issues and help define the repair path fast.',
+    forWho: 'For realtors and buyers trying to keep a deal alive after the inspection report comes back.',
+    deliverables: [
+      'Inspection issue review',
+      'Repair-scope recommendation',
+      'Fast starting assessment',
+      'Next-step guidance',
+    ],
+    price: '$299 assessment',
+    cta: 'Add to Cart',
+    itemKey: 'inspection-response-service',
+  },
+];
+
+const STANDARD_PRODUCTS: ServiceCard[] = [
   {
     title: 'Construction Oversight',
     description: 'We keep the job documented, tracked, and moving when the work needs tighter control.',
@@ -63,23 +94,6 @@ const CORE_SERVICES: ServiceCard[] = [
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
-];
-
-const HOMEOWNER_SERVICES: ServiceCard[] = [
-  {
-    title: 'Home Assessment',
-    description: 'We walk the property, review the work, and tell you what needs to happen next.',
-    forWho: 'For homeowners who need a real starting point before taking on repairs or renovation work.',
-    deliverables: [
-      'Property walkthrough',
-      'Scope review',
-      'Condition notes',
-      'Clear next-step recommendation',
-    ],
-    price: '$299',
-    cta: 'Book an Assessment',
-    itemKey: 'inspection-response-service',
-  },
   {
     title: 'Renovation Quote',
     description: 'We price larger renovation work after we review the property and scope.',
@@ -94,9 +108,6 @@ const HOMEOWNER_SERVICES: ServiceCard[] = [
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
-];
-
-const REALTOR_SERVICES: ServiceCard[] = [
   {
     title: 'Pre-Listing Work',
     description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
@@ -111,20 +122,9 @@ const REALTOR_SERVICES: ServiceCard[] = [
     cta: 'Add to Cart',
     itemKey: 'pre-listing-renovation',
   },
-  {
-    title: 'Inspection Response',
-    description: 'We review inspection issues and help define the repair path fast.',
-    forWho: 'For realtors and buyers trying to keep a deal alive after the inspection report comes back.',
-    deliverables: [
-      'Inspection issue review',
-      'Repair-scope recommendation',
-      'Fast starting assessment',
-      'Next-step guidance',
-    ],
-    price: '$299 assessment',
-    cta: 'Add to Cart',
-    itemKey: 'inspection-response-service',
-  },
+];
+
+const REALTOR_SERVICES: ServiceCard[] = [
   {
     title: 'Referral Partners',
     description: 'We work with agents who need a contractor they can keep sending people to.',
@@ -287,11 +287,11 @@ export default function ServicesPage() {
       <section id="services" className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Core Services"
-            text="We handle permit work, oversight, and project support for residential construction and renovation work in Charlotte and the surrounding area."
+            title="A La Carte"
+            text="Use these when you need a single service with a clear starting price and a direct way to buy."
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {CORE_SERVICES.map((card) => (
+            {ALACARTE_SERVICES.map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
@@ -301,11 +301,11 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Homeowners"
-            text="Book an assessment if you need to know what the job will take before you commit to bigger work. Request a quote if you already know the project needs a larger scope."
+            title="Standard Products"
+            text="Use these when the job needs a fuller scope, a custom quote, or a larger package of work."
           />
           <div className="grid gap-6 lg:grid-cols-2">
-            {HOMEOWNER_SERVICES.map((card) => (
+            {STANDARD_PRODUCTS.map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
