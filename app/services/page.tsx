@@ -613,9 +613,11 @@ export default function ServicesPage() {
             title="Project-Dependent Services"
             text="Larger jobs that need a project review before pricing. Scope changes based on size, condition, and timeline."
           />
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="flex flex-wrap justify-center gap-6">
             {PROJECT_DEPENDENT_SERVICES.map((card) => (
-              <Card key={card.title} card={card} />
+              <div key={card.title} className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+                <Card card={card} />
+              </div>
             ))}
           </div>
         </div>
