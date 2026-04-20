@@ -39,7 +39,7 @@ const FLAGSHIP_SERVICE: ServiceCard = {
     'Progress documentation and compliance checkpoints',
     'Issue escalation when the work drifts off track',
   ],
-  price: 'Custom quote',
+  price: '',
   cta: 'Request a Quote',
   ctaHref: '#contact',
   badge: 'Flagship',
@@ -325,7 +325,7 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
       'Risk and timeline notes',
       'Go / no-go recommendation',
     ],
-    price: 'Custom quote',
+    price: '',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
@@ -342,7 +342,7 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
       'Progress tracking and reporting',
       'Inspection and closeout management',
     ],
-    price: 'Custom quote',
+    price: '',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
@@ -356,7 +356,7 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
       'Phased construction management',
       'Final inspection and closeout',
     ],
-    price: 'Custom quote',
+    price: '',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
@@ -370,7 +370,7 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
       'Full construction management',
       'Final inspection and CO delivery',
     ],
-    price: 'Custom quote',
+    price: '',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
@@ -384,7 +384,7 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
       'Weekly progress reporting',
       'Clear scope and coordination',
     ],
-    price: 'Custom quote',
+    price: '',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
@@ -398,7 +398,7 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
       'Issue identification and escalation',
       'Draw and payment review support',
     ],
-    price: 'Custom quote',
+    price: '',
     cta: 'Request a Quote',
     ctaHref: '#contact',
   },
@@ -448,7 +448,9 @@ function Card({ card }: { card: ServiceCard }) {
             </li>
           ))}
         </ul>
-        <p className="mb-6 text-xl font-bold" style={{ color: ORANGE }}>{card.price}</p>
+        {card.price && (
+          <p className="mb-6 text-xl font-bold" style={{ color: ORANGE }}>{card.price}</p>
+        )}
         {card.calculator ? (
           <ServiceCalculator config={card.calculator} />
         ) : card.itemKey ? (
