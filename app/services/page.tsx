@@ -449,7 +449,10 @@ function Card({ card }: { card: ServiceCard }) {
           ))}
         </ul>
         {card.price && (
-          <p className="mb-6 text-xl font-bold" style={{ color: ORANGE }}>{card.price}</p>
+          <div className="mb-6 rounded-2xl border px-4 py-4 text-center" style={{ borderColor: 'rgba(250,140,65,0.25)', backgroundColor: 'rgba(250,140,65,0.08)' }}>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-gray-500">Starting Price</p>
+            <p className="mt-2 text-3xl font-extrabold leading-none" style={{ color: ORANGE }}>{card.price}</p>
+          </div>
         )}
         {card.calculator ? (
           <ServiceCalculator config={card.calculator} />
