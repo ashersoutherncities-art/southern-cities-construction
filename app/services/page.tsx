@@ -20,6 +20,22 @@ type ServiceCard = {
   badge?: string;
 };
 
+const FLAGSHIP_SERVICE: ServiceCard = {
+  title: 'Permit Administration + Construction Oversight',
+  description: 'We handle permit coordination, inspection tracking, documentation, and project oversight for jobs that need tighter control.',
+  forWho: 'For owners, investors, and partner contractors who need a licensed contractor involved in keeping the project moving correctly.',
+  deliverables: [
+    'Permit administration and submission support',
+    'Inspection coordination and milestone tracking',
+    'Progress documentation requirements',
+    'Issue escalation when the work drifts off track',
+  ],
+  price: 'Custom quote',
+  cta: 'Request a Quote',
+  ctaHref: '#contact',
+  badge: 'Flagship',
+};
+
 const BUNDLES: ServiceCard[] = [
   {
     title: 'Pre-Listing Work',
@@ -41,7 +57,7 @@ const STANDARD_PRODUCTS: ServiceCard[] = [
   {
     title: 'Permit Help',
     description: 'We handle permit paperwork, submission, follow-up, and inspection coordination.',
-    forWho: 'For homeowners, contractors, and operators who need permit work pushed through without dragging the job down.',
+    forWho: 'For homeowners, partner contractors, and operators who need permit work pushed through without dragging the job down.',
     deliverables: [
       'Permit application support',
       'Submission and follow-up',
@@ -52,22 +68,36 @@ const STANDARD_PRODUCTS: ServiceCard[] = [
     cta: 'Add to Cart',
     itemKey: 'permit-management-service',
   },
+  {
+    title: 'Sub Network Access',
+    description: 'We provide access to vetted subcontractor coverage and structured coordination support.',
+    forWho: 'For partner contractors who need labor coverage, cleaner coordination, and better overflow support.',
+    deliverables: [
+      'Vetted subcontractor network access',
+      'Priority overflow routing',
+      'Digital coordination support',
+      'Structured project communication',
+    ],
+    price: '$349/mo',
+    cta: 'Add to Cart',
+    itemKey: 'sub-network-access',
+  },
 ];
 
 const FEE_BASED_SERVICES: ServiceCard[] = [
   {
-    title: 'Home Assessment',
-    description: 'We walk the property, review the work, and tell you what needs to happen next.',
-    forWho: 'For homeowners who need a real starting point before taking on repairs or renovation work.',
+    title: 'Investor Review',
+    description: 'We review project scope, execution risk, and what it will take to get the job moving.',
+    forWho: 'For investors who need a paid review before committing to repairs, repositioning, or construction work.',
     deliverables: [
-      'Property walkthrough',
-      'Scope review',
-      'Condition notes',
-      'Clear next-step recommendation',
+      'Scope and execution review',
+      'Risk notes and next-step guidance',
+      'Construction-side feedback',
+      'Direct referral to investor platform when needed',
     ],
-    price: '$299',
-    cta: 'Book an Assessment',
-    itemKey: 'inspection-response-service',
+    price: '[CONFIRM: price]',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
   },
   {
     title: 'Inspection Response',
@@ -86,7 +116,7 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
   {
     title: 'Referral Partners',
     description: 'We work with agents who need a contractor they can keep sending people to.',
-    forWho: 'For realtors who want a repeat relationship for renovation work, listing prep, and repair projects.',
+    forWho: 'For realtors and real estate professionals who want a repeat relationship for repair, listing prep, and renovation work.',
     deliverables: [
       'Referral relationship setup',
       'Project handoff after intro',
@@ -288,6 +318,18 @@ export default function ServicesPage() {
       </section>
 
       <section id="services" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionHeader
+            title="Flagship Service"
+            text="Our lead service is permit administration and construction oversight for jobs that need structure, compliance, and tighter execution control."
+          />
+          <div className="grid gap-6 lg:grid-cols-1">
+            <Card card={FLAGSHIP_SERVICE} />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Bundles"
