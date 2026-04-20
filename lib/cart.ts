@@ -76,6 +76,24 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'Inspection report review with repair-path guidance built for agents trying to keep a deal on track.',
     checkoutAmount: '299',
   },
+  'investor-review': {
+    key: 'investor-review',
+    name: 'Investor Review',
+    shortName: 'Investor Review',
+    price: 50000,
+    priceLabel: '$500 starting price',
+    description: 'Paid construction-side review of project scope, execution risk, and what it will take to get the job moving.',
+    checkoutAmount: '500',
+  },
+  'owner-consultation': {
+    key: 'owner-consultation',
+    name: 'Owner Consultation',
+    shortName: 'Consultation',
+    price: 35000,
+    priceLabel: '$350 starting price',
+    description: 'Project review, budget guidance, risk notes, and next-step recommendations before committing to scope.',
+    checkoutAmount: '350',
+  },
 };
 
 function normalizeAmount(value: string | undefined): number | undefined {

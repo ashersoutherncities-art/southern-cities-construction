@@ -223,11 +223,11 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
       'Direct referral to investor platform when needed',
     ],
     price: 'Calculated by property count',
-    cta: 'Request a Quote',
+    cta: 'Add to Cart',
     calculator: {
-      actionLabel: 'Request a Quote',
-      actionType: 'link',
-      actionHref: '#contact',
+      itemKey: 'investor-review',
+      actionLabel: 'Add to Cart',
+      actionType: 'cart',
       fields: [
         { name: 'properties', label: 'Number of properties', type: 'number', min: 1, max: 10, defaultValue: 1 },
         {
@@ -275,11 +275,11 @@ const FEE_BASED_SERVICES: ServiceCard[] = [
       'Written next-step recommendation',
     ],
     price: 'Calculated by project size',
-    cta: 'Book Consultation',
+    cta: 'Add to Cart',
     calculator: {
-      actionLabel: 'Book Consultation',
-      actionType: 'link',
-      actionHref: '#contact',
+      itemKey: 'owner-consultation',
+      actionLabel: 'Add to Cart',
+      actionType: 'cart',
       fields: [
         {
           name: 'projectType',
