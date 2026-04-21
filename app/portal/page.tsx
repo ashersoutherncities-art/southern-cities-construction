@@ -42,6 +42,10 @@ export default function PortalPage() {
 
     if (item) {
       const defaults: Record<string, { amount: string; scope_notes: string }> = {
+        'flagship-permit-oversight': {
+          amount: amount || '4500',
+          scope_notes: 'Permit administration and construction oversight selected from cart.',
+        },
         'permit-management-service': {
           amount: amount || '1500',
           scope_notes: 'Permit management service selected from cart.',
@@ -57,6 +61,22 @@ export default function PortalPage() {
         'inspection-response-service': {
           amount: amount || '299',
           scope_notes: 'Inspection response service selected from cart.',
+        },
+        'home-assessment': {
+          amount: amount || '299',
+          scope_notes: 'Home assessment selected from cart.',
+        },
+        'realtor-inspection-review': {
+          amount: amount || '299',
+          scope_notes: 'Realtor inspection review selected from cart.',
+        },
+        'investor-review': {
+          amount: amount || '500',
+          scope_notes: 'Investor review selected from cart.',
+        },
+        'owner-consultation': {
+          amount: amount || '350',
+          scope_notes: 'Owner consultation selected from cart.',
         },
       };
 
