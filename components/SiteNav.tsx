@@ -7,6 +7,7 @@ import CartNavLink from '@/components/CartNavLink';
 type NavLink = { href: string; label: string };
 
 const PRIMARY_LINKS: NavLink[] = [
+  { href: '/services#flagship', label: 'Flagship' },
   { href: '/services', label: 'Services' },
   { href: '/realtor', label: 'Realtors' },
   { href: '/#process', label: 'Process' },
