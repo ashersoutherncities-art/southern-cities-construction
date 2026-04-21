@@ -577,7 +577,7 @@ function FlagshipCard({ card }: { card: ServiceCard }) {
   return (
     <div className="relative overflow-hidden rounded-[2rem] border border-white/10 p-8 sm:p-10 lg:p-12 shadow-2xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950">
       <div className="absolute -top-20 -right-20 w-[340px] h-[340px] rounded-full bg-orange/[0.1] blur-[100px]" />
-      <div className="absolute top-6 right-6 sm:top-8 sm:right-8">
+      <div className="absolute top-5 right-5 sm:top-6 sm:right-6 z-20">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-orange px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-white shadow-glow-orange">
           {card.badge || 'Flagship'}
         </span>
