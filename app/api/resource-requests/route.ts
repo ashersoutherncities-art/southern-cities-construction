@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
+import { getResourceBySlug } from '@/lib/resources';
 
 const requestLog = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
-const MAX_REQUESTS_PER_WINDOW = 5;
+const MAX_REQUESTS_PER_WINDOW = 6;
 
 function isRateLimited(ip: string) {
   const now = Date.now();
@@ -35,43 +36,51 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, email, phone, audience_type, service, message, company, website, source, honey } = body;
-
-    const normalizedAudienceType = audience_type || null;
-    const normalizedService = service || null;
+    const { resource_slug, name, email, phone, company, role, message, honey } = body;
 
     if (honey) {
       return NextResponse.json({ success: true });
     }
 
-    if (!name || !email) {
-      return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
+    if (!resource_slug || !name || !email) {
+      return NextResponse.json(
+        { error: 'resource_slug, name, and email are required.' },
+        { status: 400 }
+      );
     }
 
-    const { error } = await supabase.from('service_inquiries').insert({
+    const resource = getResourceBySlug(resource_slug);
+    if (!resource) {
+      return NextResponse.json({ error: 'Unknown resource' }, { status: 400 });
+    }
+
+    const { error } = await supabase.from('resource_requests').insert({
+      resource_slug: resource.slug,
+      resource_title: resource.title,
+      resource_kind: resource.kind,
+      resource_format: resource.format || null,
+      resource_price: resource.price || null,
       name,
       email,
       phone: phone || null,
-      audience_type: normalizedAudienceType,
-      service: normalizedService,
-      message: message || null,
-      status: 'new',
       company: company || null,
-      website: website || null,
-      source: source || null,
+      role: role || null,
+      message: message || null,
+      fulfillment_status: 'pending_send',
+      delivery_email: 'orders@southerncitiesconstruction.com',
     });
 
     if (error) {
-      console.error('Supabase insert error:', error);
-      return NextResponse.json({ error: 'Failed to save inquiry' }, { status: 500 });
+      console.error('resource_requests insert error:', error);
+      return NextResponse.json({ error: 'Failed to save resource request' }, { status: 500 });
     }
 
-    // Send Telegram notification to Darius
     try {
       const botToken = process.env.TELEGRAM_BOT_TOKEN;
       const chatId = process.env.TELEGRAM_CHAT_ID;
       if (botToken && chatId) {
-        const text = `🔔 *New Service Inquiry*\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone || 'Not provided'}\n*Type:* ${normalizedAudienceType || 'Not specified'}\n*Service:* ${normalizedService || 'Not specified'}${message ? `\n*Message:* ${message}` : ''}\n\n_Reply to:_ ${email}`;
+        const kindLabel = resource.kind === 'paid' ? 'Purchase request' : 'Free download request';
+        const text = `📚 *New Resource ${resource.kind === 'paid' ? 'Purchase' : 'Download'}*\n\n*Resource:* ${resource.title}${resource.price ? ` (${resource.price})` : ''}\n*Type:* ${kindLabel}\n*Name:* ${name}\n*Email:* ${email}${phone ? `\n*Phone:* ${phone}` : ''}${company ? `\n*Company:* ${company}` : ''}${role ? `\n*Role:* ${role}` : ''}${message ? `\n*Notes:* ${message}` : ''}\n\n_Reply to:_ ${email}`;
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -84,7 +93,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('API error:', err);
+    console.error('resource-requests API error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

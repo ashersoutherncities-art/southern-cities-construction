@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
+import {
+  createOrder,
+  findOrderByStripeSession,
+  recordOrderEvent,
+  updateOrder,
+} from '@/lib/orders';
 
 function generateTemporaryPassword(length = 14) {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%';
@@ -30,11 +36,14 @@ function buildOrderSummary(body: Record<string, unknown>) {
 
 export async function POST(req: NextRequest) {
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-    if (!supabaseUrl || !supabaseKey) {
-      return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
+    let supabase;
+    try {
+      supabase = getServiceClient();
+    } catch (err) {
+      if (err instanceof SupabaseConfigError) {
+        return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
+      }
+      throw err;
     }
 
     const body = await req.json();
@@ -53,6 +62,9 @@ export async function POST(req: NextRequest) {
       scope_notes,
       payment_reference,
       amount_paid,
+      stripe_customer_id,
+      stripe_payment_intent_id,
+      stripe_charge_id,
     } = body;
 
     if (!buyer_name || !buyer_email || !project_address || !project_manager_role) {
@@ -62,13 +74,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const stripeSessionId: string | null = payment_reference || null;
 
-    if (payment_reference) {
+    if (stripeSessionId) {
       const { data: existing } = await supabase
         .from('permit_oversight_orders')
-        .select('id, portal_path, portal_email, temporary_password, onboarding_status, contract_status')
-        .eq('payment_reference', payment_reference)
+        .select('id, portal_path, portal_email, temporary_password, onboarding_status, contract_status, order_id')
+        .eq('payment_reference', stripeSessionId)
         .maybeSingle();
 
       if (existing) {
@@ -88,6 +100,65 @@ export async function POST(req: NextRequest) {
 
     const tempPassword = generateTemporaryPassword();
     const portalPath = `/portal/${crypto.randomUUID()}`;
+    const amountCents =
+      typeof amount_paid === 'number' ? Math.round(amount_paid * 100) : null;
+
+    let canonicalOrder = stripeSessionId
+      ? await findOrderByStripeSession(stripeSessionId, supabase)
+      : null;
+
+    if (!canonicalOrder) {
+      canonicalOrder = await createOrder(
+        {
+          workflow: 'permit_oversight',
+          product_key: 'flagship-permit-oversight',
+          product_name: 'Permit Administration + Construction Oversight',
+          buyer_name,
+          buyer_email,
+          buyer_phone: buyer_phone || null,
+          billing_address: billing_address || null,
+          project_address,
+          project_manager_role,
+          project_manager_name: project_manager_name || null,
+          project_manager_email: project_manager_email || null,
+          project_manager_phone: project_manager_phone || null,
+          entity_type: entity_type || null,
+          project_timeline: project_timeline || null,
+          scope_notes: scope_notes || null,
+          amount_total_cents: amountCents,
+          stripe_session_id: stripeSessionId,
+          stripe_customer_id: stripe_customer_id || null,
+          status: 'paid',
+        },
+        supabase
+      );
+    }
+
+    if (canonicalOrder) {
+      await updateOrder(
+        canonicalOrder.id,
+        {
+          status: 'paid',
+          payment_status: 'paid',
+          paid_at: new Date().toISOString(),
+          amount_total_cents: amountCents ?? canonicalOrder.amount_total_cents,
+          stripe_payment_intent_id: stripe_payment_intent_id || null,
+          stripe_charge_id: stripe_charge_id || null,
+          stripe_customer_id: stripe_customer_id || canonicalOrder.stripe_customer_id,
+        },
+        supabase
+      );
+      await recordOrderEvent(
+        {
+          order_id: canonicalOrder.id,
+          event_type: 'order.paid',
+          source: 'permit_oversight_orders_api',
+          message: 'Permit oversight onboarding record created',
+          payload: { stripe_session_id: stripeSessionId },
+        },
+        supabase
+      );
+    }
 
     const record = {
       buyer_name,
@@ -104,7 +175,7 @@ export async function POST(req: NextRequest) {
       scope_notes: scope_notes || null,
       service_name: 'Permit Administration + Construction Oversight',
       payment_status: 'paid',
-      payment_reference: payment_reference || null,
+      payment_reference: stripeSessionId,
       amount_paid: amount_paid || null,
       onboarding_status: 'awaiting_contract_signature',
       contract_status: 'pending_signature',
@@ -117,12 +188,17 @@ export async function POST(req: NextRequest) {
       esign_provider: 'pending_selection',
       esign_status: 'pending_provider_setup',
       internal_summary: buildOrderSummary(body),
+      stripe_session_id: stripeSessionId,
+      stripe_customer_id: stripe_customer_id || null,
+      stripe_payment_intent_id: stripe_payment_intent_id || null,
+      stripe_charge_id: stripe_charge_id || null,
+      order_id: canonicalOrder?.id ?? null,
     };
 
     const { data, error } = await supabase
       .from('permit_oversight_orders')
       .insert(record)
-      .select('id, portal_path, portal_email, temporary_password, onboarding_status, contract_status')
+      .select('id, portal_path, portal_email, temporary_password, onboarding_status, contract_status, order_id')
       .single();
 
     if (error) {
@@ -130,11 +206,22 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to create order record' }, { status: 500 });
     }
 
+    if (canonicalOrder && data?.id) {
+      await updateOrder(
+        canonicalOrder.id,
+        {
+          related_table: 'permit_oversight_orders',
+          related_id: data.id,
+        },
+        supabase
+      );
+    }
+
     try {
       const botToken = process.env.TELEGRAM_BOT_TOKEN;
       const chatId = process.env.TELEGRAM_CHAT_ID;
       if (botToken && chatId) {
-        const text = `🔔 *New Permit Oversight Order*\n\n*Buyer:* ${buyer_name}\n*Email:* ${buyer_email}\n*Project Address:* ${project_address}\n*PM Role:* ${project_manager_role}\n*Payment Ref:* ${payment_reference || 'Not provided'}\n*Portal:* ${portalPath}\n*Contract:* pending signature\n\n_Orders inbox:_ orders@southerncitiesconstruction.com`;
+        const text = `🔔 *New Permit Oversight Order*\n\n*Buyer:* ${buyer_name}\n*Email:* ${buyer_email}\n*Project Address:* ${project_address}\n*PM Role:* ${project_manager_role}\n*Payment Ref:* ${stripeSessionId || 'Not provided'}\n*Portal:* ${portalPath}\n*Contract:* pending signature\n\n_Orders inbox:_ orders@southerncitiesconstruction.com`;
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -148,6 +235,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       order: data,
+      canonical_order_id: canonicalOrder?.id ?? null,
       workflow: {
         receipt_email_from: 'orders@southerncitiesconstruction.com',
         invoice_status: 'pending_generation',

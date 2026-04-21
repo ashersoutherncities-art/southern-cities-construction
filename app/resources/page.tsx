@@ -132,21 +132,16 @@ export default function ResourcesPage() {
     setFormState('loading');
     setErrorMsg('');
     try {
-      const label =
-        active.kind === 'paid' ? `Paid resource purchase: ${active.title}` : `Free resource request: ${active.title}`;
-      const res = await fetch('/api/inquiries', {
+      const res = await fetch('/api/resource-requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          resource_slug: active.slug,
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          audience_type: formData.role || 'Resource request',
-          service: label,
-          message:
-            `${active.kind === 'paid' ? 'Purchase request' : 'Download request'} for "${active.title}" (${active.format}).` +
-            (formData.company ? `\nCompany: ${formData.company}` : '') +
-            (formData.role ? `\nRole: ${formData.role}` : ''),
+          company: formData.company,
+          role: formData.role,
         }),
       });
       if (!res.ok) {
