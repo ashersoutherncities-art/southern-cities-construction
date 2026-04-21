@@ -249,7 +249,7 @@ export default function Home() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/70 mb-8 animation-fade-in">
               <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
-              Licensed General Contractor · Charlotte, NC
+              Charlotte General Contractor
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-[80px] font-extrabold text-white leading-[1.04] mb-7 animation-fade-in">
               Permit administration.<br />
@@ -281,9 +281,9 @@ export default function Home() {
             <div className="mt-14 pt-8 border-t border-white/10 animation-fade-in">
               <dl className="grid grid-cols-3 gap-6 sm:gap-10 max-w-2xl">
                 {[
-                  { label: 'License', value: 'NC L.107724', sub: 'Qualifier Q.108200' },
-                  { label: 'Response', value: '≤ 24 hrs', sub: 'Target initial window' },
-                  { label: 'Workflow', value: 'Portal-backed', sub: 'Documented intake + milestones' },
+                  { label: 'Permits', value: 'Handled', sub: 'Submission through closeout support' },
+                  { label: 'Oversight', value: 'Structured', sub: 'Clear tracking, updates, and next steps' },
+                  { label: 'Execution', value: 'Real jobs', sub: 'Built for active residential project work' },
                 ].map((stat) => (
                   <div key={stat.label}>
                     <dt className="text-[10px] font-semibold text-white/45 tracking-[0.18em] uppercase mb-1.5">{stat.label}</dt>
