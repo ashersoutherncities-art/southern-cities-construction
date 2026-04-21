@@ -627,23 +627,25 @@ function Card({ card }: { card: ServiceCard }) {
   const hasStartingPrice = card.price && (card.price.includes('-') || card.price.toLowerCase().includes('calculated'));
   const priceLabel = hasStartingPrice ? 'Starting price' : 'Price';
   return (
-    <div className="group relative overflow-hidden rounded-[22px] border border-stone-200 bg-white shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-stone-200 bg-white shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
       <div className="absolute top-0 left-0 right-0 h-1 bg-navy group-hover:bg-orange transition-colors duration-300" />
       {card.badge && (
         <span className="absolute right-4 top-5 rounded-full bg-orange px-3 py-1 text-[10px] tracking-[0.16em] font-bold uppercase text-white">
           {card.badge}
         </span>
       )}
-      <div className="p-6 sm:p-7">
-        <h3 className="mb-3 text-[22px] font-extrabold text-navy tracking-tight leading-tight">{card.title}</h3>
-        {card.audience && (
-          <p className="mb-3 inline-flex w-fit rounded-full border border-orange/20 bg-orange/[0.06] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">
-            {card.audience}
-          </p>
-        )}
-        <p className="mb-3 text-[14.5px] leading-relaxed text-stone-600">{card.description}</p>
-        <p className="mb-4 text-[13.5px] leading-relaxed text-stone-500 italic">{card.forWho}</p>
-        <ul className="mb-5 space-y-2.5">
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <div>
+          <h3 className="mb-3 text-[22px] font-extrabold text-navy tracking-tight leading-tight">{card.title}</h3>
+          {card.audience && (
+            <p className="mb-3 inline-flex w-fit rounded-full border border-orange/20 bg-orange/[0.06] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">
+              {card.audience}
+            </p>
+          )}
+          <p className="mb-3 text-[14.5px] leading-relaxed text-stone-600">{card.description}</p>
+          <p className="mb-4 text-[13.5px] leading-relaxed text-stone-500 italic">{card.forWho}</p>
+        </div>
+        <ul className="space-y-2.5">
           {card.deliverables.map((item) => (
             <li key={item} className="flex items-start gap-2.5 text-[14px] text-stone-600">
               <span className="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0 bg-orange" />
@@ -651,28 +653,30 @@ function Card({ card }: { card: ServiceCard }) {
             </li>
           ))}
         </ul>
-        {card.price && (
-          <div className="mb-5 border-t border-stone-200 pt-4 text-left">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">{priceLabel}</p>
-            <p className="mt-2 text-[24px] sm:text-[28px] font-extrabold leading-tight tracking-tight text-navy">{card.price}</p>
-          </div>
-        )}
-        {card.calculator ? (
-          <ServiceCalculator config={card.calculator} />
-        ) : card.itemKey ? (
-          <AddToCartButton
-            itemKey={card.itemKey}
-            label={card.cta}
-            className="inline-block w-full rounded-full bg-orange hover:bg-orange-500 py-3 text-center text-sm font-semibold text-white transition-all duration-300"
-          />
-        ) : (
-          <a
-            href={card.ctaHref || '#contact'}
-            className="inline-block w-full rounded-full bg-navy hover:bg-navy-700 py-3 text-center text-sm font-semibold text-white transition-all duration-300"
-          >
-            {card.cta}
-          </a>
-        )}
+        <div className="mt-auto pt-5">
+          {card.price && (
+            <div className="mb-5 border-t border-stone-200 pt-4 text-left">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">{priceLabel}</p>
+              <p className="mt-2 text-[24px] sm:text-[28px] font-extrabold leading-tight tracking-tight text-navy">{card.price}</p>
+            </div>
+          )}
+          {card.calculator ? (
+            <ServiceCalculator config={card.calculator} />
+          ) : card.itemKey ? (
+            <AddToCartButton
+              itemKey={card.itemKey}
+              label={card.cta}
+              className="inline-block w-full rounded-full bg-orange hover:bg-orange-500 py-3 text-center text-sm font-semibold text-white transition-all duration-300"
+            />
+          ) : (
+            <a
+              href={card.ctaHref || '#contact'}
+              className="inline-block w-full rounded-full bg-navy hover:bg-navy-700 py-3 text-center text-sm font-semibold text-white transition-all duration-300"
+            >
+              {card.cta}
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
