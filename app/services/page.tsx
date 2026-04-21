@@ -176,7 +176,7 @@ const FEE_BASED_FIXED: ServiceCard[] = [
       'Inspection scheduling and status coordination',
       'Permit tracking through final approval or closeout',
     ],
-    price: '$1,500-$3,500 per permit',
+    price: '$1,499-$3,499 per permit',
     cta: 'Add to Cart',
     audience: 'Contractors',
     itemKey: 'permit-management-service',
@@ -221,17 +221,64 @@ const FEE_BASED_CALCULATED: ServiceCard[] = [
   {
     title: 'Pre-Listing Work',
     description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
-    forWho: 'For realtors and sellers who need a house cleaned up before listing.',
+    forWho: 'For realtors and sellers who need a house cleaned up before listing and want a clearer starting number before moving forward.',
     deliverables: [
       'Scope review',
       'Listing-prep work plan',
       'Repair and refresh coordination',
       'Timeline built around the listing date',
     ],
-    price: '$5,000-$15,000',
+    price: 'Calculated from property condition',
     cta: 'Add to Cart',
     audience: 'Realtors / Sellers',
-    itemKey: 'pre-listing-renovation',
+    calculator: {
+      itemKey: 'pre-listing-renovation',
+      actionLabel: 'Add to Cart',
+      actionType: 'cart',
+      fields: [
+        {
+          name: 'propertySize',
+          label: 'Property size',
+          type: 'select',
+          defaultValue: 'under-1500',
+          options: [
+            { value: 'under-1500', label: 'Under 1,500 SF' },
+            { value: '1500-2500', label: '1,500 to 2,500 SF' },
+            { value: '2500-plus', label: '2,500+ SF' }
+          ],
+        },
+        {
+          name: 'condition',
+          label: 'Work level',
+          type: 'select',
+          defaultValue: 'light',
+          options: [
+            { value: 'light', label: 'Light prep' },
+            { value: 'standard', label: 'Standard prep' },
+            { value: 'heavy', label: 'Heavy prep' }
+          ],
+        },
+        {
+          name: 'occupancy',
+          label: 'Property status',
+          type: 'select',
+          defaultValue: 'vacant',
+          options: [
+            { value: 'vacant', label: 'Vacant' },
+            { value: 'occupied', label: 'Occupied' }
+          ],
+        }
+      ],
+      calculatePrice: (values) => {
+        const propertySize = String(values.propertySize);
+        const condition = String(values.condition);
+        const occupancy = String(values.occupancy);
+        const base = condition === 'heavy' ? 899900 : condition === 'standard' ? 699900 : 499900;
+        const sizeAdd = propertySize === '2500-plus' ? 200000 : propertySize === '1500-2500' ? 100000 : 0;
+        const occupancyAdd = occupancy === 'occupied' ? 50000 : 0;
+        return base + sizeAdd + occupancyAdd;
+      },
+    },
   },
   {
     title: 'Rent-Ready Turn',
