@@ -576,9 +576,9 @@ const PROJECT_DEPENDENT_SERVICES: ServiceCard[] = [
 const OTHER_CLIENTS: OtherClientCard[] = [
   {
     title: 'Subcontractors',
-    text: 'Subcontractors who want repeat work can contact us about network participation and upcoming jobs.',
-    link: '#contact',
-    linkText: 'Request a Quote',
+    text: 'Licensed, insured NC trades who want repeat residential work on a documented coordination workflow can apply to join our recommended partner network.',
+    link: '/partners',
+    linkText: 'Apply to Partner Network',
   },
   {
     title: 'Referral Partners',

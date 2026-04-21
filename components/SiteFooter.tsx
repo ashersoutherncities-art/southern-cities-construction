@@ -36,15 +36,17 @@ export default function SiteFooter() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Client Access</h4>
+            <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Learn & Apply</h4>
             <ul className="space-y-3">
+              <li><Link href="/blog" className="text-white/50 hover:text-orange text-sm transition-colors">NC Construction Blog</Link></li>
+              <li><Link href="/resources" className="text-white/50 hover:text-orange text-sm transition-colors">Resources & Playbooks</Link></li>
+              <li><Link href="/partners" className="text-white/50 hover:text-orange text-sm transition-colors">Partner With Us</Link></li>
               <li>
                 <a href="https://clients.southerncitiesconstruction.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-orange text-sm transition-colors">
                   Client Portal
                 </a>
               </li>
               <li><Link href="/cart" className="text-white/50 hover:text-orange text-sm transition-colors">Cart</Link></li>
-              <li><Link href="/portal" className="text-white/50 hover:text-orange text-sm transition-colors">Start Onboarding</Link></li>
               <li><Link href="/#contact" className="text-white/50 hover:text-orange text-sm transition-colors">Request a Quote</Link></li>
             </ul>
           </div>
