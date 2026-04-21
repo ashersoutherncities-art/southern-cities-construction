@@ -122,7 +122,7 @@ export default function ServiceCalculator({ config }: { config: ServiceCalculato
         className="mt-4 inline-block w-full rounded-full py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
         style={{ backgroundColor: ORANGE }}
       >
-        {config.actionLabel}
+        Review Price
       </button>
 
       {price !== null && (
@@ -135,7 +135,7 @@ export default function ServiceCalculator({ config }: { config: ServiceCalculato
               className="mt-4 inline-block w-full rounded-full py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
               style={{ backgroundColor: ORANGE }}
             >
-              {config.actionLabel}
+              Add to Cart
             </Link>
           ) : (
             <a

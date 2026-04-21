@@ -48,13 +48,13 @@ const FLAGSHIP_SERVICE: ServiceCard = {
 const STANDARD_PRODUCTS: ServiceCard[] = [
   {
     title: 'Permit Help',
-    description: 'We handle the permit paperwork, submission, correction responses, and inspection scheduling on your behalf.',
-    forWho: 'For licensed contractors who want to stay on the permit but hand off the administrative work.',
+    description: 'We manage permit administration, jurisdiction coordination, correction responses, and inspection scheduling for licensed contractors who remain on the permit.',
+    forWho: 'For licensed contractors who need a more formal back-office permit partner while keeping permit responsibility in their own name.',
     deliverables: [
-      'Permit application prep and submission',
-      'Correction response coordination',
-      'Inspection scheduling and follow-up',
-      'Status tracking through closeout',
+      'Permit application preparation and submission',
+      'Jurisdiction follow-up and correction response handling',
+      'Inspection scheduling and status coordination',
+      'Permit tracking through final approval or closeout',
     ],
     price: '$1,500-$3,500 per permit',
     cta: 'Add to Cart',
@@ -608,7 +608,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Add to Cart"
-            text="Start here when you already know what you need and want a fixed-price service you can buy now."
+            text="These are the straightforward services with simple purchase decisions and direct cart checkout."
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {[...STANDARD_PRODUCTS, BUNDLES[0], FEE_BASED_SERVICES[1]].map((card) => (
@@ -622,7 +622,7 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
             title="Calculated Price"
-            text="Use these when the scope is still standard but the price depends on project size, unit count, or job type."
+            text="These services vary by project details, so use the dropdowns first, review the price, then add the service to cart."
           />
           <div className="grid gap-6 lg:grid-cols-2">
             {[BUNDLES[1], BUNDLES[2], FEE_BASED_SERVICES[0], FEE_BASED_SERVICES[2]].map((card) => (
