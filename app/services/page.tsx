@@ -617,11 +617,11 @@ function Card({ card }: { card: ServiceCard }) {
           {card.badge}
         </span>
       )}
-      <div className="flex flex-1 flex-col p-7 sm:p-8">
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
         <h3 className="mb-3 text-[22px] font-extrabold text-navy tracking-tight leading-tight">{card.title}</h3>
         <p className="mb-3 text-[14.5px] leading-relaxed text-stone-600">{card.description}</p>
         <p className="mb-5 text-[13.5px] leading-relaxed text-stone-500 italic">{card.forWho}</p>
-        <ul className="mb-6 flex-1 space-y-2.5">
+        <ul className="mb-5 flex-1 space-y-2.5">
           {card.deliverables.map((item) => (
             <li key={item} className="flex items-start gap-2.5 text-[14px] text-stone-600">
               <span className="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0 bg-orange" />
@@ -630,11 +630,11 @@ function Card({ card }: { card: ServiceCard }) {
           ))}
         </ul>
         {card.price && (
-          <div className="mb-6 rounded-2xl border px-4 py-4 text-center border-orange/20 bg-orange/[0.04]">
+          <div className="mb-5 text-left">
             {hasStartingPrice && (
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">Starting price</p>
             )}
-            <p className={`${hasStartingPrice ? 'mt-1.5' : ''} text-[26px] sm:text-[28px] font-extrabold leading-none tracking-tight text-orange`}>{card.price}</p>
+            <p className={`${hasStartingPrice ? 'mt-1.5' : ''} text-[26px] sm:text-[30px] font-extrabold leading-[1.05] tracking-tight text-orange break-words`}>{card.price}</p>
           </div>
         )}
         {card.calculator ? (
