@@ -18,7 +18,8 @@ const initialForm = {
   entity_type: '',
   project_timeline: '',
   scope_notes: '',
-  amount: '1500',
+  item: 'flagship-permit-oversight',
+  amount: '4499',
 };
 
 const inputBase =
@@ -84,6 +85,7 @@ export default function PortalPage() {
       if (selected) {
         setForm((prev) => ({
           ...prev,
+          item,
           amount: selected.amount,
           scope_notes: prev.scope_notes || selected.scope_notes,
         }));
@@ -254,9 +256,10 @@ export default function PortalPage() {
                   <input className={inputBase} placeholder="Timeline" value={form.project_timeline} onChange={(e) => setForm({ ...form, project_timeline: e.target.value })} />
                 </div>
                 <textarea className={`${inputBase} min-h-[140px] resize-y`} placeholder="Scope notes, obligations, inspection needs, and onboarding notes" value={form.scope_notes} onChange={(e) => setForm({ ...form, scope_notes: e.target.value })} />
-                <div>
-                  <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-navy/60">Initial charge amount (USD)</label>
-                  <input className={inputBase} value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
+                <div className="rounded-2xl border border-navy/[0.08] bg-stone-50 px-4 py-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-navy/60">Checkout amount</p>
+                  <p className="mt-1 text-2xl font-extrabold text-navy-900">${form.amount}</p>
+                  <p className="mt-1 text-xs text-ink/55">This amount is tied to the selected service and cannot be edited here.</p>
                 </div>
                 <button
                   type="submit"

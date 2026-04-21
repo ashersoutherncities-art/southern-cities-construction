@@ -193,7 +193,7 @@ const FEE_BASED_FIXED: ServiceCard[] = [
       'Timeline notes for next steps',
       'Next-step guidance',
     ],
-    price: '$299',
+    price: '$349',
     cta: 'Add to Cart',
     audience: 'Realtors / Buyers',
     itemKey: 'inspection-response-service',
@@ -294,7 +294,7 @@ const FEE_BASED_CALCULATED: ServiceCard[] = [
     cta: 'Add to Cart',
     audience: 'Investors / Property Managers',
     calculator: {
-      itemKey: 'pre-listing-renovation',
+      itemKey: 'rent-ready-turn',
       actionLabel: 'Add to Cart',
       actionType: 'cart',
       fields: [
@@ -426,7 +426,7 @@ const PROJECT_SUPPORT_SERVICES: ServiceCard[] = [
       'Contractor-side deal guidance',
       'Next-step guidance',
     ],
-    price: '$299',
+    price: '$399',
     cta: 'Add to Cart',
     audience: 'Realtors',
     itemKey: 'realtor-inspection-review',

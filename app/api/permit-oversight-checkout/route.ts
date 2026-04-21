@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { CART_PRODUCTS } from '@/lib/cart';
 
 function getBaseUrl() {
   return process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
       entity_type,
       project_timeline,
       scope_notes,
-      amount,
+      item,
     } = body;
 
     if (!buyer_name || !buyer_email || !project_address || !project_manager_role) {
@@ -41,9 +42,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const unitAmount = Number.isFinite(Number(amount)) && Number(amount) > 0
-      ? Math.round(Number(amount) * 100)
-      : 150000;
+    const selectedProduct = CART_PRODUCTS[item] ?? CART_PRODUCTS['flagship-permit-oversight'];
+    const unitAmount = selectedProduct.price;
 
     const customers = await stripe.customers.list({ email: buyer_email, limit: 1 });
     let customerId = customers.data[0]?.id;
@@ -76,9 +76,8 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'Permit Administration + Construction Oversight',
-              description:
-                'Permit administration, compliance setup, portal onboarding, contract packet initiation, and milestone oversight workflow.',
+              name: selectedProduct.name,
+              description: selectedProduct.description,
             },
             unit_amount: unitAmount,
           },
@@ -89,6 +88,7 @@ export async function POST(request: NextRequest) {
       cancel_url: `${baseUrl}/portal?checkout=cancelled`,
       metadata: {
         workflow: 'permit_oversight',
+        item: selectedProduct.key,
         buyer_name,
         buyer_email,
         buyer_phone: buyer_phone || '',
