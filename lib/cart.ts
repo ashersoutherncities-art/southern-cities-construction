@@ -33,8 +33,8 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
   },
   'permit-management-service': {
     key: 'permit-management-service',
-    name: 'Permit Management Service',
-    shortName: 'Permit Management',
+    name: 'Permit Administration',
+    shortName: 'Permit Admin',
     price: 149900,
     priceLabel: '$1,499 starting price',
     description: 'Permit submission support, correction handling, inspection coordination, and status tracking.',

@@ -167,7 +167,7 @@ const SUBSCRIPTIONS: ServiceCard[] = [
 
 const FEE_BASED_FIXED: ServiceCard[] = [
   {
-    title: 'Permit Help',
+    title: 'Permit Administration',
     description: 'We manage permit administration, jurisdiction coordination, correction responses, and inspection scheduling for licensed contractors who remain on the permit.',
     forWho: 'For licensed contractors who need a more formal back-office permit partner while keeping permit responsibility in their own name.',
     deliverables: [
