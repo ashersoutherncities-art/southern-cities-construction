@@ -115,6 +115,48 @@ const SUBSCRIPTIONS: ServiceCard[] = [
     cta: 'Add to Cart',
     itemKey: 'sub-network-access',
   },
+  {
+    title: 'Contractor Permit Desk',
+    description: 'We act as your permit desk for repeat permit submission, follow-up, corrections, and inspection scheduling.',
+    forWho: 'For general contractors and trade contractors pulling permits regularly and wanting a steady administrative partner.',
+    deliverables: [
+      'Ongoing permit submission support',
+      'Correction response coordination',
+      'Inspection scheduling workflow',
+      'Permit status tracking across active jobs',
+    ],
+    price: '$750/mo',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+  },
+  {
+    title: 'Investor Turn Support',
+    description: 'We stay available for repeat turns, repair scopes, and construction-side review as units and projects come up.',
+    forWho: 'For investors and small operators who need repeat help getting units, listings, and repair decisions moving.',
+    deliverables: [
+      'Recurring project intake',
+      'Repair scope and turnover coordination',
+      'Priority review for active jobs',
+      'Construction-side planning support',
+    ],
+    price: '$1,250/mo',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+  },
+  {
+    title: 'Realtor Repair Desk',
+    description: 'We become the repeat construction contact for inspection issues, listing prep, and repair questions tied to active deals.',
+    forWho: 'For realtors and teams who want a repeat contractor relationship instead of starting from scratch on every deal.',
+    deliverables: [
+      'Inspection-response support',
+      'Pre-listing repair planning',
+      'Fast construction-side guidance',
+      'Repeat coordination for active deals',
+    ],
+    price: '$500/mo',
+    cta: 'Request a Quote',
+    ctaHref: '#contact',
+  },
 ];
 
 const FEE_BASED_FIXED: ServiceCard[] = [
@@ -735,7 +777,7 @@ export default function ServicesPage() {
             title={SECTION_INTROS.subscriptions.title}
             text={SECTION_INTROS.subscriptions.text}
           />
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {SUBSCRIPTIONS.map((card) => (
               <Card key={card.title} card={card} />
             ))}
@@ -750,7 +792,7 @@ export default function ServicesPage() {
             title={SECTION_INTROS.fixed.title}
             text={SECTION_INTROS.fixed.text}
           />
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {[...FEE_BASED_FIXED, PROJECT_SUPPORT_SERVICES[1]].map((card) => (
               <Card key={card.title} card={card} />
             ))}
@@ -783,7 +825,7 @@ export default function ServicesPage() {
             title={SECTION_INTROS.project.title}
             text={SECTION_INTROS.project.text}
           />
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {[PROJECT_SUPPORT_SERVICES[3], ...PROJECT_DEPENDENT_SERVICES].map((card) => (
               <Card key={card.title} card={card} />
             ))}
