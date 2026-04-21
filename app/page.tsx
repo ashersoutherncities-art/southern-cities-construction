@@ -257,7 +257,7 @@ export default function Home() {
               <span className="block mt-2 gradient-text">Real project execution.</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-white/62 max-w-2xl mb-10 leading-relaxed animation-fade-in font-light">
+            <p className="text-lg sm:text-xl text-white/80 max-w-2xl mb-10 leading-relaxed animation-fade-in">
               Southern Cities Construction helps owners, operators, and project managers keep residential projects moving through permits, inspections, documentation, oversight, and contractor coordination. Built for real projects that need structure, not vague consulting.
             </p>
 
