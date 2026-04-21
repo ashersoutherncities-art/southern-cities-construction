@@ -1,11 +1,12 @@
 'use client';
 
-import { Suspense, useMemo } from 'react';
+import { Suspense, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import { buildDirectCheckoutHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
+import { clearCartCookie, setCartItemsCookie } from '@/lib/cart-client';
 
 function CartPageContent() {
   const searchParams = useSearchParams();
@@ -16,6 +17,14 @@ function CartPageContent() {
     () => lineItems.reduce((sum, item) => sum + item.amount, 0),
     [lineItems]
   );
+
+  useEffect(() => {
+    if (!lineItems.length) {
+      clearCartCookie();
+      return;
+    }
+    setCartItemsCookie(lineItems.map((item) => item.key));
+  }, [lineItems]);
 
   return (
     <main className="min-h-screen bg-stone-50">
