@@ -48,8 +48,8 @@ export default function PortalPage() {
           scope_notes: 'Permit administration and construction oversight selected from cart.',
         },
         'permit-management-service': {
-          amount: amount || '1500',
-          scope_notes: 'Permit management service selected from cart.',
+          amount: amount || '1499',
+          scope_notes: 'Permit administration service selected from cart.',
         },
         'sub-network-access': {
           amount: amount || '349',
@@ -222,10 +222,14 @@ export default function PortalPage() {
             <div className="rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-10 shadow-elev-2">
               <p className="eyebrow">Start Checkout</p>
               <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-navy-900">
-                Permit Administration + Construction Oversight
+                {form.item === 'permit-management-service'
+                  ? 'Permit Administration'
+                  : 'Permit Administration + Construction Oversight'}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-ink/60">
-                Capture the buyer&apos;s required information up front, then proceed to secure Stripe checkout.
+                {form.item === 'permit-management-service'
+                  ? 'Finish the job details here, then proceed to secure checkout once the permit variables are set.'
+                  : 'Capture the buyer\'s required information up front, then proceed to secure Stripe checkout.'}
               </p>
 
               <form className="mt-8 space-y-4" onSubmit={startCheckout}>
@@ -255,6 +259,28 @@ export default function PortalPage() {
                   <input className={inputBase} placeholder="Entity / owner type" value={form.entity_type} onChange={(e) => setForm({ ...form, entity_type: e.target.value })} />
                   <input className={inputBase} placeholder="Timeline" value={form.project_timeline} onChange={(e) => setForm({ ...form, project_timeline: e.target.value })} />
                 </div>
+                {form.item === 'permit-management-service' && (
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <select
+                      className={inputBase}
+                      value={form.project_manager_role}
+                      onChange={(e) => {
+                        const nextRole = e.target.value;
+                        const nextAmount =
+                          nextRole === 'Commercial or mixed-use permit' ? '3499' :
+                          nextRole === 'Multi-trade residential permit' ? '2499' : '1499';
+                        setForm({ ...form, project_manager_role: nextRole, amount: nextAmount });
+                      }}
+                      required
+                    >
+                      <option value="">Permit type</option>
+                      <option value="Single-trade residential permit">Single-trade residential permit</option>
+                      <option value="Multi-trade residential permit">Multi-trade residential permit</option>
+                      <option value="Commercial or mixed-use permit">Commercial or mixed-use permit</option>
+                    </select>
+                    <input className={inputBase} placeholder="Jurisdiction / county" value={form.project_manager_name} onChange={(e) => setForm({ ...form, project_manager_name: e.target.value })} />
+                  </div>
+                )}
                 <textarea className={`${inputBase} min-h-[140px] resize-y`} placeholder="Scope notes, obligations, inspection needs, and onboarding notes" value={form.scope_notes} onChange={(e) => setForm({ ...form, scope_notes: e.target.value })} />
                 <div className="rounded-2xl border border-navy/[0.08] bg-stone-50 px-4 py-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-navy/60">Checkout amount</p>

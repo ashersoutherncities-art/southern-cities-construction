@@ -6,6 +6,13 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import { buildDirectCheckoutHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
+
+function getCheckoutLabel(itemKey: string) {
+  if (itemKey === 'permit-management-service') {
+    return 'Continue to setup';
+  }
+  return 'Continue to checkout';
+}
 import { clearCartCookie, setCartItemsCookie } from '@/lib/cart-client';
 
 function CartPageContent() {
@@ -83,6 +90,11 @@ function CartPageContent() {
                       <p className="mt-2 text-ink/65 leading-relaxed">
                         {lineItem.product.description}
                       </p>
+                      {lineItem.key === 'permit-management-service' && (
+                        <p className="mt-3 text-sm leading-relaxed text-ink/55">
+                          Job variables for Permit Administration are collected on the next page before checkout.
+                        </p>
+                      )}
                     </div>
                     <div className="shrink-0 text-left sm:text-right">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-navy/45">
@@ -97,7 +109,7 @@ function CartPageContent() {
                     href={buildDirectCheckoutHref({ key: lineItem.key, amount: lineItem.amount })}
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-navy-900 hover:bg-navy px-6 py-3 text-sm font-semibold text-white transition-colors"
                   >
-                    Continue to checkout
+                    {getCheckoutLabel(lineItem.key)}
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -151,7 +163,7 @@ function CartPageContent() {
               </div>
 
               <p className="mt-5 text-xs leading-relaxed text-ink/55">
-                Final project price may change after scope review when scope-based work is involved. Fixed-price and calculated services keep the checkout amount preloaded here.
+                Final project price may change after scope review when scope-based work is involved. Some services, including Permit Administration, collect job variables on the next page before the checkout amount is finalized.
               </p>
             </div>
           </div>
