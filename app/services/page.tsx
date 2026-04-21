@@ -29,6 +29,12 @@ type OtherClientCard = {
   linkText?: string;
 };
 
+type ServiceSectionIntro = {
+  eyebrow: string;
+  title: string;
+  text: string;
+};
+
 const FLAGSHIP_SERVICE: ServiceCard = {
   title: 'Permit Administration + Construction Oversight',
   description: 'We pull the permit, run the inspections, and oversee the construction as the licensed general contractor of record.',
@@ -419,9 +425,32 @@ const OTHER_CLIENTS: OtherClientCard[] = [
   },
 ];
 
-function SectionHeader({ title, text, light = false }: { title: string; text: string; light?: boolean }) {
+const SECTION_INTROS: Record<'cart' | 'calculated' | 'quote', ServiceSectionIntro> = {
+  cart: {
+    eyebrow: 'Buy Now',
+    title: 'Fixed-price work you can purchase today',
+    text: 'Use these when the scope is clear and you want to get moving without a phone call first.',
+  },
+  calculated: {
+    eyebrow: 'Price It First',
+    title: 'Standard services that need a few job details',
+    text: 'Use the dropdowns, review the price, and add the right service to cart once the job details are in place.',
+  },
+  quote: {
+    eyebrow: 'Send the Job',
+    title: 'Larger work that needs a real scope review',
+    text: 'Use this lane when the project needs judgment, planning, or a full proposal before price should be discussed.',
+  },
+};
+
+function SectionHeader({ title, text, light = false, eyebrow }: { title: string; text: string; light?: boolean; eyebrow?: string }) {
   return (
     <div className="mb-12 max-w-3xl">
+      {eyebrow && (
+        <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em]" style={{ color: light ? 'rgba(255,255,255,0.55)' : ORANGE }}>
+          {eyebrow}
+        </p>
+      )}
       <h2 className="mb-3 text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ color: light ? '#fff' : NAVY }}>{title}</h2>
       <p className="text-base leading-relaxed sm:text-lg" style={{ color: light ? 'rgba(255,255,255,0.72)' : '#6b7280' }}>{text}</p>
     </div>
@@ -465,7 +494,7 @@ function FlagshipCard({ card }: { card: ServiceCard }) {
 
 function Card({ card }: { card: ServiceCard }) {
   return (
-    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm" style={{ borderTop: `4px solid ${NAVY}` }}>
+    <div className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ borderTop: `4px solid ${NAVY}` }}>
       {card.badge && (
         <span className="absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-bold text-white" style={{ backgroundColor: ORANGE }}>
           {card.badge}
@@ -577,23 +606,43 @@ export default function ServicesPage() {
 
       <section className="relative overflow-hidden py-24 sm:py-32" style={{ backgroundColor: NAVY }}>
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <div className="max-w-4xl">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-white/55 sm:text-sm">Southern Cities Construction</p>
-            <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
-              We help owners move jobs forward when permits, oversight, pricing, or execution start slowing the project down.
-            </h1>
-            <p className="max-w-3xl text-lg leading-relaxed text-white/68 sm:text-xl">
-              Start with the service that fits the job. Buy fixed-price work now, price out scoped work in minutes, or send the project for review when it needs a real quote.
-            </p>
-          </div>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a href="#flagship" className="rounded-full px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90" style={{ backgroundColor: ORANGE }}>
-              See the Main Service
-            </a>
-            <a href="#services" className="rounded-full border border-white/15 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/10">
-              Browse All Services
-            </a>
+        <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-white/[0.05] to-transparent lg:block" />
+        <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+            <div className="max-w-4xl">
+              <p className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-white/55 sm:text-sm">Southern Cities Construction</p>
+              <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
+                Construction support that gets the job moving and keeps it under control.
+              </h1>
+              <p className="max-w-3xl text-lg leading-relaxed text-white/68 sm:text-xl">
+                Use Southern Cities when you need permit administration, construction oversight, repair planning, listing prep, or a cleaner path to pricing and execution.
+              </p>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <a href="#flagship" className="rounded-full px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90" style={{ backgroundColor: ORANGE }}>
+                  See the Main Service
+                </a>
+                <a href="#services" className="rounded-full border border-white/15 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/10">
+                  Browse All Services
+                </a>
+              </div>
+            </div>
+            <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/45">How to use this page</p>
+              <div className="mt-5 space-y-4 text-sm leading-relaxed text-white/72">
+                <div>
+                  <p className="font-semibold text-white">Buy Now</p>
+                  <p>Use fixed-price services when the scope is simple and you want direct checkout.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-white">Price It First</p>
+                  <p>Use dropdown pricing when the service is standard but the price changes by job details.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-white">Send the Job</p>
+                  <p>Use quote requests when the work needs review, planning, or a custom proposal.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -607,8 +656,9 @@ export default function ServicesPage() {
       <section id="services" className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Add to Cart"
-            text="These are the straightforward services with simple purchase decisions and direct cart checkout."
+            eyebrow={SECTION_INTROS.cart.eyebrow}
+            title={SECTION_INTROS.cart.title}
+            text={SECTION_INTROS.cart.text}
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {[...STANDARD_PRODUCTS, BUNDLES[0], FEE_BASED_SERVICES[1]].map((card) => (
@@ -621,8 +671,9 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24" style={{ backgroundColor: '#f8f9fa' }}>
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Calculated Price"
-            text="These services vary by project details, so use the dropdowns first, review the price, then add the service to cart."
+            eyebrow={SECTION_INTROS.calculated.eyebrow}
+            title={SECTION_INTROS.calculated.title}
+            text={SECTION_INTROS.calculated.text}
           />
           <div className="grid gap-6 lg:grid-cols-2">
             {[BUNDLES[1], BUNDLES[2], FEE_BASED_SERVICES[0], FEE_BASED_SERVICES[2]].map((card) => (
@@ -635,8 +686,9 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionHeader
-            title="Request a Quote"
-            text="Send these in when the job needs a real scope review before anyone should talk price."
+            eyebrow={SECTION_INTROS.quote.eyebrow}
+            title={SECTION_INTROS.quote.title}
+            text={SECTION_INTROS.quote.text}
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {[FEE_BASED_SERVICES[3], ...PROJECT_DEPENDENT_SERVICES].map((card) => (
