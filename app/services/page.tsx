@@ -13,6 +13,7 @@ type ServiceCard = {
   deliverables: string[];
   price: string;
   cta: string;
+  audience?: string;
   itemKey?: string;
   ctaHref?: string;
   badge?: string;
@@ -45,6 +46,7 @@ const FLAGSHIP_SERVICE: ServiceCard = {
   price: 'Calculated by square footage and county',
   cta: 'Review Estimated Price',
   badge: 'Flagship',
+  audience: 'Owners / Investors',
   calculator: {
     itemKey: 'flagship-permit-oversight',
     actionLabel: 'Add to Cart',
@@ -113,6 +115,7 @@ const SUBSCRIPTIONS: ServiceCard[] = [
     ],
     price: '$349/mo',
     cta: 'Add to Cart',
+    audience: 'Contractors',
     itemKey: 'sub-network-access',
   },
   {
@@ -127,6 +130,7 @@ const SUBSCRIPTIONS: ServiceCard[] = [
     ],
     price: '$750/mo',
     cta: 'Request a Quote',
+    audience: 'Contractors',
     ctaHref: '#contact',
   },
   {
@@ -141,6 +145,7 @@ const SUBSCRIPTIONS: ServiceCard[] = [
     ],
     price: '$1,250/mo',
     cta: 'Request a Quote',
+    audience: 'Investors',
     ctaHref: '#contact',
   },
   {
@@ -155,6 +160,7 @@ const SUBSCRIPTIONS: ServiceCard[] = [
     ],
     price: '$500/mo',
     cta: 'Request a Quote',
+    audience: 'Realtors',
     ctaHref: '#contact',
   },
 ];
@@ -172,6 +178,7 @@ const FEE_BASED_FIXED: ServiceCard[] = [
     ],
     price: '$1,500-$3,500 per permit',
     cta: 'Add to Cart',
+    audience: 'Contractors',
     itemKey: 'permit-management-service',
   },
   {
@@ -186,6 +193,7 @@ const FEE_BASED_FIXED: ServiceCard[] = [
     ],
     price: '$299',
     cta: 'Add to Cart',
+    audience: 'Realtors / Buyers',
     itemKey: 'inspection-response-service',
   },
   {
@@ -200,6 +208,7 @@ const FEE_BASED_FIXED: ServiceCard[] = [
     ],
     price: '$299',
     cta: 'Add to Cart',
+    audience: 'Homeowners',
     itemKey: 'home-assessment',
   },
 ];
@@ -217,6 +226,7 @@ const FEE_BASED_CALCULATED: ServiceCard[] = [
     ],
     price: '$5,000-$15,000',
     cta: 'Add to Cart',
+    audience: 'Realtors / Sellers',
     itemKey: 'pre-listing-renovation',
   },
   {
@@ -231,6 +241,7 @@ const FEE_BASED_CALCULATED: ServiceCard[] = [
     ],
     price: 'Calculated by unit mix',
     cta: 'Add to Cart',
+    audience: 'Investors / Property Managers',
     calculator: {
       itemKey: 'pre-listing-renovation',
       actionLabel: 'Add to Cart',
@@ -283,6 +294,7 @@ const FEE_BASED_CALCULATED: ServiceCard[] = [
     ],
     price: 'Calculated by permit count',
     cta: 'Add to Cart',
+    audience: 'Contractors / Owners',
     calculator: {
       itemKey: 'permit-management-service',
       actionLabel: 'Add to Cart',
@@ -324,6 +336,7 @@ const PROJECT_SUPPORT_SERVICES: ServiceCard[] = [
     ],
     price: 'Calculated by property count',
     cta: 'Add to Cart',
+    audience: 'Investors',
     calculator: {
       itemKey: 'investor-review',
       actionLabel: 'Add to Cart',
@@ -362,6 +375,7 @@ const PROJECT_SUPPORT_SERVICES: ServiceCard[] = [
     ],
     price: '$299',
     cta: 'Add to Cart',
+    audience: 'Realtors',
     itemKey: 'realtor-inspection-review',
   },
   {
@@ -376,6 +390,7 @@ const PROJECT_SUPPORT_SERVICES: ServiceCard[] = [
     ],
     price: 'Calculated by project size',
     cta: 'Add to Cart',
+    audience: 'Homeowners',
     calculator: {
       itemKey: 'owner-consultation',
       actionLabel: 'Add to Cart',
@@ -427,6 +442,7 @@ const PROJECT_SUPPORT_SERVICES: ServiceCard[] = [
     ],
     price: '',
     cta: 'Request a Quote',
+    audience: 'Investors / Developers / Owners',
     ctaHref: '#contact',
   },
 ];
@@ -619,6 +635,11 @@ function Card({ card }: { card: ServiceCard }) {
       )}
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <h3 className="mb-3 text-[22px] font-extrabold text-navy tracking-tight leading-tight">{card.title}</h3>
+        {card.audience && (
+          <p className="mb-3 inline-flex w-fit rounded-full border border-orange/20 bg-orange/[0.06] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">
+            {card.audience}
+          </p>
+        )}
         <p className="mb-3 text-[14.5px] leading-relaxed text-stone-600">{card.description}</p>
         <p className="mb-5 text-[13.5px] leading-relaxed text-stone-500 italic">{card.forWho}</p>
         <ul className="mb-5 flex-1 space-y-2.5">
