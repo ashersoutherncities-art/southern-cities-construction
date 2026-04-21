@@ -2,9 +2,8 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
-const NAVY = '#132452';
-const ORANGE = '#fa8c41';
+import SiteNav from '@/components/SiteNav';
+import SiteFooter from '@/components/SiteFooter';
 
 const initialForm = {
   buyer_name: '',
@@ -21,6 +20,9 @@ const initialForm = {
   scope_notes: '',
   amount: '1500',
 };
+
+const inputBase =
+  'w-full rounded-xl border border-navy/12 bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:border-orange/60 focus:bg-white transition-colors';
 
 export default function PortalPage() {
   const [email, setEmail] = useState('');
@@ -81,11 +83,11 @@ export default function PortalPage() {
         })
         .then((json) => {
           setCompletionMessage(
-            `Payment confirmed. Portal workspace created, contract status is ${json?.order?.contract_status || 'pending signature'}, and onboarding is ready to move through orders@southerncitiesconstruction.com.`
+            `Payment confirmed. Your portal workspace is being prepared and contract status is ${json?.order?.contract_status || 'pending signature'}. Onboarding next steps will arrive from orders@southerncitiesconstruction.com.`
           );
         })
         .catch((err: Error) => {
-          setCompletionMessage(`Payment came through, but order finalization still needs a retry: ${err.message}`);
+          setCompletionMessage(`Payment came through, but order finalization needs a retry: ${err.message}`);
         });
     }
 
@@ -123,136 +125,173 @@ export default function PortalPage() {
     }
   }
 
+  const STEPS: Array<[string, string, string]> = [
+    ['01', 'Buyer information', 'Project, project manager, and billing details before payment.'],
+    ['02', 'Secure payment', 'Stripe handles the service deposit or purchase amount.'],
+    ['03', 'Order creation', 'Your paid order is recorded and the onboarding workflow begins.'],
+    ['04', 'Portal + contract', 'Workspace access, invoice, and contract packet arrive from orders@southerncitiesconstruction.com.'],
+  ];
+
   return (
-    <div className="min-h-screen" style={{ background: '#f6f7fb' }}>
-      <section className="px-6 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-2 items-start">
+    <main className="min-h-screen bg-stone-50">
+      <SiteNav variant="solid" />
+
+      <section className="container-pro pt-14 pb-20 lg:pt-20 lg:pb-28">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16 items-start">
           <div>
-            <span className="inline-flex rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em]" style={{ background: 'rgba(250,140,65,0.12)', color: ORANGE }}>
-              Client Portal + Checkout
-            </span>
-            <div className="mt-4">
-              <Link href="/cart" className="text-sm font-semibold" style={{ color: NAVY }}>
-                Review cart
-              </Link>
-            </div>
-            <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight" style={{ color: NAVY }}>
-              Buy the flagship service and launch onboarding in one flow.
+            <p className="eyebrow">Onboarding</p>
+            <h1 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight text-navy-900 leading-[1.05]">
+              Start your project and unlock the client portal.
             </h1>
-            <p className="mt-6 text-lg leading-relaxed text-gray-600 max-w-2xl">
-              This page now acts as the front door for Permit Administration + Construction Oversight. The buyer enters project and billing information, completes payment, and then gets routed into the portal-backed onboarding sequence.
+            <p className="mt-6 text-lg leading-relaxed text-ink/65 max-w-xl">
+              Submit project information, complete payment, and the portal-backed onboarding flow takes over. Contract, invoice, and workspace access arrive right after checkout.
             </p>
 
             {completionMessage && (
-              <div className="mt-8 rounded-2xl border border-green-200 bg-green-50 p-5 text-sm leading-relaxed text-green-800">
-                {completionMessage}
+              <div className="mt-8 rounded-2xl border border-green-200 bg-green-50 p-5 text-sm leading-relaxed text-green-800 flex items-start gap-3">
+                <svg className="w-5 h-5 shrink-0 mt-0.5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{completionMessage}</span>
               </div>
             )}
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
-              {[
-                ['1. Buyer checkout', 'Collect project, PM, and billing details before payment.'],
-                ['2. Stripe payment', 'Charge the service deposit or purchase amount.'],
-                ['3. Order record created', 'The paid order is written into the permit_oversight_orders workflow.'],
-                ['4. Portal + contract', 'Credentials, invoice, and contract packet flow from orders@southerncitiesconstruction.com.'],
-              ].map(([title, copy]) => (
-                <div key={title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                  <h3 className="font-bold" style={{ color: NAVY }}>{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gray-600">{copy}</p>
+            <div className="mt-10 space-y-3">
+              {STEPS.map(([num, title, copy]) => (
+                <div
+                  key={num}
+                  className="flex items-start gap-4 rounded-2xl border border-navy/[0.08] bg-white p-5 shadow-elev-1"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-orange/10 text-[12px] font-bold text-orange tracking-widest">
+                    {num}
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-navy-900">{title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-ink/60">{copy}</p>
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-10 rounded-3xl p-8" style={{ background: NAVY }}>
-              <h2 className="text-2xl font-bold text-white">Provider hookups still pending</h2>
-              <ul className="mt-5 space-y-3 text-white/75 text-sm leading-relaxed">
-                <li>- orders@southerncitiesconstruction.com live sender integration</li>
-                <li>- invoice / receipt PDF generation</li>
-                <li>- DocuSign API hookup and template automation</li>
-                <li>- secure buyer-specific portal authentication</li>
-              </ul>
+            <div className="mt-10 rounded-2xl border border-navy/[0.08] bg-white p-6">
+              <p className="text-sm font-semibold text-navy-900">Already have portal access?</p>
+              <p className="mt-1 text-sm text-ink/60">
+                Use the{' '}
+                <a
+                  href="https://clients.southerncitiesconstruction.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-orange hover:text-orange-500"
+                >
+                  live client portal
+                </a>{' '}
+                to view your project status, documents, and invoices.
+              </p>
+              <div className="mt-3 text-xs text-ink/50">
+                Need to review items first?{' '}
+                <Link href="/cart" className="font-semibold text-navy-900 hover:text-orange">
+                  Go to cart
+                </Link>
+              </div>
             </div>
           </div>
 
-          <div className="space-y-8">
-            <div className="rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-xl shadow-slate-200/60">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: ORANGE }}>
-                Start Checkout
-              </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight" style={{ color: NAVY }}>
+          <div className="space-y-8 lg:sticky lg:top-28">
+            <div className="rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-10 shadow-elev-2">
+              <p className="eyebrow">Start Checkout</p>
+              <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-navy-900">
                 Permit Administration + Construction Oversight
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-gray-600">
-                Capture the buyer&apos;s required information up front, then send them into Stripe checkout.
+              <p className="mt-3 text-sm leading-relaxed text-ink/60">
+                Capture the buyer&apos;s required information up front, then proceed to secure Stripe checkout.
               </p>
 
-              <form className="mt-8 space-y-5" onSubmit={startCheckout}>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Buyer name" value={form.buyer_name} onChange={(e) => setForm({ ...form, buyer_name: e.target.value })} required />
-                  <input type="email" className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Buyer email" value={form.buyer_email} onChange={(e) => setForm({ ...form, buyer_email: e.target.value })} required />
+              <form className="mt-8 space-y-4" onSubmit={startCheckout}>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input className={inputBase} placeholder="Buyer name" value={form.buyer_name} onChange={(e) => setForm({ ...form, buyer_name: e.target.value })} required />
+                  <input type="email" className={inputBase} placeholder="Buyer email" value={form.buyer_email} onChange={(e) => setForm({ ...form, buyer_email: e.target.value })} required />
                 </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Buyer phone" value={form.buyer_phone} onChange={(e) => setForm({ ...form, buyer_phone: e.target.value })} />
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Billing address" value={form.billing_address} onChange={(e) => setForm({ ...form, billing_address: e.target.value })} />
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input className={inputBase} placeholder="Buyer phone" value={form.buyer_phone} onChange={(e) => setForm({ ...form, buyer_phone: e.target.value })} />
+                  <input className={inputBase} placeholder="Billing address" value={form.billing_address} onChange={(e) => setForm({ ...form, billing_address: e.target.value })} />
                 </div>
-                <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Project address" value={form.project_address} onChange={(e) => setForm({ ...form, project_address: e.target.value })} required />
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <select className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" value={form.project_manager_role} onChange={(e) => setForm({ ...form, project_manager_role: e.target.value })} required>
+                <input className={inputBase} placeholder="Project address" value={form.project_address} onChange={(e) => setForm({ ...form, project_address: e.target.value })} required />
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <select className={inputBase} value={form.project_manager_role} onChange={(e) => setForm({ ...form, project_manager_role: e.target.value })} required>
                     <option value="">Who is the project manager?</option>
                     <option value="Client will act as project manager">Client will act as project manager</option>
                     <option value="Third-party PM will manage the project">Third-party PM will manage the project</option>
                     <option value="Need Southern Cities guidance on structure">Need Southern Cities guidance on structure</option>
                   </select>
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Project manager name" value={form.project_manager_name} onChange={(e) => setForm({ ...form, project_manager_name: e.target.value })} />
+                  <input className={inputBase} placeholder="Project manager name" value={form.project_manager_name} onChange={(e) => setForm({ ...form, project_manager_name: e.target.value })} />
                 </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <input type="email" className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Project manager email" value={form.project_manager_email} onChange={(e) => setForm({ ...form, project_manager_email: e.target.value })} />
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Project manager phone" value={form.project_manager_phone} onChange={(e) => setForm({ ...form, project_manager_phone: e.target.value })} />
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input type="email" className={inputBase} placeholder="Project manager email" value={form.project_manager_email} onChange={(e) => setForm({ ...form, project_manager_email: e.target.value })} />
+                  <input className={inputBase} placeholder="Project manager phone" value={form.project_manager_phone} onChange={(e) => setForm({ ...form, project_manager_phone: e.target.value })} />
                 </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Entity / owner type" value={form.entity_type} onChange={(e) => setForm({ ...form, entity_type: e.target.value })} />
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Timeline" value={form.project_timeline} onChange={(e) => setForm({ ...form, project_timeline: e.target.value })} />
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input className={inputBase} placeholder="Entity / owner type" value={form.entity_type} onChange={(e) => setForm({ ...form, entity_type: e.target.value })} />
+                  <input className={inputBase} placeholder="Timeline" value={form.project_timeline} onChange={(e) => setForm({ ...form, project_timeline: e.target.value })} />
                 </div>
-                <textarea className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none min-h-[140px]" placeholder="Scope notes, obligations, inspection needs, and onboarding notes" value={form.scope_notes} onChange={(e) => setForm({ ...form, scope_notes: e.target.value })} />
+                <textarea className={`${inputBase} min-h-[140px] resize-y`} placeholder="Scope notes, obligations, inspection needs, and onboarding notes" value={form.scope_notes} onChange={(e) => setForm({ ...form, scope_notes: e.target.value })} />
                 <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">Initial charge amount (USD)</label>
-                  <input className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
+                  <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-navy/60">Initial charge amount (USD)</label>
+                  <input className={inputBase} value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
                 </div>
-                <button type="submit" className="w-full rounded-2xl px-5 py-4 text-base font-semibold text-white transition hover:brightness-110" style={{ background: ORANGE }} disabled={checkoutState === 'loading'}>
-                  {checkoutState === 'loading' ? 'Opening checkout...' : 'Continue to Payment'}
+                <button
+                  type="submit"
+                  className="w-full rounded-full bg-orange hover:bg-orange-500 px-5 py-3.5 text-sm font-semibold text-white shadow-glow-orange transition-colors disabled:opacity-60"
+                  disabled={checkoutState === 'loading'}
+                >
+                  {checkoutState === 'loading' ? 'Opening checkout…' : 'Continue to Secure Payment'}
                 </button>
                 {checkoutMessage && (
-                  <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{checkoutMessage}</div>
+                  <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{checkoutMessage}</div>
                 )}
               </form>
             </div>
 
-            <div className="rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-xl shadow-slate-200/60">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: ORANGE }}>
-                Portal Login
-              </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight" style={{ color: NAVY }}>
-                Existing buyer access
+            <div className="rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-10 shadow-elev-1">
+              <p className="eyebrow">Existing Buyer</p>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy-900">
+                Portal access
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-gray-600">
-                Existing buyers will use credentials delivered by orders@southerncitiesconstruction.com after checkout is completed.
+              <p className="mt-3 text-sm leading-relaxed text-ink/60">
+                Use the credentials delivered by orders@southerncitiesconstruction.com after your checkout was completed.
               </p>
-              <form className="mt-8 space-y-5" onSubmit={(e) => { e.preventDefault(); setLoginSubmitted(true); }}>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="buyer@email.com" />
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-sm outline-none" placeholder="Temporary password from email" />
-                <button type="submit" className="w-full rounded-2xl px-5 py-4 text-base font-semibold text-white transition hover:brightness-110" style={{ background: NAVY }}>
+              <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); setLoginSubmitted(true); }}>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputBase} placeholder="buyer@email.com" />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputBase} placeholder="Temporary password from email" />
+                <button
+                  type="submit"
+                  className="w-full rounded-full bg-navy-900 hover:bg-navy px-5 py-3.5 text-sm font-semibold text-white transition-colors"
+                >
                   Enter Portal
                 </button>
               </form>
               {loginSubmitted && (
-                <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-5 text-sm text-green-800">
-                  Real buyer authentication is the next provider step. The workflow now supports purchase, paid order creation, and portal-routing logic.
+                <div className="mt-5 rounded-xl border border-navy/[0.08] bg-stone-50 p-4 text-sm leading-relaxed text-ink/70">
+                  For live portal access, use{' '}
+                  <a
+                    href="https://clients.southerncitiesconstruction.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-orange hover:text-orange-500"
+                  >
+                    clients.southerncitiesconstruction.com
+                  </a>{' '}
+                  or contact our team at{' '}
+                  <a href="mailto:orders@southerncitiesconstruction.com" className="font-semibold text-navy-900 hover:text-orange">
+                    orders@southerncitiesconstruction.com
+                  </a>.
                 </div>
               )}
             </div>
           </div>
         </div>
       </section>
-    </div>
+
+      <SiteFooter />
+    </main>
   );
 }

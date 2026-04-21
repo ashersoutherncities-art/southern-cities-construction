@@ -11,16 +11,17 @@ export default {
       colors: {
         navy: {
           DEFAULT: '#132452',
-          50: '#e8ecf5',
-          100: '#c5cee6',
-          200: '#9eaed4',
-          300: '#778ec2',
-          400: '#5976b5',
+          50: '#f0f3fa',
+          100: '#d9deee',
+          200: '#b3bddd',
+          300: '#8d9ccc',
+          400: '#5b72b4',
           500: '#3b5ea8',
           600: '#2d4a8a',
           700: '#1f376b',
           800: '#132452',
           900: '#0a1530',
+          950: '#060d20',
         },
         orange: {
           DEFAULT: '#fa8c41',
@@ -36,10 +37,38 @@ export default {
           900: '#4c2507',
         },
         gold: '#d4a843',
+        stone: {
+          50: '#fafaf8',
+          100: '#f5f4f1',
+          200: '#e8e7e1',
+          300: '#d4d2c9',
+          400: '#a8a49a',
+          500: '#78746a',
+          600: '#565349',
+          700: '#3c3a33',
+          800: '#26251f',
+        },
       },
       fontFamily: {
-        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
-        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        '2xs': ['0.6875rem', { lineHeight: '1rem' }],
+      },
+      letterSpacing: {
+        tightest: '-0.03em',
+        eyebrow: '0.22em',
+      },
+      boxShadow: {
+        'elev-1': '0 1px 2px rgba(19,36,82,0.04), 0 1px 3px rgba(19,36,82,0.06)',
+        'elev-2': '0 4px 12px -4px rgba(19,36,82,0.08), 0 8px 20px -8px rgba(19,36,82,0.1)',
+        'elev-3': '0 14px 40px -12px rgba(19,36,82,0.18)',
+        'elev-nav': '0 10px 30px -10px rgba(10,21,48,0.55)',
+        'glow-orange': '0 8px 24px -8px rgba(250,140,65,0.45)',
+      },
+      backgroundImage: {
+        'grain': "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0)",
       },
       animation: {
         'fade-up': 'fadeUp 0.7s ease-out forwards',
@@ -47,6 +76,7 @@ export default {
         'slide-right': 'slideRight 0.6s ease-out forwards',
         'scale-in': 'scaleIn 0.5s ease-out forwards',
         'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+        'shimmer': 'shimmer 2.2s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -68,6 +98,10 @@ export default {
         pulseSubtle: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.85' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
       },
     },
