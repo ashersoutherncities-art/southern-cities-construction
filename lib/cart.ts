@@ -22,6 +22,15 @@ export type CartLineItem = {
 };
 
 export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
+  'flagship-permit-oversight': {
+    key: 'flagship-permit-oversight',
+    name: 'Permit Administration + Construction Oversight',
+    shortName: 'Flagship Oversight',
+    price: 450000,
+    priceLabel: '$4,500 starting price',
+    description: 'Flagship GC-of-record service with permit administration, inspection coordination, and construction oversight.',
+    checkoutAmount: '4500',
+  },
   'permit-management-service': {
     key: 'permit-management-service',
     name: 'Permit Management Service',

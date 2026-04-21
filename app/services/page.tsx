@@ -34,21 +34,90 @@ type ServiceSectionIntro = {
 
 const FLAGSHIP_SERVICE: ServiceCard = {
   title: 'Permit Administration + Construction Oversight',
-  description: 'We pull the permit, run the inspections, and oversee the construction as the licensed general contractor of record.',
-  forWho: 'For owners and investors who need a licensed GC to take responsibility for the job end to end.',
+  description: 'We pull the permit under our license, coordinate inspections, and stay on the job as the general contractor of record from permit through closeout.',
+  forWho: 'For owners and investors who need a licensed GC to take responsibility for a permitted job and want an estimated price before submitting the project.',
   deliverables: [
     'Permit pulled under our license',
     'Inspection coordination and milestone tracking',
-    'Progress documentation and compliance checkpoints',
+    'Progress oversight and documentation',
     'Issue escalation when the work drifts off track',
   ],
-  price: '',
-  cta: 'Request a Quote',
-  ctaHref: '#contact',
+  price: 'Calculated by square footage and county',
+  cta: 'Review Estimated Price',
   badge: 'Flagship',
+  calculator: {
+    itemKey: 'flagship-permit-oversight',
+    actionLabel: 'Add to Cart',
+    actionType: 'cart',
+    fields: [
+      {
+        name: 'address',
+        label: 'Project address',
+        type: 'select',
+        defaultValue: 'mecklenburg-charlotte',
+        options: [
+          { value: 'mecklenburg-charlotte', label: 'Charlotte / Mecklenburg County' },
+          { value: 'cabarrus-concord', label: 'Concord / Cabarrus County' },
+          { value: 'iredell-mooresville', label: 'Mooresville / Iredell County' },
+          { value: 'union-matthews', label: 'Matthews / Union County' },
+          { value: 'gaston-gastonia', label: 'Gastonia / Gaston County' },
+          { value: 'other-county', label: 'Other county in North Carolina' },
+        ],
+      },
+      {
+        name: 'squareFootage',
+        label: 'Approximate heated square footage',
+        type: 'select',
+        defaultValue: 'under-1500',
+        options: [
+          { value: 'under-1500', label: 'Under 1,500 SF' },
+          { value: '1500-2500', label: '1,500 to 2,500 SF' },
+          { value: '2500-4000', label: '2,500 to 4,000 SF' },
+          { value: '4000-plus', label: '4,000+ SF' },
+        ],
+      },
+      {
+        name: 'projectType',
+        label: 'Project type',
+        type: 'select',
+        defaultValue: 'renovation',
+        options: [
+          { value: 'renovation', label: 'Renovation / remodel' },
+          { value: 'addition', label: 'Addition' },
+          { value: 'new-build', label: 'New build' },
+        ],
+      },
+    ],
+    calculatePrice: (values) => {
+      const county = String(values.address);
+      const squareFootage = String(values.squareFootage);
+      const projectType = String(values.projectType);
+      const base = projectType === 'new-build' ? 850000 : projectType === 'addition' ? 650000 : 450000;
+      const sfAdd = squareFootage === '4000-plus' ? 300000 : squareFootage === '2500-4000' ? 180000 : squareFootage === '1500-2500' ? 90000 : 0;
+      const countyAdd = county === 'other-county' ? 125000 : county === 'union-matthews' || county === 'cabarrus-concord' ? 75000 : county === 'iredell-mooresville' || county === 'gaston-gastonia' ? 50000 : 0;
+      return base + sfAdd + countyAdd;
+    },
+  },
 };
 
-const STANDARD_PRODUCTS: ServiceCard[] = [
+const SUBSCRIPTIONS: ServiceCard[] = [
+  {
+    title: 'Sub Network Access',
+    description: 'We provide access to vetted subcontractor coverage and structured coordination support.',
+    forWho: 'For partner contractors who need labor coverage, cleaner coordination, and better overflow support.',
+    deliverables: [
+      'Vetted subcontractor network access',
+      'Priority overflow routing',
+      'Digital coordination support',
+      'Structured project communication',
+    ],
+    price: '$349/mo',
+    cta: 'Add to Cart',
+    itemKey: 'sub-network-access',
+  },
+];
+
+const FEE_BASED_FIXED: ServiceCard[] = [
   {
     title: 'Permit Help',
     description: 'We manage permit administration, jurisdiction coordination, correction responses, and inspection scheduling for licensed contractors who remain on the permit.',
@@ -91,23 +160,9 @@ const STANDARD_PRODUCTS: ServiceCard[] = [
     cta: 'Add to Cart',
     itemKey: 'home-assessment',
   },
-  {
-    title: 'Sub Network Access',
-    description: 'We provide access to vetted subcontractor coverage and structured coordination support.',
-    forWho: 'For partner contractors who need labor coverage, cleaner coordination, and better overflow support.',
-    deliverables: [
-      'Vetted subcontractor network access',
-      'Priority overflow routing',
-      'Digital coordination support',
-      'Structured project communication',
-    ],
-    price: '$349/mo',
-    cta: 'Add to Cart',
-    itemKey: 'sub-network-access',
-  },
 ];
 
-const BUNDLES: ServiceCard[] = [
+const FEE_BASED_CALCULATED: ServiceCard[] = [
   {
     title: 'Pre-Listing Work',
     description: 'We handle repair and refresh work that helps a property show better before it hits the market.',
@@ -214,7 +269,7 @@ const BUNDLES: ServiceCard[] = [
   },
 ];
 
-const FEE_BASED_SERVICES: ServiceCard[] = [
+const PROJECT_SUPPORT_SERVICES: ServiceCard[] = [
   {
     title: 'Investor Review',
     description: 'We review project scope, execution risk, and what it will take to get the job moving.',
@@ -422,21 +477,26 @@ const OTHER_CLIENTS: OtherClientCard[] = [
   },
 ];
 
-const SECTION_INTROS: Record<'cart' | 'calculated' | 'quote', ServiceSectionIntro> = {
-  cart: {
-    eyebrow: 'Buy Now',
-    title: 'Fixed-price work you can purchase today',
-    text: 'Use these when the scope is clear and you want to get moving without a phone call first.',
+const SECTION_INTROS: Record<'subscriptions' | 'fixed' | 'calculated' | 'project', ServiceSectionIntro> = {
+  subscriptions: {
+    eyebrow: 'Subscriptions',
+    title: 'Recurring support for repeat operators',
+    text: 'These are ongoing services for clients who need repeat access, repeat coordination, or overflow support.',
+  },
+  fixed: {
+    eyebrow: 'Fee Based Fixed',
+    title: 'Straightforward services with fixed pricing',
+    text: 'Use these when the scope is simple, the price is clear, and you want direct cart checkout.',
   },
   calculated: {
-    eyebrow: 'Price It First',
-    title: 'Standard services that need a few job details',
-    text: 'Use the dropdowns, review the price, and add the right service to cart once the job details are in place.',
+    eyebrow: 'Fee Based Calculated',
+    title: 'Services that need job details before pricing',
+    text: 'Use the form fields first, review the estimated price, then add the service to cart once the job details are in place.',
   },
-  quote: {
-    eyebrow: 'Send the Job',
-    title: 'Larger work that needs a real scope review',
-    text: 'Use this lane when the project needs judgment, planning, or a full proposal before price should be discussed.',
+  project: {
+    eyebrow: 'Project Based',
+    title: 'Custom quote work for full jobs and larger scopes',
+    text: 'Use this when the project is a full renovation, new build, or larger scope that needs a real review before price is discussed.',
   },
 };
 
@@ -668,54 +728,63 @@ export default function ServicesPage() {
       </section>
 
       {/* Flagship */}
-      <section id="flagship" className="-mt-10 sm:-mt-14 relative z-20 pb-8 sm:pb-12">
-        <div className="container-pro">
-          <FlagshipCard card={FLAGSHIP_SERVICE} />
-        </div>
-      </section>
-
-      {/* Buy Now */}
       <section id="services" className="py-20 sm:py-24">
         <div className="container-pro">
           <SectionHeader
-            eyebrow={SECTION_INTROS.cart.eyebrow}
-            title={SECTION_INTROS.cart.title}
-            text={SECTION_INTROS.cart.text}
+            eyebrow={SECTION_INTROS.subscriptions.eyebrow}
+            title={SECTION_INTROS.subscriptions.title}
+            text={SECTION_INTROS.subscriptions.text}
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {[...STANDARD_PRODUCTS, BUNDLES[0], FEE_BASED_SERVICES[1]].map((card) => (
+            {SUBSCRIPTIONS.map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Price It First */}
       <section className="py-20 sm:py-24 bg-stone-50 border-y border-stone-200">
+        <div className="container-pro">
+          <SectionHeader
+            eyebrow={SECTION_INTROS.fixed.eyebrow}
+            title={SECTION_INTROS.fixed.title}
+            text={SECTION_INTROS.fixed.text}
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[...FEE_BASED_FIXED, PROJECT_SUPPORT_SERVICES[1]].map((card) => (
+              <Card key={card.title} card={card} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="flagship" className="py-20 sm:py-24">
         <div className="container-pro">
           <SectionHeader
             eyebrow={SECTION_INTROS.calculated.eyebrow}
             title={SECTION_INTROS.calculated.title}
             text={SECTION_INTROS.calculated.text}
           />
+          <div className="mb-8">
+            <FlagshipCard card={FLAGSHIP_SERVICE} />
+          </div>
           <div className="grid gap-6 lg:grid-cols-2">
-            {[BUNDLES[1], BUNDLES[2], FEE_BASED_SERVICES[0], FEE_BASED_SERVICES[2]].map((card) => (
+            {[FEE_BASED_CALCULATED[0], FEE_BASED_CALCULATED[1], PROJECT_SUPPORT_SERVICES[0], PROJECT_SUPPORT_SERVICES[2]].map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Send the Job */}
-      <section className="py-20 sm:py-24">
+      <section className="py-20 sm:py-24 bg-stone-50 border-y border-stone-200">
         <div className="container-pro">
           <SectionHeader
-            eyebrow={SECTION_INTROS.quote.eyebrow}
-            title={SECTION_INTROS.quote.title}
-            text={SECTION_INTROS.quote.text}
+            eyebrow={SECTION_INTROS.project.eyebrow}
+            title={SECTION_INTROS.project.title}
+            text={SECTION_INTROS.project.text}
           />
           <div className="grid gap-6 lg:grid-cols-3">
-            {[FEE_BASED_SERVICES[3], ...PROJECT_DEPENDENT_SERVICES].map((card) => (
+            {[PROJECT_SUPPORT_SERVICES[3], ...PROJECT_DEPENDENT_SERVICES].map((card) => (
               <Card key={card.title} card={card} />
             ))}
           </div>
