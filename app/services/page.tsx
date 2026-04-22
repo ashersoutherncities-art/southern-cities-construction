@@ -53,6 +53,15 @@ const homeownerServices: AvatarSection = {
       cta: 'Buy Owner Consultation',
       itemKey: 'owner-consultation',
     },
+    {
+      title: 'Budget Estimate',
+      summary: 'A clear budget estimate for homeowners who need a better number before deciding how to move forward.',
+      details: ['Project scope review', 'Written budget estimate', 'Visible-condition assumptions', 'Clear summary of likely cost range'],
+      fit: 'Useful when you need pricing clarity before the project gets more expensive or more confusing.',
+      purchaseType: 'buy',
+      cta: 'Request Budget Estimate',
+      ctaHref: '#contact',
+    },
   ],
   review: [
     {
@@ -63,6 +72,15 @@ const homeownerServices: AvatarSection = {
       purchaseType: 'review',
       cta: 'Review Permit Pricing',
       itemKey: 'permit-management-service',
+    },
+    {
+      title: 'Permit Path Review',
+      summary: 'A clearer read on what the permit path looks like before the project loses more time to uncertainty.',
+      details: ['Permit requirements review', 'Likely approval path', 'Known risk points', 'Recommended next step'],
+      fit: 'Useful when you are not sure what permitting will require or how it may affect timing.',
+      purchaseType: 'review',
+      cta: 'Review Permit Path Pricing',
+      ctaHref: '#contact',
     },
   ],
   quote: [
@@ -321,6 +339,24 @@ const contractorServices: AvatarSection = {
       cta: 'Review Permit Pricing',
       itemKey: 'permit-management-service',
     },
+    {
+      title: 'Inspection Scheduling Support',
+      summary: 'Support for contractors who need inspections lined up, tracked, and followed through without extra back-and-forth.',
+      details: ['Inspection scheduling', 'Follow-up coordination', 'Correction tracking', 'Status updates'],
+      fit: 'Useful when inspection handling keeps pulling attention off production.',
+      purchaseType: 'review',
+      cta: 'Review Inspection Support Pricing',
+      ctaHref: '#contact',
+    },
+    {
+      title: 'Admin Support for Active Jobs',
+      summary: 'Back-office support for contractors who need help with paperwork, follow-up, and coordination on live residential work.',
+      details: ['Admin task review', 'Coordination support', 'Documentation follow-up', 'Clear next-step support'],
+      fit: 'Useful when the job load is outgrowing the office support behind it.',
+      purchaseType: 'review',
+      cta: 'Review Admin Support Pricing',
+      ctaHref: '#contact',
+    },
   ],
   quote: [
     {
@@ -341,6 +377,26 @@ const developerServices: AvatarSection = {
   title: 'For larger residential projects that need a clearer permit path, stronger coordination, and steadier oversight.',
   intro:
     'These services are for developers and landowners who need more structure around a project before drift, delay, or poor coordination creates bigger problems.',
+  review: [
+    {
+      title: 'Project Review',
+      summary: 'An early review for larger residential projects that need clearer scope, permit visibility, and execution planning.',
+      details: ['Project review', 'Permit-path observations', 'Risk notes', 'Recommended next step'],
+      fit: 'Useful when you need an informed read before the project gets further into motion.',
+      purchaseType: 'review',
+      cta: 'Review Project Pricing',
+      ctaHref: '#contact',
+    },
+    {
+      title: 'Budget & Scope Review',
+      summary: 'A clearer look at likely scope and cost before larger residential work starts drifting financially.',
+      details: ['Scope review', 'Budget observations', 'Visible assumptions', 'Cost-risk notes'],
+      fit: 'Useful when you need better early visibility into scope and cost.',
+      purchaseType: 'review',
+      cta: 'Review Budget & Scope Pricing',
+      ctaHref: '#contact',
+    },
+  ],
   quote: [
     {
       title: 'Permit Administration + Construction Oversight',
