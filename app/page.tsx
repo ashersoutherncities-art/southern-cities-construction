@@ -254,7 +254,7 @@ export default function Home() {
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-[80px] font-extrabold text-white leading-[1.04] mb-7 animation-fade-in">
               Permit administration.<br />
               Construction oversight.
-              <span className="block mt-2 gradient-text">Real project execution.</span>
+              <span className="block mt-2 gradient-text">Active job oversight.</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-white/80 max-w-2xl mb-10 leading-relaxed animation-fade-in">
@@ -281,9 +281,9 @@ export default function Home() {
             <div className="mt-14 pt-8 border-t border-white/10 animation-fade-in">
               <dl className="grid grid-cols-3 gap-6 sm:gap-10 max-w-2xl">
                 {[
-                  { label: 'Permits', value: 'Handled', sub: 'Submission through closeout support' },
-                  { label: 'Oversight', value: 'Structured', sub: 'Clear tracking, updates, and next steps' },
-                  { label: 'Execution', value: 'Real jobs', sub: 'Built for active residential project work' },
+                  { label: 'Permits', value: 'Submitted', sub: 'Admin support from intake through closeout' },
+                  { label: 'Oversight', value: 'Tracked', sub: 'Clear updates, coordination, and next steps' },
+                  { label: 'Execution', value: 'Active', sub: 'Built around live residential project work' },
                 ].map((stat) => (
                   <div key={stat.label}>
                     <dt className="text-[10px] font-semibold text-white/45 tracking-[0.18em] uppercase mb-1.5">{stat.label}</dt>
