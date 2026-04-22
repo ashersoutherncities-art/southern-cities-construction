@@ -377,13 +377,18 @@ function PurchaseTypeBlock({
   cards?: ServiceCard[];
 }) {
   if (!cards || cards.length === 0) return null;
+  const gridClass =
+    cards.length === 1
+      ? 'grid gap-6 md:grid-cols-2 xl:grid-cols-3 justify-items-center'
+      : 'grid gap-6 md:grid-cols-2 xl:grid-cols-3';
+
   return (
     <div className="mt-10 first:mt-0">
       <div className="mb-6 max-w-2xl">
         <h3 className="text-2xl font-bold text-navy tracking-tight">{title}</h3>
         <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{text}</p>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className={gridClass}>
         {cards.map((card) => (
           <ServiceCardView key={card.title} card={card} />
         ))}
@@ -394,7 +399,7 @@ function PurchaseTypeBlock({
 
 function ServiceCardView({ card }: { card: ServiceCard }) {
   return (
-    <div className="flex h-full flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
+    <div className="flex h-full w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
       <h4 className="text-[22px] font-extrabold text-navy tracking-tight leading-tight">{card.title}</h4>
 
       <div className="mt-5 space-y-4 text-[14.5px] leading-relaxed text-stone-700">
