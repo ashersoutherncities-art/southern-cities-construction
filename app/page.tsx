@@ -281,9 +281,9 @@ export default function Home() {
             <div className="mt-14 pt-8 border-t border-white/10 animation-fade-in">
               <dl className="grid grid-cols-3 gap-6 sm:gap-10 max-w-2xl">
                 {[
-                  { label: 'Permits', value: 'Submitted', sub: 'Admin support from intake through closeout' },
-                  { label: 'Oversight', value: 'Tracked', sub: 'Clear updates, coordination, and next steps' },
-                  { label: 'Execution', value: 'Active', sub: 'Built around live residential project work' },
+                  { label: 'Permits', value: 'Jurisdiction-ready', sub: 'Applications, corrections, and closeout support' },
+                  { label: 'Oversight', value: 'Milestone-based', sub: 'Clear updates, decisions, and next actions' },
+                  { label: 'Execution', value: 'Field-focused', sub: 'Built for active residential project work' },
                 ].map((stat) => (
                   <div key={stat.label}>
                     <dt className="text-[10px] font-semibold text-white/45 tracking-[0.18em] uppercase mb-1.5">{stat.label}</dt>
