@@ -66,36 +66,55 @@ export default function Home() {
 
       <section className="relative overflow-hidden bg-navy-900 pt-28 pb-18 sm:pt-34 sm:pb-22">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950" />
-          <div className="absolute top-1/4 -right-32 w-[520px] h-[520px] rounded-full bg-orange/[0.08] blur-[130px]" />
-          <div className="absolute -bottom-32 -left-40 w-[420px] h-[420px] rounded-full bg-blue-500/[0.06] blur-[110px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,148,77,0.14),_transparent_28%),linear-gradient(135deg,#0f1f4a_0%,#13295c_52%,#0a1633_100%)]" />
+          <div className="absolute inset-y-0 right-0 w-[42%] bg-gradient-to-l from-black/22 to-transparent" />
+          <div className="absolute top-16 right-[8%] h-40 w-40 rounded-full border border-white/10 bg-white/[0.03] blur-3xl" />
+          <div className="absolute bottom-[-4rem] left-[-5rem] h-56 w-56 rounded-full bg-orange/[0.12] blur-[120px]" />
         </div>
 
         <div className="relative z-10 container-pro">
-          <div className="max-w-[50rem]">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90 mb-7">
-              <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
-              Residential project support
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,42rem)_minmax(280px,1fr)] lg:items-end">
+            <div className="max-w-[42rem]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/92 mb-7">
+                <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
+                Residential project support
+              </div>
+              <h1 className="max-w-[10ch] text-[3rem] font-extrabold text-white leading-[0.94] tracking-[-0.05em] sm:text-[4rem] lg:text-[5.35rem]">
+                Bring the job back under control.
+              </h1>
+              <p className="mt-6 max-w-[39rem] text-[19px] leading-[1.65] text-white/96 sm:text-[21px]">
+                When the work gets expensive, confusing, or stuck, Southern Cities helps stop wasted spend, schedule slippage, permit drag, and loose execution before the damage gets worse.
+              </p>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
+                  Find the Right Service
+                </Link>
+                <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/18 bg-white/[0.08] px-6 py-3.5 text-[14px] font-medium text-white/92 transition-all hover:bg-white/[0.12] hover:border-white/30 hover:text-white">
+                  See Services by Role
+                </Link>
+                <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/14 px-6 py-3.5 text-[14px] font-medium text-white/82 transition-all hover:border-white/28 hover:bg-white/[0.05] hover:text-white">
+                  Request a Quote
+                </Link>
+              </div>
             </div>
-            <h1 className="max-w-[12ch] text-[2.75rem] font-extrabold text-white leading-[0.98] tracking-[-0.04em] sm:text-[3.5rem] lg:text-[4.75rem]">
-              When the job gets expensive, confusing, or stuck, Southern Cities brings it back under control.
-            </h1>
-            <p className="mt-7 max-w-[44rem] text-[18px] leading-[1.7] text-white/96 sm:text-[20px]">
-              We help stop wasted spend, schedule slippage, permit drag, inspection confusion, office overload, and loose project control before they turn into bigger losses.
-            </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-              <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
-                Find the Right Service
-              </Link>
-              <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-white/[0.06] px-6 py-3.5 text-[14px] font-medium text-white/92 transition-all hover:bg-white/[0.1] hover:border-white/30 hover:text-white">
-                See Services by Role
-              </Link>
-              <Link href="/services#contact" className="group inline-flex min-w-[220px] items-center justify-center gap-1.5 rounded-full border border-white/12 px-6 py-3.5 text-[14px] font-medium text-white/78 transition-all hover:border-white/24 hover:bg-white/[0.04] hover:text-white">
-                Request a Quote
-                <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
+
+            <div className="hidden lg:block">
+              <div className="rounded-[28px] border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/60">Where the money leaks</p>
+                <div className="mt-5 space-y-4">
+                  {[
+                    'the permit side starts dragging the schedule',
+                    'inspection issues stay unresolved too long',
+                    'the scope is active but nobody is clearly driving the next step',
+                    'office-side overload keeps pulling attention off execution',
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/8 bg-black/10 px-4 py-3 text-[14px] leading-relaxed text-white/88">
+                      <span className="mt-1.5 h-2 w-2 rounded-full bg-orange flex-shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
