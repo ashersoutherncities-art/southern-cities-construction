@@ -436,7 +436,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { icon: icons.construction, title: 'Ground-Up & Major Residential', desc: 'For projects that need a licensed contractor, documented coordination, and a real path from pre-construction to closeout.' },
+              { icon: icons.construction, title: 'Ground-Up & Major Residential', desc: 'For projects that need documented coordination and a real path from pre-construction to closeout.' },
               { icon: icons.renovation, title: 'Renovations & Repositioning', desc: 'For owners improving a property before sale, refinance, hold, or occupancy — with scope clarity and execution structure.' },
               { icon: icons.site, title: 'Site & Scope Readiness', desc: 'Useful when a project is stuck on early logistics, coordination gaps, or readiness issues before trades can move cleanly.' },
               { icon: icons.permit, title: 'Permit Administration', desc: 'Application support, submission coordination, correction handling, and inspection sequencing tied to the actual project workflow.' },
@@ -644,14 +644,14 @@ export default function Home() {
                 Structured, documented, and accountable — from the first phone call
               </h2>
               <p className="mt-5 text-lg text-stone-500 leading-relaxed">
-                We run jobs on a real workflow: licensed, documented at every milestone, and traceable end to end. No black-box consulting, no vague promises.
+                We run jobs on a real workflow: documented at every milestone and traceable end to end. No black-box consulting, no vague promises.
               </p>
             </div>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { icon: icons.shield, title: 'Licensed & insured', desc: 'NC General Contractor License L.107724 · Qualifier Q.108200. Fully bonded and insured.' },
+              { icon: icons.shield, title: 'Documented workflow', desc: 'Clear intake, defined milestones, and visible project tracking from start to closeout.' },
               { icon: icons.permit, title: 'Full permit administration', desc: 'Applications, correction responses, inspection scheduling, and closeout tracking handled in one workflow.' },
               { icon: icons.management, title: 'Milestone-based oversight', desc: 'Progress-photo requirements, inspection checkpoints, and documented issue escalation at each milestone.' },
               { icon: icons.currency, title: 'Transparent draws', desc: 'Clear payment schedules tied to verified progress. Every draw connects back to a milestone.' },
@@ -758,7 +758,7 @@ export default function Home() {
                     <div>
                       <p className="text-[11px] text-stone-400 font-semibold tracking-[0.18em] uppercase mb-1">License</p>
                       <p className="text-navy font-semibold text-[15px]">NC General Contractor L.107724</p>
-                      <p className="text-stone-700 text-sm mt-1">Qualifier Q.108200 · Fully licensed & insured</p>
+                      <p className="text-stone-700 text-sm mt-1">Clear process. Direct communication. Real project follow-through.</p>
                     </div>
                   </div>
                 </div>

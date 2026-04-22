@@ -17,10 +17,10 @@ export default function SiteFooter() {
               className="h-11 w-auto mb-5"
             />
             <p className="text-white/55 text-sm leading-relaxed mb-4 max-w-sm">
-              Licensed general contracting, permit administration, and construction oversight for owners, investors, and operators across North Carolina.
+              General contracting, permit administration, and construction oversight for owners, investors, and operators across North Carolina.
             </p>
             <p className="text-white/35 text-xs leading-relaxed">
-              NC General Contractor License L.107724 · Qualifier Q.108200
+              Permit administration, construction oversight, and project coordination.
             </p>
           </div>
 
@@ -79,7 +79,7 @@ export default function SiteFooter() {
             © {YEAR} Southern Cities Construction LLC · A Division of Southern Cities Enterprises
           </p>
           <p className="text-white/25 text-xs tracking-wide">
-            Licensed · Bonded · Insured
+            Built for active residential project work
           </p>
         </div>
       </div>
