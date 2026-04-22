@@ -66,55 +66,32 @@ export default function Home() {
 
       <section className="relative overflow-hidden bg-navy-900 pt-28 pb-18 sm:pt-34 sm:pb-22">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,148,77,0.14),_transparent_28%),linear-gradient(135deg,#0f1f4a_0%,#13295c_52%,#0a1633_100%)]" />
-          <div className="absolute inset-y-0 right-0 w-[42%] bg-gradient-to-l from-black/22 to-transparent" />
-          <div className="absolute top-16 right-[8%] h-40 w-40 rounded-full border border-white/10 bg-white/[0.03] blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,148,77,0.12),_transparent_28%),linear-gradient(135deg,#0f1f4a_0%,#13295c_50%,#0a1633_100%)]" />
           <div className="absolute bottom-[-4rem] left-[-5rem] h-56 w-56 rounded-full bg-orange/[0.12] blur-[120px]" />
         </div>
 
         <div className="relative z-10 container-pro">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,42rem)_minmax(280px,1fr)] lg:items-end">
-            <div className="max-w-[42rem]">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/92 mb-7">
-                <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
-                Residential project support
-              </div>
-              <h1 className="max-w-[10ch] text-[3rem] font-extrabold text-white leading-[0.94] tracking-[-0.05em] sm:text-[4rem] lg:text-[5.35rem]">
-                Bring the job back under control.
-              </h1>
-              <p className="mt-6 max-w-[39rem] text-[19px] leading-[1.65] text-white/96 sm:text-[21px]">
-                When the work gets expensive, confusing, or stuck, Southern Cities helps stop wasted spend, schedule slippage, permit drag, and loose execution before the damage gets worse.
-              </p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
-                  Find the Right Service
-                </Link>
-                <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/18 bg-white/[0.08] px-6 py-3.5 text-[14px] font-medium text-white/92 transition-all hover:bg-white/[0.12] hover:border-white/30 hover:text-white">
-                  See Services by Role
-                </Link>
-                <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/14 px-6 py-3.5 text-[14px] font-medium text-white/82 transition-all hover:border-white/28 hover:bg-white/[0.05] hover:text-white">
-                  Request a Quote
-                </Link>
-              </div>
+          <div className="max-w-[44rem]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/92 mb-7">
+              <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
+              Residential project support
             </div>
-
-            <div className="hidden lg:block">
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/60">Where the money leaks</p>
-                <div className="mt-5 space-y-4">
-                  {[
-                    'the permit side starts dragging the schedule',
-                    'inspection issues stay unresolved too long',
-                    'the scope is active but nobody is clearly driving the next step',
-                    'office-side overload keeps pulling attention off execution',
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/8 bg-black/10 px-4 py-3 text-[14px] leading-relaxed text-white/88">
-                      <span className="mt-1.5 h-2 w-2 rounded-full bg-orange flex-shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <h1 className="max-w-[11ch] text-[3rem] font-extrabold text-white leading-[0.96] tracking-[-0.05em] sm:text-[4rem] lg:text-[5rem]">
+              Help for residential projects that need structure.
+            </h1>
+            <p className="mt-6 max-w-[40rem] text-[19px] leading-[1.65] text-white/96 sm:text-[21px]">
+              Southern Cities works best when permits, inspections, coordination, or unclear next steps are slowing the job down and creating unnecessary cost.
+            </p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
+                Find the Right Service
+              </Link>
+              <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/18 bg-white/[0.08] px-6 py-3.5 text-[14px] font-medium text-white/92 transition-all hover:bg-white/[0.12] hover:border-white/30 hover:text-white">
+                See Services by Role
+              </Link>
+              <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/14 px-6 py-3.5 text-[14px] font-medium text-white/82 transition-all hover:border-white/28 hover:bg-white/[0.05] hover:text-white">
+                Request a Quote
+              </Link>
             </div>
           </div>
         </div>
@@ -139,9 +116,9 @@ export default function Home() {
               <span className="w-6 h-px bg-orange/50" />
               Who We Help
             </span>
-            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">Start with the pressure you are under, not a vague service list.</h2>
+            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">Who we help</h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Pick the role that matches the money, time, or trust problem hitting you right now. Then pick the service built to fix that exact pressure.
+              Southern Cities works with homeowners, investors, realtors, contractors, and developers who need active residential work handled with more clarity and control.
             </p>
           </div>
 
@@ -174,10 +151,10 @@ export default function Home() {
                 What Southern Cities solves
               </span>
               <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">
-                This is for jobs where weak control is turning into wasted money, blown time, or growing mistrust.
+                What Southern Cities helps with
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                Southern Cities is strongest when the work is already real and the cost of staying loose is starting to show up in budget, schedule, client confidence, or field performance.
+                Some residential projects do not need a full general contractor. They need help getting permits handled, inspections answered, work coordinated, and the next step made clear so the job can keep moving.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
@@ -206,9 +183,9 @@ export default function Home() {
                 <span className="w-6 h-px bg-orange/50" />
                 How to buy
               </span>
-              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">The next move should be clear before more time or money gets burned.</h2>
+              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">How to get started</h2>
               <p className="mt-5 text-[15px] leading-relaxed text-white/78">
-                Buy when the scope is already clear. Review price when a few details change the number. Request a quote when the job is too important or too messy to price loosely.
+                Buy Now is for fixed services. Review Price is for work where a few project details affect cost. Request a Quote is for larger or less-defined jobs that need review first.
               </p>
             </div>
             <div className="grid gap-3.5 md:grid-cols-3">
