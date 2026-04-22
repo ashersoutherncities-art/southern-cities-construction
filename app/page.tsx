@@ -64,7 +64,7 @@ export default function Home() {
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav />
 
-      <section className="relative overflow-hidden bg-navy-900 pt-32 pb-24 sm:pt-40 sm:pb-32">
+      <section className="relative overflow-hidden bg-navy-900 pt-28 pb-18 sm:pt-34 sm:pb-22">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950" />
           <div className="absolute top-1/4 -right-32 w-[520px] h-[520px] rounded-full bg-orange/[0.08] blur-[130px]" />
@@ -98,11 +98,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-b border-stone-200 bg-white py-10">
+      <section className="border-b border-stone-200 bg-white py-7">
         <div className="container-pro">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {differentiators.map((item) => (
-              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-5 text-[14.5px] leading-relaxed text-stone-700">
+              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-4 text-[14.5px] leading-relaxed text-stone-700">
                 {item}
               </div>
             ))}
@@ -110,9 +110,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24 bg-stone-50">
+      <section className="py-14 sm:py-16 bg-stone-50">
         <div className="container-pro">
-          <div className="max-w-3xl mb-12">
+          <div className="max-w-3xl mb-8">
             <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
               <span className="w-6 h-px bg-orange/50" />
               Who We Help
@@ -125,11 +125,11 @@ export default function Home() {
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {whoWeHelp.map((item) => (
-              <div key={item.title} className="flex h-full flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
+              <div key={item.title} className="flex h-full flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
                 <h3 className="text-[24px] font-extrabold text-navy tracking-tight">{item.title}</h3>
-                <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
-                <p className="mt-4 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
-                <div className="mt-auto pt-6">
+                <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
+                <div className="mt-auto pt-5">
                   <Link href={item.href} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500">
                     {item.cta}
                   </Link>
@@ -140,9 +140,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24 bg-white">
+      <section className="py-14 sm:py-16 bg-white">
         <div className="container-pro">
-          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
               <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
                 <span className="w-6 h-px bg-orange/50" />
@@ -155,9 +155,9 @@ export default function Home() {
                 Southern Cities is strongest when the work is real, the timing matters, and the project needs structure instead of more guesswork.
               </p>
             </div>
-            <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-7 sm:p-8">
+            <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
               <h3 className="text-2xl font-bold text-navy tracking-tight">Where projects usually get stuck</h3>
-              <ul className="mt-6 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              <ul className="mt-5 space-y-2.5 text-[15px] leading-relaxed text-stone-700">
                 {problemList.map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
@@ -165,7 +165,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-[15px] leading-relaxed text-navy font-semibold">
+              <p className="mt-5 text-[15px] leading-relaxed text-navy font-semibold">
                 Southern Cities helps turn that into a defined path forward.
               </p>
             </div>
@@ -173,9 +173,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24 bg-navy-950 text-white">
+      <section className="py-14 sm:py-16 bg-navy-950 text-white">
         <div className="container-pro">
-          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div className="grid gap-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
               <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
                 <span className="w-6 h-px bg-orange/50" />
@@ -186,16 +186,16 @@ export default function Home() {
                 Buy fixed services when the problem is already defined. Review price when a few project details affect scope. Request a quote when the work is larger, less defined, or needs real review first.
               </p>
             </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-6">
+            <div className="grid gap-3.5 md:grid-cols-3">
+              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
                 <h3 className="text-xl font-bold">Buy Now</h3>
                 <p className="mt-3 text-sm leading-relaxed text-white/72">Use this when the scope is fixed and you already know what you need.</p>
               </div>
-              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-6">
+              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
                 <h3 className="text-xl font-bold">Review Price</h3>
                 <p className="mt-3 text-sm leading-relaxed text-white/72">Use this when a few project details set the price before you move ahead.</p>
               </div>
-              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-6">
+              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
                 <h3 className="text-xl font-bold">Request a Quote</h3>
                 <p className="mt-3 text-sm leading-relaxed text-white/72">Use this when the work needs review, planning, or a larger scope conversation.</p>
               </div>
@@ -204,7 +204,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24 bg-white">
+      <section className="py-14 sm:py-16 bg-white">
         <div className="container-pro">
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
