@@ -165,7 +165,7 @@ function BeforeAfterSlider({ before, after, title, type, year }: { before: strin
           <h3 className="text-lg font-bold text-navy tracking-tight">{title}</h3>
           <span className="text-[11px] tracking-wider font-semibold text-orange bg-orange/10 px-2.5 py-1 rounded-full">{year}</span>
         </div>
-        <p className="text-sm text-stone-500">{type} · North Carolina</p>
+        <p className="text-sm text-stone-700">{type} · North Carolina</p>
         <p className="text-[11px] text-stone-400 mt-2 tracking-wider uppercase">Drag to compare</p>
       </div>
     </div>
@@ -187,7 +187,7 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
 
 function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <span className={`inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 ${light ? 'text-white/55' : 'text-orange'}`}>
+    <span className={`inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 ${light ? 'text-white/75' : 'text-orange'}`}>
       <span className={`w-6 h-px ${light ? 'bg-white/30' : 'bg-orange/50'}`} />
       {children}
     </span>
@@ -247,7 +247,7 @@ export default function Home() {
 
         <div className="relative z-10 container-pro w-full">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/70 mb-8 animation-fade-in">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 mb-8 animation-fade-in">
               <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
               Charlotte General Contractor
             </div>
@@ -309,7 +309,7 @@ export default function Home() {
               <p className="mt-5 text-lg text-stone-600 leading-relaxed">
                 For owners who need permit administration, milestone compliance, inspection coordination, and structured project oversight — without guessing what happens next.
               </p>
-              <p className="mt-3 text-[15px] text-stone-500 leading-relaxed">
+              <p className="mt-3 text-[15px] text-stone-700 leading-relaxed">
                 The day-to-day project manager can be the owner or a third-party representative, but the job has to stay inside our required documentation, inspection, and compliance workflow to remain active.
               </p>
             </div>
@@ -368,17 +368,17 @@ export default function Home() {
               <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-orange/[0.08] blur-[120px]" />
               <div className="relative grid lg:grid-cols-2 gap-12 items-start">
                 <div>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.08] border border-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/75 mb-6">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.08] border border-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90 mb-6">
                     <span className="text-orange">{icons.shield}</span>
                     Compliance-first delivery
                   </span>
                   <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-5 leading-[1.1]">
                     Designed for owners who want control without losing structure.
                   </h3>
-                  <p className="text-white/65 text-[17px] leading-relaxed mb-7">
+                  <p className="text-white/82 text-[17px] leading-relaxed mb-7">
                     This is not a paper-only permit pull. The service is built around required oversight, documentation, inspections, and formal client obligations.
                   </p>
-                  <ul className="space-y-2.5 text-white/70 text-[14.5px]">
+                  <ul className="space-y-2.5 text-white/85 text-[14.5px]">
                     {[
                       'Required progress-photo uploads at defined milestones',
                       'Major inspections must be scheduled and paid as required',
@@ -428,7 +428,7 @@ export default function Home() {
               <h2 className="text-4xl sm:text-5xl font-extrabold text-navy tracking-tight leading-[1.08]">
                 Construction services built around real project bottlenecks
               </h2>
-              <p className="mt-5 text-lg text-stone-500 leading-relaxed">
+              <p className="mt-5 text-lg text-stone-700 leading-relaxed">
                 We are most useful when a project needs permits, oversight, scheduling discipline, inspections, or a stronger execution structure to get from scope to closeout.
               </p>
             </div>
@@ -449,7 +449,7 @@ export default function Home() {
                     {service.icon}
                   </div>
                   <h3 className="text-lg font-bold text-navy mb-2 tracking-tight">{service.title}</h3>
-                  <p className="text-stone-500 leading-relaxed text-[14.5px]">{service.desc}</p>
+                  <p className="text-stone-700 leading-relaxed text-[14.5px]">{service.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -481,7 +481,7 @@ export default function Home() {
               <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-[1.08]">
                 From inquiry to closeout — on a documented workflow
               </h2>
-              <p className="mt-5 text-lg text-white/55 leading-relaxed">
+              <p className="mt-5 text-lg text-white/78 leading-relaxed">
                 Every project moves through the same structured sequence so nothing gets lost between intake, payment, compliance, and handoff.
               </p>
             </div>
@@ -665,7 +665,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="text-[16px] font-bold text-navy mb-1.5 tracking-tight">{item.title}</h3>
-                    <p className="text-stone-500 text-[14.5px] leading-relaxed">{item.desc}</p>
+                    <p className="text-stone-700 text-[14.5px] leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </AnimatedSection>
@@ -685,7 +685,7 @@ export default function Home() {
               <h2 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-white tracking-tight leading-[1.08] mb-6">
                 Ready to put structure on your project?
               </h2>
-              <p className="text-lg text-white/55 mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
                 Tell us what the project is and what stage it is in. We will review and follow up with a clear next step within one business day.
               </p>
               <div className="flex flex-col sm:flex-row gap-3.5 justify-center">
@@ -758,7 +758,7 @@ export default function Home() {
                     <div>
                       <p className="text-[11px] text-stone-400 font-semibold tracking-[0.18em] uppercase mb-1">License</p>
                       <p className="text-navy font-semibold text-[15px]">NC General Contractor L.107724</p>
-                      <p className="text-stone-500 text-sm mt-1">Qualifier Q.108200 · Fully licensed & insured</p>
+                      <p className="text-stone-700 text-sm mt-1">Qualifier Q.108200 · Fully licensed & insured</p>
                     </div>
                   </div>
                 </div>
