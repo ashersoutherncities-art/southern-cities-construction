@@ -83,7 +83,7 @@ const investorServices: AvatarSection = {
   eyebrow: 'Investors',
   title: 'For investors who need active work to move faster, hold together better, and create less drag on the deal.',
   intro:
-    'These services are for investors dealing with turns, permit issues, scope questions, or project drift that is starting to cost time and money.',
+    'These services are for investors dealing with scope questions, lender requirements, draw support, turn work, or project drift that is starting to cost time and money.',
   buy: [
     {
       title: 'Investor Review',
@@ -121,10 +121,10 @@ const investorServices: AvatarSection = {
   ],
   review: [
     {
-      title: 'Lender Package Review',
-      summary: 'A scope-of-work and bid package for investors who need numbers they can submit with more confidence.',
+      title: 'Lender Scope & Bid Package',
+      summary: 'A scope-of-work and bid package for investors who need numbers they can submit with confidence to a lender or capital partner.',
       details: ['Property and scope review', 'Written scope of work', 'Bid package Southern Cities can stand behind', 'Clear note that pricing is based on visible conditions unless major hidden issues are uncovered'],
-      fit: 'Best when you need a lender-ready package that is practical, documented, and tied to what can be verified at the property.',
+      fit: 'Best when you need a lender-ready package that is practical, documented, and tied to what can actually be verified at the property.',
       purchaseType: 'review',
       cta: 'Review Lender Package Pricing',
       ctaHref: '#contact',
@@ -177,13 +177,13 @@ const investorServices: AvatarSection = {
       },
     },
     {
-      title: 'Permit Administration',
-      summary: 'Permit support for investors who need the approval process handled without creating more delay.',
-      details: ['Permit review', 'Submission coordination', 'Correction handling', 'Inspection scheduling support'],
-      fit: 'Useful when permit issues are starting to affect project timing.',
+      title: 'Draw Review Support',
+      summary: 'Support for investors who need progress, scope, and budget packaged more clearly for draw requests or funding conversations.',
+      details: ['Current work review', 'Budget and progress alignment', 'Draw support notes', 'Clear summary of what has been completed and what remains'],
+      fit: 'Useful when you need cleaner documentation around progress, budget, and remaining scope.',
       purchaseType: 'review',
-      cta: 'Review Permit Pricing',
-      itemKey: 'permit-management-service',
+      cta: 'Review Draw Support Pricing',
+      ctaHref: '#contact',
     },
   ],
   quote: [
