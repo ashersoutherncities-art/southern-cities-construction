@@ -7,36 +7,36 @@ import SiteFooter from '@/components/SiteFooter';
 const whoWeHelp = [
   {
     title: 'Homeowners',
-    pain: 'When the budget keeps moving, the house stays torn up, and you do not feel confident in what you are being told, the whole project starts feeling unsafe.',
-    value: 'Southern Cities helps homeowners get clear on scope, permits, and next steps so more money does not disappear into confusion, delay, and half-explained work.',
+    pain: 'For homeowners dealing with a project that has become harder to manage, harder to price, or harder to trust.',
+    value: 'Southern Cities helps bring clarity to permits, inspections, scope, and next steps so the work can move forward in a more organized way.',
     cta: 'See Homeowner Services',
     href: '/services#homeowners',
   },
   {
     title: 'Investors',
-    pain: 'Every extra week of drift means more holding cost, more vacancy loss, and more margin getting squeezed out of the deal.',
-    value: 'Southern Cities helps investors tighten the work, cut avoidable delay, and keep turns, permits, and decisions from dragging the property down.',
+    pain: 'For investors who need active work handled with less delay, better coordination, and clearer control over what happens next.',
+    value: 'Southern Cities helps keep turns, permit issues, and project coordination from slowing the property down and adding avoidable cost.',
     cta: 'See Investor Services',
     href: '/services#investors',
   },
   {
     title: 'Realtors',
-    pain: 'When repair questions stay fuzzy, listings slow down, buyers hesitate, and client confidence starts dropping at the worst time.',
-    value: 'Southern Cities helps realtors get a clean construction read, protect the timeline, and keep the deal or listing from getting weakened by repair chaos.',
+    pain: 'For realtors who need repair items, listing prep, or inspection issues handled clearly so the deal or listing does not lose momentum.',
+    value: 'Southern Cities helps turn construction questions into practical next steps you can use with clients and deadlines.',
     cta: 'See Realtor Services',
     href: '/services#realtors',
   },
   {
     title: 'Contractors',
-    pain: 'When the office side keeps eating the owner alive, the field loses speed and the company hits a ceiling.',
-    value: 'Southern Cities helps contractors get permits, inspections, and admin work handled with more discipline so production is not constantly interrupted by back-office drag.',
+    pain: 'For contractors who need permit administration, inspection coordination, or project support without carrying all of it in-house.',
+    value: 'Southern Cities helps reduce administrative drag so your team can stay more focused on production and delivery.',
     cta: 'See Contractor Services',
     href: '/services#contractors',
   },
   {
     title: 'Developers / Landowners',
-    pain: 'If feasibility is soft, the permit route is unclear, or ownership is loose, larger residential projects get expensive fast.',
-    value: 'Southern Cities helps developers and landowners tighten the permit side, reduce execution risk, and make the job more dependable before drift turns into real loss.',
+    pain: 'For larger residential projects that need a clearer permit path, tighter coordination, and steadier oversight.',
+    value: 'Southern Cities helps organize the process so the project is easier to manage and less likely to drift.',
     cta: 'See Project Support',
     href: '/services#developers-landowners',
   },
@@ -52,11 +52,11 @@ const problemList = [
   'nobody is clearly owning the path forward',
 ];
 
-const differentiators = [
-  'Permit administration when the paperwork side starts slowing the job down',
-  'Construction oversight when a project needs tighter coordination and milestone control',
-  'Inspection coordination when deal timing or job timing is at risk',
-  'Clear next-step structure when the work is active but the path is still unclear',
+const trustPoints = [
+  'Permit help when approvals and paperwork start delaying the job',
+  'Inspection coordination when corrections and next steps need to be handled clearly',
+  'Project oversight when the work is active but nobody is driving it closely enough',
+  'Clear service paths for homeowners, investors, realtors, contractors, and developers',
 ];
 
 export default function Home() {
@@ -64,44 +64,62 @@ export default function Home() {
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav />
 
-      <section className="relative overflow-hidden bg-navy-900 pt-28 pb-18 sm:pt-34 sm:pb-22">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,148,77,0.12),_transparent_28%),linear-gradient(135deg,#0f1f4a_0%,#13295c_50%,#0a1633_100%)]" />
-          <div className="absolute bottom-[-4rem] left-[-5rem] h-56 w-56 rounded-full bg-orange/[0.12] blur-[120px]" />
-        </div>
+      <section className="relative overflow-hidden bg-navy-900 pt-28 pb-16 sm:pt-34 sm:pb-20">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
 
         <div className="relative z-10 container-pro">
-          <div className="max-w-[44rem]">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/92 mb-7">
-              <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
-              Residential project support
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-center">
+            <div className="max-w-[42rem]">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
+                <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+                Residential project support
+              </div>
+              <h1 className="max-w-[11ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
+                Help for residential projects that need structure.
+              </h1>
+              <p className="mt-6 max-w-[38rem] text-[18px] leading-[1.7] text-white sm:text-[20px]">
+                Southern Cities helps when permits, inspections, coordination, or unclear next steps are slowing the job down and creating avoidable cost.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500">
+                  Find the Right Service
+                </Link>
+                <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border-2 border-white bg-white px-6 py-3.5 text-[14px] font-semibold text-navy transition-all hover:bg-stone-100">
+                  See Services by Role
+                </Link>
+                <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 bg-transparent px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:bg-white/10">
+                  Request a Quote
+                </Link>
+              </div>
             </div>
-            <h1 className="max-w-[11ch] text-[3rem] font-extrabold text-white leading-[0.96] tracking-[-0.05em] sm:text-[4rem] lg:text-[5rem]">
-              Help for residential projects that need structure.
-            </h1>
-            <p className="mt-6 max-w-[40rem] text-[19px] leading-[1.65] text-white/96 sm:text-[21px]">
-              Southern Cities works best when permits, inspections, coordination, or unclear next steps are slowing the job down and creating unnecessary cost.
-            </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
-                Find the Right Service
-              </Link>
-              <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/18 bg-white/[0.08] px-6 py-3.5 text-[14px] font-medium text-white/92 transition-all hover:bg-white/[0.12] hover:border-white/30 hover:text-white">
-                See Services by Role
-              </Link>
-              <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/14 px-6 py-3.5 text-[14px] font-medium text-white/82 transition-all hover:border-white/28 hover:bg-white/[0.05] hover:text-white">
-                Request a Quote
-              </Link>
+
+            <div className="rounded-[24px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What Southern Cities helps with</p>
+              <ul className="mt-5 space-y-3">
+                {trustPoints.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-stone-700">
+                    <span className="mt-2 h-2 w-2 rounded-full bg-orange flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                <p className="text-sm font-semibold text-navy">Clear next step</p>
+                <p className="mt-1 text-[14px] leading-relaxed text-stone-700">
+                  Choose a service, review pricing if needed, or request a quote for work that needs a closer look.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-stone-200 bg-white py-7">
+      <section className="bg-white py-8">
         <div className="container-pro">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {differentiators.map((item) => (
-              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-4 text-[14.5px] leading-relaxed text-stone-700">
+            {trustPoints.map((item) => (
+              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-4 text-[14.5px] leading-relaxed text-stone-800">
                 {item}
               </div>
             ))}
@@ -109,16 +127,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-14 sm:py-16 bg-stone-50">
+      <section className="bg-stone-50 py-14 sm:py-16">
         <div className="container-pro">
-          <div className="max-w-3xl mb-8">
-            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
+          <div className="mb-8 max-w-3xl">
+            <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
               <span className="w-6 h-px bg-orange/50" />
               Who We Help
             </span>
-            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">Who we help</h2>
+            <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">Who we help</h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Southern Cities works with homeowners, investors, realtors, contractors, and developers who need active residential work handled with more clarity and control.
+              Southern Cities supports homeowners, investors, realtors, contractors, and developers who need active residential work handled with more structure, clearer communication, and better follow-through.
             </p>
           </div>
 
@@ -128,7 +146,7 @@ export default function Home() {
                 key={item.title}
                 className="flex w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25 md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]"
               >
-                <h3 className="text-[24px] font-extrabold text-navy tracking-tight">{item.title}</h3>
+                <h3 className="text-[24px] font-extrabold tracking-tight text-navy">{item.title}</h3>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
                 <div className="mt-auto pt-5">
@@ -142,23 +160,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-14 sm:py-16 bg-white">
+      <section className="bg-white py-14 sm:py-16">
         <div className="container-pro">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
-              <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
+              <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
                 <span className="w-6 h-px bg-orange/50" />
                 What Southern Cities solves
               </span>
-              <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">
+              <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
                 What Southern Cities helps with
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                Some residential projects do not need a full general contractor. They need help getting permits handled, inspections answered, work coordinated, and the next step made clear so the job can keep moving.
+                Some residential projects do not need a full general contractor from day one. They need permit help, inspection follow-up, project coordination, and a clearer next step so progress does not stall.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
-              <h3 className="text-2xl font-bold text-navy tracking-tight">Where projects usually get stuck</h3>
+              <h3 className="text-2xl font-bold tracking-tight text-navy">Where projects usually get stuck</h3>
               <ul className="mt-5 space-y-2.5 text-[15px] leading-relaxed text-stone-700">
                 {problemList.map((item) => (
                   <li key={item} className="flex items-start gap-3">
@@ -167,64 +185,64 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-5 text-[15px] leading-relaxed text-navy font-semibold">
-                Southern Cities helps turn that into a defined path forward.
+              <p className="mt-5 text-[15px] font-semibold leading-relaxed text-navy">
+                Southern Cities helps organize the next step so the work can move forward more cleanly.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-14 sm:py-16 bg-navy-950 text-white">
+      <section className="bg-navy-950 py-14 sm:py-16 text-white">
         <div className="container-pro">
           <div className="grid gap-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
-              <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
+              <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
                 <span className="w-6 h-px bg-orange/50" />
                 How to buy
               </span>
               <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">How to get started</h2>
-              <p className="mt-5 text-[15px] leading-relaxed text-white/78">
+              <p className="mt-5 text-[15px] leading-relaxed text-white/88">
                 Buy Now is for fixed services. Review Price is for work where a few project details affect cost. Request a Quote is for larger or less-defined jobs that need review first.
               </p>
             </div>
             <div className="grid gap-3.5 md:grid-cols-3">
-              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
-                <h3 className="text-xl font-bold">Buy Now</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/72">Use this when the scope is fixed and you already know what you need.</p>
+              <div className="rounded-[22px] border border-white/12 bg-white/[0.06] p-5">
+                <h3 className="text-xl font-bold text-white">Buy Now</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/88">Use this when the scope is fixed and you already know what you need.</p>
               </div>
-              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
-                <h3 className="text-xl font-bold">Review Price</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/72">Use this when a few project details set the price before you move ahead.</p>
+              <div className="rounded-[22px] border border-white/12 bg-white/[0.06] p-5">
+                <h3 className="text-xl font-bold text-white">Review Price</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/88">Use this when a few project details set the price before you move ahead.</p>
               </div>
-              <div className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
-                <h3 className="text-xl font-bold">Request a Quote</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/72">Use this when the work needs review, planning, or a larger scope conversation.</p>
+              <div className="rounded-[22px] border border-white/12 bg-white/[0.06] p-5">
+                <h3 className="text-xl font-bold text-white">Request a Quote</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/88">Use this when the work needs review, planning, or a larger scope conversation.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-14 sm:py-16 bg-white">
+      <section className="bg-white py-14 sm:py-16">
         <div className="container-pro">
           <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] mb-4 text-orange">
+            <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
               <span className="w-6 h-px bg-orange/50" />
               Why Southern Cities
             </span>
-            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">
-              Southern Cities is for the moment when residential work stops feeling manageable and starts needing real control.
+            <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
+              Why clients use Southern Cities
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Fewer bad assumptions. Less drift. Tighter follow-through. Budget protected, timing protected, and someone clearly in charge of the next move.
+              Clients use Southern Cities when a residential project needs clearer oversight, better coordination, and a more dependable process for getting from the current problem to the next step.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
                 Find the Right Service
               </Link>
               <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-8 py-4 text-[15px] font-medium text-navy transition-all hover:border-orange hover:text-orange">
-                Talk Through the Project
+                Request a Quote
               </Link>
             </div>
           </div>
