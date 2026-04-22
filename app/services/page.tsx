@@ -121,6 +121,15 @@ const investorServices: AvatarSection = {
   ],
   review: [
     {
+      title: 'Lender Package Review',
+      summary: 'A scope-of-work and bid package for investors who need numbers they can submit with more confidence.',
+      details: ['Property and scope review', 'Written scope of work', 'Bid package Southern Cities can stand behind', 'Clear note that pricing is based on visible conditions unless major hidden issues are uncovered'],
+      fit: 'Best when you need a lender-ready package that is practical, documented, and tied to what can be verified at the property.',
+      purchaseType: 'review',
+      cta: 'Review Lender Package Pricing',
+      ctaHref: '#contact',
+    },
+    {
       title: 'Rent-Ready Turn',
       summary: 'Turn support for vacant units that need to get back into rentable condition without unnecessary delay.',
       details: ['Unit walkthrough', 'Repair and refresh coordination', 'Punchlist closeout', 'Turn-ready handoff path'],
@@ -487,7 +496,7 @@ export default function ServicesPage() {
                 Services for residential projects that need clearer structure.
               </h1>
               <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-                Southern Cities helps when permits, inspections, coordination, or unclear next steps are making the job harder to manage. Start with the role that matches yours, then choose the buying path that fits the service.
+                Southern Cities helps when permits, inspections, coordination, unclear next steps, or missing scope clarity are making the job harder to manage. Start with the role that matches yours, then choose the buying path that fits the service.
               </p>
             </div>
             <div className="rounded-[1.75rem] border border-white/15 bg-white p-7 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)]">
