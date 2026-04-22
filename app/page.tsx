@@ -72,26 +72,29 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 container-pro">
-          <div className="max-w-[62rem]">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 mb-8">
+          <div className="max-w-[50rem]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90 mb-7">
               <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
               Residential project support
             </div>
-            <h1 className="max-w-[11.5ch] text-5xl sm:text-6xl lg:text-[5.2rem] font-extrabold text-white leading-[0.98] tracking-[-0.04em] text-balance">
-              When the job gets expensive, confusing, or stuck, Southern Cities helps bring it back under control.
+            <h1 className="max-w-[12ch] text-[2.75rem] font-extrabold text-white leading-[0.98] tracking-[-0.04em] sm:text-[3.5rem] lg:text-[4.75rem]">
+              When the job gets expensive, confusing, or stuck, Southern Cities brings it back under control.
             </h1>
-            <p className="mt-8 max-w-[46rem] text-[18px] sm:text-[20px] leading-[1.65] text-white/92">
+            <p className="mt-7 max-w-[44rem] text-[18px] leading-[1.7] text-white/96 sm:text-[20px]">
               We help stop wasted spend, schedule slippage, permit drag, inspection confusion, office overload, and loose project control before they turn into bigger losses.
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
                 Find the Right Service
               </Link>
-              <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/18 bg-white/[0.08] px-8 py-4 text-[15px] font-medium text-white/92 transition-all hover:bg-white/[0.14] hover:-translate-y-0.5">
+              <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-white/[0.06] px-6 py-3.5 text-[14px] font-medium text-white/92 transition-all hover:bg-white/[0.1] hover:border-white/30 hover:text-white">
                 See Services by Role
               </Link>
-              <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/12 bg-transparent px-8 py-4 text-[15px] font-medium text-white/72 transition-all hover:border-white/22 hover:bg-white/[0.04] hover:text-white hover:-translate-y-0.5">
+              <Link href="/services#contact" className="group inline-flex min-w-[220px] items-center justify-center gap-1.5 rounded-full border border-white/12 px-6 py-3.5 text-[14px] font-medium text-white/78 transition-all hover:border-white/24 hover:bg-white/[0.04] hover:text-white">
                 Request a Quote
+                <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </Link>
             </div>
           </div>
