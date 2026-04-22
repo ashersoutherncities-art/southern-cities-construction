@@ -32,9 +32,9 @@ type AvatarSection = {
 const homeownerServices: AvatarSection = {
   id: 'homeowners',
   eyebrow: 'Homeowners',
-  title: 'For homeowners dealing with budget fear, disruption, and low trust in how the project is being handled.',
+  title: 'For homeowners trying to stop a project from getting more expensive, more disruptive, and harder to trust.',
   intro:
-    'Use these services when the project feels confusing, expensive, or hard to control and you need a clearer path before more time, money, or stress gets wasted.',
+    'Use these services when the house is torn up, the budget feels slippery, and you need a clearer read before more money gets spent the wrong way.',
   buy: [
     {
       title: 'Home Assessment',
@@ -86,9 +86,9 @@ const homeownerServices: AvatarSection = {
 const investorServices: AvatarSection = {
   id: 'investors',
   eyebrow: 'Investors',
-  title: 'For investors and operators who need to reduce holding costs, vacancy drag, and margin compression.',
+  title: 'For investors and operators trying to stop delay from eating rent, holding time, and margin.',
   intro:
-    'Use these services when turn work, permit issues, repair questions, or loose execution are slowing an active property and starting to cost real money.',
+    'Use these services when the property is active, the work is dragging, and every extra week is starting to show up in carrying cost, vacancy, or thinner profit.',
   buy: [
     {
       title: 'Investor Review',
@@ -202,9 +202,9 @@ const investorServices: AvatarSection = {
 const realtorServices: AvatarSection = {
   id: 'realtors',
   eyebrow: 'Realtors',
-  title: 'For realtors who need to protect the deal, protect the timeline, and protect client confidence.',
+  title: 'For realtors trying to protect the deal, the listing date, and the client relationship at the same time.',
   intro:
-    'Use these services when inspection issues, repair questions, or listing prep are starting to create delay, uncertainty, or client hesitation.',
+    'Use these services when repair questions are starting to slow a transaction, weaken a listing, or make your client feel less sure about what comes next.',
   buy: [
     {
       title: 'Inspection Response',
@@ -303,9 +303,9 @@ const realtorServices: AvatarSection = {
 const contractorServices: AvatarSection = {
   id: 'contractors',
   eyebrow: 'Contractors',
-  title: 'For contractors who need scale leverage without drowning in back-office overload.',
+  title: 'For contractors who need more output without getting buried by permits, inspections, and office-side drag.',
   intro:
-    'Use these services when your team can do the work, but permits, inspections, and paperwork keep dragging attention away from production and limiting throughput.',
+    'Use these services when the field can produce, but the office side keeps stealing time, slowing starts, and putting a ceiling on how much work your team can carry well.',
   review: [
     {
       title: 'Permit Administration',
@@ -335,9 +335,9 @@ const contractorServices: AvatarSection = {
 const developerServices: AvatarSection = {
   id: 'developers-landowners',
   eyebrow: 'Developers / Landowners',
-  title: 'For larger residential projects where feasibility, permit path, and execution reliability have to be taken seriously.',
+  title: 'For larger residential projects where feasibility, permit risk, and execution reliability cannot be left loose.',
   intro:
-    'Use this path when the project is important enough that weak coordination, permit friction, or unclear ownership could become expensive fast.',
+    'Use this when the project is too important to run on assumptions and the cost of a weak permit route, soft planning, or poor coordination could get expensive fast.',
   quote: [
     {
       title: 'Permit Administration + Construction Oversight',
@@ -377,10 +377,7 @@ function PurchaseTypeBlock({
   cards?: ServiceCard[];
 }) {
   if (!cards || cards.length === 0) return null;
-  const gridClass =
-    cards.length === 1
-      ? 'grid gap-6 md:grid-cols-2 xl:grid-cols-3 justify-items-center'
-      : 'grid gap-6 md:grid-cols-2 xl:grid-cols-3';
+  const gridClass = 'grid justify-items-center gap-6 md:grid-cols-2 xl:grid-cols-3';
 
   return (
     <div className="mt-10 first:mt-0">
@@ -514,10 +511,10 @@ export default function ServicesPage() {
                 Services & Pricing
               </div>
               <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                Choose the service based on the real pain slowing the work down.
+                Choose the service based on what the delay is costing you.
               </h1>
               <p className="max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl">
-                If the problem is already defined, buy the service directly. If a few project details affect price, review pricing first. If the work is larger, less defined, or already drifting, request a quote so Southern Cities can review the situation and point you to the right next step.
+                Some jobs need a fast fixed service. Some need a price based on real project details. Some are too important or too messy to price loosely. Start where the risk is real, then move from there.
               </p>
             </div>
             <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
@@ -547,7 +544,7 @@ export default function ServicesPage() {
             <div className="max-w-2xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose your role</p>
               <p className="mt-2 text-[15px] leading-relaxed text-stone-700">
-                Jump straight to the services built for your role, your pressure, and the kind of problem you need solved.
+                Go straight to the section that matches where the money, time, or trust problem is hitting you.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -569,9 +566,9 @@ export default function ServicesPage() {
         <section key={section.id} id={section.id} className={index % 2 === 0 ? 'py-20 sm:py-24 bg-white' : 'py-20 sm:py-24 bg-stone-50 border-y border-stone-200'}>
           <div className="container-pro">
             <SectionHeader eyebrow={section.eyebrow} title={section.title} text={section.intro} />
-            <PurchaseTypeBlock title="Buy Now" text="Use these when the scope is simple, the answer is clear, and you want the fastest path forward." cards={section.buy} />
-            <PurchaseTypeBlock title="Review Price" text="Use these when a few project details set the pricing before you move ahead." cards={section.review} />
-            <PurchaseTypeBlock title="Request a Quote" text="Use these when the work needs review, planning, or a larger scope conversation first." cards={section.quote} />
+            <PurchaseTypeBlock title="Buy Now" text="Use these when the work is clear and you want the fastest next move." cards={section.buy} />
+            <PurchaseTypeBlock title="Review Price" text="Use these when a few real job details change the number before you move." cards={section.review} />
+            <PurchaseTypeBlock title="Request a Quote" text="Use these when the risk, scope, or uncertainty is high enough that the job needs review first." cards={section.quote} />
           </div>
         </section>
       ))}

@@ -7,36 +7,36 @@ import SiteFooter from '@/components/SiteFooter';
 const whoWeHelp = [
   {
     title: 'Homeowners',
-    pain: 'When a home project starts feeling expensive, disruptive, or hard to trust, the stress compounds fast.',
-    value: 'Southern Cities helps homeowners reduce confusion, avoid waste, and move forward with a clearer plan instead of guessing through permits, coordination, and next steps.',
+    pain: 'When the budget keeps moving, the house stays torn up, and you do not feel confident in what you are being told, the whole project starts feeling unsafe.',
+    value: 'Southern Cities helps homeowners get clear on scope, permits, and next steps so more money does not disappear into confusion, delay, and half-explained work.',
     cta: 'See Homeowner Services',
     href: '/services#homeowners',
   },
   {
     title: 'Investors',
-    pain: 'Holding costs, vacancy drag, and loose execution start eating margin the second a project slows down.',
-    value: 'Southern Cities helps investors keep work moving with tighter structure, less drift, and less delay between decision and execution.',
+    pain: 'Every extra week of drift means more holding cost, more vacancy loss, and more margin getting squeezed out of the deal.',
+    value: 'Southern Cities helps investors tighten the work, cut avoidable delay, and keep turns, permits, and decisions from dragging the property down.',
     cta: 'See Investor Services',
     href: '/services#investors',
   },
   {
     title: 'Realtors',
-    pain: 'Deals and listings get fragile fast when inspection issues, repairs, or prep work stay unclear too long.',
-    value: 'Southern Cities helps realtors protect the timeline, protect client confidence, and turn repair confusion into a clean next-step path.',
+    pain: 'When repair questions stay fuzzy, listings slow down, buyers hesitate, and client confidence starts dropping at the worst time.',
+    value: 'Southern Cities helps realtors get a clean construction read, protect the timeline, and keep the deal or listing from getting weakened by repair chaos.',
     cta: 'See Realtor Services',
     href: '/services#realtors',
   },
   {
     title: 'Contractors',
-    pain: 'Back-office overload kills field momentum when permits, inspections, and paperwork keep pulling attention off production.',
-    value: 'Southern Cities helps contractors protect field time, reduce admin drag, and keep jobs moving without burying the owner or team in office-side work.',
+    pain: 'When the office side keeps eating the owner alive, the field loses speed and the company hits a ceiling.',
+    value: 'Southern Cities helps contractors get permits, inspections, and admin work handled with more discipline so production is not constantly interrupted by back-office drag.',
     cta: 'See Contractor Services',
     href: '/services#contractors',
   },
   {
     title: 'Developers / Landowners',
-    pain: 'Larger residential work gets expensive fast when project feasibility, permit path, and execution reliability are not clearly controlled.',
-    value: 'Southern Cities helps reduce execution risk with tighter structure, clearer milestones, and a more reliable path through permit and project complexity.',
+    pain: 'If feasibility is soft, the permit route is unclear, or ownership is loose, larger residential projects get expensive fast.',
+    value: 'Southern Cities helps developers and landowners tighten the permit side, reduce execution risk, and make the job more dependable before drift turns into real loss.',
     cta: 'See Project Support',
     href: '/services#developers-landowners',
   },
@@ -78,10 +78,10 @@ export default function Home() {
               Residential project support
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.02] tracking-tight">
-              When a residential project starts getting messy, Southern Cities helps get it under control.
+              When the job gets expensive, confusing, or stuck, Southern Cities helps bring it back under control.
             </h1>
             <p className="mt-7 max-w-3xl text-lg sm:text-xl leading-relaxed text-white/82">
-              We help homeowners, investors, realtors, contractors, and residential operators reduce delay, confusion, permit friction, inspection issues, back-office drag, and execution drift so the project can actually keep moving.
+              We help stop wasted spend, schedule slippage, permit drag, inspection confusion, office overload, and loose project control before they do more damage.
             </p>
             <div className="mt-10 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
@@ -117,15 +117,15 @@ export default function Home() {
               <span className="w-6 h-px bg-orange/50" />
               Who We Help
             </span>
-            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">Know where you fit before you spend another dollar or lose more time.</h2>
+            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">Start with the pressure you are under, not a vague service list.</h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Start with the role that matches your situation. Then choose the service that best fits the real problem slowing the work down right now.
+              Pick the role that matches the money, timing, and trust problem you are dealing with right now. Then choose the offer built to fix that specific kind of drag.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid justify-items-center gap-6 md:grid-cols-2 xl:grid-cols-3">
             {whoWeHelp.map((item) => (
-              <div key={item.title} className="flex h-full flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
+              <div key={item.title} className="flex h-full w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
                 <h3 className="text-[24px] font-extrabold text-navy tracking-tight">{item.title}</h3>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
@@ -149,10 +149,10 @@ export default function Home() {
                 What Southern Cities solves
               </span>
               <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">
-                This is for active work where delay, confusion, and weak ownership are starting to cost real money.
+                This is for jobs where weak control is turning into wasted money, blown time, or growing mistrust.
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                Southern Cities is strongest when the project is real, the timing matters, and the next step cannot stay vague without creating more drift, stress, or cost.
+                Southern Cities is strongest when the work is already real and the cost of staying loose is starting to show up in budget, schedule, client confidence, or field performance.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
@@ -181,9 +181,9 @@ export default function Home() {
                 <span className="w-6 h-px bg-orange/50" />
                 How to buy
               </span>
-              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">The purchase path should be obvious before anyone clicks.</h2>
+              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">The next move should be clear before more time or money gets burned.</h2>
               <p className="mt-5 text-[15px] leading-relaxed text-white/78">
-                Buy fixed services when the problem is already defined. Review price when a few project details affect scope. Request a quote when the work is larger, less defined, or needs real review first.
+                Buy when the scope is already clear. Review price when a few details change the number. Request a quote when the job is too important or too messy to price loosely.
               </p>
             </div>
             <div className="grid gap-3.5 md:grid-cols-3">
@@ -212,10 +212,10 @@ export default function Home() {
               Why Southern Cities
             </span>
             <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">
-              Southern Cities is not just selling construction work. It is selling control when residential execution starts slipping.
+              Southern Cities is for the moment when residential work stops feeling manageable and starts needing real control.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Southern Cities is built for projects that are permit-heavy, inspection-sensitive, timeline-sensitive, under-coordinated, or already drifting. Construction is the mechanism. The real value is less chaos, less uncertainty, less admin burden, less delay, and more visible accountability over what happens next.
+              The value is not vague. It is fewer bad assumptions, less drift, tighter follow-through, clearer ownership, and a better shot at protecting budget, timing, and trust while the work keeps moving.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
