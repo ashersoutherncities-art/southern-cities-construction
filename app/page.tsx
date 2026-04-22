@@ -72,25 +72,25 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 container-pro">
-          <div className="max-w-4xl">
+          <div className="max-w-[62rem]">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
               Residential project support
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.02] tracking-tight">
+            <h1 className="max-w-[11.5ch] text-5xl sm:text-6xl lg:text-[5.2rem] font-extrabold text-white leading-[0.98] tracking-[-0.04em] text-balance">
               When the job gets expensive, confusing, or stuck, Southern Cities helps bring it back under control.
             </h1>
-            <p className="mt-7 max-w-3xl text-lg sm:text-xl leading-relaxed text-white/82">
-              We help stop wasted spend, schedule slippage, permit drag, inspection confusion, office overload, and loose project control before they do more damage.
+            <p className="mt-8 max-w-[46rem] text-[18px] sm:text-[20px] leading-[1.65] text-white/92">
+              We help stop wasted spend, schedule slippage, permit drag, inspection confusion, office overload, and loose project control before they turn into bigger losses.
             </p>
-            <div className="mt-10 flex flex-col gap-3.5 sm:flex-row">
-              <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
                 Find the Right Service
               </Link>
-              <Link href="/services#homeowners" className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-8 py-4 text-[15px] font-medium text-white transition-all hover:bg-white/[0.12] hover:-translate-y-0.5">
+              <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/18 bg-white/[0.08] px-8 py-4 text-[15px] font-medium text-white/92 transition-all hover:bg-white/[0.14] hover:-translate-y-0.5">
                 See Services by Role
               </Link>
-              <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full border border-white/15 bg-transparent px-8 py-4 text-[15px] font-medium text-white transition-all hover:bg-white/[0.06] hover:-translate-y-0.5">
+              <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/12 bg-transparent px-8 py-4 text-[15px] font-medium text-white/72 transition-all hover:border-white/22 hover:bg-white/[0.04] hover:text-white hover:-translate-y-0.5">
                 Request a Quote
               </Link>
             </div>
@@ -119,13 +119,16 @@ export default function Home() {
             </span>
             <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">Start with the pressure you are under, not a vague service list.</h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Pick the role that matches the money, timing, and trust problem you are dealing with right now. Then choose the offer built to fix that specific kind of drag.
+              Pick the role that matches the money, time, or trust problem hitting you right now. Then pick the service built to fix that exact pressure.
             </p>
           </div>
 
-          <div className="grid justify-items-center gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="flex flex-wrap justify-center gap-6">
             {whoWeHelp.map((item) => (
-              <div key={item.title} className="flex h-full w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
+              <div
+                key={item.title}
+                className="flex w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25 md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]"
+              >
                 <h3 className="text-[24px] font-extrabold text-navy tracking-tight">{item.title}</h3>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
@@ -215,7 +218,7 @@ export default function Home() {
               Southern Cities is for the moment when residential work stops feeling manageable and starts needing real control.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              The value is not vague. It is fewer bad assumptions, less drift, tighter follow-through, clearer ownership, and a better shot at protecting budget, timing, and trust while the work keeps moving.
+              Fewer bad assumptions. Less drift. Tighter follow-through. Budget protected, timing protected, and someone clearly in charge of the next move.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
