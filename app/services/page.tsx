@@ -118,6 +118,15 @@ const investorServices: AvatarSection = {
         },
       },
     },
+    {
+      title: 'Budget Estimate',
+      summary: 'A straightforward budget estimate for a single project when you need a cleaner number before deciding what to do next.',
+      details: ['Project scope review', 'Written budget estimate', 'Notes on visible assumptions', 'Clear summary of likely cost range based on observed conditions'],
+      fit: 'Useful when you need an individual budget estimate without buying a broader review package first.',
+      purchaseType: 'buy',
+      cta: 'Buy Budget Estimate',
+      ctaHref: '#contact',
+    },
   ],
   review: [
     {
