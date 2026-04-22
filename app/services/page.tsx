@@ -32,9 +32,9 @@ type AvatarSection = {
 const homeownerServices: AvatarSection = {
   id: 'homeowners',
   eyebrow: 'Homeowners',
-  title: 'For homeowners who need the project to make sense and keep moving.',
+  title: 'For homeowners dealing with budget fear, disruption, and low trust in how the project is being handled.',
   intro:
-    'Use these services when the work is real, the next step is not clear, or the paperwork and coordination side is starting to slow the job down.',
+    'Use these services when the project feels confusing, expensive, or hard to control and you need a clearer path before more time, money, or stress gets wasted.',
   buy: [
     {
       title: 'Home Assessment',
@@ -86,9 +86,9 @@ const homeownerServices: AvatarSection = {
 const investorServices: AvatarSection = {
   id: 'investors',
   eyebrow: 'Investors',
-  title: 'For investors and operators who need the work to move without losing time or margin.',
+  title: 'For investors and operators who need to reduce holding costs, vacancy drag, and margin compression.',
   intro:
-    'Use these services when turnover work, permit issues, repair questions, or coordination gaps are slowing an active property or active deal.',
+    'Use these services when turn work, permit issues, repair questions, or loose execution are slowing an active property and starting to cost real money.',
   buy: [
     {
       title: 'Investor Review',
@@ -202,9 +202,9 @@ const investorServices: AvatarSection = {
 const realtorServices: AvatarSection = {
   id: 'realtors',
   eyebrow: 'Realtors',
-  title: 'For realtors who need repair, inspection, and listing-prep issues to stop slowing the deal.',
+  title: 'For realtors who need to protect the deal, protect the timeline, and protect client confidence.',
   intro:
-    'Use these services when clients need fast construction-side clarity and the deal or listing cannot afford confusion.',
+    'Use these services when inspection issues, repair questions, or listing prep are starting to create delay, uncertainty, or client hesitation.',
   buy: [
     {
       title: 'Inspection Response',
@@ -303,9 +303,9 @@ const realtorServices: AvatarSection = {
 const contractorServices: AvatarSection = {
   id: 'contractors',
   eyebrow: 'Contractors',
-  title: 'For contractors whose admin side is slowing down field execution.',
+  title: 'For contractors who need scale leverage without drowning in back-office overload.',
   intro:
-    'Use these services when your team can do the work, but permit paperwork, inspections, and coordination are eating up time and margin.',
+    'Use these services when your team can do the work, but permits, inspections, and paperwork keep dragging attention away from production and limiting throughput.',
   review: [
     {
       title: 'Permit Administration',
@@ -335,9 +335,9 @@ const contractorServices: AvatarSection = {
 const developerServices: AvatarSection = {
   id: 'developers-landowners',
   eyebrow: 'Developers / Landowners',
-  title: 'For larger residential projects that cannot afford drift, weak coordination, or permit friction.',
+  title: 'For larger residential projects where feasibility, permit path, and execution reliability have to be taken seriously.',
   intro:
-    'Use this path when the project is important enough that structure, accountability, and next-step visibility matter from the start.',
+    'Use this path when the project is important enough that weak coordination, permit friction, or unclear ownership could become expensive fast.',
   quote: [
     {
       title: 'Permit Administration + Construction Oversight',
@@ -514,10 +514,10 @@ export default function ServicesPage() {
                 Services & Pricing
               </div>
               <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                Choose the service based on the problem you need solved.
+                Choose the service based on the real pain slowing the work down.
               </h1>
               <p className="max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl">
-                Some services are fixed and ready to buy now. Some need a few project details before pricing is shown. Larger or less defined work should start with a quote request. Start with the group that matches your role, then choose the service that fits the bottleneck you are dealing with right now.
+                If the problem is already defined, buy the service directly. If a few project details affect price, review pricing first. If the work is larger, less defined, or already drifting, request a quote so Southern Cities can review the situation and point you to the right next step.
               </p>
             </div>
             <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
@@ -547,7 +547,7 @@ export default function ServicesPage() {
             <div className="max-w-2xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose your role</p>
               <p className="mt-2 text-[15px] leading-relaxed text-stone-700">
-                Jump straight to the services built for your situation.
+                Jump straight to the services built for your role, your pressure, and the kind of problem you need solved.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">

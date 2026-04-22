@@ -7,36 +7,36 @@ import SiteFooter from '@/components/SiteFooter';
 const whoWeHelp = [
   {
     title: 'Homeowners',
-    pain: 'You know work needs to happen, but the paperwork, contractor coordination, and next steps are not clear.',
-    value: 'Southern Cities helps bring structure to the project so you can understand what needs to happen, what comes next, and how the work should move.',
+    pain: 'When a home project starts feeling expensive, disruptive, or hard to trust, the stress compounds fast.',
+    value: 'Southern Cities helps homeowners reduce confusion, avoid waste, and move forward with a clearer plan instead of guessing through permits, coordination, and next steps.',
     cta: 'See Homeowner Services',
     href: '/services#homeowners',
   },
   {
     title: 'Investors',
-    pain: 'Turn work, permit issues, inspection items, and scattered coordination can turn a simple project into deal drag.',
-    value: 'Southern Cities helps investors move work forward with tighter coordination, clearer scopes, and less drift between decision and execution.',
+    pain: 'Holding costs, vacancy drag, and loose execution start eating margin the second a project slows down.',
+    value: 'Southern Cities helps investors keep work moving with tighter structure, less drift, and less delay between decision and execution.',
     cta: 'See Investor Services',
     href: '/services#investors',
   },
   {
     title: 'Realtors',
-    pain: 'Inspection reports, seller repairs, and listing prep can create confusion fast when clients need clear answers and quick action.',
-    value: 'Southern Cities helps turn those issues into a clearer work path so the deal or listing can keep moving.',
+    pain: 'Deals and listings get fragile fast when inspection issues, repairs, or prep work stay unclear too long.',
+    value: 'Southern Cities helps realtors protect the timeline, protect client confidence, and turn repair confusion into a clean next-step path.',
     cta: 'See Realtor Services',
     href: '/services#realtors',
   },
   {
     title: 'Contractors',
-    pain: 'Permit paperwork, inspection coordination, and back-office follow-up can eat up time that should be spent getting the job done.',
-    value: 'Southern Cities helps contractors offload the admin burden so jobs move with less delay and less internal strain.',
+    pain: 'Back-office overload kills field momentum when permits, inspections, and paperwork keep pulling attention off production.',
+    value: 'Southern Cities helps contractors protect field time, reduce admin drag, and keep jobs moving without burying the owner or team in office-side work.',
     cta: 'See Contractor Services',
     href: '/services#contractors',
   },
   {
     title: 'Developers / Landowners',
-    pain: 'As projects get larger, the cost of unclear ownership, weak coordination, and permit friction goes up fast.',
-    value: 'Southern Cities helps create more structure, clearer milestones, and tighter oversight so the project is easier to execute.',
+    pain: 'Larger residential work gets expensive fast when project feasibility, permit path, and execution reliability are not clearly controlled.',
+    value: 'Southern Cities helps reduce execution risk with tighter structure, clearer milestones, and a more reliable path through permit and project complexity.',
     cta: 'See Project Support',
     href: '/services#developers-landowners',
   },
@@ -78,10 +78,10 @@ export default function Home() {
               Residential project support
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.02] tracking-tight">
-              When a residential project gets messy, Southern Cities helps get it moving again.
+              When a residential project starts getting messy, Southern Cities helps get it under control.
             </h1>
             <p className="mt-7 max-w-3xl text-lg sm:text-xl leading-relaxed text-white/82">
-              We help homeowners, investors, realtors, contractors, and residential operators handle permits, inspections, coordination, oversight, and next steps without the usual delay, drift, and confusion.
+              We help homeowners, investors, realtors, contractors, and residential operators reduce delay, confusion, permit friction, inspection issues, back-office drag, and execution drift so the project can actually keep moving.
             </p>
             <div className="mt-10 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:-translate-y-0.5 hover:bg-orange-500">
@@ -117,9 +117,9 @@ export default function Home() {
               <span className="w-6 h-px bg-orange/50" />
               Who We Help
             </span>
-            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">The site should make it obvious whether this is for you.</h2>
+            <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">Know where you fit before you spend another dollar or lose more time.</h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Start with the role that matches your situation. Then choose the service that fits the bottleneck you are dealing with right now.
+              Start with the role that matches your situation. Then choose the service that best fits the real problem slowing the work down right now.
             </p>
           </div>
 
@@ -149,10 +149,10 @@ export default function Home() {
                 What Southern Cities solves
               </span>
               <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">
-                This is for active projects that are getting slowed down by admin, coordination, or unclear next steps.
+                This is for active work where delay, confusion, and weak ownership are starting to cost real money.
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                Southern Cities is strongest when the work is real, the timing matters, and the project needs structure instead of more guesswork.
+                Southern Cities is strongest when the project is real, the timing matters, and the next step cannot stay vague without creating more drift, stress, or cost.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
@@ -212,10 +212,10 @@ export default function Home() {
               Why Southern Cities
             </span>
             <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-navy leading-[1.08]">
-              This is not generic contractor help. This is structured execution for active residential work.
+              Southern Cities is not just selling construction work. It is selling control when residential execution starts slipping.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Southern Cities is built for projects that are permit-heavy, inspection-sensitive, timeline-sensitive, under-coordinated, or already at risk of drifting. Construction is the mechanism. The real value is reducing chaos, uncertainty, delay, and execution drift.
+              Southern Cities is built for projects that are permit-heavy, inspection-sensitive, timeline-sensitive, under-coordinated, or already drifting. Construction is the mechanism. The real value is less chaos, less uncertainty, less admin burden, less delay, and more visible accountability over what happens next.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
