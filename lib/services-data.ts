@@ -35,34 +35,34 @@ const homeownerServices: AvatarPageData = {
   slug: 'homeowners',
   eyebrow: 'Homeowners',
   shortLabel: 'For Homeowners',
-  heroTitle: 'Construction help for homeowners who need a clearer path',
+  heroTitle: 'Construction help for homeowners when the project starts feeling expensive, confusing, or hard to trust',
   heroSubtitle:
-    'Southern Cities helps homeowners make sense of project decisions, budget questions, permit steps, and active work that needs stronger oversight.',
+    'Southern Cities helps homeowners with project decisions, budget questions, permit steps, and active jobs that need tighter follow-through before problems get more expensive.',
   painPoints: [
-    'The next step is unclear.',
+    'You are not sure what the next step should be.',
     'Budget uncertainty is making decisions harder.',
-    'The permit side feels confusing or slow.',
-    'The work feels hard to trust or loosely managed.',
+    'Permit questions are slowing things down.',
+    'The work feels loose, unclear, or hard to trust.',
   ],
   outcomes: [
-    'Clearer direction on what to do next.',
-    'Better budget visibility before the job gets more expensive.',
-    'Cleaner permit path and better follow-through.',
-    'Stronger oversight when the project needs tighter control.',
+    'A clearer next step.',
+    'Fewer budget surprises before the job gets more expensive.',
+    'Less permit friction and better follow-through.',
+    'Tighter handling when the project starts drifting.',
   ],
   buy: [
     {
       title: 'Home Assessment',
-      summary: 'A straightforward review of the property, its condition, and the next step that makes the most sense.',
+      summary: 'A straightforward review of the property, its condition, and the next step that makes the most sense before you spend more money.',
       details: ['Property walkthrough', 'Condition notes', 'Priority repair list', 'Clear recommendation on what to do next'],
-      fit: 'A good starting point when you need clarity before committing to more work or more spend.',
+      fit: 'A good starting point when you need a clearer next step before committing to more work or more money.',
       purchaseType: 'buy',
       cta: 'Buy Home Assessment',
       itemKey: 'home-assessment',
     },
     {
       title: 'Owner Consultation',
-      summary: 'Direct guidance on a residential project, permit question, or work decision that needs to be made clearly.',
+      summary: 'Direct guidance on a residential project, permit question, or work decision that needs a clear answer.',
       details: ['Project review', 'Practical guidance', 'Risk callouts', 'Recommended next step'],
       fit: 'Useful when the issue is not just the work itself, but the decisions around it.',
       purchaseType: 'buy',
@@ -71,7 +71,7 @@ const homeownerServices: AvatarPageData = {
     },
     {
       title: 'Permit Path Review',
-      summary: 'A clearer read on what the permit path looks like before the project loses more time to uncertainty.',
+      summary: 'A clearer read on what the permit path looks like before the project loses more time to confusion and delay.',
       details: ['Permit requirements review', 'Likely approval path', 'Known risk points', 'Recommended next step'],
       fit: 'Useful when you are not sure what permitting will require or how it may affect timing.',
       purchaseType: 'buy',
@@ -82,7 +82,7 @@ const homeownerServices: AvatarPageData = {
   review: [
     {
       title: 'Home Project Budget Review',
-      summary: 'A clearer budget range for one residential project when you need pricing direction before deciding how to move forward.',
+      summary: 'A clearer budget range for one residential project when you need pricing direction before deciding what to do next.',
       details: ['Project type review', 'Budget range based on simple project inputs', 'Visible-condition assumptions', 'Clear summary of likely cost range'],
       fit: 'Useful when you need pricing direction before the project gets more expensive or more confusing.',
       purchaseType: 'review',
@@ -91,7 +91,7 @@ const homeownerServices: AvatarPageData = {
     },
     {
       title: 'Permit Administration',
-      summary: 'Permit support for homeowners who need the paperwork, corrections, and scheduling handled more clearly.',
+      summary: 'Permit help for homeowners who need the paperwork, corrections, and scheduling handled with less confusion and back-and-forth.',
       details: ['Permit review', 'Submission coordination', 'Correction handling', 'Inspection scheduling support'],
       fit: 'Best when the permit side of the project is becoming the bottleneck.',
       purchaseType: 'review',
@@ -102,7 +102,7 @@ const homeownerServices: AvatarPageData = {
   quote: [
     {
       title: 'Construction Oversight',
-      summary: 'Oversight for active jobs that need stronger coordination, clearer milestones, and steadier follow-through.',
+      summary: 'Help for active jobs that need tighter coordination, clearer milestones, and steadier follow-through.',
       details: ['Project review', 'Oversight scope', 'Milestone structure', 'Coordination support plan'],
       fit: 'Best when the work is moving, but nobody is managing it closely enough.',
       purchaseType: 'quote',
@@ -116,25 +116,25 @@ const investorServices: AvatarPageData = {
   slug: 'investors',
   eyebrow: 'Investors',
   shortLabel: 'For Investors',
-  heroTitle: 'Construction support for investors who need clearer numbers and fewer expensive delays',
+  heroTitle: 'Construction support for investors who need fewer delays, fewer surprises, and better numbers before spending more money',
   heroSubtitle:
-    'Southern Cities helps investors reduce delay, tighten scope, improve budget clarity, support lender conversations, and keep active work from dragging on timeline, rent, and margin.',
+    'Southern Cities helps investors reduce delay, tighten up scope, get a better read on budget, support lender conversations, and keep active work from dragging on timeline, rent, and margin.',
   painPoints: [
-    'Scope is unclear and budget confidence is weak.',
+    'Scope is still unclear and the budget is not solid enough yet.',
     'Lender and draw support is messy or incomplete.',
     'Turns and active work are dragging on timeline and margin.',
-    'The project needs tighter control before delay gets expensive.',
+    'Too much is still loose before the delay gets more expensive.',
   ],
   outcomes: [
-    'Clearer numbers and better scope confidence.',
-    'Stronger lender-facing support and cleaner draw communication.',
+    'A better read on budget before you move further.',
+    'Cleaner lender support and better draw communication.',
     'Faster decisions on turns and active work.',
-    'Better oversight when the project cannot afford to drift.',
+    'Tighter follow-through when the project cannot afford to drift.',
   ],
   review: [
     {
       title: 'Investor Project Review',
-      summary: 'A pre-execution review for investors who need a clearer read on one property, one project, or one decision before moving forward.',
+      summary: 'A pre-execution review for investors who need a better read on one property, one project, or one decision before moving forward.',
       details: ['Scope review', 'Execution risk notes', 'Construction and setup feedback', 'Recommended next step'],
       fit: 'Useful when speed matters, but making the wrong call will cost more than slowing down for a better read.',
       purchaseType: 'review',
@@ -167,7 +167,7 @@ const investorServices: AvatarPageData = {
     },
     {
       title: 'Rehab Budget Review',
-      summary: 'A clearer budget range for one rehab when you need cleaner numbers before making the next decision.',
+      summary: 'A clearer budget range for one rehab when you need a better number before making the next decision.',
       details: ['Project type review', 'Budget range based on simple project inputs', 'Visible-condition assumptions', 'Clear summary of likely cost range'],
       fit: 'Useful when you need a cleaner number on one rehab before moving further into bids, lender conversations, or startup decisions.',
       purchaseType: 'review',
@@ -223,7 +223,7 @@ const investorServices: AvatarPageData = {
     },
     {
       title: 'Contractor Fit Review',
-      summary: 'A structured review for investors who need to decide what kind of contractor setup fits the project before hiring gets expensive.',
+      summary: 'A review for investors who need to decide what kind of contractor setup fits the project before hiring gets expensive.',
       details: ['Project and scope review', 'Contractor model fit guidance', 'Payment expectation review', 'Permit and admin capability review'],
       fit: 'Best when choosing the wrong contractor setup will create avoidable delay, confusion, or startup friction after closing.',
       purchaseType: 'review',
@@ -232,7 +232,7 @@ const investorServices: AvatarPageData = {
     },
     {
       title: 'Bid Coordination & Contractor Match',
-      summary: 'Bid coordination for investors who need cleaner proposals from better-fit contractors before awarding the job.',
+      summary: 'Bid coordination for investors who need better proposals from better-fit contractors before awarding the job.',
       details: ['Project review for bid targeting', 'Contractor-fit targeting', 'Bid intake and comparison', 'Fit, gap, and risk notes'],
       fit: 'Best when you need more than random bids and want a cleaner way to compare contractors before startup.',
       purchaseType: 'review',
@@ -241,7 +241,7 @@ const investorServices: AvatarPageData = {
     },
     {
       title: 'Materials Setup Review',
-      summary: 'A setup service for investors who need purchasing, delivery timing, and material responsibility handled more cleanly before mobilization.',
+      summary: 'A setup service for investors who need purchasing, delivery timing, and material responsibility handled more cleanly before the job starts.',
       details: ['Materials responsibility review', 'Supplier and delivery flow planning', 'Ordering sequence guidance', 'Procurement workflow notes'],
       fit: 'Best when materials confusion, bad delivery timing, or weak purchasing structure could slow the job down fast.',
       purchaseType: 'review',
@@ -270,7 +270,7 @@ const investorServices: AvatarPageData = {
   quote: [
     {
       title: 'Regional Setup Review',
-      summary: 'A broader setup review for investors entering or scaling in a region who need fewer mistakes before projects start mobilizing.',
+      summary: 'A broader setup review for investors entering or scaling in a region who want fewer early mistakes before projects start moving.',
       details: ['Regional setup review', 'Contractor ecosystem considerations', 'Permit and process considerations', 'Mobilization-readiness guidance'],
       fit: 'Best when you are entering a region or tightening a repeat model and want fewer early execution mistakes after closing.',
       purchaseType: 'quote',
@@ -279,7 +279,7 @@ const investorServices: AvatarPageData = {
     },
     {
       title: 'Construction Oversight',
-      summary: 'Oversight for active projects that need stronger structure, cleaner communication, and better accountability.',
+      summary: 'Help for active projects that need tighter communication, better follow-through, and better accountability.',
       details: ['Project review', 'Oversight scope', 'Milestone structure', 'Coordination support plan'],
       fit: 'Best when the project is active, the risk is real, and tighter execution matters.',
       purchaseType: 'quote',
@@ -288,7 +288,7 @@ const investorServices: AvatarPageData = {
     },
   ],
   recurringIntro:
-    'If the same type of project-support problem keeps coming back, Southern Cities also offers capped monthly support plans for repeated investor and operator pain.',
+    'If the same delays, follow-up problems, and budget questions keep coming back, Southern Cities also offers capped monthly plans for repeat investor work.',
   ongoingSupport: [
     {
       title: 'Turn Support Plan',
@@ -306,7 +306,7 @@ const investorServices: AvatarPageData = {
     {
       title: 'Operator Support Plan',
       tag: 'Most practical',
-      summary: 'A stronger recurring support plan for investors who need more frequent scope clarity, pricing help, lender-facing support, and cleaner execution follow-through.',
+      summary: 'A stronger recurring support plan for investors who need more frequent pricing help, lender support, and better follow-through on active work.',
       details: ['Up to 4 project or turn reviews each month', 'Up to 4 budget or scope reviews each month', '1 lender scope and bid package each month', '1 draw review support item each month'],
       fit: 'Best when delay, weak scope clarity, funding friction, and repeated owner follow-up are keeping active jobs from moving cleanly.',
       purchaseType: 'review',
@@ -319,7 +319,7 @@ const investorServices: AvatarPageData = {
     {
       title: 'Project Support Retainer',
       tag: 'Higher-touch',
-      summary: 'A retainer for higher-volume operators who need weekly control, repeated construction-side review, and a stronger lane for active project oversight.',
+      summary: 'A retainer for higher-volume operators who need weekly oversight, repeated project review, and a stronger lane for active job follow-through.',
       details: ['Weekly project-control touchpoint', 'Up to 6 project reviews monthly', 'Up to 6 budget or scope items monthly', 'Up to 2 lender or draw support items monthly'],
       fit: 'Best when too many active files, repeated owner involvement, and weak control are making live jobs harder to manage.',
       purchaseType: 'quote',
@@ -336,7 +336,7 @@ const realtorServices: AvatarPageData = {
   slug: 'realtors',
   eyebrow: 'Realtors',
   shortLabel: 'For Realtors',
-  heroTitle: 'Construction-side support for realtors when inspection issues and listing prep start slowing the deal',
+  heroTitle: 'Help for realtors when inspection issues and listing prep start slowing the deal down',
   heroSubtitle:
     'Southern Cities helps realtors get faster repair direction, clearer listing-prep answers, and practical construction guidance before deals, listings, and client confidence start slipping.',
   painPoints: [
@@ -346,7 +346,7 @@ const realtorServices: AvatarPageData = {
     'Client confidence drops when no one can explain the work simply.',
   ],
   outcomes: [
-    'Faster construction-side answers.',
+    'Faster answers on repair and construction questions.',
     'Clearer repair path and listing prep direction.',
     'Stronger client confidence.',
     'Better transaction and listing momentum.',
@@ -423,7 +423,7 @@ const realtorServices: AvatarPageData = {
   quote: [
     {
       title: 'Listing Prep Coordination Review',
-      summary: 'Review-first support for listings that need broader prep coordination before they are ready to go live.',
+      summary: 'Review-first help for listings that need broader prep coordination before they are ready to go live.',
       details: ['Property review', 'Scope planning', 'Coordination plan', 'Quote path based on the work involved'],
       fit: 'Best when the property needs more than a quick repair answer and real coordination will likely be needed.',
       purchaseType: 'quote',
@@ -467,7 +467,7 @@ const contractorServices: AvatarPageData = {
   slug: 'contractors',
   eyebrow: 'Contractors',
   shortLabel: 'For Contractors',
-  heroTitle: 'Permit and back-office support for contractors who need field time back',
+  heroTitle: 'Permit and back-office help for contractors who need less paperwork and fewer delays',
   heroSubtitle:
     'Southern Cities helps contractors reduce paperwork drag, inspection delays, correction follow-up, and coordination burden without hiring full-time office staff.',
   painPoints: [
@@ -477,7 +477,7 @@ const contractorServices: AvatarPageData = {
     'The office side is too thin for the job load.',
   ],
   outcomes: [
-    'More field focus and less paperwork drag.',
+    'Less paperwork drag and more time for production.',
     'Cleaner permit handling and better inspection follow-through.',
     'More office support without full-time payroll.',
     'Better coordination when active jobs start feeling stretched.',
@@ -485,7 +485,7 @@ const contractorServices: AvatarPageData = {
   review: [
     {
       title: 'Permit Administration',
-      summary: 'Permit support for contractors and trade teams that want the paperwork handled more cleanly.',
+      summary: 'Permit help for contractors and trade teams that want the paperwork handled more cleanly.',
       details: ['Permit application prep', 'Submission follow-up', 'Correction handling', 'Inspection scheduling support'],
       fit: 'Useful when your team should be focused on the field, not stuck in paperwork.',
       purchaseType: 'review',
@@ -514,7 +514,7 @@ const contractorServices: AvatarPageData = {
   quote: [
     {
       title: 'Construction Oversight Support',
-      summary: 'Support for contractors who need tighter coordination around milestones, updates, and project follow-through.',
+      summary: 'Help for contractors who need tighter coordination around milestones, updates, and project follow-through.',
       details: ['Project review', 'Support scope', 'Milestone structure', 'Coordination support plan'],
       fit: 'Best when project control issues are starting to affect production.',
       purchaseType: 'quote',
@@ -523,7 +523,7 @@ const contractorServices: AvatarPageData = {
     },
   ],
   recurringIntro:
-    'For contractors, recurring support is one of the strongest fits. If the same permit, inspection, and admin pain keeps coming back, the monthly plans below are the cleaner path.',
+    'For contractors, monthly support makes sense when the same permit, inspection, and paperwork problems keep coming back across active jobs.',
   ongoingSupport: [
     {
       title: 'Permit & Inspection Support Plan',
@@ -554,7 +554,7 @@ const contractorServices: AvatarPageData = {
     {
       title: 'Contractor Office Extension Retainer',
       tag: 'Higher-touch',
-      summary: 'A retainer for busy contractors who need a steadier outside office-support lane without building a full internal admin team yet.',
+      summary: 'A retainer for busy contractors who need steadier outside office help without building a full internal admin team yet.',
       details: ['Weekly check-in', 'Up to 12 support requests each month', 'Priority permit and inspection coordination', 'Documentation and follow-up support across active jobs'],
       fit: 'Best when hiring pressure, admin chaos, and revenue-producing field time are all getting squeezed by office problems.',
       purchaseType: 'quote',
@@ -571,25 +571,25 @@ const developerServices: AvatarPageData = {
   slug: 'developers-landowners',
   eyebrow: 'Developers / Landowners',
   shortLabel: 'For Developers / Landowners',
-  heroTitle: 'Project support for larger residential work where delay and drift get expensive fast',
+  heroTitle: 'Project help for larger residential work where delay and drift get expensive fast',
   heroSubtitle:
     'Southern Cities helps developers and landowners reduce permit uncertainty, scope drift, and execution slippage before bigger money gets committed in the wrong direction.',
   painPoints: [
-    'Permit path and next steps are not clear enough.',
+    'Permit path and next steps are still too unclear.',
     'Scope and cost uncertainty is still too high.',
     'Coordination is weak for the size of the project.',
-    'Milestone discipline and execution control need to tighten up.',
+    'Follow-through is not tight enough for a project this important.',
   ],
   outcomes: [
-    'Clearer path before bigger money gets committed.',
-    'Stronger scope and budget visibility.',
-    'Better coordination and steadier oversight.',
+    'A clearer next step before bigger money gets committed.',
+    'A better early read on scope and budget.',
+    'Better coordination and steadier follow-through.',
     'Less drift on active residential work.',
   ],
   review: [
     {
       title: 'Early Project Review',
-      summary: 'An early review for larger residential projects that need clearer scope, permit visibility, and execution planning.',
+      summary: 'An early review for larger residential projects that need a clearer read on scope, permits, and execution before moving further.',
       details: ['Project review', 'Permit-path observations', 'Risk notes', 'Recommended next step'],
       fit: 'Useful when you need an informed read before the project gets further into motion.',
       purchaseType: 'review',
@@ -598,7 +598,7 @@ const developerServices: AvatarPageData = {
     },
     {
       title: 'Early Budget & Scope Review',
-      summary: 'A clearer look at likely scope and cost before larger residential work starts drifting financially.',
+      summary: 'A clearer look at likely scope and cost before larger residential work starts getting more expensive than it should be.',
       details: ['Scope review', 'Budget observations', 'Visible assumptions', 'Cost-risk notes'],
       fit: 'Useful when you need better early visibility into scope and cost.',
       purchaseType: 'review',
@@ -609,7 +609,7 @@ const developerServices: AvatarPageData = {
   quote: [
     {
       title: 'Permit Administration + Construction Oversight',
-      summary: 'Support for larger residential projects that need closer control over permit work, job structure, and execution.',
+      summary: 'Help for larger residential projects that need tighter permit handling, job follow-through, and execution.',
       details: ['Project review', 'Permit path planning', 'Oversight scope', 'Execution support around milestones and coordination'],
       fit: 'Best when the project is too important to run loosely.',
       purchaseType: 'quote',
@@ -618,12 +618,12 @@ const developerServices: AvatarPageData = {
     },
   ],
   recurringIntro:
-    'For repeat operators, monthly support makes sense when delay, drift, and repeated follow-up keep showing up across multiple files.',
+    'For repeat operators, monthly support makes sense when delay, drift, and repeated follow-up keep showing up across multiple projects.',
   ongoingSupport: [
     {
       title: 'Project Control Plan',
       tag: 'Entry plan',
-      summary: 'Monthly support for repeat operators who need a clearer read on active projects, upcoming risks, and the next decision that matters.',
+      summary: 'Monthly support for repeat operators who need a better read on active projects, upcoming risks, and the next decision that matters.',
       details: ['Up to 2 active project reviews each month', 'Milestone check-ins', 'Permit-path and coordination guidance', 'Risk and next-step summaries'],
       fit: 'Best when project drift, weak accountability, and poor visibility keep forcing repeated follow-up and late decisions.',
       purchaseType: 'review',
@@ -636,7 +636,7 @@ const developerServices: AvatarPageData = {
     {
       title: 'Execution Oversight Retainer',
       tag: 'Higher-touch',
-      summary: 'A retainer for repeat operators who need weekly oversight structure, better coordination, and stronger control across larger or more active residential projects.',
+      summary: 'A retainer for repeat operators who need weekly oversight, better coordination, and tighter follow-through across larger or more active residential projects.',
       details: ['Weekly oversight touchpoint', 'Up to 4 project reviews each month', 'Budget and scope review support', 'Milestone and risk summaries'],
       fit: 'Best when weak coordination and loose project structure are causing expensive slippage across active files.',
       purchaseType: 'quote',
