@@ -147,9 +147,17 @@ export default function ServicesOverviewPage() {
 
           <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-6">
             {avatarOverviewCards.map((card, index) => {
-              const isLast = index === avatarOverviewCards.length - 1;
-              const isSecondToLast = index === avatarOverviewCards.length - 2;
-              const tailClass = avatarOverviewCards.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
+              const totalCards = avatarOverviewCards.length;
+              const remainder = totalCards % 3;
+              const lastRowStart = totalCards - remainder;
+              const isTailCard = remainder !== 0 && index >= lastRowStart;
+
+              let tailClass = 'xl:col-span-2';
+              if (remainder === 1 && isTailCard) tailClass = 'xl:col-span-6';
+              if (remainder === 2) {
+                if (index === lastRowStart) tailClass = 'xl:col-start-2 xl:col-span-2';
+                if (index === lastRowStart + 1) tailClass = 'xl:col-start-4 xl:col-span-2';
+              }
 
               return (
               <div key={card.href} className={`${tailClass} flex justify-center`}>
