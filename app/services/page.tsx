@@ -1,778 +1,12 @@
-'use client';
-
-import { useState } from 'react';
-import AddToCartButton from '@/components/AddToCartButton';
-import ServiceCalculator, { ServiceCalculatorConfig } from '@/components/ServiceCalculator';
+import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import { avatarOverviewCards } from '@/lib/services-data';
 
-type ServiceCard = {
-  title: string;
-  summary: string;
-  details: string[];
-  fit: string;
-  purchaseType: 'buy' | 'review' | 'quote';
-  cta: string;
-  itemKey?: string;
-  ctaHref?: string;
-  calculator?: ServiceCalculatorConfig;
-  monthlyPrice?: string;
-  setupPrice?: string;
-  monthlyLimit?: string;
-  turnaround?: string;
-  tag?: string;
-};
-
-type AvatarSection = {
-  id: string;
-  eyebrow: string;
-  title: string;
-  intro: string;
-  buy?: ServiceCard[];
-  review?: ServiceCard[];
-  quote?: ServiceCard[];
-};
-
-const homeownerServices: AvatarSection = {
-  id: 'homeowners',
-  eyebrow: 'Homeowners',
-  title: 'For homeowners who need clearer direction, better follow-through, and less confusion around an active project.',
-  intro:
-    'These services are for homeowners who do not want a residential job turning into a drawn-out, expensive mess. If the next step is unclear, the permit process is dragging, or the project feels harder to trust, start here.',
-  buy: [
-    {
-      title: 'Home Assessment',
-      summary: 'A straightforward review of the property, its condition, and the next step that makes the most sense.',
-      details: ['Property walkthrough', 'Condition notes', 'Priority repair list', 'Clear recommendation on what to do next'],
-      fit: 'A good starting point when you need clarity before committing to more work or more spend.',
-      purchaseType: 'buy',
-      cta: 'Buy Home Assessment',
-      itemKey: 'home-assessment',
-    },
-    {
-      title: 'Owner Consultation',
-      summary: 'Direct guidance on a residential project, permit question, or work decision that needs to be made clearly.',
-      details: ['Project review', 'Practical guidance', 'Risk callouts', 'Recommended next step'],
-      fit: 'Useful when the issue is not just the work itself, but the decisions around it.',
-      purchaseType: 'buy',
-      cta: 'Buy Owner Consultation',
-      itemKey: 'owner-consultation',
-    },
-    {
-      title: 'Budget Estimate',
-      summary: 'A clear budget estimate for homeowners who need a better number before deciding how to move forward.',
-      details: ['Project scope review', 'Written budget estimate', 'Visible-condition assumptions', 'Clear summary of likely cost range'],
-      fit: 'Useful when you need pricing clarity before the project gets more expensive or more confusing.',
-      purchaseType: 'buy',
-      cta: 'Request Budget Estimate',
-      ctaHref: '#contact',
-    },
-  ],
-  review: [
-    {
-      title: 'Permit Administration',
-      summary: 'Permit support for homeowners who need the paperwork, corrections, and scheduling handled more clearly.',
-      details: ['Permit review', 'Submission coordination', 'Correction handling', 'Inspection scheduling support'],
-      fit: 'Best when the permit side of the project is becoming the bottleneck.',
-      purchaseType: 'review',
-      cta: 'Review Permit Pricing',
-      itemKey: 'permit-management-service',
-    },
-    {
-      title: 'Permit Path Review',
-      summary: 'A clearer read on what the permit path looks like before the project loses more time to uncertainty.',
-      details: ['Permit requirements review', 'Likely approval path', 'Known risk points', 'Recommended next step'],
-      fit: 'Useful when you are not sure what permitting will require or how it may affect timing.',
-      purchaseType: 'review',
-      cta: 'Review Permit Path Pricing',
-      ctaHref: '#contact',
-    },
-  ],
-  quote: [
-    {
-      title: 'Construction Oversight',
-      summary: 'Oversight for active jobs that need stronger coordination, clearer milestones, and steadier follow-through.',
-      details: ['Project review', 'Oversight scope', 'Milestone structure', 'Coordination support plan'],
-      fit: 'Best when the work is moving, but nobody is managing it closely enough.',
-      purchaseType: 'quote',
-      cta: 'Request Oversight Support',
-      ctaHref: '#contact',
-    },
-  ],
-};
-
-const investorServices: AvatarSection = {
-  id: 'investors',
-  eyebrow: 'Investors',
-  title: 'For investors who need active work to move faster, hold together better, and create less drag on the deal.',
-  intro:
-    'These services are for investors dealing with scope questions, lender requirements, draw support, turn work, or project drift that is starting to cost time and money.',
-  buy: [
-    {
-      title: 'Investor Review',
-      summary: 'A construction-side review for investors who need a clearer read on a property, project, or decision before moving forward.',
-      details: ['Scope review', 'Execution risk notes', 'Construction-side feedback', 'Recommended next step'],
-      fit: 'Useful when speed matters, but making the wrong call will cost more than slowing down for a better read.',
-      purchaseType: 'buy',
-      cta: 'Buy Investor Review',
-      calculator: {
-        itemKey: 'investor-review',
-        actionLabel: 'Add to Cart',
-        actionType: 'cart',
-        fields: [
-          { name: 'properties', label: 'Number of properties', type: 'number', min: 1, max: 10, defaultValue: 1 },
-          {
-            name: 'projectType',
-            label: 'Project type',
-            type: 'select',
-            defaultValue: 'rehab',
-            options: [
-              { value: 'rehab', label: 'Rehab' },
-              { value: 'ground-up', label: 'Ground-up' },
-              { value: 'reposition', label: 'Reposition' },
-            ],
-          },
-        ],
-        calculatePrice: (values) => {
-          const properties = Number(values.properties);
-          const projectType = String(values.projectType);
-          const perProperty = projectType === 'ground-up' ? 75000 : projectType === 'reposition' ? 65000 : 50000;
-          return properties * perProperty;
-        },
-      },
-    },
-    {
-      title: 'Budget Estimate',
-      summary: 'A straightforward budget estimate for a single project when you need a cleaner number before deciding what to do next.',
-      details: ['Project scope review', 'Written budget estimate', 'Notes on visible assumptions', 'Clear summary of likely cost range based on observed conditions'],
-      fit: 'Useful when you need an individual budget estimate without buying a broader review package first.',
-      purchaseType: 'buy',
-      cta: 'Buy Budget Estimate',
-      ctaHref: '#contact',
-    },
-  ],
-  review: [
-    {
-      title: 'Lender Scope & Bid Package',
-      summary: 'A scope-of-work and bid package for investors who need numbers they can submit with confidence to a lender or capital partner.',
-      details: ['Property and scope review', 'Written scope of work', 'Bid package Southern Cities can stand behind', 'Clear note that pricing is based on visible conditions unless major hidden issues are uncovered'],
-      fit: 'Best when you need a lender-ready package that is practical, documented, and tied to what can actually be verified at the property.',
-      purchaseType: 'review',
-      cta: 'Review Lender Package Pricing',
-      ctaHref: '#contact',
-    },
-    {
-      title: 'Rent-Ready Turn',
-      summary: 'Turn support for vacant units that need to get back into rentable condition without unnecessary delay.',
-      details: ['Unit walkthrough', 'Repair and refresh coordination', 'Punchlist closeout', 'Turn-ready handoff path'],
-      fit: 'Best when time lost is directly affecting rent, occupancy, or holding cost.',
-      purchaseType: 'review',
-      cta: 'Review Turn Pricing',
-      calculator: {
-        itemKey: 'rent-ready-turn',
-        actionLabel: 'Add to Cart',
-        actionType: 'cart',
-        fields: [
-          { name: 'units', label: 'Number of units', type: 'number', min: 1, max: 10, defaultValue: 1 },
-          {
-            name: 'squareFootage',
-            label: 'Approximate square footage per unit',
-            type: 'select',
-            defaultValue: 'under-800',
-            options: [
-              { value: 'under-800', label: 'Under 800' },
-              { value: '800-1200', label: '800-1200' },
-              { value: '1200-1600', label: '1200-1600' },
-              { value: '1600-plus', label: '1600+' },
-            ],
-          },
-          {
-            name: 'condition',
-            label: 'Condition',
-            type: 'select',
-            defaultValue: 'light-refresh',
-            options: [
-              { value: 'light-refresh', label: 'Light refresh' },
-              { value: 'moderate', label: 'Moderate' },
-              { value: 'heavy', label: 'Heavy' },
-            ],
-          },
-        ],
-        calculatePrice: (values) => {
-          const units = Number(values.units);
-          const squareFootage = String(values.squareFootage);
-          const condition = String(values.condition);
-          const conditionAdd = condition === 'heavy' ? 150000 : condition === 'moderate' ? 50000 : 0;
-          const squareFootageAdd = squareFootage === '1600-plus' ? 100000 : squareFootage === '1200-1600' ? 50000 : 0;
-          return units * (250000 + conditionAdd + squareFootageAdd);
-        },
-      },
-    },
-    {
-      title: 'Draw Review Support',
-      summary: 'Support for investors who need progress, scope, and budget packaged more clearly for draw requests or funding conversations.',
-      details: ['Current work review', 'Budget and progress alignment', 'Draw support notes', 'Clear summary of what has been completed and what remains'],
-      fit: 'Useful when you need cleaner documentation around progress, budget, and remaining scope.',
-      purchaseType: 'review',
-      cta: 'Review Draw Support Pricing',
-      ctaHref: '#contact',
-    },
-  ],
-  quote: [
-    {
-      title: 'Construction Oversight',
-      summary: 'Oversight for active projects that need stronger structure, cleaner communication, and better accountability.',
-      details: ['Project review', 'Oversight scope', 'Milestone structure', 'Coordination support plan'],
-      fit: 'Best when the project is active, the risk is real, and tighter execution matters.',
-      purchaseType: 'quote',
-      cta: 'Request Oversight Support',
-      ctaHref: '#contact',
-    },
-  ],
-};
-
-const realtorServices: AvatarSection = {
-  id: 'realtors',
-  eyebrow: 'Realtors',
-  title: 'For realtors who need repair questions, listing prep, and inspection items handled clearly and quickly.',
-  intro:
-    'These services are for realtors trying to protect the transaction, protect the timeline, and give clients a clearer sense of what comes next.',
-  buy: [
-    {
-      title: 'Inspection Response',
-      summary: 'A fast review of inspection items so the real issues, likely scope, and next step are easier to understand.',
-      details: ['Inspection issue review', 'Priority breakdown', 'Repair-scope guidance', 'Clear response path'],
-      fit: 'Useful when the deal needs clearer construction guidance quickly.',
-      purchaseType: 'buy',
-      cta: 'Buy Inspection Response',
-      itemKey: 'inspection-response-service',
-    },
-    {
-      title: 'Realtor Inspection Review',
-      summary: 'A construction-side read on inspection findings for realtors who need to advise clients with more confidence.',
-      details: ['Inspection report review', 'Priority item callout', 'Repair path guidance', 'Recommended next step'],
-      fit: 'Best when your client needs practical answers, not more uncertainty.',
-      purchaseType: 'buy',
-      cta: 'Buy Inspection Review',
-      itemKey: 'realtor-inspection-review',
-    },
-  ],
-  review: [
-    {
-      title: 'Pre-Listing Work',
-      summary: 'Scope and coordination support for getting a property ready before it goes to market.',
-      details: ['Scope review', 'Listing-prep work plan', 'Repair coordination', 'Timeline tied to listing goals'],
-      fit: 'Useful when presentation and timing both matter.',
-      purchaseType: 'review',
-      cta: 'Review Pre-Listing Pricing',
-      calculator: {
-        itemKey: 'pre-listing-renovation',
-        actionLabel: 'Add to Cart',
-        actionType: 'cart',
-        fields: [
-          {
-            name: 'propertySize',
-            label: 'Property size',
-            type: 'select',
-            defaultValue: 'under-1500',
-            options: [
-              { value: 'under-1500', label: 'Under 1,500 SF' },
-              { value: '1500-2500', label: '1,500 to 2,500 SF' },
-              { value: '2500-plus', label: '2,500+ SF' },
-            ],
-          },
-          {
-            name: 'condition',
-            label: 'Work level',
-            type: 'select',
-            defaultValue: 'light',
-            options: [
-              { value: 'light', label: 'Light prep' },
-              { value: 'standard', label: 'Standard prep' },
-              { value: 'heavy', label: 'Heavy prep' },
-            ],
-          },
-          {
-            name: 'occupancy',
-            label: 'Property status',
-            type: 'select',
-            defaultValue: 'vacant',
-            options: [
-              { value: 'vacant', label: 'Vacant' },
-              { value: 'occupied', label: 'Occupied' },
-            ],
-          },
-        ],
-        calculatePrice: (values) => {
-          const propertySize = String(values.propertySize);
-          const condition = String(values.condition);
-          const occupancy = String(values.occupancy);
-          const base = condition === 'heavy' ? 899900 : condition === 'standard' ? 699900 : 499900;
-          const sizeAdd = propertySize === '2500-plus' ? 200000 : propertySize === '1500-2500' ? 100000 : 0;
-          const occupancyAdd = occupancy === 'occupied' ? 50000 : 0;
-          return base + sizeAdd + occupancyAdd;
-        },
-      },
-    },
-  ],
-  quote: [
-    {
-      title: 'Listing Prep Coordination',
-      summary: 'Coordination support for listings that need broader prep work before they are ready to go live.',
-      details: ['Property review', 'Scope planning', 'Coordination plan', 'Quote path based on the work involved'],
-      fit: 'Best when the property needs more than a quick repair answer.',
-      purchaseType: 'quote',
-      cta: 'Request Listing Prep Quote',
-      ctaHref: '#contact',
-    },
-  ],
-};
-
-const contractorServices: AvatarSection = {
-  id: 'contractors',
-  eyebrow: 'Contractors',
-  title: 'For contractors who need permit and coordination support without carrying all of the administrative burden internally.',
-  intro:
-    'These services are for contractors who can do the work, but need help keeping permits, inspections, and project administration from slowing the business down.',
-  review: [
-    {
-      title: 'Permit Administration',
-      summary: 'Permit support for contractors and trade teams that want the paperwork handled more cleanly.',
-      details: ['Permit application prep', 'Submission follow-up', 'Correction handling', 'Inspection scheduling support'],
-      fit: 'Useful when your team should be focused on the field, not stuck in paperwork.',
-      purchaseType: 'review',
-      cta: 'Review Permit Pricing',
-      itemKey: 'permit-management-service',
-    },
-    {
-      title: 'Inspection Scheduling Support',
-      summary: 'Support for contractors who need inspections lined up, tracked, and followed through without extra back-and-forth.',
-      details: ['Inspection scheduling', 'Follow-up coordination', 'Correction tracking', 'Status updates'],
-      fit: 'Useful when inspection handling keeps pulling attention off production.',
-      purchaseType: 'review',
-      cta: 'Review Inspection Support Pricing',
-      ctaHref: '#contact',
-    },
-    {
-      title: 'Admin Support for Active Jobs',
-      summary: 'Back-office support for contractors who need help with paperwork, follow-up, and coordination on live residential work.',
-      details: ['Admin task review', 'Coordination support', 'Documentation follow-up', 'Clear next-step support'],
-      fit: 'Useful when the job load is outgrowing the office support behind it.',
-      purchaseType: 'review',
-      cta: 'Review Admin Support Pricing',
-      ctaHref: '#contact',
-    },
-  ],
-  quote: [
-    {
-      title: 'Construction Oversight Support',
-      summary: 'Support for contractors who need tighter coordination around milestones, updates, and project follow-through.',
-      details: ['Project review', 'Support scope', 'Milestone structure', 'Coordination support plan'],
-      fit: 'Best when project control issues are starting to affect production.',
-      purchaseType: 'quote',
-      cta: 'Request Contractor Support',
-      ctaHref: '#contact',
-    },
-  ],
-};
-
-const developerServices: AvatarSection = {
-  id: 'developers-landowners',
-  eyebrow: 'Developers / Landowners',
-  title: 'For larger residential projects that need a clearer permit path, stronger coordination, and steadier oversight.',
-  intro:
-    'These services are for developers and landowners who need more structure around a project before drift, delay, or poor coordination creates bigger problems.',
-  review: [
-    {
-      title: 'Project Review',
-      summary: 'An early review for larger residential projects that need clearer scope, permit visibility, and execution planning.',
-      details: ['Project review', 'Permit-path observations', 'Risk notes', 'Recommended next step'],
-      fit: 'Useful when you need an informed read before the project gets further into motion.',
-      purchaseType: 'review',
-      cta: 'Review Project Pricing',
-      ctaHref: '#contact',
-    },
-    {
-      title: 'Budget & Scope Review',
-      summary: 'A clearer look at likely scope and cost before larger residential work starts drifting financially.',
-      details: ['Scope review', 'Budget observations', 'Visible assumptions', 'Cost-risk notes'],
-      fit: 'Useful when you need better early visibility into scope and cost.',
-      purchaseType: 'review',
-      cta: 'Review Budget & Scope Pricing',
-      ctaHref: '#contact',
-    },
-  ],
-  quote: [
-    {
-      title: 'Permit Administration + Construction Oversight',
-      summary: 'Support for larger residential projects that need closer control over permit work, job structure, and execution.',
-      details: ['Project review', 'Permit path planning', 'Oversight scope', 'Execution support around milestones and coordination'],
-      fit: 'Best when the project is too important to run loosely.',
-      purchaseType: 'quote',
-      cta: 'Request Project Quote',
-      ctaHref: '#contact',
-    },
-  ],
-};
-
-const recurringOfferSections: AvatarSection[] = [
-  {
-    id: 'investor-support-plans',
-    eyebrow: 'Investors / Operators',
-    title: 'Recurring support for operators who are tired of project babysitting.',
-    intro:
-      'These plans are for investors and rental operators with repeated turn work, recurring scope questions, budget decisions, and active jobs that need clearer coordination month after month.',
-    review: [
-      {
-        title: 'Turn Support Plan',
-        tag: 'Entry plan',
-        summary: 'Monthly support for owners with recurring turns and routine project decisions that keep pulling attention away from the rest of the business.',
-        details: [
-          'Up to 2 turn or project reviews each month',
-          'Up to 2 budget or scope reviews each month',
-          'Basic permit and admin guidance on active files',
-          'Priority response during business hours',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: vacancy drag, slow decisions, and repeated project babysitting on routine work.',
-        purchaseType: 'review',
-        cta: 'Review Turn Support Plan',
-        ctaHref: '#contact',
-        monthlyPrice: '$749/mo',
-        monthlyLimit: 'Up to 2 reviews and up to 3 active properties',
-        turnaround: '1 business day response target',
-      },
-      {
-        title: 'Operator Support Plan',
-        tag: 'Most practical',
-        summary: 'A stronger recurring support plan for investors who need more frequent scope clarity, pricing help, lender-facing support, and cleaner execution follow-through.',
-        details: [
-          'Up to 4 project or turn reviews each month',
-          'Up to 4 budget or scope reviews each month',
-          '1 lender scope and bid package each month',
-          '1 draw review support item each month',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: delay, weak scope clarity, funding friction, and repeated operator involvement in jobs that should move faster.',
-        purchaseType: 'review',
-        cta: 'Review Operator Support Plan',
-        ctaHref: '#contact',
-        monthlyPrice: '$1,499/mo',
-        monthlyLimit: '4 reviews, 1 lender package, 1 draw item',
-        turnaround: 'Same-day acknowledgment, 1 business day standard response',
-      },
-    ],
-    quote: [
-      {
-        title: 'Project Support Retainer',
-        tag: 'Higher-touch',
-        summary: 'A retainer for higher-volume operators who need weekly control, repeated construction-side review, and a stronger lane for active project oversight.',
-        details: [
-          'Weekly project-control touchpoint',
-          'Up to 6 project reviews monthly',
-          'Up to 6 budget or scope items monthly',
-          'Up to 2 lender or draw support items monthly',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: too many active moving parts, too much owner babysitting, and weak control across live jobs.',
-        purchaseType: 'quote',
-        cta: 'Request Retainer Review',
-        ctaHref: '#contact',
-        monthlyPrice: 'Starting at $2,500/mo',
-        monthlyLimit: 'Capped support volume, site visits separate',
-        turnaround: 'Priority 24-hour response target',
-      },
-    ],
-  },
-  {
-    id: 'contractor-support-plans',
-    eyebrow: 'Contractors',
-    title: 'Back-office and permit support for contractors who need field time back.',
-    intro:
-      'These plans are for contractors and trade teams who do not need more labor. They need less paperwork drag, cleaner permit handling, faster inspection coordination, and more office capacity without hiring full-time staff.',
-    review: [
-      {
-        title: 'Permit & Inspection Support Plan',
-        tag: 'Entry plan',
-        summary: 'Monthly support for contractors who need permit follow-up, inspection scheduling, and correction handling taken off their plate.',
-        details: [
-          'Up to 4 permit or admin requests each month',
-          'Inspection scheduling support',
-          'Correction follow-up support',
-          'Permit status coordination on active files',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: office work pulling time away from production and slowing jobs down.',
-        purchaseType: 'review',
-        cta: 'Review Permit & Inspection Plan',
-        ctaHref: '#contact',
-        monthlyPrice: '$899/mo',
-        monthlyLimit: '4 requests and up to 2 active jobs',
-        turnaround: '1 business day response target',
-      },
-      {
-        title: 'Back-Office Support Plan',
-        tag: 'Strongest recurring fit',
-        summary: 'A broader monthly support plan for contractors who need recurring help with admin, follow-up, documentation, and coordination across active residential jobs.',
-        details: [
-          'Up to 8 support requests each month',
-          'Permit and admin support',
-          'Inspection coordination',
-          'Documentation and follow-up support',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: back-office overload that is choking field production and forcing the owner to carry too much admin burden personally.',
-        purchaseType: 'review',
-        cta: 'Review Back-Office Plan',
-        ctaHref: '#contact',
-        monthlyPrice: '$1,750/mo',
-        monthlyLimit: '8 requests and up to 4 active jobs',
-        turnaround: 'Same-day acknowledgment, 1 business day standard response',
-      },
-    ],
-    quote: [
-      {
-        title: 'Contractor Office Extension Retainer',
-        tag: 'Higher-touch',
-        summary: 'A retainer for busy contractors who need a steadier outside office-support lane without building a full internal admin team yet.',
-        details: [
-          'Weekly check-in',
-          'Up to 12 support requests each month',
-          'Priority permit and inspection coordination',
-          'Documentation and follow-up support across active jobs',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: hiring pressure, admin chaos, and revenue-producing field time getting eaten by office problems.',
-        purchaseType: 'quote',
-        cta: 'Request Retainer Review',
-        ctaHref: '#contact',
-        monthlyPrice: 'Starting at $2,900/mo',
-        monthlyLimit: 'Defined active-job cap, no unlimited request volume',
-        turnaround: 'Priority 24-hour response target',
-      },
-    ],
-  },
-  {
-    id: 'developer-operator-retainers',
-    eyebrow: 'Developers / Repeat Operators',
-    title: 'Recurring project-control support for repeat residential operators.',
-    intro:
-      'These retainers are for developers and repeat operators who need stronger structure, milestone discipline, permit-path visibility, and clearer oversight across active residential work.',
-    review: [
-      {
-        title: 'Project Control Plan',
-        tag: 'Entry plan',
-        summary: 'Monthly support for repeat operators who need a clearer read on active projects, upcoming risks, and the next decision that matters.',
-        details: [
-          'Up to 2 active project reviews each month',
-          'Milestone check-ins',
-          'Permit-path and coordination guidance',
-          'Risk and next-step summaries',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: project drift, weak accountability, and poor visibility into what needs to happen next.',
-        purchaseType: 'review',
-        cta: 'Review Project Control Plan',
-        ctaHref: '#contact',
-        monthlyPrice: '$1,250/mo',
-        monthlyLimit: '2 active projects and 2 formal reviews',
-        turnaround: '1 business day response target',
-      },
-    ],
-    quote: [
-      {
-        title: 'Execution Oversight Retainer',
-        tag: 'Higher-touch',
-        summary: 'A retainer for repeat operators who need weekly oversight structure, better coordination, and stronger control across larger or more active residential projects.',
-        details: [
-          'Weekly oversight touchpoint',
-          'Up to 4 project reviews each month',
-          'Budget and scope review support',
-          'Milestone and risk summaries',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: loss of control across active files, weak coordination, and expensive slippage caused by loose project structure.',
-        purchaseType: 'quote',
-        cta: 'Request Oversight Retainer Review',
-        ctaHref: '#contact',
-        monthlyPrice: 'Starting at $3,500/mo',
-        monthlyLimit: 'Defined project cap, meetings and site visits scoped separately',
-        turnaround: 'Priority 24-hour response target',
-      },
-    ],
-  },
-  {
-    id: 'realtor-support-plans',
-    eyebrow: 'Realtors',
-    title: 'Recurring support for agents with steady listing and deal volume.',
-    intro:
-      'This category is for realtors and teams who repeatedly need faster inspection-response support, listing-prep clarity, and construction-side input that helps protect momentum. This is weaker than the contractor and investor categories, so it should stay tight and volume-based.',
-    review: [
-      {
-        title: 'Listing Support Plan',
-        tag: 'Secondary offer',
-        summary: 'Monthly support for active listing agents who need quick construction-side help without re-explaining the same context every time.',
-        details: [
-          'Up to 3 inspection or listing-prep reviews each month',
-          'Priority support on active listing questions',
-          'Pricing and repair guidance',
-          '1 rush item each month',
-        ],
-        fit: 'What ongoing problem the client is paying every month to avoid: deals and listings slowing down because repair questions stay vague too long.',
-        purchaseType: 'review',
-        cta: 'Review Listing Support Plan',
-        ctaHref: '#contact',
-        monthlyPrice: '$599/mo',
-        monthlyLimit: '3 reviews and 1 rush item',
-        turnaround: '1 business day standard response',
-      },
-    ],
-  },
-];
-
-const avatarSections = [homeownerServices, investorServices, realtorServices, contractorServices, developerServices];
-
-function SectionHeader({ eyebrow, title, text }: { eyebrow: string; title: string; text: string }) {
-  return (
-    <div className="mb-10 max-w-3xl">
-      <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-        <span className="w-6 h-px bg-orange/50" />
-        {eyebrow}
-      </span>
-      <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-navy leading-tight">{title}</h2>
-      <p className="mt-4 text-base leading-relaxed sm:text-lg text-stone-700">{text}</p>
-    </div>
-  );
-}
-
-function PurchaseTypeBlock({
-  title,
-  text,
-  cards,
-}: {
-  title: string;
-  text: string;
-  cards?: ServiceCard[];
-}) {
-  if (!cards || cards.length === 0) return null;
-
-  return (
-    <div className="mt-10 first:mt-0">
-      <div className="mb-6 max-w-2xl">
-        <div className="inline-flex rounded-full border border-stone-300 bg-stone-50 px-3 py-1 text-[12px] font-semibold uppercase tracking-[0.16em] text-navy">
-          {title}
-        </div>
-        <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{text}</p>
-      </div>
-      <div className="flex flex-wrap justify-center gap-6">
-        {cards.map((card) => (
-          <div
-            key={card.title}
-            className="flex w-full max-w-[420px] md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]"
-          >
-            <ServiceCardView card={card} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ServiceCardView({ card }: { card: ServiceCard }) {
-  return (
-    <div className="flex h-full w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
-      {card.tag ? (
-        <div className="mb-4 inline-flex w-fit rounded-full border border-orange/25 bg-orange/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-orange">
-          {card.tag}
-        </div>
-      ) : null}
-      <h4 className="text-[22px] font-extrabold leading-tight tracking-tight text-navy">{card.title}</h4>
-
-      {(card.monthlyPrice || card.setupPrice) && (
-        <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3">
-          {card.monthlyPrice ? <p className="text-lg font-extrabold text-navy">{card.monthlyPrice}</p> : null}
-          {card.setupPrice ? <p className="mt-1 text-sm text-stone-600">Setup: {card.setupPrice}</p> : null}
-          {card.monthlyLimit ? <p className="mt-2 text-sm text-stone-600">{card.monthlyLimit}</p> : null}
-          {card.turnaround ? <p className="mt-1 text-sm text-stone-600">{card.turnaround}</p> : null}
-        </div>
-      )}
-
-      <div className="mt-4 space-y-4 text-[14.5px] leading-relaxed text-stone-700">
-        <p>{card.summary}</p>
-        <ul className="space-y-2">
-          {card.details.map((item) => (
-            <li key={item} className="flex items-start gap-2.5">
-              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="text-stone-600">{card.fit}</p>
-      </div>
-
-      <div className="mt-auto pt-6">
-        {card.calculator ? (
-          <ServiceCalculator config={card.calculator} />
-        ) : card.itemKey ? (
-          <AddToCartButton
-            itemKey={card.itemKey}
-            label={card.cta}
-            className="inline-block w-full rounded-full bg-orange py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-orange-500"
-          />
-        ) : (
-          <a
-            href={card.ctaHref || '#contact'}
-            className="inline-block w-full rounded-full bg-navy py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-navy-700"
-          >
-            {card.cta}
-          </a>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default function ServicesPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    audience_type: '',
-    service: '',
-    message: '',
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError('');
-
-    try {
-      const res = await fetch('/api/inquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        const data = (await res.json()) as { error?: string };
-        throw new Error(data.error || 'Failed to submit');
-      }
-
-      setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', audience_type: '', service: '', message: '' });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
+export default function ServicesOverviewPage() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
-      <SiteNav />
+      <SiteNav variant="solid" />
 
       <section className="relative overflow-hidden bg-navy-900 pt-32 pb-24 sm:pt-40 sm:pb-32">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
@@ -781,29 +15,37 @@ export default function ServicesPage() {
             <div className="max-w-4xl">
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-                Services & Pricing
+                Services
               </div>
               <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                Structure and oversight for residential projects at every stage.
+                Find the right construction support for your project.
               </h1>
               <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-                Southern Cities helps keep residential work clear, coordinated, and moving, from early planning and permit support to active project oversight and recurring execution support.
+                Southern Cities helps residential projects move with clearer planning, better coordination, permit support, and stronger oversight. Start with the page that fits your role.
               </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href="#roles" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
+                  Explore by Role
+                </a>
+                <Link href="/recurring-support" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+                  View Recurring Support
+                </Link>
+              </div>
             </div>
             <div className="rounded-[1.75rem] border border-white/15 bg-white p-7 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)]">
               <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How to use this page</p>
               <div className="space-y-5 text-sm leading-relaxed text-stone-700">
                 <div>
-                  <p className="font-semibold text-navy">Buy Now</p>
-                  <p>Use this when the service has a fixed scope and you already know what you need.</p>
+                  <p className="font-semibold text-navy">Start with your role</p>
+                  <p>Choose the page that matches the kind of project, deal, or support you are dealing with.</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-navy">Priced After Review</p>
-                  <p>Use this when a few project details affect the final price.</p>
+                  <p className="font-semibold text-navy">Use one-time services when the need is specific</p>
+                  <p>If you already know the file or project that needs help, start with that page’s one-time services.</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-navy">Request Quote</p>
-                  <p>Use this when the work is larger, less defined, or needs review before pricing.</p>
+                  <p className="font-semibold text-navy">Use recurring support when the same problem keeps coming back</p>
+                  <p>If the support need repeats across active work, recurring plans may be the better fit.</p>
                 </div>
               </div>
             </div>
@@ -811,118 +53,92 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="border-b border-stone-200 bg-white py-8">
+      <section id="roles" className="bg-white py-20 sm:py-24">
         <div className="container-pro">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose your role</p>
-              <p className="mt-2 text-[15px] leading-relaxed text-stone-700">
-                Go straight to the section that best matches the kind of project, deal, or support you need.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {avatarSections.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-navy transition-all hover:border-orange hover:text-orange hover:-translate-y-0.5"
-                >
-                  {section.eyebrow}
-                </a>
-              ))}
-            </div>
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose your page</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Go straight to the service page that matches how you are involved.</h2>
+            <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
+              The overview stops here on purpose. The real detail lives on the role-specific pages below.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-wrap gap-6">
+            {avatarOverviewCards.map((card) => (
+              <div key={card.href} className="flex w-full md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]">
+                <div className="flex h-full w-full flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{card.eyebrow}</p>
+                  <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{card.title}</h3>
+                  <div className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
+                    <p><strong className="text-navy">Main pain:</strong> {card.pain}</p>
+                    <p><strong className="text-navy">What Southern Cities helps create:</strong> {card.outcome}</p>
+                  </div>
+                  <Link href={card.href} className="mt-auto inline-flex items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-700">
+                    {card.cta}
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="border-b border-stone-200 bg-stone-100 py-20 sm:py-24">
-        <div className="container-pro">
-          <SectionHeader
-            eyebrow="Recurring Support"
-            title="Monthly support plans for repeat construction-side pain"
-            text="These recurring offers are for clients with repeated need, not one-time projects. They are built around capped support capacity, clearer response lanes, and recurring relief from admin drag, project babysitting, and weak coordination."
-          />
-          {recurringOfferSections.map((section, index) => (
-            <div
-              key={section.id}
-              id={section.id}
-              className={index === 0 ? '' : 'mt-16 border-t border-stone-300 pt-16'}
-            >
-              <SectionHeader eyebrow={section.eyebrow} title={section.title} text={section.intro} />
-              <PurchaseTypeBlock
-                title="Monthly Support Plans"
-                text="Use this when the same type of project-support problem keeps coming back each month and you want a defined recurring support lane instead of starting over every time."
-                cards={section.review}
-              />
-              <PurchaseTypeBlock
-                title="Retainers"
-                text="Use this when your volume, project risk, or coordination load is high enough that you need a stronger ongoing support structure."
-                cards={section.quote}
-              />
+      <section className="border-y border-stone-200 bg-stone-50 py-16 sm:py-20">
+        <div className="container-pro grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Not sure where you fit?</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">You do not need to guess the perfect lane before reaching out.</h2>
+            <div className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              <p>If you own the house and need project help, start with Homeowners.</p>
+              <p>If this is rental or investment property, start with Investors.</p>
+              <p>If you are protecting a listing or transaction, start with Realtors.</p>
+              <p>If you are doing the work and need office, permit, or inspection help, start with Contractors.</p>
+              <p>If you are planning or managing larger residential work, start with Developers / Landowners.</p>
             </div>
-          ))}
+          </div>
+          <div className="rounded-[24px] border border-stone-200 bg-white p-7 shadow-elev-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Need help choosing?</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">
+              If you are not sure which page fits, use the contact form below and Southern Cities can point you to the right next step.
+            </p>
+            <a href="#contact" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
+              Request Help Choosing
+            </a>
+          </div>
         </div>
       </section>
 
-      {avatarSections.map((section, index) => (
-        <section key={section.id} id={section.id} className={index % 2 === 0 ? 'bg-white py-20 sm:py-24' : 'border-y border-stone-200 bg-stone-50 py-20 sm:py-24'}>
-          <div className="container-pro">
-            <SectionHeader eyebrow={section.eyebrow} title={section.title} text={section.intro} />
-            <PurchaseTypeBlock title="Buy Now" text="Use this when the service is fixed-scope and you want the fastest path forward." cards={section.buy} />
-            <PurchaseTypeBlock title="Priced After Review" text="Use this when pricing depends on a few project details." cards={section.review} />
-            <PurchaseTypeBlock title="Request Quote" text="Use this when the work needs review before scope and pricing are finalized." cards={section.quote} />
+      <section className="bg-white py-16 sm:py-20">
+        <div className="container-pro rounded-[28px] border border-stone-200 bg-stone-50 p-8 sm:p-10">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recurring support</p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Some clients need one-time help. Others need monthly support.</h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-stone-700 sm:text-lg">
+            Southern Cities also offers recurring support plans for repeat construction-side pain like permit drag, inspection coordination, budget questions, project babysitting, and weak control across active work.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/recurring-support" className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-700">
+              Explore Recurring Support Plans
+            </Link>
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
 
       <section id="contact" className="bg-navy-950 py-20 sm:py-24 text-white">
-        <div className="container-pro">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div>
-              <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-                <span className="w-6 h-px bg-orange/50" />
-                Contact
-              </span>
-              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">Need us to review the job first?</h2>
-              <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/88">
-                <p><strong className="text-white">Buy Now</strong> when the service is already clear.</p>
-                <p><strong className="text-white">Priced After Review</strong> when a few details affect cost.</p>
-                <p><strong className="text-white">Use this form</strong> when the project is larger, less defined, or needs a closer look before the next step is clear.</p>
-                <p><strong className="text-white">What happens next:</strong> Southern Cities reviews the request and follows up with the right next step for pricing, scoping, or project support.</p>
-              </div>
-            </div>
-
-            <div className="rounded-[1.75rem] border border-white/12 bg-white/[0.05] p-7 sm:p-8">
-              {submitted ? (
-                <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 px-5 py-4 text-sm text-emerald-100">
-                  Your request was sent. Southern Cities will review it and follow up with the next step.
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <input name="name" value={formData.name} onChange={handleChange} required placeholder="Name" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
-                    <input name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="Email" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
-                    <select name="audience_type" value={formData.audience_type} onChange={handleChange} className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white focus:border-orange focus:outline-none">
-                      <option value="">Who are you?</option>
-                      <option value="Homeowner">Homeowner</option>
-                      <option value="Investor">Investor</option>
-                      <option value="Realtor">Realtor</option>
-                      <option value="Contractor">Contractor</option>
-                      <option value="Developer / Landowner">Developer / Landowner</option>
-                    </select>
-                  </div>
-                  <input name="service" value={formData.service} onChange={handleChange} placeholder="What service or issue are you reaching out about?" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
-                  <textarea name="message" value={formData.message} onChange={handleChange} required rows={6} placeholder="What is happening right now, what is stuck, and what do you need help moving forward?" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
-                  {error && <p className="text-sm text-red-300">{error}</p>}
-                  <button type="submit" disabled={submitting} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 disabled:opacity-60">
-                    {submitting ? 'Sending...' : 'Request a Quote'}
-                  </button>
-                </form>
-              )}
-            </div>
+        <div className="container-pro max-w-3xl">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Contact</p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Not sure where to start?</h2>
+          <p className="mt-4 text-base leading-relaxed text-white/82 sm:text-lg">
+            Tell Southern Cities what is happening and the right next step can be identified without forcing you through the wrong page first.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/services/homeowners" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+              Start with Homeowners
+            </Link>
+            <Link href="/services/investors" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+              Start with Investors
+            </Link>
+            <Link href="/recurring-support" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
+              Request a Quote
+            </Link>
           </div>
         </div>
       </section>

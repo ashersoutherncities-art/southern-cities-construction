@@ -7,13 +7,12 @@ import CartNavLink from '@/components/CartNavLink';
 type NavLink = { href: string; label: string };
 
 const PRIMARY_LINKS: NavLink[] = [
-  { href: '/services#flagship', label: 'Permit + Oversight' },
   { href: '/services', label: 'Services' },
   { href: '/recurring-support', label: 'Recurring Support' },
   { href: '/blog', label: 'Blog' },
   { href: '/resources', label: 'Resources' },
   { href: '/partners', label: 'Partners' },
-  { href: '/realtor', label: 'Realtors' },
+  { href: '/services/realtors', label: 'Realtors' },
 ];
 
 export default function SiteNav({ variant = 'transparent' }: { variant?: 'transparent' | 'solid' }) {

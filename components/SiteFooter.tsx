@@ -27,12 +27,13 @@ export default function SiteFooter() {
           <div>
             <h4 className="text-white font-semibold text-sm tracking-wide mb-5">Company</h4>
             <ul className="space-y-3">
-              <li><Link href="/#flagship-service" className="text-white/50 hover:text-orange text-sm transition-colors">Flagship Service</Link></li>
               <li><Link href="/services" className="text-white/50 hover:text-orange text-sm transition-colors">All Services</Link></li>
+              <li><Link href="/services/homeowners" className="text-white/50 hover:text-orange text-sm transition-colors">Homeowners</Link></li>
+              <li><Link href="/services/investors" className="text-white/50 hover:text-orange text-sm transition-colors">Investors</Link></li>
+              <li><Link href="/services/realtors" className="text-white/50 hover:text-orange text-sm transition-colors">Realtors</Link></li>
+              <li><Link href="/services/contractors" className="text-white/50 hover:text-orange text-sm transition-colors">Contractors</Link></li>
+              <li><Link href="/services/developers-landowners" className="text-white/50 hover:text-orange text-sm transition-colors">Developers / Landowners</Link></li>
               <li><Link href="/recurring-support" className="text-white/50 hover:text-orange text-sm transition-colors">Recurring Support</Link></li>
-              <li><Link href="/#process" className="text-white/50 hover:text-orange text-sm transition-colors">Process</Link></li>
-              <li><Link href="/#projects" className="text-white/50 hover:text-orange text-sm transition-colors">Projects</Link></li>
-              <li><Link href="/realtor" className="text-white/50 hover:text-orange text-sm transition-colors">For Realtors</Link></li>
             </ul>
           </div>
 
