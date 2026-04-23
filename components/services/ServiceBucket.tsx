@@ -23,12 +23,18 @@ export function ServiceBucket({
         </div>
         <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{text}</p>
       </div>
-      <div className="flex flex-wrap justify-center gap-6">
-        {cards.map((card) => (
-          <div key={card.title} className="flex w-full max-w-[420px] md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]">
-            <ServiceCardView card={card} />
-          </div>
-        ))}
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+        {cards.map((card, index) => {
+          const isLast = index === cards.length - 1;
+          const isSecondToLast = index === cards.length - 2;
+          const tailClass = cards.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
+
+          return (
+            <div key={card.title} className={tailClass}>
+              <ServiceCardView card={card} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

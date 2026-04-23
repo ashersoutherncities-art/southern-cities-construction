@@ -140,22 +140,28 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6">
-            {whoWeHelp.map((item) => (
-              <div
-                key={item.title}
-                className="flex w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25 md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]"
-              >
-                <h3 className="text-[24px] font-extrabold tracking-tight text-navy">{item.title}</h3>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
-                <div className="mt-auto pt-5">
-                  <Link href={item.href} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500">
-                    {item.cta}
-                  </Link>
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+            {whoWeHelp.map((item, index) => {
+              const isLast = index === whoWeHelp.length - 1;
+              const isSecondToLast = index === whoWeHelp.length - 2;
+              const tailClass = whoWeHelp.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
+
+              return (
+                <div
+                  key={item.title}
+                  className={`${tailClass} flex h-full w-full max-w-[420px] justify-self-center flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25`}
+                >
+                  <h3 className="text-[24px] font-extrabold tracking-tight text-navy">{item.title}</h3>
+                  <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
+                  <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
+                  <div className="mt-auto pt-5">
+                    <Link href={item.href} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500">
+                      {item.cta}
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

@@ -346,12 +346,18 @@ export default function RecurringSupportPage() {
         <section key={section.id} id={section.id} className={index % 2 === 0 ? 'bg-white py-20 sm:py-24' : 'border-y border-stone-200 bg-stone-50 py-20 sm:py-24'}>
           <div className="container-pro">
             <SectionHeader eyebrow={section.eyebrow} title={section.title} intro={section.intro} />
-            <div className="mt-10 flex flex-wrap gap-6">
-              {section.cards.map((card) => (
-                <div key={card.name} className="flex w-full md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]">
-                  <RecurringCardView card={card} />
-                </div>
-              ))}
+            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+              {section.cards.map((card, index) => {
+                const isLast = index === section.cards.length - 1;
+                const isSecondToLast = index === section.cards.length - 2;
+                const tailClass = section.cards.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
+
+                return (
+                  <div key={card.name} className={tailClass}>
+                    <RecurringCardView card={card} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
