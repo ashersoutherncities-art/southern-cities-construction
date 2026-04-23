@@ -348,7 +348,7 @@ const processSteps = [
   },
   {
     title: 'Choose the right level of help',
-    body: 'Buy now, get pricing, or request a quote depending on how clear the work is.',
+    body: 'Pick whether you want to get started, get a price, or ask about a custom job depending on how clear the work is.',
   },
   {
     title: 'Move the project forward',
@@ -515,9 +515,9 @@ export default function Home() {
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">3. What do you need right now?</p>
                 <div className="mt-3 flex flex-wrap gap-2.5">
                   {[
-                    { key: 'buy', label: 'Buy now' },
-                    { key: 'pricing', label: 'Get pricing' },
-                    { key: 'quote', label: 'Request a quote' },
+                    { key: 'buy', label: 'Get started' },
+                    { key: 'pricing', label: 'Get a price' },
+                    { key: 'quote', label: 'Talk about a custom job' },
                   ].map((item) => {
                     const active = item.key === activeNeed;
                     return (

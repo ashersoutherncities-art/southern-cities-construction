@@ -221,7 +221,7 @@ export default function ServicesOverviewPage() {
     const roleAllowed = problem.roles.includes(activeRole) ? activeRole : problem.roles[0];
     const roleData = roleMeta[roleAllowed];
     const buyingAllowed = problem.buying.includes(activeBuying) ? activeBuying : problem.buying[0];
-    const buyingLabel = buyingAllowed === 'buy' ? 'Buy now' : buyingAllowed === 'pricing' ? 'Get pricing' : 'Request a quote';
+    const buyingLabel = buyingAllowed === 'buy' ? 'Get started' : buyingAllowed === 'pricing' ? 'Get a price' : 'Talk about a custom job';
     return {
       roleAllowed,
       roleData,
@@ -320,9 +320,9 @@ export default function ServicesOverviewPage() {
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">3. What do you need right now?</p>
                 <div className="mt-3 flex flex-wrap gap-2.5">
                   {[
-                    { key: 'buy', label: 'Buy now' },
-                    { key: 'pricing', label: 'Get pricing' },
-                    { key: 'quote', label: 'Request a quote' },
+                    { key: 'buy', label: 'Get started' },
+                    { key: 'pricing', label: 'Get a price' },
+                    { key: 'quote', label: 'Talk about a custom job' },
                   ].map((item) => {
                     const active = item.key === activeBuying;
                     return (
