@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useMemo, useState } from 'react';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 
@@ -104,6 +105,12 @@ const processSteps = [
 ];
 
 export default function Home() {
+  const [activeProof, setActiveProof] = useState(proofExamples[0].role);
+  const activeProofCard = useMemo(
+    () => proofExamples.find((item) => item.role === activeProof) || proofExamples[0],
+    [activeProof]
+  );
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav />
@@ -111,6 +118,8 @@ export default function Home() {
       <section className="relative overflow-hidden bg-navy-900 pt-28 pb-16 sm:pt-34 sm:pb-20">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
+        <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-orange/15 blur-3xl" />
+        <div className="absolute right-0 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
 
         <div className="relative z-10 container-pro">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-center">
@@ -126,19 +135,19 @@ export default function Home() {
                 Southern Cities helps homeowners, investors, realtors, contractors, and developers move residential projects forward when permit issues, inspection setbacks, admin burden, and weak follow-through start costing time and money.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500">
+                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
                   Find the Right Service
                 </Link>
-                <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border-2 border-white bg-white px-6 py-3.5 text-[14px] font-semibold text-navy transition-all hover:bg-stone-100">
+                <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border-2 border-white bg-white px-6 py-3.5 text-[14px] font-semibold text-navy transition-all hover:bg-stone-100 hover:-translate-y-0.5">
                   Request a Project Review
                 </Link>
-                <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 bg-transparent px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:bg-white/10">
+                <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 bg-transparent px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:bg-white/10 hover:-translate-y-0.5">
                   See Services by Role
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7">
+            <div className="rounded-[24px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)]">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why people bring Southern Cities in</p>
               <ul className="mt-5 space-y-3">
                 {trustPoints.map((item) => (
@@ -148,7 +157,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+              <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 transition-all duration-300 hover:border-orange/30 hover:bg-orange/[0.04]">
                 <p className="text-sm font-semibold text-navy">Used when the next step is unclear</p>
                 <p className="mt-1 text-[14px] leading-relaxed text-stone-700">
                   Southern Cities gets brought in when the job is slowing down, the scope is still loose, or nobody is carrying the path forward closely enough.
@@ -163,7 +172,7 @@ export default function Home() {
         <div className="container-pro">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {trustPoints.map((item) => (
-              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-4 text-[14.5px] leading-relaxed text-stone-800">
+              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-4 text-[14.5px] leading-relaxed text-stone-800 transition-all duration-300 hover:-translate-y-1 hover:border-orange/25 hover:bg-white hover:shadow-elev-1">
                 {item}
               </div>
             ))}
@@ -201,13 +210,13 @@ export default function Home() {
               return (
                 <div
                   key={item.title}
-                  className={`${tailClass} flex h-full w-full max-w-[420px] justify-self-center flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25`}
+                  className={`${tailClass} group flex h-full w-full max-w-[420px] justify-self-center flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25`}
                 >
-                  <h3 className="text-[24px] font-extrabold tracking-tight text-navy">{item.title}</h3>
+                  <h3 className="text-[24px] font-extrabold tracking-tight text-navy transition-colors group-hover:text-orange">{item.title}</h3>
                   <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
                   <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
                   <div className="mt-auto pt-5">
-                    <Link href={item.href} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500">
+                    <Link href={item.href} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500 group-hover:-translate-y-0.5">
                       {item.cta}
                     </Link>
                   </div>
@@ -233,7 +242,7 @@ export default function Home() {
                 Projects do not usually get expensive because one thing went wrong. They get expensive because the next step stays unclear for too long.
               </p>
             </div>
-            <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
+            <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7 transition-all duration-300 hover:border-orange/25 hover:shadow-elev-1">
               <h3 className="text-2xl font-bold tracking-tight text-navy">Where projects usually get stuck</h3>
               <ul className="mt-5 space-y-2.5 text-[15px] leading-relaxed text-stone-700">
                 {problemList.map((item) => (
@@ -265,22 +274,54 @@ export default function Home() {
               Southern Cities already explains the work well. The next improvement is denser proof. The homepage should show more evidence of what changes when Southern Cities gets involved.
             </p>
           </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {proofCategories.map((item) => (
-              <div key={item.title} className="rounded-[22px] border border-white/12 bg-white/[0.06] p-5">
-                <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/78">{item.body}</p>
+
+          <div className="mt-8 grid gap-5 xl:grid-cols-[0.92fr_1.08fr] xl:items-start">
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-2">
+              {proofCategories.map((item) => (
+                <div key={item.title} className="group rounded-[22px] border border-white/12 bg-white/[0.06] p-5 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.1] hover:border-white/20">
+                  <h3 className="text-xl font-bold text-white transition-colors group-hover:text-orange-200">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/78">{item.body}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-[26px] border border-white/12 bg-white/[0.08] p-5 sm:p-6">
+              <div className="flex flex-wrap gap-2">
+                {proofExamples.map((item) => {
+                  const active = item.role === activeProof;
+                  return (
+                    <button
+                      key={item.role}
+                      type="button"
+                      onClick={() => setActiveProof(item.role)}
+                      className={`rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-[0.18em] transition-all ${
+                        active
+                          ? 'bg-orange text-white shadow-glow-orange'
+                          : 'border border-white/15 bg-white/[0.05] text-white/75 hover:bg-white/[0.1] hover:text-white'
+                      }`}
+                    >
+                      {item.role}
+                    </button>
+                  );
+                })}
               </div>
-            ))}
-          </div>
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {proofExamples.map((item) => (
-              <div key={item.role} className="rounded-[24px] border border-white/12 bg-white px-5 py-6 text-navy shadow-[0_24px_50px_rgba(6,18,43,0.2)]">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{item.role}</p>
-                <h3 className="mt-3 text-xl font-extrabold tracking-tight">{item.title}</h3>
-                <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">{item.body}</p>
+
+              <div className="mt-5 rounded-[24px] border border-white/10 bg-white px-5 py-6 text-navy shadow-[0_24px_50px_rgba(6,18,43,0.2)] transition-all duration-300 hover:-translate-y-1">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeProofCard.role}</p>
+                <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{activeProofCard.title}</h3>
+                <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{activeProofCard.body}</p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Best proof format</p>
+                    <p className="mt-2 text-sm font-semibold text-navy">Short testimonial + what changed</p>
+                  </div>
+                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Best placement</p>
+                    <p className="mt-2 text-sm font-semibold text-navy">On homepage and on the matching service page</p>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -300,8 +341,8 @@ export default function Home() {
             </div>
             <div className="grid gap-3.5 md:grid-cols-2">
               {processSteps.map((step, index) => (
-                <div key={step} className="rounded-[22px] border border-stone-200 bg-stone-50 p-5">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange text-sm font-bold text-white">{index + 1}</div>
+                <div key={step} className="group rounded-[22px] border border-stone-200 bg-stone-50 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-orange/25 hover:bg-white hover:shadow-elev-1">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange text-sm font-bold text-white transition-transform duration-300 group-hover:scale-110">{index + 1}</div>
                   <p className="mt-4 text-sm font-semibold leading-relaxed text-navy">{step}</p>
                 </div>
               ))}
@@ -324,10 +365,10 @@ export default function Home() {
               Southern Cities has service pages built for the people most exposed when residential work gets messy, slow, or hard to manage.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
-              <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+              <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500 hover:-translate-y-0.5">
                 Find the Right Service
               </Link>
-              <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-8 py-4 text-[15px] font-medium text-navy transition-all hover:border-orange hover:text-orange">
+              <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-8 py-4 text-[15px] font-medium text-navy transition-all hover:border-orange hover:text-orange hover:-translate-y-0.5">
                 Request a Project Review
               </Link>
             </div>
@@ -349,10 +390,10 @@ export default function Home() {
               You do not need to have the whole project figured out before reaching out. If the job needs better direction, better follow-through, or a clearer next step, Southern Cities can help you get it moving again.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
-              <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+              <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500 hover:-translate-y-0.5">
                 Request a Project Review
               </Link>
-              <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-8 py-4 text-[15px] font-medium text-navy transition-all hover:border-orange hover:text-orange">
+              <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-8 py-4 text-[15px] font-medium text-navy transition-all hover:border-orange hover:text-orange hover:-translate-y-0.5">
                 Browse Services
               </Link>
             </div>
