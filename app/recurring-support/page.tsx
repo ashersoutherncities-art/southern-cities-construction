@@ -26,16 +26,16 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'investors',
     eyebrow: 'Investors / Operators',
-    title: 'Monthly support for operators who do not want to babysit every project decision.',
+    title: 'Monthly support for operators who are tired of delay, vacancy drag, and repeated owner follow-up.',
     intro:
-      'These plans are for recurring turn work, repeated budget and scope questions, lender-facing support, and active jobs that keep eating operator attention.',
+      'These plans are for recurring turn work, repeated budget and scope questions, lender-facing support, and active jobs that keep dragging on rent, timeline, and attention.',
     cards: [
       {
         name: 'Turn Support Plan',
         tag: 'Entry plan',
         price: '$749/mo',
         who: 'Small rental owners and operators with recurring turns.',
-        problem: 'They are paying monthly to avoid vacancy drag, slow decisions, and routine project babysitting.',
+        problem: 'Best when vacancy drag, slow decisions, and repeated follow-up keep eating time and margin.',
         includes: [
           'Up to 2 turn or project reviews each month',
           'Up to 2 budget or scope reviews each month',
@@ -51,7 +51,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Most practical',
         price: '$1,499/mo',
         who: 'Active investors with repeated construction-side decisions, lender needs, and draw-related support.',
-        problem: 'They are paying monthly to avoid delay, weak scope clarity, funding friction, and repeated operator involvement in jobs that should move faster.',
+        problem: 'Best when delay, weak scope clarity, funding friction, and repeated owner involvement are keeping active jobs from moving cleanly.',
         includes: [
           'Up to 4 project or turn reviews each month',
           'Up to 4 budget or scope reviews each month',
@@ -67,7 +67,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Higher-touch',
         price: 'Starting at $2,500/mo',
         who: 'Higher-volume operators with several active jobs that need stronger recurring control.',
-        problem: 'They are paying monthly to avoid too many moving parts, too much owner babysitting, and weak project control across live jobs.',
+        problem: 'Best when too many moving parts, repeated owner follow-up, and weak project control are making live jobs harder to manage.',
         includes: [
           'Weekly project-control touchpoint',
           'Up to 6 project reviews monthly',
@@ -140,16 +140,16 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'developers',
     eyebrow: 'Developers / Repeat Operators',
-    title: 'Recurring project-control support for repeat residential operators.',
+    title: 'Monthly support for repeat operators when delay, drift, and weak follow-through keep showing up.',
     intro:
-      'These retainers are for repeat operators who need stronger structure, milestone discipline, permit-path visibility, and clearer oversight across active residential work.',
+      'These retainers are for repeat operators who need tighter milestone discipline, better permit visibility, and less drift across active residential work.',
     cards: [
       {
         name: 'Project Control Plan',
         tag: 'Entry plan',
         price: '$1,250/mo',
         who: 'Repeat operators who need a clearer read on active projects, upcoming risks, and next decisions.',
-        problem: 'They are paying monthly to avoid project drift, weak accountability, and poor visibility into what needs to happen next.',
+        problem: 'Best when project drift, weak accountability, and poor visibility keep forcing repeated follow-up and late decisions.',
         includes: [
           'Up to 2 active project reviews each month',
           'Milestone check-ins',
@@ -165,7 +165,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Higher-touch',
         price: 'Starting at $3,500/mo',
         who: 'Repeat operators with larger or more active residential files that need stronger recurring control.',
-        problem: 'They are paying monthly to avoid loss of control across active files, weak coordination, and expensive slippage caused by loose project structure.',
+        problem: 'Best when weak coordination and loose project structure are causing expensive slippage across active files.',
         includes: [
           'Weekly oversight touchpoint',
           'Up to 4 project reviews each month',
@@ -181,16 +181,16 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'realtors',
     eyebrow: 'Realtors',
-    title: 'Recurring transaction and listing support for agents who need construction-side answers faster.',
+    title: 'Monthly support for agents who keep losing time to inspection questions, listing-prep indecision, and repair confusion.',
     intro:
-      'These plans are built around distinct recurring realtor pain: active-deal repair confusion, pre-listing indecision, repeated need for faster answers, and pooled team support.',
+      'These plans are for active-deal repair confusion, pre-listing indecision, repeated client repair questions, and team-level support when too much time gets lost chasing answers.',
     cards: [
       {
         name: 'Deal Desk',
         tag: 'Main offer',
         price: '$649/mo',
         who: 'Active agents who regularly run into inspection issues, repair-request questions, and contractor-side confusion during active transactions.',
-        problem: 'They are paying monthly to avoid deals slowing down because nobody gives a practical construction-side answer fast enough.',
+        problem: 'Best when deals keep slowing down because nobody gives a practical construction-side answer fast enough.',
         includes: [
           'Up to 4 active deal reviews each month',
           'Inspection report review and repair-priority guidance',
@@ -206,7 +206,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Main offer',
         price: '$649/mo',
         who: 'Listing agents who repeatedly need help deciding what should be fixed, cleaned up, or left alone before going live.',
-        problem: 'They are paying monthly to avoid pre-listing indecision, wasted seller spend, and delays caused by unclear prep direction.',
+        problem: 'Best when pre-listing indecision, wasted seller spend, and slow prep decisions keep delaying listings.',
         includes: [
           'Up to 4 listing-prep reviews each month',
           'Repair vs leave-alone guidance',
@@ -222,7 +222,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Secondary offer',
         price: '$1,050/mo',
         who: 'High-activity solo agents who repeatedly need fast construction-side support across both listings and active deals.',
-        problem: 'They are paying monthly to avoid repeated contractor chasing, slow client answers, and rebuilding the same construction context every week.',
+        problem: 'Best when repeated contractor chasing, slow client answers, and rebuilding the same context every week are eating too much time.',
         includes: [
           'Up to 8 support requests each month',
           'Mixed-use support across deals and listings',
@@ -238,7 +238,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Team plan',
         price: '$2,400/mo',
         who: 'Small teams and boutique brokerages that want a pooled support lane for repeated deal and listing questions.',
-        problem: 'They are paying monthly to avoid every agent solving repair and prep questions alone, with inconsistent guidance and wasted internal time.',
+        problem: 'Best when every agent is solving repair and prep questions alone, giving inconsistent guidance, and wasting internal time.',
         includes: [
           'Up to 15 pooled support cases each month',
           'Shared support lane for up to 5 agents',

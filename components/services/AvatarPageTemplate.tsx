@@ -83,7 +83,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
       <section className="border-b border-stone-200 bg-white py-16 sm:py-20">
         <div className="container-pro grid gap-10 lg:grid-cols-2">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Main pain points</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What keeps slowing this down</p>
             <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
               {data.painPoints.map((point) => (
                 <li key={point} className="flex items-start gap-3">
@@ -94,7 +94,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             </ul>
           </div>
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What Southern Cities helps create</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets better when this is handled right</p>
             <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
               {data.outcomes.map((point) => (
                 <li key={point} className="flex items-start gap-3">
@@ -109,9 +109,9 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
 
       <section id="buy-now" className="bg-white py-20 sm:py-24">
         <div className="container-pro">
-          <ServiceBucket title="Buy Now" text="Use this when the service is fixed-scope and you want the fastest path forward." cards={data.buy} />
-          <ServiceBucket title="Priced After Review" text="Use this when pricing depends on a few project details or the file needs a closer look first." cards={data.review} />
-          <ServiceBucket title="Request Quote" text="Use this when the work needs review before scope and pricing can be finalized." cards={data.quote} />
+          <ServiceBucket title="Buy Now" text="Use this when the problem is clear and you want to move without adding more delay." cards={data.buy} />
+          <ServiceBucket title="Priced After Review" text="Use this when a few real job details affect price and guessing would cost you later." cards={data.review} />
+          <ServiceBucket title="Request Quote" text="Use this when the work is big enough, unclear enough, or risky enough that it needs review first." cards={data.quote} />
         </div>
       </section>
 
@@ -119,13 +119,13 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
         <section className="border-y border-stone-200 bg-stone-50 py-20 sm:py-24">
           <div className="container-pro">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Ongoing Support Plans</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Monthly support for repeated construction-side problems</h2>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Monthly support</p>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">When the same problem keeps eating time, use a monthly plan.</h2>
               <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-                {data.recurringIntro || 'If the same type of project-support problem keeps coming back, a monthly support plan may be the cleaner path.'}
+                {data.recurringIntro || 'If the same kind of delay, confusion, or admin burden keeps coming back, a monthly plan is usually cleaner than starting from scratch every time.'}
               </p>
             </div>
-            <ServiceBucket title="Ongoing Support Plans" text="Use this when the same type of support problem keeps coming back each month and you want a defined recurring lane instead of starting over every time." cards={data.ongoingSupport} />
+            <ServiceBucket title="Monthly Support Plans" text="Use this when the same kind of delay, follow-up, or decision problem keeps coming back and you need a standing lane for it." cards={data.ongoingSupport} />
             <div className="mt-8">
               <a href="/recurring-support" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                 See All Recurring Support Plans
@@ -140,7 +140,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Need help choosing?</p>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">If you are not sure whether you need one-time help or monthly support, start here.</h2>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-stone-700 sm:text-lg">
-            Southern Cities can point you to the right next step instead of forcing the wrong service path.
+            Southern Cities can help you choose the right service before you lose more time or spend money in the wrong place.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">

@@ -7,15 +7,15 @@ import SiteFooter from '@/components/SiteFooter';
 const whoWeHelp = [
   {
     title: 'Homeowners',
-    pain: 'For homeowners dealing with a project that has become harder to manage, harder to price, or harder to trust.',
-    value: 'Southern Cities helps bring clarity to permits, inspections, scope, and next steps so the work can move forward in a more organized way.',
+    pain: 'For homeowners dealing with a project that keeps getting harder to price, harder to trust, or more expensive to leave unclear.',
+    value: 'Southern Cities helps stop permit confusion, inspection setbacks, and scope drift from costing more time and money.',
     cta: 'See Homeowner Services',
     href: '/services#homeowners',
   },
   {
     title: 'Investors',
-    pain: 'For investors who need active work handled with less delay, better coordination, and clearer control over what happens next.',
-    value: 'Southern Cities helps keep turns, permit issues, and project coordination from slowing the property down and adding avoidable cost.',
+    pain: 'For investors who need turns and active jobs to stop dragging on rent, timeline, and margin.',
+    value: 'Southern Cities helps keep permit issues, handoff problems, and loose execution from adding vacancy drag and avoidable cost.',
     cta: 'See Investor Services',
     href: '/services#investors',
   },
@@ -28,15 +28,15 @@ const whoWeHelp = [
   },
   {
     title: 'Contractors',
-    pain: 'For contractors who need permit administration, inspection coordination, or project support without carrying all of it in-house.',
-    value: 'Southern Cities helps reduce administrative drag so your team can stay more focused on production and delivery.',
+    pain: 'For contractors whose field time keeps getting eaten by permit follow-up, inspection handling, and office work.',
+    value: 'Southern Cities helps take admin drag off the job so production does not keep getting slowed down by paperwork and follow-up.',
     cta: 'See Contractor Services',
     href: '/services#contractors',
   },
   {
     title: 'Developers / Landowners',
-    pain: 'For larger residential projects that need a clearer permit path, tighter coordination, and steadier oversight.',
-    value: 'Southern Cities helps organize the process so the project is easier to manage and less likely to drift.',
+    pain: 'For residential projects where permit uncertainty, weak coordination, and drift can get expensive fast.',
+    value: 'Southern Cities helps reduce delay, wrong-step risk, and expensive drift before bigger money gets committed.',
     cta: 'See Project Support',
     href: '/services#developers-landowners',
   },
@@ -76,10 +76,10 @@ export default function Home() {
                 Residential project support
               </div>
               <h1 className="max-w-[11ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
-                Help for residential projects that need structure.
+                Help for residential projects that are stalled, unclear, or getting more expensive by the week.
               </h1>
               <p className="mt-6 max-w-[38rem] text-[18px] leading-[1.7] text-white sm:text-[20px]">
-                Southern Cities helps when permits, inspections, coordination, or unclear next steps are slowing the job down and creating avoidable cost.
+                Southern Cities helps when permit issues, inspection setbacks, loose coordination, or unclear scope are slowing the job down and adding avoidable cost.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500">
@@ -95,7 +95,7 @@ export default function Home() {
             </div>
 
             <div className="rounded-[24px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What Southern Cities helps with</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Where jobs start losing time and money</p>
               <ul className="mt-5 space-y-3">
                 {trustPoints.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-stone-700">
@@ -105,7 +105,7 @@ export default function Home() {
                 ))}
               </ul>
               <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                <p className="text-sm font-semibold text-navy">Clear next step</p>
+                <p className="text-sm font-semibold text-navy">Know what to do before the job costs more</p>
                 <p className="mt-1 text-[14px] leading-relaxed text-stone-700">
                   Choose a service, review pricing if needed, or request a quote for work that needs a closer look.
                 </p>
@@ -136,7 +136,7 @@ export default function Home() {
             </span>
             <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">Who we help</h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Southern Cities supports homeowners, investors, realtors, contractors, and developers who need active residential work handled with more structure, clearer communication, and better follow-through.
+              Southern Cities supports homeowners, investors, realtors, contractors, and developers who need active residential work to stop getting slowed down by confusion, delay, and loose follow-through.
             </p>
           </div>
 
@@ -172,13 +172,13 @@ export default function Home() {
             <div>
               <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
                 <span className="w-6 h-px bg-orange/50" />
-                What Southern Cities solves
+                Where projects start losing time and money
               </span>
               <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-                What Southern Cities helps with
+                What keeps jobs from moving
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                Some residential projects do not need a full general contractor from day one. They need permit help, inspection follow-up, project coordination, and a clearer next step so progress does not stall.
+                Some residential projects do not need a full general contractor from day one. They need permit help, inspection follow-up, and someone to stop the job from sitting still while costs, delays, and confusion keep stacking up.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
@@ -192,7 +192,7 @@ export default function Home() {
                 ))}
               </ul>
               <p className="mt-5 text-[15px] font-semibold leading-relaxed text-navy">
-                Southern Cities helps organize the next step so the work can move forward more cleanly.
+                Southern Cities helps get the job moving again before delay, confusion, and bad handoffs cost more.
               </p>
             </div>
           </div>
@@ -241,7 +241,7 @@ export default function Home() {
               Why clients use Southern Cities
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Clients use Southern Cities when a residential project needs clearer oversight, better coordination, and a more dependable process for getting from the current problem to the next step.
+              Clients use Southern Cities when the job is getting slow, unclear, or too easy for things to fall through the cracks.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">

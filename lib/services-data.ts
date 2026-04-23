@@ -116,9 +116,9 @@ const investorServices: AvatarPageData = {
   slug: 'investors',
   eyebrow: 'Investors',
   shortLabel: 'For Investors',
-  heroTitle: 'Construction support for investors who need clearer numbers and better control',
+  heroTitle: 'Construction support for investors who need clearer numbers and fewer expensive delays',
   heroSubtitle:
-    'Southern Cities helps investors reduce delay, tighten scope, improve budget clarity, support lender conversations, and keep active work from drifting.',
+    'Southern Cities helps investors reduce delay, tighten scope, improve budget clarity, support lender conversations, and keep active work from dragging on timeline, rent, and margin.',
   painPoints: [
     'Scope is unclear and budget confidence is weak.',
     'Lender and draw support is messy or incomplete.',
@@ -302,9 +302,9 @@ const realtorServices: AvatarPageData = {
   slug: 'realtors',
   eyebrow: 'Realtors',
   shortLabel: 'For Realtors',
-  heroTitle: 'Construction-side support for realtors who need answers fast',
+  heroTitle: 'Construction-side support for realtors when inspection issues and listing prep start slowing the deal',
   heroSubtitle:
-    'Southern Cities helps realtors move faster on inspection issues, listing prep, repair questions, and client-facing construction decisions.',
+    'Southern Cities helps realtors get faster repair direction, clearer listing-prep answers, and practical construction guidance before deals, listings, and client confidence start slipping.',
   painPoints: [
     'Inspection reports are creating confusion.',
     'Repair questions are delaying client decisions.',
@@ -407,14 +407,14 @@ const realtorServices: AvatarPageData = {
     },
   ],
   recurringIntro:
-    'If you have steady listing or transaction volume, Southern Cities offers multiple recurring realtor plans built around distinct recurring pain, not one vague membership.',
+    'If inspection questions, listing-prep indecision, and repeated client repair questions keep eating time, these monthly plans give you a defined way to get answers faster without starting from scratch every time.',
   ongoingSupport: [
     {
       title: 'Deal Desk',
       tag: 'Main offer',
-      summary: 'Recurring support for active deals that need faster repair direction, inspection-response clarity, and contractor-side answers before momentum slips.',
+      summary: 'Recurring support for active deals that need faster repair direction and inspection answers before the deal starts dragging.',
       details: ['Up to 4 active deal reviews each month', 'Inspection report review and repair-priority guidance', 'Up to 2 rough pricing-direction requests each month', 'Written summaries the agent can use in client conversations'],
-      fit: 'They are paying monthly to avoid deal slowdown, repair confusion, and looking uncertain when clients need practical answers fast.',
+      fit: 'Best when inspection issues and repair questions keep slowing deals down and making client conversations harder than they should be.',
       purchaseType: 'review',
       cta: 'Review Deal Desk',
       ctaHref: '/recurring-support#realtors',
@@ -425,9 +425,9 @@ const realtorServices: AvatarPageData = {
     {
       title: 'Listing Prep Desk',
       tag: 'Main offer',
-      summary: 'Monthly support for agents who repeatedly need clearer pre-listing repair direction, prep priorities, and cleaner seller guidance before a home goes live.',
+      summary: 'Monthly support for agents who repeatedly need better pre-listing repair direction before seller indecision turns into delay.',
       details: ['Up to 4 listing-prep reviews each month', 'Repair vs leave-alone guidance', 'Prep-priority and sequencing notes', 'Up to 2 follow-up clarifications per property'],
-      fit: 'They are paying monthly to avoid pre-listing indecision, wasted seller spend, and listing delays caused by unclear prep direction.',
+      fit: 'Best when sellers keep getting stuck on what to fix, what to skip, and what is worth spending money on before the listing goes live.',
       purchaseType: 'review',
       cta: 'Review Listing Prep Desk',
       ctaHref: '/recurring-support#realtors',
@@ -438,9 +438,9 @@ const realtorServices: AvatarPageData = {
     {
       title: 'Agent Support Line',
       tag: 'Secondary offer',
-      summary: 'A broader recurring support lane for high-activity agents who need faster construction-side answers across listings, repair questions, and active deals.',
+      summary: 'A broader recurring support plan for high-activity agents who need faster answers across listings, repair questions, and active deals.',
       details: ['Up to 8 support requests each month', 'Mixed-use support across deals and listings', 'Up to 2 short calls per month', 'Priority queue handling for submitted requests'],
-      fit: 'They are paying monthly to avoid repeated contractor chasing, slow client answers, and rebuilding the same construction context on every property.',
+      fit: 'Best when repeated contractor chasing, slow client answers, and constant re-explaining are eating too much time every week.',
       purchaseType: 'review',
       cta: 'Review Agent Support Line',
       ctaHref: '/recurring-support#realtors',
@@ -451,9 +451,9 @@ const realtorServices: AvatarPageData = {
     {
       title: 'Team Deal & Listing Desk',
       tag: 'Team plan',
-      summary: 'Pooled recurring support for small teams and boutique brokerages that want one construction-side lane for recurring deal and listing questions.',
+      summary: 'Pooled recurring support for small teams and boutique brokerages that want one place to send recurring deal and listing questions.',
       details: ['Up to 15 pooled support cases each month', 'Shared support lane for up to 5 agents', 'One monthly 30-minute team call', 'Consistent written guidance across listing and deal questions'],
-      fit: 'They are paying monthly to avoid every agent solving repair and prep questions alone, with inconsistent guidance and wasted internal time.',
+      fit: 'Best when too many agents are solving repair and prep questions alone, wasting time, and giving clients inconsistent answers.',
       purchaseType: 'quote',
       cta: 'Request Team Plan',
       ctaHref: '/recurring-support#realtors',
@@ -572,9 +572,9 @@ const developerServices: AvatarPageData = {
   slug: 'developers-landowners',
   eyebrow: 'Developers / Landowners',
   shortLabel: 'For Developers / Landowners',
-  heroTitle: 'Clearer path and stronger oversight for larger residential projects',
+  heroTitle: 'Project support for larger residential work where delay and drift get expensive fast',
   heroSubtitle:
-    'Southern Cities helps developers and landowners improve permit visibility, scope clarity, coordination, and project control before drift becomes expensive.',
+    'Southern Cities helps developers and landowners reduce permit uncertainty, scope drift, and execution slippage before bigger money gets committed in the wrong direction.',
   painPoints: [
     'Permit path and next steps are not clear enough.',
     'Scope and cost uncertainty is still too high.',
@@ -619,7 +619,7 @@ const developerServices: AvatarPageData = {
     },
   ],
   recurringIntro:
-    'For repeat operators, recurring project-control support can be the better fit when oversight and coordination issues keep showing up across multiple files.',
+    'For repeat operators, monthly support makes sense when delay, drift, and repeated follow-up keep showing up across multiple files.',
   ongoingSupport: [
     {
       title: 'Project Control Plan',
