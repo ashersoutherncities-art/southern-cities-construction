@@ -350,7 +350,14 @@ export default function RecurringSupportPage() {
               {section.cards.map((card, index) => {
                 const isLast = index === section.cards.length - 1;
                 const isSecondToLast = index === section.cards.length - 2;
-                const tailClass = section.cards.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
+
+                let tailClass = 'xl:col-span-2';
+
+                if (section.cards.length % 3 === 1 && isLast) {
+                  tailClass = 'xl:col-start-3 xl:col-span-2';
+                } else if (section.cards.length % 3 === 2 && (isSecondToLast || isLast)) {
+                  tailClass = 'xl:col-span-3';
+                }
 
                 return (
                   <div key={card.name} className={`${tailClass} flex justify-center`}>
