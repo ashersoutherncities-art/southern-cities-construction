@@ -29,6 +29,7 @@ export default function SiteFooter() {
             <ul className="space-y-3">
               <li><Link href="/#flagship-service" className="text-white/50 hover:text-orange text-sm transition-colors">Flagship Service</Link></li>
               <li><Link href="/services" className="text-white/50 hover:text-orange text-sm transition-colors">All Services</Link></li>
+              <li><Link href="/recurring-support" className="text-white/50 hover:text-orange text-sm transition-colors">Recurring Support</Link></li>
               <li><Link href="/#process" className="text-white/50 hover:text-orange text-sm transition-colors">Process</Link></li>
               <li><Link href="/#projects" className="text-white/50 hover:text-orange text-sm transition-colors">Projects</Link></li>
               <li><Link href="/realtor" className="text-white/50 hover:text-orange text-sm transition-colors">For Realtors</Link></li>
