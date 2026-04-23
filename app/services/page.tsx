@@ -481,41 +481,49 @@ export default function ServicesOverviewPage() {
                   </div>
 
                   <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 transition-all duration-500 group-hover:border-orange/20 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_24px_80px_rgba(15,23,42,0.06)] sm:p-8">
-                    <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8">
+                    <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                       {lane.stops.map((stop, index) => {
                         const tone = roadmapToneStyles[stop.tone];
-                        const isLast = index === lane.stops.length - 1;
+                        const isEven = index % 2 === 0;
                         return (
-                          <div key={stop.label} className="group/step flex items-center">
-                            <div className="w-[220px] transition-transform duration-500 group-hover/step:-translate-y-1 sm:w-[240px]">
-                              <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white transition-all duration-500 group-hover/step:scale-110 group-hover/step:shadow-[0_18px_40px_rgba(15,23,42,0.18)]`}>
-                                {index + 1}
-                              </div>
-                              <div className="mt-4 text-center transition-all duration-500 group-hover/step:opacity-100 group-hover/step:translate-y-[-2px]">
-                                <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
-                                <div className="mt-4 flex flex-wrap justify-center gap-2">
-                                  {stop.services.map((service) => (
-                                    <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-300 group-hover/step:-translate-y-0.5 group-hover/step:border-orange/35 group-hover/step:shadow-[0_12px_30px_rgba(15,23,42,0.10)]">
-                                      {service}
-                                    </span>
-                                  ))}
-                                </div>
+                          <div key={stop.label} className="group/step relative rounded-[26px] border border-white/70 bg-white/85 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-orange/30 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)] sm:p-6">
+                            <div className={`pointer-events-none absolute ${isEven ? 'right-[-52px] top-10' : 'left-[-52px] bottom-10 scale-y-[-1]'} hidden xl:block`}>
+                              <svg width="104" height="72" viewBox="0 0 104 72" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-70 transition-opacity duration-500 group-hover/step:opacity-100">
+                                <path d="M4 36C22 6 40 6 52 36C64 66 82 66 100 36" stroke="url(#services-roadmap-squiggle)" strokeWidth="6" strokeLinecap="round" />
+                                <defs>
+                                  <linearGradient id="services-roadmap-squiggle" x1="4" y1="36" x2="100" y2="36" gradientUnits="userSpaceOnUse">
+                                    <stop stopColor="#163061" />
+                                    <stop offset="0.5" stopColor="#214F97" />
+                                    <stop offset="1" stopColor="#D9A441" />
+                                  </linearGradient>
+                                </defs>
+                              </svg>
+                            </div>
+
+                            <div className={`flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white transition-all duration-500 group-hover/step:scale-110 group-hover/step:shadow-[0_18px_40px_rgba(15,23,42,0.18)]`}>
+                              {index + 1}
+                            </div>
+                            <div className="mt-4 transition-all duration-500 group-hover/step:opacity-100 group-hover/step:translate-y-[-2px]">
+                              <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
+                              <div className="mt-4 flex flex-wrap gap-2">
+                                {stop.services.map((service) => (
+                                  <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-300 group-hover/step:-translate-y-0.5 group-hover/step:border-orange/35 group-hover/step:shadow-[0_12px_30px_rgba(15,23,42,0.10)]">
+                                    {service}
+                                  </span>
+                                ))}
                               </div>
                             </div>
-                            {!isLast ? <div className="mx-2 hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] opacity-70 transition-all duration-500 group-hover/step:scale-x-105 group-hover/step:opacity-100 lg:block" /> : null}
                           </div>
                         );
                       })}
-                      <div className="group/destination flex items-center lg:ml-2">
-                        <div className="hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" />
-                        <div className="w-[220px] transition-transform duration-500 group-hover/destination:-translate-y-1 sm:w-[240px] lg:ml-4">
-                          <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${roadmapToneStyles.finish.dot} ${roadmapToneStyles.finish.ring} text-2xl text-white transition-all duration-500 group-hover/destination:scale-110 group-hover/destination:shadow-[0_18px_40px_rgba(15,23,42,0.18)]`}>
-                            ✓
-                          </div>
-                          <div className="mt-4 text-center">
-                            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
-                            <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
-                          </div>
+
+                      <div className="group/destination relative rounded-[26px] border border-[#d9a441]/20 bg-[linear-gradient(180deg,#fff8eb_0%,#ffffff_100%)] p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d9a441]/35 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)] sm:p-6">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#d9a441] shadow-[0_0_0_10px_rgba(217,164,65,0.14)] text-2xl text-white transition-all duration-500 group-hover/destination:scale-110 group-hover/destination:shadow-[0_18px_40px_rgba(15,23,42,0.18)]">
+                          ✓
+                        </div>
+                        <div className="mt-4">
+                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
+                          <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
                         </div>
                       </div>
                     </div>

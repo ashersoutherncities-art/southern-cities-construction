@@ -187,26 +187,35 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
               </p>
             </div>
             <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
-              <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8 lg:justify-start">
+              <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                 {roadmap.map((step, index) => {
                   const tone = roadmapToneStyles[step.tone];
-                  const isLast = index === roadmap.length - 1;
+                  const isEven = index % 2 === 0;
                   return (
-                    <div key={step.label} className="flex items-center">
-                      <div className="w-[220px] sm:w-[240px]">
-                        <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white`}>
-                          {index + 1}
-                        </div>
-                        <div className="mt-4 text-center">
-                          <span className="inline-flex rounded-full border border-stone-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
-                            {bucketTone[step.bucket]}
-                          </span>
-                          <h3 className="mt-3 text-xl font-extrabold leading-tight tracking-tight text-navy">{step.label}</h3>
-                        </div>
+                    <div key={step.label} className="group relative rounded-[26px] border border-white/70 bg-white/85 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-orange/30 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)] sm:p-6">
+                      <div className={`pointer-events-none absolute ${isEven ? 'right-[-52px] top-10' : 'left-[-52px] bottom-10 scale-y-[-1]'} hidden xl:block`}>
+                        <svg width="104" height="72" viewBox="0 0 104 72" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-70 transition-opacity duration-500 group-hover:opacity-100">
+                          <path d="M4 36C22 6 40 6 52 36C64 66 82 66 100 36" stroke="url(#roadmap-squiggle)" strokeWidth="6" strokeLinecap="round" />
+                          <defs>
+                            <linearGradient id="roadmap-squiggle" x1="4" y1="36" x2="100" y2="36" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#163061" />
+                              <stop offset="0.5" stopColor="#214F97" />
+                              <stop offset="1" stopColor="#D9A441" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
                       </div>
-                      {!isLast ? (
-                        <div className="mx-2 hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" />
-                      ) : null}
+
+                      <div className={`flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_18px_40px_rgba(15,23,42,0.18)]`}>
+                        {index + 1}
+                      </div>
+
+                      <div className="mt-5">
+                        <span className="inline-flex rounded-full border border-stone-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-orange/35">
+                          {bucketTone[step.bucket]}
+                        </span>
+                        <h3 className="mt-3 text-xl font-extrabold leading-tight tracking-tight text-navy">{step.label}</h3>
+                      </div>
                     </div>
                   );
                 })}
