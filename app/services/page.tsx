@@ -206,8 +206,6 @@ export default function ServicesOverviewPage() {
   const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
   const [activeBuying, setActiveBuying] = useState<BuyingKey>('pricing');
   const [activeProblem, setActiveProblem] = useState<ProblemKey>('permits');
-  const [openRoleRoadmap, setOpenRoleRoadmap] = useState<RoleKey>('homeowners');
-
   const activeRoleCard = roleMeta[activeRole];
   const filteredCards = useMemo(() => {
     return avatarOverviewCards.filter((card) => {
@@ -470,61 +468,58 @@ export default function ServicesOverviewPage() {
 
           <div className="mt-10 space-y-6">
             {roadmapLanes.map((lane) => {
-              const open = lane.roleKey === openRoleRoadmap;
               return (
                 <div key={lane.avatar} className="rounded-[28px] border border-stone-200 bg-white p-6 sm:p-8 shadow-[0_18px_50px_rgba(15,23,42,0.05)]">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                    <button type="button" onClick={() => setOpenRoleRoadmap(lane.roleKey)} className="max-w-xl text-left">
+                    <div className="max-w-xl text-left">
                       <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{lane.avatar}</p>
                       <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-navy">{lane.start}</h3>
-                    </button>
+                    </div>
                     <Link href={lane.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                       See {lane.avatar} Services
                     </Link>
                   </div>
 
-                  {open ? (
-                    <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
-                      <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8 lg:justify-start">
-                        {lane.stops.map((stop, index) => {
-                          const tone = roadmapToneStyles[stop.tone];
-                          const isLast = index === lane.stops.length - 1;
-                          return (
-                            <div key={stop.label} className="flex items-center">
-                              <div className="w-[220px] sm:w-[240px]">
-                                <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white`}>
-                                  {index + 1}
-                                </div>
-                                <div className="mt-4 text-center">
-                                  <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
-                                  <div className="mt-4 flex flex-wrap justify-center gap-2">
-                                    {stop.services.map((service) => (
-                                      <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
-                                        {service}
-                                      </span>
-                                    ))}
-                                  </div>
+                  <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
+                    <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8 lg:justify-start">
+                      {lane.stops.map((stop, index) => {
+                        const tone = roadmapToneStyles[stop.tone];
+                        const isLast = index === lane.stops.length - 1;
+                        return (
+                          <div key={stop.label} className="flex items-center">
+                            <div className="w-[220px] sm:w-[240px]">
+                              <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white`}>
+                                {index + 1}
+                              </div>
+                              <div className="mt-4 text-center">
+                                <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
+                                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                                  {stop.services.map((service) => (
+                                    <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
+                                      {service}
+                                    </span>
+                                  ))}
                                 </div>
                               </div>
-                              {!isLast ? <div className="mx-2 hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" /> : null}
                             </div>
-                          );
-                        })}
-                        <div className="flex items-center lg:ml-2">
-                          <div className="hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" />
-                          <div className="w-[220px] sm:w-[240px] lg:ml-4">
-                            <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${roadmapToneStyles.finish.dot} ${roadmapToneStyles.finish.ring} text-2xl text-white`}>
-                              ✓
-                            </div>
-                            <div className="mt-4 text-center">
-                              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
-                              <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
-                            </div>
+                            {!isLast ? <div className="mx-2 hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" /> : null}
+                          </div>
+                        );
+                      })}
+                      <div className="flex items-center lg:ml-2">
+                        <div className="hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" />
+                        <div className="w-[220px] sm:w-[240px] lg:ml-4">
+                          <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${roadmapToneStyles.finish.dot} ${roadmapToneStyles.finish.ring} text-2xl text-white`}>
+                            ✓
+                          </div>
+                          <div className="mt-4 text-center">
+                            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
+                            <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
                           </div>
                         </div>
                       </div>
                     </div>
-                  ) : null}
+                  </div>
                 </div>
               );
             })}
