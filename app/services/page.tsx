@@ -145,9 +145,15 @@ export default function ServicesOverviewPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {avatarOverviewCards.map((card) => (
-              <div key={card.href} className="flex h-full flex-col rounded-[28px] border border-stone-200 bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+            {avatarOverviewCards.map((card, index) => {
+              const isLast = index === avatarOverviewCards.length - 1;
+              const isSecondToLast = index === avatarOverviewCards.length - 2;
+              const tailClass = avatarOverviewCards.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
+
+              return (
+              <div key={card.href} className={`${tailClass} flex justify-center`}>
+                <div className="flex h-full w-full max-w-[420px] flex-col rounded-[28px] border border-stone-200 bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{card.eyebrow}</p>
                 <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{card.title}</h3>
                 <div className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
@@ -163,8 +169,9 @@ export default function ServicesOverviewPage() {
                     {card.cta}
                   </Link>
                 </div>
+                </div>
               </div>
-            ))}
+            );})}
           </div>
         </div>
       </section>
