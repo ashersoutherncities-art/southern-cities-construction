@@ -152,7 +152,7 @@ export default function BlogPostPage({ params }: { params: Params }) {
               </p>
               <p className="text-navy font-bold text-lg tracking-tight">{post.author}</p>
               <p className="text-stone-500 mt-1 text-sm leading-relaxed">
-                NC General Contractor L.107724 · Qualifier Q.108200. Licensed, bonded, and insured across North Carolina.
+                Residential project guidance, permitting insight, and construction-side decision support across North Carolina.
               </p>
             </div>
           </div>

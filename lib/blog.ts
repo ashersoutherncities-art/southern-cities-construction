@@ -138,7 +138,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         type: 'paragraph',
-        text: 'Every licensed general contractor in North Carolina must have a qualifier. The qualifier is an individual who has passed the state exam in the relevant classification and is legally tied to the license. Southern Cities Construction holds license L.107724 with qualifier Q.108200. When you hire a general contractor in NC, the license is only valid while a qualifier is actively associated with it. If the qualifier leaves, the license cannot legally engage new contracts.',
+        text: 'Every licensed general contractor in North Carolina must have a qualifier. The qualifier is an individual who has passed the state exam in the relevant classification and is legally tied to the license. When you hire a general contractor in NC, the license is only valid while a qualifier is actively associated with it. If the qualifier leaves, the license cannot legally engage new contracts.',
       },
       {
         type: 'callout',

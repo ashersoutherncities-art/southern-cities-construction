@@ -283,9 +283,9 @@ export default function ResourcesPage() {
                 text: 'Every template comes from active NC residential work — Mecklenburg, Cabarrus, Iredell, Union, and Gaston counties.',
               },
               {
-                eyebrow: 'Licensed NC general contractor',
-                title: 'Authored by the contractor of record',
-                text: 'Southern Cities Construction holds license L.107724 with qualifier Q.108200. These are the documents we use.',
+                eyebrow: 'Built from active project work',
+                title: 'Used in real residential jobs',
+                text: 'These documents come from active residential project work and real client coordination, not generic templates.',
               },
               {
                 eyebrow: 'One-time delivery',
