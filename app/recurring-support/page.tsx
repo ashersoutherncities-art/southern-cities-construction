@@ -309,7 +309,7 @@ export default function RecurringSupportPage() {
             <h1 className="mt-4 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl">
               Monthly construction-side support for repeat operational pain.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/88 sm:text-xl">
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
               These are not vague memberships. They are capped support plans and retainers for repeated construction-side problems, admin drag, project babysitting, permit friction, inspection coordination, and weak project control.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
