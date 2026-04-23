@@ -8,36 +8,36 @@ import SiteFooter from '@/components/SiteFooter';
 const whoWeHelp = [
   {
     title: 'Homeowners',
-    pain: 'For homeowners dealing with a project that keeps getting harder to price, harder to trust, or more expensive to leave unclear.',
-    value: 'Southern Cities helps stop permit confusion, inspection setbacks, and scope drift from costing more time and money.',
+    pain: 'For homeowners dealing with a project that keeps getting more expensive, more confusing, or harder to trust.',
+    value: 'Southern Cities helps cut permit confusion, inspection setbacks, and costly wrong moves before they get bigger.',
     cta: 'See Homeowner Services',
     href: '/services#homeowners',
   },
   {
     title: 'Investors',
-    pain: 'For investors who need turns and active jobs to stop dragging on rent, timeline, and margin.',
-    value: 'Southern Cities helps keep permit issues, handoff problems, and loose execution from adding vacancy drag and avoidable cost.',
+    pain: 'For investors trying to keep a rehab, turn, or active job from losing time, money, or momentum.',
+    value: 'Southern Cities helps reduce delay, bad handoffs, and budget surprises before they turn into bigger losses.',
     cta: 'See Investor Services',
     href: '/services#investors',
   },
   {
     title: 'Realtors',
-    pain: 'For realtors who need repair items, listing prep, or inspection issues handled clearly so the deal or listing does not lose momentum.',
-    value: 'Southern Cities helps turn construction questions into practical next steps you can use with clients and deadlines.',
+    pain: 'For realtors trying to keep repair items, listing prep, and inspection questions from slowing the deal down.',
+    value: 'Southern Cities helps turn construction questions into clearer next steps, faster answers, and better follow-through.',
     cta: 'See Realtor Services',
     href: '/services#realtors',
   },
   {
     title: 'Contractors',
-    pain: 'For contractors whose field time keeps getting eaten by permit follow-up, inspection handling, and office work.',
-    value: 'Southern Cities helps take admin drag off the job so production does not keep getting slowed down by paperwork and follow-up.',
+    pain: 'For contractors losing too much time to permit follow-up, inspections, paperwork, and office back-and-forth.',
+    value: 'Southern Cities helps reduce paperwork drag so the job keeps moving with fewer delays and less chasing.',
     cta: 'See Contractor Services',
     href: '/services#contractors',
   },
   {
     title: 'Developers / Landowners',
-    pain: 'For residential projects where permit uncertainty, weak coordination, and drift can get expensive fast.',
-    value: 'Southern Cities helps reduce delay, wrong-step risk, and expensive drift before bigger money gets committed.',
+    pain: 'For residential projects where too much still feels uncertain before bigger money moves.',
+    value: 'Southern Cities helps reduce delay, confusion, and expensive drift before the project gets harder to fix.',
     cta: 'See Project Support',
     href: '/services#developers-landowners',
   },
@@ -54,10 +54,10 @@ const problemList = [
 ];
 
 const trustPoints = [
-  'North Carolina residential project support',
-  'Permit, inspection, and active-project help',
-  'Support for homeowners, investors, realtors, contractors, and developers',
-  'Project review before delay and confusion get more expensive',
+  'North Carolina residential project help',
+  'Permit, inspection, and active-job help',
+  'Help for homeowners, investors, realtors, contractors, and developers',
+  'Help before delay and confusion get more expensive',
 ];
 
 const proofCategories = [
@@ -105,16 +105,16 @@ const proofExamples = [
 
 const proofStrip = [
   {
-    label: 'Delay pressure',
-    text: 'Jobs start slipping when no one is clearly carrying the next step.',
+    label: 'Delay',
+    text: 'The job starts slipping when nobody is clearly carrying the next step.',
   },
   {
-    label: 'Money pressure',
-    text: 'Confusion gets expensive when owners keep spending before the path is settled.',
+    label: 'Money',
+    text: 'Confusion gets expensive when people keep spending before the path is settled.',
   },
   {
-    label: 'Trust pressure',
-    text: 'People lose confidence when follow-through, inspections, and scope all start feeling loose.',
+    label: 'Trust',
+    text: 'Confidence drops fast when follow-through, inspections, and scope all start feeling loose.',
   },
 ];
 
@@ -147,13 +147,13 @@ export default function Home() {
             <div className="max-w-[42rem]">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-                Residential project support
+                Help for residential projects that are getting delayed, confusing, or harder to manage
               </div>
               <h1 className="max-w-[11ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
-                Help for residential projects that are getting delayed, unclear, or harder to control.
+                Help for residential projects that are getting delayed, unclear, or more expensive to leave alone.
               </h1>
               <p className="mt-6 max-w-[38rem] text-[18px] leading-[1.7] text-white sm:text-[20px]">
-                Southern Cities helps homeowners, investors, realtors, contractors, and developers move residential projects forward when permit issues, inspection setbacks, admin burden, and weak follow-through start costing time and money.
+                Southern Cities helps homeowners, investors, realtors, contractors, and developers move residential projects forward when permit problems, inspection setbacks, paperwork, and weak follow-through start costing time and money.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
@@ -169,7 +169,7 @@ export default function Home() {
             </div>
 
             <div className="rounded-[24px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why people bring Southern Cities in</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">When people usually call Southern Cities</p>
               <ul className="mt-5 space-y-3">
                 {trustPoints.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-stone-700">
@@ -179,9 +179,9 @@ export default function Home() {
                 ))}
               </ul>
               <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 transition-all duration-300 hover:border-orange/30 hover:bg-orange/[0.04]">
-                <p className="text-sm font-semibold text-navy">Used when the next step is unclear</p>
+                <p className="text-sm font-semibold text-navy">Best fit when the job feels stuck or hard to move forward</p>
                 <p className="mt-1 text-[14px] leading-relaxed text-stone-700">
-                  Southern Cities gets brought in when the job is slowing down, the scope is still loose, or nobody is carrying the path forward closely enough.
+                  Southern Cities usually gets called when the work is active, the details are still loose, or too much depends on the owner chasing answers and follow-up.
                 </p>
               </div>
             </div>
@@ -201,10 +201,10 @@ export default function Home() {
 
           <div className="mt-5 grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
             <div className="rounded-[24px] border border-stone-200 bg-navy-950 p-5 text-white shadow-[0_18px_40px_rgba(6,18,43,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(6,18,43,0.18)]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What this page needs to prove</p>
-              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">Southern Cities should feel more proven before people ever leave the homepage.</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What people need to know before they move forward</p>
+              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">You should be able to tell quickly whether Southern Cities is the right fit.</p>
               <p className="mt-3 text-[14.5px] leading-relaxed text-white/80">
-                Stronger pages do not just explain. They keep showing evidence in different forms as people keep scrolling.
+                Most people do not need a long explanation first. They need to know you understand the kind of delay, confusion, and cost that starts piling up when a residential job is not being handled tightly enough.
               </p>
             </div>
 
@@ -227,11 +227,11 @@ export default function Home() {
           <div className="mb-8 max-w-3xl">
             <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
               <span className="w-6 h-px bg-orange/50" />
-              Who We Help
+              Choose the page that fits your role
             </span>
-            <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">Who we help</h2>
+            <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">Choose the page that fits your role</h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Southern Cities supports the people most exposed when residential work gets messy, slow, or hard to manage.
+              If the job is getting harder to price, harder to manage, or harder to keep moving, start with the page that fits how you are involved.
             </p>
           </div>
 
@@ -275,17 +275,17 @@ export default function Home() {
             <div>
               <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
                 <span className="w-6 h-px bg-orange/50" />
-                What we help stop
+                What usually slows the job down
               </span>
               <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-                What keeps projects from moving
+                What usually slows the job down
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                Projects do not usually get expensive because one thing went wrong. They get expensive because the next step stays unclear for too long.
+                Projects do not usually get expensive because of one big mistake. They get expensive because too many small things stay unresolved for too long.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7 transition-all duration-300 hover:border-orange/25 hover:shadow-elev-1">
-              <h3 className="text-2xl font-bold tracking-tight text-navy">Where projects usually get stuck</h3>
+              <h3 className="text-2xl font-bold tracking-tight text-navy">What is usually going wrong</h3>
               <ul className="mt-5 space-y-2.5 text-[15px] leading-relaxed text-stone-700">
                 {problemList.map((item) => (
                   <li key={item} className="flex items-start gap-3">
@@ -295,7 +295,7 @@ export default function Home() {
                 ))}
               </ul>
               <p className="mt-5 text-[15px] font-semibold leading-relaxed text-navy">
-                The goal is simple. Reduce drift, reduce delay, and help the project move with more control.
+                The goal is simple. Fewer delays, fewer surprises, and a clearer next step.
               </p>
             </div>
           </div>
@@ -307,13 +307,13 @@ export default function Home() {
           <div className="max-w-3xl">
             <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
               <span className="w-6 h-px bg-orange/50" />
-              Proof and outcomes
+              What clients want to know before they reach out
             </span>
             <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl leading-[1.08]">
-              What should be proven more clearly on this homepage
+              People want to know you understand what is going wrong, what it is costing them, and what gets easier next.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-white/80">
-              Southern Cities already explains the work well. The next improvement is denser proof. The homepage should show more evidence of what changes when Southern Cities gets involved.
+              The strongest proof on this site will not sound like marketing. It will sound like real situations, real setbacks, and real examples of how the work got easier to move forward.
             </p>
           </div>
 
@@ -357,11 +357,11 @@ export default function Home() {
                   </div>
                   <div className="grid gap-3">
                     <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Pressure before help</p>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What was going wrong</p>
                       <p className="mt-2 text-sm font-semibold text-navy">{activeProofCard.pain}</p>
                     </div>
                     <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What changed</p>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What got easier after that</p>
                       <p className="mt-2 text-sm font-semibold text-navy">{activeProofCard.result}</p>
                     </div>
                   </div>
@@ -388,11 +388,11 @@ export default function Home() {
             <div>
               <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
                 <span className="w-6 h-px bg-orange/50" />
-                How Southern Cities works
+                What happens next
               </span>
-              <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">How the work gets back under control</h2>
+              <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">How Southern Cities helps move the job forward</h2>
               <p className="mt-5 text-[15px] leading-relaxed text-stone-700">
-                The value is not just the service itself. It is getting the right action taken before delay, confusion, and weak follow-through cost more.
+                Southern Cities is usually brought in after the project has already started getting messy. The goal is to figure out what is slowing things down, what needs to be handled first, and what help makes the most sense from there.
               </p>
             </div>
             <div className="grid gap-3.5 md:grid-cols-2">
@@ -412,13 +412,13 @@ export default function Home() {
           <div className="max-w-3xl">
             <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
               <span className="w-6 h-px bg-orange/50" />
-              Find your page
+              Start where your problem fits
             </span>
             <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-              Start with the role or project pressure that fits you now.
+              Start where your problem fits.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Southern Cities has service pages built for the people most exposed when residential work gets messy, slow, or hard to manage.
+              Southern Cities has service pages built for the people most likely to deal with delays, permit friction, listing pressure, office burden, and active-job follow-up.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500 hover:-translate-y-0.5">
@@ -440,10 +440,10 @@ export default function Home() {
               Start here
             </span>
             <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-              If the job is slowing down, unclear, or getting harder to manage, start here.
+              If the job is slowing down, getting confusing, or becoming more expensive to leave alone, start here.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              You do not need to have the whole project figured out before reaching out. If the job needs better direction, better follow-through, or a clearer next step, Southern Cities can help you get it moving again.
+              You do not need to have the whole project figured out before reaching out. If the job needs better follow-through, fewer delays, or a clearer next step, Southern Cities can help you move it forward.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
               <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500 hover:-translate-y-0.5">

@@ -20,59 +20,59 @@ const roadmapLanes: RoadmapLane[] = [
     start: 'Not sure what to do first',
     stops: [
       { label: 'Need a clearer next step', services: ['Home Assessment', 'Owner Consultation'], tone: 'start' },
-      { label: 'Need a budget range before spending', services: ['Home Project Budget Review'], tone: 'info' },
-      { label: 'Need help with the permit path', services: ['Permit Path Review', 'Permit Administration'], tone: 'build' },
-      { label: 'Need active-job control', services: ['Construction Oversight'], tone: 'finish' },
+      { label: 'Need a budget range before spending more money', services: ['Home Project Budget Review'], tone: 'info' },
+      { label: 'Need help with permit paperwork and approvals', services: ['Permit Path Review', 'Permit Administration'], tone: 'build' },
+      { label: 'Need tighter follow-through on an active job', services: ['Construction Oversight'], tone: 'finish' },
     ],
-    destination: 'Clearer decisions, fewer wrong moves, less project drift',
+    destination: 'Fewer wrong moves, less confusion, and less project drift',
   },
   {
     avatar: 'Investors',
     href: '/services/investors',
-    start: 'Need cleaner numbers before committing',
+    start: 'Need a better read on the deal before spending more money',
     stops: [
-      { label: 'Need a read on the deal or project', services: ['Investor Project Review', 'Rehab Budget Review'], tone: 'start' },
-      { label: 'Need hiring or startup decisions cleaned up', services: ['Contractor Fit Review', 'Bid Coordination & Contractor Match', 'Materials Setup Review'], tone: 'info' },
-      { label: 'Need lender or draw support', services: ['Lender Scope & Bid Package', 'Draw Review Support'], tone: 'build' },
-      { label: 'Need active-job control', services: ['Turn Budget Review', 'Construction Oversight'], tone: 'control' },
-      { label: 'Need repeat support across properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
+      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Project Review', 'Rehab Budget Review'], tone: 'start' },
+      { label: 'Need help hiring the right contractor and setting the job up right', services: ['Contractor Fit Review', 'Bid Coordination & Contractor Match', 'Materials Setup Review'], tone: 'info' },
+      { label: 'Need help with lender scope, bids, or draws', services: ['Lender Scope & Bid Package', 'Draw Review Support'], tone: 'build' },
+      { label: 'Need tighter follow-through on an active job', services: ['Turn Budget Review', 'Construction Oversight'], tone: 'control' },
+      { label: 'Need repeat help across multiple properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
     ],
-    destination: 'Cleaner numbers, faster starts, less delay, tighter control',
+    destination: 'Fewer surprises, faster starts, less delay, and tighter coordination',
   },
   {
     avatar: 'Realtors',
     href: '/services/realtors',
-    start: 'Inspection or prep questions are slowing the deal',
+    start: 'Inspection items or listing prep are slowing things down',
     stops: [
-      { label: 'Need a quick answer on inspection items', services: ['Inspection Response'], tone: 'start' },
-      { label: 'Need clearer listing-prep direction', services: ['Pre-Listing Budget & Prep Review'], tone: 'info' },
-      { label: 'Need broader listing coordination', services: ['Listing Prep Coordination Review'], tone: 'build' },
-      { label: 'Need ongoing help across deals or listings', services: ['Deal Desk', 'Listing Prep Desk', 'Agent Support Line', 'Team Deal & Listing Desk'], tone: 'finish' },
+      { label: 'Need a fast read on inspection items', services: ['Inspection Response'], tone: 'start' },
+      { label: 'Need a better handle on listing prep costs', services: ['Pre-Listing Budget & Prep Review'], tone: 'info' },
+      { label: 'Need help coordinating prep work before the listing', services: ['Listing Prep Coordination Review'], tone: 'build' },
+      { label: 'Need ongoing help across multiple deals or listings', services: ['Deal Desk', 'Listing Prep Desk', 'Agent Support Line', 'Team Deal & Listing Desk'], tone: 'finish' },
     ],
-    destination: 'Faster answers, stronger client confidence, better deal momentum',
+    destination: 'Faster answers, better client confidence, and fewer listing delays',
   },
   {
     avatar: 'Contractors',
     href: '/services/contractors',
-    start: 'Permit and office work are pulling time off the field',
+    start: 'Permit work and office follow-up are eating too much time',
     stops: [
       { label: 'Need help with permit and inspection handling', services: ['Permit Administration', 'Inspection Scheduling Support'], tone: 'start' },
-      { label: 'Need help cleaning up active-job paperwork and follow-up', services: ['Active Job Admin Triage'], tone: 'info' },
-      { label: 'Need tighter support on active work', services: ['Construction Oversight Support'], tone: 'build' },
-      { label: 'Need recurring office relief', services: ['Permit & Inspection Support Plan', 'Back-Office Support Plan', 'Contractor Office Extension Retainer'], tone: 'finish' },
+      { label: 'Need help cleaning up paperwork and follow-up on active jobs', services: ['Active Job Admin Triage'], tone: 'info' },
+      { label: 'Need tighter support while the work is moving', services: ['Construction Oversight Support'], tone: 'build' },
+      { label: 'Need recurring office help', services: ['Permit & Inspection Support Plan', 'Back-Office Support Plan', 'Contractor Office Extension Retainer'], tone: 'finish' },
     ],
-    destination: 'More field time, less paperwork drag, steadier job follow-through',
+    destination: 'Less paperwork drag, fewer delays, and better follow-through on active jobs',
   },
   {
     avatar: 'Developers / Landowners',
     href: '/services/developers-landowners',
-    start: 'Project risk is still too high to move loosely',
+    start: 'Too much is still uncertain to move forward casually',
     stops: [
       { label: 'Need an early read before bigger money moves', services: ['Early Project Review', 'Early Budget & Scope Review'], tone: 'start' },
-      { label: 'Need tighter control on permit and execution', services: ['Permit Administration + Construction Oversight'], tone: 'build' },
-      { label: 'Need repeat project-control support', services: ['Project Control Plan', 'Execution Oversight Retainer'], tone: 'finish' },
+      { label: 'Need tighter permit handling and follow-through', services: ['Permit Administration + Construction Oversight'], tone: 'build' },
+      { label: 'Need ongoing help keeping the work moving', services: ['Project Control Plan', 'Execution Oversight Retainer'], tone: 'finish' },
     ],
-    destination: 'Less drift, better visibility, tighter execution control',
+    destination: 'Less drift, fewer surprises, and better execution as the project moves forward',
   },
 ];
 
@@ -132,18 +132,18 @@ export default function ServicesOverviewPage() {
 
       <section className="border-b border-stone-200 bg-white py-16 sm:py-20">
         <div className="container-pro max-w-5xl">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How to buy from Southern Cities</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How to get started</p>
           <div className="mt-6 grid gap-6 md:grid-cols-3">
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6">
               <h2 className="text-2xl font-extrabold tracking-tight text-navy">Fixed-Price Services</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
-                Use this when the deliverable is clear and you are ready to buy now.
+                Use this when the work is straightforward and you are ready to buy now.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6">
               <h2 className="text-2xl font-extrabold tracking-tight text-navy">Get Pricing</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
-                Use this when a few project details affect price, but the work can still be priced without a full custom quote.
+                Use this when a few project details affect price, but it still does not need a full custom quote.
               </p>
             </div>
             <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6">
@@ -159,12 +159,12 @@ export default function ServicesOverviewPage() {
       <section id="roles" className="bg-white py-20 sm:py-24">
         <div className="container-pro">
           <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose your page</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose the page that fits your role</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-              Go straight to the service page that matches how you are involved.
+              Choose the page that fits how you are involved.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-              Start with the role you are in now. The detail lives on the page built for that kind of project, deal, or workload.
+              Start with the role you are in now. Each page is built around the kind of delay, paperwork, decision pressure, and follow-through problems that show up in that kind of work.
             </p>
           </div>
 
@@ -179,10 +179,10 @@ export default function ServicesOverviewPage() {
                   <h3 className="mt-3 min-h-[6.5rem] text-2xl font-extrabold tracking-tight text-navy">{card.title}</h3>
                   <div className="mt-5 flex min-h-[8.75rem] flex-col justify-start space-y-3 text-[15px] leading-relaxed text-stone-700">
                     <p>
-                      <strong className="text-navy">Main issue:</strong> {card.pain}
+                      <strong className="text-navy">What is going wrong:</strong> {card.pain}
                     </p>
                     <p>
-                      <strong className="text-navy">What gets better:</strong> {card.outcome}
+                      <strong className="text-navy">What gets easier:</strong> {card.outcome}
                     </p>
                   </div>
                   <div className="mt-auto pt-6">
@@ -200,12 +200,12 @@ export default function ServicesOverviewPage() {
       <section className="border-y border-stone-200 bg-stone-50 py-20 sm:py-24">
         <div className="container-pro">
           <div className="max-w-4xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose your path</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with what is happening now</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-              Choose the path that matches your situation.
+              Different projects get stuck in different places.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-              Different jobs stall in different places. Start with the lane that fits what is happening now, then follow the next step that makes the most sense.
+              Start with the situation you are in now, then move to the next step that fits.
             </p>
           </div>
 
@@ -257,7 +257,7 @@ export default function ServicesOverviewPage() {
                           ✓
                         </div>
                         <div className="mt-4 text-center">
-                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Destination</p>
+                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
                           <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
                         </div>
                       </div>
@@ -277,7 +277,7 @@ export default function ServicesOverviewPage() {
             Monthly plans are for repeat work, not one-off jobs.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-            Use a monthly plan when the same type of delay, follow-up, or decision problem keeps coming back across deals, listings, active jobs, turns, or repeat files.
+            Use a monthly plan when the same kind of delay, follow-up, permit issue, or paperwork burden keeps showing up across deals, listings, turns, or active jobs.
           </p>
           <div className="mt-6">
             <Link href="/recurring-support" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
@@ -309,7 +309,7 @@ export default function ServicesOverviewPage() {
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Contact</p>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Need help choosing?</h2>
           <p className="mt-4 text-base leading-relaxed text-white/88 sm:text-lg">
-            If you are not sure which page or purchase path fits, start here and Southern Cities can point you to the right next step.
+            If you are not sure which page or pricing path fits, start here and Southern Cities can point you to the right next step.
           </p>
           <div className="mt-6">
             <Link href="/services/homeowners#contact" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-orange hover:text-orange">
