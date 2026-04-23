@@ -142,9 +142,17 @@ export default function Home() {
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
             {whoWeHelp.map((item, index) => {
-              const isLast = index === whoWeHelp.length - 1;
-              const isSecondToLast = index === whoWeHelp.length - 2;
-              const tailClass = whoWeHelp.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
+              const totalCards = whoWeHelp.length;
+              const remainder = totalCards % 3;
+              const lastRowStart = totalCards - remainder;
+              const isTailCard = remainder !== 0 && index >= lastRowStart;
+
+              let tailClass = 'xl:col-span-2';
+              if (remainder === 1 && isTailCard) tailClass = 'xl:col-start-3 xl:col-span-2';
+              if (remainder === 2) {
+                if (index === lastRowStart) tailClass = 'xl:col-start-2 xl:col-span-2';
+                if (index === lastRowStart + 1) tailClass = 'xl:col-start-4 xl:col-span-2';
+              }
 
               return (
                 <div
@@ -209,7 +217,7 @@ export default function Home() {
               </span>
               <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl leading-tight">How to get started</h2>
               <p className="mt-5 text-[15px] leading-relaxed text-white/88">
-                Buy Now is for fixed services. Review Price is for work where a few project details affect cost. Request a Quote is for larger or less-defined jobs that need review first.
+                Buy Now is for fixed services. Get Pricing is for work where a few project details affect cost. Request a Quote is for larger or less-defined jobs that need review first.
               </p>
             </div>
             <div className="grid gap-3.5 md:grid-cols-3">
@@ -218,7 +226,7 @@ export default function Home() {
                 <p className="mt-3 text-sm leading-relaxed text-white/88">Use this when the scope is fixed and you already know what you need.</p>
               </div>
               <div className="rounded-[22px] border border-white/12 bg-white/[0.06] p-5">
-                <h3 className="text-xl font-bold text-white">Review Price</h3>
+                <h3 className="text-xl font-bold text-white">Get Pricing</h3>
                 <p className="mt-3 text-sm leading-relaxed text-white/88">Use this when a few project details set the price before you move ahead.</p>
               </div>
               <div className="rounded-[22px] border border-white/12 bg-white/[0.06] p-5">

@@ -50,7 +50,7 @@ const recurringSections: RecurringSection[] = [
         name: 'Operator Support Plan',
         tag: 'Most practical',
         price: '$1,499/mo',
-        who: 'Active investors with repeated construction-side decisions, lender needs, and draw-related support.',
+        who: 'Active investors with repeated job decisions, lender needs, and draw-related help.',
         problem: 'Best when delay, weak scope clarity, funding friction, and repeated owner involvement are keeping active jobs from moving cleanly.',
         includes: [
           'Up to 4 project or turn reviews each month',
@@ -92,7 +92,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Entry plan',
         price: '$899/mo',
         who: 'Small contractors and trade teams buried in permit follow-up and inspection handling.',
-        problem: 'They are paying monthly to avoid office work pulling time away from production and slowing jobs down.',
+        problem: 'Best when office work keeps pulling time away from production and slowing jobs down.',
         includes: [
           'Up to 4 permit or admin requests each month',
           'Inspection scheduling support',
@@ -108,7 +108,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Strongest recurring fit',
         price: '$1,750/mo',
         who: 'Growing contractors who need recurring admin help across active residential jobs.',
-        problem: 'They are paying monthly to avoid back-office overload that is choking field production and forcing the owner to carry too much admin burden personally.',
+        problem: 'Best when back-office overload is choking field production and forcing the owner to carry too much admin burden personally.',
         includes: [
           'Up to 8 support requests each month',
           'Permit and admin support',
@@ -123,8 +123,8 @@ const recurringSections: RecurringSection[] = [
         name: 'Contractor Office Extension Retainer',
         tag: 'Higher-touch',
         price: 'Starting at $2,900/mo',
-        who: 'Busy contractors who need steadier outside office support without building a full internal team yet.',
-        problem: 'They are paying monthly to avoid hiring pressure, admin chaos, and revenue-producing field time getting eaten by office problems.',
+        who: 'Busy contractors who need steadier outside office help without building a full internal team yet.',
+        problem: 'Best when hiring pressure, admin chaos, and revenue-producing field time keep getting eaten by office problems.',
         includes: [
           'Weekly check-in',
           'Up to 12 support requests each month',
@@ -140,9 +140,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'developers',
     eyebrow: 'Developers / Repeat Operators',
-    title: 'Ongoing help for repeat clients who need active projects to stay organized and moving.',
+    title: 'Ongoing help for repeat clients who need active projects to keep moving.',
     intro:
-      'These plans are for repeat clients who need active jobs to stay on track, decisions to get made faster, and permit or coordination issues to stop dragging work out.',
+      'These plans are for repeat clients who need active jobs to stay on track, decisions to get made faster, and permit or job issues to stop dragging work out.',
     cards: [
       {
         name: 'Project Control Plan',
@@ -153,7 +153,7 @@ const recurringSections: RecurringSection[] = [
         includes: [
           'Up to 2 active project reviews each month',
           'Milestone check-ins',
-          'Permit-path and coordination guidance',
+          'Permit-path and job guidance',
           'Risk and next-step summaries',
         ],
         limits: '2 active projects and 2 formal reviews. No full project management included.',
@@ -165,7 +165,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Higher-touch',
         price: 'Starting at $3,500/mo',
         who: 'Repeat operators with larger or more active residential files that need stronger recurring control.',
-        problem: 'Best when weak coordination and loose project structure are causing expensive slippage across active files.',
+        problem: 'Best when weak job control and loose execution are causing expensive slippage across active files.',
         includes: [
           'Weekly oversight touchpoint',
           'Up to 4 project reviews each month',
