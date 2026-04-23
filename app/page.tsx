@@ -84,16 +84,37 @@ const proofExamples = [
     role: 'Homeowners',
     title: 'What should show up here',
     body: 'A real quote about a project that felt confusing, delayed, or hard to trust before Southern Cities helped clarify the next step.',
+    pain: 'Unclear scope, permit stress, inspection setbacks',
+    result: 'More confidence before spending more money',
   },
   {
     role: 'Investors',
     title: 'What should show up here',
     body: 'A real quote about cleaner numbers, faster execution decisions, or less project drift after Southern Cities got involved.',
+    pain: 'Vacancy drag, bad handoffs, expensive project drift',
+    result: 'Cleaner decisions before more time and margin were lost',
   },
   {
     role: 'Realtors / Contractors',
     title: 'What should show up here',
     body: 'A real quote about faster answers, less admin burden, or better follow-through when the work needed tighter handling.',
+    pain: 'Client pressure, office drag, repeated follow-up',
+    result: 'Faster next steps and less time lost chasing the work',
+  },
+];
+
+const proofStrip = [
+  {
+    label: 'Delay pressure',
+    text: 'Jobs start slipping when no one is clearly carrying the next step.',
+  },
+  {
+    label: 'Money pressure',
+    text: 'Confusion gets expensive when owners keep spending before the path is settled.',
+  },
+  {
+    label: 'Trust pressure',
+    text: 'People lose confidence when follow-through, inspections, and scope all start feeling loose.',
   },
 ];
 
@@ -176,6 +197,27 @@ export default function Home() {
                 {item}
               </div>
             ))}
+          </div>
+
+          <div className="mt-5 grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
+            <div className="rounded-[24px] border border-stone-200 bg-navy-950 p-5 text-white shadow-[0_18px_40px_rgba(6,18,43,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(6,18,43,0.18)]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What this page needs to prove</p>
+              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">Southern Cities should feel more proven before people ever leave the homepage.</p>
+              <p className="mt-3 text-[14.5px] leading-relaxed text-white/80">
+                Stronger pages do not just explain. They keep showing evidence in different forms as people keep scrolling.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {proofStrip.map((item) => (
+                <div key={item.label} className="group rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:border-orange/25 hover:shadow-elev-3">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">{item.label}</p>
+                  <p className="mt-3 text-[15px] font-semibold leading-relaxed text-navy transition-colors group-hover:text-orange">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -307,9 +349,23 @@ export default function Home() {
               </div>
 
               <div className="mt-5 rounded-[24px] border border-white/10 bg-white px-5 py-6 text-navy shadow-[0_24px_50px_rgba(6,18,43,0.2)] transition-all duration-300 hover:-translate-y-1">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeProofCard.role}</p>
-                <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{activeProofCard.title}</h3>
-                <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{activeProofCard.body}</p>
+                <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeProofCard.role}</p>
+                    <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{activeProofCard.title}</h3>
+                    <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{activeProofCard.body}</p>
+                  </div>
+                  <div className="grid gap-3">
+                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Pressure before help</p>
+                      <p className="mt-2 text-sm font-semibold text-navy">{activeProofCard.pain}</p>
+                    </div>
+                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What changed</p>
+                      <p className="mt-2 text-sm font-semibold text-navy">{activeProofCard.result}</p>
+                    </div>
+                  </div>
+                </div>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Best proof format</p>
