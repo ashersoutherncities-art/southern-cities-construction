@@ -152,21 +152,21 @@ export default function ServicesOverviewPage() {
               return (
               <div key={card.href} className={`${rowClass} w-full md:w-[calc((100%-1.5rem)/2)] flex justify-center`}>
                 <div className="flex h-full w-full max-w-[420px] flex-col rounded-[28px] border border-stone-200 bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{card.eyebrow}</p>
-                <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{card.title}</h3>
-                <div className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
-                  <p>
-                    <strong className="text-navy">Main issue:</strong> {card.pain}
-                  </p>
-                  <p>
-                    <strong className="text-navy">What gets better:</strong> {card.outcome}
-                  </p>
-                </div>
-                <div className="mt-6 pt-2">
-                  <Link href={card.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                    {card.cta}
-                  </Link>
-                </div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{card.eyebrow}</p>
+                  <h3 className="mt-3 min-h-[5.75rem] text-2xl font-extrabold tracking-tight text-navy">{card.title}</h3>
+                  <div className="mt-5 min-h-[7.5rem] space-y-3 text-[15px] leading-relaxed text-stone-700">
+                    <p>
+                      <strong className="text-navy">Main issue:</strong> {card.pain}
+                    </p>
+                    <p>
+                      <strong className="text-navy">What gets better:</strong> {card.outcome}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-6">
+                    <Link href={card.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                      {card.cta}
+                    </Link>
+                  </div>
                 </div>
               </div>
             );})}
