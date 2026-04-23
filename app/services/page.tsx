@@ -481,7 +481,7 @@ export default function ServicesOverviewPage() {
                   </div>
 
                   <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 transition-all duration-500 group-hover:border-orange/20 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_24px_80px_rgba(15,23,42,0.06)] sm:p-8">
-                    <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8 lg:justify-start">
+                    <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8">
                       {lane.stops.map((stop, index) => {
                         const tone = roadmapToneStyles[stop.tone];
                         const isLast = index === lane.stops.length - 1;
