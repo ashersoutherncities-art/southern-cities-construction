@@ -33,8 +33,8 @@ const roleContent: Record<
     primaryCta: 'See Homeowner Services',
     secondaryCta: 'Request a Project Review',
     proof: {
-      title: 'What homeowners usually need help with',
-      body: 'A real example here should show a project that felt confusing, delayed, or hard to trust, then show how the next step got clearer before more money was spent wrong.',
+      title: 'Homeowners come to us when the job starts feeling loose',
+      body: 'That usually means permit questions are not getting answered clearly, inspection issues are slowing things down, or the next step still does not feel solid enough to spend more money with confidence.',
       pain: 'Unclear scope, permit stress, and inspection setbacks',
       result: 'A clearer next step before the project got more expensive',
     },
@@ -49,8 +49,8 @@ const roleContent: Record<
     primaryCta: 'See Investor Services',
     secondaryCta: 'Get Pricing',
     proof: {
-      title: 'What investors usually need help with',
-      body: 'A real example here should show cleaner numbers, faster execution decisions, or fewer budget surprises before more time and margin were lost.',
+      title: 'Investors come to us when too much is still uncertain',
+      body: 'That usually means the numbers still feel too loose, contractor decisions are not locked in well enough, or the job is already losing time through bad handoffs and weak follow-through.',
       pain: 'Vacancy drag, bad handoffs, and expensive project drift',
       result: 'A better read on the deal before more money and time were lost',
     },
@@ -65,8 +65,8 @@ const roleContent: Record<
     primaryCta: 'See Realtor Services',
     secondaryCta: 'Request Help',
     proof: {
-      title: 'What realtors usually need help with',
-      body: 'A real example here should show how repair questions, listing prep, or inspection issues stopped dragging once the next step was clearer.',
+      title: 'Realtors come to us when the deal keeps getting slowed down by construction questions',
+      body: 'That usually means inspection items are still being argued through, listing-prep decisions are not getting made fast enough, or clients need clearer guidance before the file can move.',
       pain: 'Client pressure, listing delay, and too much back-and-forth',
       result: 'Faster next steps and better client confidence',
     },
@@ -81,8 +81,8 @@ const roleContent: Record<
     primaryCta: 'See Contractor Services',
     secondaryCta: 'Get Support Pricing',
     proof: {
-      title: 'What contractors usually need help with',
-      body: 'A real example here should show how permit follow-up, inspection handling, or paperwork stopped choking production time.',
+      title: 'Contractors come to us when office work starts choking production time',
+      body: 'That usually means permit follow-up is dragging, inspection coordination is eating time, or too much of the job still depends on someone chasing paperwork instead of moving work forward.',
       pain: 'Office drag, repeated follow-up, and slow inspection handling',
       result: 'Less paperwork drag and better follow-through on active jobs',
     },
@@ -97,8 +97,8 @@ const roleContent: Record<
     primaryCta: 'See Project Support',
     secondaryCta: 'Request Project Review',
     proof: {
-      title: 'What developers and landowners usually need help with',
-      body: 'A real example here should show how early uncertainty around permits, scope, or execution got cleaned up before bigger money moved in the wrong direction.',
+      title: 'Developers and landowners come to us before uncertainty gets expensive',
+      body: 'That usually means scope, permits, budgeting, or execution still feel too loose to keep moving casually. The goal is to tighten the job before bigger money gets committed in the wrong direction.',
       pain: 'Permit uncertainty, scope drift, and weak coordination',
       result: 'A better early read before bigger money got committed',
     },
@@ -561,10 +561,10 @@ export default function Home() {
         <div className="container-pro">
           <div className="grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
             <div className="rounded-[24px] border border-stone-200 bg-navy-950 p-5 text-white shadow-[0_18px_40px_rgba(6,18,43,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(6,18,43,0.18)]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What people need to know before they move forward</p>
-              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">You should be able to tell quickly whether Southern Cities is the right fit.</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why people reach out</p>
+              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">Most people do not need more theory. They need the job to stop slipping.</p>
               <p className="mt-3 text-[14.5px] leading-relaxed text-white/80">
-                Most people do not need a long explanation first. They need to know you understand the kind of delay, confusion, and cost that starts piling up when a residential job is not being handled tightly enough.
+                Southern Cities is built for the moment when delay, confusion, and weak follow-through are starting to cost real time, money, and confidence.
               </p>
             </div>
 
@@ -609,11 +609,11 @@ export default function Home() {
                 </div>
                 <div className="grid gap-3">
                   <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What was going wrong</p>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What was creating the problem</p>
                     <p className="mt-2 text-sm font-semibold text-navy">{activeRoleContent.proof.pain}</p>
                   </div>
                   <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What got easier after that</p>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What changed once it was handled right</p>
                     <p className="mt-2 text-sm font-semibold text-navy">{activeRoleContent.proof.result}</p>
                   </div>
                 </div>
@@ -677,9 +677,9 @@ export default function Home() {
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What happens next</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">The site should help you move, not just read.</h2>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">Here is how most people get started.</h2>
               <p className="mt-5 text-[15px] leading-relaxed text-stone-700">
-                The goal is simple. Make it easier to figure out the right next step, the right level of help, and the right page to start with.
+                Start with the problem that is slowing the job down, choose the level of help that fits, and move forward without wasting more time in the wrong place.
               </p>
             </div>
             <div className="space-y-3.5">
