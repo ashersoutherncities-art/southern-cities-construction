@@ -145,22 +145,12 @@ export default function ServicesOverviewPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
             {avatarOverviewCards.map((card, index) => {
-              const totalCards = avatarOverviewCards.length;
-              const remainder = totalCards % 3;
-              const lastRowStart = totalCards - remainder;
-              const isTailCard = remainder !== 0 && index >= lastRowStart;
-
-              let tailClass = 'xl:col-span-2';
-              if (remainder === 1 && isTailCard) tailClass = 'xl:col-span-6';
-              if (remainder === 2) {
-                if (index === lastRowStart) tailClass = 'xl:col-start-2 xl:col-span-2';
-                if (index === lastRowStart + 1) tailClass = 'xl:col-start-4 xl:col-span-2';
-              }
+              const rowClass = index < 3 ? 'xl:w-[calc((100%-3rem)/3)]' : 'xl:w-[calc((100%-3rem)/3)]';
 
               return (
-              <div key={card.href} className={`${tailClass} flex justify-center`}>
+              <div key={card.href} className={`${rowClass} w-full md:w-[calc((100%-1.5rem)/2)] flex justify-center`}>
                 <div className="flex h-full w-full max-w-[420px] flex-col rounded-[28px] border border-stone-200 bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{card.eyebrow}</p>
                 <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{card.title}</h3>
