@@ -435,19 +435,6 @@ const realtorServices: AvatarPageData = {
       monthlyLimit: '4 listing-prep reviews, 2 clarifications per property',
       turnaround: '1 business day first response, 2 business day standard guidance delivery',
     },
-    {
-      title: 'Team Deal & Listing Desk',
-      tag: 'Team plan',
-      summary: 'Pooled recurring support for small teams and boutique brokerages that want one place to send recurring deal and listing questions.',
-      details: ['Up to 15 pooled support cases each month', 'Shared support lane for up to 5 agents', 'One monthly 30-minute team call', 'Consistent written guidance across listing and deal questions'],
-      fit: 'Best when too many agents are solving repair and prep questions alone, wasting time, and giving clients inconsistent answers.',
-      purchaseType: 'quote',
-      cta: 'Request Team Plan',
-      ctaHref: '/recurring-support#realtors',
-      monthlyPrice: '$2,400/mo',
-      monthlyLimit: '15 pooled cases, up to 5 covered agents',
-      turnaround: '1 business day first response, same-day triage for urgent active-deal items when possible',
-    },
   ],
 };
 
