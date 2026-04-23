@@ -188,13 +188,13 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             </div>
             <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
               <div className="relative overflow-x-auto pb-4">
-                <div className="relative min-w-[980px] px-6 py-6 lg:min-w-0">
+                <div className="relative w-full min-w-[1100px] px-6 py-6 lg:min-w-0">
                   <svg className="pointer-events-none absolute left-0 top-10 h-[220px] w-full" viewBox="0 0 1200 220" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 34 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#111111" strokeWidth="34" strokeLinecap="round" />
                     <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 34 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.95" />
                   </svg>
 
-                  <div className="relative grid grid-cols-5 items-start gap-5">
+                  <div className="relative grid grid-cols-5 items-start gap-6 2xl:gap-8">
                     {roadmap.map((step, index) => {
                       const tone = roadmapToneStyles[step.tone];
                       const topClass = index % 2 === 0 ? 'pt-[108px]' : 'pt-0';
