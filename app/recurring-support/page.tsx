@@ -26,9 +26,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'investors',
     eyebrow: 'Investors / Operators',
-    title: 'Monthly support for operators who are tired of delay, vacancy drag, and repeated owner follow-up.',
+    title: 'Ongoing help for investors who need turns, budgets, and active jobs to keep moving.',
     intro:
-      'These plans are for recurring turn work, repeated budget and scope questions, lender-facing support, and active jobs that keep dragging on rent, timeline, and attention.',
+      'Use these plans when turn work, budget questions, draw support, and active jobs keep coming back and you do not want to restart the conversation every time.',
     cards: [
       {
         name: 'Turn Support Plan',
@@ -83,9 +83,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'contractors',
     eyebrow: 'Contractors',
-    title: 'Back-office and permit support for contractors who need field time back.',
+    title: 'Ongoing permit and office help for contractors who need more time in the field.',
     intro:
-      'These plans are for contractors who do not need more labor. They need less paperwork drag, faster inspection handling, and more office capacity without making a full-time hire.',
+      'These plans are for contractors who need permit follow-up, inspection handling, paperwork help, and steady office support without adding a full-time hire.',
     cards: [
       {
         name: 'Permit & Inspection Support Plan',
@@ -140,9 +140,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'developers',
     eyebrow: 'Developers / Repeat Operators',
-    title: 'Monthly support for repeat operators when delay, drift, and weak follow-through keep showing up.',
+    title: 'Ongoing help for repeat clients who need active projects to stay organized and moving.',
     intro:
-      'These retainers are for repeat operators who need tighter milestone discipline, better permit visibility, and less drift across active residential work.',
+      'These plans are for repeat clients who need active jobs to stay on track, decisions to get made faster, and permit or coordination issues to stop dragging work out.',
     cards: [
       {
         name: 'Project Control Plan',
@@ -181,9 +181,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'realtors',
     eyebrow: 'Realtors',
-    title: 'Monthly support for agents who keep losing time to inspection questions, listing-prep indecision, and repair confusion.',
+    title: 'Ongoing help for agents who need faster answers on deals, listings, and repair questions.',
     intro:
-      'These plans are for active-deal repair confusion, pre-listing indecision, repeated client repair questions, and team-level support when too much time gets lost chasing answers.',
+      'Use these plans when inspection questions, listing-prep decisions, client repair questions, and repeated follow-up keep slowing deals and listings down.',
     cards: [
       {
         name: 'Deal Desk',
@@ -277,7 +277,7 @@ function RecurringCardView({ card }: { card: RecurringCard }) {
       </div>
       <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-stone-700">
         <p><strong className="text-navy">Best for:</strong> {card.who}</p>
-        <p><strong className="text-navy">Monthly problem avoided:</strong> {card.problem}</p>
+        <p><strong className="text-navy">Use this when:</strong> {card.problem}</p>
         <div>
           <p className="font-semibold text-navy">Included each month</p>
           <ul className="mt-3 space-y-2">
@@ -307,10 +307,10 @@ export default function RecurringSupportPage() {
           <div className="max-w-4xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recurring Support</p>
             <h1 className="mt-4 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl">
-              Monthly construction-side support for repeat operational pain.
+              Ongoing help for repeat clients who need faster answers and less delay.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-              These are not vague memberships. They are capped support plans and retainers for repeated construction-side problems, admin drag, project babysitting, permit friction, inspection coordination, and weak project control.
+              These plans are for clients who regularly need help with permits, inspections, listing prep, project coordination, and active-job decisions, and do not want to start over every time.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
@@ -322,11 +322,11 @@ export default function RecurringSupportPage() {
             </div>
           </div>
           <div className="rounded-[28px] border border-white/12 bg-white p-7 shadow-elev-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What this page is for</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">When ongoing help makes sense</p>
             <div className="mt-5 space-y-4 text-sm leading-relaxed text-stone-700">
-              <p><strong className="text-navy">Use these plans</strong> when the same type of construction-side problem keeps coming back each month.</p>
+              <p><strong className="text-navy">Use these plans</strong> when permit, inspection, coordination, or project questions keep coming back.</p>
               <p><strong className="text-navy">Do not use these plans</strong> for custom labor, undefined site work, or open-ended project execution.</p>
-              <p><strong className="text-navy">Every plan is capped</strong> so support stays clear, usable, and operationally clean.</p>
+              <p><strong className="text-navy">Every plan has clear limits</strong> so you know what is included and how to use it.</p>
             </div>
           </div>
         </div>
@@ -382,15 +382,15 @@ export default function RecurringSupportPage() {
         <div className="container-pro grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Need custom support?</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">If the recurring fit is real, Southern Cities can help define the right lane.</h2>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">If you need ongoing help but none of these plans fit cleanly, start here.</h2>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-              If your volume, job mix, or coordination burden does not fit one of these plans cleanly, start with a review. Southern Cities can point you to the right plan, the right retainer, or the right one-time service instead of forcing the wrong structure.
+              If your workload, project mix, or repeat needs do not fit one of these plans cleanly, start with a review. Southern Cities can help you choose the right ongoing plan, the right retainer, or the right one-time service.
             </p>
           </div>
           <div className="rounded-[28px] border border-white/12 bg-white/[0.05] p-7">
             <div className="space-y-4 text-sm leading-relaxed text-white/82">
-              <p><strong className="text-white">Good recurring fit:</strong> repeated need, repeated project friction, repeated admin burden, repeated support requests.</p>
-              <p><strong className="text-white">Bad recurring fit:</strong> one custom project, undefined labor, open-ended field execution, or one-time scoping with no repeat need.</p>
+              <p><strong className="text-white">Good fit:</strong> repeat permit questions, repeat inspection follow-up, repeat project decisions, repeat admin burden, repeat support requests.</p>
+              <p><strong className="text-white">Bad fit:</strong> one custom project, undefined labor, open-ended field execution, or one-time scoping with no repeat need.</p>
             </div>
             <Link href="/services#contact" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
               Request Plan Review
