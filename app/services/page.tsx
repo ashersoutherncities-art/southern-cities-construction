@@ -143,23 +143,23 @@ const roadmapLanes: RoadmapLane[] = [
 const roadmapToneStyles = {
   start: {
     dot: 'bg-[#ff6b6b]',
-    ring: 'shadow-[0_0_0_10px_rgba(255,107,107,0.12)]',
+    pin: 'border-t-[#ff6b6b]',
   },
   info: {
     dot: 'bg-[#4aa3ff]',
-    ring: 'shadow-[0_0_0_10px_rgba(74,163,255,0.12)]',
+    pin: 'border-t-[#4aa3ff]',
   },
   build: {
     dot: 'bg-[#41c96b]',
-    ring: 'shadow-[0_0_0_10px_rgba(65,201,107,0.12)]',
+    pin: 'border-t-[#41c96b]',
   },
   control: {
     dot: 'bg-[#8b6df2]',
-    ring: 'shadow-[0_0_0_10px_rgba(139,109,242,0.12)]',
+    pin: 'border-t-[#8b6df2]',
   },
   finish: {
     dot: 'bg-[#d9a441]',
-    ring: 'shadow-[0_0_0_10px_rgba(217,164,65,0.14)]',
+    pin: 'border-t-[#d9a441]',
   },
 };
 
@@ -481,49 +481,57 @@ export default function ServicesOverviewPage() {
                   </div>
 
                   <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 transition-all duration-500 group-hover:border-orange/20 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_24px_80px_rgba(15,23,42,0.06)] sm:p-8">
-                    <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-                      {lane.stops.map((stop, index) => {
-                        const tone = roadmapToneStyles[stop.tone];
-                        const isEven = index % 2 === 0;
-                        return (
-                          <div key={stop.label} className="group/step relative rounded-[26px] border border-white/70 bg-white/85 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-orange/30 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)] sm:p-6">
-                            <div className={`pointer-events-none absolute ${isEven ? 'right-[-52px] top-10' : 'left-[-52px] bottom-10 scale-y-[-1]'} hidden xl:block`}>
-                              <svg width="104" height="72" viewBox="0 0 104 72" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-70 transition-opacity duration-500 group-hover/step:opacity-100">
-                                <path d="M4 36C22 6 40 6 52 36C64 66 82 66 100 36" stroke="url(#services-roadmap-squiggle)" strokeWidth="6" strokeLinecap="round" />
-                                <defs>
-                                  <linearGradient id="services-roadmap-squiggle" x1="4" y1="36" x2="100" y2="36" gradientUnits="userSpaceOnUse">
-                                    <stop stopColor="#163061" />
-                                    <stop offset="0.5" stopColor="#214F97" />
-                                    <stop offset="1" stopColor="#D9A441" />
-                                  </linearGradient>
-                                </defs>
-                              </svg>
-                            </div>
+                    <div className="relative overflow-x-auto pb-4">
+                      <div className="relative min-w-[1200px] px-6 pt-12 pb-8">
+                        <svg className="pointer-events-none absolute left-0 top-14 h-[180px] w-full" viewBox="0 0 1200 180" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 90C75 90 75 20 150 20C225 20 225 160 300 160C375 160 375 20 450 20C525 20 525 160 600 160C675 160 675 20 750 20C825 20 825 160 900 160C975 160 975 20 1050 20C1125 20 1125 90 1200 90" stroke="#0b0b0b" strokeWidth="32" strokeLinecap="round" />
+                          <path d="M0 90C75 90 75 20 150 20C225 20 225 160 300 160C375 160 375 20 450 20C525 20 525 160 600 160C675 160 675 20 750 20C825 20 825 160 900 160C975 160 975 20 1050 20C1125 20 1125 90 1200 90" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.95" />
+                        </svg>
 
-                            <div className={`flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white transition-all duration-500 group-hover/step:scale-110 group-hover/step:shadow-[0_18px_40px_rgba(15,23,42,0.18)]`}>
-                              {index + 1}
-                            </div>
-                            <div className="mt-4 transition-all duration-500 group-hover/step:opacity-100 group-hover/step:translate-y-[-2px]">
-                              <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                {stop.services.map((service) => (
-                                  <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-300 group-hover/step:-translate-y-0.5 group-hover/step:border-orange/35 group-hover/step:shadow-[0_12px_30px_rgba(15,23,42,0.10)]">
-                                    {service}
-                                  </span>
-                                ))}
+                        <div className="relative grid grid-cols-6 items-start gap-6">
+                          {lane.stops.map((stop, index) => {
+                            const tone = roadmapToneStyles[stop.tone];
+                            const topClass = index % 2 === 0 ? 'pt-[92px]' : 'pt-0';
+                            const pinOffset = index % 2 === 0 ? 'top-[62px]' : 'top-0';
+                            return (
+                              <div key={stop.label} className={`relative ${topClass}`}>
+                                <div className={`absolute left-1/2 ${pinOffset} z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110`}>
+                                  <div className="relative h-[92px] w-[72px]">
+                                    <div className={`absolute left-1/2 top-0 flex h-[58px] w-[58px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white ${tone.dot} text-xl font-extrabold text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]`}>
+                                      {index + 1}
+                                    </div>
+                                    <div className={`absolute left-1/2 top-[42px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[34px] border-l-transparent border-r-transparent ${tone.pin}`} />
+                                  </div>
+                                </div>
+
+                                <div className="mt-[96px] rounded-[24px] bg-white/92 px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
+                                  <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
+                                  <div className="mt-4 flex flex-wrap justify-center gap-2">
+                                    {stop.services.map((service) => (
+                                      <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-orange/35 hover:shadow-[0_12px_30px_rgba(15,23,42,0.10)]">
+                                        {service}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+
+                          <div className="relative pt-[92px]">
+                            <div className="absolute left-1/2 top-[62px] z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110">
+                              <div className="relative h-[92px] w-[72px]">
+                                <div className="absolute left-1/2 top-0 flex h-[58px] w-[58px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white bg-[#d9a441] text-2xl text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]">
+                                  ✓
+                                </div>
+                                <div className="absolute left-1/2 top-[42px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[34px] border-l-transparent border-r-transparent border-t-[#d9a441]" />
                               </div>
                             </div>
+                            <div className="mt-[96px] rounded-[24px] bg-[linear-gradient(180deg,#fff8eb_0%,#ffffff_100%)] px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
+                              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
+                              <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
+                            </div>
                           </div>
-                        );
-                      })}
-
-                      <div className="group/destination relative rounded-[26px] border border-[#d9a441]/20 bg-[linear-gradient(180deg,#fff8eb_0%,#ffffff_100%)] p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d9a441]/35 hover:shadow-[0_28px_80px_rgba(15,23,42,0.12)] sm:p-6">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#d9a441] shadow-[0_0_0_10px_rgba(217,164,65,0.14)] text-2xl text-white transition-all duration-500 group-hover/destination:scale-110 group-hover/destination:shadow-[0_18px_40px_rgba(15,23,42,0.18)]">
-                          ✓
-                        </div>
-                        <div className="mt-4">
-                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
-                          <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
                         </div>
                       </div>
                     </div>
