@@ -5,102 +5,113 @@ import { useMemo, useState } from 'react';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 
-const whoWeHelp = [
-  {
-    title: 'Homeowners',
-    pain: 'For homeowners dealing with a project that keeps getting more expensive, more confusing, or harder to trust.',
-    value: 'Southern Cities helps cut permit confusion, inspection setbacks, and costly wrong moves before they get bigger.',
-    cta: 'See Homeowner Services',
-    href: '/services#homeowners',
-  },
-  {
-    title: 'Investors',
-    pain: 'For investors trying to keep a rehab, turn, or active job from losing time, money, or momentum.',
-    value: 'Southern Cities helps reduce delay, bad handoffs, and budget surprises before they turn into bigger losses.',
-    cta: 'See Investor Services',
-    href: '/services#investors',
-  },
-  {
-    title: 'Realtors',
-    pain: 'For realtors trying to keep repair items, listing prep, and inspection questions from slowing the deal down.',
-    value: 'Southern Cities helps turn construction questions into clearer next steps, faster answers, and better follow-through.',
-    cta: 'See Realtor Services',
-    href: '/services#realtors',
-  },
-  {
-    title: 'Contractors',
-    pain: 'For contractors losing too much time to permit follow-up, inspections, paperwork, and office back-and-forth.',
-    value: 'Southern Cities helps reduce paperwork drag so the job keeps moving with fewer delays and less chasing.',
-    cta: 'See Contractor Services',
-    href: '/services#contractors',
-  },
-  {
-    title: 'Developers / Landowners',
-    pain: 'For residential projects where too much still feels uncertain before bigger money moves.',
-    value: 'Southern Cities helps reduce delay, confusion, and expensive drift before the project gets harder to fix.',
-    cta: 'See Project Support',
-    href: '/services#developers-landowners',
-  },
-];
+type RoleKey = 'homeowners' | 'investors' | 'realtors' | 'contractors' | 'developers';
+type ProblemKey = 'permits' | 'inspections' | 'budget' | 'paperwork' | 'listing' | 'followup';
+type NeedKey = 'buy' | 'pricing' | 'quote';
 
-const problemList = [
-  'permit paperwork is slowing the job down',
-  'inspection issues are creating confusion',
-  'the scope is active but the next step is not clear',
-  'subcontractor coordination is loose',
-  'listing prep has turned into a scramble',
-  'investor turn work is losing momentum',
-  'nobody is clearly owning the path forward',
-];
+const roleContent: Record<
+  RoleKey,
+  {
+    title: string;
+    shortTitle: string;
+    pain: string;
+    value: string;
+    fit: string;
+    href: string;
+    primaryCta: string;
+    secondaryCta: string;
+    proof: { title: string; body: string; pain: string; result: string };
+  }
+> = {
+  homeowners: {
+    title: 'Homeowners',
+    shortTitle: 'Homeowner',
+    pain: 'Your project is getting more expensive, more confusing, or harder to trust.',
+    value: 'Southern Cities helps cut permit confusion, inspection setbacks, and costly wrong moves before they get bigger.',
+    fit: 'Best fit when you need a clearer next step before spending more money.',
+    href: '/services/homeowners',
+    primaryCta: 'See Homeowner Services',
+    secondaryCta: 'Request a Project Review',
+    proof: {
+      title: 'What homeowners usually need help with',
+      body: 'A real example here should show a project that felt confusing, delayed, or hard to trust, then show how the next step got clearer before more money was spent wrong.',
+      pain: 'Unclear scope, permit stress, and inspection setbacks',
+      result: 'A clearer next step before the project got more expensive',
+    },
+  },
+  investors: {
+    title: 'Investors',
+    shortTitle: 'Investor',
+    pain: 'Your rehab, turn, or active job is losing time, money, or momentum.',
+    value: 'Southern Cities helps reduce delay, bad handoffs, and budget surprises before they turn into bigger losses.',
+    fit: 'Best fit when you need better numbers and fewer surprises before moving faster.',
+    href: '/services/investors',
+    primaryCta: 'See Investor Services',
+    secondaryCta: 'Get Pricing',
+    proof: {
+      title: 'What investors usually need help with',
+      body: 'A real example here should show cleaner numbers, faster execution decisions, or fewer budget surprises before more time and margin were lost.',
+      pain: 'Vacancy drag, bad handoffs, and expensive project drift',
+      result: 'A better read on the deal before more money and time were lost',
+    },
+  },
+  realtors: {
+    title: 'Realtors',
+    shortTitle: 'Realtor',
+    pain: 'Repair items, listing prep, and inspection questions are slowing the deal down.',
+    value: 'Southern Cities helps turn construction questions into clearer next steps, faster answers, and better follow-through.',
+    fit: 'Best fit when the deal or listing keeps getting slowed down by construction questions.',
+    href: '/services/realtors',
+    primaryCta: 'See Realtor Services',
+    secondaryCta: 'Request Help',
+    proof: {
+      title: 'What realtors usually need help with',
+      body: 'A real example here should show how repair questions, listing prep, or inspection issues stopped dragging once the next step was clearer.',
+      pain: 'Client pressure, listing delay, and too much back-and-forth',
+      result: 'Faster next steps and better client confidence',
+    },
+  },
+  contractors: {
+    title: 'Contractors',
+    shortTitle: 'Contractor',
+    pain: 'Permit follow-up, inspections, paperwork, and office back-and-forth are eating too much time.',
+    value: 'Southern Cities helps reduce paperwork drag so the job keeps moving with fewer delays and less chasing.',
+    fit: 'Best fit when office work keeps pulling time away from production.',
+    href: '/services/contractors',
+    primaryCta: 'See Contractor Services',
+    secondaryCta: 'Get Support Pricing',
+    proof: {
+      title: 'What contractors usually need help with',
+      body: 'A real example here should show how permit follow-up, inspection handling, or paperwork stopped choking production time.',
+      pain: 'Office drag, repeated follow-up, and slow inspection handling',
+      result: 'Less paperwork drag and better follow-through on active jobs',
+    },
+  },
+  developers: {
+    title: 'Developers / Landowners',
+    shortTitle: 'Developer / Landowner',
+    pain: 'Too much still feels uncertain before bigger money moves.',
+    value: 'Southern Cities helps reduce delay, confusion, and expensive drift before the project gets harder to fix.',
+    fit: 'Best fit when too much is still loose to move forward casually.',
+    href: '/services/developers-landowners',
+    primaryCta: 'See Project Support',
+    secondaryCta: 'Request Project Review',
+    proof: {
+      title: 'What developers and landowners usually need help with',
+      body: 'A real example here should show how early uncertainty around permits, scope, or execution got cleaned up before bigger money moved in the wrong direction.',
+      pain: 'Permit uncertainty, scope drift, and weak coordination',
+      result: 'A better early read before bigger money got committed',
+    },
+  },
+};
+
+const roleOrder: RoleKey[] = ['homeowners', 'investors', 'realtors', 'contractors', 'developers'];
 
 const trustPoints = [
   'North Carolina residential project help',
   'Permit, inspection, and active-job help',
   'Help for homeowners, investors, realtors, contractors, and developers',
   'Help before delay and confusion get more expensive',
-];
-
-const proofCategories = [
-  {
-    title: 'Permit path gets clearer',
-    body: 'Use real examples here of approvals, corrections, or filing issues that stopped delaying the job once Southern Cities got involved.',
-  },
-  {
-    title: 'Inspection issues turn into next steps',
-    body: 'Use real examples of failed inspections, punch items, or correction lists that got translated into practical action fast.',
-  },
-  {
-    title: 'Investor decisions get cleaner',
-    body: 'Use real examples of project reviews, scope direction, lender support, or turn planning that helped avoid bad spending.',
-  },
-  {
-    title: 'Contractor admin drag comes off the field',
-    body: 'Use real examples where permit follow-up, inspection scheduling, or paperwork handling freed up production time.',
-  },
-];
-
-const proofExamples = [
-  {
-    role: 'Homeowners',
-    title: 'What should show up here',
-    body: 'A real quote about a project that felt confusing, delayed, or hard to trust before Southern Cities helped clarify the next step.',
-    pain: 'Unclear scope, permit stress, inspection setbacks',
-    result: 'More confidence before spending more money',
-  },
-  {
-    role: 'Investors',
-    title: 'What should show up here',
-    body: 'A real quote about cleaner numbers, faster execution decisions, or less project drift after Southern Cities got involved.',
-    pain: 'Vacancy drag, bad handoffs, expensive project drift',
-    result: 'Cleaner decisions before more time and margin were lost',
-  },
-  {
-    role: 'Realtors / Contractors',
-    title: 'What should show up here',
-    body: 'A real quote about faster answers, less admin burden, or better follow-through when the work needed tighter handling.',
-    pain: 'Client pressure, office drag, repeated follow-up',
-    result: 'Faster next steps and less time lost chasing the work',
-  },
 ];
 
 const proofStrip = [
@@ -118,18 +129,244 @@ const proofStrip = [
   },
 ];
 
+const problemPanels: Record<ProblemKey, { label: string; summary: string; cost: string; next: string; href: string }> = {
+  permits: {
+    label: 'Permit problems',
+    summary: 'Permit paperwork, corrections, and approvals start dragging the whole job when nobody is carrying them tightly.',
+    cost: 'This usually creates delay, repeated follow-up, and wasted time before real work can move cleanly.',
+    next: 'Start with permit help or a project review.',
+    href: '/services/homeowners',
+  },
+  inspections: {
+    label: 'Inspection setbacks',
+    summary: 'Inspection failures and correction lists create confusion fast when nobody turns them into a clear next step.',
+    cost: 'This usually causes delay, repeated trips, and more back-and-forth than the job can afford.',
+    next: 'Start with a review or inspection-response type service.',
+    href: '/services/realtors',
+  },
+  budget: {
+    label: 'Budget uncertainty',
+    summary: 'People keep hesitating or spending wrong when the budget is still too loose.',
+    cost: 'This usually leads to bad approvals, bad hiring, or costly delay while nobody is comfortable moving forward.',
+    next: 'Start with pricing or a budget review.',
+    href: '/services/investors',
+  },
+  paperwork: {
+    label: 'Paperwork overload',
+    summary: 'Jobs start slowing down when paperwork, admin, and office follow-up are not being handled consistently.',
+    cost: 'This usually steals time from production and creates missed follow-up, slower inspections, and more owner involvement.',
+    next: 'Start with contractor support or active-job admin help.',
+    href: '/services/contractors',
+  },
+  listing: {
+    label: 'Listing prep delays',
+    summary: 'Listing prep gets stuck when nobody can quickly answer what to fix, what to skip, and what it may cost.',
+    cost: 'This usually creates seller hesitation, deal delay, and too much back-and-forth before the listing goes live.',
+    next: 'Start with realtor services.',
+    href: '/services/realtors',
+  },
+  followup: {
+    label: 'Too much owner follow-up',
+    summary: 'When the owner has to keep chasing updates, the job usually is not being handled tightly enough.',
+    cost: 'This usually creates slow decisions, confusion, and more project drift than there should be.',
+    next: 'Start with a project review or oversight route.',
+    href: '/services',
+  },
+};
+
+const routerRecommendations: Record<RoleKey, Record<ProblemKey, Record<NeedKey, { label: string; href: string; cta: string }>>> = {
+  homeowners: {
+    permits: {
+      buy: { label: 'Start with Permit Path Review', href: '/services/homeowners', cta: 'See Homeowner Services' },
+      pricing: { label: 'Start with Permit Administration review', href: '/services/homeowners', cta: 'Get Homeowner Pricing' },
+      quote: { label: 'Start with a project review', href: '/services/homeowners#contact', cta: 'Request Project Review' },
+    },
+    inspections: {
+      buy: { label: 'Start with a homeowner consultation', href: '/services/homeowners', cta: 'Book Consultation' },
+      pricing: { label: 'Start with a budget review', href: '/services/homeowners', cta: 'Get Budget Pricing' },
+      quote: { label: 'Start with project oversight review', href: '/services/homeowners#contact', cta: 'Request Oversight Review' },
+    },
+    budget: {
+      buy: { label: 'Start with Home Assessment', href: '/services/homeowners', cta: 'Buy Home Assessment' },
+      pricing: { label: 'Start with Home Project Budget Review', href: '/services/homeowners', cta: 'Enter Project Details' },
+      quote: { label: 'Start with a project review', href: '/services/homeowners#contact', cta: 'Request Project Review' },
+    },
+    paperwork: {
+      buy: { label: 'Start with a homeowner consultation', href: '/services/homeowners', cta: 'Book Consultation' },
+      pricing: { label: 'Start with permit help', href: '/services/homeowners', cta: 'Get Permit Help' },
+      quote: { label: 'Start with oversight review', href: '/services/homeowners#contact', cta: 'Request Oversight Review' },
+    },
+    listing: {
+      buy: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      pricing: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      quote: { label: 'Start with realtor listing support', href: '/services/realtors', cta: 'Request Listing Help' },
+    },
+    followup: {
+      buy: { label: 'Start with Home Assessment', href: '/services/homeowners', cta: 'Buy Home Assessment' },
+      pricing: { label: 'Start with budget or permit review', href: '/services/homeowners', cta: 'Get Homeowner Pricing' },
+      quote: { label: 'Start with Construction Oversight', href: '/services/homeowners#contact', cta: 'Request Oversight Review' },
+    },
+  },
+  investors: {
+    permits: {
+      buy: { label: 'Start with investor review', href: '/services/investors', cta: 'See Investor Services' },
+      pricing: { label: 'Start with lender or permit-related review', href: '/services/investors', cta: 'Get Investor Pricing' },
+      quote: { label: 'Start with project oversight', href: '/services/investors#contact', cta: 'Request Project Review' },
+    },
+    inspections: {
+      buy: { label: 'Start with Investor Project Review', href: '/services/investors', cta: 'Enter Project Details' },
+      pricing: { label: 'Start with Rehab Budget Review', href: '/services/investors', cta: 'Get Budget Pricing' },
+      quote: { label: 'Start with oversight support', href: '/services/investors#contact', cta: 'Request Oversight Review' },
+    },
+    budget: {
+      buy: { label: 'Start with Investor Project Review', href: '/services/investors', cta: 'Enter Project Details' },
+      pricing: { label: 'Start with Rehab or Turn Budget Review', href: '/services/investors', cta: 'Get Budget Pricing' },
+      quote: { label: 'Start with a project review', href: '/services/investors#contact', cta: 'Request Project Review' },
+    },
+    paperwork: {
+      buy: { label: 'Start with contractor-fit or setup review', href: '/services/investors', cta: 'See Investor Services' },
+      pricing: { label: 'Start with setup review', href: '/services/investors', cta: 'Get Setup Pricing' },
+      quote: { label: 'Start with active project support', href: '/services/investors#contact', cta: 'Request Support Review' },
+    },
+    listing: {
+      buy: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      pricing: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      quote: { label: 'Start with realtor support', href: '/services/realtors', cta: 'Request Listing Help' },
+    },
+    followup: {
+      buy: { label: 'Start with Investor Project Review', href: '/services/investors', cta: 'Enter Project Details' },
+      pricing: { label: 'Start with Turn Budget Review', href: '/services/investors', cta: 'Enter Unit Details' },
+      quote: { label: 'Start with Construction Oversight', href: '/services/investors#contact', cta: 'Request Oversight Review' },
+    },
+  },
+  realtors: {
+    permits: {
+      buy: { label: 'Start with Inspection Response', href: '/services/realtors', cta: 'Buy Inspection Response' },
+      pricing: { label: 'Start with listing prep review', href: '/services/realtors', cta: 'Enter Property Details' },
+      quote: { label: 'Start with listing prep coordination', href: '/services/realtors#contact', cta: 'Request Listing Prep Review' },
+    },
+    inspections: {
+      buy: { label: 'Start with Inspection Response', href: '/services/realtors', cta: 'Buy Inspection Response' },
+      pricing: { label: 'Start with pre-listing review', href: '/services/realtors', cta: 'Enter Property Details' },
+      quote: { label: 'Start with deal help', href: '/services/realtors#contact', cta: 'Request Help' },
+    },
+    budget: {
+      buy: { label: 'Start with Inspection Response', href: '/services/realtors', cta: 'Buy Inspection Response' },
+      pricing: { label: 'Start with Pre-Listing Budget & Prep Review', href: '/services/realtors', cta: 'Enter Property Details' },
+      quote: { label: 'Start with listing prep coordination', href: '/services/realtors#contact', cta: 'Request Listing Prep Review' },
+    },
+    paperwork: {
+      buy: { label: 'Start with Inspection Response', href: '/services/realtors', cta: 'Buy Inspection Response' },
+      pricing: { label: 'Start with listing prep review', href: '/services/realtors', cta: 'Get Pricing' },
+      quote: { label: 'Start with recurring realtor support', href: '/recurring-support#realtors', cta: 'See Monthly Support' },
+    },
+    listing: {
+      buy: { label: 'Start with Inspection Response', href: '/services/realtors', cta: 'Buy Inspection Response' },
+      pricing: { label: 'Start with Pre-Listing Budget & Prep Review', href: '/services/realtors', cta: 'Enter Property Details' },
+      quote: { label: 'Start with Listing Prep Coordination Review', href: '/services/realtors#contact', cta: 'Request Listing Prep Review' },
+    },
+    followup: {
+      buy: { label: 'Start with Inspection Response', href: '/services/realtors', cta: 'Buy Inspection Response' },
+      pricing: { label: 'Start with pre-listing review', href: '/services/realtors', cta: 'Get Pricing' },
+      quote: { label: 'Start with Deal Desk or Listing Prep Desk', href: '/recurring-support#realtors', cta: 'See Monthly Support' },
+    },
+  },
+  contractors: {
+    permits: {
+      buy: { label: 'Start with contractor permit help', href: '/services/contractors', cta: 'See Contractor Services' },
+      pricing: { label: 'Start with Permit Administration', href: '/services/contractors', cta: 'Request Permit Review' },
+      quote: { label: 'Start with ongoing contractor support', href: '/recurring-support#contractors', cta: 'See Monthly Support' },
+    },
+    inspections: {
+      buy: { label: 'Start with contractor services', href: '/services/contractors', cta: 'See Contractor Services' },
+      pricing: { label: 'Start with Inspection Scheduling Support', href: '/services/contractors', cta: 'Get Inspection Support Pricing' },
+      quote: { label: 'Start with recurring contractor support', href: '/recurring-support#contractors', cta: 'See Monthly Support' },
+    },
+    budget: {
+      buy: { label: 'Contractor services may fit better than pricing-first', href: '/services/contractors', cta: 'See Contractor Services' },
+      pricing: { label: 'Start with Active Job Admin Triage', href: '/services/contractors', cta: 'Request Admin Review' },
+      quote: { label: 'Start with Construction Oversight Support', href: '/services/contractors#contact', cta: 'Request Oversight Review' },
+    },
+    paperwork: {
+      buy: { label: 'Start with contractor services', href: '/services/contractors', cta: 'See Contractor Services' },
+      pricing: { label: 'Start with Active Job Admin Triage', href: '/services/contractors', cta: 'Request Admin Review' },
+      quote: { label: 'Start with Back-Office Support', href: '/recurring-support#contractors', cta: 'See Monthly Support' },
+    },
+    listing: {
+      buy: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      pricing: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      quote: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+    },
+    followup: {
+      buy: { label: 'Start with contractor services', href: '/services/contractors', cta: 'See Contractor Services' },
+      pricing: { label: 'Start with Active Job Admin Triage', href: '/services/contractors', cta: 'Request Admin Review' },
+      quote: { label: 'Start with Office Extension Retainer', href: '/recurring-support#contractors', cta: 'See Monthly Support' },
+    },
+  },
+  developers: {
+    permits: {
+      buy: { label: 'Start with early project review', href: '/services/developers-landowners', cta: 'See Project Support' },
+      pricing: { label: 'Start with Early Budget & Scope Review', href: '/services/developers-landowners', cta: 'Request Budget Review' },
+      quote: { label: 'Start with project review', href: '/services/developers-landowners#contact', cta: 'Request Project Review' },
+    },
+    inspections: {
+      buy: { label: 'Start with early project review', href: '/services/developers-landowners', cta: 'See Project Support' },
+      pricing: { label: 'Start with Early Budget & Scope Review', href: '/services/developers-landowners', cta: 'Request Budget Review' },
+      quote: { label: 'Start with permit + oversight review', href: '/services/developers-landowners#contact', cta: 'Request Project Review' },
+    },
+    budget: {
+      buy: { label: 'Start with Early Project Review', href: '/services/developers-landowners', cta: 'See Project Support' },
+      pricing: { label: 'Start with Early Budget & Scope Review', href: '/services/developers-landowners', cta: 'Request Budget Review' },
+      quote: { label: 'Start with project review', href: '/services/developers-landowners#contact', cta: 'Request Project Review' },
+    },
+    paperwork: {
+      buy: { label: 'Start with early project review', href: '/services/developers-landowners', cta: 'See Project Support' },
+      pricing: { label: 'Start with permit handling review', href: '/services/developers-landowners', cta: 'Get Project Pricing' },
+      quote: { label: 'Start with oversight retainer review', href: '/recurring-support#developers', cta: 'See Monthly Support' },
+    },
+    listing: {
+      buy: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      pricing: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+      quote: { label: 'Realtor services may fit better', href: '/services/realtors', cta: 'See Realtor Services' },
+    },
+    followup: {
+      buy: { label: 'Start with Early Project Review', href: '/services/developers-landowners', cta: 'See Project Support' },
+      pricing: { label: 'Start with Early Budget & Scope Review', href: '/services/developers-landowners', cta: 'Request Budget Review' },
+      quote: { label: 'Start with Execution Oversight Retainer', href: '/recurring-support#developers', cta: 'See Monthly Support' },
+    },
+  },
+};
+
 const processSteps = [
-  'Review what is actually stuck',
-  'Clarify the next step, scope issue, permit issue, or admin bottleneck',
-  'Put the right support around the job',
-  'Keep the work from drifting once the path is clear',
+  {
+    title: 'Tell us where the job is getting stuck',
+    body: 'Start with your role, the main problem, or the kind of help you need right now.',
+  },
+  {
+    title: 'Get pointed to the right next step',
+    body: 'The site should help you get to the right page or service without making you read everything first.',
+  },
+  {
+    title: 'Choose the right level of help',
+    body: 'Buy now, get pricing, or request a quote depending on how clear the work is.',
+  },
+  {
+    title: 'Move the project forward',
+    body: 'The goal is fewer delays, less confusion, and better follow-through once you start.',
+  },
 ];
 
 export default function Home() {
-  const [activeProof, setActiveProof] = useState(proofExamples[0].role);
-  const activeProofCard = useMemo(
-    () => proofExamples.find((item) => item.role === activeProof) || proofExamples[0],
-    [activeProof]
+  const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
+  const [activeProblem, setActiveProblem] = useState<ProblemKey>('permits');
+  const [activeNeed, setActiveNeed] = useState<NeedKey>('pricing');
+  const [openProblem, setOpenProblem] = useState<ProblemKey>('permits');
+  const [openStep, setOpenStep] = useState<number>(0);
+
+  const activeRoleContent = roleContent[activeRole];
+  const recommendation = useMemo(
+    () => routerRecommendations[activeRole][activeProblem][activeNeed],
+    [activeRole, activeProblem, activeNeed]
   );
 
   return (
@@ -143,8 +380,8 @@ export default function Home() {
         <div className="absolute right-0 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
 
         <div className="relative z-10 container-pro">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-center">
-            <div className="max-w-[42rem]">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-center">
+            <div className="max-w-[46rem]">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange" />
                 Help for residential projects that are getting delayed, confusing, or harder to manage
@@ -152,37 +389,50 @@ export default function Home() {
               <h1 className="max-w-[11ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
                 Help for residential projects that are getting delayed, unclear, or more expensive to leave alone.
               </h1>
-              <p className="mt-6 max-w-[38rem] text-[18px] leading-[1.7] text-white sm:text-[20px]">
+              <p className="mt-6 max-w-[40rem] text-[18px] leading-[1.7] text-white sm:text-[20px]">
                 Southern Cities helps homeowners, investors, realtors, contractors, and developers move residential projects forward when permit problems, inspection setbacks, paperwork, and weak follow-through start costing time and money.
               </p>
+
+              <div className="mt-8">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange-200">Who are you?</p>
+                <div className="mt-3 flex flex-wrap gap-2.5">
+                  {roleOrder.map((role) => {
+                    const active = role === activeRole;
+                    return (
+                      <button
+                        key={role}
+                        type="button"
+                        onClick={() => setActiveRole(role)}
+                        className={`rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
+                          active
+                            ? 'bg-orange text-white shadow-glow-orange'
+                            : 'border border-white/20 bg-white/8 text-white hover:bg-white/14'
+                        }`}
+                      >
+                        {roleContent[role].title}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
-                  Find the Right Service
+                <Link href={activeRoleContent.href} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
+                  {activeRoleContent.primaryCta}
                 </Link>
                 <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border-2 border-white bg-white px-6 py-3.5 text-[14px] font-semibold text-navy transition-all hover:bg-stone-100 hover:-translate-y-0.5">
-                  Request a Project Review
-                </Link>
-                <Link href="/services#homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 bg-transparent px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:bg-white/10 hover:-translate-y-0.5">
-                  See Services by Role
+                  {activeRoleContent.secondaryCta}
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">When people usually call Southern Cities</p>
-              <ul className="mt-5 space-y-3">
-                {trustPoints.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-stone-700">
-                    <span className="mt-2 h-2 w-2 rounded-full bg-orange flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 transition-all duration-300 hover:border-orange/30 hover:bg-orange/[0.04]">
-                <p className="text-sm font-semibold text-navy">Best fit when the job feels stuck or hard to move forward</p>
-                <p className="mt-1 text-[14px] leading-relaxed text-stone-700">
-                  Southern Cities usually gets called when the work is active, the details are still loose, or too much depends on the owner chasing answers and follow-up.
-                </p>
+            <div className="rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Best fit right now</p>
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{activeRoleContent.title}</h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{activeRoleContent.pain}</p>
+              <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{activeRoleContent.value}</p>
+              <div className="mt-5 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                <p className="text-sm font-semibold text-navy">{activeRoleContent.fit}</p>
               </div>
             </div>
           </div>
@@ -198,8 +448,118 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-5 grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
+      <section className="bg-stone-50 py-14 sm:py-16">
+        <div className="container-pro">
+          <div className="grid gap-8 xl:grid-cols-[0.88fr_1.12fr] xl:items-start">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with what is happening now</p>
+              <h2 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
+                Tell us where the job is stuck, then go straight to the right next step.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-stone-700">
+                You should not have to read the whole site to figure out what to click. Start with your role, the main problem, and the kind of help you need right now.
+              </p>
+            </div>
+
+            <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-7">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">1. Who are you?</p>
+                <div className="mt-3 flex flex-wrap gap-2.5">
+                  {roleOrder.map((role) => {
+                    const active = role === activeRole;
+                    return (
+                      <button
+                        key={role}
+                        type="button"
+                        onClick={() => setActiveRole(role)}
+                        className={`rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
+                          active
+                            ? 'bg-navy text-white'
+                            : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
+                        }`}
+                      >
+                        {roleContent[role].shortTitle}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">2. What is the main problem right now?</p>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {Object.entries(problemPanels).map(([key, panel]) => {
+                    const active = key === activeProblem;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => setActiveProblem(key as ProblemKey)}
+                        className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition-all ${
+                          active
+                            ? 'border-orange bg-orange/[0.08] text-navy'
+                            : 'border-stone-200 bg-stone-50 text-stone-700 hover:border-orange/35 hover:bg-white'
+                        }`}
+                      >
+                        {panel.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">3. What do you need right now?</p>
+                <div className="mt-3 flex flex-wrap gap-2.5">
+                  {[
+                    { key: 'buy', label: 'Buy now' },
+                    { key: 'pricing', label: 'Get pricing' },
+                    { key: 'quote', label: 'Request a quote' },
+                  ].map((item) => {
+                    const active = item.key === activeNeed;
+                    return (
+                      <button
+                        key={item.key}
+                        type="button"
+                        onClick={() => setActiveNeed(item.key as NeedKey)}
+                        className={`rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
+                          active
+                            ? 'bg-orange text-white shadow-glow-orange'
+                            : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-6 rounded-[24px] border border-navy/10 bg-navy-950 px-5 py-5 text-white">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange-200">Recommended next step</p>
+                <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{recommendation.label}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-white/80">{problemPanels[activeProblem].summary}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-white/80">{problemPanels[activeProblem].cost}</p>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <Link href={recommendation.href} className="inline-flex items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500">
+                    {recommendation.cta}
+                  </Link>
+                  <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-orange hover:text-orange-200">
+                    Browse All Services
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-14 sm:py-16">
+        <div className="container-pro">
+          <div className="grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
             <div className="rounded-[24px] border border-stone-200 bg-navy-950 p-5 text-white shadow-[0_18px_40px_rgba(6,18,43,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(6,18,43,0.18)]">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What people need to know before they move forward</p>
               <p className="mt-4 text-xl font-extrabold tracking-tight text-white">You should be able to tell quickly whether Southern Cities is the right fit.</p>
@@ -219,49 +579,92 @@ export default function Home() {
               ))}
             </div>
           </div>
+
+          <div className="mt-8 rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
+            <div className="flex flex-wrap gap-2.5">
+              {roleOrder.map((role) => {
+                const active = role === activeRole;
+                return (
+                  <button
+                    key={role}
+                    type="button"
+                    onClick={() => setActiveRole(role)}
+                    className={`rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
+                      active
+                        ? 'bg-orange text-white shadow-glow-orange'
+                        : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
+                    }`}
+                  >
+                    {roleContent[role].title}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-5 rounded-[24px] border border-stone-200 bg-white px-5 py-6 text-navy shadow-elev-1">
+              <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeRoleContent.proof.title}</p>
+                  <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{activeRoleContent.proof.body}</p>
+                </div>
+                <div className="grid gap-3">
+                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What was going wrong</p>
+                    <p className="mt-2 text-sm font-semibold text-navy">{activeRoleContent.proof.pain}</p>
+                  </div>
+                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What got easier after that</p>
+                    <p className="mt-2 text-sm font-semibold text-navy">{activeRoleContent.proof.result}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-5">
+                <Link href={activeRoleContent.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                  {activeRoleContent.primaryCta}
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="bg-stone-50 py-14 sm:py-16">
         <div className="container-pro">
-          <div className="mb-8 max-w-3xl">
-            <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-              <span className="w-6 h-px bg-orange/50" />
-              Choose the page that fits your role
-            </span>
-            <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">Choose the page that fits your role</h2>
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is slowing the job down?</p>
+            <h2 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
+              Start with the problem, not just the page.
+            </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              If the job is getting harder to price, harder to manage, or harder to keep moving, start with the page that fits how you are involved.
+              If you know what is causing the friction, you should be able to get to the right next step without digging through the whole site.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
-            {whoWeHelp.map((item, index) => {
-              const totalCards = whoWeHelp.length;
-              const remainder = totalCards % 3;
-              const lastRowStart = totalCards - remainder;
-              const isTailCard = remainder !== 0 && index >= lastRowStart;
-
-              let tailClass = 'xl:col-span-2';
-              if (remainder === 1 && isTailCard) tailClass = 'xl:col-start-3 xl:col-span-2';
-              if (remainder === 2) {
-                if (index === lastRowStart) tailClass = 'xl:col-start-2 xl:col-span-2';
-                if (index === lastRowStart + 1) tailClass = 'xl:col-start-4 xl:col-span-2';
-              }
-
+          <div className="mt-8 grid gap-3">
+            {Object.entries(problemPanels).map(([key, panel]) => {
+              const active = openProblem === key;
               return (
-                <div
-                  key={item.title}
-                  className={`${tailClass} group flex h-full w-full max-w-[420px] justify-self-center flex-col rounded-[22px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25`}
-                >
-                  <h3 className="text-[24px] font-extrabold tracking-tight text-navy transition-colors group-hover:text-orange">{item.title}</h3>
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.pain}</p>
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-stone-600">{item.value}</p>
-                  <div className="mt-auto pt-5">
-                    <Link href={item.href} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500 group-hover:-translate-y-0.5">
-                      {item.cta}
-                    </Link>
-                  </div>
+                <div key={key} className="rounded-[22px] border border-stone-200 bg-white shadow-elev-1">
+                  <button
+                    type="button"
+                    onClick={() => setOpenProblem(key as ProblemKey)}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                  >
+                    <span className="text-lg font-bold tracking-tight text-navy">{panel.label}</span>
+                    <span className={`text-xl font-bold transition-transform ${active ? 'rotate-45 text-orange' : 'text-navy'}`}>+</span>
+                  </button>
+                  {active ? (
+                    <div className="border-t border-stone-200 px-5 py-5">
+                      <p className="text-[15px] leading-relaxed text-stone-700">{panel.summary}</p>
+                      <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{panel.cost}</p>
+                      <p className="mt-3 text-[15px] font-semibold leading-relaxed text-navy">{panel.next}</p>
+                      <div className="mt-4">
+                        <Link href={panel.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                          Go to the Best-Match Page
+                        </Link>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               );
             })}
@@ -273,186 +676,50 @@ export default function Home() {
         <div className="container-pro">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
-              <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-                <span className="w-6 h-px bg-orange/50" />
-                What usually slows the job down
-              </span>
-              <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-                What usually slows the job down
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                Projects do not usually get expensive because of one big mistake. They get expensive because too many small things stay unresolved for too long.
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What happens next</p>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">The site should help you move, not just read.</h2>
+              <p className="mt-5 text-[15px] leading-relaxed text-stone-700">
+                The goal is simple. Make it easier to figure out the right next step, the right level of help, and the right page to start with.
               </p>
             </div>
-            <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 sm:p-7 transition-all duration-300 hover:border-orange/25 hover:shadow-elev-1">
-              <h3 className="text-2xl font-bold tracking-tight text-navy">What is usually going wrong</h3>
-              <ul className="mt-5 space-y-2.5 text-[15px] leading-relaxed text-stone-700">
-                {problemList.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 text-[15px] font-semibold leading-relaxed text-navy">
-                The goal is simple. Fewer delays, fewer surprises, and a clearer next step.
-              </p>
+            <div className="space-y-3.5">
+              {processSteps.map((step, index) => {
+                const active = openStep === index;
+                return (
+                  <div key={step.title} className="rounded-[22px] border border-stone-200 bg-stone-50 p-5 transition-all duration-300 hover:border-orange/25 hover:bg-white hover:shadow-elev-1">
+                    <button type="button" onClick={() => setOpenStep(index)} className="flex w-full items-start gap-4 text-left">
+                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${active ? 'bg-orange' : 'bg-navy'}`}>
+                        {index + 1}
+                      </div>
+                      <div>
+                        <p className="text-base font-semibold leading-relaxed text-navy">{step.title}</p>
+                        {active ? <p className="mt-2 text-[14.5px] leading-relaxed text-stone-700">{step.body}</p> : null}
+                      </div>
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
       <section className="bg-navy-950 py-14 sm:py-16 text-white">
-        <div className="container-pro">
-          <div className="max-w-3xl">
-            <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-              <span className="w-6 h-px bg-orange/50" />
-              What clients want to know before they reach out
-            </span>
-            <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl leading-[1.08]">
-              People want to know you understand what is going wrong, what it is costing them, and what gets easier next.
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-white/80">
-              The strongest proof on this site will not sound like marketing. It will sound like real situations, real setbacks, and real examples of how the work got easier to move forward.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-5 xl:grid-cols-[0.92fr_1.08fr] xl:items-start">
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-2">
-              {proofCategories.map((item) => (
-                <div key={item.title} className="group rounded-[22px] border border-white/12 bg-white/[0.06] p-5 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.1] hover:border-white/20">
-                  <h3 className="text-xl font-bold text-white transition-colors group-hover:text-orange-200">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/78">{item.body}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="rounded-[26px] border border-white/12 bg-white/[0.08] p-5 sm:p-6">
-              <div className="flex flex-wrap gap-2">
-                {proofExamples.map((item) => {
-                  const active = item.role === activeProof;
-                  return (
-                    <button
-                      key={item.role}
-                      type="button"
-                      onClick={() => setActiveProof(item.role)}
-                      className={`rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-[0.18em] transition-all ${
-                        active
-                          ? 'bg-orange text-white shadow-glow-orange'
-                          : 'border border-white/15 bg-white/[0.05] text-white/75 hover:bg-white/[0.1] hover:text-white'
-                      }`}
-                    >
-                      {item.role}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="mt-5 rounded-[24px] border border-white/10 bg-white px-5 py-6 text-navy shadow-[0_24px_50px_rgba(6,18,43,0.2)] transition-all duration-300 hover:-translate-y-1">
-                <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeProofCard.role}</p>
-                    <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{activeProofCard.title}</h3>
-                    <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{activeProofCard.body}</p>
-                  </div>
-                  <div className="grid gap-3">
-                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What was going wrong</p>
-                      <p className="mt-2 text-sm font-semibold text-navy">{activeProofCard.pain}</p>
-                    </div>
-                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What got easier after that</p>
-                      <p className="mt-2 text-sm font-semibold text-navy">{activeProofCard.result}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Best proof format</p>
-                    <p className="mt-2 text-sm font-semibold text-navy">Short testimonial + what changed</p>
-                  </div>
-                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Best placement</p>
-                    <p className="mt-2 text-sm font-semibold text-navy">On homepage and on the matching service page</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-14 sm:py-16">
-        <div className="container-pro">
-          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <div>
-              <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-                <span className="w-6 h-px bg-orange/50" />
-                What happens next
-              </span>
-              <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">How Southern Cities helps move the job forward</h2>
-              <p className="mt-5 text-[15px] leading-relaxed text-stone-700">
-                Southern Cities is usually brought in after the project has already started getting messy. The goal is to figure out what is slowing things down, what needs to be handled first, and what help makes the most sense from there.
-              </p>
-            </div>
-            <div className="grid gap-3.5 md:grid-cols-2">
-              {processSteps.map((step, index) => (
-                <div key={step} className="group rounded-[22px] border border-stone-200 bg-stone-50 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-orange/25 hover:bg-white hover:shadow-elev-1">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange text-sm font-bold text-white transition-transform duration-300 group-hover:scale-110">{index + 1}</div>
-                  <p className="mt-4 text-sm font-semibold leading-relaxed text-navy">{step}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-stone-50 py-14 sm:py-16">
-        <div className="container-pro">
-          <div className="max-w-3xl">
-            <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-              <span className="w-6 h-px bg-orange/50" />
-              Start where your problem fits
-            </span>
-            <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-              Start where your problem fits.
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              Southern Cities has service pages built for the people most likely to deal with delays, permit friction, listing pressure, office burden, and active-job follow-up.
-            </p>
-            <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
-              <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500 hover:-translate-y-0.5">
-                Find the Right Service
-              </Link>
-              <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-8 py-4 text-[15px] font-medium text-navy transition-all hover:border-orange hover:text-orange hover:-translate-y-0.5">
-                Request a Project Review
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-14 sm:py-16">
-        <div className="container-pro">
-          <div className="max-w-3xl">
-            <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-              <span className="w-6 h-px bg-orange/50" />
-              Start here
-            </span>
-            <h2 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-              If the job is slowing down, getting confusing, or becoming more expensive to leave alone, start here.
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              You do not need to have the whole project figured out before reaching out. If the job needs better follow-through, fewer delays, or a clearer next step, Southern Cities can help you move it forward.
-            </p>
-            <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
-              <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500 hover:-translate-y-0.5">
-                Request a Project Review
-              </Link>
-              <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-8 py-4 text-[15px] font-medium text-navy transition-all hover:border-orange hover:text-orange hover:-translate-y-0.5">
-                Browse Services
-              </Link>
-            </div>
+        <div className="container-pro max-w-3xl">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start here</p>
+          <h2 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl leading-[1.08]">
+            If the job is slowing down, getting confusing, or becoming more expensive to leave alone, start here.
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-white/88">
+            You do not need to have the whole project figured out before reaching out. If the job needs better follow-through, fewer delays, or a clearer next step, Southern Cities can help you move it forward.
+          </p>
+          <div className="mt-8 flex flex-col gap-3.5 sm:flex-row">
+            <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+              Find the Right Service
+            </Link>
+            <Link href="/services#contact" className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-[15px] font-medium text-white transition-all hover:border-orange hover:text-orange-200">
+              Request a Project Review
+            </Link>
           </div>
         </div>
       </section>
