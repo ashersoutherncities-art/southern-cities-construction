@@ -6,6 +6,51 @@ import SiteFooter from '@/components/SiteFooter';
 import { ServiceBucket } from '@/components/services/ServiceBucket';
 import { AvatarPageData } from '@/lib/services-data';
 
+type RoadmapStep = {
+  label: string;
+  bucket: 'buy' | 'pricing' | 'quote' | 'support';
+};
+
+const roadmapBySlug: Record<string, RoadmapStep[]> = {
+  homeowners: [
+    { label: 'Get a clear next step', bucket: 'buy' },
+    { label: 'Get a budget range', bucket: 'pricing' },
+    { label: 'Get permit help', bucket: 'pricing' },
+    { label: 'Get active-job control', bucket: 'quote' },
+  ],
+  investors: [
+    { label: 'Check the deal or project first', bucket: 'pricing' },
+    { label: 'Tighten startup decisions', bucket: 'pricing' },
+    { label: 'Get lender or draw support', bucket: 'pricing' },
+    { label: 'Get active-job control', bucket: 'quote' },
+    { label: 'Use monthly support across repeat files', bucket: 'support' },
+  ],
+  realtors: [
+    { label: 'Get a quick answer on inspection items', bucket: 'buy' },
+    { label: 'Get listing-prep pricing direction', bucket: 'pricing' },
+    { label: 'Get listing coordination scoped', bucket: 'quote' },
+    { label: 'Use monthly support across deals and listings', bucket: 'support' },
+  ],
+  contractors: [
+    { label: 'Get permit and inspection help', bucket: 'pricing' },
+    { label: 'Clean up active-job admin', bucket: 'pricing' },
+    { label: 'Get tighter job support', bucket: 'quote' },
+    { label: 'Use recurring office support', bucket: 'support' },
+  ],
+  'developers-landowners': [
+    { label: 'Get an early read before bigger money moves', bucket: 'pricing' },
+    { label: 'Tighten permit and execution control', bucket: 'quote' },
+    { label: 'Use recurring project-control support', bucket: 'support' },
+  ],
+};
+
+const bucketTone: Record<RoadmapStep['bucket'], string> = {
+  buy: 'Fixed price',
+  pricing: 'Get pricing',
+  quote: 'Custom quote',
+  support: 'Monthly support',
+};
+
 export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -52,6 +97,8 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
     }
   };
 
+  const roadmap = roadmapBySlug[data.slug] || [];
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav variant="solid" />
@@ -73,7 +120,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                 {data.buy?.[0]?.cta || data.review?.[0]?.cta || 'See Services'}
               </a>
               <a href="#contact" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
-                {data.quote?.[0]?.cta || 'Request Review'}
+                {data.quote?.[0]?.cta || 'Request a Quote'}
               </a>
             </div>
           </div>
@@ -106,6 +153,37 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
           </div>
         </div>
       </section>
+
+      {roadmap.length ? (
+        <section className="border-b border-stone-200 bg-stone-50 py-16 sm:py-20">
+          <div className="container-pro">
+            <div className="max-w-4xl">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Typical path</p>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
+                Most {data.eyebrow.toLowerCase()} jobs move in this order.
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
+                Start where the job is getting stuck now. Then move to the next step only when the file needs more than the step before it.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-5 lg:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
+              {roadmap.map((step, index) => (
+                <div key={step.label} className="rounded-[24px] border border-stone-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.04)]">
+                  <div className="mb-3 flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange text-sm font-bold text-white">
+                      {index + 1}
+                    </div>
+                    <span className="inline-flex rounded-full border border-stone-200 bg-stone-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-navy">
+                      {bucketTone[step.bucket]}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-extrabold tracking-tight text-navy">{step.label}</h3>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section id="buy-now" className="bg-white py-20 sm:py-24">
         <div className="container-pro">
