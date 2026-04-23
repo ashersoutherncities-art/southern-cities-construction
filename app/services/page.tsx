@@ -482,30 +482,30 @@ export default function ServicesOverviewPage() {
 
                   <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 transition-all duration-500 group-hover:border-orange/20 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_24px_80px_rgba(15,23,42,0.06)] sm:p-8">
                     <div className="relative overflow-x-auto pb-4">
-                      <div className="relative min-w-[1200px] px-6 pt-12 pb-8">
-                        <svg className="pointer-events-none absolute left-0 top-14 h-[180px] w-full" viewBox="0 0 1200 180" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0 90C75 90 75 20 150 20C225 20 225 160 300 160C375 160 375 20 450 20C525 20 525 160 600 160C675 160 675 20 750 20C825 20 825 160 900 160C975 160 975 20 1050 20C1125 20 1125 90 1200 90" stroke="#0b0b0b" strokeWidth="32" strokeLinecap="round" />
-                          <path d="M0 90C75 90 75 20 150 20C225 20 225 160 300 160C375 160 375 20 450 20C525 20 525 160 600 160C675 160 675 20 750 20C825 20 825 160 900 160C975 160 975 20 1050 20C1125 20 1125 90 1200 90" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.95" />
+                      <div className="relative min-w-[1180px] px-6 py-6">
+                        <svg className="pointer-events-none absolute left-0 top-10 h-[220px] w-full" viewBox="0 0 1200 220" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 34 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#111111" strokeWidth="34" strokeLinecap="round" />
+                          <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 186 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.95" />
                         </svg>
 
-                        <div className="relative grid grid-cols-6 items-start gap-6">
+                        <div className="relative grid grid-cols-6 items-start gap-5">
                           {lane.stops.map((stop, index) => {
                             const tone = roadmapToneStyles[stop.tone];
-                            const topClass = index % 2 === 0 ? 'pt-[92px]' : 'pt-0';
-                            const pinOffset = index % 2 === 0 ? 'top-[62px]' : 'top-0';
+                            const topClass = index % 2 === 0 ? 'pt-[108px]' : 'pt-0';
+                            const pinOffset = index % 2 === 0 ? 'top-[76px]' : 'top-0';
                             return (
                               <div key={stop.label} className={`relative ${topClass}`}>
                                 <div className={`absolute left-1/2 ${pinOffset} z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110`}>
-                                  <div className="relative h-[92px] w-[72px]">
-                                    <div className={`absolute left-1/2 top-0 flex h-[58px] w-[58px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white ${tone.dot} text-xl font-extrabold text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]`}>
+                                  <div className="relative h-[98px] w-[74px]">
+                                    <div className={`absolute left-1/2 top-0 flex h-[60px] w-[60px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white ${tone.dot} text-xl font-extrabold text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]`}>
                                       {index + 1}
                                     </div>
-                                    <div className={`absolute left-1/2 top-[42px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[34px] border-l-transparent border-r-transparent ${tone.pin}`} />
+                                    <div className={`absolute left-1/2 top-[44px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[36px] border-l-transparent border-r-transparent ${tone.pin}`} />
                                   </div>
                                 </div>
 
-                                <div className="mt-[96px] rounded-[24px] bg-white/92 px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
-                                  <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
+                                <div className="mt-[118px] rounded-[24px] border border-white/80 bg-white/94 px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
+                                  <h4 className="text-[22px] font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
                                   <div className="mt-4 flex flex-wrap justify-center gap-2">
                                     {stop.services.map((service) => (
                                       <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-orange/35 hover:shadow-[0_12px_30px_rgba(15,23,42,0.10)]">
@@ -518,18 +518,18 @@ export default function ServicesOverviewPage() {
                             );
                           })}
 
-                          <div className="relative pt-[92px]">
-                            <div className="absolute left-1/2 top-[62px] z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110">
-                              <div className="relative h-[92px] w-[72px]">
-                                <div className="absolute left-1/2 top-0 flex h-[58px] w-[58px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white bg-[#d9a441] text-2xl text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]">
+                          <div className="relative pt-[108px]">
+                            <div className="absolute left-1/2 top-[76px] z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110">
+                              <div className="relative h-[98px] w-[74px]">
+                                <div className="absolute left-1/2 top-0 flex h-[60px] w-[60px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white bg-[#d9a441] text-2xl text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]">
                                   ✓
                                 </div>
-                                <div className="absolute left-1/2 top-[42px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[34px] border-l-transparent border-r-transparent border-t-[#d9a441]" />
+                                <div className="absolute left-1/2 top-[44px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[36px] border-l-transparent border-r-transparent border-t-[#d9a441]" />
                               </div>
                             </div>
-                            <div className="mt-[96px] rounded-[24px] bg-[linear-gradient(180deg,#fff8eb_0%,#ffffff_100%)] px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
+                            <div className="mt-[118px] rounded-[24px] border border-[#d9a441]/20 bg-[linear-gradient(180deg,#fff8eb_0%,#ffffff_100%)] px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
                               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
-                              <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
+                              <p className="mt-2 text-[22px] font-extrabold leading-tight text-navy">{lane.destination}</p>
                             </div>
                           </div>
                         </div>
