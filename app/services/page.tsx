@@ -62,9 +62,16 @@ export default function ServicesOverviewPage() {
               The overview stops here on purpose. The real detail lives on the role-specific pages below.
             </p>
           </div>
-          <div className="mt-10 flex flex-wrap gap-6">
-            {avatarOverviewCards.map((card) => (
-              <div key={card.href} className="flex w-full md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)]">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+            {avatarOverviewCards.map((card, index) => {
+              const isLast = index === avatarOverviewCards.length - 1;
+              const isSecondToLast = index === avatarOverviewCards.length - 2;
+              const tailClass = avatarOverviewCards.length % 3 === 2 && (isSecondToLast || isLast)
+                ? 'xl:col-span-3'
+                : 'xl:col-span-2';
+
+              return (
+              <div key={card.href} className={`flex ${tailClass}`}>
                 <div className="flex h-full w-full flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1">
                   <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{card.eyebrow}</p>
                   <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{card.title}</h3>
@@ -77,7 +84,7 @@ export default function ServicesOverviewPage() {
                   </Link>
                 </div>
               </div>
-            ))}
+            );})}
           </div>
         </div>
       </section>
