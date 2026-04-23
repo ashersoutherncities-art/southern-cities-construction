@@ -109,9 +109,9 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
 
       <section id="buy-now" className="bg-white py-20 sm:py-24">
         <div className="container-pro">
-          <ServiceBucket title="Buy Now" text="Use this when the problem is clear and you want to move without adding more delay." cards={data.buy} />
-          <ServiceBucket title="Priced After Review" text="Use this when a few real job details affect price and guessing would cost you later." cards={data.review} />
-          <ServiceBucket title="Request Quote" text="Use this when the work is big enough, unclear enough, or risky enough that it needs review first." cards={data.quote} />
+          <ServiceBucket title="Buy Now" text="Use this when the job is clear, the deliverable is defined, and you want to move without adding more delay." cards={data.buy} />
+          <ServiceBucket title="Get Pricing" text="Use this when a few real project details affect price, but the work is still productized enough to price from simple inputs." cards={data.review} />
+          <ServiceBucket title="Needs Review" text="Use this when the work is live, variable, or important enough that pricing should follow a real review instead of a guess." cards={data.quote} />
         </div>
       </section>
 
@@ -138,9 +138,9 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
       <section className="bg-white py-16 sm:py-20">
         <div className="container-pro rounded-[28px] border border-stone-200 bg-stone-50 p-8 sm:p-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Need help choosing?</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">If you are not sure whether you need one-time help or monthly support, start here.</h2>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">If you are not sure whether to buy now, get pricing, or request review, start here.</h2>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-stone-700 sm:text-lg">
-            Southern Cities can help you choose the right service before you lose more time or spend money in the wrong place.
+            Southern Cities can help you choose the right next step before you lose more time or spend money in the wrong place.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
@@ -161,9 +161,9 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Contact</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Need us to review the job first?</h2>
             <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/88">
-              <p><strong className="text-white">Buy Now</strong> when the service is already clear.</p>
-              <p><strong className="text-white">Priced After Review</strong> when a few details affect cost.</p>
-              <p><strong className="text-white">Use this form</strong> when the project is larger, less defined, or needs a closer look before the next step is clear.</p>
+              <p><strong className="text-white">Buy Now</strong> when the deliverable is already clear.</p>
+              <p><strong className="text-white">Get Pricing</strong> when a few project details affect cost.</p>
+              <p><strong className="text-white">Use this form</strong> when the project is larger, less defined, or needs review before anyone can price it responsibly.</p>
             </div>
           </div>
           <div className="rounded-[1.75rem] border border-white/12 bg-white/[0.05] p-7 sm:p-8">
