@@ -30,7 +30,7 @@ export function ServiceBucket({
           const tailClass = cards.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
 
           return (
-            <div key={card.title} className={tailClass}>
+            <div key={card.title} className={`${tailClass} flex justify-center`}>
               <ServiceCardView card={card} />
             </div>
           );
