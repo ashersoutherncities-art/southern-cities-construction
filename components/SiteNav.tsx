@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import CartNavLink from '@/components/CartNavLink';
 
@@ -34,6 +34,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (variant === 'solid') {
@@ -51,8 +52,30 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
     setMobileOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    };
+  }, []);
+
   const solid = scrolled || variant === 'solid';
   const servicesActive = pathname === '/services' || pathname.startsWith('/services/');
+
+  const openServicesMenu = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setServicesOpen(true);
+  };
+
+  const closeServicesMenu = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = setTimeout(() => {
+      setServicesOpen(false);
+      closeTimerRef.current = null;
+    }, 180);
+  };
   const linkClass = (active: boolean) =>
     `px-2.5 xl:px-3 py-2 rounded-lg text-[13px] xl:text-[13.5px] font-semibold transition-colors duration-200 whitespace-nowrap ${
       active ? 'text-white bg-white/12' : 'text-white/90 hover:text-white hover:bg-white/10'
@@ -80,8 +103,8 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
             <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
               <div
                 className="relative"
-                onMouseEnter={() => setServicesOpen(true)}
-                onMouseLeave={() => setServicesOpen(false)}
+                onMouseEnter={openServicesMenu}
+                onMouseLeave={closeServicesMenu}
               >
                 <div className={`flex items-center ${linkClass(servicesActive)}`}>
                   <Link href={SERVICES_GROUP.href} className="pr-1">
@@ -89,7 +112,13 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   </Link>
                   <button
                     type="button"
-                    onClick={() => setServicesOpen((v) => !v)}
+                    onClick={() => {
+                      if (closeTimerRef.current) {
+                        clearTimeout(closeTimerRef.current);
+                        closeTimerRef.current = null;
+                      }
+                      setServicesOpen((v) => !v);
+                    }}
                     aria-label="Toggle Services menu"
                     className="rounded p-1 hover:bg-white/10"
                   >
