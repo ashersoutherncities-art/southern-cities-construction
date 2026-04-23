@@ -339,20 +339,20 @@ const routerRecommendations: Record<RoleKey, Record<ProblemKey, Record<NeedKey, 
 
 const processSteps = [
   {
-    title: 'Tell us where the job is getting stuck',
-    body: 'Start with your role, the main problem, or the kind of help you need right now.',
+    title: 'Tell us what is holding the job up',
+    body: 'Start with the role you are in and the problem that is slowing the project down right now.',
   },
   {
-    title: 'Get pointed to the right next step',
-    body: 'The site should help you get to the right page or service without making you read everything first.',
+    title: 'We point you to the right kind of help',
+    body: 'Southern Cities helps you sort out whether this is a straightforward service, a pricing request, or something that needs real review first.',
   },
   {
-    title: 'Choose the right level of help',
-    body: 'Pick whether you want to get started, get a price, or ask about a custom job depending on how clear the work is.',
+    title: 'You choose how to get started',
+    body: 'You can buy the service, send details for pricing, or request a review when the job needs more scoping before anyone should quote it.',
   },
   {
-    title: 'Move the project forward',
-    body: 'The goal is fewer delays, less confusion, and better follow-through once you start.',
+    title: 'We help move the work forward',
+    body: 'Once the next step is set, Southern Cities helps reduce delay, tighten follow-through, and keep the project from drifting further.',
   },
 ];
 
@@ -631,12 +631,12 @@ export default function Home() {
       <section className="bg-stone-50 py-14 sm:py-16">
         <div className="container-pro">
           <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is slowing the job down?</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with the issue</p>
             <h2 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-              Start with the problem, not just the page.
+              If you already know what is causing the delay, start there.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-stone-700">
-              If you know what is causing the friction, you should be able to get to the right next step without digging through the whole site.
+              Some people know the role they are in. Others just know the job is getting held up by permits, inspections, paperwork, budget questions, or too much chasing. This section gets you to the right next step faster.
             </p>
           </div>
 
@@ -660,7 +660,7 @@ export default function Home() {
                       <p className="mt-3 text-[15px] font-semibold leading-relaxed text-navy">{panel.next}</p>
                       <div className="mt-4">
                         <Link href={panel.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                          Go to the Best-Match Page
+                          See the Best-Fit Service Page
                         </Link>
                       </div>
                     </div>
@@ -676,10 +676,10 @@ export default function Home() {
         <div className="container-pro">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What happens next</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">Here is how most people get started.</h2>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How this works</p>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl leading-tight">You do not need to guess your way through the process.</h2>
               <p className="mt-5 text-[15px] leading-relaxed text-stone-700">
-                Start with the problem that is slowing the job down, choose the level of help that fits, and move forward without wasting more time in the wrong place.
+                The point of the site is to help you figure out what fits, what happens next, and how to get moving without spending more time in the wrong place.
               </p>
             </div>
             <div className="space-y-3.5">
