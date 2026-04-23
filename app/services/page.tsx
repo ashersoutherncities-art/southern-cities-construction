@@ -16,6 +16,11 @@ type ServiceCard = {
   itemKey?: string;
   ctaHref?: string;
   calculator?: ServiceCalculatorConfig;
+  monthlyPrice?: string;
+  setupPrice?: string;
+  monthlyLimit?: string;
+  turnaround?: string;
+  tag?: string;
 };
 
 type AvatarSection = {
@@ -410,6 +415,213 @@ const developerServices: AvatarSection = {
   ],
 };
 
+const recurringOfferSections: AvatarSection[] = [
+  {
+    id: 'investor-support-plans',
+    eyebrow: 'Investors / Operators',
+    title: 'Recurring support for operators who are tired of project babysitting.',
+    intro:
+      'These plans are for investors and rental operators with repeated turn work, recurring scope questions, budget decisions, and active jobs that need clearer coordination month after month.',
+    review: [
+      {
+        title: 'Turn Support Plan',
+        tag: 'Entry plan',
+        summary: 'Monthly support for owners with recurring turns and routine project decisions that keep pulling attention away from the rest of the business.',
+        details: [
+          'Up to 2 turn or project reviews each month',
+          'Up to 2 budget or scope reviews each month',
+          'Basic permit and admin guidance on active files',
+          'Priority response during business hours',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: vacancy drag, slow decisions, and repeated project babysitting on routine work.',
+        purchaseType: 'review',
+        cta: 'Review Turn Support Plan',
+        ctaHref: '#contact',
+        monthlyPrice: '$749/mo',
+        monthlyLimit: 'Up to 2 reviews and up to 3 active properties',
+        turnaround: '1 business day response target',
+      },
+      {
+        title: 'Operator Support Plan',
+        tag: 'Most practical',
+        summary: 'A stronger recurring support plan for investors who need more frequent scope clarity, pricing help, lender-facing support, and cleaner execution follow-through.',
+        details: [
+          'Up to 4 project or turn reviews each month',
+          'Up to 4 budget or scope reviews each month',
+          '1 lender scope and bid package each month',
+          '1 draw review support item each month',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: delay, weak scope clarity, funding friction, and repeated operator involvement in jobs that should move faster.',
+        purchaseType: 'review',
+        cta: 'Review Operator Support Plan',
+        ctaHref: '#contact',
+        monthlyPrice: '$1,499/mo',
+        monthlyLimit: '4 reviews, 1 lender package, 1 draw item',
+        turnaround: 'Same-day acknowledgment, 1 business day standard response',
+      },
+    ],
+    quote: [
+      {
+        title: 'Project Support Retainer',
+        tag: 'Higher-touch',
+        summary: 'A retainer for higher-volume operators who need weekly control, repeated construction-side review, and a stronger lane for active project oversight.',
+        details: [
+          'Weekly project-control touchpoint',
+          'Up to 6 project reviews monthly',
+          'Up to 6 budget or scope items monthly',
+          'Up to 2 lender or draw support items monthly',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: too many active moving parts, too much owner babysitting, and weak control across live jobs.',
+        purchaseType: 'quote',
+        cta: 'Request Retainer Review',
+        ctaHref: '#contact',
+        monthlyPrice: 'Starting at $2,500/mo',
+        monthlyLimit: 'Capped support volume, site visits separate',
+        turnaround: 'Priority 24-hour response target',
+      },
+    ],
+  },
+  {
+    id: 'contractor-support-plans',
+    eyebrow: 'Contractors',
+    title: 'Back-office and permit support for contractors who need field time back.',
+    intro:
+      'These plans are for contractors and trade teams who do not need more labor. They need less paperwork drag, cleaner permit handling, faster inspection coordination, and more office capacity without hiring full-time staff.',
+    review: [
+      {
+        title: 'Permit & Inspection Support Plan',
+        tag: 'Entry plan',
+        summary: 'Monthly support for contractors who need permit follow-up, inspection scheduling, and correction handling taken off their plate.',
+        details: [
+          'Up to 4 permit or admin requests each month',
+          'Inspection scheduling support',
+          'Correction follow-up support',
+          'Permit status coordination on active files',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: office work pulling time away from production and slowing jobs down.',
+        purchaseType: 'review',
+        cta: 'Review Permit & Inspection Plan',
+        ctaHref: '#contact',
+        monthlyPrice: '$899/mo',
+        monthlyLimit: '4 requests and up to 2 active jobs',
+        turnaround: '1 business day response target',
+      },
+      {
+        title: 'Back-Office Support Plan',
+        tag: 'Strongest recurring fit',
+        summary: 'A broader monthly support plan for contractors who need recurring help with admin, follow-up, documentation, and coordination across active residential jobs.',
+        details: [
+          'Up to 8 support requests each month',
+          'Permit and admin support',
+          'Inspection coordination',
+          'Documentation and follow-up support',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: back-office overload that is choking field production and forcing the owner to carry too much admin burden personally.',
+        purchaseType: 'review',
+        cta: 'Review Back-Office Plan',
+        ctaHref: '#contact',
+        monthlyPrice: '$1,750/mo',
+        monthlyLimit: '8 requests and up to 4 active jobs',
+        turnaround: 'Same-day acknowledgment, 1 business day standard response',
+      },
+    ],
+    quote: [
+      {
+        title: 'Contractor Office Extension Retainer',
+        tag: 'Higher-touch',
+        summary: 'A retainer for busy contractors who need a steadier outside office-support lane without building a full internal admin team yet.',
+        details: [
+          'Weekly check-in',
+          'Up to 12 support requests each month',
+          'Priority permit and inspection coordination',
+          'Documentation and follow-up support across active jobs',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: hiring pressure, admin chaos, and revenue-producing field time getting eaten by office problems.',
+        purchaseType: 'quote',
+        cta: 'Request Retainer Review',
+        ctaHref: '#contact',
+        monthlyPrice: 'Starting at $2,900/mo',
+        monthlyLimit: 'Defined active-job cap, no unlimited request volume',
+        turnaround: 'Priority 24-hour response target',
+      },
+    ],
+  },
+  {
+    id: 'developer-operator-retainers',
+    eyebrow: 'Developers / Repeat Operators',
+    title: 'Recurring project-control support for repeat residential operators.',
+    intro:
+      'These retainers are for developers and repeat operators who need stronger structure, milestone discipline, permit-path visibility, and clearer oversight across active residential work.',
+    review: [
+      {
+        title: 'Project Control Plan',
+        tag: 'Entry plan',
+        summary: 'Monthly support for repeat operators who need a clearer read on active projects, upcoming risks, and the next decision that matters.',
+        details: [
+          'Up to 2 active project reviews each month',
+          'Milestone check-ins',
+          'Permit-path and coordination guidance',
+          'Risk and next-step summaries',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: project drift, weak accountability, and poor visibility into what needs to happen next.',
+        purchaseType: 'review',
+        cta: 'Review Project Control Plan',
+        ctaHref: '#contact',
+        monthlyPrice: '$1,250/mo',
+        monthlyLimit: '2 active projects and 2 formal reviews',
+        turnaround: '1 business day response target',
+      },
+    ],
+    quote: [
+      {
+        title: 'Execution Oversight Retainer',
+        tag: 'Higher-touch',
+        summary: 'A retainer for repeat operators who need weekly oversight structure, better coordination, and stronger control across larger or more active residential projects.',
+        details: [
+          'Weekly oversight touchpoint',
+          'Up to 4 project reviews each month',
+          'Budget and scope review support',
+          'Milestone and risk summaries',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: loss of control across active files, weak coordination, and expensive slippage caused by loose project structure.',
+        purchaseType: 'quote',
+        cta: 'Request Oversight Retainer Review',
+        ctaHref: '#contact',
+        monthlyPrice: 'Starting at $3,500/mo',
+        monthlyLimit: 'Defined project cap, meetings and site visits scoped separately',
+        turnaround: 'Priority 24-hour response target',
+      },
+    ],
+  },
+  {
+    id: 'realtor-support-plans',
+    eyebrow: 'Realtors',
+    title: 'Recurring support for agents with steady listing and deal volume.',
+    intro:
+      'This category is for realtors and teams who repeatedly need faster inspection-response support, listing-prep clarity, and construction-side input that helps protect momentum. This is weaker than the contractor and investor categories, so it should stay tight and volume-based.',
+    review: [
+      {
+        title: 'Listing Support Plan',
+        tag: 'Secondary offer',
+        summary: 'Monthly support for active listing agents who need quick construction-side help without re-explaining the same context every time.',
+        details: [
+          'Up to 3 inspection or listing-prep reviews each month',
+          'Priority support on active listing questions',
+          'Pricing and repair guidance',
+          '1 rush item each month',
+        ],
+        fit: 'What ongoing problem the client is paying every month to avoid: deals and listings slowing down because repair questions stay vague too long.',
+        purchaseType: 'review',
+        cta: 'Review Listing Support Plan',
+        ctaHref: '#contact',
+        monthlyPrice: '$599/mo',
+        monthlyLimit: '3 reviews and 1 rush item',
+        turnaround: '1 business day standard response',
+      },
+    ],
+  },
+];
+
 const avatarSections = [homeownerServices, investorServices, realtorServices, contractorServices, developerServices];
 
 function SectionHeader({ eyebrow, title, text }: { eyebrow: string; title: string; text: string }) {
@@ -461,7 +673,21 @@ function PurchaseTypeBlock({
 function ServiceCardView({ card }: { card: ServiceCard }) {
   return (
     <div className="flex h-full w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
+      {card.tag ? (
+        <div className="mb-4 inline-flex w-fit rounded-full border border-orange/25 bg-orange/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-orange">
+          {card.tag}
+        </div>
+      ) : null}
       <h4 className="text-[22px] font-extrabold leading-tight tracking-tight text-navy">{card.title}</h4>
+
+      {(card.monthlyPrice || card.setupPrice) && (
+        <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3">
+          {card.monthlyPrice ? <p className="text-lg font-extrabold text-navy">{card.monthlyPrice}</p> : null}
+          {card.setupPrice ? <p className="mt-1 text-sm text-stone-600">Setup: {card.setupPrice}</p> : null}
+          {card.monthlyLimit ? <p className="mt-2 text-sm text-stone-600">{card.monthlyLimit}</p> : null}
+          {card.turnaround ? <p className="mt-1 text-sm text-stone-600">{card.turnaround}</p> : null}
+        </div>
+      )}
 
       <div className="mt-4 space-y-4 text-[14.5px] leading-relaxed text-stone-700">
         <p>{card.summary}</p>
@@ -558,10 +784,10 @@ export default function ServicesPage() {
                 Services & Pricing
               </div>
               <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                Services for residential projects that need clearer structure.
+                Structure and oversight for residential projects at every stage.
               </h1>
               <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-                Southern Cities helps when permits, inspections, coordination, unclear next steps, or missing scope clarity are making the job harder to manage. Start with the role that matches yours, then choose the buying path that fits the service.
+                Southern Cities helps keep residential work clear, coordinated, and moving, from early planning and permit support to active project oversight and recurring execution support.
               </p>
             </div>
             <div className="rounded-[1.75rem] border border-white/15 bg-white p-7 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)]">
@@ -606,6 +832,35 @@ export default function ServicesPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-stone-200 bg-stone-100 py-20 sm:py-24">
+        <div className="container-pro">
+          <SectionHeader
+            eyebrow="Recurring Support"
+            title="Monthly support plans for repeat construction-side pain"
+            text="These recurring offers are for clients with repeated need, not one-time projects. They are built around capped support capacity, clearer response lanes, and recurring relief from admin drag, project babysitting, and weak coordination."
+          />
+          {recurringOfferSections.map((section, index) => (
+            <div
+              key={section.id}
+              id={section.id}
+              className={index === 0 ? '' : 'mt-16 border-t border-stone-300 pt-16'}
+            >
+              <SectionHeader eyebrow={section.eyebrow} title={section.title} text={section.intro} />
+              <PurchaseTypeBlock
+                title="Monthly Support Plans"
+                text="Use this when the same type of project-support problem keeps coming back each month and you want a defined recurring support lane instead of starting over every time."
+                cards={section.review}
+              />
+              <PurchaseTypeBlock
+                title="Retainers"
+                text="Use this when your volume, project risk, or coordination load is high enough that you need a stronger ongoing support structure."
+                cards={section.quote}
+              />
+            </div>
+          ))}
         </div>
       </section>
 
