@@ -73,7 +73,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                 {data.buy?.[0]?.cta || data.review?.[0]?.cta || 'See Services'}
               </a>
               <a href="#contact" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
-                {data.quote?.[0]?.cta || 'Request Help'}
+                {data.quote?.[0]?.cta || 'Request Review'}
               </a>
             </div>
           </div>
@@ -109,9 +109,9 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
 
       <section id="buy-now" className="bg-white py-20 sm:py-24">
         <div className="container-pro">
-          <ServiceBucket title="Buy Now" text="Use this when the job is clear, the deliverable is defined, and you want to move without adding more delay." cards={data.buy} />
-          <ServiceBucket title="Get Pricing" text="Use this when a few real project details affect price, but the work is still productized enough to price from simple inputs." cards={data.review} />
-          <ServiceBucket title="Needs Review" text="Use this when the work is live, variable, or important enough that pricing should follow a real review instead of a guess." cards={data.quote} />
+          <ServiceBucket title="Buy Now" text="Use this when one property, one file, or one decision needs a clear answer." cards={data.buy} />
+          <ServiceBucket title="Priced from Simple Inputs" text="Use this when a few project details can set pricing without a full review." cards={data.review} />
+          <ServiceBucket title="Needs Review" text="Use this when the work is active, messy, larger, or too variable to price responsibly without looking first." cards={data.quote} />
         </div>
       </section>
 
@@ -122,7 +122,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Monthly support</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">When the same problem keeps eating time, use a monthly plan.</h2>
               <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-                {data.recurringIntro || 'If the same kind of delay, confusion, or admin burden keeps coming back, a monthly plan is usually cleaner than starting from scratch every time.'}
+                {data.recurringIntro || 'Use a monthly plan when the same kind of delay, follow-up, or decision problem keeps coming back and you do not want to restart from scratch every time.'}
               </p>
             </div>
             <ServiceBucket title="Monthly Support Plans" text="Use this when the same kind of delay, follow-up, or decision problem keeps coming back and you need a standing lane for it." cards={data.ongoingSupport} />
@@ -138,7 +138,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
       <section className="bg-white py-16 sm:py-20">
         <div className="container-pro rounded-[28px] border border-stone-200 bg-stone-50 p-8 sm:p-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Need help choosing?</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">If you are not sure whether to buy now, get pricing, or request review, start here.</h2>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">If you are not sure whether to buy now, price from inputs, or request review, start here.</h2>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-stone-700 sm:text-lg">
             Southern Cities can help you choose the right next step before you lose more time or spend money in the wrong place.
           </p>
@@ -161,8 +161,8 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Contact</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Need us to review the job first?</h2>
             <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/88">
-              <p><strong className="text-white">Buy Now</strong> when the deliverable is already clear.</p>
-              <p><strong className="text-white">Get Pricing</strong> when a few project details affect cost.</p>
+              <p><strong className="text-white">Buy Now</strong> when one property, one file, or one decision already has a clear deliverable.</p>
+              <p><strong className="text-white">Price from inputs</strong> when a few project details can set pricing without a full review.</p>
               <p><strong className="text-white">Use this form</strong> when the project is larger, less defined, or needs review before anyone can price it responsibly.</p>
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                 <textarea name="message" value={formData.message} onChange={handleChange} required rows={6} placeholder="What is happening right now, what is stuck, and what do you need help moving forward?" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
                 {error && <p className="text-sm text-red-300">{error}</p>}
                 <button type="submit" disabled={submitting} className="inline-flex w-full items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 disabled:opacity-60">
-                  {submitting ? 'Sending...' : 'Request a Quote'}
+                  {submitting ? 'Sending...' : 'Request Review'}
                 </button>
               </form>
             )}

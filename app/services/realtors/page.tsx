@@ -11,7 +11,7 @@ export default function RealtorServicesPage() {
   const data = {
     ...baseData,
     recurringIntro:
-      'For individual agents, the main monthly fits are Deal Desk and Listing Prep Desk.',
+      'For individual agents, the cleanest monthly fits are Deal Desk for active deals and Listing Prep Desk for repeated listing-prep questions.',
   };
 
   return <AvatarPageTemplate data={data} />;
