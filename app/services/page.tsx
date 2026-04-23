@@ -9,7 +9,7 @@ type RoadmapLane = {
   avatar: string;
   href: string;
   start: string;
-  stops: { label: string; services: string[] }[];
+  stops: { label: string; services: string[]; tone: 'start' | 'info' | 'build' | 'control' | 'finish' }[];
   destination: string;
 };
 
@@ -19,10 +19,10 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/homeowners',
     start: 'Not sure what to do first',
     stops: [
-      { label: 'Need a clearer next step', services: ['Home Assessment', 'Owner Consultation'] },
-      { label: 'Need a budget range before spending', services: ['Home Project Budget Review'] },
-      { label: 'Need help with the permit path', services: ['Permit Path Review', 'Permit Administration'] },
-      { label: 'Need active-job control', services: ['Construction Oversight'] },
+      { label: 'Need a clearer next step', services: ['Home Assessment', 'Owner Consultation'], tone: 'start' },
+      { label: 'Need a budget range before spending', services: ['Home Project Budget Review'], tone: 'info' },
+      { label: 'Need help with the permit path', services: ['Permit Path Review', 'Permit Administration'], tone: 'build' },
+      { label: 'Need active-job control', services: ['Construction Oversight'], tone: 'finish' },
     ],
     destination: 'Clearer decisions, fewer wrong moves, less project drift',
   },
@@ -31,11 +31,11 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/investors',
     start: 'Need cleaner numbers before committing',
     stops: [
-      { label: 'Need a read on the deal or project', services: ['Investor Project Review', 'Rehab Budget Review'] },
-      { label: 'Need hiring or startup decisions cleaned up', services: ['Contractor Fit Review', 'Bid Coordination & Contractor Match', 'Materials Setup Review'] },
-      { label: 'Need lender or draw support', services: ['Lender Scope & Bid Package', 'Draw Review Support'] },
-      { label: 'Need active-job control', services: ['Turn Budget Review', 'Construction Oversight'] },
-      { label: 'Need repeat support across properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'] },
+      { label: 'Need a read on the deal or project', services: ['Investor Project Review', 'Rehab Budget Review'], tone: 'start' },
+      { label: 'Need hiring or startup decisions cleaned up', services: ['Contractor Fit Review', 'Bid Coordination & Contractor Match', 'Materials Setup Review'], tone: 'info' },
+      { label: 'Need lender or draw support', services: ['Lender Scope & Bid Package', 'Draw Review Support'], tone: 'build' },
+      { label: 'Need active-job control', services: ['Turn Budget Review', 'Construction Oversight'], tone: 'control' },
+      { label: 'Need repeat support across properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
     ],
     destination: 'Cleaner numbers, faster starts, less delay, tighter control',
   },
@@ -44,10 +44,10 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/realtors',
     start: 'Inspection or prep questions are slowing the deal',
     stops: [
-      { label: 'Need a quick answer on inspection items', services: ['Inspection Response'] },
-      { label: 'Need clearer listing-prep direction', services: ['Pre-Listing Budget & Prep Review'] },
-      { label: 'Need broader listing coordination', services: ['Listing Prep Coordination Review'] },
-      { label: 'Need ongoing help across deals or listings', services: ['Deal Desk', 'Listing Prep Desk', 'Agent Support Line', 'Team Deal & Listing Desk'] },
+      { label: 'Need a quick answer on inspection items', services: ['Inspection Response'], tone: 'start' },
+      { label: 'Need clearer listing-prep direction', services: ['Pre-Listing Budget & Prep Review'], tone: 'info' },
+      { label: 'Need broader listing coordination', services: ['Listing Prep Coordination Review'], tone: 'build' },
+      { label: 'Need ongoing help across deals or listings', services: ['Deal Desk', 'Listing Prep Desk', 'Agent Support Line', 'Team Deal & Listing Desk'], tone: 'finish' },
     ],
     destination: 'Faster answers, stronger client confidence, better deal momentum',
   },
@@ -56,10 +56,10 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/contractors',
     start: 'Permit and office work are pulling time off the field',
     stops: [
-      { label: 'Need help with permit and inspection handling', services: ['Permit Administration', 'Inspection Scheduling Support'] },
-      { label: 'Need help cleaning up active-job paperwork and follow-up', services: ['Active Job Admin Triage'] },
-      { label: 'Need tighter support on active work', services: ['Construction Oversight Support'] },
-      { label: 'Need recurring office relief', services: ['Permit & Inspection Support Plan', 'Back-Office Support Plan', 'Contractor Office Extension Retainer'] },
+      { label: 'Need help with permit and inspection handling', services: ['Permit Administration', 'Inspection Scheduling Support'], tone: 'start' },
+      { label: 'Need help cleaning up active-job paperwork and follow-up', services: ['Active Job Admin Triage'], tone: 'info' },
+      { label: 'Need tighter support on active work', services: ['Construction Oversight Support'], tone: 'build' },
+      { label: 'Need recurring office relief', services: ['Permit & Inspection Support Plan', 'Back-Office Support Plan', 'Contractor Office Extension Retainer'], tone: 'finish' },
     ],
     destination: 'More field time, less paperwork drag, steadier job follow-through',
   },
@@ -68,13 +68,36 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/developers-landowners',
     start: 'Project risk is still too high to move loosely',
     stops: [
-      { label: 'Need an early read before bigger money moves', services: ['Early Project Review', 'Early Budget & Scope Review'] },
-      { label: 'Need tighter control on permit and execution', services: ['Permit Administration + Construction Oversight'] },
-      { label: 'Need repeat project-control support', services: ['Project Control Plan', 'Execution Oversight Retainer'] },
+      { label: 'Need an early read before bigger money moves', services: ['Early Project Review', 'Early Budget & Scope Review'], tone: 'start' },
+      { label: 'Need tighter control on permit and execution', services: ['Permit Administration + Construction Oversight'], tone: 'build' },
+      { label: 'Need repeat project-control support', services: ['Project Control Plan', 'Execution Oversight Retainer'], tone: 'finish' },
     ],
     destination: 'Less drift, better visibility, tighter execution control',
   },
 ];
+
+const roadmapToneStyles = {
+  start: {
+    dot: 'bg-[#ff6b6b]',
+    ring: 'shadow-[0_0_0_10px_rgba(255,107,107,0.12)]',
+  },
+  info: {
+    dot: 'bg-[#4aa3ff]',
+    ring: 'shadow-[0_0_0_10px_rgba(74,163,255,0.12)]',
+  },
+  build: {
+    dot: 'bg-[#41c96b]',
+    ring: 'shadow-[0_0_0_10px_rgba(65,201,107,0.12)]',
+  },
+  control: {
+    dot: 'bg-[#8b6df2]',
+    ring: 'shadow-[0_0_0_10px_rgba(139,109,242,0.12)]',
+  },
+  finish: {
+    dot: 'bg-[#d9a441]',
+    ring: 'shadow-[0_0_0_10px_rgba(217,164,65,0.14)]',
+  },
+};
 
 export default function ServicesOverviewPage() {
   return (
@@ -199,30 +222,47 @@ export default function ServicesOverviewPage() {
                   </Link>
                 </div>
 
-                <div className="mt-8 grid gap-5 xl:grid-cols-[repeat(5,minmax(0,1fr))]">
-                  {lane.stops.map((stop, index) => (
-                    <div key={stop.label} className="relative rounded-[22px] border border-stone-200 bg-stone-50 p-5">
-                      <div className="mb-3 flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange text-sm font-bold text-white">
-                          {index + 1}
+                <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
+                  <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8 lg:justify-start">
+                    {lane.stops.map((stop, index) => {
+                      const tone = roadmapToneStyles[stop.tone];
+                      const isLast = index === lane.stops.length - 1;
+                      return (
+                        <div key={stop.label} className="flex items-center">
+                          <div className="w-[220px] sm:w-[240px]">
+                            <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white`}>
+                              {index + 1}
+                            </div>
+                            <div className="mt-4 text-center">
+                              <h4 className="text-xl font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
+                              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                                {stop.services.map((service) => (
+                                  <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
+                                    {service}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          {!isLast ? (
+                            <div className="mx-2 hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" />
+                          ) : null}
                         </div>
-                        <div className="h-px flex-1 bg-stone-300" />
-                      </div>
-                      <h4 className="text-lg font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {stop.services.map((service) => (
-                          <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy">
-                            {service}
-                          </span>
-                        ))}
+                      );
+                    })}
+                    <div className="flex items-center lg:ml-2">
+                      <div className="hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" />
+                      <div className="w-[220px] sm:w-[240px] lg:ml-4">
+                        <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${roadmapToneStyles.finish.dot} ${roadmapToneStyles.finish.ring} text-2xl text-white`}>
+                          ✓
+                        </div>
+                        <div className="mt-4 text-center">
+                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Destination</p>
+                          <p className="mt-2 text-xl font-extrabold leading-tight text-navy">{lane.destination}</p>
+                        </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 rounded-[22px] border border-navy/10 bg-navy px-5 py-4 text-white">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Destination</p>
-                  <p className="mt-2 text-base font-semibold leading-relaxed">{lane.destination}</p>
+                  </div>
                 </div>
               </div>
             ))}

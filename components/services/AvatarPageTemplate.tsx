@@ -9,38 +9,39 @@ import { AvatarPageData } from '@/lib/services-data';
 type RoadmapStep = {
   label: string;
   bucket: 'buy' | 'pricing' | 'quote' | 'support';
+  tone: 'start' | 'info' | 'build' | 'finish';
 };
 
 const roadmapBySlug: Record<string, RoadmapStep[]> = {
   homeowners: [
-    { label: 'Get a clear next step', bucket: 'buy' },
-    { label: 'Get a budget range', bucket: 'pricing' },
-    { label: 'Get permit help', bucket: 'pricing' },
-    { label: 'Get active-job control', bucket: 'quote' },
+    { label: 'Get a clear next step', bucket: 'buy', tone: 'start' },
+    { label: 'Get a budget range', bucket: 'pricing', tone: 'info' },
+    { label: 'Get permit help', bucket: 'pricing', tone: 'build' },
+    { label: 'Get active-job control', bucket: 'quote', tone: 'finish' },
   ],
   investors: [
-    { label: 'Check the deal or project first', bucket: 'pricing' },
-    { label: 'Tighten startup decisions', bucket: 'pricing' },
-    { label: 'Get lender or draw support', bucket: 'pricing' },
-    { label: 'Get active-job control', bucket: 'quote' },
-    { label: 'Use monthly support across repeat files', bucket: 'support' },
+    { label: 'Check the deal or project first', bucket: 'pricing', tone: 'start' },
+    { label: 'Tighten startup decisions', bucket: 'pricing', tone: 'info' },
+    { label: 'Get lender or draw support', bucket: 'pricing', tone: 'build' },
+    { label: 'Get active-job control', bucket: 'quote', tone: 'build' },
+    { label: 'Use monthly support across repeat files', bucket: 'support', tone: 'finish' },
   ],
   realtors: [
-    { label: 'Get a quick answer on inspection items', bucket: 'buy' },
-    { label: 'Get listing-prep pricing direction', bucket: 'pricing' },
-    { label: 'Get listing coordination scoped', bucket: 'quote' },
-    { label: 'Use monthly support across deals and listings', bucket: 'support' },
+    { label: 'Get a quick answer on inspection items', bucket: 'buy', tone: 'start' },
+    { label: 'Get listing-prep pricing direction', bucket: 'pricing', tone: 'info' },
+    { label: 'Get listing coordination scoped', bucket: 'quote', tone: 'build' },
+    { label: 'Use monthly support across deals and listings', bucket: 'support', tone: 'finish' },
   ],
   contractors: [
-    { label: 'Get permit and inspection help', bucket: 'pricing' },
-    { label: 'Clean up active-job admin', bucket: 'pricing' },
-    { label: 'Get tighter job support', bucket: 'quote' },
-    { label: 'Use recurring office support', bucket: 'support' },
+    { label: 'Get permit and inspection help', bucket: 'pricing', tone: 'start' },
+    { label: 'Clean up active-job admin', bucket: 'pricing', tone: 'info' },
+    { label: 'Get tighter job support', bucket: 'quote', tone: 'build' },
+    { label: 'Use recurring office support', bucket: 'support', tone: 'finish' },
   ],
   'developers-landowners': [
-    { label: 'Get an early read before bigger money moves', bucket: 'pricing' },
-    { label: 'Tighten permit and execution control', bucket: 'quote' },
-    { label: 'Use recurring project-control support', bucket: 'support' },
+    { label: 'Get an early read before bigger money moves', bucket: 'pricing', tone: 'start' },
+    { label: 'Tighten permit and execution control', bucket: 'quote', tone: 'build' },
+    { label: 'Use recurring project-control support', bucket: 'support', tone: 'finish' },
   ],
 };
 
@@ -49,6 +50,25 @@ const bucketTone: Record<RoadmapStep['bucket'], string> = {
   pricing: 'Get pricing',
   quote: 'Custom quote',
   support: 'Monthly support',
+};
+
+const roadmapToneStyles = {
+  start: {
+    dot: 'bg-[#ff6b6b]',
+    ring: 'shadow-[0_0_0_10px_rgba(255,107,107,0.12)]',
+  },
+  info: {
+    dot: 'bg-[#4aa3ff]',
+    ring: 'shadow-[0_0_0_10px_rgba(74,163,255,0.12)]',
+  },
+  build: {
+    dot: 'bg-[#41c96b]',
+    ring: 'shadow-[0_0_0_10px_rgba(65,201,107,0.12)]',
+  },
+  finish: {
+    dot: 'bg-[#8b6df2]',
+    ring: 'shadow-[0_0_0_10px_rgba(139,109,242,0.12)]',
+  },
 };
 
 export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
@@ -166,20 +186,31 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                 Start where the job is getting stuck now. Then move to the next step only when the file needs more than the step before it.
               </p>
             </div>
-            <div className="mt-8 grid gap-5 lg:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
-              {roadmap.map((step, index) => (
-                <div key={step.label} className="rounded-[24px] border border-stone-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.04)]">
-                  <div className="mb-3 flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange text-sm font-bold text-white">
-                      {index + 1}
+            <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
+              <div className="flex flex-wrap items-start justify-center gap-x-0 gap-y-8 lg:justify-start">
+                {roadmap.map((step, index) => {
+                  const tone = roadmapToneStyles[step.tone];
+                  const isLast = index === roadmap.length - 1;
+                  return (
+                    <div key={step.label} className="flex items-center">
+                      <div className="w-[220px] sm:w-[240px]">
+                        <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${tone.dot} ${tone.ring} text-xl font-extrabold text-white`}>
+                          {index + 1}
+                        </div>
+                        <div className="mt-4 text-center">
+                          <span className="inline-flex rounded-full border border-stone-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
+                            {bucketTone[step.bucket]}
+                          </span>
+                          <h3 className="mt-3 text-xl font-extrabold leading-tight tracking-tight text-navy">{step.label}</h3>
+                        </div>
+                      </div>
+                      {!isLast ? (
+                        <div className="mx-2 hidden h-3 w-20 rounded-full bg-[linear-gradient(90deg,#163061_0%,#214f97_50%,#d9a441_100%)] lg:block" />
+                      ) : null}
                     </div>
-                    <span className="inline-flex rounded-full border border-stone-200 bg-stone-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-navy">
-                      {bucketTone[step.bucket]}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-extrabold tracking-tight text-navy">{step.label}</h3>
-                </div>
-              ))}
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
