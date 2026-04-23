@@ -265,7 +265,7 @@ function SectionHeader({ eyebrow, title, intro }: { eyebrow: string; title: stri
 
 function RecurringCardView({ card }: { card: RecurringCard }) {
   return (
-    <div className="flex h-full flex-col rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+    <div className="flex h-full w-full max-w-[420px] flex-col rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
       <div className="mb-4 inline-flex w-fit rounded-full border border-orange/25 bg-orange/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-orange">
         {card.tag}
       </div>
@@ -353,7 +353,7 @@ export default function RecurringSupportPage() {
                 const tailClass = section.cards.length % 3 === 2 && (isSecondToLast || isLast) ? 'xl:col-span-3' : 'xl:col-span-2';
 
                 return (
-                  <div key={card.name} className={tailClass}>
+                  <div key={card.name} className={`${tailClass} flex justify-center`}>
                     <RecurringCardView card={card} />
                   </div>
                 );
