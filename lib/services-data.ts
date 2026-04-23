@@ -177,6 +177,33 @@ const investorServices: AvatarPageData = {
   ],
   review: [
     {
+      title: 'Contractor Fit Consultation',
+      summary: 'A structured review for investors who need to decide what kind of contractor setup fits the project before hiring gets expensive.',
+      details: ['Project and scope review', 'Contractor model fit guidance', 'Payment expectation review', 'Permit and admin capability review'],
+      fit: 'Best when choosing the wrong contractor setup will create avoidable delay, confusion, or startup friction after closing.',
+      purchaseType: 'review',
+      cta: 'Request Contractor Fit Review',
+      ctaHref: '#contact',
+    },
+    {
+      title: 'Bid Coordination & Contractor Match',
+      summary: 'Bid coordination for investors who need cleaner proposals from better-fit contractors before awarding the job.',
+      details: ['Project review for bid targeting', 'Contractor-fit targeting', 'Bid intake and comparison', 'Fit, gap, and risk notes'],
+      fit: 'Best when you need more than random bids and want a cleaner way to compare contractors before startup.',
+      purchaseType: 'review',
+      cta: 'Request Bid Coordination',
+      ctaHref: '#contact',
+    },
+    {
+      title: 'Materials Logistics Setup',
+      summary: 'A setup service for investors who need purchasing, delivery timing, and material responsibility handled more cleanly before mobilization.',
+      details: ['Materials responsibility review', 'Supplier and delivery flow planning', 'Ordering sequence guidance', 'Procurement workflow notes'],
+      fit: 'Best when materials confusion, bad delivery timing, or weak purchasing structure could slow the job down fast.',
+      purchaseType: 'review',
+      cta: 'Request Materials Setup',
+      ctaHref: '#contact',
+    },
+    {
       title: 'Lender Scope & Bid Package',
       summary: 'A scope-of-work and bid package for investors who need numbers they can submit with confidence to a lender or capital partner.',
       details: ['Property and scope review', 'Written scope of work', 'Bid package Southern Cities can stand behind', 'Clear note that pricing is based on visible conditions unless major hidden issues are uncovered'],
@@ -243,6 +270,15 @@ const investorServices: AvatarPageData = {
     },
   ],
   quote: [
+    {
+      title: 'Regional Investor Setup Consultation',
+      summary: 'A broader setup review for investors entering or scaling in a region who need fewer mistakes before projects start mobilizing.',
+      details: ['Regional setup review', 'Contractor ecosystem considerations', 'Permit and process considerations', 'Mobilization-readiness guidance'],
+      fit: 'Best when you are entering a region or tightening a repeat model and want fewer early execution mistakes after closing.',
+      purchaseType: 'quote',
+      cta: 'Request Regional Setup Review',
+      ctaHref: '#contact',
+    },
     {
       title: 'Construction Oversight',
       summary: 'Oversight for active projects that need stronger structure, cleaner communication, and better accountability.',
