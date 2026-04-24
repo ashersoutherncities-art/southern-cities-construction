@@ -614,7 +614,7 @@ export default function Home() {
               <div className="mt-6 grid gap-4 md:grid-cols-2">
                 <div className="overflow-hidden rounded-[24px] border border-stone-200 bg-white shadow-elev-1">
                   <div className="relative aspect-[4/3]">
-                    <Image src="/before-4.jpg" alt="Before project condition" fill className="object-cover" />
+                    <Image src="/before-3.jpg" alt="Before project condition" fill className="object-cover" />
                   </div>
                   <div className="px-5 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
