@@ -137,16 +137,16 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">{data.heroSubtitle}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               {firstFixed ? (
-                <a href={firstFixed.detailHref} className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
+                <a href={firstFixed.itemKey ? firstFixed.detailHref : (firstFixed.ctaHref || firstFixed.detailHref)} className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
                   {firstFixed.cta}
                 </a>
               ) : null}
               {firstPriced ? (
-                <a href={firstPriced.detailHref} className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+                <a href={firstPriced.ctaHref || firstPriced.detailHref} className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
                   {firstPriced.cta}
                 </a>
               ) : firstReview ? (
-                <a href={firstReview.detailHref} className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+                <a href={firstReview.ctaHref || firstReview.detailHref} className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
                   {firstReview.cta}
                 </a>
               ) : null}
