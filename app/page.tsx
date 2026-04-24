@@ -146,11 +146,8 @@ export default function Home() {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-center">
             <div className="max-w-[46rem]">
               <h1 className="max-w-[12ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
-                Better project decisions early. Stronger follow-through once work is underway.
+                Where schedules, crews, and systems actually line up.
               </h1>
-              <p className="mt-6 max-w-[36rem] text-[18px] leading-[1.6] text-white sm:text-[20px]">
-                Permit paths, budgets, setup, and execution — for homeowners, investors, realtors, contractors, and developers across NC.
-              </p>
 
               <div className="mt-8">
                 <div className="flex flex-wrap gap-2.5">
@@ -176,10 +173,7 @@ export default function Home() {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link href={activeRoleContent.href} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
-                  {activeRoleContent.primaryCta}
-                </Link>
-                <Link href="/services#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border-2 border-white bg-white px-6 py-3.5 text-[14px] font-semibold text-navy transition-all hover:bg-stone-100 hover:-translate-y-0.5">
-                  {activeRoleContent.secondaryCta}
+                  Get Started
                 </Link>
               </div>
             </div>
