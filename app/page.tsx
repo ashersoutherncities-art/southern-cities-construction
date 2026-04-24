@@ -145,20 +145,15 @@ export default function Home() {
         <div className="relative z-10 container-pro">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-center">
             <div className="max-w-[46rem]">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-                <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-                Residential project help in North Carolina
-              </div>
               <h1 className="max-w-[12ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
-                Better project decisions early. Stronger follow-through once the work is underway.
+                Better project decisions early. Stronger follow-through once work is underway.
               </h1>
               <p className="mt-6 max-w-[36rem] text-[18px] leading-[1.6] text-white sm:text-[20px]">
-                Get clearer next steps, better numbers, and steadier follow-through before the job gets expensive.
+                Permit paths, budgets, setup, and execution — for homeowners, investors, realtors, contractors, and developers across NC.
               </p>
 
               <div className="mt-8">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange-200">Who are you?</p>
-                <div className="mt-3 flex flex-wrap gap-2.5">
+                <div className="flex flex-wrap gap-2.5">
                   {roleOrder.map((role) => {
                     const active = role === activeRole;
                     return (
