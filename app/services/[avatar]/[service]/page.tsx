@@ -4,6 +4,7 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import AddToCartButton from '@/components/AddToCartButton';
 import { avatarPages, getServiceBySlug } from '@/lib/services-data';
+import { getServiceNextStepCopy, getServicePricingCopy } from '@/lib/service-detail-helpers';
 
 type Params = { avatar: string; service: string };
 
@@ -108,27 +109,11 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
         <div className="container-pro grid gap-6 lg:grid-cols-3">
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How pricing works</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">
-              {service.purchaseType === 'fixed'
-                ? 'This is a fixed-price offer with a defined deliverable. If this is the right fit, you can buy it directly.'
-                : service.purchaseType === 'priced'
-                  ? service.pricingNote || 'This offer uses project inputs to determine pricing. Start with a short pricing form instead of checkout.'
-                  : service.purchaseType === 'review'
-                    ? 'This offer should start with review, not checkout. Scope depends on the project, file condition, and the actual support needed.'
-                    : 'This is a recurring support offer with defined monthly caps. Higher-touch support plans still begin with review before approval.'}
-            </p>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{getServicePricingCopy(service)}</p>
           </div>
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What happens next</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">
-              {service.purchaseType === 'fixed'
-                ? 'After purchase, Southern Cities confirms the job details, handles the defined deliverable, and follows up with the next recommended step if more support is needed.'
-                : service.purchaseType === 'priced'
-                  ? 'After you submit the project details, Southern Cities reviews the inputs, sets pricing direction, and tells you whether the work should stay in pricing or move into deeper review.'
-                  : service.purchaseType === 'review'
-                    ? 'After you request review, Southern Cities looks at the project, clarifies what support is actually needed, and then recommends the right next step before pricing is finalized.'
-                    : 'After plan review, Southern Cities confirms plan fit, usage expectations, and whether the selected plan is enough or whether a higher-touch retainer is the better fit.'}
-            </p>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{getServiceNextStepCopy(service)}</p>
           </div>
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Proof</p>
@@ -142,9 +127,9 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
         <div className="container-pro rounded-[28px] border border-stone-200 bg-stone-50 p-8 sm:p-10">
           <div className="max-w-3xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Ready for the next step?</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Use the right path for this offer.</h2>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Use the next step that fits this work.</h2>
             <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-              Southern Cities should feel easy to buy from, but only when the purchase path is honest. This page is built to help you choose the right one.
+              Some work can be bought right now. Some needs project details before pricing. Some should start with review first. This page keeps those paths clean.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               {primaryCta}

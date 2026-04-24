@@ -49,6 +49,8 @@ export function ServiceBucket({
 }
 
 function getPrimaryCta(card: ServiceCardData) {
+  const href = card.ctaHref || card.detailHref;
+
   if (card.purchaseType === 'fixed' && card.itemKey) {
     return (
       <AddToCartButton
@@ -61,7 +63,7 @@ function getPrimaryCta(card: ServiceCardData) {
 
   return (
     <Link
-      href={card.ctaHref || card.detailHref}
+      href={href}
       className={`inline-flex w-full items-center justify-center rounded-full py-3 text-center text-sm font-semibold text-white transition-all duration-300 ${
         card.purchaseType === 'review' || card.purchaseType === 'recurring'
           ? 'bg-navy hover:bg-navy-700'

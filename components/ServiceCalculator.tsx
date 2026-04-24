@@ -41,6 +41,7 @@ export type ServiceCalculatorConfig = {
   actionHref?: string;
   actionType: 'cart' | 'link';
   checkoutItemKey?: string;
+  resultLabel?: string;
 };
 
 function getInitialValues(fields: CalculatorFieldConfig[]): CalculatorValues {
@@ -127,7 +128,7 @@ export default function ServiceCalculator({ config }: { config: ServiceCalculato
 
       {price !== null && (
         <div className="mt-4 rounded-2xl border border-white bg-white p-4 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">Calculated price</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">{config.resultLabel || 'Calculated price'}</p>
           <p className="mt-1 text-2xl font-extrabold" style={{ color: ORANGE }}>{formatPrice(price)}</p>
           {config.actionType === 'cart' ? (
             <Link
