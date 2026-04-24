@@ -27,81 +27,81 @@ const roleContent: Record<
   homeowners: {
     title: 'Homeowners',
     shortTitle: 'Homeowner',
-    pain: 'Your project is getting more expensive, more confusing, or harder to trust.',
-    value: 'Southern Cities helps cut permit confusion, inspection setbacks, and costly wrong moves before they get bigger.',
-    fit: 'Best fit when you need a clearer next step before spending more money.',
+    pain: 'You may be planning work, comparing next steps, or trying to keep a residential project from turning into an expensive guess.',
+    value: 'Southern Cities helps with permit path review, budget realism, inspection follow-through, and better project setup before small issues turn into bigger costs.',
+    fit: 'Best fit when you want clearer next steps before spending more money, or stronger help once the job already feels loose.',
     href: '/services/homeowners',
     primaryCta: 'See Homeowner Services',
     secondaryCta: 'Request a Project Review',
     proof: {
-      title: 'Homeowners come to us when the job starts feeling loose',
-      body: 'That usually means permit questions are not getting answered clearly, inspection issues are slowing things down, or the next step still does not feel solid enough to spend more money with confidence.',
-      pain: 'Unclear scope, permit stress, and inspection setbacks',
-      result: 'A clearer next step before the project got more expensive',
+      title: 'Homeowners use Southern Cities before the work gets expensive and after the job starts feeling loose',
+      body: 'Sometimes that means getting clearer on permits, scope, budget, and contractor fit before spending more money. Sometimes it means helping clean up confusion once inspection issues, paperwork, or weak follow-through are already affecting the job.',
+      pain: 'Bad assumptions early, or permit and inspection problems later',
+      result: 'A clearer path before spending and better follow-through once the work is underway',
     },
   },
   investors: {
     title: 'Investors',
     shortTitle: 'Investor',
-    pain: 'Your rehab, turn, or active job is losing time, money, or momentum.',
-    value: 'Southern Cities helps reduce delay, bad handoffs, and budget surprises before they turn into bigger losses.',
-    fit: 'Best fit when you need better numbers and fewer surprises before moving faster.',
+    pain: 'You may be sizing up a project before spending, choosing contractors, or trying to keep an active rehab from drifting off course.',
+    value: 'Southern Cities helps with budget review, permit path clarity, contractor-fit questions, and execution follow-through so the job is better set up from the start.',
+    fit: 'Best fit when you want better numbers and fewer surprises before moving faster, or stronger support once the job is already slipping.',
     href: '/services/investors',
     primaryCta: 'See Investor Services',
     secondaryCta: 'Get Pricing',
     proof: {
-      title: 'Investors come to us when too much is still uncertain',
-      body: 'That usually means the numbers still feel too loose, contractor decisions are not locked in well enough, or the job is already losing time through bad handoffs and weak follow-through.',
-      pain: 'Vacancy drag, bad handoffs, and expensive project drift',
-      result: 'A better read on the deal before more money and time were lost',
+      title: 'Investors use Southern Cities to tighten the front end and clean up loose execution',
+      body: 'That can mean reviewing budget assumptions, permit needs, draw expectations, or contractor fit before the work starts. It can also mean bringing discipline back to an active job that is already losing time through bad handoffs or weak follow-through.',
+      pain: 'Loose numbers early, or vacancy drag and project drift later',
+      result: 'A better read before money went out and better control once the job was active',
     },
   },
   realtors: {
     title: 'Realtors',
     shortTitle: 'Realtor',
-    pain: 'Repair items, listing prep, and inspection questions are slowing the deal down.',
-    value: 'Southern Cities helps turn construction questions into clearer next steps, faster answers, and better follow-through.',
-    fit: 'Best fit when the deal or listing keeps getting slowed down by construction questions.',
+    pain: 'You may need clearer listing-prep decisions early or faster help once repair items and inspection questions start affecting the file.',
+    value: 'Southern Cities helps turn construction questions into clearer next steps, better prep decisions, faster answers, and stronger follow-through.',
+    fit: 'Best fit when you want fewer surprises before a listing goes live or better help once the deal starts getting messy.',
     href: '/services/realtors',
     primaryCta: 'See Realtor Services',
     secondaryCta: 'Request Help',
     proof: {
-      title: 'Realtors come to us when the deal keeps getting slowed down by construction questions',
-      body: 'That usually means inspection items are still being argued through, listing-prep decisions are not getting made fast enough, or clients need clearer guidance before the file can move.',
-      pain: 'Client pressure, listing delay, and too much back-and-forth',
-      result: 'Faster next steps and better client confidence',
+      title: 'Realtors use Southern Cities before listing work gets messy and after the file starts dragging',
+      body: 'That can mean getting clearer on what should be fixed, what should wait, and what the prep budget may look like before the listing goes live. It can also mean helping once inspection items, seller hesitation, or client questions start creating too much back-and-forth.',
+      pain: 'Weak prep decisions early, or client pressure and file drag later',
+      result: 'Clearer prep decisions, faster next steps, and better client confidence',
     },
   },
   contractors: {
     title: 'Contractors',
     shortTitle: 'Contractor',
-    pain: 'Permit follow-up, inspections, paperwork, and office back-and-forth are eating too much time.',
-    value: 'Southern Cities helps reduce paperwork drag so the job keeps moving with fewer delays and less chasing.',
-    fit: 'Best fit when office work keeps pulling time away from production.',
+    pain: 'You may want tighter permit and admin handling before the job ramps up, or help once paperwork and follow-up start pulling time away from production.',
+    value: 'Southern Cities helps with permit handling, inspection coordination, paperwork flow, and execution discipline so office drag does not keep hurting the field.',
+    fit: 'Best fit when you want a cleaner setup before work stacks up, or stronger support when admin work is already eating the day.',
     href: '/services/contractors',
     primaryCta: 'See Contractor Services',
     secondaryCta: 'Get Support Pricing',
     proof: {
-      title: 'Contractors come to us when office work starts choking production time',
-      body: 'That usually means permit follow-up is dragging, inspection coordination is eating time, or too much of the job still depends on someone chasing paperwork instead of moving work forward.',
-      pain: 'Office drag, repeated follow-up, and slow inspection handling',
-      result: 'Less paperwork drag and better follow-through on active jobs',
+      title: 'Contractors use Southern Cities to tighten admin before it piles up and to steady jobs that already need more follow-through',
+      body: 'That can mean getting permit handling, inspection scheduling, and office follow-up set up better from the start. It can also mean taking pressure off the team once paperwork, callbacks, and job admin are already slowing execution.',
+      pain: 'Weak admin setup early, or office drag and repeated follow-up later',
+      result: 'Better setup before production gets pinched and less paperwork drag once jobs are active',
     },
   },
   developers: {
     title: 'Developers / Landowners',
     shortTitle: 'Developer / Landowner',
-    pain: 'Too much still feels uncertain before bigger money moves.',
-    value: 'Southern Cities helps reduce delay, confusion, and expensive drift before the project gets harder to fix.',
-    fit: 'Best fit when too much is still loose to move forward casually.',
+    pain: 'You may need a cleaner read on permits, scope, budget, and execution before bigger money moves, or help steadying a project that already feels too loose.',
+    value: 'Southern Cities helps tighten planning, permit path review, budgeting realism, and execution discipline before uncertainty becomes expensive.',
+    fit: 'Best fit when you want a better early read before moving forward casually, or stronger support once the work starts drifting.',
     href: '/services/developers-landowners',
     primaryCta: 'See Project Support',
     secondaryCta: 'Request Project Review',
     proof: {
-      title: 'Developers and landowners come to us before uncertainty gets expensive',
-      body: 'That usually means scope, permits, budgeting, or execution still feel too loose to keep moving casually. The goal is to tighten the job before bigger money gets committed in the wrong direction.',
-      pain: 'Permit uncertainty, scope drift, and weak coordination',
-      result: 'A better early read before bigger money got committed',
+      title: 'Developers and landowners use Southern Cities for early review and steadier execution later',
+      body: 'That can mean pressure-testing permits, scope, budget expectations, and contractor fit before the project advances. It can also mean bringing tighter follow-through to a job that is already showing drift, confusion, or weak coordination.',
+      pain: 'Bad assumptions early, or scope drift and weak coordination later',
+      result: 'A better early read before bigger money moved and steadier execution once the job was active',
     },
   },
 };
@@ -110,42 +110,42 @@ const roleOrder: RoleKey[] = ['homeowners', 'investors', 'realtors', 'contractor
 
 const trustPoints = [
   'North Carolina residential project help',
-  'Permit, inspection, and active-job help',
+  'Permit review, budget review, planning, and active-job help',
   'Help for homeowners, investors, realtors, contractors, and developers',
-  'Help before delay and confusion get more expensive',
+  'Help before small issues get expensive and after the job needs tighter follow-through',
 ];
 
 const proofStrip = [
   {
-    label: 'Before',
-    text: 'The project feels loose. People are unsure what to do first, what to fix, and what is about to cost more than it should.',
+    label: 'Early',
+    text: 'Bring Southern Cities in before spending runs ahead of the plan, the permit path is unclear, or the wrong contractor fit creates problems later.',
   },
   {
     label: 'During',
-    text: 'Southern Cities helps get the next steps handled correctly so permits, inspections, pricing, and follow-through stop dragging the job down.',
+    text: 'Southern Cities helps turn permits, inspections, pricing questions, and follow-through into cleaner next steps and better job discipline.',
   },
   {
-    label: 'After',
-    text: 'The work looks more organized, the next move is clearer, and the project is easier to keep moving without constant chasing.',
+    label: 'Later',
+    text: 'If the work is already feeling loose, Southern Cities helps reduce confusion, tighten execution, and make the next move easier to trust.',
   },
 ];
 
 const featuredOffers = [
   {
-    title: 'Buy a straightforward service',
-    body: 'Use this when you already know what you need and you want to get started without waiting on a custom quote.',
-    cta: 'See Buy-Now Services',
+    title: 'Start before the job gets expensive',
+    body: 'Use this when you want permit path review, budget realism, contractor-fit help, or better setup before work starts creating avoidable surprises.',
+    cta: 'See Early-Stage Services',
     href: '/services',
   },
   {
     title: 'Send details for pricing',
-    body: 'Use this when the job needs a few details reviewed before price makes sense, but it still does not need full custom scoping.',
+    body: 'Use this when the project needs a few real inputs reviewed so the next number is grounded in something more solid than a quick guess.',
     cta: 'Get Service Pricing',
     href: '/services#buying-paths',
   },
   {
-    title: 'Request a project review',
-    body: 'Use this when the project is active, more complex, or risky enough that someone needs to look at it before anybody should price it casually.',
+    title: 'Get help once the work is underway',
+    body: 'Use this when the project is already active and you need tighter permit handling, follow-through, coordination, or a better read on what to do next.',
     cta: 'Request a Review',
     href: '/services#contact',
   },
@@ -153,44 +153,44 @@ const featuredOffers = [
 
 const problemPanels: Record<ProblemKey, { label: string; summary: string; cost: string; next: string; href: string }> = {
   permits: {
-    label: 'Permit problems',
-    summary: 'Permit paperwork, corrections, and approvals start dragging the whole job when nobody is carrying them tightly.',
-    cost: 'This usually creates delay, repeated follow-up, and wasted time before real work can move cleanly.',
-    next: 'Start with permit help or a project review.',
+    label: 'Permit path clarity',
+    summary: 'Use this when you want to understand permits, approvals, corrections, or jurisdiction expectations before they create wasted motion later.',
+    cost: 'A cleaner permit path helps reduce bad assumptions early and lowers the chance of repeated follow-up once the work starts.',
+    next: 'Start with permit review or permit help.',
     href: '/services/homeowners',
   },
   inspections: {
-    label: 'Inspection setbacks',
-    summary: 'Inspection failures and correction lists create confusion fast when nobody turns them into a clear next step.',
-    cost: 'This usually causes delay, repeated trips, and more back-and-forth than the job can afford.',
-    next: 'Start with a review or inspection-response type service.',
+    label: 'Inspection and correction planning',
+    summary: 'Use this when you need a better read on inspection items, correction lists, or what needs to happen next before more money goes out.',
+    cost: 'Clearer inspection planning helps reduce repeated trips, loose answers, and costly back-and-forth later.',
+    next: 'Start with a review or inspection-response service.',
     href: '/services/realtors',
   },
   budget: {
-    label: 'Budget uncertainty',
-    summary: 'People keep hesitating or spending wrong when the budget is still too loose.',
-    cost: 'This usually leads to bad approvals, bad hiring, or costly delay while nobody is comfortable moving forward.',
+    label: 'Budget review',
+    summary: 'Use this when the numbers still need pressure-testing so you can move with more confidence instead of spending from a loose assumption.',
+    cost: 'Better budget review helps reduce bad approvals, weak contractor decisions, and surprise spending later.',
     next: 'Start with pricing or a budget review.',
     href: '/services/investors',
   },
   paperwork: {
-    label: 'Paperwork overload',
-    summary: 'Jobs start slowing down when paperwork, admin, and office follow-up are not being handled consistently.',
-    cost: 'This usually steals time from production and creates missed follow-up, slower inspections, and more owner involvement.',
-    next: 'Start with contractor support or active-job admin help.',
+    label: 'Planning and admin setup',
+    summary: 'Use this when paperwork, office flow, or process setup needs to be handled better before it starts pulling too much time away from the real work.',
+    cost: 'Better setup reduces repeated follow-up, missed steps, and the admin drag that shows up later when jobs stack up.',
+    next: 'Start with contractor support or admin help.',
     href: '/services/contractors',
   },
   listing: {
-    label: 'Listing prep delays',
-    summary: 'Listing prep gets stuck when nobody can quickly answer what to fix, what to skip, and what it may cost.',
-    cost: 'This usually creates seller hesitation, deal delay, and too much back-and-forth before the listing goes live.',
+    label: 'Listing and prep decisions',
+    summary: 'Use this when you need better guidance on what to fix, what to leave alone, and what the prep path may look like before the property goes live.',
+    cost: 'Clearer prep decisions help reduce seller hesitation, guesswork, and rushed decisions later.',
     next: 'Start with realtor services.',
     href: '/services/realtors',
   },
   followup: {
-    label: 'Too much owner follow-up',
-    summary: 'When the owner has to keep chasing updates, the job usually is not being handled tightly enough.',
-    cost: 'This usually creates slow decisions, confusion, and more project drift than there should be.',
+    label: 'Execution follow-through',
+    summary: 'Use this when the project needs tighter updates, coordination, and next-step discipline so the owner is not carrying more follow-up than they should.',
+    cost: 'Stronger follow-through helps reduce confusion, project drift, and the need to keep chasing the job later.',
     next: 'Start with a project review or oversight route.',
     href: '/services',
   },
@@ -361,20 +361,20 @@ const routerRecommendations: Record<RoleKey, Record<ProblemKey, Record<NeedKey, 
 
 const processSteps = [
   {
-    title: 'Tell us what is holding the job up',
-    body: 'Start with the role you are in and the problem that is slowing the project down right now.',
+    title: 'Tell us where you are in the project',
+    body: 'Start with your role and the area where you want better planning, better setup, or stronger follow-through.',
   },
   {
     title: 'We point you to the right kind of help',
-    body: 'Southern Cities helps you sort out whether this is a straightforward service, a pricing request, or something that needs real review first.',
+    body: 'Southern Cities helps sort out whether you need an early review, a pricing step, a straightforward service, or a deeper project review.',
   },
   {
     title: 'You choose how to get started',
-    body: 'You can buy the service, send details for pricing, or request a review when the job needs more scoping before anyone should quote it.',
+    body: 'You can buy the service, send project details for pricing, or request a review when the work needs more eyes before anyone should quote it casually.',
   },
   {
-    title: 'We help move the work forward',
-    body: 'Once the next step is set, Southern Cities helps reduce delay, tighten follow-through, and keep the project from drifting further.',
+    title: 'We help keep the project cleaner',
+    body: 'That can mean better early decisions before money goes out, or tighter follow-through once the job is already underway.',
   },
 ];
 
@@ -406,13 +406,13 @@ export default function Home() {
             <div className="max-w-[46rem]">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-                Help for residential projects that are getting delayed, confusing, or harder to manage
+                Help before small issues get expensive and after the work needs tighter follow-through
               </div>
-              <h1 className="max-w-[11ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
-                Help for residential projects that are getting delayed, unclear, or more expensive to leave alone.
+              <h1 className="max-w-[12ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.8rem]">
+                Better project decisions early. Stronger follow-through once the work is underway.
               </h1>
-              <p className="mt-6 max-w-[40rem] text-[18px] leading-[1.7] text-white sm:text-[20px]">
-                Southern Cities helps homeowners, investors, realtors, contractors, and developers move residential projects forward when permit problems, inspection setbacks, paperwork, and weak follow-through start costing time and money.
+              <p className="mt-6 max-w-[42rem] text-[18px] leading-[1.7] text-white sm:text-[20px]">
+                Southern Cities helps homeowners, investors, realtors, contractors, and developers get clearer permit paths, more realistic budgets, better project setup, and steadier execution before confusion, bad assumptions, and weak follow-through turn into expensive problems.
               </p>
 
               <div className="mt-8">
@@ -477,12 +477,12 @@ export default function Home() {
         <div className="container-pro">
           <div className="grid gap-8 xl:grid-cols-[0.88fr_1.12fr] xl:items-start">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with what is happening now</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with where you are in the project</p>
               <h2 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl leading-[1.08]">
-                Tell us where the job is stuck, then go straight to the right next step.
+                Get to the right next step whether you are planning ahead or cleaning up a loose job.
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-700">
-                You should not have to read the whole site to figure out what to click. Start with your role, the main problem, and the kind of help you need right now.
+                You should not have to read the whole site to figure out what to click. Start with your role, the area where you need help, and the kind of support that makes sense before or during execution.
               </p>
             </div>
 
@@ -511,7 +511,7 @@ export default function Home() {
               </div>
 
               <div className="mt-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">2. What is the main problem right now?</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">2. What do you want clearer before moving forward?</p>
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
                   {Object.entries(problemPanels).map(([key, panel]) => {
                     const active = key === activeProblem;
@@ -534,7 +534,7 @@ export default function Home() {
               </div>
 
               <div className="mt-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">3. What do you need right now?</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">3. How do you want to start?</p>
                 <div className="mt-3 flex flex-wrap gap-2.5">
                   {[
                     { key: 'buy', label: 'Get started' },
@@ -584,9 +584,9 @@ export default function Home() {
           <div className="grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
             <div className="rounded-[24px] border border-stone-200 bg-navy-950 p-5 text-white shadow-[0_18px_40px_rgba(6,18,43,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(6,18,43,0.18)]">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Real project proof</p>
-              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">When the work is handled correctly, the project looks different and feels different.</p>
+              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">Good project help shows up in the setup, the follow-through, and the finished result.</p>
               <p className="mt-3 text-[14.5px] leading-relaxed text-white/80">
-                The difference is not just appearance. It is fewer loose ends, less confusion, and a job that is easier to move forward without constant second-guessing.
+                The difference is not just appearance. It is better decisions earlier, fewer loose ends during execution, and a job that is easier to trust from one step to the next.
               </p>
             </div>
 
@@ -618,7 +618,7 @@ export default function Home() {
                   </div>
                   <div className="px-5 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
-                    <p className="mt-2 text-[15px] font-semibold leading-relaxed text-navy">Loose, dated, and harder to move forward with confidence.</p>
+                    <p className="mt-2 text-[15px] font-semibold leading-relaxed text-navy">Before better planning, cleaner decisions, and stronger execution follow-through showed up in the work.</p>
                   </div>
                 </div>
 
@@ -628,7 +628,7 @@ export default function Home() {
                   </div>
                   <div className="px-5 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
-                    <p className="mt-2 text-[15px] font-semibold leading-relaxed text-navy">Cleaner, more finished, and easier to trust as the work moves forward.</p>
+                    <p className="mt-2 text-[15px] font-semibold leading-relaxed text-navy">Cleaner, more finished, and easier to trust when the project is set up and carried forward the right way.</p>
                   </div>
                 </div>
               </div>
