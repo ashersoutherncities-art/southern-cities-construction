@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import SiteNav from '@/components/SiteNav';
@@ -116,16 +117,37 @@ const trustPoints = [
 
 const proofStrip = [
   {
-    label: 'Delay',
-    text: 'The job starts slipping when nobody is clearly carrying the next step.',
+    label: 'Before',
+    text: 'The project feels loose. People are unsure what to do first, what to fix, and what is about to cost more than it should.',
   },
   {
-    label: 'Money',
-    text: 'Confusion gets expensive when people keep spending before the path is settled.',
+    label: 'During',
+    text: 'Southern Cities helps get the next steps handled correctly so permits, inspections, pricing, and follow-through stop dragging the job down.',
   },
   {
-    label: 'Trust',
-    text: 'Confidence drops fast when follow-through, inspections, and scope all start feeling loose.',
+    label: 'After',
+    text: 'The work looks more organized, the next move is clearer, and the project is easier to keep moving without constant chasing.',
+  },
+];
+
+const featuredOffers = [
+  {
+    title: 'Buy a straightforward service',
+    body: 'Use this when you already know what you need and you want to get started without waiting on a custom quote.',
+    cta: 'See Buy-Now Services',
+    href: '/services',
+  },
+  {
+    title: 'Send details for pricing',
+    body: 'Use this when the job needs a few details reviewed before price makes sense, but it still does not need full custom scoping.',
+    cta: 'Get Service Pricing',
+    href: '/services#buying-paths',
+  },
+  {
+    title: 'Request a project review',
+    body: 'Use this when the project is active, more complex, or risky enough that someone needs to look at it before anybody should price it casually.',
+    cta: 'Request a Review',
+    href: '/services#contact',
   },
 ];
 
@@ -561,10 +583,10 @@ export default function Home() {
         <div className="container-pro">
           <div className="grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
             <div className="rounded-[24px] border border-stone-200 bg-navy-950 p-5 text-white shadow-[0_18px_40px_rgba(6,18,43,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(6,18,43,0.18)]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why people reach out</p>
-              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">Most people do not need more theory. They need the job to stop slipping.</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Real project proof</p>
+              <p className="mt-4 text-xl font-extrabold tracking-tight text-white">When the work is handled correctly, the project looks different and feels different.</p>
               <p className="mt-3 text-[14.5px] leading-relaxed text-white/80">
-                Southern Cities is built for the moment when delay, confusion, and weak follow-through are starting to cost real time, money, and confidence.
+                The difference is not just appearance. It is fewer loose ends, less confusion, and a job that is easier to move forward without constant second-guessing.
               </p>
             </div>
 
@@ -580,50 +602,93 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
-            <div className="flex flex-wrap gap-2.5">
-              {roleOrder.map((role) => {
-                const active = role === activeRole;
-                return (
-                  <button
-                    key={role}
-                    type="button"
-                    onClick={() => setActiveRole(role)}
-                    className={`rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
-                      active
-                        ? 'bg-orange text-white shadow-glow-orange'
-                        : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
-                    }`}
-                  >
-                    {roleContent[role].title}
-                  </button>
-                );
-              })}
+          <div className="mt-8 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Before and after</p>
+                  <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Real visual proof still builds trust faster than promises do.</h2>
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                <div className="overflow-hidden rounded-[24px] border border-stone-200 bg-white shadow-elev-1">
+                  <div className="relative aspect-[4/3]">
+                    <Image src="/before-4.jpg" alt="Before project condition" fill className="object-cover" />
+                  </div>
+                  <div className="px-5 py-4">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
+                    <p className="mt-2 text-[15px] font-semibold leading-relaxed text-navy">Loose, dated, and harder to move forward with confidence.</p>
+                  </div>
+                </div>
+
+                <div className="overflow-hidden rounded-[24px] border border-stone-200 bg-white shadow-elev-1">
+                  <div className="relative aspect-[4/3]">
+                    <Image src="/after-4.jpg" alt="After project result" fill className="object-cover" />
+                  </div>
+                  <div className="px-5 py-4">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
+                    <p className="mt-2 text-[15px] font-semibold leading-relaxed text-navy">Cleaner, more finished, and easier to trust as the work moves forward.</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="mt-5 rounded-[24px] border border-stone-200 bg-white px-5 py-6 text-navy shadow-elev-1">
-              <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-                <div>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeRoleContent.proof.title}</p>
-                  <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{activeRoleContent.proof.body}</p>
-                </div>
-                <div className="grid gap-3">
-                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+            <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-7">
+              <div className="flex flex-wrap gap-2.5">
+                {roleOrder.map((role) => {
+                  const active = role === activeRole;
+                  return (
+                    <button
+                      key={role}
+                      type="button"
+                      onClick={() => setActiveRole(role)}
+                      className={`rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
+                        active
+                          ? 'bg-orange text-white shadow-glow-orange'
+                          : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
+                      }`}
+                    >
+                      {roleContent[role].title}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-5 rounded-[24px] border border-stone-200 bg-stone-50 px-5 py-6 text-navy">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeRoleContent.proof.title}</p>
+                <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{activeRoleContent.proof.body}</p>
+                <div className="mt-5 grid gap-3">
+                  <div className="rounded-2xl border border-stone-200 bg-white px-4 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What was creating the problem</p>
                     <p className="mt-2 text-sm font-semibold text-navy">{activeRoleContent.proof.pain}</p>
                   </div>
-                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                  <div className="rounded-2xl border border-stone-200 bg-white px-4 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What changed once it was handled right</p>
                     <p className="mt-2 text-sm font-semibold text-navy">{activeRoleContent.proof.result}</p>
                   </div>
                 </div>
-              </div>
-              <div className="mt-5">
-                <Link href={activeRoleContent.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                  {activeRoleContent.primaryCta}
-                </Link>
+                <div className="mt-5">
+                  <Link href={activeRoleContent.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                    {activeRoleContent.primaryCta}
+                  </Link>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {featuredOffers.map((offer) => (
+              <div key={offer.title} className="rounded-[24px] border border-stone-200 bg-white p-5 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:border-orange/25 hover:shadow-elev-3">
+                <p className="text-xl font-extrabold tracking-tight text-navy">{offer.title}</p>
+                <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{offer.body}</p>
+                <div className="mt-5">
+                  <Link href={offer.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                    {offer.cta}
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
