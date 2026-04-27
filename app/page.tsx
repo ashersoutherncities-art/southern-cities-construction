@@ -41,37 +41,61 @@ const roleOrder: RoleKey[] = ['homeowners', 'investors', 'realtors', 'contractor
 type StageKey = 'before-spending' | 'need-pricing' | 'job-active';
 type NeedKey = 'permits' | 'budget' | 'contractor' | 'coordination';
 
-const questionnaireNeeds: Record<NeedKey, { label: string; summary: string }> = {
+type NeedOption = {
+  label: string;
+  summary: string;
+  nextStepLabel: string;
+  warning: string;
+};
+
+type StageOption = {
+  label: string;
+  title: string;
+  summary: string;
+};
+
+const questionnaireNeeds: Record<NeedKey, NeedOption> = {
   permits: {
     label: 'Permit path',
     summary: 'Figure out permits, approvals, and what has to happen before work starts or keeps moving.',
+    nextStepLabel: 'Permit review',
+    warning: 'This usually gets expensive when work starts first and the permit questions get answered later.',
   },
   budget: {
     label: 'Budget and pricing',
     summary: 'Get a better read on cost before committing to the wrong number.',
+    nextStepLabel: 'Budget review',
+    warning: 'This usually gets expensive when numbers are approved before the scope is really pinned down.',
   },
   contractor: {
     label: 'Contractor fit',
     summary: 'Sort out who should do the work and what questions need answers first.',
+    nextStepLabel: 'Contractor and scope review',
+    warning: 'This usually gets expensive when the wrong crew gets hired for the wrong scope.',
   },
   coordination: {
     label: 'Project coordination',
     summary: 'Get people, schedules, paperwork, and follow-through back in line.',
+    nextStepLabel: 'Project review',
+    warning: 'This usually gets expensive when everyone is moving but nobody is lined up.',
   },
 };
 
-const questionnaireStages: Record<StageKey, { label: string; title: string }> = {
+const questionnaireStages: Record<StageKey, StageOption> = {
   'before-spending': {
     label: 'Before spending more money',
     title: 'Start before the wrong call gets expensive.',
+    summary: 'This is the right time to tighten up scope, permits, pricing, and contractor decisions before money goes out the door.',
   },
   'need-pricing': {
     label: 'Before committing to a number',
     title: 'Get pricing grounded in real inputs.',
+    summary: 'This is the right time to clean up assumptions before a quote, budget, or repair number gets approved.',
   },
   'job-active': {
     label: 'Once the job is already active',
     title: 'Get the project back under control.',
+    summary: 'This is the right time to stop drift, clean up communication, and fix what is already slipping.',
   },
 };
 
@@ -88,26 +112,35 @@ export default function Home() {
     if (activeStage === 'need-pricing') {
       return {
         title: 'Recommended next step',
-        body: `${activeNeedContent.label} plus pricing review is probably the best place to start for ${activeRoleContent.title.toLowerCase()}.`,
+        eyebrow: 'Best next step',
+        body: `${activeNeedContent.nextStepLabel} plus pricing review is the strongest place to start for ${activeRoleContent.title.toLowerCase()} before a number gets approved.`,
         cta: 'Get Service Pricing',
         href: '/services#buying-paths',
+        secondaryCta: 'See Services',
+        secondaryHref: activeRoleContent.href,
       };
     }
 
     if (activeStage === 'job-active') {
       return {
         title: 'Recommended next step',
-        body: `${activeNeedContent.label} plus project review is the fastest way to stop drift and get the job moving in the right direction again.`,
+        eyebrow: 'Best next step',
+        body: `${activeNeedContent.nextStepLabel} plus project review is the fastest way to stop drift and get the job moving in the right direction again.`,
         cta: 'Request a Project Review',
         href: '/services#contact',
+        secondaryCta: 'See Services',
+        secondaryHref: activeRoleContent.href,
       };
     }
 
     return {
       title: 'Recommended next step',
-      body: `${activeNeedContent.label} review is the cleanest first step before spending more money or moving too fast.`,
+      eyebrow: 'Best next step',
+      body: `${activeNeedContent.nextStepLabel} is the cleanest first move before spending more money or moving too fast.`,
       cta: 'See Services',
       href: activeRoleContent.href,
+      secondaryCta: 'Get Service Pricing',
+      secondaryHref: '/services#buying-paths',
     };
   })();
 
@@ -223,8 +256,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              {/* TODO(homepage-audit): replace placeholder project label with the real job name and location. */}
-              <p className="mt-5 text-[15px] font-semibold leading-relaxed text-navy">[PROJECT LABEL PLACEHOLDER — e.g., “Kitchen renovation, Charlotte NC”]</p>
+              <p className="mt-5 text-[15px] font-semibold leading-relaxed text-navy">Full exterior renovation in NC</p>
             </div>
           </div>
 
@@ -308,18 +340,27 @@ export default function Home() {
               </div>
 
               <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:sticky lg:top-24 lg:self-start">
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">{questionnaireResult.title}</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">{questionnaireResult.eyebrow}</p>
                 <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{activeStageContent.title}</h3>
+                <p className="mt-3 text-sm font-semibold text-orange">For {activeRoleContent.title}</p>
                 <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{questionnaireResult.body}</p>
                 <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
                   <p className="text-sm font-semibold text-navy">{activeNeedContent.summary}</p>
+                </div>
+                <div className="mt-4 rounded-2xl border border-orange/20 bg-orange/5 px-4 py-4">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Why this comes first</p>
+                  <p className="mt-2 text-sm font-semibold text-navy">{activeNeedContent.warning}</p>
+                </div>
+                <div className="mt-4 rounded-2xl border border-stone-200 bg-white px-4 py-4">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What happens next</p>
+                  <p className="mt-2 text-sm font-semibold text-navy">{activeStageContent.summary}</p>
                 </div>
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link href={questionnaireResult.href} className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500">
                     {questionnaireResult.cta}
                   </Link>
-                  <Link href={activeRoleContent.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                    See {activeRoleContent.title} Services
+                  <Link href={questionnaireResult.secondaryHref} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                    {questionnaireResult.secondaryCta}
                   </Link>
                 </div>
               </div>
