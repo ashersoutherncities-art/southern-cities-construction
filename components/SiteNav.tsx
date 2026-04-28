@@ -23,6 +23,7 @@ const SERVICES_GROUP: NavGroup = {
 };
 
 const PRIMARY_LINKS: NavLink[] = [
+  { href: '/gallery', label: 'Gallery' },
   { href: '/services#full-contracting', label: 'Contracting' },
   { href: '/recurring-support', label: 'Support Plans' },
   { href: '/resources', label: 'Resources' },
