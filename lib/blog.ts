@@ -312,7 +312,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readTime: '6 min read',
     publishedAt: '2026-04-18',
     author: 'Southern Cities Construction',
-    coverImage: '/project-real-5.jpg',
+    coverImage: '/project-real-1.jpg',
     content: [
       {
         type: 'paragraph',
