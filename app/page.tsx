@@ -102,16 +102,16 @@ const questionnaireStages: Record<StageKey, StageOption> = {
 
 const proofProjects = [
   {
-    title: 'Exterior rehab with a clear before and after result',
-    before: '/project-real-6.jpg',
-    after: '/project-real-5.jpg',
-    notes: ['Strong real before and after comparison', 'Best current proof pair for homepage credibility', 'Useful for rehab, exterior refresh, and investor-facing proof'],
+    title: 'Older home exterior brought back to life',
+    before: '/project-real-5.jpg',
+    after: '/project-real-1.jpg',
+    notes: ['Best current before and after pair for the homepage', 'Strong visual jump from worn exterior to clean finished result', 'Useful for rehab credibility, investor proof, and owner confidence'],
   },
   {
-    title: 'Older home refreshed with a cleaner finished exterior',
-    before: '/project-real-1.jpg',
+    title: 'Full exterior refresh with a clear improvement',
+    before: '/before-2.jpg',
     after: '/project-real-2.jpg',
-    notes: ['Secondary before and after proof set', 'Useful for exterior improvement and resale-readiness storytelling', 'Shows clear improvement even though the angles are less matched'],
+    notes: ['Solid secondary proof pair for the site', 'Shows visible exterior cleanup and stronger presentation', 'Better used as supporting proof than the main hero pair'],
   },
 ];
 
