@@ -362,17 +362,17 @@ export default function Home() {
                 </div>
 
                 <div className="mt-5 overflow-hidden rounded-[24px] border border-stone-200 bg-stone-50">
-                  <div className="grid gap-px bg-stone-200 md:grid-cols-2">
-                    <div className="bg-white">
-                      <div className="relative aspect-[4/3]">
+                  <div className="grid min-h-[260px] grid-cols-2 gap-px bg-stone-200 sm:min-h-[320px] lg:min-h-[360px]">
+                    <div className="min-w-0 bg-white">
+                      <div className="relative h-full min-h-[220px] sm:min-h-[280px] lg:min-h-[320px]">
                         <Image src={activeProofProject.before} alt={`${activeProofProject.title} before`} fill className="object-cover" />
                       </div>
                       <div className="px-4 py-3">
                         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
                       </div>
                     </div>
-                    <div className="bg-white">
-                      <div className="relative aspect-[4/3]">
+                    <div className="min-w-0 bg-white">
+                      <div className="relative h-full min-h-[220px] sm:min-h-[280px] lg:min-h-[320px]">
                         <Image src={activeProofProject.after} alt={`${activeProofProject.title} after`} fill className="object-cover" />
                       </div>
                       <div className="px-4 py-3">
