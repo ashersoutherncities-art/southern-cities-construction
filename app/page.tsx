@@ -102,16 +102,16 @@ const questionnaireStages: Record<StageKey, StageOption> = {
 
 const proofProjects = [
   {
-    title: 'Older home exterior brought back to life',
+    title: 'Exterior rehab with a clear before and after result',
     before: '/project-real-6.jpg',
     after: '/project-real-5.jpg',
-    notes: ['Yellow house before, white house after', 'Useful for scope, finish, and rehab confidence', 'Shows a stronger jump from worn condition to completed exterior work'],
+    notes: ['Strong real before and after comparison', 'Best current proof pair for homepage credibility', 'Useful for rehab, exterior refresh, and investor-facing proof'],
   },
   {
-    title: 'Full exterior renovation in NC',
-    before: '/before-4.jpg',
-    after: '/after-4.jpg',
-    notes: ['Red house before and after set', 'Useful for seller, listing, and hold decisions', 'Shows real visible change, not just abstract advice'],
+    title: 'Older home refreshed with a cleaner finished exterior',
+    before: '/project-real-1.jpg',
+    after: '/project-real-2.jpg',
+    notes: ['Secondary before and after proof set', 'Useful for exterior improvement and resale-readiness storytelling', 'Shows clear improvement even though the angles are less matched'],
   },
 ];
 
@@ -289,7 +289,7 @@ export default function Home() {
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link href="/#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500">
-                  Request a Quote
+                  Request Review
                 </Link>
                 <Link href={activeRoleContent.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                   See Services
