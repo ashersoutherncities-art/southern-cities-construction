@@ -190,42 +190,42 @@ export default function Home() {
         <div className="relative z-10 container-pro">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-center">
             <div className="max-w-[46rem]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Licensed NC General Contractor · #107724</p>
-              <h1 className="mt-4 max-w-[18ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem]">
-                Full-service general contracting for North Carolina rehabs, renovations, and investor projects.
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Residential construction support · Licensed NC General Contractor #107724</p>
+              <h1 className="mt-4 max-w-[14ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem]">
+                Buy the support your project actually needs.
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-                Southern Cities Construction is a Charlotte-headquartered, statewide NC general contractor. Five years in business, 15+ projects completed, and a typical investor rehab turnaround of 1 to 3 months.
+                Southern Cities makes residential construction easier to navigate with clear services for planning, permits, budgeting, contractor fit, coordination, oversight, and full contracting when the project calls for it.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link href="/services/investors" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
-                  Investor Rehabs & Flips
+                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
+                  See Services
                 </Link>
-                <Link href="/services/homeowners" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14">
-                  Homeowner Renovations
+                <Link href="/#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14">
+                  Get the Right Next Step
                 </Link>
-                <Link href="/#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:border-orange hover:text-orange-200">
-                  Request a Quote
+                <Link href="/services#full-contracting" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:border-orange hover:text-orange-200">
+                  Bring in Full Contracting
                 </Link>
               </div>
             </div>
 
             <div className="rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What we do</p>
-              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Three lanes of work, all licensed and managed in-house.</h2>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose the right support</p>
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Choose the right support for where your project is now.</h2>
               <ul className="mt-5 space-y-3 text-sm leading-relaxed text-navy">
                 <li className="flex items-start gap-2.5">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Full general contracting</strong> for renovations, additions, and rehabs across NC.</span>
+                  <span><strong>Plan before you spend</strong> with clearer review around scope, permits, budget direction, and contractor fit.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Permit administration</strong> — applications, plan review responses, and inspections handled for you.</span>
+                  <span><strong>Get permits, budgets, or scope clear</strong> before confusion turns into delay or waste.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Investor rehab management</strong> — our strongest channel, with typical 1–3 month turnaround.</span>
+                  <span><strong>Keep an active project moving</strong> with coordination, oversight, and recurring support when the job starts drifting.</span>
                 </li>
               </ul>
               <div className="mt-5">
@@ -236,23 +236,29 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 lg:grid-cols-4">
             <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Investor rehabs &amp; flips</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan Before You Spend</p>
               <p className="mt-2 text-sm leading-relaxed text-white">
-                Our strongest channel. Scope, permits, and execution for SFR rehabs, typically completed in 1 to 3 months.
+                Start with permit path review, budget and scope review, investor review, or contractor fit consultation before more money goes out.
               </p>
             </div>
             <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Homeowner renovations</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Get Scope and Permits Clear</p>
               <p className="mt-2 text-sm leading-relaxed text-white">
-                Full GC for owner-occupied renovations, additions, and exterior work — handled under one license.
+                Reduce permit, budget, and coordination confusion so the project can move from uncertainty to a clear next step.
               </p>
             </div>
             <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Permit administration</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Keep the Job Moving</p>
               <p className="mt-2 text-sm leading-relaxed text-white">
-                Applications, plan review responses, and inspection coordination across NC jurisdictions.
+                Bring in project oversight, permit administration, draw review support, or recurring support when an active job needs tighter follow-through.
+              </p>
+            </div>
+            <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Full Contracting When Needed</p>
+              <p className="mt-2 text-sm leading-relaxed text-white">
+                Bring in licensed GC support for rehabs, renovations, additions, and larger residential scopes once the project needs full execution.
               </p>
             </div>
           </div>
@@ -266,15 +272,15 @@ export default function Home() {
           <div className="mt-8 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-7">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why owners and investors hire us</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">One licensed GC for the full job, not a string of subs.</h2>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Get the right help at the right stage.</h2>
               <div className="mt-6 grid gap-4">
                 <div className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-5">
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Licensed and accountable</p>
-                  <p className="mt-2 text-sm font-semibold leading-[1.6] text-navy">NC GC License #107724. Five years of operating history and 15+ completed projects across the state, run under one license and one point of accountability.</p>
+                  <p className="mt-2 text-sm font-semibold leading-[1.6] text-navy">NC GC License #107724, fully insured, with five years in business and 15+ completed projects. That credibility sits behind the support model, so clients can buy help with real construction backing.</p>
                 </div>
                 <div className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-5">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Built for investor pace</p>
-                  <p className="mt-2 text-sm font-semibold leading-[1.6] text-navy">Investor rehabs and flips are our strongest channel. Typical scope completes in 1 to 3 months, with permit administration handled in-house so the schedule does not stall on paperwork.</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Built for practical construction decisions</p>
+                  <p className="mt-2 text-sm font-semibold leading-[1.6] text-navy">Southern Cities helps clients plan before spending more money, buy only the support they need, and bring in deeper execution only when the scope calls for it.</p>
                 </div>
                 <div className="rounded-2xl border border-orange/20 bg-orange/5 px-5 py-5">
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Statewide NC, Charlotte HQ</p>
@@ -459,30 +465,30 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-navy-950 py-14 sm:py-16 text-white">
+      <section id="full-contracting" className="bg-navy-950 py-14 sm:py-16 text-white">
         <div className="container-pro grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div className="max-w-3xl">
             <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl leading-[1.08]">
-              Have a project? Send us the details.
+              Need full contracting? Southern Cities can take the project further.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-white/88">
-              Tell us the property, the scope, and your timeline. If it fits our lane — investor rehab, renovation, or permit-administration project in NC — we will respond with a real path to a quote.
+              Some projects need more than planning, permit help, pricing review, or oversight. When the scope calls for it, Southern Cities can serve as the licensed GC for rehabs, renovations, additions, new builds, and larger residential scopes across North Carolina.
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row sm:flex-wrap">
               <Link href="/#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
-                Request a Quote
+                Request Full GC Support
               </Link>
-              <Link href="/services/investors" className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-[15px] font-medium text-white transition-all hover:border-orange hover:text-orange-200">
-                Investor Services
+              <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-[15px] font-medium text-white transition-all hover:border-orange hover:text-orange-200">
+                Start with Support Services
               </Link>
             </div>
           </div>
           <div className="rounded-[28px] border border-white/12 bg-white/[0.05] p-6 sm:p-7">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Who we work with</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">When to bring us in deeper</p>
             <div className="mt-5 space-y-4 text-sm leading-[1.6] text-white/88">
-              <p><strong className="text-white">Investors:</strong> Single-family rehabs and flips, statewide NC. Typical turnaround of 1 to 3 months.</p>
-              <p><strong className="text-white">Homeowners:</strong> Renovations, additions, and exterior work as your licensed GC of record.</p>
-              <p><strong className="text-white">Industry partners:</strong> Realtors, trade contractors, and developers who need GC-side execution support — see <Link href="/services/industry-partners" className="underline hover:text-orange">industry partners</Link>.</p>
+              <p><strong className="text-white">Rehabs and flips:</strong> When the project needs licensed execution instead of just planning or review.</p>
+              <p><strong className="text-white">Homeowner work:</strong> When renovations, additions, or exterior scopes need a GC of record.</p>
+              <p><strong className="text-white">Larger residential scopes:</strong> When support work has clarified the next step and the project now needs full construction delivery.</p>
             </div>
           </div>
         </div>
@@ -496,11 +502,11 @@ export default function Home() {
               Send the property address, scope, and timeline. We respond from <a href="mailto:orders@southerncitiesconstruction.com" className="text-orange underline">orders@southerncitiesconstruction.com</a> with a real path to a quote — or a fast no if the project is outside our lane.
             </p>
             <div className="mt-6 rounded-[24px] border border-stone-200 bg-stone-50 px-5 py-5">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What we typically take on</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What people buy from us</p>
               <ul className="mt-4 space-y-3 text-sm leading-[1.6] text-stone-700">
-                <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Single-family investor rehabs and flips across NC, typically 1 to 3 months in scope.</span></li>
-                <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Homeowner renovations, additions, and exterior work under our GC license.</span></li>
-                <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Permit administration on projects where the owner already has a builder but needs the paperwork run.</span></li>
+                <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Permit path review, budget and scope review, contractor fit consultation, and investor review before bigger decisions get more expensive.</span></li>
+                <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Permit administration, draw review support, project oversight, and recurring support once the work is active.</span></li>
+                <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Full licensed GC support for rehabs, renovations, additions, and larger residential scopes when the project needs that level of execution.</span></li>
               </ul>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -518,7 +524,7 @@ export default function Home() {
               <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>NC GC License #107724 — verify on the <a href="https://portal.nclbgc.org/Public/Search" target="_blank" rel="noopener noreferrer" className="underline hover:text-orange">NCLBGC public portal</a>.</span></li>
               <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>5 years in business, 15+ projects completed.</span></li>
               <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Headquartered in Charlotte, NC. We work statewide.</span></li>
-              <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Services: full general contracting, permit administration, investor rehab management.</span></li>
+              <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Support-first services for planning, permits, budgets, draw issues, coordination, oversight, and full contracting when needed.</span></li>
             </ul>
           </div>
         </div>
