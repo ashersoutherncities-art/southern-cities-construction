@@ -90,6 +90,11 @@ function CartPageContent() {
                       <p className="mt-2 text-ink/65 leading-relaxed">
                         {lineItem.product.description}
                       </p>
+                      {lineItem.quantity > 1 && (
+                        <p className="mt-3 text-sm font-semibold text-orange">
+                          Quantity: {lineItem.quantity}
+                        </p>
+                      )}
                       {lineItem.key === 'permit-management-service' && (
                         <p className="mt-3 text-sm leading-relaxed text-ink/55">
                           Job variables for Permit Administration are collected on the next page before checkout.
@@ -103,6 +108,11 @@ function CartPageContent() {
                       <p className="mt-1 text-2xl font-extrabold text-orange">
                         {formatPrice(lineItem.amount)}
                       </p>
+                      {lineItem.quantity > 1 && (
+                        <p className="mt-1 text-xs text-ink/55">
+                          {formatPrice(lineItem.amount / lineItem.quantity)} each
+                        </p>
+                      )}
                     </div>
                   </div>
                   <Link
@@ -140,7 +150,7 @@ function CartPageContent() {
                   >
                     <div className="min-w-0">
                       <p className="font-semibold text-navy-900 text-[15px]">
-                        {lineItem.product.shortName}
+                        {lineItem.product.shortName}{lineItem.quantity > 1 ? ` x${lineItem.quantity}` : ''}
                       </p>
                       <p className="mt-0.5 text-xs text-ink/55 line-clamp-2">
                         {lineItem.product.description}

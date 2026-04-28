@@ -16,13 +16,13 @@ export default function AddToCartButton({
 }) {
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     const existing = getCartItemsFromCookie();
-    const next = Array.from(new Set([...existing, itemKey]));
+    const next = [...existing, itemKey];
     setCartItemsCookie(next);
     event.currentTarget.href = buildCartHref(next);
   };
 
   return (
-    <Link href={buildCartHref([itemKey])} onClick={handleClick} className={className}>
+    <Link href={buildCartHref([{ key: itemKey, quantity: 1 }])} onClick={handleClick} className={className}>
       {label}
     </Link>
   );

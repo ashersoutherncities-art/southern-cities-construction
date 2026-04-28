@@ -76,8 +76,25 @@ function getPrimaryCta(card: ServiceCardData) {
 }
 
 export function ServiceCardView({ card }: { card: ServiceCardData }) {
+  const detailCount = card.details.length;
+  const detailListClass =
+    detailCount >= 5
+      ? 'space-y-2'
+      : detailCount === 4
+        ? 'space-y-2.5'
+        : 'space-y-3';
+  const priceLabel =
+    card.purchaseType === 'fixed'
+      ? 'Price'
+      : card.purchaseType === 'recurring'
+        ? 'Monthly price'
+        : card.purchaseType === 'priced'
+          ? 'Price'
+          : null;
+  const visiblePrice = card.monthlyPrice || (card.purchaseType === 'priced' ? card.pricingNote : null);
+
   return (
-    <div className="flex h-full w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
+    <div className="service-card flex h-full min-h-[100%] w-full max-w-[420px] flex-col rounded-[22px] border border-stone-200 bg-white px-6 py-7 sm:px-7 sm:py-8 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 hover:border-orange/25">
       <div className="flex items-start justify-between gap-3">
         <div>
           {card.tag ? (
@@ -98,31 +115,33 @@ export function ServiceCardView({ card }: { card: ServiceCardData }) {
         </div>
       </div>
 
-      {(card.monthlyPrice || card.monthlyLimit || card.turnaround || card.pricingNote) && (
-        <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3">
-          {card.monthlyPrice ? <p className="text-lg font-extrabold text-navy">{card.monthlyPrice}</p> : null}
-          {card.monthlyLimit ? <p className="mt-2 text-sm text-stone-600">{card.monthlyLimit}</p> : null}
-          {card.turnaround ? <p className="mt-1 text-sm text-stone-600">{card.turnaround}</p> : null}
-          {card.pricingNote ? <p className="mt-1 text-sm text-stone-600">{card.pricingNote}</p> : null}
+      {(visiblePrice || card.monthlyLimit || card.turnaround) && (
+        <div className="mt-6 space-y-2">
+          {priceLabel && visiblePrice ? <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">{priceLabel}</p> : null}
+          {visiblePrice ? <p className="text-[1.2rem] font-extrabold tracking-tight text-orange">{visiblePrice}</p> : null}
+          {card.monthlyLimit ? <p className="text-sm text-stone-600">{card.monthlyLimit}</p> : null}
+          {card.turnaround ? <p className="text-sm text-stone-600">{card.turnaround}</p> : null}
         </div>
       )}
 
-      <div className="mt-4 space-y-4 text-[14.5px] leading-relaxed text-stone-700">
-        <p className="font-semibold text-navy">{card.pain}</p>
-        <p>{card.summary}</p>
-        <p className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-semibold text-navy">{card.outcome}</p>
-        <ul className="space-y-2">
-          {card.details.map((item) => (
-            <li key={item} className="flex items-start gap-2.5">
-              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="text-stone-600">{card.fit}</p>
+      <div className="mt-6 flex flex-1 flex-col text-[14.5px] leading-[1.6] text-stone-700">
+        <div className="space-y-6">
+          <p className="font-semibold text-navy">{card.pain}</p>
+          <p>{card.summary}</p>
+          <p className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4 text-sm font-semibold text-navy">{card.outcome}</p>
+          <ul className={`${detailListClass} mb-7 leading-[1.6]`}>
+            {card.details.map((item) => (
+              <li key={item} className="flex items-start gap-2.5">
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="text-stone-600">{card.fit}</p>
+        </div>
       </div>
 
-      <div className="mt-auto pt-6 space-y-3">
+      <div className="mt-9 space-y-3 pb-1">
         {getPrimaryCta(card)}
         <Link
           href={card.detailHref}

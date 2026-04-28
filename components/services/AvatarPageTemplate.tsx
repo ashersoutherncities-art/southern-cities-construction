@@ -4,7 +4,7 @@ import { useState } from 'react';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import { ServiceBucket } from '@/components/services/ServiceBucket';
-import { AvatarPageData } from '@/lib/services-data';
+import { AvatarPageData, ServiceCardData } from '@/lib/services-data';
 
 type RoadmapStep = {
   label: string;
@@ -118,6 +118,12 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
   const firstFixed = data.fixed?.[0];
   const firstPriced = data.priced?.[0];
   const firstReview = data.review?.[0];
+  const allServices: ServiceCardData[] = [
+    ...(data.fixed || []),
+    ...(data.priced || []),
+    ...(data.review || []),
+    ...(data.recurring || []),
+  ];
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
@@ -156,7 +162,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
       </section>
 
       <section className="border-b border-stone-200 bg-white py-16 sm:py-20">
-        <div className="container-pro grid gap-10 lg:grid-cols-2">
+        <div className="container-pro grid gap-10 lg:grid-cols-[0.9fr_0.9fr_0.8fr]">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What clients are trying to avoid</p>
             <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
@@ -178,6 +184,14 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="rounded-[24px] border border-stone-200 bg-stone-50 px-5 py-5 shadow-elev-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What this page is for</p>
+            <div className="mt-4 space-y-4 text-sm leading-[1.6] text-stone-700">
+              <p>This page is for people with a real project, deal, file, permit issue, listing problem, or active job question.</p>
+              <p>Use the smallest next step that fits the decision in front of you, then move into bigger support only when the work calls for it.</p>
+              <p>If the file is active or timing matters, use the review path and say that clearly.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -235,13 +249,174 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
         </section>
       ) : null}
 
-      <section id="services" className="bg-white py-20 sm:py-24">
-        <div className="container-pro">
-          <ServiceBucket title="Buy Now" text="Use this when the deliverable is clear, the scope is contained, and you want a straightforward service you can purchase immediately." cards={data.fixed} />
-          <ServiceBucket title="Get Pricing" text="Use this when a few project details affect price, but the work can still be priced without a full custom quote." cards={data.priced} />
-          <ServiceBucket title="Request Review" text="Use this when the work is custom, active, or important enough that it needs real review before anyone prices it casually." cards={data.review} />
-        </div>
-      </section>
+      {data.stageGroups?.length ? (
+        <section id="services" className="bg-white py-20 sm:py-24">
+          <div className="container-pro">
+            <div className="max-w-4xl">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with the stage you are in</p>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Buy the support piece that fits the job right now.</h2>
+              <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
+                You do not have to buy one giant undefined construction relationship. Use the stage below that matches the project and start with the specific help that will move it forward more cleanly.
+              </p>
+            </div>
+
+            <div className="mt-10 space-y-10">
+              {data.stageGroups.map((group) => {
+                const cards = group.serviceSlugs
+                  .map((slug) => allServices.find((service) => service.slug === slug))
+                  .filter((service): service is ServiceCardData => Boolean(service));
+
+                if (!cards.length) return null;
+
+                const isInvestorPreBuyLayout = data.slug === 'investors' && group.title === 'Before you buy' && cards.length === 3;
+                const investorPreBuyCards = isInvestorPreBuyLayout
+                  ? {
+                      investorReview: cards.find((card) => card.slug === 'investor-review'),
+                      contractorFit: cards.find((card) => card.slug === 'contractor-fit-consultation'),
+                      rehabBudget: cards.find((card) => card.slug === 'rehab-budget-review'),
+                    }
+                  : null;
+
+                return (
+                  <section key={group.title} className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-8">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{group.title}</p>
+                    <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-stone-700">{group.intro}</p>
+                    <div className={isInvestorPreBuyLayout ? 'mt-6 grid gap-5 lg:grid-cols-2 lg:grid-rows-2 lg:items-stretch' : 'mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3'}>
+                      {(isInvestorPreBuyLayout && investorPreBuyCards
+                        ? [investorPreBuyCards.investorReview, investorPreBuyCards.contractorFit, investorPreBuyCards.rehabBudget].filter((card): card is ServiceCardData => Boolean(card))
+                        : cards
+                      ).map((card) => {
+                        const specialLayoutClass = isInvestorPreBuyLayout
+                          ? card.slug === 'investor-review'
+                            ? 'lg:col-start-1 lg:row-start-1 h-full'
+                            : card.slug === 'contractor-fit-consultation'
+                              ? 'lg:col-start-1 lg:row-start-2 h-full'
+                              : card.slug === 'rehab-budget-review'
+                                ? 'lg:col-start-2 lg:row-start-1 lg:row-span-2 h-full'
+                                : 'h-full'
+                          : '';
+                        const priceLabel =
+                          card.purchaseType === 'fixed'
+                            ? 'Price'
+                            : card.purchaseType === 'recurring'
+                              ? 'Monthly price'
+                              : card.purchaseType === 'priced'
+                                ? 'Price'
+                                : null;
+                        const visiblePrice = card.monthlyPrice || (card.purchaseType === 'priced' ? card.pricingNote : null);
+                        const priceFormatClass =
+                          data.slug === 'investors' && group.title === 'Before you buy'
+                            ? card.slug === 'investor-review'
+                              ? 'divider'
+                              : card.slug === 'contractor-fit-consultation'
+                                ? 'minimal'
+                                : card.slug === 'rehab-budget-review'
+                                  ? 'title-row'
+                                  : 'default'
+                            : 'default';
+                        return (
+                          <div key={card.slug} className={`rounded-[24px] border border-stone-200 bg-white px-5 py-6 sm:px-6 sm:py-7 shadow-elev-1 ${specialLayoutClass}`}>
+                            <div className="flex h-full flex-col text-[15px] leading-[1.6] text-stone-700">
+                              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">
+                                {card.purchaseType === 'fixed' ? 'Fixed-Price Service' : card.purchaseType === 'priced' ? 'Priced After Review' : card.purchaseType === 'review' ? 'Custom-Quoted Service' : 'Ongoing Support'}
+                              </p>
+                              {priceFormatClass === 'title-row' && visiblePrice ? (
+                                <div className="mt-4 flex items-start justify-between gap-4">
+                                  <h3 className="text-xl font-extrabold tracking-tight text-navy">{card.title}</h3>
+                                  <div className="text-right">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">{priceLabel}</p>
+                                    <p className="mt-1 text-[1.1rem] font-extrabold tracking-tight text-orange">{visiblePrice}</p>
+                                  </div>
+                                </div>
+                              ) : (
+                                <h3 className="mt-4 text-xl font-extrabold tracking-tight text-navy">{card.title}</h3>
+                              )}
+                              <p className="mt-5 text-[15px] leading-[1.6] text-stone-700">{card.summary}</p>
+                              {(visiblePrice || card.monthlyLimit || card.turnaround) ? (
+                                priceFormatClass === 'divider' ? (
+                                  <div className="mt-6 border-t border-stone-200 pt-5 space-y-2">
+                                    {priceLabel && visiblePrice ? <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">{priceLabel}</p> : null}
+                                    {visiblePrice ? <p className="text-[1.2rem] font-extrabold tracking-tight text-orange">{visiblePrice}</p> : null}
+                                    {card.monthlyLimit ? <p className="text-sm text-stone-600">{card.monthlyLimit}</p> : null}
+                                    {card.turnaround ? <p className="text-sm text-stone-600">{card.turnaround}</p> : null}
+                                  </div>
+                                ) : priceFormatClass === 'title-row' ? (
+                                  (card.monthlyLimit || card.turnaround) ? (
+                                    <div className="mt-6 space-y-2">
+                                      {card.monthlyLimit ? <p className="text-sm text-stone-600">{card.monthlyLimit}</p> : null}
+                                      {card.turnaround ? <p className="text-sm text-stone-600">{card.turnaround}</p> : null}
+                                    </div>
+                                  ) : null
+                                ) : (
+                                  <div className="mt-6 space-y-2">
+                                    {priceLabel && visiblePrice ? <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">{priceLabel}</p> : null}
+                                    {visiblePrice ? <p className="text-[1.2rem] font-extrabold tracking-tight text-orange">{visiblePrice}</p> : null}
+                                    {card.monthlyLimit ? <p className="text-sm text-stone-600">{card.monthlyLimit}</p> : null}
+                                    {card.turnaround ? <p className="text-sm text-stone-600">{card.turnaround}</p> : null}
+                                  </div>
+                                )
+                              ) : null}
+                              {card.purchaseType === 'review' && card.details?.length ? (
+                                <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-5">
+                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What this includes</p>
+                                  <ul className="mt-3 space-y-2.5 text-sm leading-[1.6] text-navy">
+                                    {card.details.map((item) => (
+                                      <li key={item}>• {item}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ) : null}
+                              {card.inputsNeeded?.length ? (
+                                <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-5">
+                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What we need from you</p>
+                                  <ul className="mt-3 space-y-2.5 text-sm leading-[1.6] text-navy">
+                                    {card.inputsNeeded.map((item) => (
+                                      <li key={item}>• {item}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ) : null}
+                              {card.pricingLogic?.length ? (
+                                <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-5">
+                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">How this service is priced</p>
+                                  <ul className="mt-3 space-y-2.5 text-sm leading-[1.6] text-navy">
+                                    {card.pricingLogic.map((item) => (
+                                      <li key={item}>• {item}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ) : null}
+                              {card.nextStep ? (
+                                <div className="mt-6 rounded-2xl border border-orange/20 bg-orange/5 px-4 py-5">
+                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What happens next</p>
+                                  <p className="mt-3 text-sm font-semibold leading-[1.6] text-navy">{card.nextStep}</p>
+                                </div>
+                              ) : null}
+                              <div className="mt-10 pt-1">
+                                <a href={card.ctaHref || card.detailHref} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                                  {card.cta}
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section id="services" className="bg-white py-20 sm:py-24">
+          <div className="container-pro">
+            <ServiceBucket title="Buy Now" text="Use this when the deliverable is clear, the scope is contained, and you want a straightforward service you can purchase immediately." cards={data.fixed} />
+            <ServiceBucket title="Get Pricing" text="Use this when a few project details affect price, but the work can still be priced without a full custom quote." cards={data.priced} />
+            <ServiceBucket title="Request Review" text="Use this when the work is custom, active, or important enough that it needs real review before anyone prices it casually." cards={data.review} />
+          </div>
+        </section>
+      )}
 
       {data.recurring?.length ? (
         <section className="border-y border-stone-200 bg-stone-50 py-20 sm:py-24">

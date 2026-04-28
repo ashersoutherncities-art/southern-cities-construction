@@ -31,6 +31,9 @@ export type ServiceCardData = {
   proofTitle?: string;
   proofBody?: string;
   pricingNote?: string;
+  inputsNeeded?: string[];
+  pricingLogic?: string[];
+  nextStep?: string;
   why?: string;
   warnings?: string[];
 };
@@ -48,6 +51,11 @@ export type AvatarPageData = {
   review?: ServiceCardData[];
   recurring?: ServiceCardData[];
   recurringIntro?: string;
+  stageGroups?: {
+    title: string;
+    intro: string;
+    serviceSlugs: string[];
+  }[];
 };
 
 function detailHref(avatar: string, service: string) {
@@ -89,6 +97,7 @@ const homeownerServices: AvatarPageData = {
       cta: 'Buy Now',
       detailHref: detailHref('homeowners', 'home-assessment'),
       itemKey: 'home-assessment',
+      monthlyPrice: '$299 assessment',
       turnaround: 'Typical turnaround: 2 business days',
       proofTitle: 'Useful before the wrong spend happens',
       proofBody: 'This works best when the homeowner needs a stronger read before approving more work or budget.',
@@ -109,6 +118,7 @@ const homeownerServices: AvatarPageData = {
       cta: 'Buy Now',
       detailHref: detailHref('homeowners', 'owner-consultation'),
       itemKey: 'owner-consultation',
+      monthlyPrice: '$349',
       turnaround: 'Scheduled consultation',
       proofTitle: 'Useful when the decision is the real bottleneck',
       proofBody: 'This gives homeowners a cleaner read before they commit to a contractor, permit path, or budget decision.',
@@ -128,12 +138,12 @@ const homeownerServices: AvatarPageData = {
       primaryAction: 'buy',
       cta: 'Buy Now',
       detailHref: detailHref('homeowners', 'permit-path-review'),
-      itemKey: 'inspection-response-service',
+      itemKey: 'permit-path-review',
+      monthlyPrice: '$299 assessment',
       turnaround: 'Typical turnaround: 2 business days',
       proofTitle: 'Useful before the permit lane gets messy',
       proofBody: 'This is an early-stage clarity offer, not a full permit-administration package.',
       why: 'Small, clearly bounded deliverable that can be sold cleanly.',
-      warnings: ['Current cart key is reused temporarily and should be replaced with a dedicated permit-path product key.'],
     },
   ],
   priced: [
@@ -204,9 +214,9 @@ const investorServices: AvatarPageData = {
   slug: 'investors',
   eyebrow: 'Investors',
   shortLabel: 'For Investors',
-  heroTitle: 'Construction support for investors who need better numbers before spending and better follow-through once the job is active',
+  heroTitle: 'Construction made easier for investors who need the right support piece at the right stage',
   heroSubtitle:
-    'Southern Cities helps investors tighten budget expectations, check contractor fit, support lender conversations, and steady active jobs before delay, vacancy drag, and weak execution get more expensive.',
+    'Southern Cities helps investors buy the specific support they need before buying, before startup, during draw and lender pressure, and during active execution without stepping into one giant undefined construction relationship.',
   painPoints: [
     'The numbers still are not solid enough yet.',
     'Contractor setup decisions still feel loose.',
@@ -219,11 +229,38 @@ const investorServices: AvatarPageData = {
     'Stronger lender and draw support.',
     'Better control once the job is active.',
   ],
+  stageGroups: [
+    {
+      title: 'Before you buy',
+      intro: 'Use these when you need a cleaner read before approving a deal, a rehab number, or a contractor decision.',
+      serviceSlugs: ['investor-review', 'rehab-budget-review', 'contractor-fit-consultation'],
+    },
+    {
+      title: 'Before you start',
+      intro: 'Use these when the project is real, but startup decisions still need to be tightened before work or money moves too far.',
+      serviceSlugs: ['regional-investor-setup-consultation', 'bid-coordination-contractor-match', 'materials-logistics-setup'],
+    },
+    {
+      title: 'During lender and draw setup',
+      intro: 'Use these when weak scope support, weak bid backup, or weak draw support starts slowing funding conversations down.',
+      serviceSlugs: ['draw-review-support', 'lender-scope-bid-package'],
+    },
+    {
+      title: 'During active execution',
+      intro: 'Use these when the job is already moving and tighter follow-through matters more than broad advice.',
+      serviceSlugs: ['construction-oversight'],
+    },
+    {
+      title: 'Ongoing support',
+      intro: 'Use these when the same investor-side project questions keep repeating across active files.',
+      serviceSlugs: ['turn-support-plan', 'operator-support-plan', 'project-support-retainer'],
+    },
+  ],
   fixed: [
     {
       slug: 'investor-review',
       title: 'Investor Review',
-      summary: 'A paid pre-execution review for investors who need a better read on one property, one project, or one decision before moving forward.',
+      summary: 'A paid construction-side review for investors who need a cleaner read before they buy, fund, or start the wrong job the wrong way.',
       pain: 'You need a sharper decision before the wrong move costs time, money, or margin.',
       outcome: 'Get a focused project read and a stronger next-step recommendation.',
       details: ['Scope review', 'Execution risk notes', 'Construction and setup feedback', 'Recommended next step'],
@@ -235,11 +272,11 @@ const investorServices: AvatarPageData = {
       cta: 'Buy Now',
       detailHref: detailHref('investors', 'investor-review'),
       itemKey: 'investor-review',
+      monthlyPrice: '$499',
       turnaround: 'Typical turnaround: 2 business days',
       proofTitle: 'Useful before startup mistakes get expensive',
       proofBody: 'This should stay a clean entry offer, not a bloated calculator product.',
       why: 'Contained decision product with clear deliverable and strong front-end value.',
-      warnings: ['Current calculator/cart behavior should be removed so this stays a true fixed-price product.'],
     },
     {
       slug: 'contractor-fit-consultation',
@@ -255,12 +292,12 @@ const investorServices: AvatarPageData = {
       primaryAction: 'buy',
       cta: 'Buy Now',
       detailHref: detailHref('investors', 'contractor-fit-consultation'),
-      itemKey: 'owner-consultation',
+      itemKey: 'contractor-fit-consultation',
+      monthlyPrice: '$349',
       turnaround: 'Scheduled consultation',
       proofTitle: 'Useful before hiring gets expensive',
       proofBody: 'This is a decision product, not a quote request.',
       why: 'Advisory service with clean boundaries and good fixed-price behavior.',
-      warnings: ['Should receive its own dedicated cart key later instead of sharing a consultation product key.'],
     },
   ],
   priced: [
@@ -279,7 +316,10 @@ const investorServices: AvatarPageData = {
       cta: 'Get Pricing',
       detailHref: detailHref('investors', 'rehab-budget-review'),
       ctaHref: '/pricing/rehab-budget-review',
-      pricingNote: 'Price direction should come from project inputs, not from a fake cart product.',
+      pricingNote: 'Price depends on project size, condition, and how much review work the file needs.',
+      inputsNeeded: ['Property address', 'Photos', 'Square footage', 'Scope notes', 'Any bids or numbers you already have'],
+      pricingLogic: ['The review fee is based on project size and complexity.', 'Larger or messier files usually need more review work before the budget range is ready.'],
+      nextStep: 'You send the project details, Southern Cities reviews the file, and you get a clearer budget range before making the next decision.',
       proofTitle: 'Useful before lender and startup decisions lock in',
       proofBody: 'This should feel like disciplined pricing review, not ecommerce.',
       why: 'Real inputs affect outcome, so pricing form is the honest path.',
@@ -320,8 +360,11 @@ const investorServices: AvatarPageData = {
       detailHref: detailHref('investors', 'draw-review-support'),
       ctaHref: '/pricing/draw-review-support',
       proofTitle: 'Useful before weak submission material slows funding',
-      proofBody: 'Needs project-specific inputs before scope and price are responsible.',
-      why: 'Requires file inputs before fee and scope make sense.',
+      proofBody: 'This should feel like cleaner draw support before lender friction gets worse, not like internal file handling.',
+      inputsNeeded: ['Current draw form', 'Budget', 'Invoices', 'Photos', 'Supporting backup tied to the request'],
+      pricingLogic: ['This service can be structured as a fixed or tiered review fee based on draw size and documentation complexity.', 'The file inputs are needed to do the work. They should not be used as a lazy reason to make pricing feel undefined.'],
+      nextStep: 'Southern Cities reviews the draw package, flags weak spots, and helps you move toward a cleaner submission.',
+      why: 'Draw support is structured work and should be sold like a real product, not vague admin help.',
     },
   ],
   review: [
@@ -369,8 +412,20 @@ const investorServices: AvatarPageData = {
       summary: 'A scope-of-work and bid package for investors who need numbers they can submit with more confidence to a lender or capital partner.',
       pain: 'Weak scope support creates funding friction and shaky lender conversations.',
       outcome: 'Start with a review so the package can be scoped around the actual project and lender need.',
-      details: ['Project review', 'Scope package planning', 'Bid-package structure', 'Submission-readiness notes'],
-      included: ['Initial review', 'Package recommendation', 'Scope discussion'],
+      details: [
+        'Project review tied to lender or capital-partner expectations',
+        'Scope-of-work structure built around the actual job',
+        'Bid-package planning so pricing conversations start from cleaner support',
+        'Submission-readiness notes before the package goes out',
+        'Review of current numbers, support docs, and gaps before submission',
+        'Clearer package direction before bids or lender questions start dragging the file',
+      ],
+      included: [
+        'Initial project and file review',
+        'Recommendation on what the package needs to include',
+        'Scope and bid-package planning discussion',
+        'Guidance on what support material should be cleaned up first',
+      ],
       notIncluded: ['Guaranteed lender acceptance', 'Universal flat-fee package'],
       fit: 'Best when lender-facing project support needs to be taken seriously.',
       purchaseType: 'review',
@@ -378,6 +433,8 @@ const investorServices: AvatarPageData = {
       cta: 'Request Review',
       detailHref: detailHref('investors', 'lender-scope-bid-package'),
       ctaHref: '/review/lender-scope-bid-package',
+      nextStep:
+        'Southern Cities reviews the project, the lender need, and the current support material, then outlines the right package structure before you move further into submission or bid collection.',
       proofTitle: 'Useful when support docs affect real capital conversations',
       proofBody: 'This should sell like a serious decision page, not a cart item.',
       why: 'Higher-stakes deliverable with too much project-specific variance for ecommerce.',
@@ -531,6 +588,7 @@ const realtorServices: AvatarPageData = {
       cta: 'Buy Now',
       detailHref: detailHref('realtors', 'inspection-response'),
       itemKey: 'inspection-response-service',
+      monthlyPrice: '$299 assessment',
       turnaround: 'Typical turnaround: 1 business day',
       proofTitle: 'Useful when inspection questions are the bottleneck',
       proofBody: 'This is a clean, urgent starter offer that fits product behavior well.',
@@ -551,6 +609,7 @@ const realtorServices: AvatarPageData = {
       cta: 'Buy Now',
       detailHref: detailHref('realtors', 'realtor-inspection-review'),
       itemKey: 'realtor-inspection-review',
+      monthlyPrice: '$299 review',
       turnaround: 'Typical turnaround: 1 business day',
       proofTitle: 'Useful when the agent needs clarity fast',
       proofBody: 'Should stay distinct from broader coordination work.',

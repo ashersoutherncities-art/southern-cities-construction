@@ -1,11 +1,5 @@
-'use client';
+import { redirect } from 'next/navigation';
 
-import AvatarPageTemplate from '@/components/services/AvatarPageTemplate';
-import { getAvatarPage } from '@/lib/services-data';
-
-const data = getAvatarPage('developers-landowners');
-
-export default function DeveloperServicesPage() {
-  if (!data) return null;
-  return <AvatarPageTemplate data={data} />;
+export default function DevelopersLandownersRedirectPage() {
+  redirect('/services/industry-partners#developers');
 }

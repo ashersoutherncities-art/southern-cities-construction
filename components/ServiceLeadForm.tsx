@@ -93,7 +93,7 @@ export default function ServiceLeadForm({ service }: Props) {
   };
 
   return (
-    <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+    <div className="rounded-[24px] border border-stone-200 bg-white px-6 py-7 sm:px-7 sm:py-8 shadow-elev-1">
       <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
         {service.purchaseType === 'priced' ? 'Get pricing' : service.purchaseType === 'recurring' ? 'Review plan fit' : 'Request review'}
       </p>
@@ -102,7 +102,7 @@ export default function ServiceLeadForm({ service }: Props) {
         Give Southern Cities enough detail to point you to the right next step without pretending this is simpler than it is.
       </p>
 
-      <form className="mt-8 grid gap-4 sm:grid-cols-2" onSubmit={handleSubmit}>
+      <form className="mt-8 grid gap-5 sm:grid-cols-2" onSubmit={handleSubmit}>
         <input name="name" value={formData.name} onChange={handleChange} required className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-700" placeholder="Name" />
         <input name="email" type="email" value={formData.email} onChange={handleChange} required className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-700" placeholder="Email" />
         <input name="phone" value={formData.phone} onChange={handleChange} className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-700" placeholder="Phone" />
@@ -110,16 +110,16 @@ export default function ServiceLeadForm({ service }: Props) {
         <input name="propertyAddress" value={formData.propertyAddress} onChange={handleChange} className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-700 sm:col-span-2" placeholder="Property or project address" />
         <textarea name="details" value={formData.details} onChange={handleChange} required className="min-h-[180px] w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-700 sm:col-span-2" placeholder="What is happening right now, what has already been done, and what you need help pricing or reviewing next." />
         <input name="honey" value={formData.honey} onChange={handleChange} tabIndex={-1} autoComplete="off" className="hidden" />
-        <div className="sm:col-span-2 flex flex-wrap gap-3">
+        <div className="mt-8 sm:col-span-2 flex flex-wrap gap-3">
           <button type="submit" disabled={state === 'loading'} className="inline-flex items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-70">
             {state === 'loading' ? 'Sending...' : submitLabel}
           </button>
         </div>
         {state === 'success' ? (
-          <p className="sm:col-span-2 text-sm font-medium text-green-700">Request received. Southern Cities will review it and follow up with the right next step.</p>
+          <p className="mt-2 sm:col-span-2 text-sm font-medium leading-[1.6] text-green-700">Request received. Southern Cities will review it and follow up with the right next step.</p>
         ) : null}
         {state === 'error' ? (
-          <p className="sm:col-span-2 text-sm font-medium text-red-700">{error}</p>
+          <p className="mt-2 sm:col-span-2 text-sm font-medium leading-[1.6] text-red-700">{error}</p>
         ) : null}
       </form>
     </div>

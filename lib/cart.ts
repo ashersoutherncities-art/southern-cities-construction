@@ -13,11 +13,13 @@ export type ConstructionCartProduct = {
 export type CartSelection = {
   key: string;
   amount?: number;
+  quantity?: number;
 };
 
 export type CartLineItem = {
   key: string;
   amount: number;
+  quantity: number;
   product: ConstructionCartProduct;
 };
 
@@ -67,6 +69,15 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'Assessment-first service for inspection issues that are threatening close probability.',
     checkoutAmount: '299',
   },
+  'permit-path-review': {
+    key: 'permit-path-review',
+    name: 'Permit Path Review',
+    shortName: 'Permit Path Review',
+    price: 29900,
+    priceLabel: '$299 assessment',
+    description: 'Early permit-path review for homeowners who need to understand likely permitting requirements before work starts.',
+    checkoutAmount: '299',
+  },
   'home-assessment': {
     key: 'home-assessment',
     name: 'Home Assessment',
@@ -103,6 +114,15 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'Project review, budget guidance, risk notes, and next-step recommendations before committing to scope.',
     checkoutAmount: '349',
   },
+  'contractor-fit-consultation': {
+    key: 'contractor-fit-consultation',
+    name: 'Contractor Fit Consultation',
+    shortName: 'Contractor Fit',
+    price: 34900,
+    priceLabel: '$349 consultation',
+    description: 'Construction-side consultation for investors deciding what contractor setup fits the project before hiring gets expensive.',
+    checkoutAmount: '349',
+  },
 };
 
 function normalizeAmount(value: string | undefined): number | undefined {
@@ -113,14 +133,24 @@ function normalizeAmount(value: string | undefined): number | undefined {
 }
 
 function sanitizeCartSelections(items: CartSelection[]): CartSelection[] {
-  const seen = new Set<string>();
-  const output: CartSelection[] = [];
+  const grouped = new Map<string, CartSelection>();
   for (const item of items) {
-    if (!CART_PRODUCTS[item.key] || seen.has(item.key)) continue;
-    seen.add(item.key);
-    output.push(item.amount ? { key: item.key, amount: item.amount } : { key: item.key });
+    if (!CART_PRODUCTS[item.key]) continue;
+    const existing = grouped.get(item.key);
+    const nextQuantity = Math.max(1, item.quantity ?? 1);
+
+    if (!existing) {
+      grouped.set(item.key, item.amount ? { key: item.key, amount: item.amount, quantity: nextQuantity } : { key: item.key, quantity: nextQuantity });
+      continue;
+    }
+
+    grouped.set(item.key, {
+      key: item.key,
+      amount: item.amount ?? existing.amount,
+      quantity: (existing.quantity ?? 1) + nextQuantity,
+    });
   }
-  return output;
+  return Array.from(grouped.values());
 }
 
 export function sanitizeCartItems(items: string[]): string[] {
@@ -128,8 +158,12 @@ export function sanitizeCartItems(items: string[]): string[] {
 }
 
 function serializeCartSelection(item: CartSelection): string {
-  if (!item.amount) return item.key;
-  return `${item.key}:${(item.amount / 100).toString()}`;
+  const amountPart = item.amount ? `${(item.amount / 100).toString()}` : '';
+  const quantityPart = item.quantity && item.quantity > 1 ? `${item.quantity}` : '';
+  if (amountPart && quantityPart) return `${item.key}:${amountPart}:${quantityPart}`;
+  if (amountPart) return `${item.key}:${amountPart}`;
+  if (quantityPart) return `${item.key}::${quantityPart}`;
+  return item.key;
 }
 
 export function buildCartHref(items: Array<string | CartSelection>): string {
@@ -147,8 +181,13 @@ export function parseCartParam(value: string | null | undefined): CartSelection[
       .map((entry) => entry.trim())
       .filter(Boolean)
       .map((entry) => {
-        const [key, rawAmount] = entry.split(':');
-        return { key, amount: normalizeAmount(rawAmount) };
+        const [key, rawAmount, rawQuantity] = entry.split(':');
+        const quantity = rawQuantity ? Number(rawQuantity) : undefined;
+        return {
+          key,
+          amount: normalizeAmount(rawAmount),
+          quantity: quantity && Number.isFinite(quantity) && quantity > 0 ? Math.floor(quantity) : undefined,
+        };
       })
   );
 }
@@ -163,9 +202,11 @@ export function getCartLineItems(items: CartSelection[]): CartLineItem[] {
     .map((item) => {
       const product = CART_PRODUCTS[item.key];
       if (!product) return null;
+      const quantity = item.quantity ?? 1;
       return {
         key: item.key,
-        amount: item.amount ?? product.price,
+        amount: (item.amount ?? product.price) * quantity,
+        quantity,
         product,
       };
     })

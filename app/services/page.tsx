@@ -19,6 +19,12 @@ type RoadmapLane = {
   destination: string;
 };
 
+type ProcessStep = {
+  label: string;
+  services: string[];
+  tone: 'start' | 'info' | 'build' | 'control' | 'finish';
+};
+
 const roleMeta: Record<
   RoleKey,
   {
@@ -143,23 +149,33 @@ const roadmapLanes: RoadmapLane[] = [
 const roadmapToneStyles = {
   start: {
     dot: 'bg-[#ff6b6b]',
-    pin: 'border-t-[#ff6b6b]',
+    ring: 'ring-[#ff6b6b]/20',
+    panel: 'border-[#ff6b6b]/18 bg-[#fff6f6]',
+    chip: 'border-[#ff6b6b]/18',
   },
   info: {
     dot: 'bg-[#4aa3ff]',
-    pin: 'border-t-[#4aa3ff]',
+    ring: 'ring-[#4aa3ff]/20',
+    panel: 'border-[#4aa3ff]/18 bg-[#f5faff]',
+    chip: 'border-[#4aa3ff]/18',
   },
   build: {
     dot: 'bg-[#41c96b]',
-    pin: 'border-t-[#41c96b]',
+    ring: 'ring-[#41c96b]/20',
+    panel: 'border-[#41c96b]/18 bg-[#f4fff7]',
+    chip: 'border-[#41c96b]/18',
   },
   control: {
     dot: 'bg-[#8b6df2]',
-    pin: 'border-t-[#8b6df2]',
+    ring: 'ring-[#8b6df2]/20',
+    panel: 'border-[#8b6df2]/18 bg-[#f8f6ff]',
+    chip: 'border-[#8b6df2]/18',
   },
   finish: {
     dot: 'bg-[#d9a441]',
-    pin: 'border-t-[#d9a441]',
+    ring: 'ring-[#d9a441]/20',
+    panel: 'border-[#d9a441]/18 bg-[#fffaf0]',
+    chip: 'border-[#d9a441]/18',
   },
 };
 
@@ -206,6 +222,13 @@ export default function ServicesOverviewPage() {
   const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
   const [activeBuying, setActiveBuying] = useState<BuyingKey>('pricing');
   const [activeProblem, setActiveProblem] = useState<ProblemKey>('permits');
+  const [activeProcessStep, setActiveProcessStep] = useState<Record<RoleKey, number>>({
+    homeowners: 0,
+    investors: 0,
+    realtors: 0,
+    contractors: 0,
+    developers: 0,
+  });
   const activeRoleCard = roleMeta[activeRole];
   const filteredCards = useMemo(() => {
     return avatarOverviewCards.filter((card) => {
@@ -468,8 +491,16 @@ export default function ServicesOverviewPage() {
 
           <div className="mt-10 space-y-6">
             {roadmapLanes.map((lane) => {
+              const steps: ProcessStep[] = [
+                ...lane.stops,
+                { label: 'What gets easier', services: [lane.destination], tone: 'finish' },
+              ];
+              const currentIndex = activeProcessStep[lane.roleKey] ?? 0;
+              const currentStep = steps[currentIndex];
+              const currentTone = roadmapToneStyles[currentStep.tone];
+
               return (
-                <div key={lane.avatar} className="group rounded-[28px] border border-stone-200 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:border-orange/30 hover:shadow-[0_28px_80px_rgba(15,23,42,0.10)] sm:p-8">
+                <div key={lane.avatar} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:border-orange/30 hover:shadow-[0_28px_80px_rgba(15,23,42,0.10)] sm:p-8">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div className="max-w-xl text-left">
                       <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{lane.avatar}</p>
@@ -480,57 +511,61 @@ export default function ServicesOverviewPage() {
                     </Link>
                   </div>
 
-                  <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 transition-all duration-500 group-hover:border-orange/20 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_24px_80px_rgba(15,23,42,0.06)] sm:p-8">
-                    <div className="relative overflow-x-auto pb-4">
-                      <div className="relative w-full min-w-[1400px] px-6 py-6 lg:min-w-0">
-                        <svg className="pointer-events-none absolute left-0 top-10 h-[220px] w-full" viewBox="0 0 1200 220" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 34 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#111111" strokeWidth="34" strokeLinecap="round" />
-                          <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 186 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.95" />
-                        </svg>
-
-                        <div className="relative grid grid-cols-6 items-start gap-6 2xl:gap-8">
-                          {lane.stops.map((stop, index) => {
-                            const tone = roadmapToneStyles[stop.tone];
-                            const topClass = index % 2 === 0 ? 'pt-[108px]' : 'pt-0';
-                            const pinOffset = index % 2 === 0 ? 'top-[76px]' : 'top-0';
+                  <div className="mt-8 rounded-[28px] border border-stone-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 sm:p-7">
+                    <div className="overflow-x-auto pb-4">
+                      <div className="min-w-[760px] lg:min-w-0">
+                        <div className="flex items-center justify-between gap-0 px-2">
+                          {steps.map((step, index) => {
+                            const tone = roadmapToneStyles[step.tone];
+                            const active = currentIndex === index;
+                            const complete = index < currentIndex;
                             return (
-                              <div key={stop.label} className={`relative ${topClass}`}>
-                                <div className={`absolute left-1/2 ${pinOffset} z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110`}>
-                                  <div className="relative h-[98px] w-[74px]">
-                                    <div className={`absolute left-1/2 top-0 flex h-[60px] w-[60px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white ${tone.dot} text-xl font-extrabold text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]`}>
-                                      {index + 1}
-                                    </div>
-                                    <div className={`absolute left-1/2 top-[44px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[36px] border-l-transparent border-r-transparent ${tone.pin}`} />
-                                  </div>
-                                </div>
-
-                                <div className="mt-[118px] rounded-[24px] border border-white/80 bg-white/94 px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
-                                  <h4 className="text-[22px] font-extrabold leading-tight tracking-tight text-navy">{stop.label}</h4>
-                                  <div className="mt-4 flex flex-wrap justify-center gap-2">
-                                    {stop.services.map((service) => (
-                                      <span key={service} className="inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-orange/35 hover:shadow-[0_12px_30px_rgba(15,23,42,0.10)]">
-                                        {service}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
+                              <div key={step.label} className="flex flex-1 items-center last:flex-none">
+                                <button
+                                  type="button"
+                                  onMouseEnter={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
+                                  onFocus={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
+                                  onClick={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
+                                  className="group relative flex flex-col items-center text-center"
+                                >
+                                  <span className={`flex h-14 w-14 items-center justify-center rounded-full border-4 border-white text-base font-extrabold text-white shadow-[0_14px_30px_rgba(15,23,42,0.14)] ring-8 transition-all duration-300 ${tone.dot} ${active ? `${tone.ring} scale-110` : 'ring-transparent'} ${complete ? 'opacity-100' : ''}`}>
+                                    {index === steps.length - 1 ? '✓' : index + 1}
+                                  </span>
+                                  <span className={`mt-3 max-w-[132px] text-[13px] font-semibold leading-tight transition-colors ${active ? 'text-navy' : 'text-stone-600 group-hover:text-navy'}`}>
+                                    {step.label}
+                                  </span>
+                                </button>
+                                {index < steps.length - 1 && (
+                                  <div className="mx-3 h-[2px] flex-1 min-w-[42px] bg-[linear-gradient(90deg,rgba(15,23,42,0.22),rgba(15,23,42,0.08))]" />
+                                )}
                               </div>
                             );
                           })}
+                        </div>
+                      </div>
+                    </div>
 
-                          <div className="relative pt-[108px]">
-                            <div className="absolute left-1/2 top-[76px] z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110">
-                              <div className="relative h-[98px] w-[74px]">
-                                <div className="absolute left-1/2 top-0 flex h-[60px] w-[60px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white bg-[#d9a441] text-2xl text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]">
-                                  ✓
-                                </div>
-                                <div className="absolute left-1/2 top-[44px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[36px] border-l-transparent border-r-transparent border-t-[#d9a441]" />
-                              </div>
-                            </div>
-                            <div className="mt-[118px] rounded-[24px] border border-[#d9a441]/20 bg-[linear-gradient(180deg,#fff8eb_0%,#ffffff_100%)] px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
-                              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What gets easier</p>
-                              <p className="mt-2 text-[22px] font-extrabold leading-tight text-navy">{lane.destination}</p>
-                            </div>
+                    <div className={`mt-6 rounded-[26px] border p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] transition-all duration-300 ${currentTone.panel}`}>
+                      <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                        <div className="max-w-2xl">
+                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
+                            {currentIndex === steps.length - 1 ? 'Result' : `Step ${currentIndex + 1}`}
+                          </p>
+                          <h4 className="mt-2 text-2xl font-extrabold tracking-tight text-navy">{currentStep.label}</h4>
+                          <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
+                            {currentIndex === steps.length - 1
+                              ? lane.destination
+                              : 'Hover over each circle to see where this kind of project usually needs help next.'}
+                          </p>
+                        </div>
+                        <div className="lg:min-w-[220px] lg:max-w-[260px]">
+                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-stone-500">Services that fit here</p>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {currentStep.services.map((service) => (
+                              <span key={service} className={`inline-flex rounded-full border bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] ${currentTone.chip}`}>
+                                {service}
+                              </span>
+                            ))}
                           </div>
                         </div>
                       </div>

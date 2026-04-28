@@ -10,23 +10,38 @@ export default function InvestorServicesPage() {
 
   const data = {
     ...baseData,
-    heroTitle: 'Construction support for investors before spending, before startup, and during active work',
+    heroTitle: 'NC general contractor for investor rehabs, flips, and turn work — typically completed in 1 to 3 months',
     heroSubtitle:
-      'Southern Cities helps investors get cleaner numbers before spending, tighter startup decisions before mobilizing, better lender and draw support when funding gets messy, and stronger control when active work starts dragging on timeline, rent, and margin.',
+      'Investor rehabs and flips are our strongest channel. Southern Cities runs the full GC role on single-family rehabs across NC, including permit administration, scope execution, and rehab management. NC GC License #107724. 5 years in business, 15+ projects completed, headquartered in Charlotte and licensed statewide.',
     painPoints: [
-      'You need a cleaner number before approving the job.',
-      'Hiring and startup decisions feel too loose.',
-      'Lender or draw support is slowing funding conversations down.',
-      'The job is moving, but delay is starting to eat rent or margin.',
+      'You need a contractor who can actually run the rehab, not just bid it.',
+      'Permit administration keeps stalling the schedule.',
+      'You want one licensed GC on the file, not a string of subs to manage yourself.',
+      'Your lender needs scope and draw support that holds up under review.',
     ],
     outcomes: [
-      'Cleaner numbers before money goes out.',
-      'Better startup decisions before the job mobilizes.',
-      'Stronger lender-facing support and cleaner draw communication.',
-      'Tighter control when active work cannot afford to drift.',
+      'A licensed NC GC running the rehab end to end.',
+      'Permit applications, plan review responses, and inspections handled in-house.',
+      'Typical investor rehab completed in 1 to 3 months.',
+      'Lender-facing scope and draw support backed by real project documentation.',
     ],
     recurringIntro:
-      'Use a monthly plan when repeated turns, lender needs, draw questions, and active-job decisions keep showing up across the portfolio.',
+      'For repeat investors running multiple files at a time, we also offer monthly support plans for turn work, draw support, and active-project oversight across the portfolio.',
+    stageGroups: baseData.stageGroups?.map((group) =>
+      group.title === 'During lender and draw setup'
+        ? {
+            ...group,
+            intro:
+              'Use these when lender-facing scope support, bid backup, draw support, or submission material needs to get cleaner before the file slows down more.',
+          }
+        : group.title === 'During active execution'
+          ? {
+              ...group,
+              intro:
+                'Use these when the project is already moving and delay, weak follow-through, or loose coordination is starting to threaten time or margin.',
+            }
+          : group
+    ),
   };
 
   return <AvatarPageTemplate data={data} />;

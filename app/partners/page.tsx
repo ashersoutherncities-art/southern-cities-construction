@@ -168,7 +168,7 @@ export default function PartnersPage() {
                 Apply to become a recommended subcontractor partner.
               </h1>
               <p className="max-w-2xl text-lg leading-relaxed text-white/65">
-                We work with a small, selective network of licensed, insured North Carolina trades who want repeat residential work on a documented coordination workflow. Apply below — our team reviews every application personally.
+                Southern Cities is a Charlotte-headquartered NC general contractor (License #107724) running investor rehabs, homeowner renovations, and permit-administration work statewide. We hire a small bench of licensed, insured NC trades for repeat residential work — most rehabs run on a 1 to 3 month schedule. Apply below; our team reviews every application personally.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-3.5">
                 <button

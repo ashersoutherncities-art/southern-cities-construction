@@ -265,34 +265,39 @@ function SectionHeader({ eyebrow, title, intro }: { eyebrow: string; title: stri
 
 function RecurringCardView({ card }: { card: RecurringCard }) {
   return (
-    <div className="flex h-full w-full max-w-[420px] flex-col rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+    <div className="flex h-full w-full max-w-[420px] flex-col rounded-[24px] border border-stone-200 bg-white px-6 py-7 sm:px-7 sm:py-8 shadow-elev-1">
       <div className="mb-4 inline-flex w-fit rounded-full border border-orange/25 bg-orange/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-orange">
         {card.tag}
       </div>
       <h3 className="text-2xl font-extrabold tracking-tight text-navy">{card.name}</h3>
-      <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3">
-        <p className="text-xl font-extrabold text-navy">{card.price}</p>
-        <p className="mt-2 text-sm text-stone-600">{card.limits}</p>
-        <p className="mt-1 text-sm text-stone-600">{card.turnaround}</p>
+      <div className="mt-6 space-y-2">
+        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">Monthly price</p>
+        <p className="text-[1.2rem] font-extrabold tracking-tight text-orange">{card.price}</p>
+        <p className="text-sm text-stone-600">{card.limits}</p>
+        <p className="text-sm text-stone-600">{card.turnaround}</p>
       </div>
-      <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-stone-700">
-        <p><strong className="text-navy">Best for:</strong> {card.who}</p>
-        <p><strong className="text-navy">Use this when:</strong> {card.problem}</p>
-        <div>
-          <p className="font-semibold text-navy">Included each month</p>
-          <ul className="mt-3 space-y-2">
-            {card.includes.map((item) => (
-              <li key={item} className="flex items-start gap-2.5">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+      <div className="mt-6 flex flex-1 flex-col text-[15px] leading-[1.6] text-stone-700">
+        <div className="space-y-6">
+          <p><strong className="text-navy">Best for:</strong> {card.who}</p>
+          <p><strong className="text-navy">Use this when:</strong> {card.problem}</p>
+          <div>
+            <p className="font-semibold text-navy">Included each month</p>
+            <ul className="mt-3 mb-7 space-y-2.5 leading-[1.6]">
+              {card.includes.map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-      <a href="/services#contact" className="mt-auto inline-flex w-full items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-700">
-        {card.cta}
-      </a>
+      <div className="mt-10 pt-1">
+        <a href="/services#contact" className="inline-flex w-full items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-700">
+          {card.cta}
+        </a>
+      </div>
     </div>
   );
 }
