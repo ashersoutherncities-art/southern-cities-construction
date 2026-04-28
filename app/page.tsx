@@ -49,6 +49,15 @@ type NeedOption = {
   warning: string;
 };
 
+type ProofProject = {
+  title: string;
+  summary: string;
+  rank: string;
+  before: string;
+  after: string;
+  notes: string[];
+};
+
 type StageOption = {
   label: string;
   title: string;
@@ -100,18 +109,30 @@ const questionnaireStages: Record<StageKey, StageOption> = {
   },
 };
 
-const proofProjects = [
+const proofProjects: ProofProject[] = [
   {
-    title: 'Older home exterior brought back to life',
-    before: '/project-real-5.jpg',
-    after: '/project-real-1.jpg',
-    notes: ['Best current before and after pair for the homepage', 'Strong visual jump from worn exterior to clean finished result', 'Useful for rehab credibility, investor proof, and owner confidence'],
+    title: 'White house exterior transformation',
+    summary: 'Best current proof set for the homepage. Clear angle match, stronger condition jump, and cleaner before and after storytelling.',
+    rank: 'Top proof set',
+    before: '/gallery/white-house-before.jpg',
+    after: '/gallery/white-house-after.jpg',
+    notes: ['Best current homepage-quality pair', 'Strong for rehab credibility and investor proof', 'Clear before and after without confusing the viewer'],
   },
   {
-    title: 'Full exterior refresh with a clear improvement',
-    before: '/before-2.jpg',
-    after: '/project-real-2.jpg',
-    notes: ['Solid secondary proof pair for the site', 'Shows visible exterior cleanup and stronger presentation', 'Better used as supporting proof than the main hero pair'],
+    title: 'Older home exterior refresh',
+    summary: 'A strong secondary proof set that shows visible improvement even though the angles are not as tightly matched as the first set.',
+    rank: 'Secondary proof set',
+    before: '/gallery/farmhouse-before.jpg',
+    after: '/gallery/farmhouse-after.jpg',
+    notes: ['Useful as supporting proof on the homepage', 'Shows real visible exterior improvement', 'Better as secondary proof than hero proof'],
+  },
+  {
+    title: 'Red house exterior refresh',
+    summary: 'Additional real-project proof with a memorable finished look, best used lower in the proof rotation.',
+    rank: 'Supporting proof set',
+    before: '/gallery/red-house-before.jpg',
+    after: '/gallery/red-house-after.jpg',
+    notes: ['Clear transformation from before to after', 'Good supporting proof for real work completed', 'Stronger lower in the rotation than in the lead spot'],
   },
 ];
 
@@ -126,10 +147,13 @@ export default function Home() {
   const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
   const [activeNeed, setActiveNeed] = useState<NeedKey>('permits');
   const [activeStage, setActiveStage] = useState<StageKey>('before-spending');
+  const [activeProofIndex, setActiveProofIndex] = useState(0);
 
   const activeRoleContent = roleContent[activeRole];
   const activeNeedContent = questionnaireNeeds[activeNeed];
   const activeStageContent = questionnaireStages[activeStage];
+
+  const activeProofProject = proofProjects[activeProofIndex];
 
   const questionnaireResult = (() => {
     if (activeStage === 'need-pricing') {
@@ -298,45 +322,93 @@ export default function Home() {
             </div>
 
             <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
-              <div className="flex items-center justify-between gap-4">
-                <div>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="max-w-2xl">
                   <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recent work</p>
-                  <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Real project photos.</h2>
+                  <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Real before and after work.</h2>
+                  <p className="mt-4 text-[15px] leading-relaxed text-stone-700">
+                    Use the homepage carousel to see real project proof, then open the full gallery for a cleaner look at completed work.
+                  </p>
                 </div>
+                <Link href="/gallery" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                  Open Full Gallery
+                </Link>
               </div>
 
-              <div className="mt-6 grid gap-5 lg:grid-cols-3">
-                {proofProjects.map((project) => (
-                  <div key={project.title} className="rounded-[24px] border border-stone-200 bg-white p-4 shadow-elev-1">
-                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                      <div className="overflow-hidden rounded-[18px] border border-stone-200 bg-white">
-                        <div className="relative aspect-[4/3]">
-                          <Image src={project.before} alt={`${project.title} before`} fill className="object-cover" />
-                        </div>
-                        <div className="px-4 py-3">
-                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
-                        </div>
-                      </div>
-                      <div className="overflow-hidden rounded-[18px] border border-stone-200 bg-white">
-                        <div className="relative aspect-[4/3]">
-                          <Image src={project.after} alt={`${project.title} after`} fill className="object-cover" />
-                        </div>
-                        <div className="px-4 py-3">
-                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="mt-4 text-[15px] font-semibold leading-relaxed text-navy">{project.title}</p>
-                    <ul className="mt-3 space-y-2 text-sm leading-[1.6] text-stone-700">
-                      {project.notes.map((note) => (
-                        <li key={note} className="flex items-start gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                          <span>{note}</span>
-                        </li>
-                      ))}
-                    </ul>
+              <div className="mt-6 rounded-[24px] border border-stone-200 bg-white p-4 shadow-elev-1 sm:p-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">{activeProofProject.rank}</p>
+                    <p className="mt-2 text-lg font-semibold text-navy">{activeProofProject.title}</p>
                   </div>
-                ))}
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setActiveProofIndex((prev) => (prev - 1 + proofProjects.length) % proofProjects.length)}
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 bg-white text-navy transition hover:border-orange hover:text-orange"
+                      aria-label="Show previous project"
+                    >
+                      <span aria-hidden="true">←</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveProofIndex((prev) => (prev + 1) % proofProjects.length)}
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 bg-white text-navy transition hover:border-orange hover:text-orange"
+                      aria-label="Show next project"
+                    >
+                      <span aria-hidden="true">→</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid gap-4 lg:grid-cols-2">
+                  <div className="overflow-hidden rounded-[20px] border border-stone-200 bg-stone-50">
+                    <div className="relative aspect-[4/3] bg-white">
+                      <Image src={activeProofProject.before} alt={`${activeProofProject.title} before`} fill className="object-cover" />
+                    </div>
+                    <div className="px-4 py-3">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-[20px] border border-stone-200 bg-stone-50">
+                    <div className="relative aspect-[4/3] bg-white">
+                      <Image src={activeProofProject.after} alt={`${activeProofProject.title} after`} fill className="object-cover" />
+                    </div>
+                    <div className="px-4 py-3">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="mt-5 text-[15px] leading-relaxed text-stone-700">{activeProofProject.summary}</p>
+                <ul className="mt-4 space-y-2 text-sm leading-[1.6] text-stone-700">
+                  {activeProofProject.notes.map((note) => (
+                    <li key={note} className="flex items-start gap-2.5">
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
+                      <span>{note}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 flex flex-wrap gap-2.5">
+                  {proofProjects.map((project, index) => {
+                    const active = index === activeProofIndex;
+                    return (
+                      <button
+                        key={project.title}
+                        type="button"
+                        onClick={() => setActiveProofIndex(index)}
+                        className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                          active
+                            ? 'bg-orange text-white shadow-glow-orange'
+                            : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
+                        }`}
+                      >
+                        Set {index + 1}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
