@@ -361,34 +361,38 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-5 grid gap-4 lg:grid-cols-2">
-                  <div className="overflow-hidden rounded-[20px] border border-stone-200 bg-stone-50">
-                    <div className="relative aspect-[4/3] bg-white">
-                      <Image src={activeProofProject.before} alt={`${activeProofProject.title} before`} fill className="object-cover" />
+                <div className="mt-5 overflow-hidden rounded-[24px] border border-stone-200 bg-stone-50">
+                  <div className="grid gap-px bg-stone-200 md:grid-cols-2">
+                    <div className="bg-white">
+                      <div className="relative aspect-[4/3]">
+                        <Image src={activeProofProject.before} alt={`${activeProofProject.title} before`} fill className="object-cover" />
+                      </div>
+                      <div className="px-4 py-3">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
+                      </div>
                     </div>
-                    <div className="px-4 py-3">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
-                    </div>
-                  </div>
-                  <div className="overflow-hidden rounded-[20px] border border-stone-200 bg-stone-50">
-                    <div className="relative aspect-[4/3] bg-white">
-                      <Image src={activeProofProject.after} alt={`${activeProofProject.title} after`} fill className="object-cover" />
-                    </div>
-                    <div className="px-4 py-3">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
+                    <div className="bg-white">
+                      <div className="relative aspect-[4/3]">
+                        <Image src={activeProofProject.after} alt={`${activeProofProject.title} after`} fill className="object-cover" />
+                      </div>
+                      <div className="px-4 py-3">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <p className="mt-5 text-[15px] leading-relaxed text-stone-700">{activeProofProject.summary}</p>
-                <ul className="mt-4 space-y-2 text-sm leading-[1.6] text-stone-700">
-                  {activeProofProject.notes.map((note) => (
-                    <li key={note} className="flex items-start gap-2.5">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                      <span>{note}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-5 grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+                  <p className="text-[15px] leading-relaxed text-stone-700">{activeProofProject.summary}</p>
+                  <ul className="space-y-2 text-sm leading-[1.6] text-stone-700">
+                    {activeProofProject.notes.map((note) => (
+                      <li key={note} className="flex items-start gap-2.5">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
+                        <span>{note}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 <div className="mt-5 flex flex-wrap gap-2.5">
                   {proofProjects.map((project, index) => {
