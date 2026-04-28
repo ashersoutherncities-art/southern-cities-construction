@@ -10,20 +10,20 @@ export default function HomeownerServicesPage() {
 
   const data = {
     ...baseData,
-    heroTitle: 'Licensed NC general contractor for renovations, additions, and exterior work',
+    heroTitle: 'Residential project help before you overcommit',
     heroSubtitle:
-      'Southern Cities is your licensed GC of record for owner-occupied renovations across North Carolina. We handle full general contracting, permit administration, and inspection coordination under one license — NC GC #107724. 5 years in business, 15+ completed projects, Charlotte HQ, statewide NC.',
+      'Southern Cities helps homeowners buy the right support at the right stage, from clearer next steps and permit-path review to budget direction, project support, and full contracting when the project calls for that level of execution. NC GC License #107724. 5 years in business, 15+ completed projects, Charlotte HQ, statewide NC.',
     painPoints: [
-      'You want a licensed GC running the project, not a referral chain.',
-      'Permit applications and plan-review responses keep stalling the start.',
-      'You need a real budget conversation, not a sticker-shock estimate.',
-      'You want one point of contact through the build, not a moving roster.',
+      'You need a clearer next step before spending more money.',
+      'Permit questions and paperwork are creating hesitation around what to do next.',
+      'Budget and scope still feel too loose to move forward casually.',
+      'The project needs stronger follow-through without jumping straight into the wrong construction relationship.',
     ],
     outcomes: [
-      'One licensed GC accountable for scope, schedule, and quality.',
-      'Permit administration and inspection coordination handled for you.',
-      'Honest budget direction before the design and scope lock in.',
-      'Steady communication while the work is in the field.',
+      'A clearer next step before commitment.',
+      'Better permit-path clarity and less paperwork confusion.',
+      'More realistic budget direction before the wrong spend happens.',
+      'Stronger support during active work, with full contracting available when it is the right fit.',
     ],
   };
 

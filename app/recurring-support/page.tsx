@@ -26,9 +26,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'investors',
     eyebrow: 'Investors / Operators',
-    title: 'Ongoing help for investors who need turns, budgets, and active jobs to keep moving.',
+    title: 'Ongoing construction support for investors with repeat project needs.',
     intro:
-      'Use these plans when turn work, budget questions, draw support, and active jobs keep coming back and you do not want to restart the conversation every time.',
+      'Use these plans when turn work, budget questions, draw support, and active jobs keep coming back and you want ongoing access to defined support capacity instead of restarting from zero every time.',
     cards: [
       {
         name: 'Turn Support Plan',
@@ -83,9 +83,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'contractors',
     eyebrow: 'Contractors',
-    title: 'Ongoing permit and office help for contractors who need more time in the field.',
+    title: 'Ongoing support capacity for contractors who need more field focus.',
     intro:
-      'These plans are for contractors who need permit follow-up, inspection handling, paperwork help, and steady office support without adding a full-time hire.',
+      'These plans are for contractors who need recurring permit, inspection, paperwork, and office support capacity without adding a full-time internal hire first.',
     cards: [
       {
         name: 'Permit & Inspection Support Plan',
@@ -140,9 +140,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'developers',
     eyebrow: 'Developers / Repeat Operators',
-    title: 'Ongoing help for repeat clients who need active projects to keep moving.',
+    title: 'Ongoing project-control support for repeat operators.',
     intro:
-      'These plans are for repeat clients who need active jobs to stay on track, decisions to get made faster, and permit or job issues to stop dragging work out.',
+      'These plans are for repeat clients who need ongoing access to project-control support, milestone visibility, and clearer next decisions across active residential work.',
     cards: [
       {
         name: 'Project Control Plan',
@@ -181,9 +181,9 @@ const recurringSections: RecurringSection[] = [
   {
     id: 'realtors',
     eyebrow: 'Realtors',
-    title: 'Ongoing help for agents who need faster answers on deals, listings, and repair questions.',
+    title: 'Ongoing support for agents with repeat deal and listing questions.',
     intro:
-      'Use these plans when inspection questions, listing-prep decisions, client repair questions, and repeated follow-up keep slowing deals and listings down.',
+      'Use these plans when inspection questions, listing-prep decisions, client repair questions, and repeated construction-side questions show up often enough that a recurring support lane makes more sense.',
     cards: [
       {
         name: 'Deal Desk',
@@ -312,10 +312,10 @@ export default function RecurringSupportPage() {
           <div className="max-w-4xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recurring Support</p>
             <h1 className="mt-4 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl">
-              Ongoing help for repeat clients who need faster answers and less delay.
+              Ongoing construction support for repeat needs.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-              These plans are for clients who regularly need help with permits, inspections, listing prep, project coordination, and active-job decisions, and do not want to start over every time.
+              These plans give repeat clients ongoing access to specific support capacity for permits, inspections, listing prep, budgeting, project coordination, and active-job decisions without starting from scratch each time.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">

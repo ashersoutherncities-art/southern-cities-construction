@@ -15,10 +15,10 @@ export default function SiteFooter() {
             <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={176} height={44} className="mb-5 h-11 w-auto" />
             <div className="space-y-3 text-sm leading-relaxed text-white/65 max-w-sm">
               <p>Southern Cities Construction LLC</p>
+              <p>Construction support made easier for residential projects across North Carolina.</p>
+              <p>Planning · Permits · Budgeting · Coordination · Oversight · Support Plans · Full Contracting</p>
               <p>Licensed NC General Contractor · NC GC License #107724</p>
-              <p>Full general contracting · Permit administration · Investor rehab management</p>
-              <p>5 years in business · 15+ projects completed</p>
-              <p>Charlotte, NC · Statewide NC coverage</p>
+              <p>5 years in business · 15+ projects completed · Charlotte, NC · Statewide NC coverage</p>
             </div>
           </div>
 
@@ -26,10 +26,12 @@ export default function SiteFooter() {
             <h4 className="mb-5 text-sm font-semibold tracking-wide text-white">Company</h4>
             <ul className="space-y-3">
               <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">All Services</Link></li>
-              <li><Link href="/services/investors" className="text-sm text-white/50 transition-colors hover:text-orange">Investors</Link></li>
-              <li><Link href="/services/homeowners" className="text-sm text-white/50 transition-colors hover:text-orange">Homeowners</Link></li>
-              <li><Link href="/services/industry-partners" className="text-sm text-white/50 transition-colors hover:text-orange">Industry Partners</Link></li>
-              <li><Link href="/recurring-support" className="text-sm text-white/50 transition-colors hover:text-orange">Recurring Support</Link></li>
+              <li><Link href="/services/homeowners" className="text-sm text-white/50 transition-colors hover:text-orange">For Homeowners</Link></li>
+              <li><Link href="/services/investors" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors</Link></li>
+              <li><Link href="/services/industry-partners#realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
+              <li><Link href="/services/industry-partners#contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
+              <li><Link href="/services#full-contracting" className="text-sm text-white/50 transition-colors hover:text-orange">Contracting</Link></li>
+              <li><Link href="/recurring-support" className="text-sm text-white/50 transition-colors hover:text-orange">Support Plans</Link></li>
             </ul>
           </div>
 
@@ -41,7 +43,7 @@ export default function SiteFooter() {
               <li><Link href="/partners" className="text-sm text-white/50 transition-colors hover:text-orange">Partner With Us</Link></li>
               <li><a href="https://clients.southerncitiesconstruction.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 transition-colors hover:text-orange">Client Portal</a></li>
               <li><Link href="/cart" className="text-sm text-white/50 transition-colors hover:text-orange">Cart</Link></li>
-              <li><Link href="/#contact" className="text-sm text-white/50 transition-colors hover:text-orange">Request a Quote</Link></li>
+              <li><Link href="/#contact" className="text-sm text-white/50 transition-colors hover:text-orange">Request Review</Link></li>
             </ul>
           </div>
 

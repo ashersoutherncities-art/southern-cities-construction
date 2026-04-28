@@ -10,23 +10,23 @@ export default function InvestorServicesPage() {
 
   const data = {
     ...baseData,
-    heroTitle: 'NC general contractor for investor rehabs, flips, and turn work — typically completed in 1 to 3 months',
+    heroTitle: 'Construction help for investors at every project stage',
     heroSubtitle:
-      'Investor rehabs and flips are our strongest channel. Southern Cities runs the full GC role on single-family rehabs across NC, including permit administration, scope execution, and rehab management. NC GC License #107724. 5 years in business, 15+ projects completed, headquartered in Charlotte and licensed statewide.',
+      'Southern Cities helps investors buy the right support before buying, before startup, during lender and draw setup, during active execution, and across repeat projects, with full contracting available when the scope calls for licensed execution. NC GC License #107724. 5 years in business, 15+ projects completed, headquartered in Charlotte and licensed statewide.',
     painPoints: [
-      'You need a contractor who can actually run the rehab, not just bid it.',
-      'Permit administration keeps stalling the schedule.',
-      'You want one licensed GC on the file, not a string of subs to manage yourself.',
-      'Your lender needs scope and draw support that holds up under review.',
+      'The numbers still are not solid enough yet.',
+      'Contractor setup, permit-path, or startup decisions still feel too loose.',
+      'Lender, draw, and bid support need to get cleaner before the file moves forward well.',
+      'Active work needs stronger oversight, coordination, or repeat support capacity.',
     ],
     outcomes: [
-      'A licensed NC GC running the rehab end to end.',
-      'Permit applications, plan review responses, and inspections handled in-house.',
-      'Typical investor rehab completed in 1 to 3 months.',
-      'Lender-facing scope and draw support backed by real project documentation.',
+      'A better read before money goes out.',
+      'Cleaner startup decisions and better contractor fit.',
+      'Stronger lender-facing and draw support.',
+      'Better execution support during active work, with full contracting available when needed.',
     ],
     recurringIntro:
-      'For repeat investors running multiple files at a time, we also offer monthly support plans for turn work, draw support, and active-project oversight across the portfolio.',
+      'For repeat investors running multiple files at a time, we also offer recurring support plans for turn work, draw support, project oversight, and operator support across the portfolio.',
     stageGroups: baseData.stageGroups?.map((group) =>
       group.title === 'During lender and draw setup'
         ? {

@@ -264,17 +264,17 @@ export default function ServicesOverviewPage() {
               Services
             </div>
             <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Find the right help for the kind of project problem you have.
+              Construction support made easier.
             </h1>
             <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-              Start with the page that fits your role. Some work can be bought now. Some can be priced after a short review. Some needs a custom quote.
+              Buy the support your project actually needs, from fixed-price services and priced-after-review support to custom-scoped help, recurring support plans, and full contracting when the project calls for it.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#start-here" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
                 Start Here
               </a>
               <a href="/recurring-support" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
-                See Monthly Support
+                See Support Plans
               </a>
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function ServicesOverviewPage() {
               </div>
 
               <div className="mt-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">2. What is slowing things down?</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">2. What do you need help with?</p>
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
                   {Object.entries(guidedProblems).map(([key, value]) => {
                     const active = key === activeProblem;
@@ -341,9 +341,9 @@ export default function ServicesOverviewPage() {
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">3. What do you need right now?</p>
                 <div className="mt-3 flex flex-wrap gap-2.5">
                   {[
-                    { key: 'buy', label: 'Get started' },
-                    { key: 'pricing', label: 'Get a price' },
-                    { key: 'quote', label: 'Talk about a custom job' },
+                    { key: 'buy', label: 'Buy now' },
+                    { key: 'pricing', label: 'Get pricing' },
+                    { key: 'quote', label: 'Request quote' },
                   ].map((item) => {
                     const active = item.key === activeBuying;
                     return (
@@ -395,7 +395,7 @@ export default function ServicesOverviewPage() {
               </button>
             </div>
             <div className={`rounded-[24px] border p-6 transition-all ${activeBuying === 'pricing' ? 'border-orange bg-orange/[0.06]' : 'border-stone-200 bg-stone-50'}`}>
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy">Get Pricing</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy">Priced After Review</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
                 Use this when a few project details affect price, but it still does not need a full custom quote.
               </p>
@@ -404,7 +404,7 @@ export default function ServicesOverviewPage() {
               </button>
             </div>
             <div className={`rounded-[24px] border p-6 transition-all ${activeBuying === 'quote' ? 'border-orange bg-orange/[0.06]' : 'border-stone-200 bg-stone-50'}`}>
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy">Custom Quotes</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy">Custom-Quoted Services</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
                 Use this when the work is active, custom, or important enough that it needs real scoping before pricing.
               </p>
@@ -424,7 +424,7 @@ export default function ServicesOverviewPage() {
               Choose the page that fits how you are involved.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-              Start with the role you are in now. Each page is built around the kind of delay, paperwork, decision pressure, and follow-through problems that show up in that kind of work.
+              Start with the role you are in now. Each page is built to help you buy the right support piece for the stage your project is in.
             </p>
           </div>
 
@@ -448,9 +448,9 @@ export default function ServicesOverviewPage() {
 
           <div className="mt-8 rounded-[28px] border border-stone-200 bg-stone-50 p-7 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeRoleCard.title}</p>
-            <h3 className="mt-3 text-3xl font-extrabold tracking-tight text-navy">What is going wrong</h3>
+            <h3 className="mt-3 text-3xl font-extrabold tracking-tight text-navy">What you may need help with</h3>
             <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-stone-700">{activeRoleCard.pain}</p>
-            <h3 className="mt-6 text-2xl font-extrabold tracking-tight text-navy">What gets easier</h3>
+            <h3 className="mt-6 text-2xl font-extrabold tracking-tight text-navy">What the right support helps with</h3>
             <p className="mt-3 max-w-3xl text-[16px] leading-relaxed text-stone-700">{activeRoleCard.outcome}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {activeRoleCard.topServices.map((service) => (
@@ -482,10 +482,10 @@ export default function ServicesOverviewPage() {
           <div className="max-w-4xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with what is happening now</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-              Different projects get stuck in different places.
+              Different projects need different support at different stages.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-              Open the role that fits your situation, then move to the next step that fits.
+              Open the role that fits your situation, then move to the support piece that fits what is happening now.
             </p>
           </div>
 
