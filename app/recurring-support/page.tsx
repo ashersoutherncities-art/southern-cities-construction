@@ -11,8 +11,6 @@ type RecurringCard = {
   creditSummary: string;
   creditUses: string[];
   oneCreditMeans: string[];
-  notIncluded: string[];
-  overage: string;
   turnaround: string;
   cta: string;
   href: string;
@@ -32,19 +30,17 @@ const recurringSections: RecurringSection[] = [
     eyebrow: 'Investors / Operators',
     title: 'Ongoing construction support for investors with repeat project needs.',
     intro:
-      'Use these plans when turn work, budget questions, draw support, and active jobs keep coming back and you want ongoing access to defined support capacity instead of restarting from zero every time.',
+      'Simple monthly support for repeat investor work.',
     cards: [
       {
         name: 'Turn Support Plan',
         tag: 'Entry plan',
         price: '$749/mo',
         who: 'Small rental owners and operators with recurring turns.',
-        problem: 'Best when vacancy drag, slow decisions, and repeated follow-up keep eating time and margin.',
-        creditSummary: 'Includes 2 monthly investor review credits.',
+        problem: 'Best when repeat project questions keep slowing things down.',
+        creditSummary: 'Includes up to 2 reviews each month.',
         creditUses: ['Deal & Scope Review', 'Rehab Budget Review', 'Turn Scope Review', 'Permit & Local Compliance Review'],
-        oneCreditMeans: ['one property or one project file', 'one submitted file set, estimate set, or scope request', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple properties under one credit'],
-        overage: 'If you need more than 2 credits in a month, Southern Cities can move the extra work into an added one-time review or step you up to a larger plan.',
+        oneCreditMeans: ['1 review = 1 property or 1 draw'],
         turnaround: '1 business day response target.',
         cta: 'Review Turn Support Plan',
         href: '/services/investors/turn-support-plan',
@@ -53,13 +49,11 @@ const recurringSections: RecurringSection[] = [
         name: 'Operator Support Plan',
         tag: 'Most practical',
         price: '$1,499/mo',
-        who: 'Active investors with repeated job decisions, lender needs, and draw-related help.',
-        problem: 'Best when delay, weak scope clarity, funding friction, and repeated owner involvement are keeping active jobs from moving cleanly.',
-        creditSummary: 'Includes 4 monthly investor review credits, plus 1 lender package credit and 1 draw review credit.',
+        who: 'Active investors with repeat job decisions and draw-related help.',
+        problem: 'Best when active jobs need more ongoing review support.',
+        creditSummary: 'Includes up to 4 reviews each month.',
         creditUses: ['Deal & Scope Review', 'Rehab Budget Review', 'Permit & Local Compliance Review', 'Contractor Fit Review', 'Draw Review Support'],
-        oneCreditMeans: ['one property or one draw package', 'one submitted file set, bid set, or draw request package', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple properties under one credit'],
-        overage: 'If you use all included credits, Southern Cities can add one-time review work at the current service rate or move you into a retainer with more capacity.',
+        oneCreditMeans: ['1 review = 1 property or 1 draw'],
         turnaround: 'Same-day acknowledgment, 1 business day standard response.',
         cta: 'Review Operator Support Plan',
         href: '/services/investors/operator-support-plan',
@@ -68,13 +62,11 @@ const recurringSections: RecurringSection[] = [
         name: 'Project Support Retainer',
         tag: 'Higher-touch',
         price: 'Starting at $2,500/mo',
-        who: 'Higher-volume operators with several active jobs that need stronger recurring control.',
-        problem: 'Best when too many moving parts, repeated owner follow-up, and weak project control are making live jobs harder to manage.',
-        creditSummary: 'Includes 6 monthly investor review credits, plus 2 lender or draw support credits.',
-        creditUses: ['Project Control Review', 'Budget & Scope Review', 'Change Decision Review', 'Lender Package Review', 'Draw Review Support'],
-        oneCreditMeans: ['one property, one active project issue, or one draw/lender package', 'one submitted file set, milestone package, or review request', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple properties under one credit'],
-        overage: 'If monthly credit use runs past the included amount, Southern Cities can price the overflow separately or expand the retainer scope.',
+        who: 'Higher-volume operators with several active jobs.',
+        problem: 'Best when you need more ongoing review capacity every month.',
+        creditSummary: 'Includes up to 6 reviews each month.',
+        creditUses: ['Project Control Review', 'Budget & Scope Review', 'Change Decision Review', 'Lender Review', 'Draw Review Support'],
+        oneCreditMeans: ['1 review = 1 property or 1 draw'],
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Retainer Review',
         href: '/services/investors/project-support-retainer',
@@ -86,19 +78,17 @@ const recurringSections: RecurringSection[] = [
     eyebrow: 'Contractors',
     title: 'Ongoing support capacity for contractors who need more field focus.',
     intro:
-      'These plans are for contractors who need recurring permit, inspection, paperwork, and office support capacity without adding a full-time internal hire first.',
+      'Simple monthly support for repeat permit, inspection, and admin work.',
     cards: [
       {
         name: 'Permit & Inspection Support Plan',
         tag: 'Entry plan',
         price: '$899/mo',
-        who: 'Small contractors and trade teams buried in permit follow-up and inspection handling.',
-        problem: 'Best when office work keeps pulling time away from production and slowing jobs down.',
-        creditSummary: 'Includes 4 monthly permit/admin support credits.',
+        who: 'Small contractors and trade teams.',
+        problem: 'Best when permit and inspection tasks keep slowing jobs down.',
+        creditSummary: 'Includes up to 4 reviews each month.',
         creditUses: ['Permit Packet Prep', 'Inspection Scheduling', 'Correction Follow-Up', 'Permit Status Follow-Up'],
-        oneCreditMeans: ['one project', 'one permit/admin task, one submission, or one follow-up cycle', 'one written status response or update', 'one clarification round when needed'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple projects under one credit'],
-        overage: 'If you need more than 4 credits in a month, Southern Cities can add one-time permit/admin support or move you into a higher-capacity plan.',
+        oneCreditMeans: ['1 review = 1 project'],
         turnaround: '1 business day response target.',
         cta: 'Review Permit & Inspection Plan',
         href: '/services/contractors/permit-inspection-support-plan',
@@ -107,13 +97,11 @@ const recurringSections: RecurringSection[] = [
         name: 'Back-Office Support Plan',
         tag: 'Strongest recurring fit',
         price: '$1,750/mo',
-        who: 'Growing contractors who need recurring admin help across active residential jobs.',
-        problem: 'Best when back-office overload is choking field production and forcing the owner to carry too much admin burden personally.',
-        creditSummary: 'Includes 8 monthly contractor support credits.',
+        who: 'Growing contractors with active jobs.',
+        problem: 'Best when back-office work keeps pulling time away from the field.',
+        creditSummary: 'Includes up to 8 reviews each month.',
         creditUses: ['Permit Packet Prep', 'Inspection Scheduling', 'Correction Follow-Up', 'Admin Support for Active Jobs', 'Documentation Follow-Up'],
-        oneCreditMeans: ['one project', 'one clearly scoped admin, permit, inspection, or documentation task', 'one written response or status update', 'one clarification round when needed'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple projects under one credit'],
-        overage: 'If monthly support demand exceeds 8 credits, Southern Cities can price the extra work separately or move you into the retainer tier.',
+        oneCreditMeans: ['1 review = 1 project'],
         turnaround: 'Same-day acknowledgment, 1 business day standard response.',
         cta: 'Review Back-Office Plan',
         href: '/services/contractors/back-office-support-plan',
@@ -122,13 +110,11 @@ const recurringSections: RecurringSection[] = [
         name: 'Contractor Office Extension Retainer',
         tag: 'Higher-touch',
         price: 'Starting at $2,900/mo',
-        who: 'Busy contractors who need steadier outside office help without building a full internal team yet.',
-        problem: 'Best when hiring pressure, admin chaos, and revenue-producing field time keep getting eaten by office problems.',
-        creditSummary: 'Includes 12 monthly contractor support credits.',
+        who: 'Busy contractors who need steadier support.',
+        problem: 'Best when you need more support capacity every month.',
+        creditSummary: 'Includes up to 12 reviews each month.',
         creditUses: ['Permit Packet Prep', 'Inspection Scheduling', 'Correction Follow-Up', 'Admin Support for Active Jobs', 'Documentation Follow-Up'],
-        oneCreditMeans: ['one project', 'one clearly scoped admin, permit, inspection, or documentation task', 'one written response or status update', 'one clarification round when needed'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple projects under one credit'],
-        overage: 'If the team needs more than the included credits, Southern Cities can expand the retainer or quote overflow support separately.',
+        oneCreditMeans: ['1 review = 1 project'],
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Retainer Review',
         href: '/services/contractors/contractor-office-extension-retainer',
@@ -140,19 +126,17 @@ const recurringSections: RecurringSection[] = [
     eyebrow: 'Developers / Repeat Operators',
     title: 'Ongoing project-control support for repeat operators.',
     intro:
-      'These plans are for repeat clients who need ongoing access to project-control support, milestone visibility, and clearer next decisions across active residential work.',
+      'Simple monthly support for repeat project-control work.',
     cards: [
       {
         name: 'Project Control Plan',
         tag: 'Entry plan',
         price: '$1,250/mo',
-        who: 'Repeat operators who need a clearer read on active projects, upcoming risks, and next decisions.',
-        problem: 'Best when active projects keep needing repeated follow-up and tighter visibility to stay on track.',
-        creditSummary: 'Includes 2 monthly project-control review credits.',
+        who: 'Repeat operators with active projects.',
+        problem: 'Best when projects need regular check-ins and reviews.',
+        creditSummary: 'Includes up to 2 reviews each month.',
         creditUses: ['Project Review', 'Budget & Scope Review', 'Permit Path Review', 'Milestone Review', 'Draw / Progress Review'],
-        oneCreditMeans: ['one project', 'one submitted file set or milestone package', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple projects under one credit'],
-        overage: 'If more than 2 credits are needed in a month, Southern Cities can add one-time review work or move you into the higher-touch retainer.',
+        oneCreditMeans: ['1 review = 1 project or 1 draw'],
         turnaround: '1 business day response target.',
         cta: 'Review Project Control Plan',
         href: '/services/developers-landowners/project-control-plan',
@@ -161,13 +145,11 @@ const recurringSections: RecurringSection[] = [
         name: 'Execution Oversight Retainer',
         tag: 'Higher-touch',
         price: 'Starting at $3,500/mo',
-        who: 'Repeat operators with larger or more active residential files that need stronger recurring control.',
-        problem: 'Best when weak job control and loose execution are causing expensive slippage across active files.',
-        creditSummary: 'Includes 4 monthly project-control review credits.',
+        who: 'Repeat operators with larger or more active files.',
+        problem: 'Best when you need more ongoing project-control support.',
+        creditSummary: 'Includes up to 4 reviews each month.',
         creditUses: ['Project Review', 'Budget & Scope Review', 'Permit Path Review', 'Milestone Review', 'Draw / Progress Review'],
-        oneCreditMeans: ['one project', 'one submitted file set or milestone package', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple projects under one credit'],
-        overage: 'If the project load needs more than 4 credits in a month, Southern Cities can expand the retainer or quote overflow review work separately.',
+        oneCreditMeans: ['1 review = 1 project or 1 draw'],
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Oversight Retainer Review',
         href: '/services/developers-landowners/execution-oversight-retainer',
@@ -179,20 +161,18 @@ const recurringSections: RecurringSection[] = [
     eyebrow: 'Realtors',
     title: 'Ongoing support for agents with repeat deal and listing questions.',
     intro:
-      'Use these plans when inspection questions, listing-prep decisions, repair questions, and other construction questions keep coming up often enough that ongoing support makes more sense than one-off help.',
+      'Simple monthly support for repeat deal and listing questions.',
     cards: [
       {
         name: 'Deal Desk',
         tag: 'Main offer',
         price: '$649/mo',
-        who: 'Active agents who regularly run into inspection issues, repair-request questions, and contractor-side confusion during active transactions.',
-        problem: 'Best when deals keep slowing down because nobody gives a practical construction-side answer fast enough.',
-        creditSummary: 'Includes 4 monthly realtor review credits, plus 2 monthly pricing-direction credits.',
+        who: 'Active agents with repeat deal questions.',
+        problem: 'Best when deals keep slowing down because repair questions need faster answers.',
+        creditSummary: 'Includes up to 4 reviews each month.',
         creditUses: ['Inspection Response Review', 'Repair Scope Review', 'Repair Request Response Review', 'Listing Readiness Review'],
-        oneCreditMeans: ['one property', 'one inspection report, repair request set, or property question file', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple properties under one credit'],
-        overage: 'If the month needs more than the included credits, Southern Cities can add one-time review work or move the agent into a larger support plan.',
-        turnaround: '1 business day response. Same-day triage target on urgent active-deal items.',
+        oneCreditMeans: ['1 review = 1 property'],
+        turnaround: '1 business day response. Same-day triage target on urgent items.',
         cta: 'Review Deal Desk',
         href: '/services/realtors/deal-desk',
       },
@@ -200,13 +180,11 @@ const recurringSections: RecurringSection[] = [
         name: 'Listing Prep Desk',
         tag: 'Main offer',
         price: '$649/mo',
-        who: 'Listing agents who repeatedly need help deciding what should be fixed, cleaned up, or left alone before going live.',
-        problem: 'Best when pre-listing indecision, wasted seller spend, and slow prep decisions keep delaying listings.',
-        creditSummary: 'Includes 4 monthly realtor review credits.',
+        who: 'Listing agents with repeat prep questions.',
+        problem: 'Best when listing-prep decisions keep delaying listings.',
+        creditSummary: 'Includes up to 4 reviews each month.',
         creditUses: ['Pre-Listing Prep Review', 'Repair Scope Review', 'Listing Readiness Review', 'Budget Direction Review'],
-        oneCreditMeans: ['one property', 'one listing-prep request, photo set, or repair decision file', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple properties under one credit'],
-        overage: 'If the agent needs more than 4 credits in a month, Southern Cities can add one-time review work or move the account into a larger support tier.',
+        oneCreditMeans: ['1 review = 1 property'],
         turnaround: '1 business day first response. 2 business day standard guidance delivery.',
         cta: 'Review Listing Prep Desk',
         href: '/services/realtors/listing-prep-desk',
@@ -215,13 +193,11 @@ const recurringSections: RecurringSection[] = [
         name: 'Agent Support Line',
         tag: 'Secondary offer',
         price: '$1,050/mo',
-        who: 'High-activity solo agents who repeatedly need fast construction-side support across both listings and active deals.',
-        problem: 'Best when repeated contractor chasing, slow client answers, and rebuilding the same context every week are eating too much time.',
-        creditSummary: 'Includes 8 monthly realtor support credits.',
+        who: 'High-activity solo agents.',
+        problem: 'Best when you need more ongoing support across deals and listings.',
+        creditSummary: 'Includes up to 8 reviews each month.',
         creditUses: ['Inspection Response Review', 'Pre-Listing Prep Review', 'Repair Scope Review', 'Listing Readiness Review', 'Deal Question Support'],
-        oneCreditMeans: ['one property', 'one submitted file, question thread, or support request', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple properties under one credit'],
-        overage: 'If support demand goes past 8 credits in a month, Southern Cities can add overflow review work or move the client into the team plan.',
+        oneCreditMeans: ['1 review = 1 property'],
         turnaround: 'Same business day first response. 1 business day standard turnaround.',
         cta: 'Review Agent Support Line',
         href: '/services/realtors/agent-support-line',
@@ -230,14 +206,12 @@ const recurringSections: RecurringSection[] = [
         name: 'Team Deal & Listing Desk',
         tag: 'Team plan',
         price: '$2,400/mo',
-        who: 'Small teams and boutique brokerages that want shared, ongoing support for repeated deal and listing questions.',
-        problem: 'Best when every agent is solving repair and prep questions alone, giving inconsistent guidance, and wasting internal time.',
-        creditSummary: 'Includes 15 monthly pooled realtor support credits for up to 5 agents.',
+        who: 'Small teams and boutique brokerages.',
+        problem: 'Best when the team needs shared support for repeat questions.',
+        creditSummary: 'Includes up to 15 reviews each month.',
         creditUses: ['Inspection Response Review', 'Pre-Listing Prep Review', 'Repair Scope Review', 'Listing Readiness Review', 'Deal Question Support'],
-        oneCreditMeans: ['one property', 'one submitted file, question thread, or support request', 'one written review or response', 'one clarification round'],
-        notIncluded: ['site visits unless stated', 'full project management', 'contractor labor', 'permit fees', 'third-party fees', 'unlimited revisions', 'multiple properties under one credit'],
-        overage: 'If the team burns through the pooled credits, Southern Cities can add overflow work separately or expand the shared support plan.',
-        turnaround: '1 business day first response. Same-day triage for urgent active-deal items when possible.',
+        oneCreditMeans: ['1 review = 1 property'],
+        turnaround: '1 business day first response. Same-day triage for urgent items when possible.',
         cta: 'Request Team Plan',
         href: '/services/realtors/team-deal-listing-desk',
       },
@@ -284,7 +258,7 @@ function RecurringCardView({ card }: { card: RecurringCard }) {
             </ul>
           </div>
           <div>
-            <p className="font-semibold text-navy">One credit means</p>
+            <p className="font-semibold text-navy">One review means</p>
             <ul className="mt-3 space-y-2.5 leading-[1.6]">
               {card.oneCreditMeans.map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
@@ -294,18 +268,6 @@ function RecurringCardView({ card }: { card: RecurringCard }) {
               ))}
             </ul>
           </div>
-          <div>
-            <p className="font-semibold text-navy">Not included</p>
-            <ul className="mt-3 space-y-2.5 leading-[1.6]">
-              {card.notIncluded.map((item) => (
-                <li key={item} className="flex items-start gap-2.5">
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <p><strong className="text-navy">If you need more:</strong> {card.overage}</p>
         </div>
       </div>
       <div className="mt-10 pt-1">
