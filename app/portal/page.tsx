@@ -72,12 +72,28 @@ export default function PortalPage() {
           scope_notes: 'Realtor inspection review selected from cart.',
         },
         'investor-review': {
-          amount: amount || '500',
-          scope_notes: 'Investor review selected from cart.',
+          amount: amount || '499',
+          scope_notes: 'Investor deal and scope review selected from cart.',
+        },
+        'permit-local-compliance-review': {
+          amount: amount || '399',
+          scope_notes: 'Permit and local compliance review selected from cart.',
+        },
+        'budget-review': {
+          amount: amount || '599',
+          scope_notes: 'Budget review selected from cart.',
+        },
+        'draw-review-support': {
+          amount: amount || '399',
+          scope_notes: 'Draw review support selected from cart.',
         },
         'owner-consultation': {
-          amount: amount || '350',
+          amount: amount || '349',
           scope_notes: 'Owner consultation selected from cart.',
+        },
+        'contractor-fit-consultation': {
+          amount: amount || '349',
+          scope_notes: 'Contractor fit consultation selected from cart.',
         },
       };
 
@@ -222,14 +238,25 @@ export default function PortalPage() {
             <div className="rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-10 shadow-elev-2">
               <p className="eyebrow">Start Checkout</p>
               <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-navy-900">
-                {form.item === 'permit-management-service'
-                  ? 'Permit Administration'
-                  : 'Permit Administration + Construction Oversight'}
+                {({
+                  'permit-management-service': 'Permit Administration',
+                  'flagship-permit-oversight': 'Permit Administration + Construction Oversight',
+                  'home-assessment': 'Home Assessment',
+                  'owner-consultation': 'Owner Consultation',
+                  'permit-path-review': 'Permit Path Review',
+                  'inspection-response-service': 'Inspection Response',
+                  'realtor-inspection-review': 'Realtor Inspection Review',
+                  'investor-review': 'Investor Deal & Scope Review',
+                  'permit-local-compliance-review': 'Permit & Local Compliance Review',
+                  'budget-review': 'Budget Review',
+                  'contractor-fit-consultation': 'Contractor Fit Consultation',
+                  'draw-review-support': 'Draw Review Support',
+                } as Record<string, string>)[form.item] || 'Project Checkout'}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-ink/60">
                 {form.item === 'permit-management-service'
                   ? 'Finish the job details here, then proceed to secure checkout once the permit variables are set.'
-                  : 'Capture the buyer\'s required information up front, then proceed to secure Stripe checkout.'}
+                  : 'Capture the buyer information up front, then proceed to secure Stripe checkout for the selected fixed-price service.'}
               </p>
 
               <form className="mt-8 space-y-4" onSubmit={startCheckout}>
