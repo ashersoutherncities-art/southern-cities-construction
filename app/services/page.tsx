@@ -37,7 +37,7 @@ const roleMeta: Record<
   }
 > = {
   homeowners: {
-    title: 'Homeowners',
+    title: 'Homeowner',
     href: '/services/homeowners',
     pain: 'The project is getting harder to price, harder to trust, or harder to move forward without making expensive mistakes.',
     outcome: 'You get a clearer next step, less confusion, and help before permit problems or inspection setbacks get more expensive.',
@@ -45,7 +45,7 @@ const roleMeta: Record<
     bestBuying: ['buy', 'pricing', 'quote'],
   },
   investors: {
-    title: 'Investors',
+    title: 'Investor',
     href: '/services/investors',
     pain: 'The deal, rehab, or turn has too much uncertainty around budget, hiring, timeline, or execution.',
     outcome: 'You get better numbers, fewer surprises, and less delay before the deal loses momentum.',
@@ -53,7 +53,7 @@ const roleMeta: Record<
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   realtors: {
-    title: 'Realtors',
+    title: 'Realtor',
     href: '/services/realtors',
     pain: 'Inspection items, repair questions, or listing prep are slowing the deal or listing down.',
     outcome: 'You get faster answers, better follow-through, and less back-and-forth with clients.',
@@ -61,7 +61,7 @@ const roleMeta: Record<
     bestBuying: ['buy', 'pricing', 'quote'],
   },
   contractors: {
-    title: 'Contractors',
+    title: 'Contractor',
     href: '/services/contractors',
     pain: 'Permit follow-up, inspections, and office work are pulling too much time away from the job.',
     outcome: 'You get less paperwork drag, fewer delays, and better follow-through on active work.',
@@ -69,7 +69,7 @@ const roleMeta: Record<
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   developers: {
-    title: 'Developers / Landowners',
+    title: 'Developer / Landowner',
     href: '/services/developers-landowners',
     pain: 'There is still too much uncertainty around scope, budget, permit handling, or execution to move forward casually.',
     outcome: 'You get a better early read, fewer wrong moves, and less risk before bigger money gets committed.',
