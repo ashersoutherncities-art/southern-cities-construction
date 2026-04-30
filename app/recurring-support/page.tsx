@@ -10,7 +10,7 @@ type RecurringCard = {
   problem: string;
   creditSummary: string;
   creditUses: string[];
-  oneCreditMeans: string[];
+  simpleFlow: string;
   turnaround: string;
   cta: string;
   href: string;
@@ -39,8 +39,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Small rental owners and operators with recurring turns.',
         problem: 'Best when repeat project questions keep slowing things down.',
         creditSummary: 'Includes up to 2 reviews each month.',
-        creditUses: ['Deal & Scope Review', 'Rehab Budget Review', 'Turn Scope Review', 'Permit & Local Compliance Review'],
-        oneCreditMeans: ['1 review = 1 property or 1 draw'],
+        creditUses: ['deal reviews', 'budget reviews', 'permit questions', 'turn scope questions'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: '1 business day response target.',
         cta: 'Review Turn Support Plan',
         href: '/services/investors/turn-support-plan',
@@ -52,8 +52,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Active investors with repeat job decisions and draw-related help.',
         problem: 'Best when active jobs need more ongoing review support.',
         creditSummary: 'Includes up to 4 reviews each month.',
-        creditUses: ['Deal & Scope Review', 'Rehab Budget Review', 'Permit & Local Compliance Review', 'Contractor Fit Review', 'Draw Review Support'],
-        oneCreditMeans: ['1 review = 1 property or 1 draw'],
+        creditUses: ['deal reviews', 'budget reviews', 'permit questions', 'contractor decisions', 'draw reviews'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: 'Same-day acknowledgment, 1 business day standard response.',
         cta: 'Review Operator Support Plan',
         href: '/services/investors/operator-support-plan',
@@ -65,8 +65,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Higher-volume operators with several active jobs.',
         problem: 'Best when you need more ongoing review capacity every month.',
         creditSummary: 'Includes up to 6 reviews each month.',
-        creditUses: ['Project Control Review', 'Budget & Scope Review', 'Change Decision Review', 'Lender Review', 'Draw Review Support'],
-        oneCreditMeans: ['1 review = 1 property or 1 draw'],
+        creditUses: ['project questions', 'budget reviews', 'change decisions', 'lender questions', 'draw reviews'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Retainer Review',
         href: '/services/investors/project-support-retainer',
@@ -87,8 +87,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Small contractors and trade teams.',
         problem: 'Best when permit and inspection tasks keep slowing jobs down.',
         creditSummary: 'Includes up to 4 reviews each month.',
-        creditUses: ['Permit Packet Prep', 'Inspection Scheduling', 'Correction Follow-Up', 'Permit Status Follow-Up'],
-        oneCreditMeans: ['1 review = 1 project'],
+        creditUses: ['permit questions', 'inspection scheduling help', 'correction follow-up', 'status questions'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: '1 business day response target.',
         cta: 'Review Permit & Inspection Plan',
         href: '/services/contractors/permit-inspection-support-plan',
@@ -100,8 +100,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Growing contractors with active jobs.',
         problem: 'Best when back-office work keeps pulling time away from the field.',
         creditSummary: 'Includes up to 8 reviews each month.',
-        creditUses: ['Permit Packet Prep', 'Inspection Scheduling', 'Correction Follow-Up', 'Admin Support for Active Jobs', 'Documentation Follow-Up'],
-        oneCreditMeans: ['1 review = 1 project'],
+        creditUses: ['permit questions', 'inspection scheduling help', 'correction follow-up', 'admin questions', 'documentation follow-up'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: 'Same-day acknowledgment, 1 business day standard response.',
         cta: 'Review Back-Office Plan',
         href: '/services/contractors/back-office-support-plan',
@@ -113,8 +113,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Busy contractors who need steadier support.',
         problem: 'Best when you need more support capacity every month.',
         creditSummary: 'Includes up to 12 reviews each month.',
-        creditUses: ['Permit Packet Prep', 'Inspection Scheduling', 'Correction Follow-Up', 'Admin Support for Active Jobs', 'Documentation Follow-Up'],
-        oneCreditMeans: ['1 review = 1 project'],
+        creditUses: ['permit questions', 'inspection scheduling help', 'correction follow-up', 'admin questions', 'documentation follow-up'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Retainer Review',
         href: '/services/contractors/contractor-office-extension-retainer',
@@ -135,8 +135,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Repeat operators with active projects.',
         problem: 'Best when projects need regular check-ins and reviews.',
         creditSummary: 'Includes up to 2 reviews each month.',
-        creditUses: ['Project Review', 'Budget & Scope Review', 'Permit Path Review', 'Milestone Review', 'Draw / Progress Review'],
-        oneCreditMeans: ['1 review = 1 project or 1 draw'],
+        creditUses: ['project reviews', 'budget reviews', 'permit questions', 'milestone reviews', 'draw reviews'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: '1 business day response target.',
         cta: 'Review Project Control Plan',
         href: '/services/developers-landowners/project-control-plan',
@@ -148,8 +148,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Repeat operators with larger or more active files.',
         problem: 'Best when you need more ongoing project-control support.',
         creditSummary: 'Includes up to 4 reviews each month.',
-        creditUses: ['Project Review', 'Budget & Scope Review', 'Permit Path Review', 'Milestone Review', 'Draw / Progress Review'],
-        oneCreditMeans: ['1 review = 1 project or 1 draw'],
+        creditUses: ['project reviews', 'budget reviews', 'permit questions', 'milestone reviews', 'draw reviews'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Oversight Retainer Review',
         href: '/services/developers-landowners/execution-oversight-retainer',
@@ -170,8 +170,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Active agents with repeat deal questions.',
         problem: 'Best when deals keep slowing down because repair questions need faster answers.',
         creditSummary: 'Includes up to 4 reviews each month.',
-        creditUses: ['Inspection Response Review', 'Repair Scope Review', 'Repair Request Response Review', 'Listing Readiness Review'],
-        oneCreditMeans: ['1 review = 1 property'],
+        creditUses: ['deal reviews', 'inspection reviews', 'repair questions', 'listing readiness questions'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: '1 business day response. Same-day triage target on urgent items.',
         cta: 'Review Deal Desk',
         href: '/services/realtors/deal-desk',
@@ -183,8 +183,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Listing agents with repeat prep questions.',
         problem: 'Best when listing-prep decisions keep delaying listings.',
         creditSummary: 'Includes up to 4 reviews each month.',
-        creditUses: ['Pre-Listing Prep Review', 'Repair Scope Review', 'Listing Readiness Review', 'Budget Direction Review'],
-        oneCreditMeans: ['1 review = 1 property'],
+        creditUses: ['pre-listing prep reviews', 'repair questions', 'listing readiness questions', 'budget questions'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: '1 business day first response. 2 business day standard guidance delivery.',
         cta: 'Review Listing Prep Desk',
         href: '/services/realtors/listing-prep-desk',
@@ -196,8 +196,8 @@ const recurringSections: RecurringSection[] = [
         who: 'High-activity solo agents.',
         problem: 'Best when you need more ongoing support across deals and listings.',
         creditSummary: 'Includes up to 8 reviews each month.',
-        creditUses: ['Inspection Response Review', 'Pre-Listing Prep Review', 'Repair Scope Review', 'Listing Readiness Review', 'Deal Question Support'],
-        oneCreditMeans: ['1 review = 1 property'],
+        creditUses: ['deal reviews', 'inspection reviews', 'pre-listing prep reviews', 'repair questions', 'listing readiness questions'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: 'Same business day first response. 1 business day standard turnaround.',
         cta: 'Review Agent Support Line',
         href: '/services/realtors/agent-support-line',
@@ -209,8 +209,8 @@ const recurringSections: RecurringSection[] = [
         who: 'Small teams and boutique brokerages.',
         problem: 'Best when the team needs shared support for repeat questions.',
         creditSummary: 'Includes up to 15 reviews each month.',
-        creditUses: ['Inspection Response Review', 'Pre-Listing Prep Review', 'Repair Scope Review', 'Listing Readiness Review', 'Deal Question Support'],
-        oneCreditMeans: ['1 review = 1 property'],
+        creditUses: ['deal reviews', 'inspection reviews', 'pre-listing prep reviews', 'repair questions', 'listing readiness questions'],
+        simpleFlow: 'Send it, we review it, you get clear next steps.',
         turnaround: '1 business day first response. Same-day triage for urgent items when possible.',
         cta: 'Request Team Plan',
         href: '/services/realtors/team-deal-listing-desk',
@@ -257,17 +257,7 @@ function RecurringCardView({ card }: { card: RecurringCard }) {
               ))}
             </ul>
           </div>
-          <div>
-            <p className="font-semibold text-navy">One review means</p>
-            <ul className="mt-3 space-y-2.5 leading-[1.6]">
-              {card.oneCreditMeans.map((item) => (
-                <li key={item} className="flex items-start gap-2.5">
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <p><strong className="text-navy">How it works:</strong> {card.simpleFlow}</p>
         </div>
       </div>
       <div className="mt-10 pt-1">
