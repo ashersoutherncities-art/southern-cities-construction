@@ -90,7 +90,7 @@ const roadmapLanes: RoadmapLane[] = [
       { label: 'Need help with permit paperwork and approvals', services: ['Permit Path Review', 'Permit Administration'], tone: 'build' },
       { label: 'Need tighter follow-through on an active job', services: ['Construction Oversight'], tone: 'finish' },
     ],
-    destination: 'Fewer wrong moves, less confusion, and less project drift',
+    destination: 'Cleaner next steps, fewer surprises, and a smoother project',
   },
   {
     avatar: 'Investors',
@@ -104,7 +104,7 @@ const roadmapLanes: RoadmapLane[] = [
       { label: 'Need tighter follow-through on an active job', services: ['Turn Budget Review', 'Construction Oversight'], tone: 'control' },
       { label: 'Need repeat help across multiple properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
     ],
-    destination: 'Fewer surprises, faster starts, less delay, and tighter coordination',
+    destination: 'Fewer surprises, faster starts, and tighter coordination on the work',
   },
   {
     avatar: 'Realtors',
@@ -117,7 +117,7 @@ const roadmapLanes: RoadmapLane[] = [
       { label: 'Need help coordinating prep work before the listing', services: ['Listing Prep Coordination Review'], tone: 'build' },
       { label: 'Need ongoing help across multiple deals or listings', services: ['Deal Desk', 'Listing Prep Desk', 'Agent Support Line', 'Team Deal & Listing Desk'], tone: 'finish' },
     ],
-    destination: 'Faster answers, better client confidence, and fewer listing delays',
+    destination: 'Faster answers, more confident clients, and listings that move on time',
   },
   {
     avatar: 'Contractors',
@@ -130,7 +130,7 @@ const roadmapLanes: RoadmapLane[] = [
       { label: 'Need tighter support while the work is moving', services: ['Construction Oversight Support'], tone: 'build' },
       { label: 'Need recurring office help', services: ['Permit & Inspection Support Plan', 'Back-Office Support Plan', 'Contractor Office Extension Retainer'], tone: 'finish' },
     ],
-    destination: 'Less paperwork drag, fewer delays, and better follow-through on active jobs',
+    destination: 'Less paperwork drag, cleaner follow-through, and more time in the field',
   },
   {
     avatar: 'Developers / Landowners',
@@ -142,7 +142,7 @@ const roadmapLanes: RoadmapLane[] = [
       { label: 'Need tighter permit handling and follow-through', services: ['Permit Administration + Construction Oversight'], tone: 'build' },
       { label: 'Need ongoing help keeping the work moving', services: ['Project Control Plan', 'Execution Oversight Retainer'], tone: 'finish' },
     ],
-    destination: 'Less drift, fewer surprises, and better execution as the project moves forward',
+    destination: 'Cleaner execution, fewer surprises, and steadier progress as the project moves forward',
   },
 ];
 
@@ -261,13 +261,13 @@ export default function ServicesOverviewPage() {
           <div className="max-w-4xl">
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
               <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-              Services
+              Pricing
             </div>
             <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Construction support made easier.
+              Pricing for project support.
             </h1>
             <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-              Buy the support your project actually needs, from fixed-price services and priced-after-review support to custom-scoped help, recurring support plans, and full contracting when the project calls for it.
+              Pick how you want to start. Buy a fixed-price service now, get pricing or request a review when scope or condition affects the number, or subscribe to a monthly support plan. Full contracting is the other door when the project needs a licensed GC running it end to end.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#start-here" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
@@ -283,7 +283,7 @@ export default function ServicesOverviewPage() {
 
       <section id="start-here" className="border-b border-stone-200 bg-white py-16 sm:py-20">
         <div className="container-pro">
-          <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr] xl:items-start">
+          <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr] xl:items-start xl:gap-8">
             <div className="max-w-3xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start here</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
@@ -294,10 +294,10 @@ export default function ServicesOverviewPage() {
               </p>
             </div>
 
-            <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1 sm:p-7">
+            <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-4 shadow-elev-1 sm:rounded-[28px] sm:p-7">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">1. Who are you?</p>
-                <div className="mt-3 flex flex-wrap gap-2.5">
+                <div className="mt-3 grid grid-cols-1 gap-2 sm:flex sm:flex-wrap sm:gap-2.5">
                   {Object.entries(roleMeta).map(([key, value]) => {
                     const active = key === activeRole;
                     return (
@@ -339,7 +339,7 @@ export default function ServicesOverviewPage() {
 
               <div className="mt-6">
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">3. What do you need right now?</p>
-                <div className="mt-3 flex flex-wrap gap-2.5">
+                <div className="mt-3 grid grid-cols-1 gap-2 sm:flex sm:flex-wrap sm:gap-2.5">
                   {[
                     { key: 'buy', label: 'Buy now' },
                     { key: 'pricing', label: 'Get pricing' },
@@ -367,7 +367,7 @@ export default function ServicesOverviewPage() {
                 <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{guidedRecommendation.roleData.title}</h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-white/80">{guidedRecommendation.note}</p>
                 <p className="mt-2 text-[15px] leading-relaxed text-white/80">Best next move: {guidedRecommendation.buyingLabel}</p>
-                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
                   <Link href={guidedRecommendation.roleData.href} className="inline-flex items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500">
                     Go to {guidedRecommendation.roleData.title}
                   </Link>
@@ -384,7 +384,7 @@ export default function ServicesOverviewPage() {
       <section id="buying-paths" className="border-b border-stone-200 bg-white py-16 sm:py-20">
         <div className="container-pro max-w-5xl">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How to get started</p>
-          <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:gap-6 md:grid-cols-3">
             <div className={`rounded-[24px] border p-6 transition-all ${activeBuying === 'buy' ? 'border-orange bg-orange/[0.06]' : 'border-stone-200 bg-stone-50'}`}>
               <h2 className="text-2xl font-extrabold tracking-tight text-navy">Fixed-Price Services</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
@@ -428,7 +428,7 @@ export default function ServicesOverviewPage() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-2.5">
+          <div className="mt-8 grid grid-cols-1 gap-2 sm:flex sm:flex-wrap sm:gap-2.5">
             {Object.entries(roleMeta).map(([key, value]) => {
               const active = key === activeRole;
               return (
@@ -446,7 +446,7 @@ export default function ServicesOverviewPage() {
             })}
           </div>
 
-          <div className="mt-8 rounded-[28px] border border-stone-200 bg-stone-50 p-7 shadow-elev-1">
+          <div className="mt-8 rounded-[24px] border border-stone-200 bg-stone-50 p-5 shadow-elev-1 sm:rounded-[28px] sm:p-7">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{activeRoleCard.title}</p>
             <h3 className="mt-3 text-3xl font-extrabold tracking-tight text-navy">What you may need help with</h3>
             <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-stone-700">{activeRoleCard.pain}</p>
@@ -493,7 +493,7 @@ export default function ServicesOverviewPage() {
             {roadmapLanes.map((lane) => {
               const steps: ProcessStep[] = [
                 ...lane.stops,
-                { label: 'What gets easier', services: [lane.destination], tone: 'finish' },
+                { label: 'What you get', services: [lane.destination], tone: 'finish' },
               ];
               const currentIndex = activeProcessStep[lane.roleKey] ?? 0;
               const currentStep = steps[currentIndex];
@@ -512,8 +512,8 @@ export default function ServicesOverviewPage() {
                   </div>
 
                   <div className="mt-8 rounded-[28px] border border-stone-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 sm:p-7">
-                    <div className="overflow-x-auto pb-4">
-                      <div className="min-w-[760px] lg:min-w-0">
+                    <div className="pb-2 sm:pb-4">
+                      <div className="hidden min-w-[760px] lg:min-w-0 sm:block">
                         <div className="flex items-center justify-between gap-0 px-2">
                           {steps.map((step, index) => {
                             const tone = roadmapToneStyles[step.tone];
@@ -545,7 +545,38 @@ export default function ServicesOverviewPage() {
                       </div>
                     </div>
 
-                    <div className={`mt-6 rounded-[26px] border p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] transition-all duration-300 ${currentTone.panel}`}>
+                    <div className="mt-5 grid gap-3 sm:hidden">
+                      {steps.map((step, index) => {
+                        const tone = roadmapToneStyles[step.tone];
+                        const active = currentIndex === index;
+                        return (
+                          <button
+                            key={step.label}
+                            type="button"
+                            onClick={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
+                            className={`rounded-[20px] border px-4 py-4 text-left transition-all ${tone.panel} ${active ? 'shadow-[0_18px_45px_rgba(15,23,42,0.08)] ring-2 ring-orange/20' : 'bg-white'}`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <span className={`mt-0.5 flex h-8 w-8 items-center justify-center rounded-full text-sm font-extrabold text-white ${tone.dot}`}>
+                                {index === steps.length - 1 ? '✓' : index + 1}
+                              </span>
+                              <div>
+                                <p className="text-sm font-extrabold text-navy">{step.label}</p>
+                                <div className="mt-2 flex flex-wrap gap-2">
+                                  {step.services.map((service) => (
+                                    <span key={service} className={`inline-flex rounded-full border bg-white px-2.5 py-1 text-[11px] font-semibold text-navy ${tone.chip}`}>
+                                      {service}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className={`mt-6 rounded-[26px] border p-5 sm:p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] transition-all duration-300 ${currentTone.panel}`}>
                       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                         <div className="max-w-2xl">
                           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
