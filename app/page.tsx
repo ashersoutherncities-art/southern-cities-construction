@@ -13,27 +13,27 @@ const roleContent: Record<RoleKey, { title: string; href: string; summary: strin
   homeowners: {
     title: 'Homeowners',
     href: '/services/homeowners',
-    summary: 'Permit questions, budget checks, and project setup before work starts moving in the wrong direction.',
+    summary: 'Help with permits, budgets, and project setup before work starts — plus oversight once the job is moving.',
   },
   investors: {
     title: 'Investors',
     href: '/services/investors',
-    summary: 'Budget review, contractor fit, and project control before drift turns into lost time and money.',
+    summary: 'Budget reviews, contractor decisions, and project control so deals and rehabs move cleaner with fewer surprises.',
   },
   realtors: {
     title: 'Realtors',
     href: '/services/realtors',
-    summary: 'Listing prep, repair decisions, and cleaner coordination when deals start leaning on construction answers.',
+    summary: 'Repair direction, listing prep, and clearer construction answers so deals do not stall on inspection items.',
   },
   contractors: {
     title: 'Contractors',
     href: '/services/contractors',
-    summary: 'Permit handling, inspections, and office support when the field needs tighter backup.',
+    summary: 'Permit help, inspection scheduling, and back-office support so your team can focus on the field.',
   },
   developers: {
     title: 'Developers / Landowners',
     href: '/services/developers-landowners',
-    summary: 'Planning, permit review, and execution support before bigger money moves on shaky footing.',
+    summary: 'Early project review, scope and budget direction, and execution support before bigger money moves.',
   },
 };
 
@@ -84,63 +84,75 @@ const questionnaireNeeds: Record<NeedKey, NeedOption> = {
     warning: 'This usually gets expensive when the wrong crew gets hired for the wrong scope.',
   },
   coordination: {
-    label: 'Project coordination',
-    summary: 'Get people, schedules, paperwork, and follow-through back in line.',
+    label: 'Active project help',
+    summary: 'Get people, schedules, paperwork, and follow-through back on track on an active project.',
     nextStepLabel: 'Project review',
-    warning: 'This usually gets expensive when everyone is moving but nobody is lined up.',
+    warning: 'When everyone is moving but nobody is coordinating, the project usually gets more expensive than it should.',
   },
 };
 
 const questionnaireStages: Record<StageKey, StageOption> = {
   'before-spending': {
-    label: 'Before spending more money',
-    title: 'Start before the wrong call gets expensive.',
-    summary: 'This is the right time to tighten up scope, permits, pricing, and contractor decisions before money goes out the door.',
+    label: 'Before spending more',
+    title: 'Get help before you commit.',
+    summary: 'This is the right time to get permits, budgets, scope, and contractor decisions cleaner before more money goes out.',
   },
   'need-pricing': {
-    label: 'Before committing to a number',
-    title: 'Get pricing grounded in real inputs.',
-    summary: 'This is the right time to clean up assumptions before a quote, budget, or repair number gets approved.',
+    label: 'Before approving a number',
+    title: 'Get a clearer read on price.',
+    summary: 'This is the right time to get a more honest budget or repair number before you sign off on a quote or contractor.',
   },
   'job-active': {
-    label: 'Once the job is already active',
-    title: 'Get the project back under control.',
-    summary: 'This is the right time to stop drift, clean up communication, and fix what is already slipping.',
+    label: 'The project is already moving',
+    title: 'Help moving the project forward.',
+    summary: 'This is the right time to bring in coordination, oversight, or active project support so the work keeps moving cleanly.',
   },
 };
 
 const proofProjects: ProofProject[] = [
   {
-    title: 'White house exterior transformation',
-    summary: 'Best current proof set for the homepage. Clear angle match, stronger condition jump, and cleaner before and after storytelling.',
-    rank: 'Top proof set',
+    title: 'Tired exterior turned into clean curb appeal',
+    summary: 'A worn-down home updated into a clean, market-ready exterior that buyers and neighbors actually notice.',
+    rank: 'Featured project',
     before: '/gallery/white-house-before.jpg',
     after: '/gallery/white-house-after.jpg',
-    notes: ['Best current homepage-quality pair', 'Strong for rehab credibility and investor proof', 'Clear before and after without confusing the viewer'],
+    notes: [
+      'Cleaner curb appeal for selling, listing, or living in',
+      'Stronger first impression for showings and walkthroughs',
+      'Real residential project completed in North Carolina',
+    ],
   },
   {
-    title: 'Older home exterior refresh',
-    summary: 'A strong secondary proof set that shows visible improvement even though the angles are not as tightly matched as the first set.',
-    rank: 'Secondary proof set',
+    title: 'Older home brought back to life',
+    summary: 'An older home brought back to life with cleaner finishes and steady, accountable follow-through on the work.',
+    rank: 'Recent project',
     before: '/gallery/farmhouse-before.jpg',
     after: '/gallery/farmhouse-after.jpg',
-    notes: ['Useful as supporting proof on the homepage', 'Shows real visible exterior improvement', 'Better as secondary proof than hero proof'],
+    notes: [
+      'Visible exterior improvement that holds up in person',
+      'Cleaner finished look, not just a quick cosmetic patch',
+      'Real residential project completed in North Carolina',
+    ],
   },
   {
-    title: 'Red house exterior refresh',
-    summary: 'Additional real-project proof with a memorable finished look, best used lower in the proof rotation.',
-    rank: 'Supporting proof set',
+    title: 'Dated exterior made move-in ready',
+    summary: 'A dated property updated into a finished look that feels move-in ready and easier to market or live in.',
+    rank: 'Recent project',
     before: '/gallery/red-house-before.jpg',
     after: '/gallery/red-house-after.jpg',
-    notes: ['Clear transformation from before to after', 'Good supporting proof for real work completed', 'Stronger lower in the rotation than in the lead spot'],
+    notes: [
+      'Cleaner finishes, better presentation, less drag on the property',
+      'Strong example of finished residential work, not just promises',
+      'Real residential project completed in North Carolina',
+    ],
   },
 ];
 
 const trustPoints = [
-  'Real project photos on the site',
-  'Clear service options instead of vague contractor language',
-  'Support for planning, permits, budgets, draw issues, and active jobs',
-  'Review-first options when the work is too important to price casually',
+  'Real residential projects across North Carolina',
+  'Clear pricing options you can actually buy from',
+  'Help with permits, budgets, contractor decisions, and active projects',
+  'Full contracting available when one company should run the whole project',
 ];
 
 export default function Home() {
@@ -173,10 +185,10 @@ export default function Home() {
         title: 'Recommended next step',
         eyebrow: 'Best next step',
         body: `${activeNeedContent.nextStepLabel} plus project review is the fastest way to stop drift and get the job moving in the right direction again.`,
-        cta: 'Request a Project Review',
-        href: '/services#contact',
-        secondaryCta: 'See Services',
-        secondaryHref: activeRoleContent.href,
+        cta: 'See Services',
+        href: activeRoleContent.href,
+        secondaryCta: 'Request Review',
+        secondaryHref: '/#contact',
       };
     }
 
@@ -214,76 +226,74 @@ export default function Home() {
         <div className="relative z-10 container-pro">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-center">
             <div className="max-w-[46rem]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Residential construction support · Licensed NC General Contractor #107724</p>
-              <h1 className="mt-4 max-w-[14ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem]">
-                Buy the support your project actually needs.
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Two ways to work with us · Licensed NC General Contractor #107724</p>
+              <h1 className="mt-4 max-w-[18ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem]">
+                Get the right help at the right stage of your project.
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
-                Southern Cities makes residential construction easier to navigate with clear services for planning, permits, budgeting, contractor fit, coordination, oversight, and full contracting when the project calls for it.
+                Most clients want one of two things. Either a licensed general contractor running the whole project, or focused project support on a specific piece like permits, budgets, contractor fit, or oversight. Pick the one that fits where you are right now.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link href="/services" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
-                  See Services
+                <Link href="/services" className="inline-flex min-w-[260px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
+                  See Pricing for Project Support
                 </Link>
-                <Link href="/#contact" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14">
-                  Get the Right Next Step
-                </Link>
-                <Link href="/services#full-contracting" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:border-orange hover:text-orange-200">
-                  Bring in Full Contracting
+                <Link href="/services#full-contracting" className="inline-flex min-w-[260px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14">
+                  Request Full Contracting
                 </Link>
               </div>
             </div>
 
             <div className="rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Choose the right support</p>
-              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Choose the right support for where your project is now.</h2>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How it works</p>
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Pick what fits where you are.</h2>
               <ul className="mt-5 space-y-3 text-sm leading-relaxed text-navy">
                 <li className="flex items-start gap-2.5">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Plan before you spend</strong> with clearer review around scope, permits, budget direction, and contractor fit.</span>
+                  <span><strong>Project Support</strong> when you need help with a specific piece — permits, budgets, contractor fit, coordination, oversight, or recurring support.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Get permits, budgets, or scope clear</strong> before confusion turns into delay or waste.</span>
+                  <span><strong>Full Contracting</strong> when you want one licensed company running the whole project from start to finish.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Keep an active project moving</strong> with coordination, oversight, and recurring support when the job starts drifting.</span>
+                  <span>Project Support comes in three forms: <strong>Buy Now</strong>, <strong>Get Pricing or Request Review</strong>, or <strong>Subscribe Monthly</strong>.</span>
                 </li>
               </ul>
-              <div className="mt-5">
-                <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                  See All Services
+              <div className="mt-5 flex flex-wrap gap-2.5">
+                <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-500">
+                  See Pricing
+                </Link>
+                <Link href="/services#full-contracting" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                  See Full Contracting
                 </Link>
               </div>
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 lg:grid-cols-4">
-            <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan Before You Spend</p>
-              <p className="mt-2 text-sm leading-relaxed text-white">
-                Start with permit path review, budget and scope review, investor review, or contractor fit consultation before more money goes out.
-              </p>
+          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Project Support</p>
+              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Help with a specific piece of the project.</h3>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-white">
+                <li><strong>Buy Now</strong> for fixed-scope support like assessments, consultations, and reviews.</li>
+                <li><strong>Get Pricing or Request Review</strong> when scope or condition affects the price.</li>
+                <li><strong>Subscribe Monthly</strong> for ongoing support across active projects.</li>
+              </ul>
+              <Link href="/services" className="mt-5 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500">
+                See Pricing
+              </Link>
             </div>
-            <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Get Scope and Permits Clear</p>
-              <p className="mt-2 text-sm leading-relaxed text-white">
-                Reduce permit, budget, and coordination confusion so the project can move from uncertainty to a clear next step.
+            <div className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Full Contracting</p>
+              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">One licensed company running the whole project.</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white">
+                Renovations, rehabs, additions, and new builds with Southern Cities as the licensed GC of record. One company, accountable from start to finish.
               </p>
-            </div>
-            <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Keep the Job Moving</p>
-              <p className="mt-2 text-sm leading-relaxed text-white">
-                Bring in project oversight, permit administration, draw review support, or recurring support when an active job needs tighter follow-through.
-              </p>
-            </div>
-            <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Full Contracting When Needed</p>
-              <p className="mt-2 text-sm leading-relaxed text-white">
-                Bring in licensed GC support for rehabs, renovations, additions, and larger residential scopes once the project needs full execution.
-              </p>
+              <Link href="/services#full-contracting" className="mt-5 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
+                Request Full Contracting
+              </Link>
             </div>
           </div>
         </div>
@@ -312,8 +322,8 @@ export default function Home() {
                 </div>
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="/#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500">
-                  Request Review
+                <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500">
+                  See Pricing
                 </Link>
                 <Link href={activeRoleContent.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                   See Services
@@ -324,14 +334,14 @@ export default function Home() {
             <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="max-w-2xl">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recent work</p>
-                  <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Real before and after work.</h2>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recent projects</p>
+                  <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">See the work, not just promises.</h2>
                   <p className="mt-4 text-[15px] leading-relaxed text-stone-700">
-                    Use the homepage carousel to see real project proof, then open the full gallery for a cleaner look at completed work.
+                    Real residential projects across North Carolina. Cleaner finishes, better follow-through, and visible results you can see for yourself.
                   </p>
                 </div>
                 <Link href="/gallery" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                  Open Full Gallery
+                  See More Projects
                 </Link>
               </div>
 
@@ -421,9 +431,9 @@ export default function Home() {
             <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with a few quick questions</p>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Tell us where you are in the project.</h2>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Tell us a little about your project.</h2>
                 <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-stone-700">
-                  Pick the answers that fit best and we’ll point you to the strongest next step.
+                  Pick the answers that fit best and we will point you to the right next step.
                 </p>
               </div>
               <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 shadow-elev-1">
@@ -465,7 +475,7 @@ export default function Home() {
                 </div>
 
                 <div className="rounded-[24px] border border-stone-200 bg-white p-5 shadow-elev-1">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">2. What do you want clearer?</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">2. What do you want help with?</p>
                   <div className="mt-4 flex flex-wrap gap-2.5">
                     {(Object.entries(questionnaireNeeds) as [NeedKey, { label: string; summary: string }][]) .map(([key, need]) => {
                       const active = key === activeNeed;
@@ -552,10 +562,10 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row sm:flex-wrap">
               <Link href="/#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
-                Request Full GC Support
+                Request Full Contracting Review
               </Link>
               <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-[15px] font-medium text-white transition-all hover:border-orange hover:text-orange-200">
-                Start with Support Services
+                Start with Project Support
               </Link>
             </div>
           </div>
@@ -573,9 +583,9 @@ export default function Home() {
       <section id="contact" className="bg-white py-14 sm:py-16">
         <div className="container-pro grid gap-8 lg:grid-cols-[1fr_0.92fr] lg:items-start">
           <div className="max-w-3xl">
-            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Request a Quote</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Tell us about your project</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-stone-700">
-              Send the property address, scope, and timeline. We respond from <a href="mailto:orders@southerncitiesconstruction.com" className="text-orange underline">orders@southerncitiesconstruction.com</a> with a real path to a quote — or a fast no if the project is outside our lane.
+              Send the address, scope, and timeline. We will respond from <a href="mailto:orders@southerncitiesconstruction.com" className="text-orange underline">orders@southerncitiesconstruction.com</a> with a clear next step on pricing, project support, or full contracting. If we are not the right fit, we will let you know.
             </p>
             <div className="mt-6 rounded-[24px] border border-stone-200 bg-stone-50 px-5 py-5">
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What people buy from us</p>
@@ -586,8 +596,8 @@ export default function Home() {
               </ul>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="tel:+12523396146" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
-                Call (252) 339-6146
+              <a href="tel:+19804737249" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+                Call (980) 473-7249
               </a>
               <a href="mailto:orders@southerncitiesconstruction.com" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-7 py-3.5 text-[15px] font-semibold text-navy transition hover:border-orange hover:text-orange">
                 Email orders@southerncitiesconstruction.com
@@ -600,7 +610,7 @@ export default function Home() {
               <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>NC GC License #107724 — verify on the <a href="https://portal.nclbgc.org/Public/Search" target="_blank" rel="noopener noreferrer" className="underline hover:text-orange">NCLBGC public portal</a>.</span></li>
               <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>5 years in business, 15+ projects completed.</span></li>
               <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Headquartered in Charlotte, NC. We work statewide.</span></li>
-              <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Support-first services for planning, permits, budgets, draw issues, coordination, oversight, and full contracting when needed.</span></li>
+              <li className="flex items-start gap-2.5"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>Project support for planning, permits, budgets, contractor fit, coordination, and oversight — plus full contracting when one company should run the whole project.</span></li>
             </ul>
           </div>
         </div>
