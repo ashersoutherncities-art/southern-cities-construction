@@ -8,7 +8,7 @@ type Service = {
   promise: string;
   prevents: string;
   price: string;
-  cta: 'Buy Now' | 'Get Pricing' | 'Request Quote' | 'Subscribe';
+  cta: 'Buy Now' | 'Get Pricing' | 'Request Quote' | 'Review Plan' | 'Request Retainer Review';
   href: string;
   itemKey?: string;
   flagship?: boolean;
@@ -143,14 +143,6 @@ const duringConstruction: Service[] = [
     flagship: true,
   },
   {
-    title: 'Project Coordination & Control',
-    promise: 'Stop execution drift. Real coordination on the active job without becoming the project manager yourself.',
-    prevents: 'Owner-as-PM burnout, missed deadlines, vendor misalignment',
-    price: '$1,499/month per active project',
-    cta: 'Subscribe',
-    href: '/services/investors/project-coordination-control',
-  },
-  {
     title: 'Full Construction Management Service',
     promise: 'Hand off construction. Full project management from kickoff to closeout.',
     prevents: 'Spreading yourself across operations',
@@ -162,33 +154,33 @@ const duringConstruction: Service[] = [
 
 const regionalRepeat: Service[] = [
   {
-    title: 'Investor Operator Support',
-    promise: 'Operate at scale. Construction-side help across every active deal, on a monthly basis.',
-    prevents: 'Per-deal friction',
-    price: '$1,799 / $2,999 / $4,999 per month',
-    cta: 'Subscribe',
-    href: '/services/investors/investor-operator-support',
+    title: 'Turn Support Plan',
+    promise: 'Ongoing support for owners with recurring turns who need faster decisions on scope, budget, permit questions, and active files.',
+    prevents: 'Repeated turn friction, vacancy drag, and small project questions stacking up across properties',
+    price: '$749/mo',
+    cta: 'Review Plan',
+    href: '/recurring-support#investors',
   },
   {
-    title: 'Due Diligence Package, 3 deals/month',
-    promise: 'Vet 3 deals a month. Packaged due diligence on a monthly basis so you move faster than the market.',
-    prevents: 'Slow deal vetting, missed windows',
-    price: '$2,499/month',
-    cta: 'Subscribe',
-    href: '/services/investors/due-diligence-package-3-deals-month',
+    title: 'Operator Support Plan',
+    promise: 'Monthly support for active investors who need recurring help with budget questions, contractor decisions, permit issues, and draw-related support.',
+    prevents: 'Owner bottlenecks, repeated follow-up, funding friction, and recurring project decision drag',
+    price: '$1,499/mo',
+    cta: 'Review Plan',
+    href: '/recurring-support#investors',
   },
   {
-    title: 'Construction Planning Package, 3 deals/month',
-    promise: 'Launch 3 projects a month. Construction planning packaged on a monthly cadence.',
-    prevents: 'Slow project starts, late lender setup',
-    price: '$2,999/month',
-    cta: 'Subscribe',
-    href: '/services/investors/construction-planning-package-3-deals-month',
+    title: 'Project Support Retainer',
+    promise: 'Higher-touch recurring support for operators with several active jobs who need steadier review capacity and tighter follow-through each month.',
+    prevents: 'Too many active files, too much owner involvement, and recurring live-project decision overload',
+    price: 'Starting at $2,500/mo',
+    cta: 'Request Retainer Review',
+    href: '/recurring-support#investors',
   },
   {
     title: 'Regional Investor Construction Network Development',
-    promise: 'Build a repeatable regional network. Southern Cities sets up the construction operating layer for your target market.',
-    prevents: 'Per-deal vendor scrambles, inconsistent sub quality',
+    promise: 'Strategic custom work for investors building a repeatable regional operating layer, not a standard monthly support plan.',
+    prevents: 'Per-deal vendor scrambles, inconsistent regional execution, and scaling without enough local infrastructure',
     price: '$7,500 setup + $1,499/month operating retainer',
     cta: 'Request Quote',
     href: '/services/investors/regional-investor-construction-network-development',
@@ -199,7 +191,7 @@ function ServiceCard({ service }: { service: Service }) {
   const ctaClass =
     service.cta === 'Buy Now'
       ? 'bg-orange text-white hover:bg-orange-500'
-      : service.cta === 'Subscribe'
+      : service.cta === 'Review Plan' || service.cta === 'Request Retainer Review'
         ? 'bg-navy text-white hover:bg-navy-900'
         : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange';
 
@@ -314,7 +306,7 @@ export default function InvestorsPage() {
               ['2', 'Before You Start'],
               ['3', 'Funding & Draw Setup'],
               ['4', 'During Construction'],
-              ['5', 'Regional / Repeat Ops'],
+              ['5', 'Monthly Support'],
             ].map(([num, label]) => (
               <a
                 key={num}
@@ -364,8 +356,8 @@ export default function InvestorsPage() {
       <div id="stage-5" />
       <StageSection
         number="5"
-        title="Regional / Repeat Operations"
-        intro="Operate at scale. Subscriptions and packages built for investors running multiple deals or expanding into a new region."
+        title="Monthly Support"
+        intro="Use a monthly support plan when the same investor-side questions keep repeating across turns, active jobs, and recurring project decisions. Strategic regional buildout work stays separate from the standard support-plan ladder."
         services={regionalRepeat}
       />
 

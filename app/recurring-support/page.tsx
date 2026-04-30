@@ -247,7 +247,7 @@ function RecurringCardView({ card }: { card: RecurringCard }) {
           <p><strong className="text-navy">Best for:</strong> {card.who}</p>
           <p><strong className="text-navy">Use this when:</strong> {card.problem}</p>
           <div>
-            <p className="font-semibold text-navy">Credits can be used for</p>
+            <p className="font-semibold text-navy">Use them for</p>
             <ul className="mt-3 space-y-2.5 leading-[1.6]">
               {card.creditUses.map((item) => (
                 <li key={item} className="flex items-start gap-2.5">

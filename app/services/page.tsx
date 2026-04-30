@@ -49,7 +49,7 @@ const roleMeta: Record<
     href: '/services/investors',
     pain: 'The deal, rehab, or turn has too much uncertainty around budget, hiring, timeline, or execution.',
     outcome: 'You get better numbers, fewer surprises, and less delay before the deal loses momentum.',
-    topServices: ['Investor Project Review', 'Rehab Budget Review', 'Turn Budget Review'],
+    topServices: ['Investor Deal & Scope Review', 'Rehab Budget Review', 'Rent-Ready Turn'],
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   realtors: {
@@ -65,7 +65,7 @@ const roleMeta: Record<
     href: '/services/contractors',
     pain: 'Permit follow-up, inspections, and office work are pulling too much time away from the job.',
     outcome: 'You get less paperwork drag, fewer delays, and better follow-through on active work.',
-    topServices: ['Permit Administration', 'Inspection Scheduling Support', 'Active Job Admin Triage'],
+    topServices: ['Permit Administration', 'Inspection Scheduling Support', 'Admin Support for Active Jobs'],
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   developers: {
@@ -73,7 +73,7 @@ const roleMeta: Record<
     href: '/services/developers-landowners',
     pain: 'There is still too much uncertainty around scope, budget, permit handling, or execution to move forward casually.',
     outcome: 'You get a better early read, fewer wrong moves, and less risk before bigger money gets committed.',
-    topServices: ['Early Project Review', 'Early Budget & Scope Review', 'Permit Administration + Construction Oversight'],
+    topServices: ['Project Review', 'Budget & Scope Review', 'Permit Administration + Construction Oversight'],
     bestBuying: ['quote', 'pricing', 'buy'],
   },
 };
@@ -98,10 +98,10 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/investors',
     start: 'Need a better read on the deal before spending more money',
     stops: [
-      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Project Review', 'Rehab Budget Review'], tone: 'start' },
-      { label: 'Need help hiring the right contractor and setting the job up right', services: ['Contractor Fit Review', 'Bid Coordination & Contractor Match', 'Materials Setup Review'], tone: 'info' },
+      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Deal & Scope Review', 'Rehab Budget Review'], tone: 'start' },
+      { label: 'Need help hiring the right contractor and setting the job up right', services: ['Contractor Fit Consultation', 'Bid Coordination & Contractor Match', 'Materials Logistics Setup'], tone: 'info' },
       { label: 'Need help with lender scope, bids, or draws', services: ['Lender Scope & Bid Package', 'Draw Review Support'], tone: 'build' },
-      { label: 'Need tighter follow-through on an active job', services: ['Turn Budget Review', 'Construction Oversight'], tone: 'control' },
+      { label: 'Need tighter follow-through on an active job', services: ['Rent-Ready Turn', 'Construction Oversight'], tone: 'control' },
       { label: 'Need repeat help across multiple properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
     ],
     destination: 'Fewer surprises, faster starts, and tighter coordination on the work',
@@ -126,7 +126,7 @@ const roadmapLanes: RoadmapLane[] = [
     start: 'Permit work and office follow-up are eating too much time',
     stops: [
       { label: 'Need help with permit and inspection handling', services: ['Permit Administration', 'Inspection Scheduling Support'], tone: 'start' },
-      { label: 'Need help cleaning up paperwork and follow-up on active jobs', services: ['Active Job Admin Triage'], tone: 'info' },
+      { label: 'Need help cleaning up paperwork and follow-up on active jobs', services: ['Admin Support for Active Jobs'], tone: 'info' },
       { label: 'Need tighter support while the work is moving', services: ['Construction Oversight Support'], tone: 'build' },
       { label: 'Need recurring office help', services: ['Permit & Inspection Support Plan', 'Back-Office Support Plan', 'Contractor Office Extension Retainer'], tone: 'finish' },
     ],
@@ -138,7 +138,7 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/developers-landowners',
     start: 'Too much is still uncertain to move forward casually',
     stops: [
-      { label: 'Need an early read before bigger money moves', services: ['Early Project Review', 'Early Budget & Scope Review'], tone: 'start' },
+      { label: 'Need an early read before bigger money moves', services: ['Project Review', 'Budget & Scope Review'], tone: 'start' },
       { label: 'Need tighter permit handling and follow-through', services: ['Permit Administration + Construction Oversight'], tone: 'build' },
       { label: 'Need ongoing help keeping the work moving', services: ['Project Control Plan', 'Execution Oversight Retainer'], tone: 'finish' },
     ],

@@ -137,8 +137,8 @@ export default function IndustryPartnersPage() {
             Send the address and the situation, whether that is an inspection report, listing prep question, permit file, or active project. We will point you to the right support piece, review path, or quote path from <a href="mailto:orders@southerncitiesconstruction.com" className="underline hover:text-orange">orders@southerncitiesconstruction.com</a> or by phone.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="tel:+12523396146" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-orange-500">
-              Call (252) 339-6146
+            <a href="tel:+19804737249" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-orange-500">
+              Call (980) 473-7249
             </a>
             <a href="mailto:orders@southerncitiesconstruction.com" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-white/20">
               Email Orders
