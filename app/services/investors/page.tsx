@@ -57,7 +57,7 @@ const beforeYouBuy: Service[] = [
     prevents: 'Picking the only contractor that responded',
     price: 'Starts at $1,499 per project',
     cta: 'Get Pricing',
-    href: '/#contact',
+    href: '/services/investors/contractor-match-bid-coordination',
   },
   {
     title: 'Full Due Diligence Package',
@@ -65,7 +65,7 @@ const beforeYouBuy: Service[] = [
     prevents: 'Bad buys, surprise permits, underbudgeting, contractor misfit',
     price: 'Custom packaged scope',
     cta: 'Request Quote',
-    href: '/#contact',
+    href: '/services/investors/full-due-diligence-package',
   },
 ];
 
@@ -76,7 +76,7 @@ const beforeYouStart: Service[] = [
     prevents: 'Promising lenders or partners a date the project cannot hit',
     price: 'Project-specific pricing',
     cta: 'Get Pricing',
-    href: '/#contact',
+    href: '/services/investors/project-timeline-schedule-preparation',
   },
   {
     title: 'Schedule of Cashflows Preparation',
@@ -84,7 +84,7 @@ const beforeYouStart: Service[] = [
     prevents: 'Cash out of sequence, missed draws, costly bridge moves',
     price: 'Project-specific pricing',
     cta: 'Get Pricing',
-    href: '/#contact',
+    href: '/services/investors/schedule-of-cashflows-preparation',
   },
   {
     title: 'Material Logistics Setup',
@@ -92,7 +92,7 @@ const beforeYouStart: Service[] = [
     prevents: 'Wrong materials, late deliveries, sub-onsite-with-nothing-to-do days',
     price: 'Project-specific pricing',
     cta: 'Get Pricing',
-    href: '/#contact',
+    href: '/services/investors/material-logistics-setup',
   },
   {
     title: 'Permit Coordination & Administration',
@@ -100,7 +100,7 @@ const beforeYouStart: Service[] = [
     prevents: 'Mishandled filings, repeated corrections, missed inspections',
     price: 'Starts at $899 per permit',
     cta: 'Get Pricing',
-    href: '/#contact',
+    href: '/services/investors/permit-coordination-administration',
   },
 ];
 
@@ -111,7 +111,7 @@ const fundingAndDraw: Service[] = [
     prevents: 'Funding delays, lender bounce-backs, draw friction',
     price: 'Scope-dependent pricing',
     cta: 'Get Pricing',
-    href: '/#contact',
+    href: '/services/investors/lender-ready-scope-bid-package',
   },
   {
     title: 'Construction Draw Strategy & Alignment',
@@ -119,7 +119,7 @@ const fundingAndDraw: Service[] = [
     prevents: 'Mismatched draws, slow lender turnarounds, broken cashflow',
     price: 'Project-specific pricing',
     cta: 'Get Pricing',
-    href: '/#contact',
+    href: '/services/investors/construction-draw-strategy-alignment',
   },
   {
     title: 'Draw Review Support',
@@ -139,7 +139,7 @@ const duringConstruction: Service[] = [
     prevents: 'Execution drift, scope creep, mismanagement, missed milestones',
     price: '8% to 15% of construction cost, project-dependent',
     cta: 'Request Quote',
-    href: '/#contact',
+    href: '/services/investors/owner-controlled-construction-gc-led',
     flagship: true,
   },
   {
@@ -148,7 +148,7 @@ const duringConstruction: Service[] = [
     prevents: 'Owner-as-PM burnout, missed deadlines, vendor misalignment',
     price: '$1,499/month per active project',
     cta: 'Subscribe',
-    href: '/#contact',
+    href: '/services/investors/project-coordination-control',
   },
   {
     title: 'Full Construction Management Service',
@@ -156,7 +156,7 @@ const duringConstruction: Service[] = [
     prevents: 'Spreading yourself across operations',
     price: '12% to 18% of total project cost',
     cta: 'Request Quote',
-    href: '/#contact',
+    href: '/services/investors/full-construction-management-service',
   },
 ];
 
@@ -167,7 +167,7 @@ const regionalRepeat: Service[] = [
     prevents: 'Per-deal friction',
     price: '$1,799 / $2,999 / $4,999 per month',
     cta: 'Subscribe',
-    href: '/#contact',
+    href: '/services/investors/investor-operator-support',
   },
   {
     title: 'Due Diligence Package, 3 deals/month',
@@ -175,7 +175,7 @@ const regionalRepeat: Service[] = [
     prevents: 'Slow deal vetting, missed windows',
     price: '$2,499/month',
     cta: 'Subscribe',
-    href: '/#contact',
+    href: '/services/investors/due-diligence-package-3-deals-month',
   },
   {
     title: 'Construction Planning Package, 3 deals/month',
@@ -183,7 +183,7 @@ const regionalRepeat: Service[] = [
     prevents: 'Slow project starts, late lender setup',
     price: '$2,999/month',
     cta: 'Subscribe',
-    href: '/#contact',
+    href: '/services/investors/construction-planning-package-3-deals-month',
   },
   {
     title: 'Regional Investor Construction Network Development',
@@ -191,7 +191,7 @@ const regionalRepeat: Service[] = [
     prevents: 'Per-deal vendor scrambles, inconsistent sub quality',
     price: '$7,500 setup + $1,499/month operating retainer',
     cta: 'Request Quote',
-    href: '/#contact',
+    href: '/services/investors/regional-investor-construction-network-development',
   },
 ];
 
