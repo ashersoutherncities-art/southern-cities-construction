@@ -293,8 +293,8 @@ export default function InvestorsPage() {
               <a href="#stage-1" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-orange-500">
                 See Investor Pricing
               </a>
-              <Link href="/#contact" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-white/14">
-                Talk to Southern Cities
+              <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-white/14">
+                See All Service Types
               </Link>
             </div>
           </div>
@@ -378,8 +378,8 @@ export default function InvestorsPage() {
               Send the address, scope, lender info if applicable, and where you are in the project. We will respond with a clear next step on pricing, a packaged purchase, or a quote on Owner-Controlled Construction or full management.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/#contact" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-orange-500">
-                Talk to Southern Cities
+              <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-orange-500">
+                See All Service Types
               </Link>
               <a href="#stage-1" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-white/14">
                 See Investor Pricing

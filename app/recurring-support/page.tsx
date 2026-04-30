@@ -12,6 +12,7 @@ type RecurringCard = {
   limits: string;
   turnaround: string;
   cta: string;
+  href: string;
 };
 
 type RecurringSection = {
@@ -45,6 +46,7 @@ const recurringSections: RecurringSection[] = [
         limits: 'Up to 2 reviews and up to 3 active properties. No labor or site visits included.',
         turnaround: '1 business day response target.',
         cta: 'Review Turn Support Plan',
+        href: '/services/investors/turn-support-plan',
       },
       {
         name: 'Operator Support Plan',
@@ -61,6 +63,7 @@ const recurringSections: RecurringSection[] = [
         limits: '4 reviews, 1 lender package, 1 draw item. No undefined project management.',
         turnaround: 'Same-day acknowledgment, 1 business day standard response.',
         cta: 'Review Operator Support Plan',
+        href: '/services/investors/operator-support-plan',
       },
       {
         name: 'Project Support Retainer',
@@ -77,6 +80,7 @@ const recurringSections: RecurringSection[] = [
         limits: 'Capped support volume. Site visits and meetings scoped separately.',
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Retainer Review',
+        href: '/services/investors/project-support-retainer',
       },
     ],
   },
@@ -102,6 +106,7 @@ const recurringSections: RecurringSection[] = [
         limits: '4 requests and up to 2 active jobs. No unlimited municipal handling.',
         turnaround: '1 business day response target.',
         cta: 'Review Permit & Inspection Plan',
+        href: '/services/contractors/permit-inspection-support-plan',
       },
       {
         name: 'Back-Office Support Plan',
@@ -118,6 +123,7 @@ const recurringSections: RecurringSection[] = [
         limits: '8 requests and up to 4 active jobs. No labor or full office-manager replacement.',
         turnaround: 'Same-day acknowledgment, 1 business day standard response.',
         cta: 'Review Back-Office Plan',
+        href: '/services/contractors/back-office-support-plan',
       },
       {
         name: 'Contractor Office Extension Retainer',
@@ -134,6 +140,7 @@ const recurringSections: RecurringSection[] = [
         limits: 'Defined active-job cap. No unlimited request volume.',
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Retainer Review',
+        href: '/services/contractors/contractor-office-extension-retainer',
       },
     ],
   },
@@ -149,7 +156,7 @@ const recurringSections: RecurringSection[] = [
         tag: 'Entry plan',
         price: '$1,250/mo',
         who: 'Repeat operators who need a clearer read on active projects, upcoming risks, and next decisions.',
-        problem: 'Best when project drift, weak accountability, and poor visibility keep forcing repeated follow-up and late decisions.',
+        problem: 'Best when active projects keep needing repeated follow-up and tighter visibility to stay on track.',
         includes: [
           'Up to 2 active project reviews each month',
           'Milestone check-ins',
@@ -159,6 +166,7 @@ const recurringSections: RecurringSection[] = [
         limits: '2 active projects and 2 formal reviews. No full project management included.',
         turnaround: '1 business day response target.',
         cta: 'Review Project Control Plan',
+        href: '/services/developers-landowners/project-control-plan',
       },
       {
         name: 'Execution Oversight Retainer',
@@ -175,6 +183,7 @@ const recurringSections: RecurringSection[] = [
         limits: 'Defined project cap. Meetings and site visits scoped separately.',
         turnaround: 'Priority 24-hour response target.',
         cta: 'Request Oversight Retainer Review',
+        href: '/services/developers-landowners/execution-oversight-retainer',
       },
     ],
   },
@@ -183,7 +192,7 @@ const recurringSections: RecurringSection[] = [
     eyebrow: 'Realtors',
     title: 'Ongoing support for agents with repeat deal and listing questions.',
     intro:
-      'Use these plans when inspection questions, listing-prep decisions, client repair questions, and repeated construction-side questions show up often enough that a recurring support lane makes more sense.',
+      'Use these plans when inspection questions, listing-prep decisions, repair questions, and other construction questions keep coming up often enough that ongoing support makes more sense than one-off help.',
     cards: [
       {
         name: 'Deal Desk',
@@ -200,6 +209,7 @@ const recurringSections: RecurringSection[] = [
         limits: '4 deal cases, 2 pricing-direction requests, no site visits included.',
         turnaround: '1 business day response. Same-day triage target on urgent active-deal items.',
         cta: 'Review Deal Desk',
+        href: '/services/realtors/deal-desk',
       },
       {
         name: 'Listing Prep Desk',
@@ -216,6 +226,7 @@ const recurringSections: RecurringSection[] = [
         limits: '4 listing-prep reviews, 2 clarifications per property, no site visits included.',
         turnaround: '1 business day first response. 2 business day standard guidance delivery.',
         cta: 'Review Listing Prep Desk',
+        href: '/services/realtors/listing-prep-desk',
       },
       {
         name: 'Agent Support Line',
@@ -232,22 +243,24 @@ const recurringSections: RecurringSection[] = [
         limits: '8 support requests, 2 short calls, single-agent use only.',
         turnaround: 'Same business day first response. 1 business day standard turnaround.',
         cta: 'Review Agent Support Line',
+        href: '/services/realtors/agent-support-line',
       },
       {
         name: 'Team Deal & Listing Desk',
         tag: 'Team plan',
         price: '$2,400/mo',
-        who: 'Small teams and boutique brokerages that want a pooled support lane for repeated deal and listing questions.',
+        who: 'Small teams and boutique brokerages that want shared, ongoing support for repeated deal and listing questions.',
         problem: 'Best when every agent is solving repair and prep questions alone, giving inconsistent guidance, and wasting internal time.',
         includes: [
           'Up to 15 pooled support cases each month',
-          'Shared support lane for up to 5 agents',
+          'Shared ongoing support for up to 5 agents',
           'One monthly 30-minute team call',
           'Consistent written guidance across listing and deal questions',
         ],
         limits: '15 pooled cases, up to 5 agents, no site visits included.',
         turnaround: '1 business day first response. Same-day triage for urgent active-deal items when possible.',
         cta: 'Request Team Plan',
+        href: '/services/realtors/team-deal-listing-desk',
       },
     ],
   },
@@ -294,9 +307,9 @@ function RecurringCardView({ card }: { card: RecurringCard }) {
         </div>
       </div>
       <div className="mt-10 pt-1">
-        <a href="/services#contact" className="inline-flex w-full items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-700">
+        <Link href={card.href} className="inline-flex w-full items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-700">
           {card.cta}
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -397,8 +410,8 @@ export default function RecurringSupportPage() {
               <p><strong className="text-white">Good fit:</strong> repeat permit questions, repeat inspection follow-up, repeat project decisions, repeat admin burden, repeat support requests.</p>
               <p><strong className="text-white">Bad fit:</strong> one custom project, undefined labor, open-ended field execution, or one-time scoping with no repeat need.</p>
             </div>
-            <Link href="/services#contact" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
-              Request Plan Review
+            <Link href="/services" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
+              See Support Options
             </Link>
           </div>
         </div>
