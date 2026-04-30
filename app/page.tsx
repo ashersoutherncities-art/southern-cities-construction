@@ -6,6 +6,7 @@ import { useState } from 'react';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TrustStrip from '@/components/TrustStrip';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 type RoleKey = 'homeowners' | 'investors' | 'realtors' | 'contractors' | 'developers';
 
@@ -550,6 +551,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <TestimonialsCarousel />
 
       <section id="full-contracting" className="bg-navy-950 py-14 sm:py-16 text-white">
         <div className="container-pro grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
