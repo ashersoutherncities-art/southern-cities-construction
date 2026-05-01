@@ -77,6 +77,14 @@ export default {
         'scale-in': 'scaleIn 0.5s ease-out forwards',
         'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
         'shimmer': 'shimmer 2.2s linear infinite',
+        'hero-rise': 'heroRise 1.1s cubic-bezier(.2,.7,.2,1) both',
+        'aurora-a': 'auroraA 22s ease-in-out infinite',
+        'aurora-b': 'auroraB 28s ease-in-out infinite',
+        'aurora-c': 'auroraC 34s ease-in-out infinite',
+        'gradient-pan': 'gradientPan 24s ease-in-out infinite',
+        'rule-grow': 'ruleGrow 0.9s cubic-bezier(.2,.7,.2,1) 0.15s both',
+        'glow-pulse': 'glowPulse 4.5s ease-in-out infinite',
+        'hairline-pan': 'hairlinePan 14s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -102,6 +110,39 @@ export default {
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
+        },
+        heroRise: {
+          '0%': { opacity: '0', transform: 'translateY(18px)', filter: 'blur(6px)' },
+          '60%': { filter: 'blur(0)' },
+          '100%': { opacity: '1', transform: 'translateY(0)', filter: 'blur(0)' },
+        },
+        auroraA: {
+          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)', opacity: '0.55' },
+          '50%': { transform: 'translate3d(40px,30px,0) scale(1.12)', opacity: '0.75' },
+        },
+        auroraB: {
+          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)', opacity: '0.5' },
+          '50%': { transform: 'translate3d(-50px,-22px,0) scale(1.08)', opacity: '0.7' },
+        },
+        auroraC: {
+          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)', opacity: '0.35' },
+          '50%': { transform: 'translate3d(24px,-32px,0) scale(1.18)', opacity: '0.55' },
+        },
+        gradientPan: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        ruleGrow: {
+          '0%': { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(1)' },
+        },
+        glowPulse: {
+          '0%, 100%': { boxShadow: '0 8px 24px -8px rgba(250,140,65,0.45)' },
+          '50%': { boxShadow: '0 14px 38px -8px rgba(250,140,65,0.65)' },
+        },
+        hairlinePan: {
+          '0%': { backgroundPosition: '-50% 0' },
+          '100%': { backgroundPosition: '150% 0' },
         },
       },
     },

@@ -40,7 +40,7 @@ const roleContent: Record<RoleKey, { title: string; href: string; summary: strin
 
 const roleOrder: RoleKey[] = ['homeowners', 'investors', 'realtors', 'contractors', 'developers'];
 
-type StageKey = 'before-spending' | 'need-pricing' | 'job-active';
+type StageKey = 'planning' | 'approving-cost' | 'active-project';
 type NeedKey = 'permits' | 'budget' | 'contractor' | 'coordination';
 
 type NeedOption = {
@@ -93,19 +93,19 @@ const questionnaireNeeds: Record<NeedKey, NeedOption> = {
 };
 
 const questionnaireStages: Record<StageKey, StageOption> = {
-  'before-spending': {
-    label: 'Before spending more',
-    title: 'Get help before you commit.',
-    summary: 'This is the right time to get permits, budgets, scope, and contractor decisions cleaner before more money goes out.',
+  planning: {
+    label: 'I am still planning',
+    title: 'Get clear before you commit.',
+    summary: 'This is the right time to clean up permits, scope, budget, and contractor decisions before more money goes out.',
   },
-  'need-pricing': {
-    label: 'Before approving a number',
-    title: 'Get a clearer read on price.',
-    summary: 'This is the right time to get a more honest budget or repair number before you sign off on a quote or contractor.',
+  'approving-cost': {
+    label: 'I am reviewing a quote or budget',
+    title: 'Get a clearer read on the number.',
+    summary: 'This is the right time to pressure-test a budget, scope, or repair number before you approve it.',
   },
-  'job-active': {
-    label: 'The project is already moving',
-    title: 'Help moving the project forward.',
+  'active-project': {
+    label: 'The project is already underway',
+    title: 'Get the project back under control.',
     summary: 'This is the right time to bring in coordination, oversight, or active project support so the work keeps moving cleanly.',
   },
 };
@@ -159,7 +159,7 @@ const trustPoints = [
 export default function Home() {
   const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
   const [activeNeed, setActiveNeed] = useState<NeedKey>('permits');
-  const [activeStage, setActiveStage] = useState<StageKey>('before-spending');
+  const [activeStage, setActiveStage] = useState<StageKey>('planning');
   const [activeProofIndex, setActiveProofIndex] = useState(0);
 
   const activeRoleContent = roleContent[activeRole];
@@ -169,7 +169,7 @@ export default function Home() {
   const activeProofProject = proofProjects[activeProofIndex];
 
   const questionnaireResult = (() => {
-    if (activeStage === 'need-pricing') {
+    if (activeStage === 'approving-cost') {
       return {
         title: 'Recommended next step',
         eyebrow: 'Best next step',
@@ -181,7 +181,7 @@ export default function Home() {
       };
     }
 
-    if (activeStage === 'job-active') {
+    if (activeStage === 'active-project') {
       return {
         title: 'Recommended next step',
         eyebrow: 'Best next step',
@@ -209,17 +209,26 @@ export default function Home() {
       <SiteNav />
 
       <section className="relative overflow-hidden bg-navy-900 pt-28 pb-16 sm:pt-34 sm:pb-20">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
-        <div className="absolute -left-20 top-16 h-56 w-56 rounded-full bg-orange/15 blur-3xl" />
-        <div className="absolute right-0 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+        <div
+          className="absolute inset-0 motion-safe:animate-gradient-pan bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]"
+          style={{ backgroundSize: '180% 180%' }}
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,rgba(250,140,65,0.45),rgba(255,255,255,0.25),transparent)] motion-safe:animate-hairline-pan"
+          style={{ backgroundSize: '200% 100%' }}
+          aria-hidden="true"
+        />
+        <div className="pointer-events-none absolute -left-20 top-16 h-56 w-56 rounded-full bg-orange/20 blur-3xl motion-safe:animate-aurora-a" aria-hidden="true" />
+        <div className="pointer-events-none absolute right-0 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl motion-safe:animate-aurora-b" aria-hidden="true" />
+        <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 -translate-x-1/2 translate-y-1/3 rounded-full bg-orange/10 blur-3xl motion-safe:animate-aurora-c" aria-hidden="true" />
         <div className="pointer-events-none absolute inset-0 hidden items-center justify-center lg:flex">
           <Image
             src="/sc-construction-minimal.png"
             alt=""
             width={560}
             height={560}
-            className="h-auto w-[30rem] opacity-[0.07]"
+            className="h-auto w-[30rem] opacity-[0.07] motion-safe:animate-pulse-subtle"
             priority
           />
         </div>
@@ -227,25 +236,44 @@ export default function Home() {
         <div className="relative z-10 container-pro">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-center">
             <div className="max-w-[46rem]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Two ways to work with us · Licensed NC General Contractor #107724</p>
-              <h1 className="mt-4 max-w-[18ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem]">
-                Get the right help at the right stage of your project.
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange motion-safe:animate-hero-rise">
+                <span className="block h-px w-8 origin-left bg-orange/80 motion-safe:animate-rule-grow" aria-hidden="true" />
+                <span>Two ways to work with us · Licensed NC General Contractor #107724</span>
+              </p>
+              <h1
+                className="mt-4 max-w-[18ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem] motion-safe:animate-hero-rise"
+                style={{ animationDelay: '0.15s' }}
+              >
+                Get the right help at the{' '}
+                <span className="bg-[linear-gradient(120deg,#ffb37a_0%,#fa8c41_50%,#ffd29c_100%)] bg-clip-text text-transparent">
+                  right stage
+                </span>{' '}
+                of your project.
               </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
+              <p
+                className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl motion-safe:animate-hero-rise"
+                style={{ animationDelay: '0.35s' }}
+              >
                 Most clients want one of two things. Either a licensed general contractor running the whole project, or focused project support on a specific piece like permits, budgets, contractor fit, or oversight. Pick the one that fits where you are right now.
               </p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link href="/services" className="inline-flex min-w-[260px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
+              <div
+                className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap motion-safe:animate-hero-rise"
+                style={{ animationDelay: '0.5s' }}
+              >
+                <Link href="/services" className="inline-flex min-w-[260px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5 motion-safe:animate-glow-pulse">
                   See Pricing for Project Support
                 </Link>
-                <Link href="/services#full-contracting" className="inline-flex min-w-[260px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14">
+                <Link href="/services#full-contracting" className="inline-flex min-w-[260px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
                   Request Full Contracting
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)]">
+            <div
+              className="rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)] motion-safe:animate-hero-rise"
+              style={{ animationDelay: '0.65s' }}
+            >
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How it works</p>
               <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Pick what fits where you are.</h2>
               <ul className="mt-5 space-y-3 text-sm leading-relaxed text-navy">
@@ -274,7 +302,10 @@ export default function Home() {
           </div>
 
           <div className="mt-10 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm">
+            <div
+              className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.13] hover:border-white/25 motion-safe:animate-hero-rise"
+              style={{ animationDelay: '0.8s' }}
+            >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Project Support</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Help with a specific piece of the project.</h3>
               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-white">
@@ -282,17 +313,20 @@ export default function Home() {
                 <li><strong>Get Pricing or Request Review</strong> when scope or condition affects the price.</li>
                 <li><strong>Subscribe Monthly</strong> for ongoing support across active projects.</li>
               </ul>
-              <Link href="/services" className="mt-5 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500">
+              <Link href="/services" className="mt-5 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 hover:-translate-y-0.5">
                 See Pricing
               </Link>
             </div>
-            <div className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm">
+            <div
+              className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.13] hover:border-white/25 motion-safe:animate-hero-rise"
+              style={{ animationDelay: '0.95s' }}
+            >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Full Contracting</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">One licensed company running the whole project.</h3>
               <p className="mt-3 text-sm leading-relaxed text-white">
                 Renovations, rehabs, additions, and new builds with Southern Cities as the licensed GC of record. One company, accountable from start to finish.
               </p>
-              <Link href="/services#full-contracting" className="mt-5 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
+              <Link href="/services#full-contracting" className="mt-5 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15 hover:-translate-y-0.5">
                 Request Full Contracting
               </Link>
             </div>
