@@ -13,6 +13,54 @@
   --muted: #6b6f7a;
   --line: rgba(19, 36, 82, 0.09);
   --soft: #fafaf8;
+  --sc-brand-orange: #ea6827;
+  --sc-brand-orange-dark: #c9531a;
+}
+
+/* GoHighLevel / LeadConnector chat widget brand override */
+chat-widget,
+chat-widget *,
+#chat-widget-launcher,
+#chat-widget-content,
+#chat-widget-iframe,
+[id^="chat-widget"],
+[class^="chat-widget"],
+[class*=" chat-widget"],
+[class*="leadconnector"] {
+  --primary-color: var(--sc-brand-orange) !important;
+  --primary-button-color: var(--sc-brand-orange) !important;
+  --header-color: var(--sc-brand-orange) !important;
+  --send-button-color: var(--sc-brand-orange) !important;
+  --launcher-bg: var(--sc-brand-orange) !important;
+  --bubble-bg: var(--sc-brand-orange) !important;
+  --primary: var(--sc-brand-orange) !important;
+  --color-primary: var(--sc-brand-orange) !important;
+  --button-bg: var(--sc-brand-orange) !important;
+  --header-bg-color: var(--sc-brand-orange) !important;
+  --background-color: var(--sc-brand-orange) !important;
+  --launcher-color: var(--sc-brand-orange) !important;
+  --launcher-icon-color: #ffffff !important;
+}
+
+/* Floating launcher button itself */
+chat-widget .lc-launcher,
+chat-widget [class*="launcher"],
+button[id^="chat-widget"],
+button[class*="chat-widget"],
+div[class*="chat-widget__launcher"],
+div[class*="chat-widget-launcher"],
+div[id*="launcher"][class*="chat"] {
+  background-color: var(--sc-brand-orange) !important;
+  background-image: none !important;
+  border-color: var(--sc-brand-orange) !important;
+  box-shadow: 0 10px 30px rgba(234, 104, 39, 0.35) !important;
+}
+
+/* Iframe-hosted widget: force background of the wrapping element */
+iframe[src*="leadconnectorhq.com"][id*="chat" i],
+iframe[src*="leadconnectorhq.com"][title*="chat" i],
+iframe[id^="chat-widget"] {
+  background-color: transparent !important;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -192,6 +240,103 @@ input:focus, textarea:focus, select:focus {
   .ring-focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(250, 140, 65, 0.28);
+  }
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientPan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes hairlinePan {
+  0% { background-position: 0% 50%; opacity: 0.45; }
+  50% { background-position: 100% 50%; opacity: 1; }
+  100% { background-position: 0% 50%; opacity: 0.45; }
+}
+
+@keyframes auroraA {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(32px, 18px, 0) scale(1.08); }
+}
+
+@keyframes auroraB {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-28px, 20px, 0) scale(1.06); }
+}
+
+@keyframes auroraC {
+  0%, 100% { transform: translate3d(-50%, 33%, 0) scale(1); }
+  50% { transform: translate3d(-46%, 26%, 0) scale(1.07); }
+}
+
+@keyframes ruleGrow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(250, 140, 65, 0.12), 0 18px 44px rgba(250, 140, 65, 0.18); }
+  50% { box-shadow: 0 0 0 rgba(250, 140, 65, 0.2), 0 22px 54px rgba(250, 140, 65, 0.28); }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.05; transform: scale(0.985); }
+  50% { opacity: 0.09; transform: scale(1.015); }
+}
+
+@layer utilities {
+  .animate-hero-rise {
+    animation: heroRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-gradient-pan {
+    animation: gradientPan 18s ease-in-out infinite;
+  }
+
+  .animate-hairline-pan {
+    animation: hairlinePan 10s ease-in-out infinite;
+  }
+
+  .animate-aurora-a {
+    animation: auroraA 16s ease-in-out infinite;
+  }
+
+  .animate-aurora-b {
+    animation: auroraB 20s ease-in-out infinite;
+  }
+
+  .animate-aurora-c {
+    animation: auroraC 18s ease-in-out infinite;
+  }
+
+  .animate-rule-grow {
+    animation: ruleGrow 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-glow-pulse {
+    animation: glowPulse 4.6s ease-in-out infinite;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulseSubtle 12s ease-in-out infinite;
   }
 }
 
