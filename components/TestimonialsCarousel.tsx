@@ -85,7 +85,7 @@ export default function TestimonialsCarousel({
 
     let frameId = 0;
     let lastTs = performance.now();
-    const speedPerSecond = 0.18;
+    const speedPerSecond = 0.11;
 
     const tick = (ts: number) => {
       const deltaSeconds = (ts - lastTs) / 1000;
