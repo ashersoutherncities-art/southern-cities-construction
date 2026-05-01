@@ -82,10 +82,23 @@ export default function TestimonialsCarousel({
 
   useEffect(() => {
     if (paused || testimonials.length <= 1) return;
-    const timer = window.setInterval(() => {
-      setIndex((prev) => (prev + 1) % testimonials.length);
-    }, 4500);
-    return () => window.clearInterval(timer);
+
+    let frameId = 0;
+    let lastTs = performance.now();
+    const speedPerSecond = 0.18;
+
+    const tick = (ts: number) => {
+      const deltaSeconds = (ts - lastTs) / 1000;
+      lastTs = ts;
+      setIndex((prev) => {
+        const next = prev + deltaSeconds * speedPerSecond;
+        return next >= testimonials.length ? next - testimonials.length : next;
+      });
+      frameId = window.requestAnimationFrame(tick);
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frameId);
   }, [paused, testimonials.length]);
 
   const goPrev = () => setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
@@ -128,7 +141,7 @@ export default function TestimonialsCarousel({
           onMouseLeave={() => setPaused(false)}
         >
           <div
-            className="flex gap-5 transition-transform duration-700 ease-out"
+            className="flex gap-5"
             style={{ transform: `translateX(calc(-${index * 100}% / 1))` }}
           >
             {cards.map((testimonial, itemIndex) => (
