@@ -222,15 +222,18 @@ export default function Home() {
         <div className="pointer-events-none absolute -left-20 top-16 h-56 w-56 rounded-full bg-orange/20 blur-3xl motion-safe:animate-aurora-a" aria-hidden="true" />
         <div className="pointer-events-none absolute right-0 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl motion-safe:animate-aurora-b" aria-hidden="true" />
         <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 -translate-x-1/2 translate-y-1/3 rounded-full bg-orange/10 blur-3xl motion-safe:animate-aurora-c" aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-0 hidden items-center justify-center lg:flex">
-          <Image
-            src="/sc-construction-minimal.png"
-            alt=""
-            width={560}
-            height={560}
-            className="h-auto w-[30rem] opacity-[0.07] motion-safe:animate-pulse-subtle"
-            priority
-          />
+        <div className="pointer-events-none absolute inset-0 hidden items-center justify-center lg:flex" aria-hidden="true">
+          <div className="relative flex h-full w-full items-center justify-center">
+            <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.02)_28%,rgba(255,255,255,0)_62%)]" />
+            <Image
+              src="/sc-construction-minimal.png"
+              alt=""
+              width={640}
+              height={640}
+              className="h-auto w-[34rem] opacity-[0.045] mix-blend-screen motion-safe:animate-pulse-subtle"
+              priority
+            />
+          </div>
         </div>
 
         <div className="relative z-10 container-pro">
