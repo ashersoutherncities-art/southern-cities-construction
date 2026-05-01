@@ -453,7 +453,7 @@ export default function Home() {
                             : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
                         }`}
                       >
-                        Set {index + 1}
+                        {['Builder Grade','Farmhouse Revival','Historic South'][index]}
                       </button>
                     );
                   })}
