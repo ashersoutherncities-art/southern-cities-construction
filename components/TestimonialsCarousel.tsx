@@ -1,13 +1,11 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 
 export type TestimonialItem = {
   quote: string;
   name: string;
   role: string;
-  image: string;
 };
 
 const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
@@ -16,42 +14,36 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
       'Southern Cities gave us a much clearer path before we spent more money. The review was straightforward, practical, and saved us from making a bad decision too early.',
     name: 'Marcus T.',
     role: 'Investor',
-    image: '/gallery/farmhouse-after.jpg',
   },
   {
     quote:
       'We needed real answers on scope, budget, and what to do next. They made the project feel manageable again instead of confusing.',
     name: 'Angela R.',
     role: 'Homeowner',
-    image: '/gallery/red-house-after.jpg',
   },
   {
     quote:
       'The construction guidance helped keep the deal moving. Instead of vague opinions, we got a clear read we could actually use with the client.',
     name: 'Daniel P.',
     role: 'Realtor',
-    image: '/gallery/white-house-after.jpg',
   },
   {
     quote:
       'Permit and admin follow-up were dragging our jobs down. The support was practical, responsive, and took real pressure off the team.',
     name: 'Chris W.',
     role: 'Contractor',
-    image: '/gallery/farmhouse-after.jpg',
   },
   {
     quote:
       'What stood out was how grounded the advice was. They were not trying to oversell a giant scope. They helped us buy the right next step.',
     name: 'Lauren S.',
     role: 'Developer / Landowner',
-    image: '/gallery/red-house-after.jpg',
   },
   {
     quote:
       'The project support model makes sense. We got the specific help we needed without getting pushed into a bigger construction relationship too early.',
     name: 'Kevin M.',
     role: 'Investor',
-    image: '/gallery/white-house-after.jpg',
   },
 ];
 
@@ -152,8 +144,8 @@ export default function TestimonialsCarousel({
                 <StarRow />
                 <p className="mt-5 text-[15px] leading-[1.75] text-stone-700">&ldquo;{testimonial.quote}&rdquo;</p>
                 <div className="mt-6 flex items-center gap-4">
-                  <div className="relative h-14 w-14 overflow-hidden rounded-full border border-stone-200 bg-stone-100">
-                    <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-stone-200 bg-orange text-lg font-extrabold text-white">
+                    {testimonial.name.charAt(0)}
                   </div>
                   <div>
                     <p className="text-base font-extrabold tracking-tight text-navy">{testimonial.name}</p>
