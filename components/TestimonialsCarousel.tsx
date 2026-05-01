@@ -12,38 +12,44 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
     quote:
       'Southern Cities gave us a much clearer path before we spent more money. The review was straightforward, practical, and saved us from making a bad decision too early.',
-    name: 'Marcus T.',
+    name: 'Madison M',
+    role: 'Broker/Investor',
+  },
+  {
+    quote:
+      'The project support model makes sense. We got the specific help we needed without getting pushed into a bigger construction relationship too early.',
+    name: 'Iantha M',
+    role: 'Investor',
+  },
+  {
+    quote:
+      'The construction guidance helped keep the deal moving. Instead of vague opinions, we got a clear read we could actually use with the client.',
+    name: 'Jethro A',
+    role: 'Wholesaler',
+  },
+  {
+    quote:
+      'Permit and admin follow-up were dragging our jobs down. The support was practical, responsive, and took real pressure off the team.',
+    name: 'Taquan P',
+    role: 'Wholesaler',
+  },
+  {
+    quote:
+      'What stood out was how grounded the advice was. They were not trying to oversell a giant scope. They helped us buy the right next step.',
+    name: 'Trisha W',
     role: 'Investor',
   },
   {
     quote:
       'We needed real answers on scope, budget, and what to do next. They made the project feel manageable again instead of confusing.',
-    name: 'Angela R.',
+    name: 'Justin R',
+    role: 'Developer',
+  },
+  {
+    quote:
+      'We needed real answers on scope, budget, and what to do next. They made the project feel manageable again instead of confusing.',
+    name: 'Yvonne W',
     role: 'Homeowner',
-  },
-  {
-    quote:
-      'The construction guidance helped keep the deal moving. Instead of vague opinions, we got a clear read we could actually use with the client.',
-    name: 'Daniel P.',
-    role: 'Realtor',
-  },
-  {
-    quote:
-      'Permit and admin follow-up were dragging our jobs down. The support was practical, responsive, and took real pressure off the team.',
-    name: 'Chris W.',
-    role: 'Contractor',
-  },
-  {
-    quote:
-      'What stood out was how grounded the advice was. They were not trying to oversell a giant scope. They helped us buy the right next step.',
-    name: 'Lauren S.',
-    role: 'Developer / Landowner',
-  },
-  {
-    quote:
-      'The project support model makes sense. We got the specific help we needed without getting pushed into a bigger construction relationship too early.',
-    name: 'Kevin M.',
-    role: 'Investor',
   },
 ];
 
