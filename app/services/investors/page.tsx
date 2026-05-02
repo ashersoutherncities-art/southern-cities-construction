@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import AddToCartButton from '@/components/AddToCartButton';
 
 type Service = {
   title: string;
@@ -21,8 +20,7 @@ const beforeYouBuy: Service[] = [
     prevents: 'Hidden scope, mispriced rehab, underestimated structural risk',
     price: '$499',
     cta: 'Buy Now',
-    href: '/cart?cart=investor-review',
-    itemKey: 'investor-review',
+    href: '/services/investors/investor-review',
   },
   {
     title: 'Permit & Local Compliance Review',
@@ -30,8 +28,7 @@ const beforeYouBuy: Service[] = [
     prevents: 'Buying into a property where the rehab path is illegal, blocked, or far more expensive',
     price: '$399',
     cta: 'Buy Now',
-    href: '/cart?cart=permit-local-compliance-review',
-    itemKey: 'permit-local-compliance-review',
+    href: '/services/investors/permit-local-compliance-review',
   },
   {
     title: 'Budget Review',
@@ -39,8 +36,7 @@ const beforeYouBuy: Service[] = [
     prevents: 'Underwriting with weak rehab numbers',
     price: '$599',
     cta: 'Buy Now',
-    href: '/cart?cart=budget-review',
-    itemKey: 'budget-review',
+    href: '/services/investors/budget-review',
   },
   {
     title: 'Contractor Fit Consultation',
@@ -48,8 +44,7 @@ const beforeYouBuy: Service[] = [
     prevents: 'Misfit hires that cause delay, cost overruns, or quality problems',
     price: '$349',
     cta: 'Buy Now',
-    href: '/cart?cart=contractor-fit-consultation',
-    itemKey: 'contractor-fit-consultation',
+    href: '/services/investors/contractor-fit-consultation',
   },
   {
     title: 'Contractor Match + Bid Coordination',
@@ -127,8 +122,7 @@ const fundingAndDraw: Service[] = [
     prevents: 'Late funds, denied draws, broken cashflow',
     price: '$399 per draw',
     cta: 'Buy Now',
-    href: '/cart?cart=draw-review-support',
-    itemKey: 'draw-review-support',
+    href: '/services/investors/draw-review-support',
   },
 ];
 
@@ -211,20 +205,12 @@ function ServiceCard({ service }: { service: Service }) {
       <p className="mt-3 text-sm font-semibold text-orange">Prevents: <span className="font-normal text-stone-700">{service.prevents}</span></p>
       <div className="mt-auto pt-5">
         <p className="text-sm font-bold text-navy">{service.price}</p>
-        {service.cta === 'Buy Now' && service.itemKey ? (
-          <AddToCartButton
-            itemKey={service.itemKey}
-            label={service.cta}
-            className={`mt-3 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${ctaClass}`}
-          />
-        ) : (
-          <Link
-            href={service.href}
-            className={`mt-3 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${ctaClass}`}
-          >
-            {service.cta}
-          </Link>
-        )}
+        <Link
+          href={service.href}
+          className={`mt-3 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${ctaClass}`}
+        >
+          {service.cta}
+        </Link>
       </div>
     </div>
   );

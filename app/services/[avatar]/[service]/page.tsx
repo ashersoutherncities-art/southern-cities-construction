@@ -41,6 +41,23 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
       </Link>
     );
 
+  const servicePrice = service.monthlyPrice || service.pricingNote || 'Project-specific pricing';
+  const inputsNeeded = service.inputsNeeded || ['Property address or project location', 'Photos, plans, or current scope notes', 'Any existing bids, reports, or permit information', 'Your timing and decision deadline'];
+  const faqItems = [
+    {
+      question: 'Who is this for?',
+      answer: service.fit,
+    },
+    {
+      question: 'How fast can Southern Cities turn this around?',
+      answer: service.turnaround || 'Turnaround depends on the file, but Southern Cities will confirm the next step quickly after reviewing what you send.',
+    },
+    {
+      question: 'What happens after I buy, request pricing, or request review?',
+      answer: getServiceNextStepCopy(service),
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white text-navy">
       <SiteNav variant="solid" />
@@ -67,40 +84,37 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
       </section>
 
       <section className="border-b border-stone-200 bg-white py-14 sm:py-16">
-        <div className="container-pro grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
+        <div className="container-pro grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
           <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Who this is for</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{service.fit}</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Price</p>
+            <p className="mt-4 text-2xl font-extrabold tracking-tight text-navy">{servicePrice}</p>
+            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Who this is for</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.fit}</p>
             <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What problem this solves</p>
             <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.pain}</p>
-            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What changes after</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.outcome}</p>
+            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Turnaround time</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.turnaround || 'Confirmed after file review if timing depends on project complexity.'}</p>
           </div>
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
-            <div className="grid gap-6 md:grid-cols-2">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is included</p>
-                <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
-                  {(service.included || service.details).map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is not included</p>
-                <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
-                  {(service.notIncluded || ['Anything outside the defined scope for this offer.']).map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-stone-400 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is included</p>
+            <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              {(service.included || service.details).map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-8 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is not included</p>
+            <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              {(service.notIncluded || ['Anything outside the defined scope for this offer.']).map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-stone-400 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -108,14 +122,41 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
       <section className="bg-stone-50 py-14 sm:py-16">
         <div className="container-pro grid gap-6 lg:grid-cols-3">
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How pricing works</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{getServicePricingCopy(service)}</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What we need from you</p>
+            <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              {inputsNeeded.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What happens next</p>
             <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{getServiceNextStepCopy(service)}</p>
           </div>
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How pricing works</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{getServicePricingCopy(service)}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-stone-200 bg-white py-14 sm:py-16">
+        <div className="container-pro grid gap-6 lg:grid-cols-3">
+          <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:col-span-2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">FAQ</p>
+            <div className="mt-4 space-y-5">
+              {faqItems.map((item) => (
+                <div key={item.question}>
+                  <h3 className="text-base font-bold text-navy">{item.question}</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-stone-700">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Proof</p>
             <p className="mt-4 text-lg font-extrabold tracking-tight text-navy">{service.proofTitle || 'A clearer decision page builds trust faster.'}</p>
             <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.proofBody || 'Use real project proof, before-and-after visuals, or short verified outcomes here as the proof library gets stronger.'}</p>

@@ -72,7 +72,6 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     audience_type: data.eyebrow,
     service: '',
     message: '',
@@ -85,7 +84,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: 'checked' in e.target ? (e.target as HTMLInputElement).checked : value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -106,7 +105,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
       }
 
       setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', audience_type: data.eyebrow, service: '', message: '' });
+      setFormData({ name: '', email: '', audience_type: data.eyebrow, service: '', message: '' });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     } finally {
@@ -143,7 +142,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">{data.heroSubtitle}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               {firstFixed ? (
-                <a href={firstFixed.itemKey ? firstFixed.detailHref : (firstFixed.ctaHref || firstFixed.detailHref)} className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
+                <a href={firstFixed.detailHref} className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
                   {firstFixed.cta}
                 </a>
               ) : null}
@@ -254,7 +253,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
           <div className="container-pro">
             <div className="max-w-4xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with the stage you are in</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Buy the support piece that fits the job right now.</h2>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Get the right help for where the project is right now.</h2>
               <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
                 You do not have to buy one giant undefined construction relationship. Use the stage below that matches the project and start with the specific help that will move it forward more cleanly.
               </p>
@@ -393,7 +392,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                                 </div>
                               ) : null}
                               <div className="mt-10 pt-1">
-                                <a href={card.ctaHref || card.detailHref} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                                <a href={card.purchaseType === 'fixed' ? card.detailHref : (card.ctaHref || card.detailHref)} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                                   {card.cta}
                                 </a>
                               </div>
@@ -428,7 +427,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                 {data.recurringIntro || 'Use a monthly plan when the same kind of permit, pricing, follow-up, or coordination problem keeps coming back and you do not want to restart from scratch every time.'}
               </p>
             </div>
-            <ServiceBucket title="Monthly Support Plans" text="Use this when the same decisions, reviews, or follow-up problems keep repeating and you need a standing lane for them." cards={data.recurring} />
+            <ServiceBucket title="Monthly Support Plans" text="Use this when the same questions, reviews, or follow-up keep repeating and you want ongoing help on a recurring basis." cards={data.recurring} />
             <div className="mt-8">
               <a href="/recurring-support" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                 See All Recurring Support Plans
@@ -481,7 +480,6 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                   <input name="email" type="email" value={formData.email} onChange={handleChange} required placeholder="Email" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
                   <input name="service" value={formData.service} onChange={handleChange} placeholder="What service or issue are you reaching out about?" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />
                 </div>
                 <textarea name="message" value={formData.message} onChange={handleChange} required rows={6} placeholder="What are you deciding, what stage is the project in, and what kind of help do you need next?" className="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/45 focus:border-orange focus:outline-none" />

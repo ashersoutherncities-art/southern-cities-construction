@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import AddToCartButton from '@/components/AddToCartButton';
 import { ServiceCardData } from '@/lib/services-data';
 
 export function ServiceBucket({
@@ -49,17 +48,7 @@ export function ServiceBucket({
 }
 
 function getPrimaryCta(card: ServiceCardData) {
-  const href = card.ctaHref || card.detailHref;
-
-  if (card.purchaseType === 'fixed' && card.itemKey) {
-    return (
-      <AddToCartButton
-        itemKey={card.itemKey}
-        label={card.cta}
-        className="inline-flex w-full items-center justify-center rounded-full bg-orange py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-orange-500"
-      />
-    );
-  }
+  const href = card.purchaseType === 'fixed' ? card.detailHref : (card.ctaHref || card.detailHref);
 
   return (
     <Link
