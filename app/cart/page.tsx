@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { buildDirectCheckoutHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
+import { buildCartHref, buildDirectCheckoutHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
 
 function getCheckoutLabel(itemKey: string) {
   if (itemKey === 'permit-management-service') {
@@ -13,11 +13,12 @@ function getCheckoutLabel(itemKey: string) {
   }
   return 'Continue to checkout';
 }
-import { clearCartCookie, setCartItemsCookie } from '@/lib/cart-client';
+import { clearCartCookie, getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
 function CartPageContent() {
   const searchParams = useSearchParams();
-  const items = useMemo(() => parseCartParam(searchParams.get(CART_QUERY_KEY)), [searchParams]);
+  const queryCart = searchParams.get(CART_QUERY_KEY);
+  const items = useMemo(() => parseCartParam(queryCart || getCartParamFromCookie()), [queryCart]);
   const lineItems = useMemo(() => getCartLineItems(items), [items]);
 
   const subtotal = useMemo(
@@ -30,8 +31,10 @@ function CartPageContent() {
       clearCartCookie();
       return;
     }
-    setCartItemsCookie(lineItems.map((item) => item.key));
-  }, [lineItems]);
+    const nextHref = buildCartHref(items);
+    const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
+    setCartParamCookie(nextParam);
+  }, [items, lineItems]);
 
   return (
     <main className="min-h-screen bg-stone-50">

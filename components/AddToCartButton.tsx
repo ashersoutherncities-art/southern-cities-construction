@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { MouseEvent } from 'react';
-import { buildCartHref } from '@/lib/cart';
-import { getCartItemsFromCookie, setCartItemsCookie } from '@/lib/cart-client';
+import { buildCartHref, CART_QUERY_KEY, parseCartParam } from '@/lib/cart';
+import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
 export default function AddToCartButton({
   itemKey,
@@ -15,10 +15,13 @@ export default function AddToCartButton({
   className?: string;
 }) {
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    const existing = getCartItemsFromCookie();
-    const next = [...existing, itemKey];
-    setCartItemsCookie(next);
-    event.currentTarget.href = buildCartHref(next);
+    const existingParam = getCartParamFromCookie();
+    const existing = parseCartParam(existingParam);
+    const next = [...existing, { key: itemKey, quantity: 1 }];
+    const nextHref = buildCartHref(next);
+    const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
+    setCartParamCookie(nextParam);
+    event.currentTarget.href = nextHref;
   };
 
   return (

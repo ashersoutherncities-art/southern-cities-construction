@@ -1,19 +1,32 @@
 export const CART_COOKIE_KEY = 'scc_cart';
 
-export function getCartItemsFromCookie(): string[] {
-  if (typeof document === 'undefined') return [];
+function getCartCookieValue() {
+  if (typeof document === 'undefined') return '';
   const match = document.cookie
     .split('; ')
     .find((row) => row.startsWith(`${CART_COOKIE_KEY}=`));
-  if (!match) return [];
-  const value = decodeURIComponent(match.split('=').slice(1).join('='));
+  if (!match) return '';
+  return decodeURIComponent(match.split('=').slice(1).join('='));
+}
+
+export function getCartItemsFromCookie(): string[] {
+  const value = getCartCookieValue();
   return value ? value.split(',').map((v) => v.trim()).filter(Boolean) : [];
+}
+
+export function getCartParamFromCookie(): string {
+  return getCartCookieValue();
 }
 
 export function setCartItemsCookie(items: string[]) {
   if (typeof document === 'undefined') return;
   const value = encodeURIComponent(items.join(','));
   document.cookie = `${CART_COOKIE_KEY}=${value}; path=/; max-age=86400; samesite=lax`;
+}
+
+export function setCartParamCookie(value: string) {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${CART_COOKIE_KEY}=${encodeURIComponent(value)}; path=/; max-age=86400; samesite=lax`;
 }
 
 export function clearCartCookie() {
