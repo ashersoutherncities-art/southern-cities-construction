@@ -1,0 +1,80 @@
+Owner Scope-Lock Worksheet
+Southern Cities Construction
+
+Use this worksheet before construction starts so scope, allowances, open items, and decision timing are clearer.
+
+Project basics
+- Property address:
+- Owner name:
+- Primary contact:
+- Target start date:
+- Target completion date:
+- Project type:
+
+1. What is actually being done?
+- List every room, area, or exterior zone included.
+- List any work the owner assumes is included but has not been clearly written anywhere.
+- List anything intentionally excluded.
+
+2. Priority list
+- What has to be done?
+- What should be done if budget allows?
+- What can wait until later?
+
+3. Allowances and selections
+For each major selection item, write:
+- Item category
+- Allowance amount
+- Who selects it
+- Deadline for final selection
+Examples:
+- Flooring
+- Tile
+- Cabinets
+- Countertops
+- Plumbing fixtures
+- Lighting fixtures
+- Appliances
+- Paint level / finish level
+
+4. Open items that create change orders later
+- Structural questions still not answered
+- Hidden condition risks
+- Permit questions still unresolved
+- Utility / service questions
+- Material lead-time risks
+- Finish selections still undecided
+
+5. Budget pressure points
+- What part of the budget feels least certain?
+- What part of the scope is most likely to expand?
+- What part of the project would hurt most if the timeline slips?
+
+6. Decision deadlines
+- Final scope lock date:
+- Permit submission date:
+- Material selection deadlines:
+- Contractor / trade award deadlines:
+- Lender or draw deadlines:
+
+7. Change-order rules
+- What counts as a change?
+- Who approves changes?
+- How are changes priced and documented?
+- How will timeline impact be communicated?
+
+8. Communication expectations
+- Who gets updates?
+- How often?
+- What should trigger an immediate call vs a normal update?
+- Where are approvals documented?
+
+9. Before construction starts, confirm
+- Scope is written clearly.
+- Exclusions are written clearly.
+- Allowances are realistic.
+- Open items are identified.
+- Timeline assumptions are realistic.
+- Permit path is clear enough to move.
+
+If you need help pressure-testing scope, budget, or project setup, use the relevant services on southerncitiesconstruction.com.

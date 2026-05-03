@@ -11,6 +11,7 @@ export type Resource = {
   summary: string;
   includes: string[];
   bestFor: string;
+  downloadUrl?: string;
 };
 
 export const RESOURCES: Resource[] = [
@@ -20,7 +21,7 @@ export const RESOURCES: Resource[] = [
     kind: 'free',
     category: 'Permitting',
     audience: 'Owners · Investors',
-    format: 'PDF Checklist',
+    format: 'Free Download',
     pages: 6,
     summary:
       'Every document, drawing, and submission detail a residential permit application in North Carolina needs before it hits the plan-review desk.',
@@ -32,6 +33,7 @@ export const RESOURCES: Resource[] = [
       'Pre-submission review sheet used before we file',
     ],
     bestFor: 'Owners or PMs about to file a residential permit in Mecklenburg, Cabarrus, Iredell, Union, or Gaston counties.',
+    downloadUrl: '/resources/nc-residential-permit-prep-checklist.txt',
   },
   {
     slug: 'nc-rough-inspection-pass-list',
@@ -39,7 +41,7 @@ export const RESOURCES: Resource[] = [
     kind: 'free',
     category: 'Inspections',
     audience: 'Contractors · Owners',
-    format: 'PDF Field Sheet',
+    format: 'Free Download',
     pages: 4,
     summary:
       'The exact field checks we run the day before every rough framing, rough electrical, rough plumbing, and rough mechanical inspection in NC.',
@@ -51,6 +53,7 @@ export const RESOURCES: Resource[] = [
       'Insulation readiness items before the blower-door visit',
     ],
     bestFor: 'Project managers and GC field leads who want to stop losing days on avoidable inspection failures.',
+    downloadUrl: '/resources/nc-rough-inspection-pass-list.txt',
   },
   {
     slug: 'owner-scope-lock-worksheet',
@@ -58,7 +61,7 @@ export const RESOURCES: Resource[] = [
     kind: 'free',
     category: 'Planning',
     audience: 'Owners · Developers',
-    format: 'PDF Worksheet',
+    format: 'Free Download',
     pages: 5,
     summary:
       'The scope-review worksheet we use with owners during pre-construction — allowance sizing, open items, draw structure, and change-order setup.',
@@ -70,6 +73,7 @@ export const RESOURCES: Resource[] = [
       'Pre-construction meeting agenda',
     ],
     bestFor: 'Owners and developers entering pre-construction on a renovation, addition, or ground-up residential project.',
+    downloadUrl: '/resources/owner-scope-lock-worksheet.txt',
   },
   {
     slug: 'nc-investor-construction-playbook',

@@ -29,6 +29,7 @@ function ResourceCard({
   onRequest: (resource: Resource) => void;
 }) {
   const isPaid = resource.kind === 'paid';
+  const isDirectDownload = !isPaid && !!resource.downloadUrl;
   return (
     <div className="group flex h-full flex-col rounded-2xl border border-stone-200 bg-white shadow-elev-1 card-hover overflow-hidden">
       <div
@@ -88,16 +89,26 @@ function ResourceCard({
             <p className="text-[13px] text-stone-600 leading-relaxed">{resource.bestFor}</p>
           </div>
 
-          <button
-            onClick={() => onRequest(resource)}
-            className={`w-full rounded-full py-3 text-sm font-semibold transition-all duration-300 ${
-              isPaid
-                ? 'bg-navy hover:bg-navy-700 text-white'
-                : 'bg-orange hover:bg-orange-500 text-white shadow-glow-orange'
-            }`}
-          >
-            {isPaid ? `Purchase · ${resource.price}` : 'Get the Free Download'}
-          </button>
+          {isDirectDownload ? (
+            <a
+              href={resource.downloadUrl}
+              download
+              className="block w-full rounded-full bg-orange hover:bg-orange-500 py-3 text-center text-sm font-semibold text-white shadow-glow-orange transition-all duration-300"
+            >
+              Download Free Resource
+            </a>
+          ) : (
+            <button
+              onClick={() => onRequest(resource)}
+              className={`w-full rounded-full py-3 text-sm font-semibold transition-all duration-300 ${
+                isPaid
+                  ? 'bg-navy hover:bg-navy-700 text-white'
+                  : 'bg-orange hover:bg-orange-500 text-white shadow-glow-orange'
+              }`}
+            >
+              {isPaid ? `Purchase · ${resource.price}` : 'Get the Free Download'}
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -108,7 +119,7 @@ export default function ResourcesPage() {
   const [active, setActive] = useState<Resource | null>(null);
   const [formState, setFormState] = useState<RequestState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', company: '', role: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', role: '' });
 
   const freeResources = RESOURCES.filter((r) => r.kind === 'free');
   const paidResources = RESOURCES.filter((r) => r.kind === 'paid');
@@ -123,7 +134,7 @@ export default function ResourcesPage() {
     setActive(null);
     setFormState('idle');
     setErrorMsg('');
-    setFormData({ name: '', email: '', phone: '', company: '', role: '' });
+    setFormData({ name: '', email: '', company: '', role: '' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -139,7 +150,7 @@ export default function ResourcesPage() {
           resource_slug: active.slug,
           name: formData.name,
           email: formData.email,
-          phone: formData.phone,
+          phone: '',
           company: formData.company,
           role: formData.role,
         }),
@@ -213,7 +224,7 @@ export default function ResourcesPage() {
               Checklists and worksheets built from real NC residential projects
             </h2>
             <p className="mt-4 text-stone-500 leading-relaxed">
-              Request a free download — we send the file within one business day and keep your email only for future resource releases.
+              These free resources are available for immediate download. No request form, no waiting on email delivery.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -388,18 +399,6 @@ export default function ResourcesPage() {
                     />
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-navy font-semibold text-[12px] uppercase tracking-[0.14em] mb-1.5">
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                        className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-[15px]"
-                        placeholder="(704) 000-0000"
-                      />
-                    </div>
                     <div>
                       <label className="block text-navy font-semibold text-[12px] uppercase tracking-[0.14em] mb-1.5">
                         Role
