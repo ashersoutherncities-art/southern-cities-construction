@@ -33,7 +33,7 @@ export const RESOURCES: Resource[] = [
       'Pre-submission review sheet used before we file',
     ],
     bestFor: 'Owners or PMs about to file a residential permit in Mecklenburg, Cabarrus, Iredell, Union, or Gaston counties.',
-    downloadUrl: '/resources/nc-residential-permit-prep-checklist.txt',
+    downloadUrl: '/resources/nc-residential-permit-prep-checklist.pdf',
   },
   {
     slug: 'nc-rough-inspection-pass-list',
@@ -53,7 +53,7 @@ export const RESOURCES: Resource[] = [
       'Insulation readiness items before the blower-door visit',
     ],
     bestFor: 'Project managers and GC field leads who want to stop losing days on avoidable inspection failures.',
-    downloadUrl: '/resources/nc-rough-inspection-pass-list.txt',
+    downloadUrl: '/resources/nc-rough-inspection-pass-list.pdf',
   },
   {
     slug: 'owner-scope-lock-worksheet',
@@ -73,7 +73,7 @@ export const RESOURCES: Resource[] = [
       'Pre-construction meeting agenda',
     ],
     bestFor: 'Owners and developers entering pre-construction on a renovation, addition, or ground-up residential project.',
-    downloadUrl: '/resources/owner-scope-lock-worksheet.txt',
+    downloadUrl: '/resources/owner-scope-lock-worksheet.pdf',
   },
   {
     slug: 'nc-investor-construction-playbook',
