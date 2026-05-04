@@ -40,7 +40,7 @@ const roleContent: Record<RoleKey, { title: string; href: string; summary: strin
 
 const roleOrder: RoleKey[] = ['homeowners', 'investors', 'realtors', 'contractors', 'developers'];
 
-type StageKey = 'planning' | 'approving-cost' | 'active-project';
+type StageKey = 'before-you-spend' | 'getting-started' | 'keeping-work-moving';
 type NeedKey = 'permits' | 'budget' | 'contractor' | 'coordination';
 
 type NeedOption = {
@@ -93,20 +93,20 @@ const questionnaireNeeds: Record<NeedKey, NeedOption> = {
 };
 
 const questionnaireStages: Record<StageKey, StageOption> = {
-  planning: {
-    label: 'I am still planning',
-    title: 'Get clear before you commit.',
-    summary: 'This is the right time to clean up permits, scope, budget, and contractor decisions before more money goes out.',
+  'before-you-spend': {
+    label: 'Before you spend',
+    title: 'Figure out the number, the scope, and the risk before more money goes out.',
+    summary: 'Use this stage when you are trying to understand cost, permits, scope, or contractor fit before approving the wrong plan or budget.',
   },
-  'approving-cost': {
-    label: 'I am reviewing a quote or budget',
-    title: 'Get a clearer read on the number.',
-    summary: 'This is the right time to pressure-test a budget, scope, or repair number before you approve it.',
+  'getting-started': {
+    label: 'Getting the project started',
+    title: 'Get the project set up cleanly before early mistakes turn into delay.',
+    summary: 'Use this stage when you are trying to start the project the right way, line up permits and next steps, and avoid confusion at the beginning.',
   },
-  'active-project': {
-    label: 'The project is already underway',
-    title: 'Get the project back under control.',
-    summary: 'This is the right time to bring in coordination, oversight, or active project support so the work keeps moving cleanly.',
+  'keeping-work-moving': {
+    label: 'Keeping work moving',
+    title: 'Keep the job moving without drift, delays, or expensive confusion.',
+    summary: 'Use this stage when work is already active and you need coordination, oversight, or project control to stop things from slipping.',
   },
 };
 
@@ -159,7 +159,7 @@ const trustPoints = [
 export default function Home() {
   const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
   const [activeNeed, setActiveNeed] = useState<NeedKey>('permits');
-  const [activeStage, setActiveStage] = useState<StageKey>('planning');
+  const [activeStage, setActiveStage] = useState<StageKey>('before-you-spend');
   const [activeProofIndex, setActiveProofIndex] = useState(0);
 
   const activeRoleContent = roleContent[activeRole];
@@ -169,11 +169,11 @@ export default function Home() {
   const activeProofProject = proofProjects[activeProofIndex];
 
   const questionnaireResult = (() => {
-    if (activeStage === 'approving-cost') {
+    if (activeStage === 'before-you-spend') {
       return {
         title: 'Recommended next step',
         eyebrow: 'Best next step',
-        body: `${activeNeedContent.nextStepLabel} plus pricing review is the strongest place to start for ${activeRoleContent.title.toLowerCase()} before a number gets approved.`,
+        body: `${activeNeedContent.nextStepLabel} plus pricing review is the strongest place to start for ${activeRoleContent.title.toLowerCase()} when you are trying to understand cost, avoid bad assumptions, and make a cleaner decision before you spend.`,
         cta: 'Get Service Pricing',
         href: '/services#buying-paths',
         secondaryCta: 'See Services',
@@ -181,11 +181,11 @@ export default function Home() {
       };
     }
 
-    if (activeStage === 'active-project') {
+    if (activeStage === 'keeping-work-moving') {
       return {
         title: 'Recommended next step',
         eyebrow: 'Best next step',
-        body: `${activeNeedContent.nextStepLabel} plus project review is the fastest way to stop drift and get the job moving in the right direction again.`,
+        body: `${activeNeedContent.nextStepLabel} plus project review is the fastest way to stop drift, keep work moving, and avoid the confusion that usually turns into delay and added cost.`,
         cta: 'See Services',
         href: activeRoleContent.href,
         secondaryCta: 'Request Review',
@@ -196,7 +196,7 @@ export default function Home() {
     return {
       title: 'Recommended next step',
       eyebrow: 'Best next step',
-      body: `${activeNeedContent.nextStepLabel} is the cleanest first move before spending more money or moving too fast.`,
+      body: `${activeNeedContent.nextStepLabel} is the cleanest first move when you are getting the project started and want to avoid mistakes, delays, and confusion early.`,
       cta: 'See Services',
       href: activeRoleContent.href,
       secondaryCta: 'Get Service Pricing',
@@ -536,7 +536,7 @@ export default function Home() {
                 </div>
 
                 <div className="rounded-[24px] border border-stone-200 bg-white p-5 shadow-elev-1">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">3. How do you want to start?</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">3. Where are you in the decision?</p>
                   <div className="mt-4 flex flex-wrap gap-2.5">
                     {(Object.entries(questionnaireStages) as [StageKey, { label: string; title: string }][]) .map(([key, stage]) => {
                       const active = key === activeStage;
@@ -565,7 +565,8 @@ export default function Home() {
                 <p className="mt-3 text-sm font-semibold text-orange">For {activeRoleContent.title}</p>
                 <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{questionnaireResult.body}</p>
                 <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                  <p className="text-sm font-semibold text-navy">{activeNeedContent.summary}</p>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What you are trying to figure out</p>
+                  <p className="mt-2 text-sm font-semibold text-navy">{activeNeedContent.summary}</p>
                 </div>
                 <div className="mt-4 rounded-2xl border border-orange/20 bg-orange/5 px-4 py-4">
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Why this comes first</p>
