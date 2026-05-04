@@ -293,6 +293,12 @@ export default function Home() {
 
       <section className="bg-white py-14 sm:py-16">
         <div className="container-pro">
+          <TestimonialsCarousel />
+        </div>
+      </section>
+
+      <section className="bg-white py-14 sm:py-16">
+        <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why this works</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Buy only the construction support your project actually needs.</h2>
@@ -464,8 +470,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <TestimonialsCarousel />
 
       <section id="full-contracting" className="bg-navy-950 py-14 sm:py-16 text-white">
         <div className="container-pro grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
