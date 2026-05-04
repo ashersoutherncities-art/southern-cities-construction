@@ -10,10 +10,10 @@ type NavLink = { href: string; label: string };
 type NavGroup = { label: string; href: string; children: NavLink[] };
 
 const SERVICES_GROUP: NavGroup = {
-  label: 'Services',
+  label: 'Pricing',
   href: '/services',
   children: [
-    { href: '/services', label: 'Services Overview' },
+    { href: '/services', label: 'Pricing Overview' },
     { href: '/services/homeowners', label: 'For Homeowners' },
     { href: '/services/investors', label: 'For Investors' },
     { href: '/services/industry-partners#realtors', label: 'For Realtors' },
@@ -24,7 +24,7 @@ const SERVICES_GROUP: NavGroup = {
 
 const PRIMARY_LINKS: NavLink[] = [
   { href: '/gallery', label: 'Gallery' },
-  { href: '/services#full-contracting', label: 'Contracting' },
+  { href: '/contracting', label: 'Contracting' },
   { href: '/recurring-support', label: 'Support Plans' },
   { href: '/resources', label: 'Resources' },
   { href: '/blog', label: 'Blog' },
@@ -114,7 +114,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                       }
                       setServicesOpen((v) => !v);
                     }}
-                    aria-label="Toggle Services menu"
+                    aria-label="Toggle Pricing menu"
                     className="rounded p-1 hover:bg-white/10"
                   >
                     <svg className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -125,7 +125,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
 
                 {servicesOpen && (
                   <div className="absolute left-0 top-full mt-2 w-64 rounded-2xl border border-stone-200 bg-white p-3 shadow-elev-3">
-                    <p className="px-3 pb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Find the right service</p>
+                    <p className="px-3 pb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Find the right pricing path</p>
                     <div className="space-y-1">
                       {SERVICES_GROUP.children.map((item) => {
                         const active = pathname === item.href;
@@ -188,7 +188,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   onClick={() => setMobileServicesOpen((v) => !v)}
                   className={`flex w-full items-center justify-between px-3 py-3 text-left text-base font-medium transition-colors ${servicesActive ? 'text-white' : 'text-white/85 hover:text-orange'}`}
                 >
-                  <span>Find the Right Service</span>
+                  <span>Find the Right Pricing Path</span>
                   <svg className={`h-5 w-5 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="m19 9-7 7-7-7" />
                   </svg>
