@@ -50,15 +50,6 @@ type NeedOption = {
   warning: string;
 };
 
-type ProofProject = {
-  title: string;
-  summary: string;
-  rank: string;
-  before: string;
-  after: string;
-  notes: string[];
-};
-
 type StageOption = {
   label: string;
   title: string;
@@ -110,63 +101,20 @@ const questionnaireStages: Record<StageKey, StageOption> = {
   },
 };
 
-const proofProjects: ProofProject[] = [
-  {
-    title: 'Tired exterior turned into clean curb appeal',
-    summary: 'A worn-down home updated into a clean, market-ready exterior that buyers and neighbors actually notice.',
-    rank: 'Featured project',
-    before: '/gallery/white-house-before.jpg',
-    after: '/gallery/white-house-after.jpg',
-    notes: [
-      'Cleaner curb appeal for selling, listing, or living in',
-      'Stronger first impression for showings and walkthroughs',
-      'Real residential project completed in North Carolina',
-    ],
-  },
-  {
-    title: 'Older home brought back to life',
-    summary: 'An older home brought back to life with cleaner finishes and steady, accountable follow-through on the work.',
-    rank: 'Recent project',
-    before: '/gallery/farmhouse-before.jpg',
-    after: '/gallery/farmhouse-after.jpg',
-    notes: [
-      'Visible exterior improvement that holds up in person',
-      'Cleaner finished look, not just a quick cosmetic patch',
-      'Real residential project completed in North Carolina',
-    ],
-  },
-  {
-    title: 'Dated exterior made move-in ready',
-    summary: 'A dated property updated into a finished look that feels move-in ready and easier to market or live in.',
-    rank: 'Recent project',
-    before: '/gallery/red-house-before.jpg',
-    after: '/gallery/red-house-after.jpg',
-    notes: [
-      'Cleaner finishes, better presentation, less drag on the property',
-      'Strong example of finished residential work, not just promises',
-      'Real residential project completed in North Carolina',
-    ],
-  },
-];
-
 const trustPoints = [
-  'Real residential projects across North Carolina',
-  'Clear pricing options you can actually buy from',
-  'Help with permits, budgets, contractor decisions, and active projects',
-  'Full contracting available when one company should run the whole project',
+  'Fixed-price project reviews before you commit',
+  'Clear pricing or pricing after review, no guessing',
+  'Support at any stage of your project',
+  'Full contracting when the scope actually calls for it',
 ];
 
 export default function Home() {
   const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
   const [activeNeed, setActiveNeed] = useState<NeedKey>('permits');
   const [activeStage, setActiveStage] = useState<StageKey>('before-you-spend');
-  const [activeProofIndex, setActiveProofIndex] = useState(0);
-
   const activeRoleContent = roleContent[activeRole];
   const activeNeedContent = questionnaireNeeds[activeNeed];
   const activeStageContent = questionnaireStages[activeStage];
-
-  const activeProofProject = proofProjects[activeProofIndex];
 
   const questionnaireResult = (() => {
     if (activeStage === 'before-you-spend') {
@@ -345,131 +293,54 @@ export default function Home() {
 
       <section className="bg-white py-14 sm:py-16">
         <div className="container-pro">
-          <div className="mt-8 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-7">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why owners and investors hire us</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Get the right help at the right stage.</h2>
-              <div className="mt-6 grid gap-4">
-                <div className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-5">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Licensed and accountable</p>
-                  <p className="mt-2 text-sm font-semibold leading-[1.6] text-navy">NC GC License #107724, fully insured, with five years in business and 15+ completed projects. That credibility sits behind the support model, so clients can buy help with real construction backing.</p>
-                </div>
-                <div className="rounded-2xl border border-stone-200 bg-stone-50 px-5 py-5">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Built for practical construction decisions</p>
-                  <p className="mt-2 text-sm font-semibold leading-[1.6] text-navy">Southern Cities helps clients plan before spending more money, buy only the support they need, and bring in deeper execution only when the scope calls for it.</p>
-                </div>
-                <div className="rounded-2xl border border-orange/20 bg-orange/5 px-5 py-5">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Statewide NC, Charlotte HQ</p>
-                  <p className="mt-2 text-sm font-semibold leading-[1.6] text-navy">Headquartered in Charlotte and licensed to operate statewide. We take projects across NC for investors, homeowners, and operating partners.</p>
-                </div>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why this works</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Buy only the construction support your project actually needs.</h2>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {trustPoints.map((point) => (
+              <div key={point} className="rounded-[24px] border border-stone-200 bg-stone-50 px-5 py-5 text-center shadow-elev-1">
+                <p className="text-sm font-semibold leading-[1.6] text-navy">{point}</p>
               </div>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500">
-                  See Pricing
-                </Link>
-                <Link href={activeRoleContent.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                  See Services
-                </Link>
-              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-stone-50 py-14 sm:py-16">
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Who this is for</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Built first for investors and serious residential projects.</h2>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
+              <p className="text-lg font-semibold text-navy">Investors</p>
+              <p className="mt-2 text-sm leading-relaxed text-stone-600">For people buying property where the numbers have to work.</p>
             </div>
-
-            <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="max-w-2xl">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recent projects</p>
-                  <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">See the work, not just promises.</h2>
-                  <p className="mt-4 text-[15px] leading-relaxed text-stone-700">
-                    Real residential projects across North Carolina. Cleaner finishes, better follow-through, and visible results you can see for yourself.
-                  </p>
-                </div>
-                <Link href="/gallery" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                  See More Projects
-                </Link>
-              </div>
-
-              <div className="mt-6 rounded-[24px] border border-stone-200 bg-white p-4 shadow-elev-1 sm:p-5">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">{activeProofProject.rank}</p>
-                    <p className="mt-2 text-lg font-semibold text-navy">{activeProofProject.title}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setActiveProofIndex((prev) => (prev - 1 + proofProjects.length) % proofProjects.length)}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 bg-white text-navy transition hover:border-orange hover:text-orange"
-                      aria-label="Show previous project"
-                    >
-                      <span aria-hidden="true">←</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveProofIndex((prev) => (prev + 1) % proofProjects.length)}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-300 bg-white text-navy transition hover:border-orange hover:text-orange"
-                      aria-label="Show next project"
-                    >
-                      <span aria-hidden="true">→</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mt-5 overflow-hidden rounded-[24px] border border-stone-200 bg-stone-50">
-                  <div className="grid min-h-[260px] grid-cols-2 gap-px bg-stone-200 sm:min-h-[320px] lg:min-h-[360px]">
-                    <div className="min-w-0 bg-white">
-                      <div className="relative h-full min-h-[220px] sm:min-h-[280px] lg:min-h-[320px]">
-                        <Image src={activeProofProject.before} alt={`${activeProofProject.title} before`} fill className="object-cover" />
-                      </div>
-                      <div className="px-4 py-3">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
-                      </div>
-                    </div>
-                    <div className="min-w-0 bg-white">
-                      <div className="relative h-full min-h-[220px] sm:min-h-[280px] lg:min-h-[320px]">
-                        <Image src={activeProofProject.after} alt={`${activeProofProject.title} after`} fill className="object-cover" />
-                      </div>
-                      <div className="px-4 py-3">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-5 grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-                  <p className="text-[15px] leading-relaxed text-stone-700">{activeProofProject.summary}</p>
-                  <ul className="space-y-2 text-sm leading-[1.6] text-stone-700">
-                    {activeProofProject.notes.map((note) => (
-                      <li key={note} className="flex items-start gap-2.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                        <span>{note}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-2.5">
-                  {proofProjects.map((project, index) => {
-                    const active = index === activeProofIndex;
-                    return (
-                      <button
-                        key={project.title}
-                        type="button"
-                        onClick={() => setActiveProofIndex(index)}
-                        className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                          active
-                            ? 'bg-orange text-white shadow-glow-orange'
-                            : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange'
-                        }`}
-                      >
-                        {['Builder Grade','Farmhouse Revival','Historic South'][index]}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
+              <p className="text-lg font-semibold text-navy">Homeowners</p>
+              <p className="mt-2 text-sm leading-relaxed text-stone-600">For owners planning a renovation or new build.</p>
+            </div>
+            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
+              <p className="text-lg font-semibold text-navy">Realtors</p>
+              <p className="mt-2 text-sm leading-relaxed text-stone-600">For agents who need fast, reliable construction insight on a deal.</p>
+            </div>
+            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
+              <p className="text-lg font-semibold text-navy">Contractors</p>
+              <p className="mt-2 text-sm leading-relaxed text-stone-600">For builders who need extra coordination or oversight support.</p>
+            </div>
+            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
+              <p className="text-lg font-semibold text-navy">Developers / Landowners</p>
+              <p className="mt-2 text-sm leading-relaxed text-stone-600">For owners moving land or projects toward construction.</p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-8 rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
+      <section className="bg-white py-14 sm:py-16">
+        <div className="container-pro">
+          <div className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-7">
             <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Start with a few quick questions</p>
