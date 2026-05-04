@@ -241,34 +241,30 @@ export default function Home() {
             <div className="relative z-10 max-w-[46rem]">
               <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange motion-safe:animate-hero-rise">
                 <span className="block h-px w-8 origin-left bg-orange/80 motion-safe:animate-rule-grow" aria-hidden="true" />
-                <span>Two ways to work with us · Licensed NC General Contractor #107724</span>
+                <span>Licensed NC General Contractor #107724</span>
               </p>
               <h1
-                className="mt-4 max-w-[18ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem] motion-safe:animate-hero-rise"
+                className="mt-4 max-w-[11ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem] motion-safe:animate-hero-rise"
                 style={{ animationDelay: '0.15s' }}
               >
-                Get the right help at the{' '}
-                <span className="bg-[linear-gradient(120deg,#ffb37a_0%,#fa8c41_50%,#ffd29c_100%)] bg-clip-text text-transparent">
-                  right stage
-                </span>{' '}
-                of your project.
+                Plan it right. Run it better.
               </h1>
               <p
                 className="mt-6 max-w-3xl rounded-2xl bg-navy-900/30 px-0 py-0 text-lg leading-relaxed text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] sm:text-xl motion-safe:animate-hero-rise"
                 style={{ animationDelay: '0.35s' }}
               >
-                Most clients want one of two things. Either a licensed general contractor running the whole project, or focused project support on a specific piece like permits, budgets, contractor fit, or oversight. Pick the one that fits where you are right now.
+                Southern Cities helps residential investors, owners, and project teams get the right construction support before money gets wasted, work gets messy, or execution starts drifting.
               </p>
 
               <div
                 className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap motion-safe:animate-hero-rise"
                 style={{ animationDelay: '0.5s' }}
               >
-                <Link href="/services" className="inline-flex min-w-[260px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5 motion-safe:animate-glow-pulse">
-                  See Pricing for Project Support
+                <Link href="#two-paths" className="inline-flex min-w-[240px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5 motion-safe:animate-glow-pulse">
+                  See the Two Paths
                 </Link>
-                <Link href="/services#full-contracting" className="inline-flex min-w-[260px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
-                  Request Full Contracting
+                <Link href="/contracting" className="inline-flex min-w-[240px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
+                  Full Contracting
                 </Link>
               </div>
             </div>
@@ -277,60 +273,68 @@ export default function Home() {
               className="relative z-10 rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)] motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.65s' }}
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How it works</p>
-              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Pick what fits where you are.</h2>
-              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-navy">
-                <li className="flex items-start gap-2.5">
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Project Support</strong> when you need help with a specific piece — permits, budgets, contractor fit, coordination, oversight, or recurring support.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span><strong>Full Contracting</strong> when you want one licensed company running the whole project from start to finish.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span>Project Support comes in three forms: <strong>Buy Now</strong>, <strong>Get Pricing or Request Review</strong>, or <strong>Subscribe Monthly</strong>.</span>
-                </li>
-              </ul>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Simple first decision</p>
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Do you need help planning the project or running the project?</h2>
+              <p className="mt-4 text-sm leading-relaxed text-navy">
+                If you need help before you buy, start, or commit more money, start with planning. If the work needs to move, stay organized, or get managed, start with project support under execution.
+              </p>
               <div className="mt-5 flex flex-wrap gap-2.5">
-                <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-500">
-                  See Pricing
+                <Link href="#two-paths" className="inline-flex items-center justify-center rounded-full bg-orange px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-500">
+                  Choose Your Path
                 </Link>
-                <Link href="/services#full-contracting" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                <Link href="/contracting" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                   See Full Contracting
                 </Link>
               </div>
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <div id="two-paths" className="mt-10 grid gap-4 lg:grid-cols-2">
             <div
               className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.13] hover:border-white/25 motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.8s' }}
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Project Support</p>
-              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Help with a specific piece of the project.</h3>
-              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-white">
-                <li><strong>Buy Now</strong> for fixed-scope support like assessments, consultations, and reviews.</li>
-                <li><strong>Get Pricing or Request Review</strong> when scope or condition affects the price.</li>
-                <li><strong>Subscribe Monthly</strong> for ongoing support across active projects.</li>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan the Project</p>
+              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you buy, start, or commit more money.</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white">
+                Use this path when you are trying to figure out cost, scope, permits, contractor fit, or what needs to happen before the project moves forward.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-white">
+                <li>Deal and Scope Review</li>
+                <li>Budget Review</li>
+                <li>Permit and Compliance Review</li>
+                <li>Contractor Fit Consultation</li>
+                <li>Lender-Ready Scope Support</li>
               </ul>
-              <Link href="/services" className="mt-5 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 hover:-translate-y-0.5">
-                See Pricing
+              <p className="mt-4 text-sm leading-relaxed text-orange-100">
+                Avoid wasted money, bad assumptions, and early decisions that create expensive cleanup later.
+              </p>
+              <Link href="/services/investors" className="mt-5 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 hover:-translate-y-0.5">
+                Plan Before You Spend
               </Link>
             </div>
             <div
               className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.13] hover:border-white/25 motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.95s' }}
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Full Contracting</p>
-              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">One licensed company running the whole project.</h3>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Run the Project</p>
+              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">When the work needs to move, stay organized, or get managed.</h3>
               <p className="mt-3 text-sm leading-relaxed text-white">
-                Renovations, rehabs, additions, and new builds with Southern Cities as the licensed GC of record. One company, accountable from start to finish.
+                Use this path when the project is active and you need real execution support, coordination, oversight, or full contracting to keep things moving cleanly.
               </p>
-              <Link href="/services#full-contracting" className="mt-5 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15 hover:-translate-y-0.5">
-                Request Full Contracting
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-white">
+                <li>Full Contracting</li>
+                <li>Owner-Controlled Construction</li>
+                <li>Permit Coordination</li>
+                <li>Draw Review</li>
+                <li>Project Coordination</li>
+                <li>Ongoing Support Plans</li>
+              </ul>
+              <p className="mt-4 text-sm leading-relaxed text-orange-100">
+                Avoid drift, delays, missed handoffs, and the confusion that usually shows up once work is already underway.
+              </p>
+              <Link href="/contracting" className="mt-5 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15 hover:-translate-y-0.5">
+                Get Project Support
               </Link>
             </div>
           </div>
