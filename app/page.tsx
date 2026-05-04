@@ -222,15 +222,15 @@ export default function Home() {
         <div className="pointer-events-none absolute -left-20 top-16 h-56 w-56 rounded-full bg-orange/20 blur-3xl motion-safe:animate-aurora-a" aria-hidden="true" />
         <div className="pointer-events-none absolute right-0 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl motion-safe:animate-aurora-b" aria-hidden="true" />
         <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 -translate-x-1/2 translate-y-1/3 rounded-full bg-orange/10 blur-3xl motion-safe:animate-aurora-c" aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-0 hidden items-center justify-center lg:flex" aria-hidden="true">
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[42%] items-center justify-center lg:flex" aria-hidden="true">
           <div className="relative flex h-full w-full items-center justify-center">
-            <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.02)_28%,rgba(255,255,255,0)_62%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,48,97,0)_0%,rgba(22,48,97,0.18)_28%,rgba(22,48,97,0.38)_100%)]" />
             <Image
               src="/sc-construction-minimal.png"
               alt=""
               width={640}
               height={640}
-              className="h-auto w-[34rem] opacity-[0.045] mix-blend-screen motion-safe:animate-pulse-subtle"
+              className="h-auto w-[30rem] translate-x-20 opacity-[0.028] mix-blend-screen motion-safe:animate-pulse-subtle"
               priority
             />
           </div>
@@ -238,7 +238,7 @@ export default function Home() {
 
         <div className="relative z-10 container-pro">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-center">
-            <div className="max-w-[46rem]">
+            <div className="relative z-10 max-w-[46rem]">
               <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange motion-safe:animate-hero-rise">
                 <span className="block h-px w-8 origin-left bg-orange/80 motion-safe:animate-rule-grow" aria-hidden="true" />
                 <span>Two ways to work with us · Licensed NC General Contractor #107724</span>
@@ -254,7 +254,7 @@ export default function Home() {
                 of your project.
               </h1>
               <p
-                className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl motion-safe:animate-hero-rise"
+                className="mt-6 max-w-3xl rounded-2xl bg-navy-900/30 px-0 py-0 text-lg leading-relaxed text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] sm:text-xl motion-safe:animate-hero-rise"
                 style={{ animationDelay: '0.35s' }}
               >
                 Most clients want one of two things. Either a licensed general contractor running the whole project, or focused project support on a specific piece like permits, budgets, contractor fit, or oversight. Pick the one that fits where you are right now.
@@ -274,7 +274,7 @@ export default function Home() {
             </div>
 
             <div
-              className="rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)] motion-safe:animate-hero-rise"
+              className="relative z-10 rounded-[26px] border border-white/15 bg-white p-6 text-navy shadow-[0_24px_60px_rgba(6,18,43,0.28)] sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(6,18,43,0.34)] motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.65s' }}
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How it works</p>
