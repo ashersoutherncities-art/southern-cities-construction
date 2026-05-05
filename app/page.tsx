@@ -67,11 +67,23 @@ export default function Home() {
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan the Project</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you spend</h3>
-              <ul className="mt-5 space-y-2 text-sm leading-relaxed text-white">
-                <li>Deal Review</li>
-                <li>Budget</li>
-                <li>Permits</li>
-                <li>Contractor</li>
+              <ul className="mt-5 grid gap-2 text-sm font-medium text-white sm:grid-cols-2">
+                {[
+                  'Deal Review',
+                  'Budget',
+                  'Permits',
+                  'Contractor',
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 transition-all duration-300 hover:border-orange/40 hover:bg-white/[0.07]"
+                  >
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-orange/35 bg-orange/12 text-orange shadow-[0_0_18px_rgba(250,140,65,0.18)] transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
+                      <span className="h-2 w-2 rounded-full bg-orange" />
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
               <Link href="/services/investors" className="mt-6 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 hover:-translate-y-0.5">
                 Plan Before You Spend
@@ -83,11 +95,23 @@ export default function Home() {
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Run the Project</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">During construction</h3>
-              <ul className="mt-5 space-y-2 text-sm leading-relaxed text-white">
-                <li>Oversight</li>
-                <li>Draws</li>
-                <li>Permits</li>
-                <li>Contracting</li>
+              <ul className="mt-5 grid gap-2 text-sm font-medium text-white sm:grid-cols-2">
+                {[
+                  'Oversight',
+                  'Draws',
+                  'Permits',
+                  'Contracting',
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 transition-all duration-300 hover:border-orange/40 hover:bg-white/[0.07]"
+                  >
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-orange/35 bg-orange/12 text-orange shadow-[0_0_18px_rgba(250,140,65,0.18)] transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
+                      <span className="h-2 w-2 rounded-full bg-orange" />
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
               <Link href="/services" className="mt-6 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15 hover:-translate-y-0.5">
                 Get Project Support
