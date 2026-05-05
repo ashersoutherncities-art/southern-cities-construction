@@ -40,7 +40,7 @@ export default function Home() {
               alt=""
               width={640}
               height={640}
-              className="h-auto w-[30rem] translate-x-20 opacity-[0.028] mix-blend-screen motion-safe:animate-pulse-subtle"
+              className="h-auto w-[30rem] opacity-[0.028] mix-blend-screen motion-safe:animate-pulse-subtle"
               priority
             />
           </div>
