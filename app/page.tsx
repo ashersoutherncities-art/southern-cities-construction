@@ -4,15 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import TrustStrip from '@/components/TrustStrip';
-
-const trustPoints = [
-  'Fixed-price reviews',
-  'Clear pricing',
-  'Any stage support',
-  'Full contracting when needed',
-];
-
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
@@ -63,7 +54,7 @@ export default function Home() {
                 className="mt-6 max-w-2xl rounded-2xl bg-navy-900/30 px-0 py-0 text-lg leading-relaxed text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] sm:text-xl motion-safe:animate-hero-rise"
                 style={{ animationDelay: '0.35s' }}
               >
-                Help with construction decisions before you spend, and help running projects once work starts.
+                Help before you spend. Help while you build.
               </p>
 
               <div
@@ -84,10 +75,7 @@ export default function Home() {
               style={{ animationDelay: '0.65s' }}
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Simple first decision</p>
-              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Plan the project or run the project.</h2>
-              <p className="mt-4 text-sm leading-relaxed text-navy">
-                Start with planning before you spend. Start with support when work needs to move.
-              </p>
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Help before you spend. Help while you build.</h2>
               <div className="mt-5 flex flex-wrap gap-2.5">
                 <Link href="/services/investors" className="inline-flex items-center justify-center rounded-full bg-orange px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-500">
                   Plan Before You Spend
@@ -105,12 +93,12 @@ export default function Home() {
               style={{ animationDelay: '0.8s' }}
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan the Project</p>
-              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you buy or spend money</h3>
+              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you spend</h3>
               <ul className="mt-5 space-y-2 text-sm leading-relaxed text-white">
                 <li>Deal Review</li>
-                <li>Budget Review</li>
-                <li>Permit Review</li>
-                <li>Contractor Fit</li>
+                <li>Budget</li>
+                <li>Permits</li>
+                <li>Contractor</li>
               </ul>
               <Link href="/services/investors" className="mt-6 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 hover:-translate-y-0.5">
                 Plan Before You Spend
@@ -121,35 +109,17 @@ export default function Home() {
               style={{ animationDelay: '0.95s' }}
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Run the Project</p>
-              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">When work needs to move</h3>
+              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">During construction</h3>
               <ul className="mt-5 space-y-2 text-sm leading-relaxed text-white">
-                <li>Project Oversight</li>
-                <li>Draw Review</li>
-                <li>Permit Help</li>
-                <li>Full Contracting</li>
+                <li>Oversight</li>
+                <li>Draws</li>
+                <li>Permits</li>
+                <li>Contracting</li>
               </ul>
               <Link href="/services" className="mt-6 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15 hover:-translate-y-0.5">
                 Get Project Support
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <TrustStrip />
-
-      <section className="bg-white py-14 sm:py-16">
-        <div className="container-pro">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why this works</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Buy only the help you need.</h2>
-          </div>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {trustPoints.map((point) => (
-              <div key={point} className="rounded-[24px] border border-stone-200 bg-stone-50 px-5 py-5 text-center shadow-elev-1">
-                <p className="text-sm font-semibold leading-[1.6] text-navy">{point}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
