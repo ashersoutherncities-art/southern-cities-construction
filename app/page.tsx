@@ -60,56 +60,58 @@ export default function Home() {
             </div>
           </div>
 
-          <div id="two-paths" className="mt-14 grid gap-4 lg:grid-cols-2">
+          <div id="two-paths" className="mt-14 grid gap-5 lg:grid-cols-2">
             <div
-              className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.13] hover:border-white/25 motion-safe:animate-hero-rise"
+              className="rounded-2xl bg-white p-8 sm:p-10 shadow-elev-3 motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.5s' }}
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan the Project</p>
-              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you spend</h3>
-              <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-white/10 pt-5">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">Plan the Project</p>
+              <h3 className="mt-3 text-[1.75rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-3xl">
+                Before you spend
+              </h3>
+              <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4">
                 {[
                   'Deal Review',
                   'Budget',
                   'Permits',
                   'Contractor',
                 ].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 text-sm font-medium tracking-wide text-white/90"
-                  >
-                    <span className="block h-px w-3 shrink-0 bg-orange" aria-hidden="true" />
-                    <span>{item}</span>
+                  <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
+                    {item}
                   </li>
                 ))}
               </ul>
-              <Link href="/services/investors" className="mt-6 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 hover:-translate-y-0.5">
+              <Link
+                href="/services/investors"
+                className="mt-8 inline-flex items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
+              >
                 Plan Before You Spend
               </Link>
             </div>
             <div
-              className="rounded-[24px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.13] hover:border-white/25 motion-safe:animate-hero-rise"
+              className="rounded-2xl bg-white p-8 sm:p-10 shadow-elev-3 motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.65s' }}
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Run the Project</p>
-              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">During construction</h3>
-              <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-white/10 pt-5">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">Run the Project</p>
+              <h3 className="mt-3 text-[1.75rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-3xl">
+                During construction
+              </h3>
+              <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4">
                 {[
                   'Oversight',
                   'Draws',
                   'Permits',
                   'Contracting',
                 ].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 text-sm font-medium tracking-wide text-white/90"
-                  >
-                    <span className="block h-px w-3 shrink-0 bg-orange" aria-hidden="true" />
-                    <span>{item}</span>
+                  <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
+                    {item}
                   </li>
                 ))}
               </ul>
-              <Link href="/services" className="mt-6 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15 hover:-translate-y-0.5">
+              <Link
+                href="/services"
+                className="mt-8 inline-flex items-center justify-center rounded-full border-2 border-navy-900 bg-white px-6 py-3.5 text-[15px] font-semibold text-navy-900 transition-colors hover:bg-navy-900 hover:text-white"
+              >
                 Get Project Support
               </Link>
             </div>
