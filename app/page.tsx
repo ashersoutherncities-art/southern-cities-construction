@@ -4,6 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+
+const credentials = [
+  'Licensed NC General Contractor #107724',
+  'Investor and operator project support',
+  'Budget, permit, and execution guidance',
+  'Grounded in real residential project experience',
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
@@ -58,6 +67,14 @@ export default function Home() {
                 Get Project Support
               </Link>
             </div>
+          </div>
+
+          <div className="mt-8 grid gap-3 text-sm font-semibold text-white/92 sm:grid-cols-2 xl:grid-cols-4 motion-safe:animate-hero-rise" style={{ animationDelay: '0.42s' }}>
+            {credentials.map((item) => (
+              <div key={item} className="rounded-2xl border border-white/14 bg-white/8 px-4 py-3 text-center backdrop-blur-sm">
+                {item}
+              </div>
+            ))}
           </div>
 
           <div id="two-paths" className="mt-14 grid gap-5 lg:grid-cols-2">
@@ -118,6 +135,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <TestimonialsCarousel />
 
       <section id="contact" className="bg-navy-950 py-14 sm:py-16 text-white">
         <div className="container-pro">
