@@ -67,7 +67,7 @@ export default function Home() {
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan the Project</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you spend</h3>
-              <ul className="mt-5 grid gap-2 text-sm font-medium text-white sm:grid-cols-2">
+              <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-white/10 pt-5">
                 {[
                   'Deal Review',
                   'Budget',
@@ -76,11 +76,9 @@ export default function Home() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 transition-all duration-300 hover:border-orange/40 hover:bg-white/[0.07]"
+                    className="flex items-center gap-3 text-sm font-medium tracking-wide text-white/90"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-orange/35 bg-orange/12 text-orange shadow-[0_0_18px_rgba(250,140,65,0.18)] transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
-                      <span className="h-2 w-2 rounded-full bg-orange" />
-                    </span>
+                    <span className="block h-px w-3 shrink-0 bg-orange" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -95,7 +93,7 @@ export default function Home() {
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Run the Project</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">During construction</h3>
-              <ul className="mt-5 grid gap-2 text-sm font-medium text-white sm:grid-cols-2">
+              <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-white/10 pt-5">
                 {[
                   'Oversight',
                   'Draws',
@@ -104,11 +102,9 @@ export default function Home() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 transition-all duration-300 hover:border-orange/40 hover:bg-white/[0.07]"
+                    className="flex items-center gap-3 text-sm font-medium tracking-wide text-white/90"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-orange/35 bg-orange/12 text-orange shadow-[0_0_18px_rgba(250,140,65,0.18)] transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
-                      <span className="h-2 w-2 rounded-full bg-orange" />
-                    </span>
+                    <span className="block h-px w-3 shrink-0 bg-orange" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
