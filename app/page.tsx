@@ -5,13 +5,12 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TrustStrip from '@/components/TrustStrip';
-import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 const trustPoints = [
-  'Fixed-price project reviews before you commit',
-  'Clear pricing or pricing after review, no guessing',
-  'Support at any stage of your project',
-  'Full contracting when the scope actually calls for it',
+  'Fixed-price reviews',
+  'Clear pricing',
+  'Any stage support',
+  'Full contracting when needed',
 ];
 
 export default function Home() {
@@ -61,10 +60,10 @@ export default function Home() {
                 Plan it right. Run it better.
               </h1>
               <p
-                className="mt-6 max-w-3xl rounded-2xl bg-navy-900/30 px-0 py-0 text-lg leading-relaxed text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] sm:text-xl motion-safe:animate-hero-rise"
+                className="mt-6 max-w-2xl rounded-2xl bg-navy-900/30 px-0 py-0 text-lg leading-relaxed text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] sm:text-xl motion-safe:animate-hero-rise"
                 style={{ animationDelay: '0.35s' }}
               >
-                Southern Cities helps residential investors and project owners make better construction decisions before money gets wasted and keeps projects moving during execution.
+                Help with construction decisions before you spend, and help running projects once work starts.
               </p>
 
               <div
@@ -85,9 +84,9 @@ export default function Home() {
               style={{ animationDelay: '0.65s' }}
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Simple first decision</p>
-              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Choose the right construction help before costs and delays pile up.</h2>
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">Plan the project or run the project.</h2>
               <p className="mt-4 text-sm leading-relaxed text-navy">
-                Start with planning if you need clarity before you commit money. Start with project support if the work is already moving and needs coordination.
+                Start with planning before you spend. Start with support when work needs to move.
               </p>
               <div className="mt-5 flex flex-wrap gap-2.5">
                 <Link href="/services/investors" className="inline-flex items-center justify-center rounded-full bg-orange px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-500">
@@ -106,12 +105,12 @@ export default function Home() {
               style={{ animationDelay: '0.8s' }}
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Plan the Project</p>
-              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you buy or commit money</h3>
+              <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">Before you buy or spend money</h3>
               <ul className="mt-5 space-y-2 text-sm leading-relaxed text-white">
-                <li>Deal &amp; Scope Review</li>
+                <li>Deal Review</li>
                 <li>Budget Review</li>
-                <li>Permit &amp; Compliance Review</li>
-                <li>Contractor Fit Consultation</li>
+                <li>Permit Review</li>
+                <li>Contractor Fit</li>
               </ul>
               <Link href="/services/investors" className="mt-6 inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 hover:-translate-y-0.5">
                 Plan Before You Spend
@@ -124,9 +123,9 @@ export default function Home() {
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Run the Project</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">When work needs to move</h3>
               <ul className="mt-5 space-y-2 text-sm leading-relaxed text-white">
-                <li>Project Coordination &amp; Oversight</li>
-                <li>Draw Review Support</li>
-                <li>Permit Coordination</li>
+                <li>Project Oversight</li>
+                <li>Draw Review</li>
+                <li>Permit Help</li>
                 <li>Full Contracting</li>
               </ul>
               <Link href="/services" className="mt-6 inline-flex items-center justify-center rounded-full border border-white/30 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15 hover:-translate-y-0.5">
@@ -141,15 +140,9 @@ export default function Home() {
 
       <section className="bg-white py-14 sm:py-16">
         <div className="container-pro">
-          <TestimonialsCarousel />
-        </div>
-      </section>
-
-      <section className="bg-white py-14 sm:py-16">
-        <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Why this works</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Buy only the construction support your project actually needs.</h2>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Buy only the help you need.</h2>
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {trustPoints.map((point) => (
@@ -161,40 +154,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-stone-50 py-14 sm:py-16">
-        <div className="container-pro">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Who this is for</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Built for the people making real construction decisions.</h2>
-          </div>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
-              <p className="text-lg font-semibold text-navy">Investors</p>
-            </div>
-            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
-              <p className="text-lg font-semibold text-navy">Homeowners</p>
-            </div>
-            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
-              <p className="text-lg font-semibold text-navy">Realtors</p>
-            </div>
-            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
-              <p className="text-lg font-semibold text-navy">Contractors</p>
-            </div>
-            <div className="rounded-[24px] border border-stone-200 bg-white px-5 py-5 text-center shadow-elev-1">
-              <p className="text-lg font-semibold text-navy">Developers</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="contact" className="bg-navy-950 py-14 sm:py-16 text-white">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Final step</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Get clear next steps for your project</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-white/85">
-              Tell us what you&apos;re working on. We&apos;ll review it and recommend the next step.
-            </p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Get clear next steps</h2>
             <div className="mt-8">
               <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
                 Request Project Review
