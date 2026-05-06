@@ -136,7 +136,7 @@ export default function Home() {
               <div
                 key={stage.id}
                 id={stage.id}
-                className="scroll-mt-24 rounded-2xl bg-white p-8 sm:p-10 shadow-elev-3 border border-stone-200"
+                className="scroll-mt-24 flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-8 shadow-elev-3 sm:p-10"
               >
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">{stage.eyebrow}</p>
                 <h3 className="mt-3 text-[1.6rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-[1.75rem]">
@@ -151,7 +151,7 @@ export default function Home() {
                 </ul>
                 <Link
                   href="/contact"
-                  className="mt-8 inline-flex items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
+                  className="mt-auto inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
                 >
                   {stage.cta}
                 </Link>
