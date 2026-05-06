@@ -9,9 +9,11 @@ type Product = {
   price?: string;
   href: string;
   secondaryHref?: string;
-  primaryCta: 'Add to Cart' | 'Get Pricing' | 'Request Review';
-  secondaryCta: 'Learn More';
+  primaryCta: 'Add to Cart' | 'Get Pricing' | 'Request Review' | 'Request Support';
+  secondaryCta?: 'Learn More';
   itemKey?: string;
+  covers?: string[];
+  highlighted?: boolean;
 };
 
 type Stage = {
@@ -178,44 +180,26 @@ const investorStages: Stage[] = [
     cta: 'Run This Project',
     products: [
       {
-        name: 'Construction Oversight',
-        description: 'Keep the work on track with active project eyes on scope and progress.',
+        name: 'Stay in Control (With Support)',
+        description: 'Keep your project moving with oversight and coordination support',
         href: '/review/construction-oversight',
-        secondaryHref: '/review/construction-oversight',
-        primaryCta: 'Request Review',
-        secondaryCta: 'Learn More',
+        primaryCta: 'Request Support',
+        covers: ['Construction Oversight', 'Project Coordination'],
       },
       {
-        name: 'Project Coordination & Control',
-        description: 'Coordinate moving pieces before missed handoffs create delay.',
-        href: '/services/investors/full-construction-management-service',
-        secondaryHref: '/services/investors/full-construction-management-service',
-        primaryCta: 'Get Pricing',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Owner-Controlled Construction, GC-Led',
-        description: 'Keep owner control while using licensed GC execution support.',
+        name: 'Owner-Controlled Build (GC-Led)',
+        description: 'Run your project with licensed GC backing',
         href: '/services/investors/owner-controlled-construction-gc-led',
-        secondaryHref: '/services/investors/owner-controlled-construction-gc-led',
         primaryCta: 'Request Review',
-        secondaryCta: 'Learn More',
+        highlighted: true,
       },
       {
-        name: 'Full Construction Management Service',
-        description: 'Use full management support when the project needs tighter control.',
+        name: 'Full Execution',
+        description: 'Hand off the project for full management or contracting',
         href: '/services/investors/full-construction-management-service',
-        secondaryHref: '/services/investors/full-construction-management-service',
-        primaryCta: 'Get Pricing',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Full Contracting',
-        description: 'Move into full contracting when the job needs end-to-end execution.',
-        href: '/contracting',
         secondaryHref: '/contracting',
         primaryCta: 'Get Pricing',
-        secondaryCta: 'Learn More',
+        covers: ['Full Construction Management', 'Full Contracting'],
       },
     ],
   },
@@ -360,16 +344,25 @@ const supportBundles = [
 function ProductCard({ product }: { product: Product }) {
   const primaryHref = product.itemKey ? `/cart?add=${product.itemKey}` : product.href;
   const primaryClass =
-    product.primaryCta === 'Add to Cart'
+    product.primaryCta === 'Add to Cart' || product.highlighted
       ? 'bg-orange text-white hover:bg-orange-500'
       : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange';
 
   return (
-    <div className="flex h-full flex-col rounded-[24px] border border-stone-200 bg-white p-5 shadow-elev-1">
+    <div className={`flex h-full flex-col rounded-[24px] border p-5 shadow-elev-1 ${product.highlighted ? 'border-orange bg-orange/[0.05]' : 'border-stone-200 bg-white'}`}>
       <div>
         <h3 className="text-xl font-extrabold tracking-tight text-navy">{product.name}</h3>
         {product.price ? <p className="mt-2 text-sm font-bold text-orange">{product.price}</p> : null}
         <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{product.description}</p>
+        {product.covers?.length ? (
+          <div className="mt-4 space-y-2">
+            {product.covers.map((item) => (
+              <div key={item} className="rounded-2xl bg-stone-50 px-3 py-2 text-sm font-semibold text-navy-900">
+                {item}
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
       <div className="mt-auto pt-6 space-y-3">
         <Link
@@ -378,19 +371,13 @@ function ProductCard({ product }: { product: Product }) {
         >
           {product.primaryCta}
         </Link>
-        <Link
-          href={product.secondaryHref ?? product.href}
-          className="inline-flex min-h-[50px] w-full items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange"
-        >
-          {product.secondaryCta}
-        </Link>
       </div>
     </div>
   );
 }
 
 function StageSection({ id, stage, title, label, cta, products }: Stage) {
-  const useFiveAcross = ['before-you-start', 'during-construction', 'repeat-and-scale'].includes(id);
+  const useFiveAcross = ['before-you-start', 'repeat-and-scale'].includes(id);
 
   return (
     <section id={id} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
@@ -405,7 +392,13 @@ function StageSection({ id, stage, title, label, cta, products }: Stage) {
         </a>
       </div>
 
-      {useFiveAcross ? (
+      {id === 'during-construction' ? (
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {products.map((product) => (
+            <ProductCard key={product.name} product={product} />
+          ))}
+        </div>
+      ) : useFiveAcross ? (
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
           {products.map((product) => (
             <ProductCard key={product.name} product={product} />
