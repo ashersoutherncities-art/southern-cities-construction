@@ -6,6 +6,8 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
+const CONSULTATION_CTA_HREF = '/services/homeowners/owner-consultation';
+
 const galleryPreview = [
   {
     title: 'White house exterior transformation',
@@ -148,7 +150,7 @@ export default function Home() {
                   style={{ animationDelay: '0.65s' }}
                 >
                   Not sure where to start?{' '}
-                  <Link href="/contact" className="text-white underline underline-offset-4 transition hover:text-orange">
+                  <Link href={CONSULTATION_CTA_HREF} className="text-white underline underline-offset-4 transition hover:text-orange">
                     Book a project call.
                   </Link>
                 </p>
@@ -205,13 +207,13 @@ export default function Home() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/contact"
+              href={CONSULTATION_CTA_HREF}
               className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-full bg-orange px-6 py-3.5 text-center text-[15px] font-semibold text-white transition-all hover:bg-orange-500"
             >
               Review This Before You Move Forward
             </Link>
             <Link
-              href="/contact"
+              href={CONSULTATION_CTA_HREF}
               className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3.5 text-center text-[15px] font-semibold text-navy-900 transition-all hover:-translate-y-0.5 hover:border-orange hover:text-orange"
             >
               Talk Through Your Project
@@ -243,7 +245,7 @@ export default function Home() {
                   </ul>
                 </div>
                 <Link
-                  href="/contact"
+                  href={CONSULTATION_CTA_HREF}
                   className="mt-6 inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
                 >
                   {stage.cta}
@@ -273,7 +275,7 @@ export default function Home() {
               Talk through your project and get direction on what to do next.
             </p>
             <div className="mt-8">
-              <Link href="/contact" className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+              <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
                 Book a Project Call
               </Link>
             </div>
