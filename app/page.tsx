@@ -19,14 +19,14 @@ const stages = [
     id: 'due-diligence',
     eyebrow: 'Project Due Diligence',
     timing: 'Before you commit more time or money',
-    items: ['Deal Review', 'Budget', 'Permits'],
+    items: ['Deal Review', 'Budget', 'Permit Path'],
     cta: 'Review This Project',
   },
   {
     id: 'planning',
     eyebrow: 'Project Planning',
     timing: 'Before construction',
-    items: ['Scope', 'Contractor', 'Permits'],
+    items: ['Scope', 'Contractor', 'Permit Prep'],
     cta: 'Plan This Project',
   },
   {
