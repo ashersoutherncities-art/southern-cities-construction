@@ -409,21 +409,6 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      <section id="investor-stages" className="bg-stone-50 py-14 sm:py-18">
-        <div className="container-pro">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Where are you in your project?</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Choose the stage that fits where you are now.</h2>
-          </div>
-
-          <div className="mt-10 grid gap-5">
-            {investorStages.map((stage) => (
-              <StageSection key={stage.stage} {...stage} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="bg-white py-14 sm:py-18">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
@@ -468,6 +453,21 @@ export default function InvestorsPage() {
                   </a>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="investor-stages" className="bg-stone-50 py-14 sm:py-18">
+        <div className="container-pro">
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Where are you in your project?</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Choose the stage that fits where you are now.</h2>
+          </div>
+
+          <div className="mt-10 grid gap-5">
+            {investorStages.map((stage) => (
+              <StageSection key={stage.stage} {...stage} />
             ))}
           </div>
         </div>
