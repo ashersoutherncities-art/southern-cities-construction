@@ -11,43 +11,43 @@ export type TestimonialItem = {
 const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
     quote:
-      'Southern Cities gave us a much clearer path before we spent more money. The review was straightforward, practical, and saved us from making a bad decision too early.',
+      'We were about to sink more money in before they walked us through what was actually wrong. Saved us from a bad call.',
     name: 'Madison M',
     role: 'Broker/Investor',
   },
   {
     quote:
-      'The project support model makes sense. We got the specific help we needed without getting pushed into a bigger construction relationship too early.',
+      'We just needed help on one piece, not a full build out. They stuck to what we asked for and did not push extras.',
     name: 'Iantha M',
     role: 'Investor',
   },
   {
     quote:
-      'The construction guidance helped keep the deal moving. Instead of vague opinions, we got a clear read we could actually use with the client.',
+      'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.',
     name: 'Jethro A',
     role: 'Wholesaler',
   },
   {
     quote:
-      'Permit and admin follow-up were dragging our jobs down. The support was practical, responsive, and took real pressure off the team.',
+      'Permits and paperwork were eating up my week. They took it off my plate and the jobs stopped stalling.',
     name: 'Taquan P',
     role: 'Wholesaler',
   },
   {
     quote:
-      'What stood out was how grounded the advice was. They were not trying to oversell a giant scope. They helped us buy the right next step.',
+      'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.',
     name: 'Trisha W',
     role: 'Investor',
   },
   {
     quote:
-      'We needed real answers on scope, budget, and what to do next. They made the project feel manageable again instead of confusing.',
+      'Scope and budget were all over the place when we called. After they walked through it, the project actually felt doable again.',
     name: 'Justin R',
     role: 'Developer',
   },
   {
     quote:
-      'We needed real answers on scope, budget, and what to do next. They made the project feel manageable again instead of confusing.',
+      'I had no idea what was a real problem and what was not. They told me what to fix now and what could wait.',
     name: 'Yvonne W',
     role: 'Homeowner',
   },
