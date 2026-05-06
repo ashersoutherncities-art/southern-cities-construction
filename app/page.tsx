@@ -6,6 +6,21 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
+const galleryPreview = [
+  {
+    title: 'White house exterior transformation',
+    image: '/gallery/white-house-after.jpg',
+  },
+  {
+    title: 'Older home exterior refresh',
+    image: '/gallery/farmhouse-after.jpg',
+  },
+  {
+    title: 'Red house exterior refresh',
+    image: '/gallery/red-house-after.jpg',
+  },
+];
+
 const credentials = [
   'Licensed NC GC',
   'Fully Insured',
@@ -14,53 +29,26 @@ const credentials = [
   'Planning, Permits, Execution',
 ];
 
-const proofCards = [
-  {
-    label: 'Deals Reviewed',
-    detail: 'Clear reads before you sink more money into a project.',
-  },
-  {
-    label: 'Budgets Built',
-    detail: 'Working budgets shaped around scope, timing, and risk.',
-  },
-  {
-    label: 'Permit Path Clarity',
-    detail: 'Short answers on whether a plan can move and what may slow it.',
-  },
-  {
-    label: 'Projects Supported',
-    detail: 'Owners, investors, and operators supported through active jobs.',
-  },
-  {
-    label: 'Licensed NC GC',
-    detail: 'Real contractor perspective, not abstract consulting language.',
-  },
-  {
-    label: 'Clear Next Steps',
-    detail: 'Simple direction on what to do now, later, and not at all.',
-  },
-];
-
 const stages = [
   {
     id: 'due-diligence',
     eyebrow: 'Project Due Diligence',
     timing: 'Before you commit more time or money',
-    items: ['Deal Review', 'Budget', 'Permit Path'],
+    items: ['Review the deal', 'Check the budget', 'Map the permit path'],
     cta: 'Review This Project',
   },
   {
     id: 'planning',
     eyebrow: 'Project Planning',
     timing: 'Before construction',
-    items: ['Scope', 'Contractor', 'Permit Prep'],
+    items: ['Define the scope', 'Choose the contractor', 'Prepare permits'],
     cta: 'Plan This Project',
   },
   {
     id: 'execution',
     eyebrow: 'Project Execution',
     timing: 'During construction',
-    items: ['Oversight', 'Draws', 'Full Contracting'],
+    items: ['Monitor progress', 'Review draws', 'Execute the build'],
     cta: 'Run This Project',
   },
 ];
@@ -134,7 +122,7 @@ export default function Home() {
                 >
                   Not sure where to start?{' '}
                   <Link href="/contact" className="text-white underline underline-offset-4 transition hover:text-orange">
-                    Book a free project call.
+                    Book a project call.
                   </Link>
                 </p>
               </div>
@@ -169,23 +157,41 @@ export default function Home() {
       <section className="bg-stone-50 py-14 sm:py-18">
         <div className="container-pro">
           <div className="max-w-3xl motion-safe:animate-hero-rise">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Proof</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Real project gallery</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-              Clarity Before You Commit. Control During Execution.
+              Real Projects. Real Work.
             </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+              Renovations, builds, and active project work across North Carolina
+            </p>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {proofCards.map((card, index) => (
-              <div
-                key={card.label}
-                className="rounded-[26px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise"
-                style={{ animationDelay: `${0.08 * index}s` }}
+          <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-white p-4 shadow-elev-1 sm:p-6 motion-safe:animate-hero-rise">
+            <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
+              {galleryPreview.map((item) => (
+                <div
+                  key={item.title}
+                  className="min-w-[88%] snap-start overflow-hidden rounded-[24px] border border-stone-200 bg-stone-50 sm:min-w-[48%] lg:min-w-[31.5%]"
+                >
+                  <div className="relative aspect-[4/3] bg-white">
+                    <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 hover:scale-[1.02]" />
+                  </div>
+                  <div className="px-5 py-4">
+                    <p className="text-sm font-semibold text-navy-900">{item.title}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-stone-600">Real project images with a clean preview and direct path to the full gallery.</p>
+              <Link
+                href="/gallery"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy-900 transition-all hover:-translate-y-0.5 hover:border-orange hover:text-orange"
               >
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-orange-500">{card.label}</p>
-                <p className="mt-3 text-sm leading-relaxed text-stone-600">{card.detail}</p>
-              </div>
-            ))}
+                View Full Project Gallery →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -238,11 +244,13 @@ export default function Home() {
       <section id="contact" className="bg-navy-950 py-14 text-white motion-safe:animate-hero-rise sm:py-16" style={{ animationDelay: '0.25s' }}>
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Final step</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Get clear next steps</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Not sure where to start?</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-white/78 sm:text-lg">
+              Talk through your project and get direction on what to do next.
+            </p>
             <div className="mt-8">
-              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
-                Request Project Review
+              <Link href="/contact" className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+                Book a Project Call
               </Link>
             </div>
           </div>
