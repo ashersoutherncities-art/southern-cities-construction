@@ -142,16 +142,18 @@ export default function Home() {
                 <h3 className="mt-3 text-[1.6rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-[1.75rem]">
                   {stage.timing}
                 </h3>
-                <ul className="mt-7 space-y-3 pb-6">
-                  {stage.items.map((item) => (
-                    <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-7 flex flex-1 flex-col">
+                  <ul className="space-y-3">
+                    {stage.items.map((item) => (
+                      <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <Link
                   href="/contact"
-                  className="mt-auto inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
+                  className="mt-6 inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
                 >
                   {stage.cta}
                 </Link>
