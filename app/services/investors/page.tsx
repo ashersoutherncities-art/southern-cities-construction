@@ -285,6 +285,37 @@ const investorTestimonials = [
   },
 ];
 
+const supportBundles = [
+  {
+    label: 'Early Decision',
+    title: 'Deal Review Bundle',
+    price: 'Starting at $499',
+    features: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Contractor Fit'],
+    cta: 'Review Your Project',
+    href: '#before-you-commit',
+    highlighted: false,
+  },
+  {
+    label: 'Getting Ready',
+    title: 'Project Setup Bundle',
+    price: 'Starting at $1,499',
+    features: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Scope Prepared', 'Contractor Selected', 'Permit Prep', 'Bid Coordination'],
+    cta: 'Plan This Project',
+    href: '#before-you-start',
+    highlighted: true,
+    badge: 'Most Common',
+  },
+  {
+    label: 'Active Project',
+    title: 'Full Project Support',
+    price: 'Custom / Starting at $2,500',
+    features: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Scope Prepared', 'Contractor Selected', 'Permit Prep', 'Draws Reviewed', 'Project Oversight', 'Full Execution'],
+    cta: 'Run This Project',
+    href: '#during-construction',
+    highlighted: false,
+  },
+];
+
 function ProductCard({ product }: { product: Product }) {
   const primaryHref = product.itemKey ? `/cart?add=${product.itemKey}` : product.href;
   const primaryClass =
@@ -393,7 +424,56 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      <section className="bg-white py-10">
+      <section className="bg-white py-14 sm:py-18">
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Choose the Right Level of Project Support</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+              Pick the level of support based on where you are in your project
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            {supportBundles.map((bundle) => (
+              <div
+                key={bundle.title}
+                className={`flex h-full flex-col rounded-[28px] border p-6 text-center shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 sm:p-8 ${bundle.highlighted ? 'border-orange bg-orange/[0.05] shadow-elev-3' : 'border-stone-200 bg-white'}`}
+              >
+                <div className="min-h-[72px]">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{bundle.label}</p>
+                  {bundle.badge ? (
+                    <p className="mx-auto mt-3 inline-flex rounded-full bg-orange px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                      {bundle.badge}
+                    </p>
+                  ) : null}
+                  <h3 className="mt-4 text-2xl font-extrabold tracking-tight text-navy">{bundle.title}</h3>
+                  <p className="mt-3 text-sm font-bold text-orange">{bundle.price}</p>
+                </div>
+
+                <div className="mt-8 flex-1 space-y-3">
+                  {bundle.features.map((feature) => (
+                    <div key={feature} className="flex min-h-[28px] items-center justify-center gap-2 rounded-2xl bg-stone-50 px-3 py-2 text-sm font-semibold text-navy-900">
+                      <span className="text-orange">✔</span>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8">
+                  <a
+                    href={bundle.href}
+                    className={`inline-flex min-h-[54px] w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${bundle.highlighted ? 'bg-orange text-white hover:bg-orange-500' : 'bg-navy text-white hover:bg-navy-900'}`}
+                  >
+                    {bundle.cta}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-stone-50 py-10">
         <div className="container-pro">
           <p className="text-center text-sm font-semibold text-navy-900 sm:text-base">
             Projects across North Carolina. Investors supported from deal to execution.
