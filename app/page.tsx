@@ -477,12 +477,9 @@ export default function Home() {
             <p className="mt-4 text-[15px] leading-relaxed text-white/78 sm:text-lg">
               Book a free project call to talk through the job, get clarity on the next step, and decide what support makes sense.
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex items-center justify-center">
               <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
                 Book a Free Project Call
-              </Link>
-              <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-transparent px-8 py-4 text-[15px] font-semibold text-white transition-all hover:border-orange hover:text-orange">
-                Talk Through Your Project
               </Link>
             </div>
           </div>
