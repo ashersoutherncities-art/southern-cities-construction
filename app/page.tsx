@@ -10,7 +10,31 @@ const credentials = [
   'Residential Projects Across NC',
   'Investors & Homeowners Served',
   'Planning, Permits, Execution',
-  'Clear Next Steps - No Guessing',
+  'Clear Next Steps',
+];
+
+const stages = [
+  {
+    id: 'due-diligence',
+    eyebrow: 'Project Due Diligence',
+    timing: 'Before you buy',
+    items: ['Deal Review', 'Budget', 'Permits'],
+    cta: 'Review This Project',
+  },
+  {
+    id: 'planning',
+    eyebrow: 'Project Planning',
+    timing: 'Before construction',
+    items: ['Scope', 'Contractor', 'Permits'],
+    cta: 'Plan This Project',
+  },
+  {
+    id: 'execution',
+    eyebrow: 'Project Execution',
+    timing: 'During construction',
+    items: ['Oversight', 'Draws', 'Full Contracting'],
+    cta: 'Run This Project',
+  },
 ];
 
 const testimonials = [
@@ -78,93 +102,75 @@ export default function Home() {
               className="mt-5 max-w-[34rem] text-lg font-medium leading-relaxed text-white/85 sm:text-xl motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.25s' }}
             >
-              Help before you spend - and during construction.
+              Due diligence, planning, and execution support for residential projects.
             </p>
 
             <div
               className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap motion-safe:animate-hero-rise"
               style={{ animationDelay: '0.35s' }}
             >
-              <Link href="/services/investors" className="inline-flex min-w-[240px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5 motion-safe:animate-glow-pulse">
-                Plan Before You Spend
+              <Link href="#due-diligence" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
+                Project Due Diligence
               </Link>
-              <Link href="/services" className="inline-flex min-w-[240px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
-                Get Project Support
+              <Link href="#planning" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
+                Project Planning
+              </Link>
+              <Link href="#execution" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
+                Project Execution
               </Link>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-8 grid gap-3 text-sm font-semibold text-white/92 sm:grid-cols-2 lg:grid-cols-5 motion-safe:animate-hero-rise" style={{ animationDelay: '0.42s' }}>
+      <section className="bg-white py-8 sm:py-10 border-b border-stone-200">
+        <div className="container-pro">
+          <div className="grid gap-3 text-sm font-semibold text-navy-900 sm:grid-cols-2 lg:grid-cols-5">
             {credentials.map((item) => (
-              <div key={item} className="rounded-2xl border border-white/14 bg-white/8 px-4 py-3 text-center backdrop-blur-sm">
+              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-center">
                 {item}
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <p
-            className="mt-14 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange motion-safe:animate-hero-rise"
-            style={{ animationDelay: '0.48s' }}
-          >
-            <span className="block h-px w-8 bg-orange/80" aria-hidden="true" />
-            <span>Start here</span>
-          </p>
-          <div id="two-paths" className="mt-5 grid gap-5 lg:grid-cols-2">
-            <div
-              className="rounded-2xl bg-white p-8 sm:p-10 shadow-elev-3 motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.5s' }}
-            >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">Plan the Project</p>
-              <h3 className="mt-3 text-[1.75rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-3xl">
-                Before you spend
-              </h3>
-              <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4">
-                {[
-                  'Deal Review',
-                  'Budget',
-                  'Permits',
-                  'Contractor',
-                ].map((item) => (
-                  <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/services/investors"
-                className="mt-8 inline-flex items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
+      <section className="bg-white py-14 sm:py-20">
+        <div className="container-pro">
+          <div className="grid gap-5 lg:grid-cols-3">
+            {stages.map((stage) => (
+              <div
+                key={stage.id}
+                id={stage.id}
+                className="scroll-mt-24 rounded-2xl bg-white p-8 sm:p-10 shadow-elev-3 border border-stone-200"
               >
-                Plan Before You Spend
-              </Link>
-            </div>
-            <div
-              className="rounded-2xl bg-white p-8 sm:p-10 shadow-elev-3 motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.65s' }}
-            >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">Run the Project</p>
-              <h3 className="mt-3 text-[1.75rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-3xl">
-                During construction
-              </h3>
-              <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4">
-                {[
-                  'Oversight',
-                  'Draws',
-                  'Permits',
-                  'Contracting',
-                ].map((item) => (
-                  <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/services"
-                className="mt-8 inline-flex items-center justify-center rounded-full border-2 border-navy-900 bg-white px-6 py-3.5 text-[15px] font-semibold text-navy-900 transition-colors hover:bg-navy-900 hover:text-white"
-              >
-                Get Project Support
-              </Link>
-            </div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">{stage.eyebrow}</p>
+                <h3 className="mt-3 text-[1.6rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-[1.75rem]">
+                  {stage.timing}
+                </h3>
+                <ul className="mt-7 space-y-3">
+                  {stage.items.map((item) => (
+                    <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/contact"
+                  className="mt-8 inline-flex items-center justify-center rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
+                >
+                  {stage.cta}
+                </Link>
+              </div>
+            ))}
           </div>
+
+          <p className="mt-10 text-center text-sm font-medium text-stone-600">
+            Need full contracting?{' '}
+            <Link href="/contracting" className="font-semibold text-navy-900 underline underline-offset-4 hover:text-orange-500">
+              We handle that when your project calls for it.
+            </Link>
+          </p>
         </div>
       </section>
 
