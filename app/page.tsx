@@ -31,28 +31,28 @@ const credentials = [
 
 const proofCards = [
   {
-    label: 'Deals Reviewed',
-    detail: 'Clear reads before you sink more money into a project.',
+    label: 'Get Your Deal Reviewed',
+    detail: 'Catch issues before you put more money in',
   },
   {
-    label: 'Budgets Built',
-    detail: 'Working budgets shaped around scope, timing, and risk.',
+    label: 'Know Your Real Budget',
+    detail: 'Avoid underestimating scope and costs',
   },
   {
-    label: 'Permit Path Clarity',
-    detail: 'Short answers on whether a plan can move and what may slow it.',
+    label: 'Map Your Permit Path',
+    detail: 'Know what gets approved - and what does not',
   },
   {
-    label: 'Projects Supported',
-    detail: 'Owners, investors, and operators supported through active jobs.',
+    label: 'Get Support During the Project',
+    detail: 'Keep things moving without confusion',
   },
   {
-    label: 'Licensed NC GC',
-    detail: 'Real contractor perspective, not abstract consulting language.',
+    label: 'Work With a Licensed GC',
+    detail: 'Execution when your project calls for it',
   },
   {
-    label: 'Clear Next Steps',
-    detail: 'Simple direction on what to do now, later, and not at all.',
+    label: 'Know What to Do Next',
+    detail: 'Clear direction before moving forward',
   },
 ];
 
@@ -184,9 +184,9 @@ export default function Home() {
       <section className="bg-stone-50 py-14 sm:py-18">
         <div className="container-pro">
           <div className="max-w-3xl motion-safe:animate-hero-rise">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Proof</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What to Handle Before You Move Forward</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-              Clarity Before You Commit. Control During Execution.
+              Before You Move Forward, Handle These First
             </h2>
           </div>
 
@@ -197,10 +197,25 @@ export default function Home() {
                 className="rounded-[26px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise"
                 style={{ animationDelay: `${0.08 * index}s` }}
               >
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-orange-500">{card.label}</p>
+                <p className="text-lg font-extrabold tracking-tight text-navy-900">{card.label}</p>
                 <p className="mt-3 text-sm leading-relaxed text-stone-600">{card.detail}</p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/contact"
+              className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-full bg-orange px-6 py-3.5 text-center text-[15px] font-semibold text-white transition-all hover:bg-orange-500"
+            >
+              Review This Before You Move Forward
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3.5 text-center text-[15px] font-semibold text-navy-900 transition-all hover:-translate-y-0.5 hover:border-orange hover:text-orange"
+            >
+              Talk Through Your Project
+            </Link>
           </div>
         </div>
       </section>
