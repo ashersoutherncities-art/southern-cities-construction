@@ -106,16 +106,19 @@ const processSteps = [
     number: '1',
     title: 'Book a free project call',
     detail: 'Start with a short conversation about the property, scope, timing, and where things feel unclear.',
+    side: 'left',
   },
   {
     number: '2',
     title: 'Get a project-specific recommendation',
     detail: 'We point you to the right next step, whether that is due diligence, planning support, or execution help.',
+    side: 'right',
   },
   {
     number: '3',
     title: 'Move forward with the right support',
     detail: 'Once the path is clear, we help you review, prepare, coordinate, or run the project.',
+    side: 'left',
   },
 ];
 
@@ -400,45 +403,54 @@ export default function Home() {
           </div>
 
           <div className="mt-14">
-            <div className="grid gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-0">
-              <div className="space-y-8 lg:space-y-20">
-                <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:mr-10 motion-safe:animate-hero-rise">
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step 1</p>
-                  <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{processSteps[0].title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{processSteps[0].detail}</p>
-                </div>
-                <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:mr-10 motion-safe:animate-hero-rise" style={{ animationDelay: '0.1s' }}>
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step 3</p>
-                  <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{processSteps[2].title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{processSteps[2].detail}</p>
-                </div>
-              </div>
+            <div className="relative hidden lg:block">
+              <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-stone-200" />
+              <div className="space-y-10">
+                {processSteps.map((step, index) => {
+                  const isLeft = step.side === 'left';
+                  const dotClass = index === 1 ? 'bg-orange text-white' : 'bg-navy-900 text-white';
+                  return (
+                    <div key={step.number} className="relative grid grid-cols-[1fr_auto_1fr] items-center gap-8">
+                      <div className={isLeft ? 'flex justify-end' : ''}>
+                        {isLeft ? (
+                          <div className="w-full max-w-[30rem] rounded-[28px] border border-stone-200 bg-white p-7 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise" style={{ animationDelay: `${0.08 * index}s` }}>
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step {step.number}</p>
+                            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{step.title}</h3>
+                            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{step.detail}</p>
+                          </div>
+                        ) : null}
+                      </div>
 
-              <div className="hidden lg:flex lg:flex-col lg:items-center">
-                <div className="h-full w-px bg-stone-200" />
-                <div className="absolute mt-10 flex flex-col items-center gap-[10.5rem]">
-                  {processSteps.map((step, index) => (
-                    <div key={step.number} className={`flex h-14 w-14 items-center justify-center rounded-full border-4 border-white text-lg font-extrabold shadow-lg ${index === 1 ? 'bg-orange text-white' : 'bg-navy-900 text-white'}`}>
-                      {step.number}
+                      <div className="relative z-10 flex justify-center">
+                        <div className={`flex h-14 w-14 items-center justify-center rounded-full border-4 border-white text-lg font-extrabold shadow-lg ${dotClass}`}>
+                          {step.number}
+                        </div>
+                      </div>
+
+                      <div className={!isLeft ? 'flex justify-start' : ''}>
+                        {!isLeft ? (
+                          <div className="w-full max-w-[30rem] rounded-[28px] border border-stone-200 bg-white p-7 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise" style={{ animationDelay: `${0.08 * index}s` }}>
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step {step.number}</p>
+                            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{step.title}</h3>
+                            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{step.detail}</p>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-8 pt-0 lg:pt-20 lg:space-y-20">
-                <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:ml-10 motion-safe:animate-hero-rise" style={{ animationDelay: '0.05s' }}>
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step 2</p>
-                  <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{processSteps[1].title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{processSteps[1].detail}</p>
-                </div>
+                  );
+                })}
               </div>
             </div>
 
             <div className="mt-8 grid gap-4 lg:hidden">
-              {processSteps.map((step) => (
-                <div key={`mobile-${step.number}`} className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+              {processSteps.map((step, index) => (
+                <div
+                  key={`mobile-${step.number}`}
+                  className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise"
+                  style={{ animationDelay: `${0.08 * index}s` }}
+                >
                   <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-navy-900 text-base font-extrabold text-white">{step.number}</div>
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-full text-base font-extrabold text-white ${index === 1 ? 'bg-orange' : 'bg-navy-900'}`}>{step.number}</div>
                     <div>
                       <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step {step.number}</p>
                       <h3 className="mt-1 text-xl font-extrabold tracking-tight text-navy">{step.title}</h3>
