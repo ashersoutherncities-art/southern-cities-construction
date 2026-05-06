@@ -142,7 +142,7 @@ export default function Home() {
                 <h3 className="mt-3 text-[1.6rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-[1.75rem]">
                   {stage.timing}
                 </h3>
-                <ul className="mt-7 space-y-3">
+                <ul className="mt-7 space-y-3 pb-6">
                   {stage.items.map((item) => (
                     <li key={item} className="text-base font-semibold text-navy-900 sm:text-[17px]">
                       {item}
