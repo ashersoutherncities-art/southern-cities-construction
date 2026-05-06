@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
@@ -156,6 +157,8 @@ const faqs = [
 ];
 
 export default function Home() {
+  const [openFaqIndex, setOpenFaqIndex] = useState(0);
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav />
@@ -517,6 +520,7 @@ export default function Home() {
               <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1">
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Service area</p>
                 <p className="mt-3 text-2xl font-extrabold tracking-tight text-navy-900">North Carolina Statewide</p>
+                <p className="mt-2 text-[15px] font-semibold leading-relaxed text-navy-900">525 N Tryon St, Charlotte, NC 28202</p>
                 <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Residential projects, investor work, planning support, permits, oversight, and full contracting when needed.</p>
               </div>
             </div>
@@ -565,16 +569,32 @@ export default function Home() {
           </div>
 
           <div className="mx-auto mt-10 max-w-4xl space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={faq.question}
-                className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 motion-safe:animate-hero-rise"
-                style={{ animationDelay: `${0.06 * index}s` }}
-              >
-                <h3 className="text-lg font-extrabold tracking-tight text-navy-900">{faq.question}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{faq.answer}</p>
-              </div>
-            ))}
+            {faqs.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div
+                  key={faq.question}
+                  className="overflow-hidden rounded-[24px] border border-stone-200 bg-white shadow-elev-1 motion-safe:animate-hero-rise"
+                  style={{ animationDelay: `${0.06 * index}s` }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaqIndex(isOpen ? -1 : index)}
+                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  >
+                    <h3 className="text-lg font-extrabold tracking-tight text-navy-900">{faq.question}</h3>
+                    <span className={`text-2xl font-light text-orange transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+                      ˅
+                    </span>
+                  </button>
+                  {isOpen ? (
+                    <div className="px-6 pb-6">
+                      <p className="text-[15px] leading-relaxed text-stone-700">{faq.answer}</p>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
