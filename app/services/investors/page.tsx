@@ -390,6 +390,8 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 function StageSection({ id, stage, title, label, cta, products }: Stage) {
+  const gridClass = id === 'before-you-start' ? 'md:grid-cols-2 xl:grid-cols-5' : 'md:grid-cols-2 xl:grid-cols-4';
+
   return (
     <section id={id} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -403,7 +405,7 @@ function StageSection({ id, stage, title, label, cta, products }: Stage) {
         </a>
       </div>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div className={`mt-8 grid gap-5 ${gridClass}`}>
         {products.map((product) => (
           <ProductCard key={product.name} product={product} />
         ))}
