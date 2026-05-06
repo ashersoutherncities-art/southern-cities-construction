@@ -496,6 +496,74 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-white py-14 sm:py-20">
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center motion-safe:animate-hero-rise">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Get in touch</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Talk with us about your project</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+              Have questions about the project, the budget, or the right next step? Contact us or book a free project call.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="space-y-4">
+              <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Call</p>
+                <a href="tel:+19804737249" className="mt-3 block text-2xl font-extrabold tracking-tight text-navy-900 transition-colors hover:text-orange">
+                  (980) 473-7249
+                </a>
+                <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Talk through the job, ask questions, and get help figuring out the next move.</p>
+              </div>
+
+              <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Email</p>
+                <a href="mailto:info@southerncitiesconstruction.com" className="mt-3 block break-all text-xl font-extrabold tracking-tight text-navy-900 transition-colors hover:text-orange">
+                  info@southerncitiesconstruction.com
+                </a>
+                <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Send over your project details, timeline, or questions and we can point you in the right direction.</p>
+              </div>
+
+              <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Service area</p>
+                <p className="mt-3 text-2xl font-extrabold tracking-tight text-navy-900">Charlotte, NC and statewide North Carolina</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Residential projects, investor work, planning support, permits, oversight, and full contracting when needed.</p>
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-stone-200 bg-white p-7 shadow-elev-3 sm:p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Next step</p>
+              <h3 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-900">Choose how you want to start</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
+                If you already know you want to talk, book the free call. If you want to send project details first, email us and we will follow up.
+              </p>
+
+              <div className="mt-8 space-y-4">
+                <Link
+                  href={CONSULTATION_CTA_HREF}
+                  className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-orange px-6 py-4 text-center text-[15px] font-semibold text-white transition-all hover:bg-orange-500"
+                >
+                  Schedule a Free Project Call
+                </Link>
+                <a
+                  href="mailto:info@southerncitiesconstruction.com"
+                  className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-4 text-center text-[15px] font-semibold text-navy-900 transition-all hover:-translate-y-0.5 hover:border-orange hover:text-orange"
+                >
+                  Contact Us by Email
+                </a>
+              </div>
+
+              <div className="mt-8 rounded-[22px] bg-stone-50 p-5">
+                <p className="text-sm font-semibold text-navy-900">Best fit for this page</p>
+                <p className="mt-2 text-sm leading-relaxed text-stone-600">
+                  Early-stage project questions, scope clarity, budget direction, permit concerns, contractor planning, and deciding whether you need support or full execution.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </div>
   );
