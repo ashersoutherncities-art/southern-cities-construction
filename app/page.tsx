@@ -7,11 +7,38 @@ import SiteFooter from '@/components/SiteFooter';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 const credentials = [
-  'Licensed NC General Contractor',
+  'Licensed NC GC',
+  'Fully Insured',
+  'Investor-Focused',
   'Residential Projects Across NC',
-  'Investors & Homeowners Served',
   'Planning, Permits, Execution',
-  'Clear Next Steps',
+];
+
+const proofCards = [
+  {
+    label: 'Deals Reviewed',
+    detail: 'Clear reads before you sink more money into a project.',
+  },
+  {
+    label: 'Budgets Built',
+    detail: 'Working budgets shaped around scope, timing, and risk.',
+  },
+  {
+    label: 'Permit Path Clarity',
+    detail: 'Short answers on whether a plan can move and what may slow it.',
+  },
+  {
+    label: 'Projects Supported',
+    detail: 'Owners, investors, and operators supported through active jobs.',
+  },
+  {
+    label: 'Licensed NC GC',
+    detail: 'Real contractor perspective, not abstract consulting language.',
+  },
+  {
+    label: 'Clear Next Steps',
+    detail: 'Simple direction on what to do now, later, and not at all.',
+  },
 ];
 
 const stages = [
@@ -77,29 +104,39 @@ export default function Home() {
                   Due diligence, planning, and execution support for residential projects.
                 </p>
 
-                <div
-                  className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 motion-safe:animate-hero-rise"
-                  style={{ animationDelay: '0.35s' }}
-                >
+                <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <Link
                     href="#due-diligence"
-                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all motion-safe:animate-hero-rise hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    style={{ animationDelay: '0.35s' }}
                   >
                     Project Due Diligence
                   </Link>
                   <Link
                     href="#planning"
-                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all motion-safe:animate-hero-rise hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    style={{ animationDelay: '0.45s' }}
                   >
                     Project Planning
                   </Link>
                   <Link
                     href="#execution"
-                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all motion-safe:animate-hero-rise hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    style={{ animationDelay: '0.55s' }}
                   >
                     Project Execution
                   </Link>
                 </div>
+
+                <p
+                  className="mt-4 text-sm font-medium text-white/75 motion-safe:animate-hero-rise"
+                  style={{ animationDelay: '0.65s' }}
+                >
+                  Not sure where to start?{' '}
+                  <Link href="/contact" className="text-white underline underline-offset-4 transition hover:text-orange">
+                    Book a free project call.
+                  </Link>
+                </p>
               </div>
             </div>
 
@@ -117,12 +154,36 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-8 sm:py-10 border-b border-stone-200">
+      <section className="border-b border-stone-200 bg-white py-8 sm:py-10 motion-safe:animate-hero-rise" style={{ animationDelay: '0.75s' }}>
         <div className="container-pro">
           <div className="grid gap-3 text-sm font-semibold text-navy-900 sm:grid-cols-2 lg:grid-cols-5">
             {credentials.map((item) => (
               <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-center">
                 {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-stone-50 py-14 sm:py-18">
+        <div className="container-pro">
+          <div className="max-w-3xl motion-safe:animate-hero-rise">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Proof</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
+              Clarity Before You Commit. Control During Execution.
+            </h2>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {proofCards.map((card, index) => (
+              <div
+                key={card.label}
+                className="rounded-[26px] border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise"
+                style={{ animationDelay: `${0.08 * index}s` }}
+              >
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-orange-500">{card.label}</p>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">{card.detail}</p>
               </div>
             ))}
           </div>
@@ -136,7 +197,7 @@ export default function Home() {
               <div
                 key={stage.id}
                 id={stage.id}
-                className="scroll-mt-24 flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-8 shadow-elev-3 sm:p-10"
+                className="scroll-mt-24 flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-8 shadow-elev-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.12)] sm:p-10"
               >
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">{stage.eyebrow}</p>
                 <h3 className="mt-3 text-[1.6rem] font-extrabold leading-tight tracking-tight text-navy-900 sm:text-[1.75rem]">
@@ -170,9 +231,11 @@ export default function Home() {
         </div>
       </section>
 
-      <TestimonialsCarousel />
+      <div className="motion-safe:animate-hero-rise" style={{ animationDelay: '0.2s' }}>
+        <TestimonialsCarousel />
+      </div>
 
-      <section id="contact" className="bg-navy-950 py-14 sm:py-16 text-white">
+      <section id="contact" className="bg-navy-950 py-14 text-white motion-safe:animate-hero-rise sm:py-16" style={{ animationDelay: '0.25s' }}>
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Final step</p>
