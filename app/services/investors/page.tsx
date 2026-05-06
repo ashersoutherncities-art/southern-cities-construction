@@ -285,31 +285,42 @@ const investorTestimonials = [
   },
 ];
 
+const supportRows = [
+  'Deal Reviewed',
+  'Budget Analyzed',
+  'Permit Path Mapped',
+  'Scope Prepared',
+  'Contractor Selected',
+  'Permit Prep',
+  'Draws Reviewed',
+  'Project Oversight',
+  'Full Execution',
+];
+
 const supportBundles = [
   {
     label: 'Early Decision',
-    title: 'Deal Review Bundle',
-    price: 'Starting at $499',
-    features: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Contractor Fit'],
+    title: 'Deal Review',
+    price: '$999',
+    includes: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped'],
     cta: 'Review Your Project',
     href: '#before-you-commit',
     highlighted: false,
   },
   {
     label: 'Getting Ready',
-    title: 'Project Setup Bundle',
-    price: 'Starting at $1,499',
-    features: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Scope Prepared', 'Contractor Selected', 'Permit Prep', 'Bid Coordination'],
+    title: 'Project Setup',
+    price: '$1,999',
+    includes: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Scope Prepared', 'Contractor Selected', 'Permit Prep'],
     cta: 'Plan This Project',
     href: '#before-you-start',
     highlighted: true,
-    badge: 'Most Common',
   },
   {
     label: 'Active Project',
     title: 'Full Project Support',
-    price: 'Custom / Starting at $2,500',
-    features: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Scope Prepared', 'Contractor Selected', 'Permit Prep', 'Draws Reviewed', 'Project Oversight', 'Full Execution'],
+    price: 'Custom / Starting At',
+    includes: [...supportRows],
     cta: 'Run This Project',
     href: '#during-construction',
     highlighted: false,
@@ -413,47 +424,69 @@ export default function InvestorsPage() {
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Choose the Right Level of Project Support</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
-              Pick the level of support based on where you are in your project
-            </p>
           </div>
 
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            {supportBundles.map((bundle) => (
-              <div
-                key={bundle.title}
-                className={`flex h-full flex-col rounded-[28px] border p-6 text-center shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 sm:p-8 ${bundle.highlighted ? 'border-orange bg-orange/[0.05] shadow-elev-3' : 'border-stone-200 bg-white'}`}
-              >
-                <div className="min-h-[72px]">
+          <div className="mt-10 overflow-hidden rounded-[28px] border border-stone-200 bg-white shadow-elev-1">
+            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-stone-200 bg-stone-50">
+              <div className="px-4 py-5 sm:px-6" />
+              {supportBundles.map((bundle) => (
+                <div
+                  key={bundle.title}
+                  className={`px-4 py-5 text-center sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}
+                >
                   <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{bundle.label}</p>
-                  {bundle.badge ? (
-                    <p className="mx-auto mt-3 inline-flex rounded-full bg-orange px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-                      {bundle.badge}
-                    </p>
-                  ) : null}
-                  <h3 className="mt-4 text-2xl font-extrabold tracking-tight text-navy">{bundle.title}</h3>
-                  <p className="mt-3 text-sm font-bold text-orange">{bundle.price}</p>
+                  <h3 className="mt-2 text-xl font-extrabold tracking-tight text-navy">{bundle.title}</h3>
                 </div>
+              ))}
+            </div>
 
-                <div className="mt-8 flex-1 space-y-3">
-                  {bundle.features.map((feature) => (
-                    <div key={feature} className="flex min-h-[28px] items-center justify-center gap-2 rounded-2xl bg-stone-50 px-3 py-2 text-sm font-semibold text-navy-900">
-                      <span className="text-orange">✔</span>
-                      <span>{feature}</span>
+            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-stone-200">
+              <div className="px-4 py-4 text-sm font-semibold text-stone-600 sm:px-6">Level</div>
+              {supportBundles.map((bundle) => (
+                <div
+                  key={`${bundle.title}-price`}
+                  className={`px-4 py-4 text-center text-sm font-bold text-orange sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
+                >
+                  {bundle.price}
+                </div>
+              ))}
+            </div>
+
+            {supportRows.map((row) => (
+              <div key={row} className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-stone-200 last:border-b-0">
+                <div className="px-4 py-4 text-sm font-semibold text-navy-900 sm:px-6">{row}</div>
+                {supportBundles.map((bundle) => {
+                  const included = bundle.includes.includes(row);
+                  return (
+                    <div
+                      key={`${bundle.title}-${row}`}
+                      className={`flex items-center justify-center px-4 py-4 sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
+                    >
+                      <span className={`text-lg font-bold ${included ? 'text-orange' : 'text-stone-300'}`}>
+                        {included ? '✔' : '—'}
+                      </span>
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
+              </div>
+            ))}
 
-                <div className="mt-8">
+            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] bg-stone-50">
+              <div className="px-4 py-5 sm:px-6" />
+              {supportBundles.map((bundle) => (
+                <div
+                  key={`${bundle.title}-cta`}
+                  className={`px-4 py-5 sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}
+                >
                   <a
                     href={bundle.href}
-                    className={`inline-flex min-h-[54px] w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${bundle.highlighted ? 'bg-orange text-white hover:bg-orange-500' : 'bg-navy text-white hover:bg-navy-900'}`}
+                    className={`inline-flex min-h-[52px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${bundle.highlighted ? 'bg-orange text-white hover:bg-orange-500' : 'bg-navy text-white hover:bg-navy-900'}`}
                   >
                     {bundle.cta}
                   </a>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
