@@ -119,6 +119,33 @@ const processSteps = [
   },
 ];
 
+const faqs = [
+  {
+    question: 'What types of projects do you help with?',
+    answer: 'We support residential rehabs, rental turns, owner projects, investor projects, permit-heavy work, and jobs that need better planning before construction starts.',
+  },
+  {
+    question: 'Do you only work on full construction jobs?',
+    answer: 'No. Some clients need a deal review, budget review, permit help, or oversight support without hiring full contracting right away.',
+  },
+  {
+    question: 'What happens on the free project call?',
+    answer: 'We talk through the property, the scope, the current roadblocks, and what next step makes the most sense for the job.',
+  },
+  {
+    question: 'Do you work with investors and homeowners?',
+    answer: 'Yes. We work with investors, homeowners, developers, landowners, and operators who need real project guidance and execution support.',
+  },
+  {
+    question: 'Can you help before permits or contractor selection?',
+    answer: 'Yes. That is one of the biggest reasons clients come to us. We help clarify scope, budget, permits, and the path forward before the job gets more expensive.',
+  },
+  {
+    question: 'How do I know which service to choose?',
+    answer: 'Start with the free project call. We can point you toward the right review, planning service, or execution support based on where the project stands.',
+  },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
@@ -427,16 +454,44 @@ export default function Home() {
 
       <section id="contact" className="bg-navy-950 py-14 text-white motion-safe:animate-hero-rise sm:py-16" style={{ animationDelay: '0.25s' }}>
         <div className="container-pro">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Not sure where to start?</h2>
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Ready to move your project forward?</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-white/78 sm:text-lg">
-              Talk through your project and get direction on what to do next.
+              Book a free project call to talk through the job, get clarity on the next step, and decide what support makes sense.
             </p>
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
-                Book a Project Call
+                Book a Free Project Call
+              </Link>
+              <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-transparent px-8 py-4 text-[15px] font-semibold text-white transition-all hover:border-orange hover:text-orange">
+                Talk Through Your Project
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-stone-50 py-14 sm:py-18">
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center motion-safe:animate-hero-rise">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">FAQ</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Frequently asked questions</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+              Straight answers to the questions clients usually ask before they move forward.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 max-w-4xl space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={faq.question}
+                className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 motion-safe:animate-hero-rise"
+                style={{ animationDelay: `${0.06 * index}s` }}
+              >
+                <h3 className="text-lg font-extrabold tracking-tight text-navy-900">{faq.question}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{faq.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
