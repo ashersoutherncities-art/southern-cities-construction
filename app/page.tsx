@@ -11,15 +11,15 @@ const CONSULTATION_CTA_HREF = '/services/homeowners/owner-consultation';
 
 const galleryPreview = [
   {
-    title: 'White house exterior transformation',
+    title: 'Standard builder-grade home exterior refresh',
     image: '/gallery/white-house-after.jpg',
   },
   {
-    title: 'Older home exterior refresh',
+    title: 'Farmhouse-style siding and deck transformation',
     image: '/gallery/farmhouse-after.jpg',
   },
   {
-    title: 'Red house exterior refresh',
+    title: 'Historic waterfront district home exterior transformation',
     image: '/gallery/red-house-after.jpg',
   },
 ];
