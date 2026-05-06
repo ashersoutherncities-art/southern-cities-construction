@@ -116,8 +116,8 @@ const processSteps = [
   },
   {
     number: '3',
-    title: 'Move forward with the right support',
-    detail: 'Once the path is clear, we help you review, prepare, coordinate, or run the project.',
+    title: 'Project completion',
+    detail: 'Once the path is clear, we help move the job through execution and toward a clean completed result.',
     side: 'left',
   },
 ];
