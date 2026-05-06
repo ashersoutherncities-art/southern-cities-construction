@@ -82,6 +82,43 @@ const stages = [
   },
 ];
 
+const processHighlights = [
+  {
+    title: 'Clear project direction',
+    detail: 'Know what to do first, what to price next, and what can wait.',
+  },
+  {
+    title: 'Faster decision-making',
+    detail: 'Move through scope, budget, and permit questions without getting stuck.',
+  },
+  {
+    title: 'Tailored project support',
+    detail: 'Get the level of help that fits the job, from review to full execution.',
+  },
+  {
+    title: 'Real contractor insight',
+    detail: 'Use licensed construction judgment instead of guessing through risk.',
+  },
+];
+
+const processSteps = [
+  {
+    number: '1',
+    title: 'Book a free project call',
+    detail: 'Start with a short conversation about the property, scope, timing, and where things feel unclear.',
+  },
+  {
+    number: '2',
+    title: 'Get a project-specific recommendation',
+    detail: 'We point you to the right next step, whether that is due diligence, planning support, or execution help.',
+  },
+  {
+    number: '3',
+    title: 'Move forward with the right support',
+    detail: 'Once the path is clear, we help you review, prepare, coordinate, or run the project.',
+  },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
@@ -304,6 +341,85 @@ export default function Home() {
               >
                 View Full Project Gallery →
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-14 sm:py-20">
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center motion-safe:animate-hero-rise">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Our process</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">How projects move forward</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+              A simple process to help you get clarity, choose the right next step, and keep the project moving.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {processHighlights.map((item, index) => (
+              <div
+                key={item.title}
+                className="rounded-[26px] border border-stone-200 bg-stone-50 p-6 text-center shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise"
+                style={{ animationDelay: `${0.08 * index}s` }}
+              >
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-orange/20 bg-white text-lg font-extrabold text-orange shadow-sm">
+                  {index + 1}
+                </div>
+                <p className="mt-5 text-xl font-extrabold tracking-tight text-navy-900">{item.title}</p>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14">
+            <div className="grid gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-0">
+              <div className="space-y-8 lg:space-y-20">
+                <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:mr-10 motion-safe:animate-hero-rise">
+                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step 1</p>
+                  <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{processSteps[0].title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{processSteps[0].detail}</p>
+                </div>
+                <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:mr-10 motion-safe:animate-hero-rise" style={{ animationDelay: '0.1s' }}>
+                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step 3</p>
+                  <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{processSteps[2].title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{processSteps[2].detail}</p>
+                </div>
+              </div>
+
+              <div className="hidden lg:flex lg:flex-col lg:items-center">
+                <div className="h-full w-px bg-stone-200" />
+                <div className="absolute mt-10 flex flex-col items-center gap-[10.5rem]">
+                  {processSteps.map((step, index) => (
+                    <div key={step.number} className={`flex h-14 w-14 items-center justify-center rounded-full border-4 border-white text-lg font-extrabold shadow-lg ${index === 1 ? 'bg-orange text-white' : 'bg-navy-900 text-white'}`}>
+                      {step.number}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-8 pt-0 lg:pt-20 lg:space-y-20">
+                <div className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:ml-10 motion-safe:animate-hero-rise" style={{ animationDelay: '0.05s' }}>
+                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step 2</p>
+                  <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-navy">{processSteps[1].title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{processSteps[1].detail}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 grid gap-4 lg:hidden">
+              {processSteps.map((step) => (
+                <div key={`mobile-${step.number}`} className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-navy-900 text-base font-extrabold text-white">{step.number}</div>
+                    <div>
+                      <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Step {step.number}</p>
+                      <h3 className="mt-1 text-xl font-extrabold tracking-tight text-navy">{step.title}</h3>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{step.detail}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
