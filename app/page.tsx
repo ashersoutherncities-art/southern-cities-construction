@@ -267,22 +267,6 @@ export default function Home() {
         <TestimonialsCarousel />
       </div>
 
-      <section id="contact" className="bg-navy-950 py-14 text-white motion-safe:animate-hero-rise sm:py-16" style={{ animationDelay: '0.25s' }}>
-        <div className="container-pro">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Not sure where to start?</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-white/78 sm:text-lg">
-              Talk through your project and get direction on what to do next.
-            </p>
-            <div className="mt-8">
-              <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
-                Book a Project Call
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="bg-stone-50 py-14 sm:py-18">
         <div className="container-pro">
           <div className="max-w-3xl motion-safe:animate-hero-rise">
@@ -319,6 +303,22 @@ export default function Home() {
                 className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy-900 transition-all hover:-translate-y-0.5 hover:border-orange hover:text-orange"
               >
                 View Full Project Gallery →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="bg-navy-950 py-14 text-white motion-safe:animate-hero-rise sm:py-16" style={{ animationDelay: '0.25s' }}>
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Not sure where to start?</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-white/78 sm:text-lg">
+              Talk through your project and get direction on what to do next.
+            </p>
+            <div className="mt-8">
+              <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+                Book a Project Call
               </Link>
             </div>
           </div>
