@@ -71,53 +71,67 @@ export default function Home() {
           style={{ backgroundSize: '200% 100%' }}
           aria-hidden="true"
         />
-        <div className="pointer-events-none absolute -left-20 top-16 h-56 w-56 rounded-full bg-orange/20 blur-3xl motion-safe:animate-aurora-a" aria-hidden="true" />
-        <div className="pointer-events-none absolute right-0 top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl motion-safe:animate-aurora-b" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 -translate-x-1/2 translate-y-1/3 rounded-full bg-orange/10 blur-3xl motion-safe:animate-aurora-c" aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-0 hidden items-center justify-center lg:flex" aria-hidden="true">
-          <Image
-            src="/sc-construction-minimal.png"
-            alt=""
-            width={640}
-            height={640}
-            className="h-auto w-[36rem] opacity-[0.045] mix-blend-screen motion-safe:animate-pulse-subtle"
-            priority
-          />
-        </div>
 
         <div className="relative z-10 container-pro">
-          <div className="max-w-[46rem]">
-            <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange motion-safe:animate-hero-rise">
-              <span className="block h-px w-8 origin-left bg-orange/80 motion-safe:animate-rule-grow" aria-hidden="true" />
-              <span>Licensed NC General Contractor #107724</span>
-            </p>
-            <h1
-              className="mt-4 max-w-[11ch] text-[3rem] font-extrabold leading-[0.97] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.5rem] motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.15s' }}
-            >
-              Plan it right. Run it better.
-            </h1>
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-7">
+              <div className="max-w-xl">
+                <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange motion-safe:animate-hero-rise">
+                  <span className="block h-px w-8 origin-left bg-orange/80 motion-safe:animate-rule-grow" aria-hidden="true" />
+                  <span>Licensed NC General Contractor</span>
+                </p>
+                <h1
+                  className="mt-5 text-[2.75rem] font-extrabold leading-[1.02] tracking-[-0.035em] text-white sm:text-[3.5rem] lg:text-[4rem] motion-safe:animate-hero-rise"
+                  style={{ animationDelay: '0.15s' }}
+                >
+                  Plan it right. Run it better.
+                </h1>
 
-            <p
-              className="mt-5 max-w-[34rem] text-lg font-medium leading-relaxed text-white/85 sm:text-xl motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.25s' }}
-            >
-              Due diligence, planning, and execution support for residential projects.
-            </p>
+                <p
+                  className="mt-6 text-lg font-medium leading-relaxed text-white/85 sm:text-xl motion-safe:animate-hero-rise"
+                  style={{ animationDelay: '0.25s' }}
+                >
+                  Due diligence, planning, and execution support for residential projects.
+                </p>
 
-            <div
-              className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.35s' }}
-            >
-              <Link href="#due-diligence" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5">
-                Project Due Diligence
-              </Link>
-              <Link href="#planning" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
-                Project Planning
-              </Link>
-              <Link href="#execution" className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/25 bg-white/8 px-7 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/14 hover:-translate-y-0.5">
-                Project Execution
-              </Link>
+                <div
+                  className="mt-10 flex flex-col gap-3 motion-safe:animate-hero-rise"
+                  style={{ animationDelay: '0.35s' }}
+                >
+                  <Link
+                    href="#due-diligence"
+                    className="group flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-6 py-4 text-left text-base font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  >
+                    <span>Project Due Diligence</span>
+                    <span aria-hidden="true" className="text-orange transition-transform group-hover:translate-x-1">&rarr;</span>
+                  </Link>
+                  <Link
+                    href="#planning"
+                    className="group flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-6 py-4 text-left text-base font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  >
+                    <span>Project Planning</span>
+                    <span aria-hidden="true" className="text-orange transition-transform group-hover:translate-x-1">&rarr;</span>
+                  </Link>
+                  <Link
+                    href="#execution"
+                    className="group flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-6 py-4 text-left text-base font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  >
+                    <span>Project Execution</span>
+                    <span aria-hidden="true" className="text-orange transition-transform group-hover:translate-x-1">&rarr;</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="hidden lg:col-span-5 lg:flex lg:items-center lg:justify-end" aria-hidden="true">
+              <Image
+                src="/sc-construction-minimal.png"
+                alt=""
+                width={640}
+                height={640}
+                className="h-auto w-full max-w-[28rem] opacity-20 motion-safe:animate-pulse-subtle"
+                priority
+              />
             </div>
           </div>
         </div>
