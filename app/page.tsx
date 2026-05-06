@@ -283,16 +283,10 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex items-center justify-center">
             <Link
               href={CONSULTATION_CTA_HREF}
-              className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-full bg-orange px-6 py-3.5 text-center text-[15px] font-semibold text-white transition-all hover:bg-orange-500"
-            >
-              Review This Before You Move Forward
-            </Link>
-            <Link
-              href={CONSULTATION_CTA_HREF}
-              className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3.5 text-center text-[15px] font-semibold text-navy-900 transition-all hover:-translate-y-0.5 hover:border-orange hover:text-orange"
+              className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-3.5 text-center text-[15px] font-semibold text-white transition-all hover:bg-orange-500"
             >
               Talk Through Your Project
             </Link>
