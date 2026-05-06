@@ -2,6 +2,9 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
+const CARD_WIDTH_DESKTOP = 31.5;
+const CARD_GAP_DESKTOP = 5 / 3;
+
 export type TestimonialItem = {
   quote: string;
   name: string;
@@ -102,6 +105,8 @@ export default function TestimonialsCarousel({
   const goPrev = () => setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   const goNext = () => setIndex((prev) => (prev + 1) % testimonials.length);
 
+  const desktopTranslate = index * (CARD_WIDTH_DESKTOP + CARD_GAP_DESKTOP);
+
   return (
     <section className="bg-stone-50 py-14 sm:py-16">
       <div className="container-pro">
@@ -139,8 +144,8 @@ export default function TestimonialsCarousel({
           onMouseLeave={() => setPaused(false)}
         >
           <div
-            className="flex gap-5"
-            style={{ transform: `translateX(calc(-${index * 100}% / 1))` }}
+            className="flex gap-5 transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${desktopTranslate}%)` }}
           >
             {cards.map((testimonial, itemIndex) => (
               <article
