@@ -18,7 +18,7 @@ const stages = [
   {
     id: 'due-diligence',
     eyebrow: 'Project Due Diligence',
-    timing: 'Before you buy',
+    timing: 'Before you commit more time or money',
     items: ['Deal Review', 'Budget', 'Permits'],
     cta: 'Review This Project',
   },
