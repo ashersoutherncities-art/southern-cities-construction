@@ -2,76 +2,270 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 
+type Product = {
+  name: string;
+  description: string;
+  price?: string;
+  href: string;
+  secondaryHref?: string;
+  primaryCta: 'Add to Cart' | 'Get Pricing' | 'Request Review';
+  secondaryCta: 'Learn More';
+  itemKey?: string;
+};
+
 type Stage = {
+  id: string;
   stage: string;
+  heroLabel: string;
+  title: string;
   label: string;
   cta: string;
-  href: string;
-  products: string[];
+  products: Product[];
 };
 
 const investorStages: Stage[] = [
   {
+    id: 'before-you-commit',
     stage: 'Stage 1',
+    heroLabel: 'Before You Commit',
+    title: 'Before You Commit',
     label: 'Before you commit more time or money',
     cta: 'Review Your Project',
-    href: '/services/investors/investor-review',
     products: [
-      'Investor Deal & Scope Review - $499',
-      'Budget Review - $599',
-      'Permit & Local Compliance Review - $399',
-      'Contractor Fit Consultation - $349',
+      {
+        name: 'Investor Deal & Scope Review',
+        price: '$499',
+        description: 'Get a fast construction-side read before you put more money at risk.',
+        href: '/pricing/investor-deal-scope-review',
+        secondaryHref: '/services/investors/investor-review',
+        primaryCta: 'Add to Cart',
+        secondaryCta: 'Learn More',
+        itemKey: 'investor-deal-scope-review',
+      },
+      {
+        name: 'Budget Review',
+        price: '$599',
+        description: 'Pressure-test the budget before weak numbers become a bad decision.',
+        href: '/pricing/rehab-budget-review',
+        secondaryHref: '/services/investors/budget-review',
+        primaryCta: 'Add to Cart',
+        secondaryCta: 'Learn More',
+        itemKey: 'rehab-budget-review',
+      },
+      {
+        name: 'Permit & Local Compliance Review',
+        price: '$399',
+        description: 'See permit and code issues before they turn into project drag.',
+        href: '/pricing/permit-local-compliance-review',
+        secondaryHref: '/services/investors/permit-local-compliance-review',
+        primaryCta: 'Add to Cart',
+        secondaryCta: 'Learn More',
+        itemKey: 'permit-local-compliance-review',
+      },
+      {
+        name: 'Contractor Fit Consultation',
+        price: '$349',
+        description: 'Get a quick read on contractor fit before you hire the wrong team.',
+        href: '/pricing/contractor-fit-consultation',
+        secondaryHref: '/services/investors/contractor-fit-consultation',
+        primaryCta: 'Add to Cart',
+        secondaryCta: 'Learn More',
+        itemKey: 'contractor-fit-consultation',
+      },
     ],
   },
   {
+    id: 'before-you-start',
     stage: 'Stage 2',
+    heroLabel: 'Before You Start',
+    title: 'Before You Start',
     label: 'Before construction begins',
     cta: 'Plan This Project',
-    href: '/services/investors/project-timeline-schedule-preparation',
     products: [
-      'Rehab Budget Review',
-      'Bid Coordination / Contractor Match',
-      'Lender Scope & Bid Package',
-      'Materials & Logistics Setup',
-      'Regional Investor Setup Consultation',
+      {
+        name: 'Rehab Budget Review',
+        description: 'Tighten rehab numbers before the project starts slipping.',
+        href: '/pricing/rehab-budget-review',
+        secondaryHref: '/services/investors/budget-review',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Bid Coordination / Contractor Match',
+        description: 'Get comparable bids and a clearer contractor decision path.',
+        href: '/review/bid-coordination-contractor-match',
+        secondaryHref: '/services/investors/contractor-match-bid-coordination',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Materials & Logistics Setup',
+        description: 'Set up sourcing and logistics before avoidable delays show up.',
+        href: '/review/material-logistics-setup',
+        secondaryHref: '/services/investors/material-logistics-setup',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Lender Scope & Bid Package',
+        description: 'Prepare a cleaner scope and bid package before funding pressure builds.',
+        href: '/review/lender-ready-scope-bid-package',
+        secondaryHref: '/services/investors/lender-ready-scope-bid-package',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Regional Investor Setup Consultation',
+        description: 'Plan your local operating setup before you try to scale the wrong way.',
+        href: '/services/investors/regional-investor-construction-network-development',
+        secondaryHref: '/services/investors/regional-investor-construction-network-development',
+        primaryCta: 'Request Review',
+        secondaryCta: 'Learn More',
+      },
     ],
   },
   {
+    id: 'funding-and-draws',
     stage: 'Stage 3',
+    heroLabel: 'Funding & Draws',
+    title: 'Funding & Draws',
     label: 'Before and during funding',
     cta: 'Set Up Draws',
-    href: '/services/investors/draw-review-support',
     products: [
-      'Draw Review Support - $399',
-      'Construction Draw Strategy & Alignment',
-      'Schedule of Cashflows Preparation',
-      'Lender-Ready Scope & Bid Package',
+      {
+        name: 'Draw Review Support',
+        price: '$399',
+        description: 'Review draw submissions before they slow down your cashflow.',
+        href: '/pricing/draw-review-support',
+        secondaryHref: '/services/investors/draw-review-support',
+        primaryCta: 'Add to Cart',
+        secondaryCta: 'Learn More',
+        itemKey: 'draw-review-support',
+      },
+      {
+        name: 'Construction Draw Strategy & Alignment',
+        description: 'Set up the draw process so lender and project timing stay aligned.',
+        href: '/review/construction-draw-strategy-alignment',
+        secondaryHref: '/services/investors/construction-draw-strategy-alignment',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Schedule of Cashflows Preparation',
+        description: 'Map funding timing before execution gets ahead of available cash.',
+        href: '/review/schedule-of-cashflows-preparation',
+        secondaryHref: '/services/investors/schedule-of-cashflows-preparation',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Lender-Ready Scope & Bid Package',
+        description: 'Give lenders a clearer package that supports faster approvals.',
+        href: '/review/lender-ready-scope-bid-package',
+        secondaryHref: '/services/investors/lender-ready-scope-bid-package',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
     ],
   },
   {
+    id: 'during-construction',
     stage: 'Stage 4',
+    heroLabel: 'During Construction',
+    title: 'During Construction',
     label: 'When the project is active',
     cta: 'Run This Project',
-    href: '/services/investors/owner-controlled-construction-gc-led',
     products: [
-      'Construction Oversight',
-      'Project Coordination & Control',
-      'Owner-Controlled Construction, GC-Led',
-      'Full Construction Management Service',
-      'Full Contracting',
+      {
+        name: 'Construction Oversight',
+        description: 'Keep the work on track with active project eyes on scope and progress.',
+        href: '/review/construction-oversight',
+        secondaryHref: '/review/construction-oversight',
+        primaryCta: 'Request Review',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Project Coordination & Control',
+        description: 'Coordinate moving pieces before missed handoffs create delay.',
+        href: '/services/investors/full-construction-management-service',
+        secondaryHref: '/services/investors/full-construction-management-service',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Owner-Controlled Construction, GC-Led',
+        description: 'Keep owner control while using licensed GC execution support.',
+        href: '/services/investors/owner-controlled-construction-gc-led',
+        secondaryHref: '/services/investors/owner-controlled-construction-gc-led',
+        primaryCta: 'Request Review',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Full Construction Management Service',
+        description: 'Use full management support when the project needs tighter control.',
+        href: '/services/investors/full-construction-management-service',
+        secondaryHref: '/services/investors/full-construction-management-service',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Full Contracting',
+        description: 'Move into full contracting when the job needs end-to-end execution.',
+        href: '/contracting',
+        secondaryHref: '/contracting',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
     ],
   },
   {
+    id: 'repeat-and-scale',
     stage: 'Stage 5',
+    heroLabel: 'Repeat & Scale',
+    title: 'Repeat & Scale',
     label: 'For ongoing operations',
     cta: 'See Support Plans',
-    href: '/recurring-support#investors',
     products: [
-      'Turn Support Plan',
-      'Operator Support Plan',
-      'Project Support Retainer',
-      'Due Diligence Package (3 deals/month)',
-      'Construction Planning Package (3 deals/month)',
+      {
+        name: 'Turn Support Plan',
+        description: 'Use recurring support for smaller but constant project decisions.',
+        href: '/recurring-support#investors',
+        secondaryHref: '/recurring-support#investors',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Operator Support Plan',
+        description: 'Get ongoing support across multiple active investor projects.',
+        href: '/recurring-support#investors',
+        secondaryHref: '/recurring-support#investors',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Project Support Retainer',
+        description: 'Hold review capacity when you have multiple active jobs at once.',
+        href: '/recurring-support#investors',
+        secondaryHref: '/recurring-support#investors',
+        primaryCta: 'Get Pricing',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Due Diligence Package, 3 deals/month',
+        description: 'Create a repeatable monthly review lane for active acquisitions.',
+        href: '/services/investors/full-due-diligence-package',
+        secondaryHref: '/services/investors/full-due-diligence-package',
+        primaryCta: 'Request Review',
+        secondaryCta: 'Learn More',
+      },
+      {
+        name: 'Construction Planning Package, 3 deals/month',
+        description: 'Get a recurring planning lane for projects moving toward execution.',
+        href: '/recurring-support#investors',
+        secondaryHref: '/recurring-support#investors',
+        primaryCta: 'Request Review',
+        secondaryCta: 'Learn More',
+      },
     ],
   },
 ];
@@ -91,26 +285,56 @@ const investorTestimonials = [
   },
 ];
 
-function StageSection({ stage, label, cta, href, products }: Stage) {
+function ProductCard({ product }: { product: Product }) {
+  const primaryHref = product.itemKey ? `/cart?add=${product.itemKey}` : product.href;
+  const primaryClass =
+    product.primaryCta === 'Add to Cart'
+      ? 'bg-orange text-white hover:bg-orange-500'
+      : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange';
+
   return (
-    <section className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
-      <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{stage}</p>
-      <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">{label}</h2>
-      <ul className="mt-6 space-y-3 text-[15px] leading-relaxed text-stone-700">
-        {products.map((product) => (
-          <li key={product} className="flex items-start gap-3">
-            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange" />
-            <span>{product}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-8">
+    <div className="flex h-full flex-col rounded-[24px] border border-stone-200 bg-white p-5 shadow-elev-1">
+      <div>
+        <h3 className="text-xl font-extrabold tracking-tight text-navy">{product.name}</h3>
+        {product.price ? <p className="mt-2 text-sm font-bold text-orange">{product.price}</p> : null}
+        <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{product.description}</p>
+      </div>
+      <div className="mt-auto pt-6 space-y-3">
         <Link
-          href={href}
-          className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-500"
+          href={primaryHref}
+          className={`inline-flex min-h-[50px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${primaryClass}`}
         >
-          {cta}
+          {product.primaryCta}
         </Link>
+        <Link
+          href={product.secondaryHref ?? product.href}
+          className="inline-flex min-h-[50px] w-full items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange"
+        >
+          {product.secondaryCta}
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function StageSection({ id, stage, title, label, cta, products }: Stage) {
+  return (
+    <section id={id} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-3xl">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{stage}</p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">{title}</h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-stone-700 sm:text-lg">{label}</p>
+        </div>
+        <a href={`#${id}`} className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-stone-100 px-5 py-3 text-sm font-semibold text-navy transition hover:bg-stone-200">
+          {cta}
+        </a>
+      </div>
+
+      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {products.map((product) => (
+          <ProductCard key={product.name} product={product} />
+        ))}
       </div>
     </section>
   );
@@ -136,12 +360,19 @@ export default function InvestorsPage() {
               Construction Support for Investment Projects
             </h1>
             <p className="max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">
-              Know your deal, set it up right, and keep it moving.
+              Choose where you are in the project and get the right support before costs, delays, or execution problems grow.
             </p>
-            <div className="mt-8">
-              <a href="#investor-stages" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-orange-500">
-                Review Your Project
-              </a>
+            <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+              {investorStages.map((stage) => (
+                <a
+                  key={stage.id}
+                  href={`#${stage.id}`}
+                  className="rounded-[22px] border border-white/14 bg-white/8 px-4 py-4 text-left text-white transition hover:border-orange hover:bg-white/12"
+                >
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">{stage.stage}</p>
+                  <p className="mt-2 text-base font-extrabold leading-tight">{stage.heroLabel}</p>
+                </a>
+              ))}
             </div>
           </div>
         </div>
