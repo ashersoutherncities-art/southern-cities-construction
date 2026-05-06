@@ -78,29 +78,26 @@ export default function Home() {
                 </p>
 
                 <div
-                  className="mt-10 flex flex-col gap-3 motion-safe:animate-hero-rise"
+                  className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 motion-safe:animate-hero-rise"
                   style={{ animationDelay: '0.35s' }}
                 >
                   <Link
                     href="#due-diligence"
-                    className="group flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-6 py-4 text-left text-base font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                   >
-                    <span>Project Due Diligence</span>
-                    <span aria-hidden="true" className="text-orange transition-transform group-hover:translate-x-1">&rarr;</span>
+                    Project Due Diligence
                   </Link>
                   <Link
                     href="#planning"
-                    className="group flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-6 py-4 text-left text-base font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                   >
-                    <span>Project Planning</span>
-                    <span aria-hidden="true" className="text-orange transition-transform group-hover:translate-x-1">&rarr;</span>
+                    Project Planning
                   </Link>
                   <Link
                     href="#execution"
-                    className="group flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-6 py-4 text-left text-base font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                    className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-semibold text-white transition-all hover:border-orange/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                   >
-                    <span>Project Execution</span>
-                    <span aria-hidden="true" className="text-orange transition-transform group-hover:translate-x-1">&rarr;</span>
+                    Project Execution
                   </Link>
                 </div>
               </div>
