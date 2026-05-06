@@ -116,9 +116,15 @@ const processSteps = [
   },
   {
     number: '3',
-    title: 'Project completion',
-    detail: 'Once the path is clear, we help move the job through execution and toward a clean completed result.',
+    title: 'Move forward with the right support',
+    detail: 'Once the path is clear, we help you review, prepare, coordinate, or run the project.',
     side: 'left',
+  },
+  {
+    number: '4',
+    title: 'Project completion',
+    detail: 'Finish with a cleaner handoff, a better result, and a project that actually gets across the line.',
+    side: 'right',
   },
 ];
 
@@ -393,10 +399,7 @@ export default function Home() {
                 className="rounded-[26px] border border-stone-200 bg-stone-50 p-6 text-center shadow-elev-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-3 motion-safe:animate-hero-rise"
                 style={{ animationDelay: `${0.08 * index}s` }}
               >
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-stone-200 bg-white text-lg font-extrabold text-orange shadow-[0_8px_24px_rgba(15,23,42,0.08)]">
-                  {index + 1}
-                </div>
-                <p className="mt-5 text-xl font-extrabold tracking-tight text-navy-900">{item.title}</p>
+                <p className="text-xl font-extrabold tracking-tight text-navy-900">{item.title}</p>
                 <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.detail}</p>
               </div>
             ))}
