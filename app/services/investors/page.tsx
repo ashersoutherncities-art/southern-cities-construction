@@ -403,7 +403,7 @@ function StageSection({ id, stage, title, label, cta, products }: Stage) {
         </a>
       </div>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {products.map((product) => (
           <ProductCard key={product.name} product={product} />
         ))}
