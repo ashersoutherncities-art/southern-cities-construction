@@ -390,7 +390,9 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 function StageSection({ id, stage, title, label, cta, products }: Stage) {
-  const gridClass = id === 'before-you-start' ? 'md:grid-cols-2 xl:grid-cols-5' : 'md:grid-cols-2 xl:grid-cols-4';
+  const gridClass = ['before-you-start', 'during-construction', 'repeat-and-scale'].includes(id)
+    ? 'md:grid-cols-2 xl:grid-cols-5'
+    : 'md:grid-cols-2 xl:grid-cols-4';
 
   return (
     <section id={id} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
