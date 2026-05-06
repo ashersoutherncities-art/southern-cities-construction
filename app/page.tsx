@@ -151,7 +151,7 @@ export default function Home() {
                 >
                   Not sure where to start?{' '}
                   <Link href={CONSULTATION_CTA_HREF} className="text-white underline underline-offset-4 transition hover:text-orange">
-                    Book a project call.
+                    Book a free project call.
                   </Link>
                 </p>
               </div>
