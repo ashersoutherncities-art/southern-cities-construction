@@ -483,31 +483,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-stone-50 py-14 sm:py-18">
-        <div className="container-pro">
-          <div className="mx-auto max-w-3xl text-center motion-safe:animate-hero-rise">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">FAQ</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Frequently asked questions</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
-              Straight answers to the questions clients usually ask before they move forward.
-            </p>
-          </div>
-
-          <div className="mx-auto mt-10 max-w-4xl space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={faq.question}
-                className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 motion-safe:animate-hero-rise"
-                style={{ animationDelay: `${0.06 * index}s` }}
-              >
-                <h3 className="text-lg font-extrabold tracking-tight text-navy-900">{faq.question}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="bg-white py-14 sm:py-20">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center motion-safe:animate-hero-rise">
@@ -538,7 +513,7 @@ export default function Home() {
 
               <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1">
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Service area</p>
-                <p className="mt-3 text-2xl font-extrabold tracking-tight text-navy-900">Charlotte, NC and statewide North Carolina</p>
+                <p className="mt-3 text-2xl font-extrabold tracking-tight text-navy-900">North Carolina Statewide</p>
                 <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Residential projects, investor work, planning support, permits, oversight, and full contracting when needed.</p>
               </div>
             </div>
@@ -572,6 +547,31 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-stone-50 py-14 sm:py-18">
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center motion-safe:animate-hero-rise">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">FAQ</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Frequently asked questions</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+              Straight answers to the questions clients usually ask before they move forward.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 max-w-4xl space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={faq.question}
+                className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 motion-safe:animate-hero-rise"
+                style={{ animationDelay: `${0.06 * index}s` }}
+              >
+                <h3 className="text-lg font-extrabold tracking-tight text-navy-900">{faq.question}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{faq.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
