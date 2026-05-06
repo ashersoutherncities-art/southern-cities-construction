@@ -32,6 +32,8 @@ const credentials = [
   'Planning, Permits, Execution',
 ];
 
+const duplicatedCredentials = [...credentials, ...credentials];
+
 const proofCards = [
   {
     label: 'Get Your Deal Reviewed',
@@ -248,10 +250,10 @@ export default function Home() {
       </section>
 
       <section className="border-b border-stone-200 bg-white py-8 sm:py-10 motion-safe:animate-hero-rise" style={{ animationDelay: '0.75s' }}>
-        <div className="container-pro">
-          <div className="grid gap-2 text-sm font-semibold text-navy-900 sm:grid-cols-2 lg:grid-cols-5">
-            {credentials.map((item) => (
-              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-3 py-2.5 text-center leading-tight">
+        <div className="container-pro overflow-hidden">
+          <div className="flex w-max gap-2 motion-safe:animate-marquee hover:[animation-play-state:paused]">
+            {duplicatedCredentials.map((item, index) => (
+              <div key={`${item}-${index}`} className="flex min-w-[210px] items-center justify-center rounded-2xl border border-stone-200 bg-stone-50 px-4 py-2.5 text-center text-sm font-semibold leading-tight text-navy-900">
                 {item}
               </div>
             ))}

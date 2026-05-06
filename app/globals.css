@@ -302,6 +302,11 @@ input:focus, textarea:focus, select:focus {
   50% { opacity: 0.09; transform: scale(1.015); }
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 0.25rem)); }
+}
+
 @layer utilities {
   .animate-hero-rise {
     animation: heroRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -337,6 +342,10 @@ input:focus, textarea:focus, select:focus {
 
   .animate-pulse-subtle {
     animation: pulseSubtle 12s ease-in-out infinite;
+  }
+
+  .animate-marquee {
+    animation: marquee 24s linear infinite;
   }
 }
 
