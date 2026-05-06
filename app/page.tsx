@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 const credentials = [
   'Licensed NC General Contractor',
@@ -34,24 +35,6 @@ const stages = [
     timing: 'During construction',
     items: ['Oversight', 'Draws', 'Full Contracting'],
     cta: 'Run This Project',
-  },
-];
-
-const testimonials = [
-  {
-    quote: 'Saved us from a bad decision before we spent more money.',
-    name: 'Madison M',
-    role: 'Broker/Investor',
-  },
-  {
-    quote: 'Got the specific help we needed without an oversold scope.',
-    name: 'Iantha M',
-    role: 'Investor',
-  },
-  {
-    quote: 'Permit and admin follow-up took real pressure off our team.',
-    name: 'Taquan P',
-    role: 'Wholesaler',
   },
 ];
 
@@ -188,31 +171,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-stone-50 py-14 sm:py-16">
-        <div className="container-pro">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Reviews</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">What clients say.</h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <article
-                key={t.name}
-                className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1"
-              >
-                <p className="text-[15px] leading-relaxed text-stone-700">&ldquo;{t.quote}&rdquo;</p>
-                <div className="mt-5 flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-orange text-base font-extrabold text-white">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-extrabold tracking-tight text-navy">{t.name}</p>
-                    <p className="text-xs font-medium text-stone-600">{t.role}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TestimonialsCarousel />
 
       <section id="contact" className="bg-navy-950 py-14 sm:py-16 text-white">
         <div className="container-pro">
