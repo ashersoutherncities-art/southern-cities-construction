@@ -249,9 +249,9 @@ export default function Home() {
 
       <section className="border-b border-stone-200 bg-white py-8 sm:py-10 motion-safe:animate-hero-rise" style={{ animationDelay: '0.75s' }}>
         <div className="container-pro">
-          <div className="grid gap-3 text-sm font-semibold text-navy-900 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-2 text-sm font-semibold text-navy-900 sm:grid-cols-2 lg:grid-cols-5">
             {credentials.map((item) => (
-              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-center">
+              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-3 py-2.5 text-center leading-tight">
                 {item}
               </div>
             ))}
