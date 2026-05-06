@@ -286,42 +286,47 @@ const investorTestimonials = [
 ];
 
 const supportRows = [
-  'Deal Reviewed',
-  'Budget Analyzed',
-  'Permit Path Mapped',
-  'Scope Prepared',
-  'Contractor Selected',
-  'Permit Prep',
-  'Draws Reviewed',
-  'Project Oversight',
-  'Full Execution',
+  'Deal reviewed',
+  'Budget checked',
+  'Permit path mapped',
+  'Contractor fit reviewed',
+  'Scope prepared',
+  'Timeline built',
+  'Permit prep',
+  'Bid coordination',
+  'Cashflow schedule',
+  'Draws reviewed',
+  'Progress monitored',
+  'Project oversight',
+  'Full contracting available',
 ];
 
 const supportBundles = [
   {
-    label: 'Early Decision',
-    title: 'Deal Review',
-    price: '$999',
-    includes: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped'],
-    cta: 'Review Your Project',
+    label: 'Before You Commit',
+    title: 'Due Diligence Pricing',
+    price: 'Starting at $1,499',
+    includes: ['Deal reviewed', 'Budget checked', 'Permit path mapped', 'Contractor fit reviewed'],
+    cta: 'View Pricing',
     href: '#before-you-commit',
     highlighted: false,
   },
   {
-    label: 'Getting Ready',
-    title: 'Project Setup',
-    price: '$1,999',
-    includes: ['Deal Reviewed', 'Budget Analyzed', 'Permit Path Mapped', 'Scope Prepared', 'Contractor Selected', 'Permit Prep'],
-    cta: 'Plan This Project',
+    label: 'Before You Start',
+    title: 'Project Setup Pricing',
+    price: 'Starting at $2,500',
+    includes: ['Scope prepared', 'Timeline built', 'Permit prep', 'Bid coordination', 'Cashflow schedule'],
+    cta: 'View Pricing',
     href: '#before-you-start',
     highlighted: true,
+    badge: 'Most Common',
   },
   {
-    label: 'Active Project',
-    title: 'Full Project Support',
-    price: 'Custom / Starting At',
-    includes: [...supportRows],
-    cta: 'Run This Project',
+    label: 'During Construction',
+    title: 'Execution Support Pricing',
+    price: 'Custom / Starting at $3,500',
+    includes: ['Draws reviewed', 'Progress monitored', 'Permit prep', 'Project oversight', 'Full contracting available'],
+    cta: 'View Pricing',
     href: '#during-construction',
     highlighted: false,
   },
@@ -423,29 +428,32 @@ export default function InvestorsPage() {
       <section className="bg-white py-14 sm:py-18">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Choose the Right Level of Project Support</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Investor Pricing</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+              Choose the right support based on where you are in the project.
+            </p>
           </div>
 
           <div className="mt-10 overflow-hidden rounded-[28px] border border-stone-200 bg-white shadow-elev-1">
-            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-stone-200 bg-stone-50">
+            <div className="grid grid-cols-[1.05fr_1fr_1fr_1fr] border-b border-stone-200 bg-stone-50">
               <div className="px-4 py-5 sm:px-6" />
               {supportBundles.map((bundle) => (
                 <div
                   key={bundle.title}
                   className={`px-4 py-5 text-center sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}
                 >
-                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{bundle.label}</p>
-                  <h3 className="mt-2 text-xl font-extrabold tracking-tight text-navy">{bundle.title}</h3>
+                  <p className="mx-auto inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">{bundle.label}</p>
+                  <h3 className="mt-3 text-xl font-extrabold tracking-tight text-navy">{bundle.title}</h3>
                 </div>
               ))}
             </div>
 
-            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-stone-200">
-              <div className="px-4 py-4 text-sm font-semibold text-stone-600 sm:px-6">Level</div>
+            <div className="grid grid-cols-[1.05fr_1fr_1fr_1fr] border-b border-stone-200">
+              <div className="px-4 py-3 text-sm font-semibold text-stone-600 sm:px-6">Bundle</div>
               {supportBundles.map((bundle) => (
                 <div
                   key={`${bundle.title}-price`}
-                  className={`px-4 py-4 text-center text-sm font-bold text-orange sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
+                  className={`px-4 py-3 text-center text-sm font-bold text-orange sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
                 >
                   {bundle.price}
                 </div>
@@ -453,14 +461,14 @@ export default function InvestorsPage() {
             </div>
 
             {supportRows.map((row) => (
-              <div key={row} className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-stone-200 last:border-b-0">
-                <div className="px-4 py-4 text-sm font-semibold text-navy-900 sm:px-6">{row}</div>
+              <div key={row} className="grid grid-cols-[1.05fr_1fr_1fr_1fr] border-b border-stone-200 last:border-b-0">
+                <div className="px-4 py-3 text-sm font-semibold text-navy-900 sm:px-6">{row}</div>
                 {supportBundles.map((bundle) => {
                   const included = bundle.includes.includes(row);
                   return (
                     <div
                       key={`${bundle.title}-${row}`}
-                      className={`flex items-center justify-center px-4 py-4 sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
+                      className={`flex items-center justify-center px-4 py-3 sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
                     >
                       <span className={`text-lg font-bold ${included ? 'text-orange' : 'text-stone-300'}`}>
                         {included ? '✔' : '—'}
@@ -471,7 +479,7 @@ export default function InvestorsPage() {
               </div>
             ))}
 
-            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] bg-stone-50">
+            <div className="grid grid-cols-[1.05fr_1fr_1fr_1fr] bg-stone-50">
               <div className="px-4 py-5 sm:px-6" />
               {supportBundles.map((bundle) => (
                 <div
