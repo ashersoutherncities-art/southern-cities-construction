@@ -15,7 +15,7 @@ function getCheckoutLabel(itemKey: string) {
   }
   return 'Continue to checkout';
 }
-import { clearCartCookie, getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
+import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
 function CartPageContent() {
   const searchParams = useSearchParams();
@@ -49,7 +49,6 @@ function CartPageContent() {
 
   useEffect(() => {
     if (!lineItems.length) {
-      clearCartCookie();
       return;
     }
     const nextHref = buildCartHref(items);
