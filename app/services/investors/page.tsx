@@ -9,7 +9,7 @@ type Product = {
   price?: string;
   href: string;
   secondaryHref?: string;
-  primaryCta: 'Add to Cart' | 'Get Pricing' | 'Request Review' | 'Request Support';
+  primaryCta: 'View Details';
   secondaryCta?: 'Learn More';
   itemKey?: string;
   covers?: string[];
@@ -41,7 +41,7 @@ const investorStages: Stage[] = [
         description: 'Get a fast construction-side read before you put more money at risk.',
         href: '/services/investors/investor-review',
         secondaryHref: '/services/investors/investor-review',
-        primaryCta: 'Add to Cart',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
         itemKey: 'investor-deal-scope-review',
       },
@@ -51,7 +51,7 @@ const investorStages: Stage[] = [
         description: 'Pressure-test the budget before weak numbers become a bad decision.',
         href: '/services/investors/budget-review',
         secondaryHref: '/services/investors/budget-review',
-        primaryCta: 'Add to Cart',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
         itemKey: 'budget-review',
       },
@@ -61,7 +61,7 @@ const investorStages: Stage[] = [
         description: 'See permit and code issues before they turn into project drag.',
         href: '/services/investors/permit-local-compliance-review',
         secondaryHref: '/services/investors/permit-local-compliance-review',
-        primaryCta: 'Add to Cart',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
         itemKey: 'permit-local-compliance-review',
       },
@@ -71,7 +71,7 @@ const investorStages: Stage[] = [
         description: 'Get a quick read on contractor fit before you hire the wrong team.',
         href: '/services/investors/contractor-fit-consultation',
         secondaryHref: '/services/investors/contractor-fit-consultation',
-        primaryCta: 'Add to Cart',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
         itemKey: 'contractor-fit-consultation',
       },
@@ -90,7 +90,7 @@ const investorStages: Stage[] = [
         description: 'Tighten rehab numbers before the project starts slipping.',
         href: '/pricing/rehab-budget-review',
         secondaryHref: '/services/investors/budget-review',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -98,7 +98,7 @@ const investorStages: Stage[] = [
         description: 'Get comparable bids and a clearer contractor decision path.',
         href: '/review/bid-coordination-contractor-match',
         secondaryHref: '/services/investors/contractor-match-bid-coordination',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -106,7 +106,7 @@ const investorStages: Stage[] = [
         description: 'Set up sourcing and logistics before avoidable delays show up.',
         href: '/review/material-logistics-setup',
         secondaryHref: '/services/investors/material-logistics-setup',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -114,7 +114,7 @@ const investorStages: Stage[] = [
         description: 'Prepare a cleaner scope and bid package before funding pressure builds.',
         href: '/review/lender-ready-scope-bid-package',
         secondaryHref: '/services/investors/lender-ready-scope-bid-package',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -122,7 +122,7 @@ const investorStages: Stage[] = [
         description: 'Plan your local operating setup before you try to scale the wrong way.',
         href: '/services/investors/regional-investor-construction-network-development',
         secondaryHref: '/services/investors/regional-investor-construction-network-development',
-        primaryCta: 'Request Review',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
     ],
@@ -141,7 +141,7 @@ const investorStages: Stage[] = [
         description: 'Review draw submissions before they slow down your cashflow.',
         href: '/services/investors/draw-review-support',
         secondaryHref: '/services/investors/draw-review-support',
-        primaryCta: 'Add to Cart',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
         itemKey: 'draw-review-support',
       },
@@ -150,7 +150,7 @@ const investorStages: Stage[] = [
         description: 'Set up the draw process so lender and project timing stay aligned.',
         href: '/review/construction-draw-strategy-alignment',
         secondaryHref: '/services/investors/construction-draw-strategy-alignment',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -158,7 +158,7 @@ const investorStages: Stage[] = [
         description: 'Map funding timing before execution gets ahead of available cash.',
         href: '/review/schedule-of-cashflows-preparation',
         secondaryHref: '/services/investors/schedule-of-cashflows-preparation',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -166,7 +166,7 @@ const investorStages: Stage[] = [
         description: 'Give lenders a clearer package that supports faster approvals.',
         href: '/review/lender-ready-scope-bid-package',
         secondaryHref: '/services/investors/lender-ready-scope-bid-package',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
     ],
@@ -183,7 +183,8 @@ const investorStages: Stage[] = [
         name: 'Construction Oversight',
         description: 'You stay in control, and we help keep the project from drifting.',
         href: '/review/construction-oversight',
-        primaryCta: 'Request Support',
+        secondaryHref: '/services/investors/construction-oversight',
+        primaryCta: 'View Details',
         covers: [
           'Review progress and scope',
           'Check budgets and payments',
@@ -199,7 +200,8 @@ const investorStages: Stage[] = [
         name: 'Owner-Controlled Build, GC-Led',
         description: 'You act as the project manager while Southern Cities provides licensed GC structure, controls, and execution support.',
         href: '/services/investors/owner-controlled-construction-gc-led',
-        primaryCta: 'Request Review',
+        secondaryHref: '/services/investors/owner-controlled-construction-gc-led',
+        primaryCta: 'View Details',
         highlighted: true,
         covers: [
           'Owner acts as self-hired project manager',
@@ -214,8 +216,8 @@ const investorStages: Stage[] = [
         name: 'Full Execution',
         description: 'Southern Cities takes full responsibility when the project requires full management or contracting.',
         href: '/services/investors/full-construction-management-service',
-        secondaryHref: '/contracting',
-        primaryCta: 'Get Pricing',
+        secondaryHref: '/services/investors/full-construction-management-service',
+        primaryCta: 'View Details',
         covers: [
           'Full construction management',
           'Permits prepared and pulled',
@@ -239,7 +241,7 @@ const investorStages: Stage[] = [
         description: 'Use recurring support for smaller but constant project decisions.',
         href: '/recurring-support#investors',
         secondaryHref: '/recurring-support#investors',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -247,7 +249,7 @@ const investorStages: Stage[] = [
         description: 'Get ongoing support across multiple active investor projects.',
         href: '/recurring-support#investors',
         secondaryHref: '/recurring-support#investors',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -255,7 +257,7 @@ const investorStages: Stage[] = [
         description: 'Hold review capacity when you have multiple active jobs at once.',
         href: '/recurring-support#investors',
         secondaryHref: '/recurring-support#investors',
-        primaryCta: 'Get Pricing',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -263,7 +265,7 @@ const investorStages: Stage[] = [
         description: 'Create a repeatable monthly review lane for active acquisitions.',
         href: '/services/investors/full-due-diligence-package',
         secondaryHref: '/services/investors/full-due-diligence-package',
-        primaryCta: 'Request Review',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
       {
@@ -271,7 +273,7 @@ const investorStages: Stage[] = [
         description: 'Get a recurring planning lane for projects moving toward execution.',
         href: '/recurring-support#investors',
         secondaryHref: '/recurring-support#investors',
-        primaryCta: 'Request Review',
+        primaryCta: 'View Details',
         secondaryCta: 'Learn More',
       },
     ],
@@ -339,8 +341,8 @@ const supportBundles = [
     title: 'Due Diligence Pricing',
     price: 'Starting at $1,499',
     includes: ['Deal reviewed', 'Budget checked', 'Permit path mapped', 'Contractor fit reviewed'],
-    cta: 'View Pricing',
-    href: '#before-you-commit',
+    cta: 'View Details',
+    href: '/services/investors/investor-review',
     highlighted: false,
   },
   {
@@ -348,8 +350,8 @@ const supportBundles = [
     title: 'Project Setup Pricing',
     price: 'Starting at $2,500',
     includes: ['Scope prepared', 'Timeline built', 'Permit prep', 'Bid coordination', 'Cashflow schedule'],
-    cta: 'View Pricing',
-    href: '#before-you-start',
+    cta: 'View Details',
+    href: '/services/investors/contractor-match-bid-coordination',
     highlighted: true,
     badge: 'Most Common',
   },
@@ -358,18 +360,17 @@ const supportBundles = [
     title: 'Execution Support Pricing',
     price: 'Custom / Starting at $3,500',
     includes: ['Bid coordination', 'Cashflow schedule', 'Draws reviewed', 'Progress monitored', 'Permit prep', 'Project oversight', 'Full contracting available'],
-    cta: 'View Pricing',
-    href: '#during-construction',
+    cta: 'View Details',
+    href: '/services/investors/construction-oversight',
     highlighted: false,
   },
 ];
 
 function ProductCard({ product }: { product: Product }) {
-  const primaryHref = product.itemKey ? `/cart?add=${product.itemKey}` : product.href;
-  const primaryClass =
-    product.primaryCta === 'Add to Cart' || product.highlighted
-      ? 'bg-orange text-white hover:bg-orange-500'
-      : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange';
+  const primaryHref = product.secondaryHref ?? product.href;
+  const primaryClass = product.highlighted
+    ? 'bg-orange text-white hover:bg-orange-500'
+    : 'border border-stone-300 bg-white text-navy hover:border-orange hover:text-orange';
 
   return (
     <div className={`flex h-full flex-col rounded-[24px] border p-5 shadow-elev-1 ${product.highlighted ? 'border-orange bg-orange/[0.05]' : 'border-stone-200 bg-white'}`}>
