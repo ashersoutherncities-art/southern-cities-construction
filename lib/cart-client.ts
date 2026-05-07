@@ -15,7 +15,21 @@ export function getCartItemsFromCookie(): string[] {
 }
 
 export function getCartParamFromCookie(): string {
-  return getCartCookieValue();
+  const value = getCartCookieValue();
+  if (!value) return '';
+
+  let decoded = value;
+  for (let i = 0; i < 3; i += 1) {
+    try {
+      const next = decodeURIComponent(decoded);
+      if (next === decoded) break;
+      decoded = next;
+    } catch {
+      break;
+    }
+  }
+
+  return decoded;
 }
 
 export function setCartItemsCookie(items: string[]) {
@@ -26,7 +40,7 @@ export function setCartItemsCookie(items: string[]) {
 
 export function setCartParamCookie(value: string) {
   if (typeof document === 'undefined') return;
-  document.cookie = `${CART_COOKIE_KEY}=${encodeURIComponent(value)}; path=/; max-age=86400; samesite=lax`;
+  document.cookie = `${CART_COOKIE_KEY}=${value}; path=/; max-age=86400; samesite=lax`;
 }
 
 export function clearCartCookie() {
