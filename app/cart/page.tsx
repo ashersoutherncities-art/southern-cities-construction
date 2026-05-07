@@ -18,7 +18,11 @@ import { clearCartCookie, getCartParamFromCookie, setCartParamCookie } from '@/l
 function CartPageContent() {
   const searchParams = useSearchParams();
   const queryCart = searchParams.get(CART_QUERY_KEY);
-  const items = useMemo(() => parseCartParam(queryCart || getCartParamFromCookie()), [queryCart]);
+  const items = useMemo(() => {
+    const queryItems = parseCartParam(queryCart);
+    if (queryItems.length) return queryItems;
+    return parseCartParam(getCartParamFromCookie());
+  }, [queryCart]);
   const lineItems = useMemo(() => getCartLineItems(items), [items]);
 
   const subtotal = useMemo(
