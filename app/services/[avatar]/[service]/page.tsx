@@ -32,13 +32,13 @@ const PRODUCT_PAGE_OVERRIDES: Record<
     turnaround: 'Typically delivered within 2 business days',
   },
   'investors:budget-review': {
-    hero: 'A fixed-price budget review for investors who need a cleaner number before moving forward.',
-    whoFor: ['Investors evaluating a deal', 'Projects with unclear scope or budget', 'Anyone needing a second set of eyes'],
-    included: ['Budget analysis', 'Scope review', 'Risk identification', 'Clear next-step recommendations'],
+    hero: 'Review your project budget and scope to identify gaps, risks, and realistic costs before you move forward.',
+    whoFor: ['Investors evaluating a deal', 'Rehab projects needing validation before startup', 'Anyone who needs one clear budget product instead of two overlapping options'],
+    included: ['Budget review', 'Scope review', 'Risk identification', 'Clear next-step recommendations'],
     notIncluded: ['Not full project management', 'Not contractor hiring', 'Not permit pulling', 'Not ongoing oversight'],
     provide: ['Property details', 'Scope or rehab plan', 'Budget if available', 'Photos or documents'],
-    nextSteps: ['You submit your project info', 'We review and analyze', 'You receive clear next steps'],
-    finalTitle: 'Review Your Project Before You Move Forward',
+    nextSteps: ['You submit your project info', 'We review the budget and scope together', 'You receive clear next steps'],
+    finalTitle: 'Get A Clear Budget And Scope Read Before You Move Forward',
     turnaround: 'Typically delivered within 2 business days',
   },
   'investors:permit-local-compliance-review': {

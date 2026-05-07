@@ -46,9 +46,9 @@ const investorStages: Stage[] = [
         itemKey: 'investor-deal-scope-review',
       },
       {
-        name: 'Budget Review',
+        name: 'Budget & Scope Review',
         price: '$599',
-        description: 'Pressure-test the budget before weak numbers become a bad decision.',
+        description: 'Review your project budget and scope to identify gaps, risks, and realistic costs.',
         href: '/services/investors/budget-review',
         secondaryHref: '/services/investors/budget-review',
         primaryCta: 'View Details',
@@ -86,8 +86,8 @@ const investorStages: Stage[] = [
     cta: 'Plan This Project',
     products: [
       {
-        name: 'Rehab Budget Review',
-        description: 'Tighten rehab numbers before the project starts slipping.',
+        name: 'Rehab Budget Validation',
+        description: 'Verify whether a contractor rehab budget actually matches the scope before construction starts slipping.',
         href: '/pricing/rehab-budget-review',
         secondaryHref: '/services/investors/budget-review',
         primaryCta: 'View Details',
