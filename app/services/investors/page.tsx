@@ -480,7 +480,7 @@ export default function InvestorsPage() {
       <section className="bg-white py-14 sm:py-18">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Investor Pricing</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Investor Bundle Pricing</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
               Choose the right support based on where you are in the project.
             </p>
