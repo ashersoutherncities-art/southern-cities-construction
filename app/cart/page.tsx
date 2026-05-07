@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useMemo } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
@@ -18,11 +18,24 @@ import { clearCartCookie, getCartParamFromCookie, setCartParamCookie } from '@/l
 function CartPageContent() {
   const searchParams = useSearchParams();
   const queryCart = searchParams.get(CART_QUERY_KEY);
+  const [cookieCart, setCookieCart] = useState('');
+
+  useEffect(() => {
+    const sync = () => setCookieCart(getCartParamFromCookie());
+    sync();
+    window.addEventListener('focus', sync);
+    window.addEventListener('pageshow', sync);
+    return () => {
+      window.removeEventListener('focus', sync);
+      window.removeEventListener('pageshow', sync);
+    };
+  }, []);
+
   const items = useMemo(() => {
     const queryItems = parseCartParam(queryCart);
     if (queryItems.length) return queryItems;
-    return parseCartParam(getCartParamFromCookie());
-  }, [queryCart]);
+    return parseCartParam(cookieCart);
+  }, [cookieCart, queryCart]);
   const lineItems = useMemo(() => getCartLineItems(items), [items]);
 
   const subtotal = useMemo(
