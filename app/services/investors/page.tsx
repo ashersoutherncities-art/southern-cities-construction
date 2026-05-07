@@ -357,7 +357,7 @@ const supportBundles = [
     label: 'During Construction',
     title: 'Execution Support Pricing',
     price: 'Custom / Starting at $3,500',
-    includes: ['Draws reviewed', 'Progress monitored', 'Permit prep', 'Project oversight', 'Full contracting available'],
+    includes: ['Bid coordination', 'Cashflow schedule', 'Draws reviewed', 'Progress monitored', 'Permit prep', 'Project oversight', 'Full contracting available'],
     cta: 'View Pricing',
     href: '#during-construction',
     highlighted: false,
