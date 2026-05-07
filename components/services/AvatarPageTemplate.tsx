@@ -272,7 +272,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                   ? {
                       investorReview: cards.find((card) => card.slug === 'investor-review'),
                       contractorFit: cards.find((card) => card.slug === 'contractor-fit-consultation'),
-                      rehabBudget: cards.find((card) => card.slug === 'rehab-budget-review'),
+                      rehabBudget: cards.find((card) => card.slug === 'budget-review'),
                     }
                   : null;
 
@@ -290,7 +290,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                             ? 'lg:col-start-1 lg:row-start-1 h-full'
                             : card.slug === 'contractor-fit-consultation'
                               ? 'lg:col-start-1 lg:row-start-2 h-full'
-                              : card.slug === 'rehab-budget-review'
+                              : card.slug === 'budget-review'
                                 ? 'lg:col-start-2 lg:row-start-1 lg:row-span-2 h-full'
                                 : 'h-full'
                           : '';
@@ -309,7 +309,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                               ? 'divider'
                               : card.slug === 'contractor-fit-consultation'
                                 ? 'minimal'
-                                : card.slug === 'rehab-budget-review'
+                                : card.slug === 'budget-review'
                                   ? 'title-row'
                                   : 'default'
                             : 'default';

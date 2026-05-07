@@ -233,7 +233,7 @@ const investorServices: AvatarPageData = {
     {
       title: 'Before you buy',
       intro: 'Use these when you need a cleaner read before approving a deal, a rehab number, or a contractor decision.',
-      serviceSlugs: ['investor-review', 'budget-review', 'contractor-fit-consultation'],
+      serviceSlugs: ['investor-review', 'rehab-budget-review', 'contractor-fit-consultation'],
     },
     {
       title: 'Before you start',
