@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { MouseEvent } from 'react';
+import { useMemo } from 'react';
 import { buildCartHref, CART_QUERY_KEY, parseCartParam } from '@/lib/cart';
 import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
@@ -14,20 +14,24 @@ export default function AddToCartButton({
   label?: string;
   className?: string;
 }) {
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+  const href = useMemo(() => {
+    if (typeof window === 'undefined') return '/cart';
     const existingParam = getCartParamFromCookie();
     const existing = parseCartParam(existingParam);
-    const next = [...existing, { key: itemKey, quantity: 1 }];
-    const nextHref = buildCartHref(next);
-    const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
-    setCartParamCookie(nextParam);
-    window.dispatchEvent(new Event('pageshow'));
-    window.dispatchEvent(new Event('focus'));
-  };
+    return buildCartHref([...existing, { key: itemKey, quantity: 1 }]);
+  }, [itemKey]);
 
   return (
-    <Link href="/cart" onClick={handleClick} className={className}>
+    <Link
+      href={href}
+      onClick={() => {
+        const nextParam = href.split(`${CART_QUERY_KEY}=`)[1] || '';
+        setCartParamCookie(nextParam);
+        window.dispatchEvent(new Event('pageshow'));
+        window.dispatchEvent(new Event('focus'));
+      }}
+      className={className}
+    >
       {label}
     </Link>
   );
