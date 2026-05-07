@@ -15,8 +15,9 @@ export default function SiteFooter() {
             <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={176} height={44} className="mb-5 h-11 w-auto" />
             <div className="space-y-3 text-sm leading-relaxed text-white/65 max-w-sm">
               <p>Southern Cities Construction LLC</p>
-              <p>Construction support made easier for residential projects across North Carolina.</p>
-              <p>Planning · Permits · Budgeting · Coordination · Oversight · Support Plans · Full Contracting</p>
+              <p>Residential construction made easier in North Carolina. Two clear ways to work with us: focused project support on a specific piece, or full licensed contracting when one company should run the whole project.</p>
+              <p>Project support: planning · permits · budgets · contractor fit · coordination · oversight · support plans</p>
+              <p>Full contracting: renovations · rehabs · additions · new builds</p>
               <p>Licensed NC General Contractor · NC GC License #107724</p>
               <p>5 years in business · 15+ projects completed · Charlotte, NC · Statewide NC coverage</p>
             </div>
@@ -25,13 +26,13 @@ export default function SiteFooter() {
           <div>
             <h4 className="mb-5 text-sm font-semibold tracking-wide text-white">Company</h4>
             <ul className="space-y-3">
-              <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">All Services</Link></li>
+              <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">Pricing Overview</Link></li>
               <li><Link href="/services/homeowners" className="text-sm text-white/50 transition-colors hover:text-orange">For Homeowners</Link></li>
               <li><Link href="/services/investors" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors</Link></li>
               <li><Link href="/services/industry-partners#realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
               <li><Link href="/services/industry-partners#contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
               <li><Link href="/gallery" className="text-sm text-white/50 transition-colors hover:text-orange">Project Gallery</Link></li>
-              <li><Link href="/services#full-contracting" className="text-sm text-white/50 transition-colors hover:text-orange">Contracting</Link></li>
+              <li><Link href="/contracting" className="text-sm text-white/50 transition-colors hover:text-orange">Contracting</Link></li>
               <li><Link href="/recurring-support" className="text-sm text-white/50 transition-colors hover:text-orange">Support Plans</Link></li>
             </ul>
           </div>
@@ -44,14 +45,14 @@ export default function SiteFooter() {
               <li><Link href="/partners" className="text-sm text-white/50 transition-colors hover:text-orange">Partner With Us</Link></li>
               <li><a href="https://clients.southerncitiesconstruction.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 transition-colors hover:text-orange">Client Portal</a></li>
               <li><Link href="/cart" className="text-sm text-white/50 transition-colors hover:text-orange">Cart</Link></li>
-              <li><Link href="/#contact" className="text-sm text-white/50 transition-colors hover:text-orange">Request Review</Link></li>
+              <li><Link href="/services/homeowners/owner-consultation" className="text-sm text-white/50 transition-colors hover:text-orange">Book a Project Call</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="mb-5 text-sm font-semibold tracking-wide text-white">Contact</h4>
             <ul className="space-y-3 text-sm text-white/50">
-              <li><a href="tel:+12523396146" className="transition-colors hover:text-orange">(252) 339-6146</a></li>
+              <li><a href="tel:+19804737249" className="transition-colors hover:text-orange">(980) 473-7249</a></li>
               <li><a href="mailto:orders@southerncitiesconstruction.com" className="break-all transition-colors hover:text-orange">orders@southerncitiesconstruction.com</a></li>
               <li><a href="mailto:info@southerncitiesconstruction.com" className="break-all transition-colors hover:text-orange">info@southerncitiesconstruction.com</a></li>
               <li>Charlotte, NC</li>

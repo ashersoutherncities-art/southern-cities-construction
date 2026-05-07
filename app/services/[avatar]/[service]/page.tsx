@@ -4,9 +4,74 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import AddToCartButton from '@/components/AddToCartButton';
 import { avatarPages, getServiceBySlug } from '@/lib/services-data';
-import { getServiceNextStepCopy, getServicePricingCopy } from '@/lib/service-detail-helpers';
 
 type Params = { avatar: string; service: string };
+
+const CONSULTATION_CTA_HREF = '/services/homeowners/owner-consultation';
+const PRODUCT_PAGE_OVERRIDES: Record<
+  string,
+  {
+    hero: string;
+    whoFor: string[];
+    included: string[];
+    notIncluded: string[];
+    provide: string[];
+    nextSteps: string[];
+    finalTitle: string;
+    turnaround: string;
+  }
+> = {
+  'investors:investor-review': {
+    hero: 'A fast construction-side review for investors who want a cleaner read before more money gets committed.',
+    whoFor: ['Investors evaluating a deal', 'Projects with unclear scope or budget', 'Anyone needing a second set of eyes'],
+    included: ['Deal and scope review', 'Budget pressure check', 'Risk identification', 'Clear next-step recommendations'],
+    notIncluded: ['Not full project management', 'Not contractor hiring', 'Not permit pulling', 'Not ongoing oversight'],
+    provide: ['Property details', 'Scope or rehab plan', 'Budget if available', 'Photos or documents'],
+    nextSteps: ['You submit your project info', 'We review and analyze', 'You receive clear next steps'],
+    finalTitle: 'Review Your Project Before You Move Forward',
+    turnaround: 'Typically delivered within 2 business days',
+  },
+  'investors:budget-review': {
+    hero: 'A fixed-price budget review for investors who need a cleaner number before moving forward.',
+    whoFor: ['Investors evaluating a deal', 'Projects with unclear scope or budget', 'Anyone needing a second set of eyes'],
+    included: ['Budget analysis', 'Scope review', 'Risk identification', 'Clear next-step recommendations'],
+    notIncluded: ['Not full project management', 'Not contractor hiring', 'Not permit pulling', 'Not ongoing oversight'],
+    provide: ['Property details', 'Scope or rehab plan', 'Budget if available', 'Photos or documents'],
+    nextSteps: ['You submit your project info', 'We review and analyze', 'You receive clear next steps'],
+    finalTitle: 'Review Your Project Before You Move Forward',
+    turnaround: 'Typically delivered within 2 business days',
+  },
+  'investors:permit-local-compliance-review': {
+    hero: 'A focused permit and local compliance review before local issues turn into project drag.',
+    whoFor: ['Investors evaluating a deal', 'Projects with unclear permit path', 'Anyone needing a second set of eyes'],
+    included: ['Permit path review', 'Local compliance review', 'Risk identification', 'Clear next-step recommendations'],
+    notIncluded: ['Not full project management', 'Not contractor hiring', 'Not permit pulling', 'Not ongoing oversight'],
+    provide: ['Property details', 'Scope or rehab plan', 'Budget if available', 'Photos or documents'],
+    nextSteps: ['You submit your project info', 'We review and analyze', 'You receive clear next steps'],
+    finalTitle: 'Review Your Project Before You Move Forward',
+    turnaround: 'Typically delivered within 2 business days',
+  },
+  'investors:contractor-fit-consultation': {
+    hero: 'A quick consultation to pressure-test contractor fit before the wrong hire slows the job down.',
+    whoFor: ['Investors evaluating a deal', 'Projects with unclear contractor setup', 'Anyone needing a second set of eyes'],
+    included: ['Deal and scope review', 'Contractor fit review', 'Risk identification', 'Clear next-step recommendations'],
+    notIncluded: ['Not full project management', 'Not contractor hiring', 'Not permit pulling', 'Not ongoing oversight'],
+    provide: ['Property details', 'Scope or rehab plan', 'Budget if available', 'Photos or documents'],
+    nextSteps: ['You submit your project info', 'We review and analyze', 'You receive clear next steps'],
+    finalTitle: 'Review Your Project Before You Move Forward',
+    turnaround: 'Typically delivered within 2 business days',
+  },
+  'investors:draw-review-support': {
+    hero: 'A focused draw review to tighten support before funding friction slows the project down.',
+    whoFor: ['Investors evaluating a deal', 'Projects with unclear draw support', 'Anyone needing a second set of eyes'],
+    included: ['Draw package review', 'Budget analysis', 'Risk identification', 'Clear next-step recommendations'],
+    notIncluded: ['Not full project management', 'Not contractor hiring', 'Not permit pulling', 'Not ongoing oversight'],
+    provide: ['Property details', 'Scope or rehab plan', 'Budget if available', 'Photos or documents'],
+    nextSteps: ['You submit your project info', 'We review and analyze', 'You receive clear next steps'],
+    finalTitle: 'Review Your Project Before You Move Forward',
+    turnaround: 'Typically delivered within 1 business day',
+  },
+};
 
 export function generateStaticParams() {
   return avatarPages.flatMap((avatar) => {
@@ -21,42 +86,17 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
 
   if (!service || !avatar) notFound();
 
-  const primaryCta =
-    service.purchaseType === 'fixed' && service.itemKey ? (
-      <AddToCartButton
-        itemKey={service.itemKey}
-        label={service.cta}
-        className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-orange-500"
-      />
-    ) : (
-      <Link
-        href={service.ctaHref || '#contact'}
-        className={`inline-flex min-w-[220px] items-center justify-center rounded-full px-6 py-3.5 text-sm font-semibold text-white transition-all ${
-          service.purchaseType === 'review' || service.purchaseType === 'recurring'
-            ? 'bg-navy hover:bg-navy-700'
-            : 'bg-orange hover:bg-orange-500'
-        }`}
-      >
-        {service.cta}
-      </Link>
-    );
-
+  const override = PRODUCT_PAGE_OVERRIDES[`${params.avatar}:${params.service}`];
+  const isFixed = service.purchaseType === 'fixed' && service.itemKey;
   const servicePrice = service.monthlyPrice || service.pricingNote || 'Project-specific pricing';
-  const inputsNeeded = service.inputsNeeded || ['Property address or project location', 'Photos, plans, or current scope notes', 'Any existing bids, reports, or permit information', 'Your timing and decision deadline'];
-  const faqItems = [
-    {
-      question: 'Who is this for?',
-      answer: service.fit,
-    },
-    {
-      question: 'How fast can Southern Cities turn this around?',
-      answer: service.turnaround || 'Turnaround depends on the file, but Southern Cities will confirm the next step quickly after reviewing what you send.',
-    },
-    {
-      question: 'What happens after I buy, request pricing, or request review?',
-      answer: getServiceNextStepCopy(service),
-    },
-  ];
+  const heroCopy = override?.hero || service.summary;
+  const whoFor = override?.whoFor || [service.fit];
+  const included = override?.included || service.included || service.details;
+  const notIncluded = override?.notIncluded || service.notIncluded || ['Not full project management', 'Not ongoing oversight'];
+  const provide = override?.provide || service.inputsNeeded || ['Property details', 'Scope or rehab plan', 'Budget if available', 'Photos or documents'];
+  const nextSteps = override?.nextSteps || ['You submit your project info', 'We review and analyze', 'You receive clear next steps'];
+  const turnaround = override?.turnaround || service.turnaround || 'Typically delivered within 2 business days';
+  const finalTitle = override?.finalTitle || 'Review Your Project Before You Move Forward';
 
   return (
     <div className="min-h-screen bg-white text-navy">
@@ -69,14 +109,22 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
             <div className="inline-flex rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
               {avatar.eyebrow}
             </div>
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl">
-              {service.title}
-            </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">{service.summary}</p>
+            <h1 className="mt-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl">{service.title}</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">{heroCopy}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              {primaryCta}
-              <Link href={`/services/${avatar.slug}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:border-orange hover:text-orange-200">
-                Back to {avatar.eyebrow}
+              {isFixed ? (
+                <AddToCartButton
+                  itemKey={service.itemKey!}
+                  label="Add to Cart"
+                  className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-orange-500"
+                />
+              ) : (
+                <Link href={service.ctaHref || service.detailHref} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-orange-500">
+                  {service.cta}
+                </Link>
+              )}
+              <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:border-orange hover:text-orange-200">
+                Book a Project Call
               </Link>
             </div>
           </div>
@@ -84,35 +132,20 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
       </section>
 
       <section className="border-b border-stone-200 bg-white py-14 sm:py-16">
-        <div className="container-pro grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
-          <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Price</p>
-            <p className="mt-4 text-2xl font-extrabold tracking-tight text-navy">{servicePrice}</p>
-            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Who this is for</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.fit}</p>
-            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What problem this solves</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.pain}</p>
-            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Turnaround time</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.turnaround || 'Confirmed after file review if timing depends on project complexity.'}</p>
-          </div>
+        <div className="container-pro grid gap-6 lg:grid-cols-2">
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is included</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Who this is for</p>
             <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
-              {(service.included || service.details).map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
+              {whoFor.map((item) => (
+                <li key={item} className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>{item}</span></li>
               ))}
             </ul>
-
-            <p className="mt-8 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What is not included</p>
+          </div>
+          <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What&apos;s included</p>
             <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
-              {(service.notIncluded || ['Anything outside the defined scope for this offer.']).map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-stone-400 flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
+              {included.map((item) => (
+                <li key={item} className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>{item}</span></li>
               ))}
             </ul>
           </div>
@@ -122,60 +155,77 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
       <section className="bg-stone-50 py-14 sm:py-16">
         <div className="container-pro grid gap-6 lg:grid-cols-3">
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What we need from you</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What this is not</p>
             <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
-              {inputsNeeded.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
+              {notIncluded.map((item) => (
+                <li key={item} className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-stone-400 flex-shrink-0" /><span>{item}</span></li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What you need to provide</p>
+            <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              {provide.map((item) => (
+                <li key={item} className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>{item}</span></li>
               ))}
             </ul>
           </div>
           <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What happens next</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{getServiceNextStepCopy(service)}</p>
-          </div>
-          <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How pricing works</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{getServicePricingCopy(service)}</p>
+            <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              {nextSteps.map((item) => (
+                <li key={item} className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange flex-shrink-0" /><span>{item}</span></li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
       <section className="border-b border-stone-200 bg-white py-14 sm:py-16">
-        <div className="container-pro grid gap-6 lg:grid-cols-3">
-          <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1 lg:col-span-2">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">FAQ</p>
-            <div className="mt-4 space-y-5">
-              {faqItems.map((item) => (
-                <div key={item.question}>
-                  <h3 className="text-base font-bold text-navy">{item.question}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-stone-700">{item.answer}</p>
-                </div>
-              ))}
+        <div className="container-pro grid gap-6 lg:grid-cols-2">
+          <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Pricing</p>
+            <p className="mt-4 text-3xl font-extrabold tracking-tight text-navy">{servicePrice}</p>
+            <div className="mt-6">
+              {isFixed ? (
+                <AddToCartButton
+                  itemKey={service.itemKey!}
+                  label="Add to Cart"
+                  className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-orange-500"
+                />
+              ) : (
+                <Link href={service.ctaHref || service.detailHref} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-orange-500">
+                  {service.cta}
+                </Link>
+              )}
             </div>
           </div>
-          <div className="rounded-[24px] border border-stone-200 bg-stone-50 p-6 shadow-elev-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Proof</p>
-            <p className="mt-4 text-lg font-extrabold tracking-tight text-navy">{service.proofTitle || 'A clearer decision page builds trust faster.'}</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-stone-700">{service.proofBody || 'Use real project proof, before-and-after visuals, or short verified outcomes here as the proof library gets stronger.'}</p>
+          <div className="rounded-[24px] border border-stone-200 bg-white p-6 shadow-elev-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Turnaround</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{turnaround}</p>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="bg-white py-14 sm:py-16">
+      <section className="bg-white py-14 sm:py-16">
         <div className="container-pro rounded-[28px] border border-stone-200 bg-stone-50 p-8 sm:p-10">
           <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Ready for the next step?</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Use the next step that fits this work.</h2>
-            <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-              Some work can be bought right now. Some needs project details before pricing. Some should start with review first. This page keeps those paths clean.
-            </p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Final step</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">{finalTitle}</h2>
             <div className="mt-6 flex flex-wrap gap-3">
-              {primaryCta}
-              <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3.5 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                Back to All Services
+              {isFixed ? (
+                <AddToCartButton
+                  itemKey={service.itemKey!}
+                  label="Add to Cart"
+                  className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-orange-500"
+                />
+              ) : (
+                <Link href={service.ctaHref || service.detailHref} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-orange-500">
+                  {service.cta}
+                </Link>
+              )}
+              <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3.5 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                Book a Project Call
               </Link>
             </div>
           </div>
