@@ -116,11 +116,11 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
   },
   'budget-review': {
     key: 'budget-review',
-    name: 'Budget Review',
-    shortName: 'Budget Review',
+    name: 'Budget & Scope Review',
+    shortName: 'Budget & Scope Review',
     price: 59900,
     priceLabel: '$599 review',
-    description: 'Construction budget review for one project so underwriting and startup decisions use a cleaner number.',
+    description: 'Review your project budget and scope to identify gaps, risks, and realistic costs before you move forward.',
     checkoutAmount: '599',
   },
   'draw-review-support': {

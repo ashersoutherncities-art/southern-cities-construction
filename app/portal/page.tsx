@@ -81,7 +81,7 @@ export default function PortalPage() {
         },
         'budget-review': {
           amount: amount || '599',
-          scope_notes: 'Budget review selected from cart.',
+          scope_notes: 'Budget & scope review selected from cart.',
         },
         'draw-review-support': {
           amount: amount || '399',
@@ -248,7 +248,7 @@ export default function PortalPage() {
                   'realtor-inspection-review': 'Realtor Inspection Review',
                   'investor-review': 'Investor Deal & Scope Review',
                   'permit-local-compliance-review': 'Permit & Local Compliance Review',
-                  'budget-review': 'Budget Review',
+                  'budget-review': 'Budget & Scope Review',
                   'contractor-fit-consultation': 'Contractor Fit Consultation',
                   'draw-review-support': 'Draw Review Support',
                 } as Record<string, string>)[form.item] || 'Project Checkout'}
