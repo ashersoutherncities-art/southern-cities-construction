@@ -477,6 +477,53 @@ export default function InvestorsPage() {
         </div>
       </section>
 
+      <section className="bg-white py-10 sm:py-12">
+        <div className="container-pro">
+          <div className="overflow-hidden rounded-[32px] border border-orange/20 bg-[linear-gradient(135deg,#10254c_0%,#163061_58%,#f97316_160%)] shadow-[0_24px_70px_rgba(16,37,76,0.22)]">
+            <div className="grid gap-8 px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-10">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange-200">Flagship Investor Support</p>
+                <h2 className="mt-3 max-w-2xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Owner-Controlled Build, GC-Led</h2>
+                <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/88 sm:text-lg">
+                  You stay involved as the project manager while Southern Cities provides licensed GC structure, permit support, controls, and execution backing.
+                </p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href="/services/investors/owner-controlled-construction-gc-led"
+                    className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-500"
+                  >
+                    View Details
+                  </Link>
+                  <Link
+                    href="/services/homeowners/owner-consultation"
+                    className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/18 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/16"
+                  >
+                    Book a Project Call
+                  </Link>
+                </div>
+              </div>
+
+              <div className="rounded-[28px] border border-white/12 bg-white/10 p-5 backdrop-blur-sm sm:p-6">
+                <ul className="grid gap-3">
+                  {[
+                    'Owner acts as self-hired project manager',
+                    'Southern Cities provides GC structure and controls',
+                    'Permits can be prepared and pulled under GC',
+                    'Clear standards for scope, contractors, and execution',
+                    'Can transition into full contracting if needed',
+                  ].map((bullet) => (
+                    <li key={bullet} className="flex items-start gap-3 rounded-2xl bg-white/8 px-4 py-3 text-sm font-medium leading-relaxed text-white/92">
+                      <span className="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-orange" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-white py-14 sm:py-18">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
