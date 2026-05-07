@@ -1,11 +1,8 @@
 "use client";
 
-import Link from 'next/link';
-import { MouseEvent, useCallback, useEffect, useState } from 'react';
-import { buildCartHref, CART_QUERY_KEY, parseCartParam } from '@/lib/cart';
+import { MouseEvent, useCallback } from 'react';
+import { buildCartHref, parseCartParam } from '@/lib/cart';
 import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
-
-const CART_SYNC_EVENT = 'scc:cart-sync';
 
 export default function AddToCartButton({
   itemKey,
@@ -16,38 +13,22 @@ export default function AddToCartButton({
   label?: string;
   className?: string;
 }) {
-  const [href, setHref] = useState('/cart');
-
-  const computeHref = useCallback(() => {
-    const existingParam = getCartParamFromCookie();
-    const existing = parseCartParam(existingParam);
-    return buildCartHref([...existing, { key: itemKey, quantity: 1 }]);
-  }, [itemKey]);
-
-  useEffect(() => {
-    setHref(computeHref());
-  }, [computeHref]);
-
   const handleClick = useCallback(
-    (event: MouseEvent<HTMLAnchorElement>) => {
-      const nextHref = computeHref();
-      const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
+    (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      const existingParam = getCartParamFromCookie();
+      const existing = parseCartParam(existingParam);
+      const nextHref = buildCartHref([...existing, { key: itemKey, quantity: 1 }]);
+      const nextParam = nextHref.startsWith('/cart?cart=') ? nextHref.slice('/cart?cart='.length) : '';
       setCartParamCookie(nextParam);
-      setHref(nextHref);
-      window.dispatchEvent(new Event('pageshow'));
-      window.dispatchEvent(new Event('focus'));
-      window.dispatchEvent(new Event(CART_SYNC_EVENT));
-      if (nextHref !== href) {
-        event.preventDefault();
-        window.location.assign(nextHref);
-      }
+      window.location.assign('/cart');
     },
-    [computeHref, href]
+    [itemKey]
   );
 
   return (
-    <Link href={href} onClick={handleClick} className={className}>
+    <button type="button" onClick={handleClick} className={className}>
       {label}
-    </Link>
+    </button>
   );
 }
