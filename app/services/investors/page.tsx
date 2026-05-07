@@ -453,15 +453,15 @@ export default function InvestorsPage() {
       <section className="relative overflow-hidden bg-navy-900 pt-32 pb-20 sm:pt-40 sm:pb-24">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
         <div className="relative z-10 container-pro">
-          <div className="max-w-4xl">
+          <div className="mx-auto max-w-4xl text-center">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">For Investors · Licensed NC General Contractor #107724</p>
             <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
               Construction Support for Investment Projects
             </h1>
-            <p className="max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">
+            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">
               Choose where you are in the project and get the right support before costs, delays, or execution problems grow.
             </p>
-            <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            <div className="mt-10 grid gap-3 text-left sm:grid-cols-2 xl:grid-cols-5">
               {investorStages.map((stage) => (
                 <a
                   key={stage.id}
