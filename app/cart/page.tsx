@@ -7,6 +7,8 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import { buildCartHref, buildDirectCheckoutHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
 
+const CART_SYNC_EVENT = 'scc:cart-sync';
+
 function getCheckoutLabel(itemKey: string) {
   if (itemKey === 'permit-management-service') {
     return 'Continue to setup';
@@ -25,9 +27,11 @@ function CartPageContent() {
     sync();
     window.addEventListener('focus', sync);
     window.addEventListener('pageshow', sync);
+    window.addEventListener(CART_SYNC_EVENT, sync);
     return () => {
       window.removeEventListener('focus', sync);
       window.removeEventListener('pageshow', sync);
+      window.removeEventListener(CART_SYNC_EVENT, sync);
     };
   }, []);
 

@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { buildCartHref, parseCartParam } from '@/lib/cart';
 import { getCartParamFromCookie } from '@/lib/cart-client';
 
+const CART_SYNC_EVENT = 'scc:cart-sync';
+
 export default function CartNavLink({ className = '', compact = false }: { className?: string; compact?: boolean }) {
   const [count, setCount] = useState(0);
   const [cartHref, setCartHref] = useState('/cart');
@@ -19,9 +21,11 @@ export default function CartNavLink({ className = '', compact = false }: { class
     sync();
     window.addEventListener('focus', sync);
     window.addEventListener('pageshow', sync);
+    window.addEventListener(CART_SYNC_EVENT, sync);
     return () => {
       window.removeEventListener('focus', sync);
       window.removeEventListener('pageshow', sync);
+      window.removeEventListener(CART_SYNC_EVENT, sync);
     };
   }, []);
 

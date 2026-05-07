@@ -5,6 +5,8 @@ import { MouseEvent, useCallback, useEffect, useState } from 'react';
 import { buildCartHref, CART_QUERY_KEY, parseCartParam } from '@/lib/cart';
 import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
+const CART_SYNC_EVENT = 'scc:cart-sync';
+
 export default function AddToCartButton({
   itemKey,
   label = 'Add to Cart',
@@ -34,6 +36,7 @@ export default function AddToCartButton({
       setHref(nextHref);
       window.dispatchEvent(new Event('pageshow'));
       window.dispatchEvent(new Event('focus'));
+      window.dispatchEvent(new Event(CART_SYNC_EVENT));
       if (nextHref !== href) {
         event.preventDefault();
         window.location.assign(nextHref);
