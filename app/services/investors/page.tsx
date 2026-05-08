@@ -132,8 +132,8 @@ const investorStages: Stage[] = [
         ],
       },
       {
-        name: 'Owner-Controlled Build, GC-Led',
-        description: 'You act as the project manager while Southern Cities provides licensed GC structure, controls, and execution support.',
+        name: 'GC-Backed Build Support',
+        description: 'You stay close to the project while Southern Cities provides licensed GC structure, controls, and execution support.',
         href: '/services/investors/owner-controlled-construction-gc-led',
         secondaryHref: '/services/investors/owner-controlled-construction-gc-led',
         primaryCta: 'View Details',
@@ -359,12 +359,12 @@ export default function InvestorsPage() {
                 </div>
 
                 <h2 className="mt-4 max-w-xl text-[32px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px] lg:text-[46px]">
-                  <span className="block">Owner-Controlled Build</span>
-                  <span className="mt-1 block text-orange">(GC-Led)</span>
+                  <span className="block">GC-Backed Build</span>
+                  <span className="mt-1 block text-orange">Support</span>
                 </h2>
 
                 <p className="mt-4 max-w-xl text-[15px] leading-[1.65] text-white/84 sm:text-[16px]">
-                  You run the project. We provide the structure, permits, and GC backing to keep it on track.
+                  You stay close to the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
 
                 <div className="mt-6 hidden lg:grid lg:grid-cols-5">
