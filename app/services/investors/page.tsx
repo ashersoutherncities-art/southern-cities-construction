@@ -350,24 +350,24 @@ export default function InvestorsPage() {
 
       <section className="bg-white py-8 sm:py-10">
         <div className="container-pro">
-          <div className="overflow-hidden rounded-[28px] border border-[#24406b] bg-[linear-gradient(135deg,#071b3d_0%,#0a234c_55%,#071934_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.22)]">
-            <div className="grid gap-7 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[1.3fr_0.9fr] lg:items-center lg:gap-8 lg:px-8 lg:py-8">
-              <div>
+          <div className="overflow-hidden rounded-[28px] border border-[#24406b] bg-[linear-gradient(135deg,#071b3d_0%,#0b2146_50%,#081730_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.22)]">
+            <div className="grid gap-8 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[1.25fr_0.95fr] lg:items-start lg:gap-9 lg:px-8 lg:py-8">
+              <div className="min-w-0">
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#8b5b2a] bg-[#0b254a] px-3 py-1.5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
-                  <span className="text-[12px] text-orange">♛</span>
+                  <span className="text-[12px] leading-none text-orange">♛</span>
                   <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#f2a35c]">Flagship Investor Support</span>
                 </div>
 
-                <h2 className="mt-4 max-w-2xl text-[31px] font-extrabold leading-[1.02] tracking-[-0.035em] text-white sm:text-[38px] lg:text-[42px]">
+                <h2 className="mt-4 max-w-xl text-[32px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px] lg:text-[46px]">
                   <span className="block">Owner-Controlled Build</span>
                   <span className="mt-1 block text-orange">(GC-Led)</span>
                 </h2>
 
-                <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-white/88 sm:text-[16px]">
+                <p className="mt-4 max-w-xl text-[15px] leading-[1.65] text-white/84 sm:text-[16px]">
                   You run the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
 
-                <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-5 lg:gap-0">
+                <div className="mt-6 hidden lg:grid lg:grid-cols-5">
                   {[
                     { title: 'You stay in control', desc: 'You act as project manager.' },
                     { title: 'GC structure', desc: 'Controls and compliance.' },
@@ -375,10 +375,25 @@ export default function InvestorsPage() {
                     { title: 'Built right', desc: 'Clear execution standards.' },
                     { title: 'Flexible path', desc: 'Can move to full contracting.' },
                   ].map((item, index) => (
-                    <div key={item.title} className={`flex flex-col ${index > 0 ? 'lg:border-l lg:border-white/12 lg:pl-4' : ''} ${index < 4 ? 'lg:pr-4' : ''}`}>
-                      <span className="text-[22px] leading-none text-orange">◎</span>
-                      <p className="mt-2 text-[13px] font-bold leading-tight text-white">{item.title}</p>
-                      <p className="mt-1 text-[11px] leading-[1.45] text-white/68">{item.desc}</p>
+                    <div key={item.title} className={`${index > 0 ? 'border-l border-white/14 pl-4' : 'pr-4'} ${index < 4 ? 'pr-4' : ''}`}>
+                      <span className="block text-[18px] leading-none text-orange">◎</span>
+                      <p className="mt-3 text-[12px] font-bold leading-tight text-white">{item.title}</p>
+                      <p className="mt-2 text-[11px] leading-[1.45] text-white/64">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 grid grid-cols-2 gap-3 lg:hidden">
+                  {[
+                    'You stay in control',
+                    'GC structure',
+                    'Permits under GC',
+                    'Built right',
+                    'Flexible path',
+                  ].map((item) => (
+                    <div key={item} className="rounded-[16px] border border-white/10 bg-white/[0.04] px-3 py-3">
+                      <span className="block text-[16px] leading-none text-orange">◎</span>
+                      <p className="mt-2 text-[12px] font-bold leading-tight text-white">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -392,14 +407,14 @@ export default function InvestorsPage() {
                   </Link>
                   <Link
                     href="/services/homeowners/owner-consultation"
-                    className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/24 bg-transparent px-6 py-3 text-[14px] font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.03]"
+                    className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/28 bg-transparent px-6 py-3 text-[14px] font-semibold text-white transition hover:border-white/50 hover:bg-white/[0.04]"
                   >
                     Talk Through Your Project
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-[22px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.07)_0%,rgba(255,255,255,0.04)_100%)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_10px_28px_rgba(3,10,24,0.24)] backdrop-blur-sm sm:px-5 sm:py-5">
+              <div className="rounded-[22px] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.05)_100%)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_10px_28px_rgba(3,10,24,0.24)] backdrop-blur-sm sm:px-5 sm:py-5">
                 <ul className="grid gap-0">
                   {[
                     { title: 'Owner acts as project manager', desc: 'You stay involved while we provide structure and support.' },
@@ -408,11 +423,11 @@ export default function InvestorsPage() {
                     { title: 'Clear standards for scope & contractors', desc: 'The project runs under clearer expectations.' },
                     { title: 'Can transition to full contracting', desc: 'If needed, Southern Cities can take a heavier role.' },
                   ].map((item, index) => (
-                    <li key={item.title} className={`flex items-start gap-3 py-3 ${index < 4 ? 'border-b border-white/10' : ''}`}>
-                      <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[#081b3a] text-[18px] text-orange shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">◎</span>
+                    <li key={item.title} className={`flex items-start gap-3 py-3.5 ${index < 4 ? 'border-b border-white/10' : ''}`}>
+                      <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[#081b3a] text-[18px] text-orange shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">◎</span>
                       <div className="min-w-0">
                         <p className="text-[14px] font-bold leading-tight text-white">{item.title}</p>
-                        <p className="mt-1 text-[12px] leading-[1.5] text-white/72">{item.desc}</p>
+                        <p className="mt-1.5 text-[12px] leading-[1.55] text-white/82">{item.desc}</p>
                       </div>
                     </li>
                   ))}
