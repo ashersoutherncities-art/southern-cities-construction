@@ -479,42 +479,64 @@ export default function InvestorsPage() {
 
       <section className="bg-white py-10 sm:py-12">
         <div className="container-pro">
-          <div className="overflow-hidden rounded-[32px] border border-orange/20 bg-[linear-gradient(135deg,#10254c_0%,#163061_58%,#f97316_160%)] shadow-[0_24px_70px_rgba(16,37,76,0.22)]">
-            <div className="grid gap-8 px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.35fr_0.65fr] lg:items-center lg:px-10">
-              <div className="lg:pr-8">
+          <div className="overflow-hidden rounded-[32px] border border-orange/20 bg-[linear-gradient(135deg,#0d1f43_0%,#14325f_62%,#0a1630_100%)] shadow-[0_24px_70px_rgba(16,37,76,0.26)]">
+            <div className="grid gap-8 px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.5fr_1fr] lg:gap-10 lg:px-10 lg:py-12">
+              <div className="lg:pr-6">
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange-200">Flagship Investor Support</p>
-                <h2 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Owner-Controlled Build (GC-Led)</h2>
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:text-xl">
+                <h2 className="mt-4 max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Owner-Controlled Build (GC-Led)</h2>
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 sm:text-xl">
                   You run the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
-                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+
+                <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+                  {[
+                    'You stay in control',
+                    'GC structure in place',
+                    'Permits under GC',
+                    'Built the right way',
+                    'Flexible path',
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-3 text-white">
+                      <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-orange/15 text-orange shadow-[0_0_22px_rgba(249,115,22,0.28)]">
+                        <span className="h-2.5 w-2.5 rounded-full bg-orange" />
+                      </span>
+                      <span className="text-sm font-semibold leading-tight text-white/95">{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
                     href="/services/investors/owner-controlled-construction-gc-led"
-                    className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-500"
+                    className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 sm:min-w-[180px]"
                   >
                     View Details
                   </Link>
                   <Link
                     href="/services/homeowners/owner-consultation"
-                    className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/16 bg-white/8 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/14"
+                    className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:border-orange hover:bg-white/[0.04] sm:min-w-[220px]"
                   >
                     Talk Through Your Project
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.07] p-5 shadow-[0_10px_30px_rgba(10,20,40,0.16)] backdrop-blur-sm sm:p-6 lg:p-5">
-                <ul className="grid gap-2.5">
+              <div className="rounded-[28px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.04)_100%)] p-5 shadow-[0_12px_34px_rgba(6,14,30,0.3),0_0_24px_rgba(249,115,22,0.08)] backdrop-blur-sm sm:p-6">
+                <ul className="grid gap-3">
                   {[
                     'Owner acts as project manager',
                     'GC structure and controls in place',
                     'Permits prepared and pulled',
-                    'Clear standards for scope and contractors',
+                    'Clear standards for scope & contractors',
                     'Can transition to full contracting',
                   ].map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-3 rounded-2xl bg-white/[0.06] px-4 py-3 text-sm font-medium leading-relaxed text-white/90">
-                      <span className="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-orange" />
-                      <span>{bullet}</span>
+                    <li key={bullet} className="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[0.05] px-4 py-3 text-white/92">
+                      <span className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-orange/15 text-orange">
+                        <span className="h-2.5 w-2.5 rounded-full bg-orange" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold leading-tight">{bullet}</p>
+                      </div>
                     </li>
                   ))}
                 </ul>
