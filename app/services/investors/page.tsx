@@ -10,7 +10,6 @@ type Product = {
   href: string;
   secondaryHref?: string;
   primaryCta: 'View Details';
-  secondaryCta?: 'Learn More';
   itemKey?: string;
   covers?: string[];
   highlighted?: boolean;
@@ -23,6 +22,7 @@ type Stage = {
   title: string;
   label: string;
   cta: string;
+  compact?: boolean;
   products: Product[];
 };
 
@@ -42,7 +42,6 @@ const investorStages: Stage[] = [
         href: '/services/investors/investor-review',
         secondaryHref: '/services/investors/investor-review',
         primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
         itemKey: 'investor-deal-scope-review',
       },
       {
@@ -52,7 +51,6 @@ const investorStages: Stage[] = [
         href: '/services/investors/budget-review',
         secondaryHref: '/services/investors/budget-review',
         primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
         itemKey: 'budget-review',
       },
       {
@@ -62,7 +60,6 @@ const investorStages: Stage[] = [
         href: '/services/investors/permit-local-compliance-review',
         secondaryHref: '/services/investors/permit-local-compliance-review',
         primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
         itemKey: 'permit-local-compliance-review',
       },
       {
@@ -72,7 +69,6 @@ const investorStages: Stage[] = [
         href: '/services/investors/contractor-fit-consultation',
         secondaryHref: '/services/investors/contractor-fit-consultation',
         primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
         itemKey: 'contractor-fit-consultation',
       },
     ],
@@ -84,100 +80,39 @@ const investorStages: Stage[] = [
     title: 'Before You Start',
     label: 'Before construction begins',
     cta: 'Plan This Project',
+    compact: true,
     products: [
       {
-        name: 'Rehab Budget Validation',
-        description: 'Verify whether a contractor rehab budget actually matches the scope before construction starts slipping.',
-        href: '/pricing/rehab-budget-review',
+        name: 'Budget Validation',
+        description: 'Tighten budget expectations before scope, contractors, and timing drift.',
+        href: '/services/investors/budget-review',
         secondaryHref: '/services/investors/budget-review',
         primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
       },
       {
-        name: 'Bid Coordination / Contractor Match',
-        description: 'Get comparable bids and a clearer contractor decision path.',
-        href: '/review/bid-coordination-contractor-match',
+        name: 'Contractor Match & Bid Coordination',
+        description: 'Get a clearer contractor decision path with cleaner bid comparison and scope alignment.',
+        href: '/services/investors/contractor-match-bid-coordination',
         secondaryHref: '/services/investors/contractor-match-bid-coordination',
         primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
       },
       {
-        name: 'Materials & Logistics Setup',
-        description: 'Set up sourcing and logistics before avoidable delays show up.',
-        href: '/review/material-logistics-setup',
-        secondaryHref: '/services/investors/material-logistics-setup',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Lender Scope & Bid Package',
-        description: 'Prepare a cleaner scope and bid package before funding pressure builds.',
-        href: '/review/lender-ready-scope-bid-package',
+        name: 'Permit, Materials & Lender Prep',
+        description: 'Prepare permits, sourcing, and lender-facing scope before execution pressure builds.',
+        href: '/services/investors/lender-ready-scope-bid-package',
         secondaryHref: '/services/investors/lender-ready-scope-bid-package',
         primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Regional Investor Setup Consultation',
-        description: 'Plan your local operating setup before you try to scale the wrong way.',
-        href: '/services/investors/regional-investor-construction-network-development',
-        secondaryHref: '/services/investors/regional-investor-construction-network-development',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-    ],
-  },
-  {
-    id: 'funding-and-draws',
-    stage: 'Stage 3',
-    heroLabel: 'Funding & Draws',
-    title: 'Funding & Draws',
-    label: 'Before and during funding',
-    cta: 'Set Up Draws',
-    products: [
-      {
-        name: 'Draw Review Support',
-        price: '$399',
-        description: 'Review draw submissions before they slow down your cashflow.',
-        href: '/services/investors/draw-review-support',
-        secondaryHref: '/services/investors/draw-review-support',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-        itemKey: 'draw-review-support',
-      },
-      {
-        name: 'Construction Draw Strategy & Alignment',
-        description: 'Set up the draw process so lender and project timing stay aligned.',
-        href: '/review/construction-draw-strategy-alignment',
-        secondaryHref: '/services/investors/construction-draw-strategy-alignment',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Schedule of Cashflows Preparation',
-        description: 'Map funding timing before execution gets ahead of available cash.',
-        href: '/review/schedule-of-cashflows-preparation',
-        secondaryHref: '/services/investors/schedule-of-cashflows-preparation',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Lender-Ready Scope & Bid Package',
-        description: 'Give lenders a clearer package that supports faster approvals.',
-        href: '/review/lender-ready-scope-bid-package',
-        secondaryHref: '/services/investors/lender-ready-scope-bid-package',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
       },
     ],
   },
   {
     id: 'during-construction',
-    stage: 'Stage 4',
+    stage: 'Stage 3',
     heroLabel: 'During Construction',
     title: 'During Construction',
     label: 'Choose how much support you want while the project is active.',
     cta: 'Run This Project',
+    compact: true,
     products: [
       {
         name: 'Construction Oversight',
@@ -225,56 +160,6 @@ const investorStages: Stage[] = [
           'Stronger execution control',
           'End-to-end project delivery',
         ],
-      },
-    ],
-  },
-  {
-    id: 'repeat-and-scale',
-    stage: 'Stage 5',
-    heroLabel: 'Repeat & Scale',
-    title: 'Repeat & Scale',
-    label: 'For ongoing operations',
-    cta: 'See Support Plans',
-    products: [
-      {
-        name: 'Turn Support Plan',
-        description: 'Use recurring support for smaller but constant project decisions.',
-        href: '/recurring-support#investors',
-        secondaryHref: '/recurring-support#investors',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Operator Support Plan',
-        description: 'Get ongoing support across multiple active investor projects.',
-        href: '/recurring-support#investors',
-        secondaryHref: '/recurring-support#investors',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Project Support Retainer',
-        description: 'Hold review capacity when you have multiple active jobs at once.',
-        href: '/recurring-support#investors',
-        secondaryHref: '/recurring-support#investors',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Due Diligence Package, 3 deals/month',
-        description: 'Create a repeatable monthly review lane for active acquisitions.',
-        href: '/services/investors/full-due-diligence-package',
-        secondaryHref: '/services/investors/full-due-diligence-package',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
-      },
-      {
-        name: 'Construction Planning Package, 3 deals/month',
-        description: 'Get a recurring planning lane for projects moving toward execution.',
-        href: '/recurring-support#investors',
-        secondaryHref: '/recurring-support#investors',
-        primaryCta: 'View Details',
-        secondaryCta: 'Learn More',
       },
     ],
   },
@@ -400,41 +285,27 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-function StageSection({ id, stage, title, label, cta, products }: Stage) {
-  const useFiveAcross = ['before-you-start', 'repeat-and-scale'].includes(id);
+function StageSection({ id, stage, title, label, cta, products, compact }: Stage) {
+  const gridClass = compact ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2 xl:grid-cols-4';
 
   return (
     <section id={id} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{stage}</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">{title}</h2>
+          <p className="inline-flex rounded-full border border-orange/20 bg-orange/[0.06] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">{title}</p>
+          <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">{stage}</h2>
           <p className="mt-3 text-[15px] leading-relaxed text-stone-700 sm:text-lg">{label}</p>
         </div>
-        <a href={`#${id}`} className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-stone-100 px-5 py-3 text-sm font-semibold text-navy transition hover:bg-stone-200">
+        <a href={`#pricing`} className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-stone-100 px-5 py-3 text-sm font-semibold text-navy transition hover:bg-stone-200">
           {cta}
         </a>
       </div>
 
-      {id === 'during-construction' ? (
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.name} product={product} />
-          ))}
-        </div>
-      ) : useFiveAcross ? (
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-          {products.map((product) => (
-            <ProductCard key={product.name} product={product} />
-          ))}
-        </div>
-      ) : (
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.name} product={product} />
-          ))}
-        </div>
-      )}
+      <div className={`mt-8 grid gap-5 ${gridClass}`}>
+        {products.map((product) => (
+          <ProductCard key={product.name} product={product} />
+        ))}
+      </div>
     </section>
   );
 }
@@ -477,132 +348,82 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      <section className="bg-white py-10 sm:py-12">
+      <section className="bg-white py-8 sm:py-10">
         <div className="container-pro">
-          <div className="overflow-hidden rounded-[34px] border border-[#24406b] bg-[linear-gradient(135deg,#071b3d_0%,#0a234c_55%,#071934_100%)] shadow-[0_26px_70px_rgba(4,15,34,0.34)]">
-            <div className="grid gap-10 px-6 py-8 sm:px-9 sm:py-10 lg:grid-cols-[1.55fr_0.95fr] lg:items-start lg:gap-10 lg:px-11 lg:py-11">
-              <div className="lg:pr-4">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#8b5b2a] bg-[#0b254a] px-4 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
-                  <span className="text-[13px] text-orange">♛</span>
-                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#f2a35c]">Flagship Investor Support</span>
+          <div className="overflow-hidden rounded-[28px] border border-[#24406b] bg-[linear-gradient(135deg,#071b3d_0%,#0a234c_55%,#071934_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.22)]">
+            <div className="grid gap-7 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[1.3fr_0.9fr] lg:items-center lg:gap-8 lg:px-8 lg:py-8">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#8b5b2a] bg-[#0b254a] px-3 py-1.5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
+                  <span className="text-[12px] text-orange">♛</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#f2a35c]">Flagship Investor Support</span>
                 </div>
 
-                <h2 className="mt-6 max-w-3xl text-[44px] font-extrabold leading-[0.98] tracking-[-0.04em] text-white sm:text-[58px]">
+                <h2 className="mt-4 max-w-2xl text-[31px] font-extrabold leading-[1.02] tracking-[-0.035em] text-white sm:text-[38px] lg:text-[42px]">
                   <span className="block">Owner-Controlled Build</span>
                   <span className="mt-1 block text-orange">(GC-Led)</span>
                 </h2>
 
-                <div className="mt-6 h-[3px] w-12 rounded-full bg-orange" />
-
-                <p className="mt-6 max-w-2xl text-[17px] leading-[1.65] text-white/88 sm:text-[18px]">
+                <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-white/88 sm:text-[16px]">
                   You run the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
 
-                <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-5 xl:gap-0">
+                <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-5 lg:gap-0">
                   {[
-                    {
-                      title: 'You stay in control',
-                      desc: 'You act as the self-hired project manager.',
-                    },
-                    {
-                      title: 'GC structure in place',
-                      desc: 'Licensed GC supports controls and compliance.',
-                    },
-                    {
-                      title: 'Permits under GC',
-                      desc: 'We prepare and pull permits under GC.',
-                    },
-                    {
-                      title: 'Built the right way',
-                      desc: 'Clear standards for scope, contractors, and execution.',
-                    },
-                    {
-                      title: 'Flexible path',
-                      desc: 'Transition to full contracting if needed.',
-                    },
+                    { title: 'You stay in control', desc: 'You act as project manager.' },
+                    { title: 'GC structure', desc: 'Controls and compliance.' },
+                    { title: 'Permits under GC', desc: 'Prepared and pulled.' },
+                    { title: 'Built right', desc: 'Clear execution standards.' },
+                    { title: 'Flexible path', desc: 'Can move to full contracting.' },
                   ].map((item, index) => (
-                    <div
-                      key={item.title}
-                      className={`flex flex-col ${index > 0 ? 'xl:border-l xl:border-white/12 xl:pl-5' : 'xl:pr-5'} ${index < 4 ? 'xl:pr-5' : ''}`}
-                    >
-                      <span className="flex h-10 w-10 items-center justify-center text-[24px] text-orange">○</span>
-                      <p className="mt-3 text-[15px] font-bold leading-tight text-white">{item.title}</p>
-                      <p className="mt-2 max-w-[180px] text-[12px] leading-[1.5] text-white/62">{item.desc}</p>
+                    <div key={item.title} className={`flex flex-col ${index > 0 ? 'lg:border-l lg:border-white/12 lg:pl-4' : ''} ${index < 4 ? 'lg:pr-4' : ''}`}>
+                      <span className="text-[22px] leading-none text-orange">◎</span>
+                      <p className="mt-2 text-[13px] font-bold leading-tight text-white">{item.title}</p>
+                      <p className="mt-1 text-[11px] leading-[1.45] text-white/68">{item.desc}</p>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <Link
                     href="/services/investors/owner-controlled-construction-gc-led"
-                    className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-orange px-7 py-3 text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(249,115,22,0.28)] transition hover:bg-orange-500 sm:min-w-[155px]"
+                    className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-orange px-6 py-3 text-[14px] font-semibold text-white shadow-[0_10px_20px_rgba(249,115,22,0.22)] transition hover:bg-orange-500"
                   >
                     View Details
-                    <span className="ml-3 text-lg">→</span>
                   </Link>
                   <Link
                     href="/services/homeowners/owner-consultation"
-                    className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-white/24 bg-transparent px-7 py-3 text-[15px] font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.03] sm:min-w-[250px]"
+                    className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/24 bg-transparent px-6 py-3 text-[14px] font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.03]"
                   >
                     Talk Through Your Project
-                    <span className="ml-3 text-base">⌘</span>
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-[26px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.07)_0%,rgba(255,255,255,0.04)_100%)] px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_14px_40px_rgba(3,10,24,0.28)] backdrop-blur-sm sm:px-6 sm:py-6">
+              <div className="rounded-[22px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.07)_0%,rgba(255,255,255,0.04)_100%)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_10px_28px_rgba(3,10,24,0.24)] backdrop-blur-sm sm:px-5 sm:py-5">
                 <ul className="grid gap-0">
                   {[
-                    {
-                      title: 'Owner acts as project manager',
-                      desc: 'You stay involved and make key decisions while we provide the structure and support.',
-                    },
-                    {
-                      title: 'GC structure and controls in place',
-                      desc: 'Licensed GC backing brings accountability, compliance, and risk protection.',
-                    },
-                    {
-                      title: 'Permits prepared and pulled',
-                      desc: 'Permits are prepared and pulled under GC so your project stays compliant and moving.',
-                    },
-                    {
-                      title: 'Clear standards for scope & contractors',
-                      desc: 'We set clear expectations so the right work gets done, the right way.',
-                    },
-                    {
-                      title: 'Can transition to full contracting',
-                      desc: 'If your needs change, we can step in and take the project all the way to the finish.',
-                    },
+                    { title: 'Owner acts as project manager', desc: 'You stay involved while we provide structure and support.' },
+                    { title: 'GC structure and controls in place', desc: 'Licensed GC backing brings accountability and risk protection.' },
+                    { title: 'Permits prepared and pulled', desc: 'Permits are handled under GC structure when applicable.' },
+                    { title: 'Clear standards for scope & contractors', desc: 'The project runs under clearer expectations.' },
+                    { title: 'Can transition to full contracting', desc: 'If needed, Southern Cities can take a heavier role.' },
                   ].map((item, index) => (
-                    <li key={item.title} className={`flex items-start gap-4 py-4 ${index < 4 ? 'border-b border-white/10' : ''}`}>
-                      <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[#081b3a] text-[24px] text-orange shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
-                        ○
-                      </span>
+                    <li key={item.title} className={`flex items-start gap-3 py-3 ${index < 4 ? 'border-b border-white/10' : ''}`}>
+                      <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[#081b3a] text-[18px] text-orange shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">◎</span>
                       <div className="min-w-0">
-                        <p className="text-[16px] font-bold leading-tight text-white">{item.title}</p>
-                        <p className="mt-2 text-[13px] leading-[1.55] text-white/68">{item.desc}</p>
+                        <p className="text-[14px] font-bold leading-tight text-white">{item.title}</p>
+                        <p className="mt-1 text-[12px] leading-[1.5] text-white/72">{item.desc}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-
-            <div className="border-t border-white/10 px-6 py-4 sm:px-9 lg:px-11">
-              <div className="flex flex-col gap-2 text-white/88 sm:flex-row sm:items-center sm:gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-orange">◉</span>
-                  <span className="text-[13px] font-bold uppercase tracking-[0.06em] text-white">Structure. Oversight. Execution Backing.</span>
-                </div>
-                <span className="hidden text-white/24 sm:inline">|</span>
-                <span className="text-[13px] text-white/68">Built for investors who want control without the chaos.</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-14 sm:py-18">
+      <section id="pricing" className="bg-white py-12 sm:py-14">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Investor Bundle Pricing</h2>
@@ -611,63 +432,46 @@ export default function InvestorsPage() {
             </p>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-[28px] border border-stone-200 bg-white shadow-elev-1">
-            <div className="grid grid-cols-[1.05fr_1fr_1fr_1fr] border-b border-stone-200 bg-stone-50">
-              <div className="px-4 py-5 sm:px-6" />
+          <div className="mt-8 overflow-hidden rounded-[24px] border border-stone-200 bg-white shadow-elev-1">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200 bg-stone-50">
+              <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div
-                  key={bundle.title}
-                  className={`px-4 py-5 text-center sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}
-                >
+                <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.04]' : ''}`}>
                   <p className="mx-auto inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">{bundle.label}</p>
-                  <h3 className="mt-3 text-xl font-extrabold tracking-tight text-navy">{bundle.title}</h3>
+                  <h3 className="mt-2 text-lg font-extrabold tracking-tight text-navy">{bundle.title}</h3>
                 </div>
               ))}
             </div>
 
-            <div className="grid grid-cols-[1.05fr_1fr_1fr_1fr] border-b border-stone-200">
-              <div className="px-4 py-3 text-sm font-semibold text-stone-600 sm:px-6">Bundle</div>
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200">
+              <div className="px-4 py-3 text-sm font-semibold text-stone-600 sm:px-5">Pricing</div>
               {supportBundles.map((bundle) => (
-                <div
-                  key={`${bundle.title}-price`}
-                  className={`px-4 py-3 text-center text-sm font-bold text-orange sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
-                >
+                <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-orange sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}>
                   {bundle.price}
                 </div>
               ))}
             </div>
 
             {supportRows.map((row) => (
-              <div key={row} className="grid grid-cols-[1.05fr_1fr_1fr_1fr] border-b border-stone-200 last:border-b-0">
-                <div className="px-4 py-3 text-sm font-semibold text-navy-900 sm:px-6">{row}</div>
+              <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200 last:border-b-0">
+                <div className="px-4 py-2.5 text-sm font-semibold text-navy-900 sm:px-5">{row}</div>
                 {supportBundles.map((bundle) => {
                   const included = bundle.includes.includes(row);
                   return (
-                    <div
-                      key={`${bundle.title}-${row}`}
-                      className={`flex items-center justify-center px-4 py-3 sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}
-                    >
-                      <span className={`text-lg font-bold ${included ? 'text-orange' : 'text-stone-300'}`}>
-                        {included ? '✔' : '—'}
-                      </span>
+                    <div key={`${bundle.title}-${row}`} className={`flex items-center justify-center px-4 py-2.5 sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}>
+                      <span className={`text-base font-bold ${included ? 'text-orange' : 'text-stone-300'}`}>{included ? '✔' : '—'}</span>
                     </div>
                   );
                 })}
               </div>
             ))}
 
-            <div className="grid grid-cols-[1.05fr_1fr_1fr_1fr] bg-stone-50">
-              <div className="px-4 py-5 sm:px-6" />
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] bg-stone-50">
+              <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div
-                  key={`${bundle.title}-cta`}
-                  className={`px-4 py-5 sm:px-6 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}
-                >
-                  <a
-                    href={bundle.href}
-                    className={`inline-flex min-h-[52px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${bundle.highlighted ? 'bg-orange text-white hover:bg-orange-500' : 'bg-navy text-white hover:bg-navy-900'}`}
-                  >
-                    {bundle.cta}
+                <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}>
+                  <a href={bundle.href} className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold transition ${bundle.highlighted ? 'bg-orange text-white hover:bg-orange-500' : 'bg-navy text-white hover:bg-navy-900'}`}>
+                    View Pricing
                   </a>
                 </div>
               ))}
