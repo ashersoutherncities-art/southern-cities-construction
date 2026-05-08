@@ -479,67 +479,123 @@ export default function InvestorsPage() {
 
       <section className="bg-white py-10 sm:py-12">
         <div className="container-pro">
-          <div className="overflow-hidden rounded-[32px] border border-orange/20 bg-[linear-gradient(135deg,#0d1f43_0%,#14325f_62%,#0a1630_100%)] shadow-[0_24px_70px_rgba(16,37,76,0.26)]">
-            <div className="grid gap-8 px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.5fr_1fr] lg:gap-10 lg:px-10 lg:py-12">
-              <div className="lg:pr-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange-200">Flagship Investor Support</p>
-                <h2 className="mt-4 max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Owner-Controlled Build (GC-Led)</h2>
-                <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 sm:text-xl">
+          <div className="overflow-hidden rounded-[34px] border border-[#24406b] bg-[linear-gradient(135deg,#071b3d_0%,#0a234c_55%,#071934_100%)] shadow-[0_26px_70px_rgba(4,15,34,0.34)]">
+            <div className="grid gap-10 px-6 py-8 sm:px-9 sm:py-10 lg:grid-cols-[1.55fr_0.95fr] lg:items-start lg:gap-10 lg:px-11 lg:py-11">
+              <div className="lg:pr-4">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#8b5b2a] bg-[#0b254a] px-4 py-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
+                  <span className="text-[13px] text-orange">♛</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#f2a35c]">Flagship Investor Support</span>
+                </div>
+
+                <h2 className="mt-6 max-w-3xl text-[44px] font-extrabold leading-[0.98] tracking-[-0.04em] text-white sm:text-[58px]">
+                  <span className="block">Owner-Controlled Build</span>
+                  <span className="mt-1 block text-orange">(GC-Led)</span>
+                </h2>
+
+                <div className="mt-6 h-[3px] w-12 rounded-full bg-orange" />
+
+                <p className="mt-6 max-w-2xl text-[17px] leading-[1.65] text-white/88 sm:text-[18px]">
                   You run the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
 
-                <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+                <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-5 xl:gap-0">
                   {[
-                    'You stay in control',
-                    'GC structure in place',
-                    'Permits under GC',
-                    'Built the right way',
-                    'Flexible path',
-                  ].map((item) => (
-                    <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-3 text-white">
-                      <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-orange/15 text-orange shadow-[0_0_22px_rgba(249,115,22,0.28)]">
-                        <span className="h-2.5 w-2.5 rounded-full bg-orange" />
-                      </span>
-                      <span className="text-sm font-semibold leading-tight text-white/95">{item}</span>
+                    {
+                      title: 'You stay in control',
+                      desc: 'You act as the self-hired project manager.',
+                    },
+                    {
+                      title: 'GC structure in place',
+                      desc: 'Licensed GC supports controls and compliance.',
+                    },
+                    {
+                      title: 'Permits under GC',
+                      desc: 'We prepare and pull permits under GC.',
+                    },
+                    {
+                      title: 'Built the right way',
+                      desc: 'Clear standards for scope, contractors, and execution.',
+                    },
+                    {
+                      title: 'Flexible path',
+                      desc: 'Transition to full contracting if needed.',
+                    },
+                  ].map((item, index) => (
+                    <div
+                      key={item.title}
+                      className={`flex flex-col ${index > 0 ? 'xl:border-l xl:border-white/12 xl:pl-5' : 'xl:pr-5'} ${index < 4 ? 'xl:pr-5' : ''}`}
+                    >
+                      <span className="flex h-10 w-10 items-center justify-center text-[24px] text-orange">○</span>
+                      <p className="mt-3 text-[15px] font-bold leading-tight text-white">{item.title}</p>
+                      <p className="mt-2 max-w-[180px] text-[12px] leading-[1.5] text-white/62">{item.desc}</p>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <Link
                     href="/services/investors/owner-controlled-construction-gc-led"
-                    className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-500 sm:min-w-[180px]"
+                    className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-orange px-7 py-3 text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(249,115,22,0.28)] transition hover:bg-orange-500 sm:min-w-[155px]"
                   >
                     View Details
+                    <span className="ml-3 text-lg">→</span>
                   </Link>
                   <Link
                     href="/services/homeowners/owner-consultation"
-                    className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:border-orange hover:bg-white/[0.04] sm:min-w-[220px]"
+                    className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-white/24 bg-transparent px-7 py-3 text-[15px] font-semibold text-white transition hover:border-white/40 hover:bg-white/[0.03] sm:min-w-[250px]"
                   >
                     Talk Through Your Project
+                    <span className="ml-3 text-base">⌘</span>
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-[28px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.04)_100%)] p-5 shadow-[0_12px_34px_rgba(6,14,30,0.3),0_0_24px_rgba(249,115,22,0.08)] backdrop-blur-sm sm:p-6">
-                <ul className="grid gap-3">
+              <div className="rounded-[26px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.07)_0%,rgba(255,255,255,0.04)_100%)] px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_14px_40px_rgba(3,10,24,0.28)] backdrop-blur-sm sm:px-6 sm:py-6">
+                <ul className="grid gap-0">
                   {[
-                    'Owner acts as project manager',
-                    'GC structure and controls in place',
-                    'Permits prepared and pulled',
-                    'Clear standards for scope & contractors',
-                    'Can transition to full contracting',
-                  ].map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[0.05] px-4 py-3 text-white/92">
-                      <span className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-orange/15 text-orange">
-                        <span className="h-2.5 w-2.5 rounded-full bg-orange" />
+                    {
+                      title: 'Owner acts as project manager',
+                      desc: 'You stay involved and make key decisions while we provide the structure and support.',
+                    },
+                    {
+                      title: 'GC structure and controls in place',
+                      desc: 'Licensed GC backing brings accountability, compliance, and risk protection.',
+                    },
+                    {
+                      title: 'Permits prepared and pulled',
+                      desc: 'Permits are prepared and pulled under GC so your project stays compliant and moving.',
+                    },
+                    {
+                      title: 'Clear standards for scope & contractors',
+                      desc: 'We set clear expectations so the right work gets done, the right way.',
+                    },
+                    {
+                      title: 'Can transition to full contracting',
+                      desc: 'If your needs change, we can step in and take the project all the way to the finish.',
+                    },
+                  ].map((item, index) => (
+                    <li key={item.title} className={`flex items-start gap-4 py-4 ${index < 4 ? 'border-b border-white/10' : ''}`}>
+                      <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[#081b3a] text-[24px] text-orange shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">
+                        ○
                       </span>
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold leading-tight">{bullet}</p>
+                        <p className="text-[16px] font-bold leading-tight text-white">{item.title}</p>
+                        <p className="mt-2 text-[13px] leading-[1.55] text-white/68">{item.desc}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-white/10 px-6 py-4 sm:px-9 lg:px-11">
+              <div className="flex flex-col gap-2 text-white/88 sm:flex-row sm:items-center sm:gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-orange">◉</span>
+                  <span className="text-[13px] font-bold uppercase tracking-[0.06em] text-white">Structure. Oversight. Execution Backing.</span>
+                </div>
+                <span className="hidden text-white/24 sm:inline">|</span>
+                <span className="text-[13px] text-white/68">Built for investors who want control without the chaos.</span>
               </div>
             </div>
           </div>
