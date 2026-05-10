@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import SiteNav from '@/components/SiteNav';
-import SiteFooter from '@/components/SiteFooter';
+import ControlCenterNav from '@/components/ControlCenterNav';
+import ControlCenterFooter from '@/components/ControlCenterFooter';
 import {
   getTrackedLinkUrl,
   listMarketingAssets,
@@ -115,7 +115,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
   if (!expectedKey) {
     return (
       <main className="min-h-screen bg-stone-50">
-        <SiteNav variant="solid" />
+        <ControlCenterNav />
         <section className="container-pro py-20">
           <div className="rounded-3xl border border-amber-200 bg-amber-50 p-8 text-amber-900 shadow-elev-1">
             <p className="text-sm font-bold uppercase tracking-[0.2em]">Control center unavailable</p>
@@ -125,7 +125,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             </p>
           </div>
         </section>
-        <SiteFooter />
+        <ControlCenterFooter />
       </main>
     );
   }
@@ -133,7 +133,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
   if (accessKey !== expectedKey) {
     return (
       <main className="min-h-screen bg-stone-50">
-        <SiteNav variant="solid" />
+        <ControlCenterNav />
         <section className="container-pro py-20">
           <div className="rounded-3xl border border-rose-200 bg-rose-50 p-8 text-rose-900 shadow-elev-1">
             <p className="text-sm font-bold uppercase tracking-[0.2em]">Private internal tool</p>
@@ -143,7 +143,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             </p>
           </div>
         </section>
-        <SiteFooter />
+        <ControlCenterFooter />
       </main>
     );
   }
@@ -174,13 +174,13 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
 
   return (
     <main className="min-h-screen bg-stone-50">
-      <SiteNav variant="solid" />
+      <ControlCenterNav />
 
       <section className="container-pro py-12 sm:py-16">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Southern Cities Construction</p>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Construction control center</h1>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Southern Cities Control Center</p>
+            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Construction command center</h1>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-stone-600 sm:text-base">
               One place to watch marketing assets, tracked links, company focus, AI operator roles, and the KPIs that tell you what is moving right now.
             </p>
@@ -415,7 +415,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
         </div>
       </section>
 
-      <SiteFooter />
+      <ControlCenterFooter />
     </main>
   );
 }
