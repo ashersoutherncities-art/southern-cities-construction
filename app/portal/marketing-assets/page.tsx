@@ -179,8 +179,8 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
       <section className="container-pro py-12 sm:py-16">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Southern Cities Control Center</p>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Southern Cities Construction briefing</h1>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">SCCOPS.AI</p>
+            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Southern Cities Construction Ops Briefing</h1>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-stone-600 sm:text-base">
               A private reports surface for Southern Cities Construction with executive metrics, operator lanes, market watch items, and tracked demand signals.
             </p>
