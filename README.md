@@ -9,14 +9,14 @@ Professional website for Southern Cities Construction - Licensed General Contrac
 - **Scroll Animations:** Smooth animations on scroll
 - **Client Tools Integration:** Links to all existing portals
 - **Contact Form:** Google Places address autosuggest
-- **Static Export:** Optimized for GitHub Pages
+- **Supabase-backed workflows:** Server routes and internal operations tooling
 
 ## 🚀 Tech Stack
 
 - Next.js 14
 - TypeScript
 - Tailwind CSS
-- Static Export
+- Supabase
 
 ## 📦 Installation
 
@@ -40,9 +40,30 @@ npm run build
 
 ## 🚢 Deploy
 
-Automatically deploys to GitHub Pages on push to `main` branch.
+This app now requires a server-capable Next.js deployment because the marketing platform, order flows, and tracked redirects write to Supabase.
 
-**Live Site:** https://ashersoutherncities-art.github.io/southern-cities-construction/
+Recommended targets: Vercel, Netlify with Next runtime, or any Node host that can run `next start`.
+
+## 📈 Marketing asset platform MVP
+
+This repo now includes an internal marketing asset management MVP at:
+
+- `/portal/marketing-assets?key=YOUR_MARKETING_PORTAL_ACCESS_KEY`
+- tracked redirect links at `/go/[slug]`
+
+Required env for the MVP:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `MARKETING_PORTAL_ACCESS_KEY`
+- optional: `NEXT_PUBLIC_SITE_URL`
+
+Required database setup:
+
+1. Apply the existing SQL files in `supabase/README.md`
+2. Apply `supabase/marketing_assets.sql`
+
+The marketing portal syncs infrastructure-owned pages, logos, and core CTAs from `lib/marketing-registry.ts` into Supabase so website changes can refresh the database source of truth.
 
 ## 📄 License Information
 

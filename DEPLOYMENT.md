@@ -1,10 +1,12 @@
 # Southern Cities Construction - Deployment Summary
 
-## 🎉 Deployment Complete
+## 🎉 Deployment History + Current Runtime Note
 
-**Live URL:** https://ashersoutherncities-art.github.io/southern-cities-construction/
+**Historical live URL:** https://ashersoutherncities-art.github.io/southern-cities-construction/
 
-**Deployed:** March 26, 2026 at 9:27 PM EDT
+**Originally deployed:** March 26, 2026 at 9:27 PM EDT
+
+> Runtime update: the app now includes Supabase-backed order flows, a marketing asset platform, and tracked redirect links. That means the current app requires a server-capable Next.js deployment instead of static GitHub Pages export.
 
 ---
 
@@ -30,7 +32,7 @@
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Colors:** Navy (#1a2744), Gold (#d4a843), White
-- **Export:** Static site generation for GitHub Pages
+- **Runtime:** Server-capable Next.js app with Supabase-backed APIs
 - **Animations:** Smooth scroll effects and fade-in animations
 - **Mobile:** Fully responsive design
 
@@ -53,17 +55,16 @@
 ### GitHub Repository:
 - **Repo:** ashersoutherncities-art/southern-cities-construction
 - **Branch:** main
-- **Auto-deploy:** Enabled (on push to main)
 
-### GitHub Actions Workflow:
-- **Build:** Node 20, npm ci, next build
-- **Deploy:** GitHub Pages with artifacts
-- **Status:** ✅ Passing (Build: 49s, Deploy: 8s)
+### Current deployment expectation:
+- **Build:** Node 20+, `npm ci`, `npm run build`
+- **Runtime:** `next start` on a host that supports Next.js server routes
+- **Database:** Supabase project with SQL from `supabase/README.md`
 
 ### Configuration Files:
-- `next.config.mjs` - Static export with basePath
-- `.github/workflows/deploy.yml` - Auto-deployment pipeline
-- `.nojekyll` - GitHub Pages configuration
+- `next.config.mjs` - Next.js runtime config
+- deployment/runtime config for your chosen host
+- Supabase SQL files under `supabase/`
 
 ---
 
@@ -107,7 +108,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000/southern-cities-construction
+Open http://localhost:3000
 
 ---
 
@@ -120,8 +121,8 @@ npm run dev
 # Production build
 npm run build
 
-# Test locally (requires serve)
-npx serve out
+# Run production server locally
+npm run start
 ```
 
 ---

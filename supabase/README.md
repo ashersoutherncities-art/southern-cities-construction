@@ -11,6 +11,7 @@ idempotent (`create table if not exists`, `add column if not exists`,
 5. `orders.sql`
 6. `order_events.sql` — depends on `orders`
 7. `permit_oversight_orders.sql` — depends on `orders` (foreign key)
+8. `marketing_assets.sql`
 
 ## Tables
 
@@ -27,3 +28,8 @@ idempotent (`create table if not exists`, `add column if not exists`,
 - `permit_oversight_orders` — flagship-service onboarding record. Now linked to
   the canonical `orders` row via `order_id` and carries the same Stripe
   references for backward compatibility.
+- `marketing_assets` — source-of-truth catalog of marketing pages, brand assets,
+  and infrastructure-owned site surfaces.
+- `marketing_links` — trackable marketing links and CTA destinations, including
+  click counters and campaign metadata.
+- `marketing_link_events` — append-only click log for trackable marketing links.
