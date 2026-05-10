@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const LINKS = [
-  { href: '/', label: 'Overview' },
+  { href: '/reports', label: 'Reports' },
   { href: '/portal/marketing-assets', label: 'Command Center' },
 ];
 
@@ -14,9 +14,9 @@ export default function ControlCenterNav() {
   return (
     <nav className="sticky top-0 z-40 border-b border-white/10 bg-navy-900/95 backdrop-blur-xl">
       <div className="container-pro flex h-18 items-center justify-between gap-6 py-4">
-        <Link href="/" className="flex flex-col">
+        <Link href="/reports" className="flex flex-col">
           <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Southern Cities</span>
-          <span className="text-lg font-extrabold tracking-tight text-white">Control Center</span>
+          <span className="text-lg font-extrabold tracking-tight text-white">Reports</span>
         </Link>
 
         <div className="flex items-center gap-2">

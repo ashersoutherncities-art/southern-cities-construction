@@ -180,9 +180,9 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Southern Cities Control Center</p>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Construction command center</h1>
+            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Southern Cities Construction briefing</h1>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-stone-600 sm:text-base">
-              One place to watch marketing assets, tracked links, company focus, AI operator roles, and the KPIs that tell you what is moving right now.
+              A private reports surface for Southern Cities Construction with executive metrics, operator lanes, market watch items, and tracked demand signals.
             </p>
           </div>
 
@@ -222,7 +222,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">At a glance</h2>
+                  <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Executive briefing</h2>
                   <p className="mt-2 text-sm text-stone-600">What matters most for Southern Cities Construction right now.</p>
                 </div>
               </div>
@@ -255,7 +255,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             </section>
 
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Company view</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Company stack</h2>
               <p className="mt-2 text-sm text-stone-600">Start with construction, then layer in the other Southern Cities companies into the same command view.</p>
               <div className="mt-6 grid gap-4 md:grid-cols-3">
                 {COMPANY_SNAPSHOT.map((company) => (
@@ -271,7 +271,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Asset inventory</h2>
+                  <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Asset registry</h2>
                   <p className="mt-2 text-sm text-stone-600">Core website surfaces and brand files live here as the operating catalog.</p>
                 </div>
               </div>
@@ -316,7 +316,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             </section>
 
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Link analytics</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Demand link tracking</h2>
               <p className="mt-2 text-sm text-stone-600">Use the tracked URL in ads, email, QR codes, or partner placements to centralize click counts.</p>
 
               <div className="mt-6 overflow-x-auto">
@@ -359,7 +359,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
 
           <div className="space-y-6">
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">KPI board</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Operating scoreboard</h2>
               <p className="mt-2 text-sm text-stone-600">These are the first operating KPIs I would want visible every time you open the control center.</p>
               <div className="mt-5 space-y-3">
                 {KPI_ROWS.map((row) => (
@@ -372,7 +372,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             </section>
 
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Add asset</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Add registry item</h2>
               <p className="mt-2 text-sm text-stone-600">Store campaign files, landing pages, print pieces, or other catalog items in the DB.</p>
               <form action={addMarketingAssetAction} className="mt-5 space-y-3">
                 <input type="hidden" name="access_key" value={accessKey} />
@@ -393,7 +393,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
             </section>
 
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Add tracked link</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Create tracked route</h2>
               <p className="mt-2 text-sm text-stone-600">Create a reusable redirect slug, then distribute the tracked URL anywhere marketing runs.</p>
               <form action={addMarketingLinkAction} className="mt-5 space-y-3">
                 <input type="hidden" name="access_key" value={accessKey} />
