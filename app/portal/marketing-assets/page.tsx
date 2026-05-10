@@ -7,6 +7,7 @@ import {
   listMarketingLinks,
   syncMarketingInfrastructure,
 } from '@/lib/marketing';
+import { formatCurrency, getControlCenterMetrics } from '@/lib/control-center';
 import {
   addMarketingAssetAction,
   addMarketingLinkAction,
@@ -21,6 +22,71 @@ type PageProps = {
   };
 };
 
+const INDUSTRY_UPDATES = [
+  {
+    title: 'Permit and inspection delays',
+    note: 'Track county backlogs, failed inspections, and correction loops. These are usually early warning signs of revenue drag.',
+  },
+  {
+    title: 'Subcontractor capacity',
+    note: 'Watch who is overloaded, who is responsive, and where bottlenecks are building before the field feels it.',
+  },
+  {
+    title: 'Material price movement',
+    note: 'Review any movement in core materials tied to active estimates, turns, and owner budgets.',
+  },
+  {
+    title: 'Lead flow and close friction',
+    note: 'Keep an eye on which offer pages are getting attention and where buyers are stalling before purchase or consultation.',
+  },
+];
+
+const READY_AGENTS = [
+  {
+    name: 'Marketing operator',
+    role: 'Campaign planning, asset cleanup, link creation, and landing-page conversion support.',
+  },
+  {
+    name: 'Construction ops analyst',
+    role: 'Project follow-up, permit bottlenecks, inspection issues, and workflow diagnosis.',
+  },
+  {
+    name: 'KPI reviewer',
+    role: 'Turn clicks, lead flow, product demand, and operating metrics into quick decisions.',
+  },
+  {
+    name: 'Vendor and partner monitor',
+    role: 'Track supplier, subcontractor, and partner communication that affects execution speed.',
+  },
+];
+
+const COMPANY_SNAPSHOT = [
+  {
+    label: 'Southern Cities Construction',
+    status: 'Primary focus',
+    notes: 'Use this as the operating command center for construction marketing, product demand, and active execution visibility.',
+  },
+  {
+    label: 'Southern Cities Realty',
+    status: 'Secondary',
+    notes: 'Can be added next for listing prep, inspection, and deal pipeline visibility.',
+  },
+  {
+    label: 'Southern Cities Investors',
+    status: 'Secondary',
+    notes: 'Can be layered in after construction so investor funnels and partner traffic sit in the same control center.',
+  },
+];
+
+const KPI_ROWS = [
+  { label: 'Tracked link clicks', why: 'Shows demand by campaign, offer, and CTA placement.' },
+  { label: 'Offer-page traffic', why: 'Shows which products are actually drawing attention.' },
+  { label: 'Lead submissions', why: 'Separates curiosity from real buying action.' },
+  { label: 'Calls booked', why: 'Shows whether traffic is turning into conversation.' },
+  { label: 'Paid product checkouts', why: 'Shows which fixed-price products are selling.' },
+  { label: 'Permit/inspection bottlenecks', why: 'Gives an at-a-glance operating constraint view.' },
+];
+
 function Input({ name, placeholder, defaultValue }: { name: string; placeholder: string; defaultValue?: string }) {
   return (
     <input
@@ -29,6 +95,16 @@ function Input({ name, placeholder, defaultValue }: { name: string; placeholder:
       placeholder={placeholder}
       className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-navy-900 placeholder:text-stone-400"
     />
+  );
+}
+
+function StatCard({ label, value, note }: { label: string; value: string | number; note: string }) {
+  return (
+    <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
+      <p className="text-sm text-stone-500">{label}</p>
+      <p className="mt-3 text-3xl font-extrabold text-navy-900">{value}</p>
+      <p className="mt-2 text-sm text-stone-600">{note}</p>
+    </div>
   );
 }
 
@@ -42,11 +118,10 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
         <SiteNav variant="solid" />
         <section className="container-pro py-20">
           <div className="rounded-3xl border border-amber-200 bg-amber-50 p-8 text-amber-900 shadow-elev-1">
-            <p className="text-sm font-bold uppercase tracking-[0.2em]">Marketing portal unavailable</p>
+            <p className="text-sm font-bold uppercase tracking-[0.2em]">Control center unavailable</p>
             <h1 className="mt-3 text-3xl font-extrabold tracking-tight">Set MARKETING_PORTAL_ACCESS_KEY first</h1>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed">
-              This MVP ships with a lightweight internal access gate. Add MARKETING_PORTAL_ACCESS_KEY to your environment,
-              then visit /portal/marketing-assets?key=YOUR_KEY.
+              Add MARKETING_PORTAL_ACCESS_KEY to the environment, then open /portal/marketing-assets?key=YOUR_KEY.
             </p>
           </div>
         </section>
@@ -75,19 +150,27 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
 
   let assets = [] as Awaited<ReturnType<typeof listMarketingAssets>>;
   let links = [] as Awaited<ReturnType<typeof listMarketingLinks>>;
+  let metrics: Awaited<ReturnType<typeof getControlCenterMetrics>> | null = null;
   let loadError = '';
 
   try {
     await syncMarketingInfrastructure();
-    [assets, links] = await Promise.all([listMarketingAssets(), listMarketingLinks()]);
+    [assets, links, metrics] = await Promise.all([
+      listMarketingAssets(),
+      listMarketingLinks(),
+      getControlCenterMetrics(),
+    ]);
   } catch (err) {
-    loadError = err instanceof Error ? err.message : 'Unknown marketing portal error';
+    loadError = err instanceof Error ? err.message : 'Unknown control center error';
   }
 
   const topLink = links[0] || null;
   const totalClicks = links.reduce((sum, link) => sum + Number(link.click_count || 0), 0);
   const infraAssets = assets.filter((asset) => asset.source_type === 'infrastructure').length;
   const manualAssets = assets.filter((asset) => asset.source_type === 'manual').length;
+  const landingPages = assets.filter((asset) => asset.asset_type === 'landing_page').length;
+  const trackedCampaigns = new Set(links.map((link) => link.campaign).filter(Boolean)).size;
+  const paidRevenue = metrics ? formatCurrency(metrics.totalRevenueCents) : '$0';
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -96,11 +179,10 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
       <section className="container-pro py-12 sm:py-16">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Internal marketing ops</p>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Marketing asset management platform</h1>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange">Southern Cities Construction</p>
+            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy-900">Construction control center</h1>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-stone-600 sm:text-base">
-              Database-backed inventory for Southern Cities marketing pages, brand assets, and tracked links. Infrastructure-owned
-              entries sync from code so website changes can refresh the database instead of drifting away from it.
+              One place to watch marketing assets, tracked links, company focus, AI operator roles, and the KPIs that tell you what is moving right now.
             </p>
           </div>
 
@@ -119,31 +201,73 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
           </div>
         ) : null}
 
-        <div className="mt-8 grid gap-4 md:grid-cols-4">
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-sm text-stone-500">Assets in catalog</p>
-            <p className="mt-3 text-3xl font-extrabold text-navy-900">{assets.length}</p>
-            <p className="mt-2 text-sm text-stone-600">{infraAssets} synced from infrastructure, {manualAssets} manual.</p>
-          </div>
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-sm text-stone-500">Tracked links</p>
-            <p className="mt-3 text-3xl font-extrabold text-navy-900">{links.length}</p>
-            <p className="mt-2 text-sm text-stone-600">Every link can route through /go/[slug].</p>
-          </div>
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-sm text-stone-500">Total recorded clicks</p>
-            <p className="mt-3 text-3xl font-extrabold text-navy-900">{totalClicks}</p>
-            <p className="mt-2 text-sm text-stone-600">Click counts update on tracked redirect usage.</p>
-          </div>
-          <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
-            <p className="text-sm text-stone-500">Top tracked link</p>
-            <p className="mt-3 text-lg font-extrabold text-navy-900">{topLink?.label || 'No clicks yet'}</p>
-            <p className="mt-2 text-sm text-stone-600">{topLink ? `${topLink.click_count} clicks` : 'Seed links are ready to use.'}</p>
-          </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <StatCard label="Assets in catalog" value={assets.length} note={`${infraAssets} synced from infrastructure, ${manualAssets} manual.`} />
+          <StatCard label="Tracked links" value={links.length} note="Use /go/[slug] for campaigns, email, QR, and social." />
+          <StatCard label="Recorded clicks" value={totalClicks} note="This is the first clean demand signal for your product links." />
+          <StatCard label="Landing pages" value={landingPages} note="Shows how much of the marketing stack has direct-link destinations." />
+          <StatCard label="Tracked campaigns" value={trackedCampaigns} note={topLink ? `Top link: ${topLink.label}` : 'Seed links are ready to use.'} />
         </div>
 
-        <div className="mt-10 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <StatCard label="Service inquiries" value={metrics?.serviceInquiries || 0} note="General inbound demand from site forms." />
+          <StatCard label="Realtor inquiries" value={metrics?.realtorInquiries || 0} note="Listing prep and inspection-response demand." />
+          <StatCard label="Resource requests" value={metrics?.resourceRequests || 0} note="Lead magnets and paid resource interest." />
+          <StatCard label="Paid orders" value={metrics?.paidOrders || 0} note={`${metrics?.totalOrders || 0} total orders recorded in the system.`} />
+          <StatCard label="Revenue tracked" value={paidRevenue} note="Paid checkout revenue recorded in Supabase." />
+        </div>
+
+        <div className="mt-10 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">
+            <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">At a glance</h2>
+                  <p className="mt-2 text-sm text-stone-600">What matters most for Southern Cities Construction right now.</p>
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Industry updates to watch</p>
+                  <div className="mt-4 space-y-4">
+                    {INDUSTRY_UPDATES.map((item) => (
+                      <div key={item.title}>
+                        <p className="font-semibold text-navy-900">{item.title}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-stone-600">{item.note}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Ready AI operator roles</p>
+                  <div className="mt-4 space-y-4">
+                    {READY_AGENTS.map((agent) => (
+                      <div key={agent.name}>
+                        <p className="font-semibold text-navy-900">{agent.name}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-stone-600">{agent.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Company view</h2>
+              <p className="mt-2 text-sm text-stone-600">Start with construction, then layer in the other Southern Cities companies into the same command view.</p>
+              <div className="mt-6 grid gap-4 md:grid-cols-3">
+                {COMPANY_SNAPSHOT.map((company) => (
+                  <div key={company.label} className="rounded-2xl border border-stone-200 bg-stone-50 p-5">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{company.status}</p>
+                    <p className="mt-3 text-lg font-extrabold tracking-tight text-navy-900">{company.label}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-stone-600">{company.notes}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
               <div className="flex items-center justify-between gap-4">
                 <div>
@@ -234,6 +358,19 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
           </div>
 
           <div className="space-y-6">
+            <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">KPI board</h2>
+              <p className="mt-2 text-sm text-stone-600">These are the first operating KPIs I would want visible every time you open the control center.</p>
+              <div className="mt-5 space-y-3">
+                {KPI_ROWS.map((row) => (
+                  <div key={row.label} className="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+                    <p className="font-semibold text-navy-900">{row.label}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-stone-600">{row.why}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-elev-1">
               <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Add asset</h2>
               <p className="mt-2 text-sm text-stone-600">Store campaign files, landing pages, print pieces, or other catalog items in the DB.</p>
