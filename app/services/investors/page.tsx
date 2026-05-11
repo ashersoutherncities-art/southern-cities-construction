@@ -349,12 +349,12 @@ export default function InvestorsPage() {
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
               Choose where you are in the project and get the right support before costs, delays, or execution problems grow.
             </p>
-            <div className="mt-10 grid gap-3 text-left sm:grid-cols-2 xl:grid-cols-5 motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
+            <div className="mt-10 flex flex-wrap justify-center gap-3 motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
               {investorStages.map((stage) => (
                 <a
                   key={stage.id}
                   href={`#${stage.id}`}
-                  className="rounded-[16px] border border-white/15 bg-white/[0.06] px-4 py-4 text-left text-white transition hover:-translate-y-0.5 hover:border-[#f58220]/60 hover:bg-white/[0.1]"
+                  className="w-full max-w-[200px] flex-1 basis-[180px] rounded-[16px] border border-white/15 bg-white/[0.06] px-4 py-4 text-left text-white transition hover:-translate-y-0.5 hover:border-[#f58220]/60 hover:bg-white/[0.1] sm:max-w-[220px]"
                 >
                   <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f58220]">{stage.stage}</p>
                   <p className="mt-2 text-base font-extrabold leading-tight">{stage.heroLabel}</p>
@@ -388,33 +388,18 @@ export default function InvestorsPage() {
                   You stay close to the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
 
-                <div className="mt-6 hidden lg:grid lg:grid-cols-5">
+                <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
                   {[
                     { title: 'You stay in control', desc: 'You act as project manager.' },
                     { title: 'GC structure', desc: 'Controls and compliance.' },
                     { title: 'Permits under GC', desc: 'Prepared and pulled.' },
                     { title: 'Built right', desc: 'Clear execution standards.' },
                     { title: 'Flexible path', desc: 'Can move to full contracting.' },
-                  ].map((item, index) => (
-                    <div key={item.title} className={`${index > 0 ? 'border-l border-white/14 pl-4' : 'pr-4'} ${index < 4 ? 'pr-4' : ''}`}>
-                      <span className="block text-[18px] leading-none text-orange">◎</span>
-                      <p className="mt-3 text-[12px] font-bold leading-tight text-white">{item.title}</p>
-                      <p className="mt-2 text-[11px] leading-[1.45] text-white/64">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 grid grid-cols-2 gap-3 lg:hidden">
-                  {[
-                    'You stay in control',
-                    'GC structure',
-                    'Permits under GC',
-                    'Built right',
-                    'Flexible path',
                   ].map((item) => (
-                    <div key={item} className="rounded-[16px] border border-white/10 bg-white/[0.04] px-3 py-3">
+                    <div key={item.title} className="rounded-[14px] border border-white/10 bg-white/[0.04] px-3 py-3">
                       <span className="block text-[16px] leading-none text-orange">◎</span>
-                      <p className="mt-2 text-[12px] font-bold leading-tight text-white">{item}</p>
+                      <p className="mt-2 text-[12px] font-bold leading-tight text-white">{item.title}</p>
+                      <p className="mt-1.5 text-[11px] leading-[1.45] text-white/65">{item.desc}</p>
                     </div>
                   ))}
                 </div>
