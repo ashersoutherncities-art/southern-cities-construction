@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
+import CartFloatingPill from '@/components/CartFloatingPill';
 import FaqItem from '@/components/landing/FaqItem';
 
 type Params = { slug: string };
@@ -596,7 +597,7 @@ function PrimaryCta({
   const base = `inline-flex items-center justify-center gap-2 rounded-[4px] font-black uppercase tracking-[0.06em] transition-all duration-150 hover:-translate-y-0.5 ${sizeClasses} ${variantClasses} ${widthClass} ${className}`;
 
   if (config.productKey) {
-    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} />;
+    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} mode="checkout" />;
   }
 
   return (
@@ -1204,6 +1205,9 @@ export default function LandingPage({ params }: { params: Params }) {
             <Link href="/terms" className="hover:text-[#f58220]">Terms</Link>
           </p>
         </footer>
+
+        {/* FLOATING CART PILL — only shows when cart has items, since LPs have no global nav */}
+        <CartFloatingPill position="top-right" />
 
         {/* STICKY MOBILE CTA */}
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white p-3 shadow-[0_-10px_30px_-15px_rgba(8,17,29,0.3)] lg:hidden">
