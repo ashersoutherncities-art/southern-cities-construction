@@ -6,33 +6,36 @@ import AddToCartButton from '@/components/AddToCartButton';
 function ProblemIcon({ type }: { type: 'triangle' | 'grid' | 'spark' | 'dollar' }) {
   if (type === 'triangle') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-        <path d="M24 7 40 37H8L24 7Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+        <path d="M24 11 36 33H12L24 11Z" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinejoin="round" />
       </svg>
     );
   }
 
   if (type === 'grid') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-        <path d="M10 24H38M24 10V38" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-        <path d="M13 13H35V35H13Z" fill="none" stroke="currentColor" strokeWidth="1.4" opacity="0.9" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+        <rect x="13" y="13" width="22" height="22" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.45" />
+        <path d="M20.3 13v22M27.7 13v22M13 20.3h22M13 27.7h22" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
       </svg>
     );
   }
 
   if (type === 'spark') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-        <path d="M15 24c4-6 8-6 12 0s8 6 6-1M17 20c2 2 3 4 4 8m8-10c1 3 2 5 4 7" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+        <path d="M13 31h22" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+        <path d="M16 28V18" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+        <path d="M18 26l4-5 5 3 5-7 3 2" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-      <path d="M28 9c-2-1-4-1-6 0-3 1-5 4-5 7 0 10 17 5 17 15 0 4-4 8-10 8-3 0-6-1-8-2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M24 6V42" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+      <circle cx="24" cy="24" r="12.4" fill="none" stroke="currentColor" strokeWidth="1.45" />
+      <path d="M27.7 16.2c-1-.55-2.15-.83-3.45-.83-3.05 0-5.22 1.7-5.22 4.08 0 5.9 10.62 3.25 10.62 8.9 0 2.55-2.3 4.28-5.67 4.28-1.7 0-3.45-.47-4.77-1.33" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" />
+      <path d="M24 13.2v21.6" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -40,34 +43,38 @@ function ProblemIcon({ type }: { type: 'triangle' | 'grid' | 'spark' | 'dollar' 
 function SolutionIcon({ type }: { type: 'target' | 'layers' | 'alert' | 'arrow' }) {
   if (type === 'target') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-        <circle cx="24" cy="24" r="13" fill="none" stroke="currentColor" strokeWidth="1.8" />
-        <circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+        <circle cx="24" cy="24" r="12" fill="none" stroke="currentColor" strokeWidth="1.55" />
+        <circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" strokeWidth="1.55" />
+        <path d="M24 12v-3m0 30v-3m12-12h3M9 24h3" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
       </svg>
     );
   }
 
   if (type === 'layers') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-        <path d="M13 17H35V31H13Z" fill="none" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M10 20H32V34H10Z" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.75" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+        <path d="M18 13h12l4 4v18H18z" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinejoin="round" />
+        <path d="M30 13v6h6" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinejoin="round" />
+        <path d="M22 24h8M22 29h8" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
       </svg>
     );
   }
 
   if (type === 'alert') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-        <path d="M24 8 39 36H9L24 8Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M24 18v8m0 5h.01" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+        <path d="M24 10.5 35.5 17v14L24 37.5 12.5 31V17L24 10.5Z" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinejoin="round" />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
-      <path d="M14 33 33 14M20 14h13v13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
+      <path d="M15 31 31 15" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" />
+      <path d="M22 15h9v9" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15 15h7" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" opacity="0.7" />
+      <path d="M26 31h7" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" opacity="0.7" />
     </svg>
   );
 }
