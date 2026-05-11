@@ -384,7 +384,7 @@ export default function InvestorsPage() {
                   <span className="mt-1 block text-orange">Support</span>
                 </h2>
 
-                <p className="mt-4 max-w-xl text-[15px] leading-[1.65] text-white/84 sm:text-[16px]">
+                <p className="mt-4 max-w-xl text-[16px] leading-[1.65] text-white sm:text-[17px]">
                   You stay close to the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
 
@@ -396,10 +396,10 @@ export default function InvestorsPage() {
                     { title: 'Built right', desc: 'Clear execution standards.' },
                     { title: 'Flexible path', desc: 'Can move to full contracting.' },
                   ].map((item) => (
-                    <div key={item.title} className="rounded-[14px] border border-white/10 bg-white/[0.04] px-3 py-3">
+                    <div key={item.title} className="rounded-[14px] border border-white/15 bg-white/[0.06] px-3 py-3">
                       <span className="block text-[16px] leading-none text-orange">◎</span>
                       <p className="mt-2 text-[12px] font-bold leading-tight text-white">{item.title}</p>
-                      <p className="mt-1.5 text-[11px] leading-[1.45] text-white/65">{item.desc}</p>
+                      <p className="mt-1.5 text-[11px] leading-[1.5] text-white/90">{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -433,7 +433,7 @@ export default function InvestorsPage() {
                       <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[#081b3a] text-[18px] text-orange shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">◎</span>
                       <div className="min-w-0">
                         <p className="text-[14px] font-bold leading-tight text-white">{item.title}</p>
-                        <p className="mt-1.5 text-[12px] leading-[1.55] text-white/82">{item.desc}</p>
+                        <p className="mt-1.5 text-[13px] leading-[1.55] text-white/95">{item.desc}</p>
                       </div>
                     </li>
                   ))}
@@ -449,7 +449,7 @@ export default function InvestorsPage() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Pricing bundles</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Investor Bundle Pricing</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-white/75 sm:text-lg">
+            <p className="mt-4 text-[16px] leading-relaxed text-white sm:text-lg">
               Choose the right support based on where you are in the project.
             </p>
           </div>
@@ -466,7 +466,7 @@ export default function InvestorsPage() {
             </div>
 
             <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
-              <div className="px-4 py-3 text-sm font-semibold text-white/55 sm:px-5">Pricing</div>
+              <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Pricing</div>
               {supportBundles.map((bundle) => (
                 <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-[#f58220] sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
                   {bundle.price}
@@ -476,7 +476,7 @@ export default function InvestorsPage() {
 
             {supportRows.map((row) => (
               <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
-                <div className="px-4 py-2.5 text-sm font-semibold text-white/90 sm:px-5">{row}</div>
+                <div className="px-4 py-2.5 text-sm font-semibold text-white sm:px-5">{row}</div>
                 {supportBundles.map((bundle) => {
                   const included = bundle.includes.includes(row);
                   return (
