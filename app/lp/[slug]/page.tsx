@@ -46,7 +46,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   {
     slug: 'budget-scope-review',
     productKey: 'budget-review',
-    ctaLabel: 'Buy Review',
+    ctaLabel: 'Start Budget Review',
     price: '$599',
     heroHeadline: 'Know Your Real Rehab Budget Before You Start',
     heroSubheadline: 'Make sure your budget actually matches the scope before startup, lender conversations, or contractor decisions move further.',
@@ -125,55 +125,174 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
 ];
 
+const GET_ICONS = ['▣', '◫', '◧', '✦'];
+const PROBLEM_ICONS = ['!', '✕', '$', '?'];
+
 function getConfig(slug: string) {
   return LANDING_PAGES.find((page) => page.slug === slug) || null;
 }
 
-function PrimaryCta({ config }: { config: LandingPageConfig }) {
+function PrimaryCta({ config, fullWidth = false }: { config: LandingPageConfig; fullWidth?: boolean }) {
+  const className = `inline-flex min-h-[60px] items-center justify-center rounded-full bg-orange px-8 py-4 text-base font-extrabold text-white shadow-[0_18px_40px_rgba(234,104,39,0.28)] transition duration-200 hover:-translate-y-0.5 hover:bg-orange-500 hover:shadow-[0_22px_46px_rgba(234,104,39,0.34)] ${fullWidth ? 'w-full sm:w-auto sm:min-w-[260px]' : 'min-w-[240px] w-full sm:w-auto'}`;
+
   if (config.productKey) {
-    return (
-      <AddToCartButton
-        itemKey={config.productKey}
-        label={config.ctaLabel}
-        className="inline-flex min-h-[58px] min-w-[220px] items-center justify-center rounded-full bg-orange px-8 py-4 text-base font-bold text-white transition hover:bg-orange-500"
-      />
-    );
+    return <AddToCartButton itemKey={config.productKey} label={config.ctaLabel} className={className} />;
   }
 
   return (
-    <Link
-      href={config.fallbackHref || '/cart'}
-      className="inline-flex min-h-[58px] min-w-[220px] items-center justify-center rounded-full bg-orange px-8 py-4 text-base font-bold text-white transition hover:bg-orange-500"
-    >
+    <Link href={config.fallbackHref || '/cart'} className={className}>
       {config.ctaLabel}
     </Link>
   );
 }
 
-function BulletSection({ title, bullets, tone = 'dark' }: { title: string; bullets: string[]; tone?: 'dark' | 'light' }) {
+function BudgetScopePage({ config }: { config: LandingPageConfig }) {
   return (
-    <section className={`rounded-[28px] border p-7 sm:p-8 ${tone === 'light' ? 'border-white/12 bg-white/6 text-white' : 'border-stone-200 bg-white text-navy-900 shadow-elev-1'}`}>
-      <h2 className="text-2xl font-extrabold tracking-tight">{title}</h2>
-      <ul className={`mt-5 space-y-3 text-[15px] leading-relaxed ${tone === 'light' ? 'text-white/84' : 'text-stone-700'}`}>
-        {bullets.map((bullet) => (
-          <li key={bullet} className="flex items-start gap-3">
-            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange" />
-            <span>{bullet}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <main className="min-h-screen bg-[#f5f1eb] text-navy-900">
+      <section className="relative overflow-hidden bg-navy-950">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(234,104,39,0.22),transparent_36%),linear-gradient(135deg,#0b1630_0%,#12284d_58%,#0f223f_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,rgba(234,104,39,0.7),transparent)]" />
+        <div className="relative z-10 mx-auto max-w-6xl px-5 py-6 sm:px-8">
+          <div className="flex items-center justify-center sm:justify-start">
+            <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={176} height={44} className="h-10 w-auto" priority />
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pb-24 sm:pt-10">
+          <div className="max-w-4xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Southern Cities Construction</p>
+            <h1 className="mt-6 text-5xl font-black leading-[0.98] tracking-[-0.04em] text-white sm:text-6xl lg:text-[4.5rem]">
+              Know Your Real Rehab <span className="text-orange">Budget</span> Before You Start
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/84 sm:text-xl">
+              Make sure your budget actually matches the scope before startup, lender conversations, or contractor decisions move further.
+            </p>
+            <div className="mt-10 max-w-sm">
+              <PrimaryCta config={config} fullWidth />
+              <p className="mt-4 text-sm font-medium text-white/72">Trusted by investors across North Carolina</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+        <div className="rounded-[30px] border border-[#e7ddd0] bg-[#efe6da] p-7 shadow-[0_18px_45px_rgba(11,22,48,0.08)] sm:p-9">
+          <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">{config.problemHeadline}</h2>
+          <div className="mt-7 grid gap-4 md:grid-cols-2">
+            {config.problemBullets.map((bullet, index) => (
+              <div key={bullet} className="group rounded-[22px] border border-white/60 bg-white/75 p-5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(11,22,48,0.10)]">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-navy-900 text-sm font-bold text-orange">
+                    {PROBLEM_ICONS[index] || '!'}
+                  </div>
+                  <p className="text-base font-semibold leading-relaxed text-navy-900">{bullet}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-4 sm:px-8 sm:py-6">
+        <div className="rounded-[30px] border border-stone-200 bg-white p-7 shadow-[0_18px_45px_rgba(11,22,48,0.08)] sm:p-9">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div className="max-w-2xl">
+                <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">What You Get</h2>
+                <p className="mt-3 text-[15px] leading-relaxed text-stone-600">Clear budget guidance, cleaner scope alignment, and a faster decision path.</p>
+              </div>
+              <PrimaryCta config={config} />
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {config.getBullets.map((bullet, index) => (
+                <div key={bullet} className="group rounded-[22px] border border-stone-200 bg-stone-50 p-5 transition duration-200 hover:-translate-y-1 hover:border-orange/50 hover:bg-white hover:shadow-[0_18px_34px_rgba(11,22,48,0.08)]">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-navy-900 text-sm font-bold text-orange">
+                      {GET_ICONS[index] || '✦'}
+                    </div>
+                    <div>
+                      <p className="text-base font-semibold text-navy-900">{bullet}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+        <div className="grid gap-6 lg:grid-cols-[1.06fr_0.94fr]">
+          <section className="rounded-[30px] border border-stone-200 bg-white p-7 shadow-[0_18px_45px_rgba(11,22,48,0.08)] sm:p-9">
+            <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">What Happens Next</h2>
+            <div className="mt-7 space-y-4">
+              {config.processBullets.map((bullet, index) => (
+                <div key={bullet} className="flex items-start gap-4 rounded-[22px] border border-stone-200 bg-stone-50 p-5">
+                  <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-orange text-sm font-black text-white">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold uppercase tracking-[0.18em] text-orange">Step {index + 1}</p>
+                    <p className="mt-1 text-base font-semibold leading-relaxed text-navy-900">{bullet}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-[30px] border border-stone-200 bg-white p-7 shadow-[0_18px_45px_rgba(11,22,48,0.08)] sm:p-9">
+            <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">Why Trust Southern Cities</h2>
+            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-[22px] border border-stone-200 bg-stone-50 p-5">
+                <div className="flex items-start gap-3">
+                  <span className="text-orange">✓</span>
+                  <span className="text-sm font-semibold text-navy-900">Licensed NC General Contractor</span>
+                </div>
+              </div>
+              <div className="rounded-[22px] border border-stone-200 bg-stone-50 p-5">
+                <div className="flex items-start gap-3">
+                  <span className="text-orange">◉</span>
+                  <span className="text-sm font-semibold text-navy-900">Investor-focused</span>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 rounded-[24px] border border-stone-200 bg-[#f7f3ec] p-6">
+              <p className="text-[15px] leading-relaxed text-stone-700">“{config.trustQuote}”</p>
+              <p className="mt-3 text-sm font-semibold text-navy-900">{config.trustName}</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-4 sm:px-8 sm:py-6">
+        <div className="rounded-[30px] border border-navy-950 bg-[linear-gradient(145deg,#0c1731_0%,#10244a_100%)] p-8 text-white shadow-[0_22px_55px_rgba(11,22,48,0.28)] sm:p-10">
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Pricing</p>
+          <p className="mt-4 text-5xl font-black tracking-[-0.04em] sm:text-6xl">{config.price}</p>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/82">Direct decision product. Clear scope. Fast next step.</p>
+          <div className="mt-8 max-w-sm">
+            <PrimaryCta config={config} fullWidth />
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+        <div className="rounded-[30px] border border-stone-200 bg-white p-7 shadow-[0_18px_45px_rgba(11,22,48,0.08)] sm:p-9">
+          <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">FAQ</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {config.faqs.map((faq) => (
+              <div key={faq.q} className="rounded-[22px] border border-stone-200 bg-stone-50 p-5">
+                <p className="font-semibold text-navy-900">{faq.q}</p>
+                <p className="mt-2 text-sm leading-relaxed text-stone-700">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
-export function generateStaticParams() {
-  return LANDING_PAGES.map((page) => ({ slug: page.slug }));
-}
-
-export default function LandingPage({ params }: { params: Params }) {
-  const config = getConfig(params.slug);
-  if (!config) notFound();
-
+function DefaultLandingPage({ config }: { config: LandingPageConfig }) {
   return (
     <main className="min-h-screen bg-stone-50 text-navy-900">
       <section className="relative overflow-hidden bg-navy-900">
@@ -187,12 +306,8 @@ export default function LandingPage({ params }: { params: Params }) {
         <div className="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-6 sm:px-8 sm:pb-20 sm:pt-10">
           <div className="max-w-4xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Southern Cities Construction</p>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              {config.heroHeadline}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/86">
-              {config.heroSubheadline}
-            </p>
+            <h1 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">{config.heroHeadline}</h1>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/86">{config.heroSubheadline}</p>
             <div className="mt-8">
               <PrimaryCta config={config} />
             </div>
@@ -201,7 +316,17 @@ export default function LandingPage({ params }: { params: Params }) {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-10">
-        <BulletSection title={config.problemHeadline} bullets={config.problemBullets} />
+        <div className="rounded-[28px] border border-stone-200 bg-white p-7 shadow-elev-1 sm:p-8">
+          <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">{config.problemHeadline}</h2>
+          <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
+            {config.problemBullets.map((bullet) => (
+              <li key={bullet} className="flex items-start gap-3">
+                <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-2 sm:px-8 sm:py-3">
@@ -225,7 +350,17 @@ export default function LandingPage({ params }: { params: Params }) {
 
       <section className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-10">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <BulletSection title="What Happens Next" bullets={config.processBullets} />
+          <section className="rounded-[28px] border border-stone-200 bg-white p-7 shadow-elev-1 sm:p-8">
+            <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">What Happens Next</h2>
+            <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
+              {config.processBullets.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
           <section className="rounded-[28px] border border-stone-200 bg-white p-7 shadow-elev-1 sm:p-8">
             <h2 className="text-2xl font-extrabold tracking-tight text-navy-900">Trust</h2>
             <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-stone-700">
@@ -244,9 +379,7 @@ export default function LandingPage({ params }: { params: Params }) {
         <div className="rounded-[28px] border border-navy-900 bg-navy-900 p-7 text-white shadow-elev-2 sm:p-8">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Pricing</p>
           <p className="mt-4 text-4xl font-extrabold tracking-tight">{config.price}</p>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-white/82">
-            Direct decision product. Clear scope. Fast next step.
-          </p>
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-white/82">Direct decision product. Clear scope. Fast next step.</p>
           <div className="mt-7">
             <PrimaryCta config={config} />
           </div>
@@ -271,4 +404,19 @@ export default function LandingPage({ params }: { params: Params }) {
       </section>
     </main>
   );
+}
+
+export function generateStaticParams() {
+  return LANDING_PAGES.map((page) => ({ slug: page.slug }));
+}
+
+export default function LandingPage({ params }: { params: Params }) {
+  const config = getConfig(params.slug);
+  if (!config) notFound();
+
+  if (params.slug === 'budget-scope-review') {
+    return <BudgetScopePage config={config} />;
+  }
+
+  return <DefaultLandingPage config={config} />;
 }
