@@ -444,54 +444,55 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      <section id="pricing" className="bg-white py-12 sm:py-14">
+      <section id="pricing" className="bg-[#08111d] py-14 sm:py-16">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Investor Bundle Pricing</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Pricing bundles</p>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Investor Bundle Pricing</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-white/75 sm:text-lg">
               Choose the right support based on where you are in the project.
             </p>
           </div>
 
-          <div className="mt-8 overflow-hidden rounded-[24px] border border-stone-200 bg-white shadow-elev-1">
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200 bg-stone-50">
+          <div className="mt-10 overflow-hidden rounded-[24px] border border-white/15 bg-[linear-gradient(135deg,#071b3d_0%,#0b2146_50%,#081730_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.32)]">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.04]' : ''}`}>
-                  <p className="mx-auto inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">{bundle.label}</p>
-                  <h3 className="mt-2 text-lg font-extrabold tracking-tight text-navy">{bundle.title}</h3>
+                <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
+                  <p className="mx-auto inline-flex rounded-full border border-[#f58220]/30 bg-[#0b1f44] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#f58220]">{bundle.label}</p>
+                  <h3 className="mt-2 text-lg font-extrabold tracking-tight text-white">{bundle.title}</h3>
                 </div>
               ))}
             </div>
 
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200">
-              <div className="px-4 py-3 text-sm font-semibold text-stone-600 sm:px-5">Pricing</div>
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
+              <div className="px-4 py-3 text-sm font-semibold text-white/55 sm:px-5">Pricing</div>
               {supportBundles.map((bundle) => (
-                <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-orange sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}>
+                <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-[#f58220] sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
                   {bundle.price}
                 </div>
               ))}
             </div>
 
             {supportRows.map((row) => (
-              <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200 last:border-b-0">
-                <div className="px-4 py-2.5 text-sm font-semibold text-navy-900 sm:px-5">{row}</div>
+              <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
+                <div className="px-4 py-2.5 text-sm font-semibold text-white/90 sm:px-5">{row}</div>
                 {supportBundles.map((bundle) => {
                   const included = bundle.includes.includes(row);
                   return (
-                    <div key={`${bundle.title}-${row}`} className={`flex items-center justify-center px-4 py-2.5 sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}>
-                      <span className={`text-base font-bold ${included ? 'text-orange' : 'text-stone-300'}`}>{included ? '✔' : '—'}</span>
+                    <div key={`${bundle.title}-${row}`} className={`flex items-center justify-center px-4 py-2.5 sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
+                      <span className={`text-base font-bold ${included ? 'text-[#f58220]' : 'text-white/25'}`}>{included ? '✔' : '—'}</span>
                     </div>
                   );
                 })}
               </div>
             ))}
 
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] bg-stone-50">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr]">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}>
-                  <a href={bundle.href} className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold transition ${bundle.highlighted ? 'bg-orange text-white hover:bg-orange-500' : 'bg-navy text-white hover:bg-navy-900'}`}>
+                <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
+                  <a href={bundle.href} className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${bundle.highlighted ? 'bg-[#f58220] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)] hover:bg-[#ff9229]' : 'border border-white/25 text-white hover:bg-white/5'}`}>
                     View Pricing
                   </a>
                 </div>
