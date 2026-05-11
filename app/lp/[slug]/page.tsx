@@ -262,17 +262,17 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             </div>
           </div>
 
-          <div className="mt-8 max-w-[360px] rounded-[3px] bg-[rgba(4,10,18,0.58)] px-5 py-5 shadow-[0_22px_54px_rgba(0,0,0,0.24)] backdrop-blur-[2px] sm:mt-11 lg:mt-9 animate-[heroRise_900ms_ease-out]">
+          <div className="mt-8 max-w-[372px] rounded-[4px] border border-white/12 bg-[linear-gradient(180deg,rgba(7,16,30,0.78)_0%,rgba(5,12,22,0.72)_100%)] px-5 py-5 shadow-[0_24px_60px_rgba(0,0,0,0.28)] backdrop-blur-[3px] sm:mt-11 lg:mt-9 animate-[heroRise_900ms_ease-out]">
             <h1 className="text-[2.28rem] font-black leading-[0.94] tracking-[-0.058em] text-white sm:text-[2.92rem] lg:text-[3.42rem]">
               Don’t Underestimate Your Rehab <span className="text-[#f58220]">Budget</span>
             </h1>
-            <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white sm:text-[0.98rem]">
+            <p className="mt-4 max-w-[280px] text-[0.98rem] leading-[1.62] text-white/95 sm:text-[1rem]">
               Know your real costs before you commit more money to the project.
             </p>
-            <div className="mt-7 animate-[heroRise_1100ms_ease-out]">
+            <div className="mt-8 animate-[heroRise_1100ms_ease-out]">
               <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-3 inline-flex h-9 items-center gap-[10px] rounded-[8px] border border-white/15 bg-[#0d1323] px-3.5 text-[14px] font-medium leading-none text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] animate-[heroRise_1300ms_ease-out]">
+            <div className="mt-4 inline-flex h-9 items-center gap-[10px] rounded-[8px] border border-white/15 bg-[#0d1323] px-3.5 text-[14px] font-medium leading-none text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] animate-[heroRise_1300ms_ease-out]">
               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 flex-none text-[#f28c1b]">
                 <path d="M12 3 18 5.5V11c0 4.2-2.7 7.2-6 8.9C8.7 18.2 6 15.2 6 11V5.5L12 3Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="m9.8 11.8 1.5 1.5 3-3.3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
