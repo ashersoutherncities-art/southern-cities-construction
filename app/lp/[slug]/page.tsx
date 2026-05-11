@@ -256,11 +256,11 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             </div>
           </div>
 
-          <div className="mt-8 max-w-[338px] sm:mt-11 lg:mt-9">
+          <div className="mt-8 max-w-[338px] rounded-[2px] bg-[rgba(4,10,18,0.34)] px-4 py-4 sm:mt-11 lg:mt-9">
             <h1 className="text-[2.28rem] font-black leading-[0.94] tracking-[-0.058em] text-white sm:text-[2.92rem] lg:text-[3.42rem]">
               Don’t Underestimate Your Rehab <span className="text-[#f58220]">Budget</span>
             </h1>
-            <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white/92 sm:text-[0.98rem]">
+            <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white sm:text-[0.98rem]">
               Know your real costs before you commit more money to the project.
             </p>
             <div className="mt-5">
