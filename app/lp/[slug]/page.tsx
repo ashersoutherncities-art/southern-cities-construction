@@ -246,7 +246,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         <div className="absolute inset-0">
           <Image src="/lp-budget-hero-bg.jpg" alt="Construction plans and project budgeting" fill className="object-cover object-right" priority />
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,12,22,0.90)_0%,rgba(6,15,27,0.82)_34%,rgba(7,15,27,0.48)_62%,rgba(7,15,27,0.18)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,10,18,0.97)_0%,rgba(5,12,22,0.95)_30%,rgba(6,15,27,0.72)_58%,rgba(7,15,27,0.28)_100%)]" />
         <div className="relative z-10 mx-auto max-w-[1080px] px-6 pb-7 pt-4 sm:px-8 sm:pb-9 lg:px-8">
           <div className="flex items-start justify-between">
             <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={122} height={30} className="h-7 w-auto" priority />
@@ -260,13 +260,13 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             <h1 className="text-[2.28rem] font-black leading-[0.94] tracking-[-0.058em] text-white sm:text-[2.92rem] lg:text-[3.42rem]">
               Don’t Underestimate Your Rehab <span className="text-[#f58220]">Budget</span>
             </h1>
-            <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white/84 sm:text-[0.98rem]">
+            <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white/92 sm:text-[0.98rem]">
               Know your real costs before you commit more money to the project.
             </p>
             <div className="mt-5">
               <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-4 flex items-center gap-2 text-[10px] font-medium text-white/76">
+            <div className="mt-4 flex items-center gap-2 text-[10px] font-medium text-white/88">
               <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/35 text-[8px]">✓</span>
               Trusted by investors across North Carolina
             </div>
