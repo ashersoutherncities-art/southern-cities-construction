@@ -5,6 +5,7 @@ import { CART_PRODUCTS } from '@/lib/cart';
 import { sendOrderToGhl } from '@/lib/ghl';
 import {
   findOrderByStripeSession,
+  hasProcessedStripeEvent,
   recordOrderEvent,
   updateOrder,
 } from '@/lib/orders';
@@ -42,6 +43,13 @@ export async function POST(req: NextRequest) {
   }
 
   const supabase = tryGetServiceClient();
+
+  // Idempotency: Stripe retries webhooks on slow/failed responses. If we've
+  // already recorded this event_id in order_events, return 200 immediately
+  // so we don't re-fire customer emails/SMS or duplicate fulfillment tasks.
+  if (supabase && (await hasProcessedStripeEvent(event.id, supabase))) {
+    return NextResponse.json({ received: true, deduped: true });
+  }
 
   try {
     switch (event.type) {
@@ -92,7 +100,10 @@ export async function POST(req: NextRequest) {
 
           const orderRes = await fetch(`${baseUrl}/api/permit-oversight-orders`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'x-internal-secret': process.env.INTERNAL_API_SECRET || '',
+            },
             body: JSON.stringify({
               buyer_name: fullSession.metadata?.buyer_name || fullSession.customer_details?.name || '',
               buyer_email: fullSession.metadata?.buyer_email || fullSession.customer_details?.email || '',
