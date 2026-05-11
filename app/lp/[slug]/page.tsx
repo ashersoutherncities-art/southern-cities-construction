@@ -130,7 +130,7 @@ function getConfig(slug: string) {
 }
 
 function PrimaryCta({ config, className = '' }: { config: LandingPageConfig; className?: string }) {
-  const classes = `inline-flex min-h-[50px] items-center justify-center rounded-[4px] bg-[#f58220] px-6 py-3 text-[13px] font-extrabold uppercase tracking-[0.04em] text-white shadow-[0_10px_24px_rgba(245,130,32,0.24)] transition hover:bg-[#ff932f] ${className}`;
+  const classes = `inline-flex min-h-[48px] items-center justify-center rounded-[2px] bg-[#f58220] px-6 py-3 text-[12px] font-black uppercase tracking-[0.05em] text-white shadow-[0_10px_20px_rgba(245,130,32,0.28)] transition hover:bg-[#ff9229] ${className}`;
 
   if (config.productKey) {
     return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={classes} />;
@@ -144,62 +144,77 @@ function PrimaryCta({ config, className = '' }: { config: LandingPageConfig; cla
 }
 
 function BudgetScopePage({ config }: { config: LandingPageConfig }) {
+  const problemCards = [
+    { icon: '△', title: 'Budgets miss major scope items', body: 'Important work gets overlooked and costs more later.' },
+    { icon: '⌗', title: 'Contractor estimates don’t match reality', body: 'Numbers look good until the work actually starts.' },
+    { icon: '⌁', title: 'Costs grow halfway through the project', body: 'Unidentified issues turn into expensive surprises.' },
+    { icon: '$', title: 'Profit disappears', body: 'The deal on paper does not work in reality.' },
+  ];
+
+  const solutionCards = [
+    { icon: '◎', title: 'Real Budget Alignment', body: 'Your budget actually matches the scope.' },
+    { icon: '◫', title: 'Missing Costs Identified', body: 'No more surprise expenses mid-project.' },
+    { icon: '◯', title: 'High-Risk Areas Flagged', body: 'Know what can blow up your numbers.' },
+    { icon: '↗', title: 'Clear Next Steps', body: 'You know exactly what to fix or change.' },
+  ];
+
+  const steps = [
+    { num: '1', title: 'Submit Your Project', body: 'Send us your scope, budget, and any relevant details.' },
+    { num: '2', title: 'We Review Everything', body: 'We analyze your scope, budget, and potential risk.' },
+    { num: '3', title: 'You Get Clear Direction', body: 'Receive a written review with insights and recommended next steps.' },
+  ];
+
   return (
-    <main className="min-h-screen bg-white text-[#091528]">
+    <main className="min-h-screen bg-white text-[#0c1627]">
       <section className="relative overflow-hidden bg-[#08111d]">
         <div className="absolute inset-0">
-          <Image src="/lp-budget-hero-bg.jpg" alt="Construction plans and project budgeting" fill className="object-cover object-center" priority />
+          <Image src="/lp-budget-hero-bg.jpg" alt="Construction plans and project budgeting" fill className="object-cover object-right" priority />
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,15,27,0.92)_0%,rgba(9,22,41,0.88)_36%,rgba(8,17,29,0.44)_70%,rgba(8,17,29,0.34)_100%)]" />
-        <div className="relative z-10 mx-auto max-w-[1180px] px-6 pb-14 pt-5 sm:px-8 sm:pb-16 lg:px-10">
-          <div className="flex items-center justify-between">
-            <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={128} height={32} className="h-8 w-auto" priority />
-            <div className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white/88 sm:flex">
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/35 text-[9px]">✓</span>
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,12,22,0.90)_0%,rgba(6,15,27,0.82)_34%,rgba(7,15,27,0.48)_62%,rgba(7,15,27,0.18)_100%)]" />
+        <div className="relative z-10 mx-auto max-w-[1080px] px-6 pb-8 pt-4 sm:px-8 sm:pb-10 lg:px-8">
+          <div className="flex items-start justify-between">
+            <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={122} height={30} className="h-7 w-auto" priority />
+            <div className="hidden items-center gap-2 pt-1 text-[9px] font-extrabold uppercase tracking-[0.14em] text-white/86 sm:flex">
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/35 text-[8px]">✓</span>
               Licensed NC General Contractor
             </div>
           </div>
 
-          <div className="mt-10 max-w-[430px] sm:mt-14 lg:mt-12">
-            <h1 className="text-[2.65rem] font-black leading-[0.98] tracking-[-0.04em] text-white sm:text-[3.25rem] lg:text-[3.9rem]">
+          <div className="mt-9 max-w-[350px] sm:mt-12 lg:mt-10">
+            <h1 className="text-[2.35rem] font-black leading-[0.95] tracking-[-0.055em] text-white sm:text-[3.02rem] lg:text-[3.6rem]">
               Don’t Underestimate Your Rehab <span className="text-[#f58220]">Budget</span>
             </h1>
-            <p className="mt-5 max-w-[360px] text-[1.08rem] leading-[1.6] text-white/86">
+            <p className="mt-4 max-w-[280px] text-[0.98rem] leading-[1.62] text-white/84 sm:text-[1.02rem]">
               Know your real costs before you commit more money to the project.
             </p>
-            <div className="mt-7">
-              <PrimaryCta config={config} className="min-w-[215px]" />
+            <div className="mt-5">
+              <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-4 flex items-center gap-2 text-[11px] font-medium text-white/76">
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/35 text-[9px]">✓</span>
+            <div className="mt-4 flex items-center gap-2 text-[10px] font-medium text-white/76">
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/35 text-[8px]">✓</span>
               Trusted by investors across North Carolina
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-[#efe7da] bg-white px-6 py-10 sm:px-8 lg:px-10 lg:py-12">
+      <section className="bg-white px-6 py-9 sm:px-8 lg:px-8 lg:py-11">
         <div className="mx-auto max-w-[1080px]">
-          <p className="text-center text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#f58220]">The Problem</p>
+          <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Problem</p>
           <h2 className="mt-2 text-center text-[2rem] font-black tracking-[-0.03em] text-[#111827]">Most Investors Get This Wrong</h2>
 
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: '△', title: 'Budgets miss major scope items', body: 'Important work gets overlooked and costs more later.' },
-              { icon: '⌗', title: 'Contractor estimates don’t match reality', body: 'Numbers look good until the work actually starts.' },
-              { icon: '⌁', title: 'Costs grow halfway through the project', body: 'Unidentified issues turn into expensive surprises.' },
-              { icon: '$', title: 'Profit disappears', body: 'The deal on paper does not work in reality.' },
-            ].map((item) => (
+          <div className="mt-8 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
+            {problemCards.map((item) => (
               <div key={item.title} className="text-center">
-                <div className="mx-auto flex h-11 w-11 items-center justify-center text-[1.55rem] font-light text-[#d9a56c]">{item.icon}</div>
-                <h3 className="mt-3 text-[1.1rem] font-extrabold leading-[1.28] text-[#111827]">{item.title}</h3>
-                <p className="mx-auto mt-3 max-w-[220px] text-[13px] leading-[1.7] text-[#4b5563]">{item.body}</p>
+                <div className="mx-auto flex h-9 w-9 items-center justify-center text-[1.45rem] font-light text-[#d5aa74]">{item.icon}</div>
+                <h3 className="mx-auto mt-2 max-w-[178px] text-[1rem] font-extrabold leading-[1.26] text-[#111827]">{item.title}</h3>
+                <p className="mx-auto mt-2 max-w-[180px] text-[12px] leading-[1.6] text-[#525b69]">{item.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
-            <div className="inline-flex items-center gap-3 rounded-[3px] bg-[#f6e6d7] px-6 py-3 text-[13px] font-semibold text-[#6b4b2b]">
+          <div className="mt-7 flex justify-center">
+            <div className="inline-flex min-w-[210px] items-center justify-center gap-2 rounded-[2px] bg-[#f6e7d7] px-6 py-[11px] text-[12px] font-semibold text-[#77552f]">
               <span className="text-[#f58220]">✦</span>
               That’s how deals go bad.
             </div>
@@ -207,92 +222,83 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#081a2f] px-6 py-12 sm:px-8 lg:px-10 lg:py-14">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_56%)]" />
-        <div className="mx-auto max-w-[1080px]">
-          <p className="text-center text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#f58220]">The Solution</p>
+      <section className="relative overflow-hidden bg-[#09192d] px-6 py-11 sm:px-8 lg:px-8 lg:py-13">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_60%)]" />
+        <div className="relative mx-auto max-w-[1080px]">
+          <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Solution</p>
           <h2 className="mt-2 text-center text-[2rem] font-black tracking-[-0.03em] text-white">What You Get</h2>
 
-          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: '◎', title: 'Real Budget Alignment', body: 'Your budget actually matches the scope.' },
-              { icon: '◫', title: 'Missing Costs Identified', body: 'No more surprise expenses mid-project.' },
-              { icon: '◯', title: 'High-Risk Areas Flagged', body: 'Know what can blow up your numbers.' },
-              { icon: '↗', title: 'Clear Next Steps', body: 'You know exactly what to fix or change.' },
-            ].map((item) => (
-              <div key={item.title} className="rounded-[3px] border border-white/14 bg-[rgba(8,17,29,0.22)] px-5 py-6 text-center text-white/94">
-                <div className="mx-auto flex h-11 w-11 items-center justify-center text-[1.5rem] text-[#f58220]">{item.icon}</div>
-                <h3 className="mt-4 text-[1.1rem] font-extrabold leading-[1.26]">{item.title}</h3>
-                <p className="mt-3 text-[13px] leading-[1.7] text-white/72">{item.body}</p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {solutionCards.map((item) => (
+              <div key={item.title} className="min-h-[178px] rounded-[2px] border border-white/14 bg-[rgba(7,15,27,0.18)] px-5 py-5 text-center text-white">
+                <div className="mx-auto flex h-9 w-9 items-center justify-center text-[1.35rem] text-[#f58220]">{item.icon}</div>
+                <h3 className="mx-auto mt-3 max-w-[150px] text-[1rem] font-extrabold leading-[1.24]">{item.title}</h3>
+                <p className="mx-auto mt-2 max-w-[160px] text-[12px] leading-[1.6] text-white/72">{item.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
-            <PrimaryCta config={config} className="min-w-[215px]" />
+          <div className="mt-7 flex justify-center">
+            <PrimaryCta config={config} className="min-w-[178px]" />
           </div>
         </div>
       </section>
 
-      <section className="bg-white px-6 py-12 sm:px-8 lg:px-10 lg:py-14">
+      <section className="bg-white px-6 py-11 sm:px-8 lg:px-8 lg:py-13">
         <div className="mx-auto max-w-[1080px]">
-          <p className="text-center text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#f58220]">The Process</p>
+          <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Process</p>
           <h2 className="mt-2 text-center text-[2rem] font-black tracking-[-0.03em] text-[#111827]">How It Works</h2>
 
-          <div className="mt-10 grid gap-8 lg:grid-cols-3 lg:items-start">
-            {[
-              { num: '1', title: 'Submit Your Project', body: 'Send us your scope, budget, and any relevant details.' },
-              { num: '2', title: 'We Review Everything', body: 'We analyze your scope, budget, and potential risk.' },
-              { num: '3', title: 'You Get Clear Direction', body: 'Receive a written review with insights and recommended next steps.' },
-            ].map((step, index) => (
+          <div className="mt-9 grid gap-7 lg:grid-cols-3 lg:items-start">
+            {steps.map((step, index) => (
               <div key={step.num} className="relative text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#0c1530] text-base font-black text-white">{step.num}</div>
-                {index < 2 ? <div className="absolute left-[64%] top-6 hidden h-px w-[72%] bg-[#e5ddd0] lg:block" /> : null}
-                <h3 className="mt-5 text-[1.08rem] font-extrabold text-[#111827]">{step.title}</h3>
-                <p className="mx-auto mt-3 max-w-[250px] text-[13px] leading-[1.7] text-[#4b5563]">{step.body}</p>
+                <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#0b1430] text-[13px] font-black text-white">{step.num}</div>
+                {index < 2 ? <div className="absolute left-[67%] top-[20px] hidden h-px w-[66%] bg-[#e9e1d5] lg:block" /> : null}
+                <h3 className="mt-4 text-[0.98rem] font-extrabold text-[#111827]">{step.title}</h3>
+                <p className="mx-auto mt-2 max-w-[210px] text-[12px] leading-[1.62] text-[#59616d]">{step.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
-            <div className="rounded-[3px] border border-[#1c304d] bg-[#091729] p-6 text-white shadow-[0_16px_38px_rgba(6,18,35,0.18)]">
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#f58220]">Why Trust Southern Cities</p>
-              <ul className="mt-5 space-y-3 text-[14px] leading-[1.65] text-white/88">
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-[2px] border border-[#22344b] bg-[#091729] p-5 text-white shadow-[0_14px_34px_rgba(7,15,27,0.14)] min-h-[260px]">
+              <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">Why Trust Southern Cities</p>
+              <ul className="mt-5 space-y-3 text-[13px] leading-[1.65] text-white/88">
                 <li className="flex items-start gap-3"><span className="text-[#f58220]">◉</span><span>Licensed NC General Contractor</span></li>
                 <li className="flex items-start gap-3"><span className="text-[#f58220]">◉</span><span>Investor-focused construction support</span></li>
                 <li className="flex items-start gap-3"><span className="text-[#f58220]">◉</span><span>Projects reviewed across North Carolina</span></li>
               </ul>
-              <div className="mt-6 rounded-[3px] border border-white/12 bg-[rgba(255,255,255,0.04)] p-4">
-                <p className="text-[13px] leading-[1.65] text-white/82">“They caught things we completely missed before we moved forward.”</p>
+              <div className="mt-6 rounded-[2px] border border-white/14 bg-[rgba(255,255,255,0.03)] p-4">
+                <p className="text-[12.5px] leading-[1.65] text-white/82">“They caught things we completely missed before we moved forward.”</p>
                 <p className="mt-3 text-[12px] font-semibold text-white">- Investor, NC</p>
               </div>
             </div>
 
-            <div className="rounded-[3px] border border-[#ece7dd] bg-[#fbfaf7] p-6 shadow-[0_10px_28px_rgba(17,24,39,0.05)]">
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#f58220]">What This Is Not</p>
-              <ul className="mt-5 space-y-3 text-[14px] leading-[1.65] text-[#374151]">
+            <div className="rounded-[2px] border border-[#ece6dc] bg-[#fcfaf7] p-5 shadow-[0_10px_24px_rgba(17,24,39,0.04)] min-h-[260px]">
+              <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">What This Is Not</p>
+              <ul className="mt-5 space-y-3 text-[13px] leading-[1.65] text-[#3e4856]">
                 <li className="flex items-start gap-3"><span>⊗</span><span>Not a contractor bid</span></li>
                 <li className="flex items-start gap-3"><span>⊗</span><span>Not full estimating</span></li>
                 <li className="flex items-start gap-3"><span>⊗</span><span>Not project management</span></li>
                 <li className="flex items-start gap-3"><span>⊗</span><span>Not permit pulling</span></li>
               </ul>
-              <p className="mt-7 text-[13px] leading-[1.7] text-[#4b5563]">This is a decision tool, not a full service.</p>
+              <p className="mt-7 text-[12.5px] leading-[1.68] text-[#5d6672]">This is a decision tool, not a full service.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[linear-gradient(180deg,#fbfaf7_0%,#f6f0e7_100%)] px-6 py-8 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-[1080px] rounded-[3px] bg-transparent">
-          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+      <section className="bg-[linear-gradient(180deg,#faf7f1_0%,#f4ece2_100%)] px-6 py-6 sm:px-8 lg:px-8">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#f58220]">Budget & Scope Review</p>
-              <p className="mt-2 text-[3.4rem] font-black leading-none tracking-[-0.05em] text-[#111827]">$599</p>
-              <p className="mt-2 text-[13px] text-[#4b5563]">One flat fee. Clear answers.</p>
+              <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">Budget & Scope Review</p>
+              <p className="mt-2 text-[3rem] font-black leading-none tracking-[-0.05em] text-[#111827]">$599</p>
+              <p className="mt-2 text-[12.5px] text-[#59616d]">One flat fee. Clear answers.</p>
             </div>
             <div className="flex flex-col items-start lg:items-center lg:justify-center">
-              <PrimaryCta config={config} className="min-w-[250px]" />
-              <div className="mt-4 flex items-center gap-2 text-[11px] text-[#8b6c49]">
+              <PrimaryCta config={config} className="min-w-[235px]" />
+              <div className="mt-4 flex items-center gap-2 text-[10px] text-[#8a6a46]">
                 <span className="text-[#f58220]">✓</span>
                 Secure. Confidential. No obligation.
               </div>
@@ -301,16 +307,14 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         </div>
       </section>
 
-      <section className="bg-white px-6 pb-10 pt-8 sm:px-8 lg:px-10 lg:pb-14">
+      <section className="bg-white px-6 pb-10 pt-7 sm:px-8 lg:px-8 lg:pb-12">
         <div className="mx-auto max-w-[1080px]">
-          <p className="text-center text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#f58220]">FAQ</p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">FAQ</p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {config.faqs.map((faq) => (
-              <div key={faq.q} className="flex items-center justify-between rounded-[3px] border border-[#ece7dd] bg-white px-4 py-3 shadow-[0_8px_20px_rgba(17,24,39,0.03)]">
-                <div>
-                  <p className="text-[13px] font-semibold text-[#111827]">{faq.q}</p>
-                </div>
-                <span className="text-[18px] leading-none text-[#9ca3af]">+</span>
+              <div key={faq.q} className="flex min-h-[46px] items-center justify-between rounded-[2px] border border-[#ece6dc] bg-white px-4 py-3 shadow-[0_6px_16px_rgba(17,24,39,0.03)]">
+                <p className="text-[12.5px] font-semibold text-[#111827]">{faq.q}</p>
+                <span className="text-[17px] leading-none text-[#a0a7b1]">+</span>
               </div>
             ))}
           </div>
