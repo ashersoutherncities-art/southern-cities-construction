@@ -244,9 +244,12 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
   return (
     <main className="min-h-screen bg-white text-[#0c1627]">
       <section className="relative overflow-hidden bg-[#08111d]">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 scale-[1.04] animate-[heroFloat_18s_ease-in-out_infinite]">
           <Image src="/lp-budget-hero-bg.jpg" alt="Construction plans and project budgeting" fill className="object-cover object-right" priority />
         </div>
+        <div className="absolute inset-y-0 right-0 w-[58%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.18),transparent_52%)] opacity-90" />
+        <div className="absolute left-[-8%] top-[20%] h-40 w-40 rounded-full bg-[rgba(245,130,32,0.12)] blur-3xl animate-[pulse_10s_ease-in-out_infinite]" />
+        <div className="absolute bottom-[-4rem] right-[10%] h-52 w-52 rounded-full bg-[rgba(255,255,255,0.08)] blur-3xl animate-[pulse_14s_ease-in-out_infinite]" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,10,18,0.98)_0%,rgba(5,12,22,0.96)_28%,rgba(6,15,27,0.82)_56%,rgba(7,15,27,0.56)_78%,rgba(7,15,27,0.42)_100%)]" />
         <div className="relative z-10 mx-auto max-w-[1080px] px-6 pb-7 pt-4 sm:px-8 sm:pb-9 lg:px-8">
           <div className="flex items-start justify-between">
@@ -257,17 +260,17 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             </div>
           </div>
 
-          <div className="mt-8 max-w-[360px] rounded-[3px] bg-[rgba(4,10,18,0.58)] px-5 py-5 shadow-[0_22px_54px_rgba(0,0,0,0.24)] sm:mt-11 lg:mt-9">
+          <div className="mt-8 max-w-[360px] rounded-[3px] bg-[rgba(4,10,18,0.58)] px-5 py-5 shadow-[0_22px_54px_rgba(0,0,0,0.24)] backdrop-blur-[2px] sm:mt-11 lg:mt-9 animate-[heroRise_900ms_ease-out]">
             <h1 className="text-[2.28rem] font-black leading-[0.94] tracking-[-0.058em] text-white sm:text-[2.92rem] lg:text-[3.42rem]">
               Don’t Underestimate Your Rehab <span className="text-[#f58220]">Budget</span>
             </h1>
             <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white sm:text-[0.98rem]">
               Know your real costs before you commit more money to the project.
             </p>
-            <div className="mt-7">
+            <div className="mt-7 animate-[heroRise_1100ms_ease-out]">
               <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-3 inline-flex h-9 items-center gap-[10px] rounded-[8px] border border-white/15 bg-[#0d1323] px-3.5 text-[14px] font-medium leading-none text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+            <div className="mt-3 inline-flex h-9 items-center gap-[10px] rounded-[8px] border border-white/15 bg-[#0d1323] px-3.5 text-[14px] font-medium leading-none text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] animate-[heroRise_1300ms_ease-out]">
               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 flex-none text-[#f28c1b]">
                 <path d="M12 3 18 5.5V11c0 4.2-2.7 7.2-6 8.9C8.7 18.2 6 15.2 6 11V5.5L12 3Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="m9.8 11.8 1.5 1.5 3-3.3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -525,8 +528,24 @@ export default function LandingPage({ params }: { params: Params }) {
   if (!config) notFound();
 
   if (params.slug === 'budget-scope-review') {
-    return <BudgetScopePage config={config} />;
+    return <>
+    <style>{__heroMotionStyles}</style>
+    <BudgetScopePage config={config} />
+  </>;
   }
 
   return <DefaultLandingPage config={config} />;
 }
+
+
+const __heroMotionStyles = `
+@keyframes heroFloat {
+  0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); }
+  50% { transform: scale(1.08) translate3d(-10px, -6px, 0); }
+}
+
+@keyframes heroRise {
+  0% { opacity: 0; transform: translate3d(0, 18px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+`;
