@@ -2,14 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
+import FaqItem from '@/components/landing/FaqItem';
 
 type Params = { slug: string };
 
-type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-};
+type Testimonial = { quote: string; name: string; role: string };
+
+type DeliverableSection = { heading: string; items: string[] };
 
 type LandingPageConfig = {
   slug: string;
@@ -17,145 +16,146 @@ type LandingPageConfig = {
   fallbackHref?: string;
   ctaLabel: string;
   price: string;
+  priceAnchor: string;
+  priceLabel: string;
   turnaround: string;
   audience: string;
+
   heroEyebrow: string;
-  heroHeadline: string;
-  heroHighlight: string;
+  heroHeadlinePre: string;
+  heroHeadlineHighlight: string;
+  heroHeadlinePost: string;
   heroSubheadline: string;
-  heroBullets: string[];
+
   problemHeadline: string;
   problemIntro: string;
-  problemBullets: string[];
+  problemCards: { title: string; body: string; tone: 'red' | 'amber' | 'rose' | 'orange' }[];
+
   getHeadline: string;
   getBullets: { title: string; detail: string }[];
+
+  deliverableTitle: string;
+  deliverableSubtitle: string;
+  deliverable: DeliverableSection[];
+
   processSteps: { title: string; detail: string }[];
-  notIncluded: string[];
+
   testimonials: Testimonial[];
+
+  notIncluded: string[];
+
+  valueStack: string[];
+
   finalHeadline: string;
   finalSubhead: string;
+
   faqs: { q: string; a: string }[];
 };
+
+const SHARED_TRUST_STATS = [
+  { value: '120+', label: 'Investors served' },
+  { value: '4.9★', label: 'Avg client rating' },
+  { value: '2-day', label: 'Avg turnaround' },
+  { value: 'NC GC', label: 'Licensed in NC' },
+];
+
+const COMPARISON_ROWS = [
+  {
+    label: 'DIY estimate',
+    cost: 'Free',
+    time: 'Hours',
+    bias: 'High (your assumptions)',
+    licensed: false,
+    highlight: false,
+  },
+  {
+    label: 'Free contractor consult',
+    cost: 'Free',
+    time: 'Days',
+    bias: 'High (they want the job)',
+    licensed: 'Sometimes',
+    highlight: false,
+  },
+  {
+    label: 'Architect review',
+    cost: '$3,000–5,000+',
+    time: '2–4 weeks',
+    bias: 'Low',
+    licensed: true,
+    highlight: false,
+  },
+  {
+    label: 'Southern Cities Review',
+    cost: '$349–599',
+    time: '2 business days',
+    bias: 'None — flat fee',
+    licensed: true,
+    highlight: true,
+  },
+];
 
 const LANDING_PAGES: LandingPageConfig[] = [
   {
     slug: 'investor-deal-review',
     productKey: 'investor-review',
-    ctaLabel: 'Buy Review — $499',
+    ctaLabel: 'Start Deal Review',
     price: '$499',
+    priceAnchor: 'A missed scope item can cost $30K+',
+    priceLabel: 'Investor Deal Review',
     turnaround: '2 business days',
     audience: 'For residential investors',
     heroEyebrow: 'Investor Deal Review',
-    heroHeadline: "Don't put more money in a deal",
-    heroHighlight: "until someone has actually looked at it.",
+    heroHeadlinePre: "Don't put more money in a",
+    heroHeadlineHighlight: 'deal',
+    heroHeadlinePost: ' nobody has actually read.',
     heroSubheadline:
-      "A licensed-GC review of the scope, budget, and project risks — before the deal moves another inch. Straight read, written guidance, $499.",
-    heroBullets: [
-      '2-business-day turnaround',
-      'Licensed NC General Contractor',
-      'Written next-step guidance',
-    ],
-    problemHeadline: 'What goes wrong when you skip it',
+      'A licensed-GC review of the scope, budget, and project risks — written, in your inbox, in 2 business days. $499 flat.',
+    problemHeadline: 'How good-looking deals go bad',
     problemIntro: 'Most blown deals look fine on paper. The damage is in what nobody checked.',
-    problemBullets: [
-      'Rehab gets underestimated by tens of thousands',
-      'Critical scope items get missed until demo',
-      'Hidden permit or structural risk shows up late',
-      'You commit before you have a clear next move',
+    problemCards: [
+      { title: 'Rehab gets underestimated', body: 'Tens of thousands missed before demo even starts.', tone: 'red' },
+      { title: 'Critical scope gets missed', body: 'Discovered halfway through, when fixes are expensive.', tone: 'amber' },
+      { title: 'Hidden risk surfaces late', body: 'Structural and permit issues land mid-project.', tone: 'rose' },
+      { title: 'You commit without a plan', body: 'And the wrong next step costs more than the deal.', tone: 'orange' },
     ],
     getHeadline: 'What you actually get',
     getBullets: [
-      { title: 'Full deal review', detail: 'Address, photos, and scope read by a licensed GC.' },
-      { title: 'Risk callouts', detail: 'The structural, permit, and scope risks that move the number.' },
-      { title: 'Budget + scope validation', detail: 'Whether the numbers you have hold up to the work involved.' },
-      { title: 'Written next steps', detail: 'A clear recommendation on what to do — proceed, renegotiate, or walk.' },
+      { title: 'Full deal review', detail: 'Licensed GC reads the address, photos, and scope.' },
+      { title: 'Risk callouts', detail: 'Structural, permit, and scope risks flagged in writing.' },
+      { title: 'Budget + scope validation', detail: 'Whether the numbers hold up against the work.' },
+      { title: 'Clear next steps', detail: 'Proceed, renegotiate, or walk — we tell you which.' },
+    ],
+    deliverableTitle: 'Investor Deal Review',
+    deliverableSubtitle: '123 Main St · Charlotte, NC',
+    deliverable: [
+      {
+        heading: 'Risk callouts',
+        items: ['Foundation cracking — east wall', 'Permit gap: ADU not zoned', 'Roof: ~3 years left, $14K replacement'],
+      },
+      {
+        heading: 'Scope validation',
+        items: ['HVAC line missing from budget', 'Tile allowance light by $4–6K'],
+      },
+      {
+        heading: 'Recommendation',
+        items: ['Renegotiate by $22K or walk'],
+      },
     ],
     processSteps: [
-      { title: 'Submit the deal', detail: 'Address, photos, and any scope or rehab notes you already have.' },
+      { title: 'Submit the deal', detail: 'Address, photos, and any scope or rehab notes you have.' },
       { title: 'We review', detail: 'Licensed GC reads it, runs the numbers, flags the risks.' },
-      { title: 'You get clarity', detail: 'Written review in 2 business days with a clear recommendation.' },
-    ],
-    notIncluded: [
-      'A full appraisal or BPO',
-      'A contractor bid or guaranteed price',
-      'Permit filing or pulling',
-      'A guarantee or insurance product',
+      { title: 'You get clarity', detail: 'Written review in your inbox in 2 business days.' },
     ],
     testimonials: [
       {
-        quote:
-          'We were about to sink more money in before they walked us through what was actually wrong. Saved us from a bad call.',
+        quote: 'We were about to sink more money in before they walked us through what was actually wrong. Saved us from a bad call.',
         name: 'Madison M.',
         role: 'Broker / Investor',
       },
       {
-        quote:
-          'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.',
+        quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.',
         name: 'Jethro A.',
         role: 'Wholesaler',
-      },
-    ],
-    finalHeadline: "Get the read before you commit.",
-    finalSubhead:
-      'One licensed-GC review, 2 business days, $499. Straight answers — even when the answer is don’t do this deal.',
-    faqs: [
-      { q: 'What do you need from me?', a: 'Property address, photos, and any scope or rehab notes you already have.' },
-      { q: 'How long does it take?', a: 'Typical turnaround is 2 business days from submission.' },
-      { q: 'What do I get back?', a: 'A written review with risk callouts and a clear next-step recommendation.' },
-      { q: 'Is this for my project type?', a: 'Yes if it’s a residential investor deal in NC. Most fix-and-flip, rental, and BRRRR projects qualify.' },
-      { q: 'Will you tell me not to do the deal?', a: 'Yes when the numbers say so. That’s the whole point of the product.' },
-      { q: 'Can I add more reviews later?', a: 'Yes. Most clients add Budget, Permit, or Contractor Fit reviews once the deal is in motion.' },
-    ],
-  },
-  {
-    slug: 'budget-scope-review',
-    productKey: 'budget-review',
-    ctaLabel: 'Buy Review — $599',
-    price: '$599',
-    turnaround: '2 business days',
-    audience: 'For residential investors',
-    heroEyebrow: 'Budget & Scope Review',
-    heroHeadline: 'Know what the rehab actually costs',
-    heroHighlight: 'before you start cutting checks.',
-    heroSubheadline:
-      'A licensed-GC review of your budget against the real scope — before startup, lender conversations, or contractor decisions go further. $599, 2 business days.',
-    heroBullets: [
-      '2-business-day turnaround',
-      'Licensed NC General Contractor',
-      'Written budget + scope read',
-    ],
-    problemHeadline: 'What goes wrong when you skip it',
-    problemIntro: 'A budget that looks tight on paper falls apart when the scope catches up to it.',
-    problemBullets: [
-      'Critical line items get underbudgeted',
-      'Expensive scope gets missed until mid-project',
-      'You approve weak contractor numbers without seeing the gaps',
-      'You start with assumptions that won’t hold up',
-    ],
-    getHeadline: 'What you actually get',
-    getBullets: [
-      { title: 'Line-by-line budget review', detail: 'A licensed GC reads the numbers against the real scope.' },
-      { title: 'Scope gap identification', detail: 'The items missing from the budget that will hit you later.' },
-      { title: 'Cost pressure callouts', detail: 'Where the budget is most likely to break and why.' },
-      { title: 'Written direction', detail: 'A clear path to fix the budget before construction starts.' },
-    ],
-    processSteps: [
-      { title: 'Submit your project', detail: 'Address, photos, scope notes, and the budget or contractor numbers you want reviewed.' },
-      { title: 'We review', detail: 'Licensed GC reads the budget against the actual scope and flags the gaps.' },
-      { title: 'You get the read', detail: 'Written review in 2 business days with a fix path.' },
-    ],
-    notIncluded: [
-      'A contractor bid from us',
-      'A guaranteed price for the work',
-      'Permit submission or filing',
-      'Project management or oversight',
-    ],
-    testimonials: [
-      {
-        quote:
-          'Scope and budget were all over the place when we called. After they walked through it, the project actually felt doable again.',
-        name: 'Justin R.',
-        role: 'Developer',
       },
       {
         quote: 'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.',
@@ -163,9 +163,117 @@ const LANDING_PAGES: LandingPageConfig[] = [
         role: 'Investor',
       },
     ],
-    finalHeadline: 'Get the budget right before you spend.',
-    finalSubhead:
-      'One licensed-GC budget read, 2 business days, $599. Catch the gap before the project does.',
+    notIncluded: [
+      'Not an appraisal or BPO',
+      'Not a contractor bid',
+      'Not permit filing',
+      'Not a guarantee or insurance',
+    ],
+    valueStack: [
+      'Licensed NC GC reads the deal personally',
+      'Written review delivered in 2 business days',
+      'Risk callouts: structural, permit, scope',
+      'Budget + scope validation',
+      'Clear recommendation: proceed / renegotiate / walk',
+      'Email follow-up if anything is unclear',
+      'Money-back if we cannot give you a clear answer',
+    ],
+    finalHeadline: "Don't move forward blind.",
+    finalSubhead: 'One licensed-GC review, 2 business days, $499. Straight answers — even when the answer is don’t do this deal.',
+    faqs: [
+      { q: 'What do you need from me?', a: 'Property address, photos, and any scope or rehab notes you already have.' },
+      { q: 'How long does it take?', a: 'Typical turnaround is 2 business days from submission.' },
+      { q: 'What do I get back?', a: 'A written review with risk callouts and a clear next-step recommendation.' },
+      { q: 'Will you tell me not to do the deal?', a: 'Yes when the numbers say so. That is the whole point of the product.' },
+      { q: 'Is this for my project type?', a: 'Yes if it is a residential investor deal in NC. Most fix-and-flip, rental, and BRRRR projects qualify.' },
+      { q: 'What if I have more questions after?', a: 'Email follow-up is included. Most clients add Budget or Permit reviews once the deal is in motion.' },
+    ],
+  },
+  {
+    slug: 'budget-scope-review',
+    productKey: 'budget-review',
+    ctaLabel: 'Start Budget Review',
+    price: '$599',
+    priceAnchor: 'A scope gap can cost $40K+',
+    priceLabel: 'Budget & Scope Review',
+    turnaround: '2 business days',
+    audience: 'For residential investors',
+    heroEyebrow: 'Budget & Scope Review',
+    heroHeadlinePre: 'Know the real',
+    heroHeadlineHighlight: 'cost',
+    heroHeadlinePost: ' before you cut the check.',
+    heroSubheadline:
+      'A licensed-GC review of your budget against the actual scope — written, in your inbox, in 2 business days. $599 flat.',
+    problemHeadline: 'Most investors get this wrong',
+    problemIntro: 'A budget that looks tight on paper falls apart when the scope catches up to it.',
+    problemCards: [
+      { title: 'Budgets miss major scope items', body: 'Important work gets overlooked and costs more later.', tone: 'red' },
+      { title: 'Contractor numbers don’t match reality', body: 'Numbers look good until the work actually starts.', tone: 'amber' },
+      { title: 'Costs grow halfway through', body: 'Unidentified issues turn into expensive surprises.', tone: 'rose' },
+      { title: 'Profit disappears', body: 'The deal on paper does not work in reality.', tone: 'orange' },
+    ],
+    getHeadline: 'What you actually get',
+    getBullets: [
+      { title: 'Line-by-line budget read', detail: 'A licensed GC reads the numbers against the real scope.' },
+      { title: 'Scope gap identification', detail: 'The items missing from the budget that hit you later.' },
+      { title: 'Cost pressure callouts', detail: 'Where the budget is most likely to break and why.' },
+      { title: 'Written fix path', detail: 'A clear path to fix the budget before construction starts.' },
+    ],
+    deliverableTitle: 'Budget & Scope Review',
+    deliverableSubtitle: '123 Main St · Charlotte, NC',
+    deliverable: [
+      {
+        heading: 'Scope gaps found',
+        items: ['HVAC line missing — ~$8K', 'Tile allowance light by $4–6K', 'Demo + dump fees not included'],
+      },
+      {
+        heading: 'Budget pressure points',
+        items: ['Plumbing: 18% below market', 'Permit fees absent — $1.4K'],
+      },
+      {
+        heading: 'Recommendation',
+        items: ['Rebuild budget to $86K min before signing'],
+      },
+    ],
+    processSteps: [
+      { title: 'Submit your project', detail: 'Address, photos, scope notes, and the budget or contractor numbers.' },
+      { title: 'We review', detail: 'Licensed GC reads the budget against the actual scope and flags the gaps.' },
+      { title: 'You get the read', detail: 'Written review in your inbox in 2 business days.' },
+    ],
+    testimonials: [
+      {
+        quote: 'Scope and budget were all over the place when we called. After they walked through it, the project actually felt doable again.',
+        name: 'Justin R.',
+        role: 'Developer',
+      },
+      {
+        quote: 'They caught things we completely missed before we moved forward.',
+        name: 'Investor',
+        role: 'NC',
+      },
+      {
+        quote: 'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.',
+        name: 'Trisha W.',
+        role: 'Investor',
+      },
+    ],
+    notIncluded: [
+      'Not a contractor bid from us',
+      'Not a guaranteed price',
+      'Not permit submission',
+      'Not project management',
+    ],
+    valueStack: [
+      'Licensed NC GC reads your budget personally',
+      'Line-by-line scope vs budget read',
+      'Scope gaps identified in writing',
+      'Cost pressure points flagged',
+      'Fix-path recommendation',
+      'Email follow-up if anything is unclear',
+      'Money-back if we cannot give you a clear answer',
+    ],
+    finalHeadline: 'Catch the gap before the project does.',
+    finalSubhead: 'One licensed-GC budget read, 2 business days, $599. Get the number right before you spend.',
     faqs: [
       { q: 'What do you need from me?', a: 'Property address, photos, scope notes, and the budget or contractor numbers you want reviewed.' },
       { q: 'How long does it take?', a: 'Typical turnaround is 2 business days from submission.' },
@@ -178,45 +286,53 @@ const LANDING_PAGES: LandingPageConfig[] = [
   {
     slug: 'permit-path-review',
     productKey: 'permit-local-compliance-review',
-    ctaLabel: 'Buy Review — $399',
+    ctaLabel: 'Start Permit Review',
     price: '$399',
+    priceAnchor: 'A permit miss can stall a project 6+ weeks',
+    priceLabel: 'Permit Path Review',
     turnaround: '2 business days',
     audience: 'For residential investors',
     heroEyebrow: 'Permit Path Review',
-    heroHeadline: 'Find out if it can actually be permitted',
-    heroHighlight: 'before you build a plan around it.',
+    heroHeadlinePre: 'Find out if it can actually get',
+    heroHeadlineHighlight: 'permitted',
+    heroHeadlinePost: '.',
     heroSubheadline:
-      "A licensed-GC review of permit requirements and approval risk — so you know what gets through and what doesn't. $399, 2 business days.",
-    heroBullets: [
-      '2-business-day turnaround',
-      'Licensed NC General Contractor',
-      'Permit + compliance risk read',
-    ],
-    problemHeadline: 'What goes wrong when you skip it',
-    problemIntro: 'Permit problems rarely show up early. By the time they do, the money is already in.',
-    problemBullets: [
-      'Permit issues surface mid-construction',
-      'Local compliance gets missed entirely',
-      'Project assumptions collapse against approval reality',
-      'Time and money disappear into rework',
+      'A licensed-GC read on permit requirements and approval risk — written, in your inbox, in 2 business days. $399 flat.',
+    problemHeadline: "Permit problems hide until they're expensive",
+    problemIntro: 'Permit issues rarely show up early. By the time they do, the money is already in.',
+    problemCards: [
+      { title: 'Permit issues show up mid-build', body: 'Surface after the money is already in.', tone: 'red' },
+      { title: 'Local compliance gets missed', body: 'Jurisdiction-specific rules catch outsiders.', tone: 'amber' },
+      { title: 'Assumptions collapse on approval', body: 'Project plans break under permitting reality.', tone: 'rose' },
+      { title: 'Time and money disappear', body: 'Into rework, redrawing, and resubmissions.', tone: 'orange' },
     ],
     getHeadline: 'What you actually get',
     getBullets: [
-      { title: 'Permit path review', detail: 'A licensed GC reads the likely approval path for the work.' },
-      { title: 'Local compliance check', detail: 'The jurisdiction-specific risk points that catch outsiders.' },
-      { title: 'Approval pressure callouts', detail: 'Where this project is likely to stall or get denied.' },
+      { title: 'Permit path review', detail: 'A licensed GC reads the likely approval path.' },
+      { title: 'Local compliance check', detail: 'Jurisdiction-specific risks called out clearly.' },
+      { title: 'Approval pressure points', detail: 'Where the project is likely to stall or get denied.' },
       { title: 'Written next steps', detail: 'A clear direction on permit prep before you move further.' },
+    ],
+    deliverableTitle: 'Permit Path Review',
+    deliverableSubtitle: '123 Main St · Charlotte, NC',
+    deliverable: [
+      {
+        heading: 'Permit requirements',
+        items: ['Mecklenburg County: 4 permits required', 'Stormwater review: triggered by lot size'],
+      },
+      {
+        heading: 'Approval risk points',
+        items: ['Setback variance needed — 60% approval rate', 'Tree ordinance affects rear yard'],
+      },
+      {
+        heading: 'Recommendation',
+        items: ['Pre-app meeting before submission', 'Budget 5–7 weeks for full approval'],
+      },
     ],
     processSteps: [
       { title: 'Submit the project', detail: 'Address, photos, and a basic scope or rehab plan.' },
       { title: 'We review', detail: 'Licensed GC reads permit and compliance risk against the jurisdiction.' },
-      { title: 'You get direction', detail: 'Written review in 2 business days with a clear approval path.' },
-    ],
-    notIncluded: [
-      'Permit prep, drafting, or filing',
-      'A guaranteed approval',
-      'An inspection or code enforcement review',
-      'Architectural or engineering stamp',
+      { title: 'You get direction', detail: 'Written review in your inbox in 2 business days.' },
     ],
     testimonials: [
       {
@@ -229,6 +345,26 @@ const LANDING_PAGES: LandingPageConfig[] = [
         name: 'Yvonne W.',
         role: 'Homeowner',
       },
+      {
+        quote: 'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.',
+        name: 'Trisha W.',
+        role: 'Investor',
+      },
+    ],
+    notIncluded: [
+      'Not permit prep or filing',
+      'Not a guaranteed approval',
+      'Not an inspection',
+      'Not architectural drafting',
+    ],
+    valueStack: [
+      'Licensed NC GC reads the permit path personally',
+      'Jurisdiction-specific compliance check',
+      'Approval risk points flagged in writing',
+      'Recommended pre-app strategy if needed',
+      'Realistic timeline estimate',
+      'Email follow-up if anything is unclear',
+      'Money-back if we cannot give you a clear answer',
     ],
     finalHeadline: 'Know the permit path before you commit.',
     finalSubhead: 'One licensed-GC permit read, 2 business days, $399. Catch the approval risk before it catches you.',
@@ -244,45 +380,53 @@ const LANDING_PAGES: LandingPageConfig[] = [
   {
     slug: 'contractor-fit',
     productKey: 'contractor-fit-consultation',
-    ctaLabel: 'Buy Review — $349',
+    ctaLabel: 'Start Fit Consultation',
     price: '$349',
-    turnaround: 'Scheduled consultation',
+    priceAnchor: 'The wrong contractor profile can cost 20%+ of the build',
+    priceLabel: 'Contractor Fit & Recommendation',
+    turnaround: 'Scheduled call',
     audience: 'For residential investors',
     heroEyebrow: 'Contractor Fit & Recommendation',
-    heroHeadline: "Don't hire the wrong contractor",
-    heroHighlight: 'for this project.',
+    heroHeadlinePre: 'Know what kind of',
+    heroHeadlineHighlight: 'contractor',
+    heroHeadlinePost: ' this project actually needs.',
     heroSubheadline:
-      "A licensed-GC read on contractor fit, bid risk, and execution readiness — before hiring sends the project sideways. $349, scheduled consultation.",
-    heroBullets: [
-      'Scheduled consultation',
-      'Licensed NC General Contractor',
-      'Written guidance after the call',
-    ],
-    problemHeadline: 'What goes wrong when you skip it',
-    problemIntro: 'The wrong contractor is the most expensive mistake on the project — and the hardest to undo.',
-    problemBullets: [
-      'You hire against bad assumptions',
-      'You choose a delivery model that doesn’t fit the scope',
-      'You pay based on weak contractor numbers',
-      'You start the project with the wrong expectations baked in',
+      'A licensed-GC read on the contractor profile that fits — GC vs sub vs handyman, specialist vs generalist — and the reasoning behind the call. $349 flat.',
+    problemHeadline: 'The wrong contractor profile is the most expensive mistake',
+    problemIntro: 'Picking the wrong kind of contractor for the job is a bigger mistake than picking the wrong individual. Both cost — this one costs more.',
+    problemCards: [
+      { title: 'Handyman on a permit job', body: 'Work gets red-tagged at inspection.', tone: 'red' },
+      { title: 'Full GC on a 2-trade scope', body: 'GC overhead eats margin you did not need to spend.', tone: 'amber' },
+      { title: 'Generalist on a specialty job', body: 'You pay for their learning curve on your dime.', tone: 'rose' },
+      { title: 'Specialist on a generalist job', body: 'Schedule waits on a niche calendar.', tone: 'orange' },
     ],
     getHeadline: 'What you actually get',
     getBullets: [
-      { title: 'Contractor fit consultation', detail: 'A licensed GC walks through the project and the contractors you’re considering.' },
-      { title: 'Bid risk read', detail: 'What’s missing, what’s soft, what’s a problem in the numbers you have.' },
-      { title: 'Execution readiness review', detail: 'Whether the project is set up for the kind of contractor you’re hiring.' },
-      { title: 'Written direction', detail: 'A clear next-step recommendation after the call.' },
+      { title: 'Profile recommendation', detail: 'What kind of contractor this project actually needs (GC, sub, handyman, licensed level, specialty).' },
+      { title: 'Reasoning, in writing', detail: 'Why that profile fits — not just what.' },
+      { title: 'Wrong-fit callouts', detail: 'Which contractor profiles to avoid for this specific project.' },
+      { title: 'Hiring direction', detail: 'What to look for in candidates once you start interviewing.' },
+    ],
+    deliverableTitle: 'Contractor Fit & Recommendation',
+    deliverableSubtitle: '123 Main St · Charlotte, NC',
+    deliverable: [
+      {
+        heading: 'Recommended profile',
+        items: ['Licensed NC GC with permit-admin capability', 'Specialty subs needed: framing + HVAC', 'Generalist sub OK for: paint, flooring'],
+      },
+      {
+        heading: 'Why this profile',
+        items: ['Permit complexity rules out unlicensed work', 'Scope size justifies GC overhead', 'Two specialty trades > generalist range'],
+      },
+      {
+        heading: 'Profiles to avoid',
+        items: ['Out-of-area generalist (no permit familiarity)', 'Handyman crew (will not pass inspection)'],
+      },
     ],
     processSteps: [
-      { title: 'Submit the project', detail: 'Address, scope notes, photos, and any contractor bids or notes you have.' },
-      { title: 'We schedule the call', detail: 'A working consultation with a licensed GC — not a sales pitch.' },
-      { title: 'You get the read', detail: 'Written direction sent within 1 business day of the call.' },
-    ],
-    notIncluded: [
-      'Contractor sourcing or recruitment',
-      'A referral guarantee',
-      'A contractor performance audit',
-      'Project management or oversight',
+      { title: 'Submit the project', detail: 'Address, photos, scope notes, and any project context.' },
+      { title: 'We assess fit', detail: 'Licensed GC reads the project against contractor profile options.' },
+      { title: 'You get the call', detail: 'Working consultation + written recommendation within 1 business day.' },
     ],
     testimonials: [
       {
@@ -295,60 +439,88 @@ const LANDING_PAGES: LandingPageConfig[] = [
         name: 'Iantha M.',
         role: 'Investor',
       },
+      {
+        quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.',
+        name: 'Jethro A.',
+        role: 'Wholesaler',
+      },
     ],
-    finalHeadline: 'Make the contractor call cleanly.',
-    finalSubhead: 'One licensed-GC consultation, written follow-up, $349. Hire with eyes open.',
+    notIncluded: [
+      'Not comparing specific named contractors',
+      'Not bid review',
+      'Not contractor sourcing or recruitment',
+      'Not project management',
+    ],
+    valueStack: [
+      'Working call with a licensed NC GC',
+      'Contractor-profile recommendation (kind, license level, specialty)',
+      'Written reasoning explaining the fit',
+      'Wrong-fit profiles to avoid',
+      'Hiring direction for what to look for',
+      'Email follow-up if anything is unclear',
+      'Money-back if we cannot give you a clear answer',
+    ],
+    finalHeadline: 'Hire the right kind of contractor.',
+    finalSubhead: 'One licensed-GC consultation, written follow-up, $349. Know the profile — and why — before you start interviewing.',
     faqs: [
-      { q: 'What do you need from me?', a: 'Project address, scope notes, photos, and any contractor bids or notes you already have.' },
+      { q: 'What do you need from me?', a: 'Project address, photos, scope notes, and any context about the project.' },
       { q: 'How long does it take?', a: 'A scheduled consultation followed by written direction within 1 business day.' },
-      { q: 'What do I get back?', a: 'Guidance on contractor fit, bid risk, and the most sensible next move.' },
+      { q: 'What do I get back?', a: 'A contractor-profile recommendation (what kind of contractor fits) plus the reasoning behind it and the wrong-fit profiles to avoid.' },
+      { q: 'Is this comparing specific contractors?', a: 'No. This tells you what KIND of contractor fits — GC vs sub vs handyman, specialist vs generalist — not which named candidate is best. Comparing bids is a separate engagement.' },
       { q: 'Is this contractor sourcing?', a: 'No. This is a fit consultation, not a sourcing campaign.' },
-      { q: 'Will you recommend a specific contractor?', a: 'We’ll tell you what kind of contractor fits and whether the ones you’re considering make sense.' },
       { q: 'Can you run the project after?', a: 'Yes. Our Owner-Controlled Build and Full Execution options pick up from here.' },
     ],
   },
   {
     slug: 'draw-review',
     productKey: 'draw-review-support',
-    ctaLabel: 'Buy Review — $399',
+    ctaLabel: 'Start Draw Review',
     price: '$399',
+    priceAnchor: 'Once the money’s out, leverage is gone',
+    priceLabel: 'Draw Review Support',
     turnaround: '2 business days',
     audience: 'For residential investors',
     heroEyebrow: 'Draw Review Support',
-    heroHeadline: 'Review the draw',
-    heroHighlight: 'before you release the money.',
+    heroHeadlinePre: 'Review the draw before the',
+    heroHeadlineHighlight: 'money',
+    heroHeadlinePost: ' goes out.',
     heroSubheadline:
-      "A licensed-GC check on whether the payment actually matches the progress — before funds go out the door. $399, 2 business days.",
-    heroBullets: [
-      '2-business-day turnaround',
-      'Licensed NC General Contractor',
-      'Progress-versus-payment read',
-    ],
-    problemHeadline: 'What goes wrong when you skip it',
-    problemIntro: 'Once the money’s released, your leverage on the project goes with it.',
-    problemBullets: [
-      'You overpay before the work warrants it',
-      'Incomplete or unfinished work slips through',
-      'Money goes out against weak documentation',
-      'You lose leverage when issues show up later',
+      'A licensed-GC check on whether payment actually matches progress — written, in your inbox, in 2 business days. $399 flat.',
+    problemHeadline: 'Once the money is out, leverage goes with it',
+    problemIntro: "By the time you notice an issue, the contractor's already moved on.",
+    problemCards: [
+      { title: 'You overpay before work warrants it', body: 'Cash goes out faster than the project moves.', tone: 'red' },
+      { title: 'Incomplete work slips through', body: 'Soft documentation hides what’s actually done.', tone: 'amber' },
+      { title: 'Money releases on weak proof', body: 'No real check between progress and payment.', tone: 'rose' },
+      { title: 'Leverage disappears with the funds', body: 'After the money is gone, so is your pressure point.', tone: 'orange' },
     ],
     getHeadline: 'What you actually get',
     getBullets: [
-      { title: 'Draw review', detail: 'A licensed GC reads the request against the work shown.' },
-      { title: 'Progress-vs-payment check', detail: 'Whether the dollar amount actually matches what got built.' },
-      { title: 'Risk identification', detail: 'What’s incomplete, what’s out of sequence, what to push back on.' },
+      { title: 'Draw review', detail: 'Licensed GC reads the request against the work shown.' },
+      { title: 'Progress vs payment check', detail: 'Whether the dollar amount actually matches the build.' },
+      { title: 'Risk identification', detail: 'What’s incomplete, out of sequence, or worth pushing back on.' },
       { title: 'Written direction', detail: 'A clear next step before you release the funds.' },
+    ],
+    deliverableTitle: 'Draw Review Support',
+    deliverableSubtitle: 'Draw #3 · 123 Main St · Charlotte, NC',
+    deliverable: [
+      {
+        heading: 'Progress vs payment',
+        items: ['Rough-in: 60% complete, draw shows 80%', 'Drywall: not started, included in draw'],
+      },
+      {
+        heading: 'Documentation gaps',
+        items: ['No photos for electrical rough-in', 'Inspection sign-off missing'],
+      },
+      {
+        heading: 'Recommendation',
+        items: ['Hold $9.2K from this draw', 'Request photos + inspection before release'],
+      },
     ],
     processSteps: [
       { title: 'Submit the draw', detail: 'Draw request, photos, scope/rehab plan, payment schedule.' },
       { title: 'We review', detail: 'Licensed GC reads progress against payment and flags what’s soft.' },
-      { title: 'You get direction', detail: 'Written review in 2 business days before funds go out.' },
-    ],
-    notIncluded: [
-      'Lender approval',
-      'A legal opinion',
-      'Project management or oversight',
-      'A guarantee on contractor work',
+      { title: 'You get direction', detail: 'Written review in your inbox in 2 business days.' },
     ],
     testimonials: [
       {
@@ -357,11 +529,30 @@ const LANDING_PAGES: LandingPageConfig[] = [
         role: 'Wholesaler',
       },
       {
-        quote:
-          'We were about to sink more money in before they walked us through what was actually wrong. Saved us from a bad call.',
+        quote: 'We were about to sink more money in before they walked us through what was actually wrong. Saved us from a bad call.',
         name: 'Madison M.',
         role: 'Broker / Investor',
       },
+      {
+        quote: 'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.',
+        name: 'Trisha W.',
+        role: 'Investor',
+      },
+    ],
+    notIncluded: [
+      'Not lender approval',
+      'Not a legal opinion',
+      'Not project management',
+      'Not a guarantee on contractor work',
+    ],
+    valueStack: [
+      'Licensed NC GC reads the draw personally',
+      'Progress vs payment check in writing',
+      'Documentation gap identification',
+      'Specific hold-back recommendation',
+      'Push-back language for the contractor',
+      'Email follow-up if anything is unclear',
+      'Money-back if we cannot give you a clear answer',
     ],
     finalHeadline: 'Check the draw before the money goes.',
     finalSubhead: 'One licensed-GC review, 2 business days, $399. Keep payment honest to progress.',
@@ -382,66 +573,134 @@ function getConfig(slug: string) {
 
 function PrimaryCta({
   config,
-  variant = 'orange',
+  variant = 'primary',
   size = 'lg',
   fullWidth = false,
+  className = '',
 }: {
   config: LandingPageConfig;
-  variant?: 'orange' | 'white';
+  variant?: 'primary' | 'inverse';
   size?: 'lg' | 'md';
   fullWidth?: boolean;
+  className?: string;
 }) {
-  const sizeClasses = size === 'lg' ? 'min-h-[60px] px-8 py-4 text-base' : 'min-h-[52px] px-6 py-3 text-sm';
+  const sizeClasses =
+    size === 'lg'
+      ? 'min-h-[60px] px-9 py-4 text-[14px]'
+      : 'min-h-[48px] px-6 py-3 text-[13px]';
   const variantClasses =
-    variant === 'white'
-      ? 'bg-white text-navy-900 hover:bg-stone-100'
-      : 'bg-orange text-white hover:bg-orange-500 shadow-glow-orange';
-  const widthClass = fullWidth ? 'w-full' : 'min-w-[240px]';
-  const baseClasses = `inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-150 ${sizeClasses} ${variantClasses} ${widthClass}`;
-
-  const arrow = (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M5 12h14M13 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+    variant === 'inverse'
+      ? 'bg-white text-[#08111d] hover:bg-stone-100'
+      : 'bg-[#f58220] text-white hover:bg-[#ff9229] shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)]';
+  const widthClass = fullWidth ? 'w-full' : '';
+  const base = `inline-flex items-center justify-center gap-2 rounded-[4px] font-black uppercase tracking-[0.06em] transition-all duration-150 hover:-translate-y-0.5 ${sizeClasses} ${variantClasses} ${widthClass} ${className}`;
 
   if (config.productKey) {
-    return (
-      <AddToCartButton
-        itemKey={config.productKey}
-        label={config.ctaLabel}
-        className={baseClasses}
-      />
-    );
+    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} />;
   }
 
   return (
-    <Link href={config.fallbackHref || '/cart'} className={baseClasses}>
+    <Link href={config.fallbackHref || '/cart'} className={base}>
       <span>{config.ctaLabel}</span>
-      {arrow}
+      <span aria-hidden="true">→</span>
     </Link>
   );
 }
 
-function CheckIcon() {
+function ProblemIcon({ tone }: { tone: 'red' | 'amber' | 'rose' | 'orange' }) {
+  const fills: Record<typeof tone, string> = {
+    red: 'from-rose-500 to-red-600',
+    amber: 'from-amber-400 to-orange-500',
+    rose: 'from-pink-500 to-rose-600',
+    orange: 'from-orange-400 to-amber-500',
+  };
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${fills[tone]} text-white shadow-lg`}>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M12 9v4M12 17h.01M10.3 3.86l-8.2 14.2A2 2 0 003.83 21h16.34a2 2 0 001.73-3l-8.2-14.2a2 2 0 00-3.46 0z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+}
+
+function CheckIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function XIcon() {
+function XIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
+  );
+}
+
+function DeliverablePreview({ config }: { config: LandingPageConfig }) {
+  return (
+    <div className="relative">
+      {/* card stack effect */}
+      <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-[8px] bg-white/10 blur-sm" aria-hidden="true" />
+      <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-[8px] bg-white/15" aria-hidden="true" />
+      <div className="relative overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-br from-white to-stone-50 p-7 text-[#0c1627] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] sm:p-8">
+        <div className="flex items-start justify-between border-b border-stone-200 pb-4">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f58220]">Southern Cities Construction</p>
+            <h3 className="mt-1.5 text-lg font-extrabold tracking-tight text-[#08111d]">{config.deliverableTitle}</h3>
+            <p className="mt-0.5 text-xs text-stone-500">{config.deliverableSubtitle}</p>
+          </div>
+          <div className="flex flex-col items-end gap-1.5">
+            <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+              Sample
+            </span>
+            <span className="text-[10px] text-stone-400">Page 1 of 4</span>
+          </div>
+        </div>
+
+        <div className="mt-5 space-y-5">
+          {config.deliverable.map((section, idx) => (
+            <div key={section.heading}>
+              <div className="flex items-center gap-2">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#f58220] text-[10px] font-black text-white">
+                  {idx + 1}
+                </span>
+                <h4 className="text-[13px] font-extrabold uppercase tracking-wider text-[#08111d]">{section.heading}</h4>
+              </div>
+              <ul className="mt-2.5 space-y-1.5 pl-7">
+                {section.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-[13px] leading-relaxed text-stone-700">
+                    <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-[#f58220]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex items-center justify-between border-t border-stone-200 pt-4 text-[10px] text-stone-400">
+          <span>Licensed NC General Contractor</span>
+          <span>scconstruction.com</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -456,365 +715,520 @@ export default function LandingPage({ params }: { params: Params }) {
   if (!config) notFound();
 
   return (
-    <main className="relative min-h-screen bg-stone-50 text-navy-900 pb-24 lg:pb-0">
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-navy-900">
-        <div
-          className="absolute inset-0 motion-safe:animate-gradient-pan bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]"
-          style={{ backgroundSize: '180% 180%' }}
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-            backgroundSize: '56px 56px',
-            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
-          }}
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 mx-auto max-w-6xl px-5 pt-7 sm:px-8 sm:pt-9">
-          <div className="flex items-center justify-between">
+    <>
+      <style>{__motionStyles}</style>
+      <main className="relative min-h-screen bg-white text-[#0c1627] pb-24 lg:pb-0">
+        {/* HERO — full-bleed, 2-col, no constraining panel */}
+        <section className="relative overflow-hidden bg-[#08111d]">
+          <div className="absolute inset-0 scale-[1.04] animate-[heroFloat_22s_ease-in-out_infinite]">
             <Image
-              src="/sc-construction-logo.png"
-              alt="Southern Cities Construction"
-              width={176}
-              height={44}
-              className="h-9 w-auto sm:h-10"
+              src="/lp-budget-hero-bg.jpg"
+              alt=""
+              fill
+              className="object-cover object-right opacity-[0.55]"
               priority
             />
-            <div className="hidden items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-1.5 text-xs font-semibold text-white/85 sm:inline-flex">
-              <span className="block h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Licensed NC General Contractor
+          </div>
+          <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
+          <div className="absolute left-[-10%] top-[10%] h-72 w-72 rounded-full bg-[rgba(245,130,32,0.12)] blur-3xl" />
+          <div className="absolute bottom-[-6rem] right-[5%] h-80 w-80 rounded-full bg-[rgba(255,255,255,0.06)] blur-3xl" />
+          <div className="absolute inset-0 bg-[linear-gradient(95deg,rgba(4,10,18,0.97)_0%,rgba(5,12,22,0.94)_38%,rgba(6,15,27,0.78)_64%,rgba(7,15,27,0.52)_88%,rgba(7,15,27,0.4)_100%)]" />
+
+          {/* TOP BAR — logo + license badge */}
+          <div className="relative z-10 mx-auto max-w-7xl px-6 pt-6 sm:px-8 sm:pt-8">
+            <div className="flex items-center justify-between">
+              <Image
+                src="/sc-construction-logo.png"
+                alt="Southern Cities Construction"
+                width={176}
+                height={44}
+                className="h-10 w-auto sm:h-11"
+                priority
+              />
+              <div className="hidden items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white sm:inline-flex">
+                <span className="block h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Licensed NC General Contractor
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-10 sm:px-8 sm:pb-24 sm:pt-12">
-          <div className="max-w-3xl">
-            <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange motion-safe:animate-hero-rise">
-              <span className="block h-px w-8 bg-orange/80" aria-hidden="true" />
-              {config.heroEyebrow} · {config.audience}
-            </p>
-            <h1
-              className="mt-6 text-4xl font-extrabold leading-[1.02] tracking-[-0.035em] text-white sm:text-5xl lg:text-[3.75rem] motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.1s' }}
-            >
-              {config.heroHeadline}{' '}
-              <span className="text-orange">{config.heroHighlight}</span>
-            </h1>
-            <p
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.2s' }}
-            >
-              {config.heroSubheadline}
-            </p>
+          {/* HERO CONTENT */}
+          <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-12 sm:px-8 sm:pb-24 sm:pt-16 lg:grid lg:grid-cols-12 lg:gap-12 lg:pt-20">
+            <div className="lg:col-span-7">
+              <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
+                <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+                {config.heroEyebrow} · {config.audience}
+              </p>
+              <h1
+                className="mt-6 text-[2.6rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.5rem] lg:text-[4.5rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]"
+              >
+                {config.heroHeadlinePre}{' '}
+                <span className="text-[#f58220]">{config.heroHeadlineHighlight}</span>
+                {config.heroHeadlinePost}
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-[1.6] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
+                {config.heroSubheadline}
+              </p>
 
-            <div
-              className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm font-medium text-white/80 motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.3s' }}
-            >
-              {config.heroBullets.map((bullet) => (
-                <div key={bullet} className="flex items-center gap-2">
-                  <span className="text-orange">
-                    <CheckIcon />
+              <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-semibold text-white/85 motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
+                    <CheckIcon size={14} />
                   </span>
-                  <span>{bullet}</span>
+                  <span>2-business-day turnaround</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
+                    <CheckIcon size={14} />
+                  </span>
+                  <span>Licensed NC GC</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
+                    <CheckIcon size={14} />
+                  </span>
+                  <span>Money-back guarantee</span>
+                </div>
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center gap-5 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
+                <PrimaryCta config={config} />
+                <a
+                  href="#what-you-get"
+                  className="text-sm font-bold text-white/80 underline-offset-4 hover:text-white hover:underline"
+                >
+                  See exactly what you get ↓
+                </a>
+              </div>
+
+              <div className="mt-10 flex items-center gap-4 motion-safe:animate-[heroRise_1400ms_ease-out_0.5s_both]">
+                <div className="flex -space-x-2">
+                  {['M', 'J', 'T', 'I'].map((initial, i) => (
+                    <div
+                      key={initial + i}
+                      className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#08111d] bg-gradient-to-br from-orange-400 to-orange-600 text-[11px] font-black text-white"
+                    >
+                      {initial}
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <div className="flex items-center gap-1 text-[#f58220]">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <StarIcon key={i} />
+                    ))}
+                  </div>
+                  <p className="mt-0.5 text-xs text-white/65">Trusted by 120+ NC investors</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-16 lg:col-span-5 lg:mt-0 lg:flex lg:items-center motion-safe:animate-[heroRise_1500ms_ease-out_0.6s_both]">
+              <DeliverablePreview config={config} />
+            </div>
+          </div>
+        </section>
+
+        {/* TRUST BAR */}
+        <section className="border-y border-stone-200 bg-white">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-8 sm:grid-cols-4 sm:px-8">
+            {SHARED_TRUST_STATS.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">{stat.value}</p>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-stone-500">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* PROBLEM */}
+        <section className="bg-stone-50">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">The Problem</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">{config.problemHeadline}</h2>
+              <p className="mt-5 text-lg leading-relaxed text-stone-600">{config.problemIntro}</p>
+            </div>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {config.problemCards.map((card) => (
+                <div
+                  key={card.title}
+                  className="rounded-2xl border border-stone-200 bg-white p-7 shadow-[0_8px_24px_-12px_rgba(8,17,29,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-16px_rgba(8,17,29,0.15)]"
+                >
+                  <ProblemIcon tone={card.tone} />
+                  <h3 className="mt-5 text-lg font-extrabold leading-tight tracking-tight text-[#08111d]">{card.title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{card.body}</p>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div
-              className="mt-10 flex flex-wrap items-center gap-4 motion-safe:animate-hero-rise"
-              style={{ animationDelay: '0.4s' }}
-            >
+        {/* WHAT YOU GET */}
+        <section id="what-you-get" className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">What you get</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">{config.getHeadline}</h2>
+            </div>
+
+            <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+              <div className="grid gap-5 sm:grid-cols-2">
+                {config.getBullets.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f58220]/30 hover:bg-white hover:shadow-lg"
+                  >
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-[#f58220] text-white shadow-md">
+                      <CheckIcon size={22} />
+                    </span>
+                    <h3 className="mt-4 text-lg font-extrabold tracking-tight text-[#08111d]">{item.title}</h3>
+                    <p className="mt-2 text-[14px] leading-relaxed text-stone-600">{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="lg:sticky lg:top-8">
+                <div className="rounded-3xl bg-[#08111d] p-6 shadow-2xl sm:p-8">
+                  <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#f58220]">Sample deliverable</p>
+                  <p className="mt-2 text-base font-bold text-white">This is what arrives in your inbox.</p>
+                  <div className="mt-6">
+                    <DeliverablePreview config={config} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PROCESS */}
+        <section className="bg-stone-50">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">The Process</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">How it works</h2>
+              <p className="mt-5 text-lg leading-relaxed text-stone-600">
+                Three steps. {config.turnaround} from submission to direction.
+              </p>
+            </div>
+
+            <div className="relative mt-14 grid gap-8 md:grid-cols-3">
+              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#f58220]/30 to-transparent md:block" aria-hidden="true" />
+              {config.processSteps.map((step, idx) => (
+                <div key={step.title} className="relative">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#08111d] text-xl font-black text-white shadow-lg ring-8 ring-stone-50">
+                    <span className="text-[#f58220]">{idx + 1}</span>
+                  </div>
+                  <h3 className="mt-6 text-2xl font-extrabold tracking-tight text-[#08111d]">{step.title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{step.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* COMPARISON */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Compare</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
+                Why not just&hellip;
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-stone-600">
+                Every alternative has a real cost. Here&rsquo;s how we stack up.
+              </p>
+            </div>
+
+            <div className="mt-10 overflow-hidden rounded-2xl border border-stone-200 shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-left">
+                  <thead className="bg-stone-100">
+                    <tr>
+                      <th className="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-stone-500">Option</th>
+                      <th className="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-stone-500">Cost</th>
+                      <th className="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-stone-500">Time</th>
+                      <th className="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-stone-500">Bias</th>
+                      <th className="px-6 py-4 text-[11px] font-black uppercase tracking-wider text-stone-500">Licensed?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {COMPARISON_ROWS.map((row) => (
+                      <tr
+                        key={row.label}
+                        className={`border-t border-stone-200 ${row.highlight ? 'bg-orange-50/60' : 'bg-white'}`}
+                      >
+                        <td className="px-6 py-5">
+                          <div className="flex items-center gap-3">
+                            {row.highlight ? (
+                              <span className="rounded bg-[#f58220] px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
+                                Recommended
+                              </span>
+                            ) : null}
+                            <span className={`font-bold ${row.highlight ? 'text-[#08111d]' : 'text-stone-700'}`}>{row.label}</span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-5 text-[14px] text-stone-700">{row.cost}</td>
+                        <td className="px-6 py-5 text-[14px] text-stone-700">{row.time}</td>
+                        <td className="px-6 py-5 text-[14px] text-stone-700">{row.bias}</td>
+                        <td className="px-6 py-5">
+                          {row.licensed === true ? (
+                            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                              <CheckIcon size={16} />
+                            </span>
+                          ) : row.licensed === false ? (
+                            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-stone-200 text-stone-500">
+                              <XIcon size={14} />
+                            </span>
+                          ) : (
+                            <span className="text-[13px] font-semibold text-stone-500">{row.licensed}</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="relative overflow-hidden bg-[#08111d]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(245,130,32,0.12),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(80,120,255,0.12),transparent_50%)]" />
+          <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Trust</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-white sm:text-5xl">
+                From clients who actually used this.
+              </h2>
+            </div>
+
+            <div className="mt-12 grid gap-6 lg:grid-cols-3">
+              {config.testimonials.map((t) => (
+                <blockquote
+                  key={t.name + t.role}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm"
+                >
+                  <div className="flex items-center gap-1 text-[#f58220]">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <StarIcon key={i} />
+                    ))}
+                  </div>
+                  <p className="mt-5 text-[17px] font-medium leading-[1.55] text-white/90">&ldquo;{t.quote}&rdquo;</p>
+                  <footer className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#f58220] text-base font-black text-white">
+                      {t.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="font-extrabold text-white">{t.name}</p>
+                      <p className="text-[13px] text-white/60">{t.role}</p>
+                    </div>
+                  </footer>
+                </blockquote>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WHAT THIS IS NOT */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">What this is not</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
+                So you know exactly what you&rsquo;re buying.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-stone-600">
+                This is a review product with a clear scope. Here&rsquo;s what it isn&rsquo;t:
+              </p>
+            </div>
+            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {config.notIncluded.map((item) => (
+                <div key={item} className="flex items-center gap-3 rounded-xl border border-stone-200 bg-stone-50 p-5">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-stone-200 text-stone-500">
+                    <XIcon size={16} />
+                  </span>
+                  <p className="text-[15px] font-semibold text-[#08111d]">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PRICING with value stack + anchor */}
+        <section className="bg-gradient-to-b from-stone-50 to-stone-100">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="overflow-hidden rounded-3xl bg-white shadow-[0_40px_80px_-20px_rgba(8,17,29,0.15)] ring-2 ring-[#f58220]/10">
+              <div className="grid lg:grid-cols-12">
+                {/* Left: value stack */}
+                <div className="lg:col-span-7 p-10 sm:p-12 lg:p-14">
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Pricing</p>
+                  <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
+                    {config.finalHeadline}
+                  </h2>
+                  <p className="mt-5 text-lg leading-relaxed text-stone-600">{config.finalSubhead}</p>
+
+                  <div className="mt-8 rounded-2xl border-l-4 border-[#f58220] bg-orange-50 p-5">
+                    <p className="text-[11px] font-black uppercase tracking-wider text-[#f58220]">For context</p>
+                    <p className="mt-1.5 text-[15px] font-semibold text-[#08111d]">{config.priceAnchor}</p>
+                  </div>
+
+                  <p className="mt-9 text-[11px] font-black uppercase tracking-[0.22em] text-stone-500">What&rsquo;s included</p>
+                  <ul className="mt-4 space-y-3">
+                    {config.valueStack.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-[#08111d]">
+                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                          <CheckIcon size={14} />
+                        </span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Right: dark price card */}
+                <div className="relative overflow-hidden bg-[#08111d] p-10 text-white sm:p-12 lg:col-span-5">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(245,130,32,0.18),transparent_60%)]" />
+                  <div className="relative flex h-full flex-col justify-between">
+                    <div>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{config.priceLabel}</p>
+                      <div className="mt-3 flex items-baseline gap-2">
+                        <span className="text-6xl font-black tracking-[-0.03em] sm:text-7xl">{config.price}</span>
+                      </div>
+                      <p className="mt-2 text-sm text-white/70">one-time · {config.turnaround}</p>
+
+                      <div className="mt-8 space-y-3 border-t border-white/10 pt-7 text-[13px] text-white/75">
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
+                            <CheckIcon size={12} />
+                          </span>
+                          <span>Secure checkout · No subscription</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
+                            <CheckIcon size={12} />
+                          </span>
+                          <span>Money-back if no clear answer</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
+                            <CheckIcon size={12} />
+                          </span>
+                          <span>Licensed NC GC reviews personally</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-10">
+                      <PrimaryCta config={config} fullWidth />
+                      <p className="mt-4 text-center text-[11px] text-white/45">
+                        Or call{' '}
+                        <a href="tel:+19804737249" className="font-bold text-white/70 hover:text-[#f58220]">
+                          (980) 473-7249
+                        </a>{' '}
+                        first
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="relative overflow-hidden bg-[#08111d]">
+          <div
+            className="absolute inset-0 opacity-[0.08]"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+              backgroundSize: '56px 56px',
+              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            }}
+            aria-hidden="true"
+          />
+          <div className="relative mx-auto max-w-4xl px-6 py-20 text-center sm:px-8 sm:py-24">
+            <h2 className="text-4xl font-black leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl">
+              {config.finalHeadline}
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">{config.finalSubhead}</p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
               <PrimaryCta config={config} />
-              <a href="#faq" className="text-sm font-semibold text-white/75 underline-offset-4 transition hover:text-white hover:underline">
-                Questions first? See the FAQ ↓
+              <a
+                href="tel:+19804737249"
+                className="inline-flex items-center gap-2 text-sm font-bold text-white/75 hover:text-white"
+              >
+                Or call (980) 473-7249
               </a>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* PROBLEM */}
-      <section className="bg-white border-b border-stone-200">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Problem</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">{config.problemHeadline}</h2>
-            <p className="mt-4 text-lg leading-relaxed text-stone-600">{config.problemIntro}</p>
-          </div>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            {config.problemBullets.map((bullet) => (
-              <div
-                key={bullet}
-                className="flex items-start gap-4 rounded-2xl border border-stone-200 bg-stone-50 p-5"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 9v4M12 17h.01M10.3 3.86l-8.2 14.2A2 2 0 003.83 21h16.34a2 2 0 001.73-3l-8.2-14.2a2 2 0 00-3.46 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <p className="text-[15px] font-medium leading-relaxed text-navy-900">{bullet}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHAT YOU GET */}
-      <section className="bg-stone-50 border-b border-stone-200">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What you get</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">{config.getHeadline}</h2>
-          </div>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {config.getBullets.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl border border-stone-200 bg-white p-6 shadow-elev-1 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-elev-3"
-              >
-                <div className="flex items-start gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange/10 text-orange">
-                    <CheckIcon />
-                  </span>
-                  <div>
-                    <h3 className="text-lg font-extrabold tracking-tight text-navy-900">{item.title}</h3>
-                    <p className="mt-1.5 text-[15px] leading-relaxed text-stone-600">{item.detail}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 flex justify-center">
-            <PrimaryCta config={config} />
-          </div>
-        </div>
-      </section>
-
-      {/* PROCESS */}
-      <section className="bg-white border-b border-stone-200">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Process</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">How it works</h2>
-            <p className="mt-4 text-lg leading-relaxed text-stone-600">
-              Three steps. {config.turnaround} from submission to direction.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {config.processSteps.map((step, idx) => (
-              <div key={step.title} className="relative">
-                <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 h-full">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange text-xl font-extrabold text-white">
-                    {idx + 1}
-                  </div>
-                  <h3 className="mt-5 text-xl font-extrabold tracking-tight text-navy-900">{step.title}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-stone-600">{step.detail}</p>
-                </div>
-                {idx < config.processSteps.length - 1 ? (
-                  <div className="absolute left-full top-12 -translate-x-1/2 hidden md:block" aria-hidden="true">
-                    <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
-                      <path d="M2 10h28M22 4l8 6-8 6" stroke="#fa8c41" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TRUST */}
-      <section className="bg-navy-900 text-white relative overflow-hidden">
-        <div
-          className="absolute inset-0 motion-safe:animate-gradient-pan bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]"
-          style={{ backgroundSize: '180% 180%' }}
-          aria-hidden="true"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Trust</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              From clients who have actually used this.
-            </h2>
-          </div>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {config.testimonials.map((t) => (
-              <blockquote key={t.name} className="rounded-2xl border border-white/10 bg-white/[0.05] p-7 backdrop-blur-sm">
-                <svg className="text-orange/60" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-                </svg>
-                <p className="mt-4 text-lg font-medium leading-relaxed text-white/90">&ldquo;{t.quote}&rdquo;</p>
-                <footer className="mt-5 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-orange/40 bg-orange/10 font-bold text-orange">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-bold text-white">{t.name}</p>
-                    <p className="text-sm text-white/65">{t.role}</p>
-                  </div>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
-            <span>Licensed NC GC</span>
-            <span className="text-white/20">·</span>
-            <span>Fully Insured</span>
-            <span className="text-white/20">·</span>
-            <span>Investor-Focused</span>
-            <span className="text-white/20">·</span>
-            <span>NC Statewide</span>
-          </div>
-        </div>
-      </section>
-
-      {/* WHAT THIS IS NOT */}
-      <section className="bg-white border-b border-stone-200">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What this is not</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-              So you know exactly what you&rsquo;re buying.
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-stone-600">
-              This is a review product with a clear scope. Here&rsquo;s what it isn&rsquo;t:
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-3 sm:grid-cols-2">
-            {config.notIncluded.map((item) => (
-              <div key={item} className="flex items-start gap-3 rounded-xl border border-stone-200 bg-stone-50 p-4">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-stone-200 text-stone-600">
-                  <XIcon />
-                </span>
-                <p className="text-[15px] font-medium text-navy-900">{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRICING + CTA */}
-      <section className="bg-stone-50">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="overflow-hidden rounded-3xl border-2 border-orange/20 bg-white shadow-elev-3">
-            <div className="grid lg:grid-cols-12">
-              <div className="lg:col-span-7 p-8 sm:p-10 lg:p-12">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Pricing</p>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-                  {config.finalHeadline}
-                </h2>
-                <p className="mt-4 text-lg leading-relaxed text-stone-600">{config.finalSubhead}</p>
-
-                <ul className="mt-7 space-y-3 text-[15px]">
-                  {config.heroBullets.map((bullet) => (
-                    <li key={bullet} className="flex items-center gap-3">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                          <path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </span>
-                      <span className="font-medium text-navy-900">{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="lg:col-span-5 bg-navy-900 text-white p-8 sm:p-10 lg:p-12 flex flex-col justify-center relative overflow-hidden">
-                <div
-                  className="absolute inset-0 motion-safe:animate-gradient-pan bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]"
-                  style={{ backgroundSize: '180% 180%' }}
-                  aria-hidden="true"
-                />
-                <div className="relative z-10">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{config.heroEyebrow}</p>
-                  <p className="mt-2 text-6xl font-extrabold tracking-tight">{config.price}</p>
-                  <p className="mt-2 text-sm text-white/65">one-time · {config.turnaround}</p>
-                  <div className="mt-7">
-                    <PrimaryCta config={config} fullWidth />
-                  </div>
-                  <p className="mt-4 text-center text-xs text-white/50">Secure checkout · No subscription</p>
-                </div>
-              </div>
+        {/* FAQ */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="text-center">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">FAQ</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
+                Questions before you buy.
+              </h2>
+            </div>
+            <div className="mt-12 space-y-3">
+              {config.faqs.map((faq, idx) => (
+                <FaqItem key={faq.q} faq={faq} defaultOpen={idx === 0} />
+              ))}
+            </div>
+            <div className="mt-14 text-center">
+              <PrimaryCta config={config} />
+              <p className="mt-4 text-sm text-stone-500">
+                Or call{' '}
+                <a href="tel:+19804737249" className="font-bold text-[#08111d] hover:text-[#f58220]">
+                  (980) 473-7249
+                </a>{' '}
+                to talk it through first.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ */}
-      <section id="faq" className="bg-white border-t border-stone-200">
-        <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">FAQ</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">
-              Questions before you buy.
-            </h2>
-          </div>
-
-          <div className="mt-10 space-y-3">
-            {config.faqs.map((faq, idx) => (
-              <details
-                key={faq.q}
-                className="group overflow-hidden rounded-2xl border border-stone-200 bg-stone-50 transition-colors open:bg-white open:border-orange/30 open:shadow-elev-1"
-                open={idx === 0}
-              >
-                <summary className="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left list-none [&::-webkit-details-marker]:hidden">
-                  <span className="font-bold text-navy-900">{faq.q}</span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange/10 text-orange transition-transform group-open:rotate-45">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                    </svg>
-                  </span>
-                </summary>
-                <div className="px-6 pb-6 text-[15px] leading-relaxed text-stone-700">{faq.a}</div>
-              </details>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <PrimaryCta config={config} />
-            <p className="mt-4 text-sm text-stone-500">
-              Or call <a href="tel:+19804737249" className="font-semibold text-navy-900 underline-offset-4 hover:text-orange hover:underline">(980) 473-7249</a> to talk it through first.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER (minimal — landing pages have no global nav) */}
-      <footer className="bg-navy-950 text-white/55 py-8">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center text-xs">
+        {/* FOOTER */}
+        <footer className="bg-[#040810] py-10 text-center text-xs text-white/40">
           <p>© 2026 Southern Cities Construction LLC. Licensed NC General Contractor.</p>
           <p className="mt-2">
-            <Link href="/privacy" className="hover:text-orange">Privacy</Link>
+            <Link href="/privacy" className="hover:text-[#f58220]">Privacy</Link>
             <span className="mx-3 text-white/20">·</span>
-            <Link href="/terms" className="hover:text-orange">Terms</Link>
+            <Link href="/terms" className="hover:text-[#f58220]">Terms</Link>
           </p>
-        </div>
-      </footer>
+        </footer>
 
-      {/* STICKY MOBILE CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white p-3 shadow-[0_-10px_30px_-15px_rgba(10,21,48,0.3)] lg:hidden">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-stone-500">{config.heroEyebrow}</p>
-            <p className="text-lg font-extrabold tracking-tight text-navy-900">{config.price}</p>
+        {/* STICKY MOBILE CTA */}
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white p-3 shadow-[0_-10px_30px_-15px_rgba(8,17,29,0.3)] lg:hidden">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-wider text-stone-500">{config.heroEyebrow}</p>
+              <p className="text-xl font-black tracking-tight text-[#08111d]">{config.price}</p>
+            </div>
+            <PrimaryCta config={config} size="md" />
           </div>
-          <PrimaryCta config={config} size="md" />
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
+
+const __motionStyles = `
+@keyframes heroFloat {
+  0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); }
+  50% { transform: scale(1.08) translate3d(-12px, -8px, 0); }
+}
+
+@keyframes heroRise {
+  0% { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(4px); }
+  60% { filter: blur(0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+`;
