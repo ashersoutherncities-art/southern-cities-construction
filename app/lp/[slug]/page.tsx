@@ -3,6 +3,75 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
 
+function ProblemIcon({ type }: { type: 'triangle' | 'grid' | 'spark' | 'dollar' }) {
+  if (type === 'triangle') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+        <path d="M24 7 40 37H8L24 7Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (type === 'grid') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+        <path d="M10 24H38M24 10V38" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <path d="M13 13H35V35H13Z" fill="none" stroke="currentColor" strokeWidth="1.4" opacity="0.9" />
+      </svg>
+    );
+  }
+
+  if (type === 'spark') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+        <path d="M15 24c4-6 8-6 12 0s8 6 6-1M17 20c2 2 3 4 4 8m8-10c1 3 2 5 4 7" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+      <path d="M28 9c-2-1-4-1-6 0-3 1-5 4-5 7 0 10 17 5 17 15 0 4-4 8-10 8-3 0-6-1-8-2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M24 6V42" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function SolutionIcon({ type }: { type: 'target' | 'layers' | 'alert' | 'arrow' }) {
+  if (type === 'target') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+        <circle cx="24" cy="24" r="13" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    );
+  }
+
+  if (type === 'layers') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+        <path d="M13 17H35V31H13Z" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M10 20H32V34H10Z" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.75" />
+      </svg>
+    );
+  }
+
+  if (type === 'alert') {
+    return (
+      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+        <path d="M24 8 39 36H9L24 8Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+        <path d="M24 18v8m0 5h.01" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true" className="h-10 w-10">
+      <path d="M14 33 33 14M20 14h13v13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 type Params = { slug: string };
 
 type LandingPageConfig = {
@@ -145,17 +214,17 @@ function PrimaryCta({ config, className = '' }: { config: LandingPageConfig; cla
 
 function BudgetScopePage({ config }: { config: LandingPageConfig }) {
   const problemCards = [
-    { icon: '△', title: 'Budgets miss major scope items', body: 'Important work gets overlooked and costs more later.' },
-    { icon: '⌗', title: 'Contractor estimates don’t match reality', body: 'Numbers look good until the work actually starts.' },
-    { icon: '⌁', title: 'Costs grow halfway through the project', body: 'Unidentified issues turn into expensive surprises.' },
-    { icon: '$', title: 'Profit disappears', body: 'The deal on paper does not work in reality.' },
+    { icon: 'triangle', title: 'Budgets miss major scope items', body: 'Important work gets overlooked and costs more later.' },
+    { icon: 'grid', title: 'Contractor estimates don’t match reality', body: 'Numbers look good until the work actually starts.' },
+    { icon: 'spark', title: 'Costs grow halfway through the project', body: 'Unidentified issues turn into expensive surprises.' },
+    { icon: 'dollar', title: 'Profit disappears', body: 'The deal on paper does not work in reality.' },
   ];
 
   const solutionCards = [
-    { icon: '◎', title: 'Real Budget Alignment', body: 'Your budget actually matches the scope.' },
-    { icon: '◫', title: 'Missing Costs Identified', body: 'No more surprise expenses mid-project.' },
-    { icon: '◯', title: 'High-Risk Areas Flagged', body: 'Know what can blow up your numbers.' },
-    { icon: '↗', title: 'Clear Next Steps', body: 'You know exactly what to fix or change.' },
+    { icon: 'target', title: 'Real Budget Alignment', body: 'Your budget actually matches the scope.' },
+    { icon: 'layers', title: 'Missing Costs Identified', body: 'No more surprise expenses mid-project.' },
+    { icon: 'alert', title: 'High-Risk Areas Flagged', body: 'Know what can blow up your numbers.' },
+    { icon: 'arrow', title: 'Clear Next Steps', body: 'You know exactly what to fix or change.' },
   ];
 
   const steps = [
@@ -206,7 +275,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
           <div className="mt-7 grid gap-x-7 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
             {problemCards.map((item) => (
               <div key={item.title} className="text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center text-[2.45rem] font-light text-[#d5aa74]">{item.icon}</div>
+                <div className="mx-auto flex h-16 w-16 items-center justify-center text-[#d5aa74]"><ProblemIcon type={item.icon as 'triangle' | 'grid' | 'spark' | 'dollar'} /></div>
                 <h3 className="mx-auto mt-2 max-w-[174px] text-[0.98rem] font-extrabold leading-[1.23] text-[#111827]">{item.title}</h3>
                 <p className="mx-auto mt-2 max-w-[176px] text-[11.5px] leading-[1.56] text-[#525b69]">{item.body}</p>
               </div>
@@ -231,7 +300,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {solutionCards.map((item) => (
               <div key={item.title} className="min-h-[170px] rounded-[2px] border border-white/14 bg-[rgba(7,15,27,0.18)] px-5 py-5 text-center text-white">
-                <div className="mx-auto flex h-15 w-15 items-center justify-center text-[2.25rem] text-[#f58220]">{item.icon}</div>
+                <div className="mx-auto flex h-15 w-15 items-center justify-center text-[#f58220]"><SolutionIcon type={item.icon as 'target' | 'layers' | 'alert' | 'arrow'} /></div>
                 <h3 className="mx-auto mt-3 max-w-[148px] text-[0.98rem] font-extrabold leading-[1.22]">{item.title}</h3>
                 <p className="mx-auto mt-2 max-w-[156px] text-[11.5px] leading-[1.56] text-white/72">{item.body}</p>
               </div>
