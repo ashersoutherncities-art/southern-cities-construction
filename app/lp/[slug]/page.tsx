@@ -249,7 +249,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,10,18,0.98)_0%,rgba(5,12,22,0.96)_28%,rgba(6,15,27,0.82)_56%,rgba(7,15,27,0.56)_78%,rgba(7,15,27,0.42)_100%)]" />
         <div className="relative z-10 mx-auto max-w-[1080px] px-6 pb-7 pt-4 sm:px-8 sm:pb-9 lg:px-8">
           <div className="flex items-start justify-between">
-            <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={122} height={30} className="h-7 w-auto" priority />
+            <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={164} height={40} className="h-10 w-auto" priority />
             <div className="hidden items-center gap-2 rounded-[2px] border border-white/18 bg-[rgba(4,10,18,0.72)] px-3 py-2 text-[9px] font-extrabold uppercase tracking-[0.14em] text-white sm:flex">
               <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/60 text-[8px] text-white">✓</span>
               Licensed NC General Contractor
