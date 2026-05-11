@@ -266,8 +266,8 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             <div className="mt-5">
               <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-4 flex items-center gap-2 text-[10px] font-medium text-white/88">
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/35 text-[8px]">✓</span>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-[2px] bg-[rgba(4,10,18,0.58)] px-3 py-2 text-[10px] font-medium text-white">
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/60 text-[8px] text-white">✓</span>
               Trusted by investors across North Carolina
             </div>
           </div>
