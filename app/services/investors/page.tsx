@@ -321,31 +321,52 @@ export default function InvestorsPage() {
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav variant="solid" />
 
-      <section className="relative overflow-hidden bg-navy-900 pt-32 pb-20 sm:pt-40 sm:pb-24">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
+      <section className="relative overflow-hidden bg-[#08111d] pt-32 pb-24 sm:pt-36 sm:pb-28">
+        <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
+        <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
+        <div className="absolute left-[-10%] top-[10%] h-72 w-72 rounded-full bg-[rgba(245,130,32,0.12)] blur-3xl" />
+        <div className="absolute bottom-[-6rem] right-[5%] h-80 w-80 rounded-full bg-[rgba(255,255,255,0.06)] blur-3xl" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          }}
+          aria-hidden="true"
+        />
         <div className="relative z-10 container-pro">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">For Investors · Licensed NC General Contractor #107724</p>
-            <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Construction Support for Investment Projects
+          <div className="mx-auto max-w-5xl text-center">
+            <p className="flex items-center justify-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+              For Investors · Licensed NC GC #107724
+              <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+            </p>
+            <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
+              Construction support for <span className="text-[#f58220]">investment projects.</span>
             </h1>
-            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">
+            <p className="mx-auto mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
               Choose where you are in the project and get the right support before costs, delays, or execution problems grow.
             </p>
-            <div className="mt-10 grid gap-3 text-left sm:grid-cols-2 xl:grid-cols-5">
+            <div className="mt-10 grid gap-3 text-left sm:grid-cols-2 xl:grid-cols-5 motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
               {investorStages.map((stage) => (
                 <a
                   key={stage.id}
                   href={`#${stage.id}`}
-                  className="rounded-[22px] border border-white/14 bg-white/8 px-4 py-4 text-left text-white transition hover:border-orange hover:bg-white/12"
+                  className="rounded-[16px] border border-white/15 bg-white/[0.06] px-4 py-4 text-left text-white transition hover:-translate-y-0.5 hover:border-[#f58220]/60 hover:bg-white/[0.1]"
                 >
-                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">{stage.stage}</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f58220]">{stage.stage}</p>
                   <p className="mt-2 text-base font-extrabold leading-tight">{stage.heroLabel}</p>
                 </a>
               ))}
             </div>
           </div>
         </div>
+        <style>{`
+@keyframes heroFloat { 0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); } 50% { transform: scale(1.08) translate3d(-12px, -8px, 0); } }
+@keyframes heroRise { 0% { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(4px); } 60% { filter: blur(0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); } }
+`}</style>
       </section>
 
       <section className="bg-white py-8 sm:py-10">
