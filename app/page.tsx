@@ -31,13 +31,15 @@ const credentials = [
 ];
 const duplicatedCredentials = [...credentials, ...credentials];
 
-const proofCards: { label: string; detail: string; tone: 'red' | 'amber' | 'rose' | 'orange' | 'navy' | 'emerald' }[] = [
-  { label: 'Get Your Deal Reviewed', detail: 'Catch issues before you put more money in', tone: 'red' },
-  { label: 'Know Your Real Budget', detail: 'Avoid underestimating scope and costs', tone: 'amber' },
-  { label: 'Map Your Permit Path', detail: 'Know what gets approved — and what does not', tone: 'rose' },
-  { label: 'Get Support During the Project', detail: 'Keep things moving without confusion', tone: 'orange' },
-  { label: 'Work With a Licensed GC', detail: 'Execution when your project calls for it', tone: 'navy' },
-  { label: 'Know What to Do Next', detail: 'Clear direction before moving forward', tone: 'emerald' },
+type ProofIconType = 'review' | 'budget' | 'permit' | 'support' | 'licensed' | 'compass';
+
+const proofCards: { label: string; detail: string; tone: 'red' | 'amber' | 'rose' | 'orange' | 'navy' | 'emerald'; icon: ProofIconType }[] = [
+  { label: 'Get Your Deal Reviewed', detail: 'Catch issues before you put more money in', tone: 'red', icon: 'review' },
+  { label: 'Know Your Real Budget', detail: 'Avoid underestimating scope and costs', tone: 'amber', icon: 'budget' },
+  { label: 'Map Your Permit Path', detail: 'Know what gets approved — and what does not', tone: 'rose', icon: 'permit' },
+  { label: 'Get Support During the Project', detail: 'Keep things moving without confusion', tone: 'orange', icon: 'support' },
+  { label: 'Work With a Licensed GC', detail: 'Execution when your project calls for it', tone: 'navy', icon: 'licensed' },
+  { label: 'Know What to Do Next', detail: 'Clear direction before moving forward', tone: 'emerald', icon: 'compass' },
 ];
 
 const stages = [
@@ -141,6 +143,75 @@ function CheckIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ProofIcon({ type, size = 28 }: { type: ProofIconType; size?: number }) {
+  const props = {
+    width: size,
+    height: size,
+    viewBox: '0 0 24 24',
+    fill: 'none' as const,
+    'aria-hidden': true,
+  };
+  const s = { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+
+  if (type === 'review') {
+    // Document with magnifying glass — "deal reviewed"
+    return (
+      <svg {...props}>
+        <path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z" {...s} />
+        <path d="M14 3v6h6" {...s} />
+        <circle cx="11" cy="14" r="2.4" {...s} />
+        <path d="M13 16l2 2" {...s} />
+      </svg>
+    );
+  }
+  if (type === 'budget') {
+    // Dollar sign in circle — "real budget"
+    return (
+      <svg {...props}>
+        <circle cx="12" cy="12" r="9" {...s} />
+        <path d="M15 9.5c-.8-.8-2-1.3-3.2-1.3-1.7 0-3 .9-3 2.2 0 3.2 6.4 1.8 6.4 4.8 0 1.4-1.4 2.4-3.2 2.4-1 0-2-.3-2.8-.8" {...s} />
+        <path d="M12 6.5v11" {...s} />
+      </svg>
+    );
+  }
+  if (type === 'permit') {
+    // Map with pin — "permit path"
+    return (
+      <svg {...props}>
+        <path d="M9 3L3 5v16l6-2 6 2 6-2V3l-6 2z" {...s} />
+        <path d="M9 3v16M15 5v16" {...s} />
+        <circle cx="12" cy="11" r="1.5" fill="currentColor" />
+      </svg>
+    );
+  }
+  if (type === 'support') {
+    // Hard hat — "support during project"
+    return (
+      <svg {...props}>
+        <path d="M4 17h16M5 17v-1a7 7 0 0114 0v1" {...s} />
+        <path d="M9 10V7a1 1 0 011-1h4a1 1 0 011 1v3" {...s} />
+        <path d="M3 20h18" {...s} />
+      </svg>
+    );
+  }
+  if (type === 'licensed') {
+    // Shield with check — "licensed GC"
+    return (
+      <svg {...props}>
+        <path d="M12 3l8 3v6c0 4.5-3.2 8.2-8 9-4.8-.8-8-4.5-8-9V6l8-3z" {...s} />
+        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  // compass — "know what to do next"
+  return (
+    <svg {...props}>
+      <circle cx="12" cy="12" r="9" {...s} />
+      <path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -273,7 +344,7 @@ export default function Home() {
                   className="rounded-2xl border border-stone-200 bg-white p-7 shadow-[0_8px_24px_-12px_rgba(8,17,29,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-16px_rgba(8,17,29,0.15)]"
                 >
                   <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${TONE_CLASSES[card.tone]} text-white shadow-lg`}>
-                    <CheckIcon size={26} />
+                    <ProofIcon type={card.icon} size={28} />
                   </div>
                   <h3 className="mt-5 text-lg font-extrabold leading-tight tracking-tight text-[#08111d]">{card.label}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{card.detail}</p>
