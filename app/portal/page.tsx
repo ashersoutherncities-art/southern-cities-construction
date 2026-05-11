@@ -43,6 +43,10 @@ export default function PortalPage() {
 
     if (item) {
       const defaults: Record<string, { amount: string; scope_notes: string }> = {
+        'verification-1': {
+          amount: amount || '1',
+          scope_notes: 'Internal $1 verification charge — refunded after end-to-end pipeline test.',
+        },
         'flagship-permit-oversight': {
           amount: amount || '4500',
           scope_notes: 'Permit administration and construction oversight selected from cart.',
