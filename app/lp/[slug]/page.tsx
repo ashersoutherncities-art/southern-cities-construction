@@ -206,8 +206,8 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
           <div className="mt-8 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
             {problemCards.map((item) => (
               <div key={item.title} className="text-center">
-                <div className="mx-auto flex h-9 w-9 items-center justify-center text-[1.45rem] font-light text-[#d5aa74]">{item.icon}</div>
-                <h3 className="mx-auto mt-2 max-w-[178px] text-[1rem] font-extrabold leading-[1.26] text-[#111827]">{item.title}</h3>
+                <div className="mx-auto flex h-14 w-14 items-center justify-center text-[2.2rem] font-light text-[#d5aa74]">{item.icon}</div>
+                <h3 className="mx-auto mt-3 max-w-[178px] text-[1rem] font-extrabold leading-[1.26] text-[#111827]">{item.title}</h3>
                 <p className="mx-auto mt-2 max-w-[180px] text-[12px] leading-[1.6] text-[#525b69]">{item.body}</p>
               </div>
             ))}
@@ -231,8 +231,8 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {solutionCards.map((item) => (
               <div key={item.title} className="min-h-[178px] rounded-[2px] border border-white/14 bg-[rgba(7,15,27,0.18)] px-5 py-5 text-center text-white">
-                <div className="mx-auto flex h-9 w-9 items-center justify-center text-[1.35rem] text-[#f58220]">{item.icon}</div>
-                <h3 className="mx-auto mt-3 max-w-[150px] text-[1rem] font-extrabold leading-[1.24]">{item.title}</h3>
+                <div className="mx-auto flex h-13 w-13 items-center justify-center text-[2rem] text-[#f58220]">{item.icon}</div>
+                <h3 className="mx-auto mt-4 max-w-[150px] text-[1rem] font-extrabold leading-[1.24]">{item.title}</h3>
                 <p className="mx-auto mt-2 max-w-[160px] text-[12px] leading-[1.6] text-white/72">{item.body}</p>
               </div>
             ))}
