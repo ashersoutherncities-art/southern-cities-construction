@@ -74,9 +74,31 @@ async function ghlFetch(path: string, init: RequestInit, token: string) {
   return { ok: res.ok, status: res.status, body: json ?? text };
 }
 
+async function removeContactTags(contactId: string, tags: string[], token: string) {
+  if (!contactId || !tags.length) return;
+  await ghlFetch(
+    `/contacts/${contactId}/tags`,
+    { method: 'DELETE', body: JSON.stringify({ tags }) },
+    token
+  );
+}
+
+async function addContactTags(contactId: string, tags: string[], token: string) {
+  if (!contactId || !tags.length) return;
+  await ghlFetch(
+    `/contacts/${contactId}/tags`,
+    { method: 'POST', body: JSON.stringify({ tags }) },
+    token
+  );
+}
+
 /**
  * Upsert a contact in GHL with all order data set as custom fields and
  * tagged with the product-specific tag that triggers the workflow.
+ *
+ * Key behavior for repeat customers: the product tag is REMOVED then
+ * RE-ADDED on every purchase, so the "tag added" event fires every
+ * time — including same-product re-purchases.
  *
  * Returns { ok: true } on success. Failures are returned, not thrown,
  * so the caller (Stripe webhook) can log and continue without breaking
@@ -98,9 +120,12 @@ export async function sendOrderToGhl(payload: GhlOrderPayload) {
     { id: CUSTOM_FIELD_IDS['Last Order Amount'], field_value: String(payload.amount_paid || 0) },
   ].filter((field) => Boolean(field.id));
 
-  const tag = `purchased-${payload.product_key}`.toLowerCase();
+  const productTag = `purchased-${payload.product_key}`.toLowerCase();
+  // Permanent tags for segmentation — never removed
+  const segmentationTags = [`ever-purchased-${payload.product_key}`.toLowerCase(), 'stripe-paid'];
 
-  const body = {
+  // Step 1: upsert WITHOUT the firing tag — sets fields + dedupes/creates contact + adds segmentation tags
+  const upsertBody = {
     locationId: creds.locationId,
     firstName,
     lastName,
@@ -109,24 +134,56 @@ export async function sendOrderToGhl(payload: GhlOrderPayload) {
     phone,
     source: 'Southern Cities — Stripe',
     customFields,
-    tags: [tag, 'stripe-paid'],
+    tags: segmentationTags,
   };
 
-  // /contacts/upsert: dedupes by email + phone, creates if new, updates if existing
-  const result = await ghlFetch(
+  const upsertResult = await ghlFetch(
     '/contacts/upsert',
-    { method: 'POST', body: JSON.stringify(body) },
+    { method: 'POST', body: JSON.stringify(upsertBody) },
     creds.token
   );
 
-  return {
-    ok: result.ok,
-    status: result.status,
-    body: result.body,
-    contactId:
-      (typeof result.body === 'object' && result.body !== null && 'contact' in result.body
-        ? (result.body as { contact: { id?: string } }).contact?.id
-        : null) || null,
-    tag,
-  };
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  if (!upsertResult.ok || !contactId) {
+    return {
+      ok: false,
+      status: upsertResult.status,
+      body: upsertResult.body,
+      contactId,
+      tag: productTag,
+    };
+  }
+
+  // Step 2: remove the firing tag (no-op if it doesn't exist), then re-add it.
+  // This guarantees the "tag added" event fires even on same-product re-purchases.
+  try {
+    await removeContactTags(contactId, [productTag], creds.token);
+    const addResult = await ghlFetch(
+      `/contacts/${contactId}/tags`,
+      { method: 'POST', body: JSON.stringify({ tags: [productTag] }) },
+      creds.token
+    );
+    return {
+      ok: addResult.ok,
+      status: addResult.status,
+      body: addResult.body,
+      contactId,
+      tag: productTag,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      status: 500,
+      body: `tag-rotate failed: ${(err as Error).message}`,
+      contactId,
+      tag: productTag,
+    };
+  }
 }
+
+// Re-export for callers that want to manage tags directly
+export { addContactTags, removeContactTags };
