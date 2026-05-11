@@ -250,8 +250,8 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         <div className="relative z-10 mx-auto max-w-[1080px] px-6 pb-7 pt-4 sm:px-8 sm:pb-9 lg:px-8">
           <div className="flex items-start justify-between">
             <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={122} height={30} className="h-7 w-auto" priority />
-            <div className="hidden items-center gap-2 pt-1 text-[9px] font-extrabold uppercase tracking-[0.14em] text-white/86 sm:flex">
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/35 text-[8px]">✓</span>
+            <div className="hidden items-center gap-2 rounded-[2px] border border-white/18 bg-[rgba(4,10,18,0.72)] px-3 py-2 text-[9px] font-extrabold uppercase tracking-[0.14em] text-white sm:flex">
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/60 text-[8px] text-white">✓</span>
               Licensed NC General Contractor
             </div>
           </div>
