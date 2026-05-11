@@ -246,7 +246,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         <div className="absolute inset-0">
           <Image src="/lp-budget-hero-bg.jpg" alt="Construction plans and project budgeting" fill className="object-cover object-right" priority />
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,10,18,0.97)_0%,rgba(5,12,22,0.95)_30%,rgba(6,15,27,0.72)_58%,rgba(7,15,27,0.28)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,10,18,0.98)_0%,rgba(5,12,22,0.96)_28%,rgba(6,15,27,0.82)_56%,rgba(7,15,27,0.56)_78%,rgba(7,15,27,0.42)_100%)]" />
         <div className="relative z-10 mx-auto max-w-[1080px] px-6 pb-7 pt-4 sm:px-8 sm:pb-9 lg:px-8">
           <div className="flex items-start justify-between">
             <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={122} height={30} className="h-7 w-auto" priority />
@@ -256,17 +256,17 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             </div>
           </div>
 
-          <div className="mt-8 max-w-[360px] rounded-[3px] bg-[rgba(4,10,18,0.52)] px-5 py-5 shadow-[0_18px_44px_rgba(0,0,0,0.18)] sm:mt-11 lg:mt-9">
+          <div className="mt-8 max-w-[360px] rounded-[3px] bg-[rgba(4,10,18,0.58)] px-5 py-5 shadow-[0_22px_54px_rgba(0,0,0,0.24)] sm:mt-11 lg:mt-9">
             <h1 className="text-[2.28rem] font-black leading-[0.94] tracking-[-0.058em] text-white sm:text-[2.92rem] lg:text-[3.42rem]">
               Don’t Underestimate Your Rehab <span className="text-[#f58220]">Budget</span>
             </h1>
             <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white sm:text-[0.98rem]">
               Know your real costs before you commit more money to the project.
             </p>
-            <div className="mt-6">
+            <div className="mt-7">
               <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-[3px] bg-[rgba(4,10,18,0.72)] px-3 py-2 text-[10px] font-medium text-white shadow-[0_10px_24px_rgba(0,0,0,0.16)]">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/14 bg-[rgba(4,10,18,0.82)] px-4 py-2 text-[10px] font-medium text-white shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
               <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/60 text-[8px] text-white">✓</span>
               Trusted by investors across North Carolina
             </div>
@@ -274,23 +274,23 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         </div>
       </section>
 
-      <section className="bg-white px-6 py-8 sm:px-8 lg:px-8 lg:py-10">
+      <section className="bg-[#f7f8fa] px-6 py-10 sm:px-8 lg:px-8 lg:py-12">
         <div className="mx-auto max-w-[1080px]">
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Problem</p>
           <h2 className="mt-2 text-center text-[1.92rem] font-black tracking-[-0.03em] text-[#111827]">Most Investors Get This Wrong</h2>
 
-          <div className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
             {problemCards.map((item) => (
-              <div key={item.title} className="text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center text-[#d5aa74]"><ProblemIcon type={item.icon as 'triangle' | 'grid' | 'spark' | 'dollar'} /></div>
+              <div key={item.title} className="rounded-[20px] border border-[#ebeef2] bg-white px-5 py-7 text-center shadow-[0_10px_24px_rgba(17,24,39,0.04)]">
+                <div className="mx-auto flex h-[72px] w-[72px] items-center justify-center text-[#d5aa74]"><ProblemIcon type={item.icon as 'triangle' | 'grid' | 'spark' | 'dollar'} /></div>
                 <h3 className="mx-auto mt-3 max-w-[176px] text-[0.99rem] font-extrabold leading-[1.24] text-[#111827]">{item.title}</h3>
                 <p className="mx-auto mt-2 max-w-[176px] text-[11.5px] leading-[1.56] text-[#525b69]">{item.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
-            <div className="inline-flex min-w-[220px] items-center justify-center gap-2 rounded-[3px] bg-[#f6e7d7] px-6 py-3 text-[12px] font-semibold text-[#77552f]">
+          <div className="mt-9 flex justify-center">
+            <div className="inline-flex min-w-[220px] items-center justify-center gap-2 rounded-full bg-[#f6e7d7] px-6 py-3 text-[13px] font-semibold text-[#77552f]">
               <span className="text-[#f58220]">✦</span>
               That’s how deals go bad.
             </div>
@@ -298,7 +298,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#09192d] px-6 py-10 sm:px-8 lg:px-8 lg:py-12">
+      <section className="relative overflow-hidden bg-[#09192d] px-6 py-12 sm:px-8 lg:px-8 lg:py-14">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_60%)]" />
         <div className="relative mx-auto max-w-[1080px]">
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Solution</p>
@@ -320,7 +320,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         </div>
       </section>
 
-      <section className="bg-white px-6 py-10 sm:px-8 lg:px-8 lg:py-12">
+      <section className="bg-white px-6 py-12 sm:px-8 lg:px-8 lg:py-14">
         <div className="mx-auto max-w-[1080px]">
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Process</p>
           <h2 className="mt-2 text-center text-[1.92rem] font-black tracking-[-0.03em] text-[#111827]">How It Works</h2>
@@ -336,7 +336,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             ))}
           </div>
 
-          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+          <div className="mt-12 grid gap-5 lg:grid-cols-2">
             <div className="rounded-[3px] border border-[#22344b] bg-[#091729] p-6 text-white shadow-[0_18px_40px_rgba(7,15,27,0.16)] min-h-[252px]">
               <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">Why Trust Southern Cities</p>
               <ul className="mt-5 space-y-3 text-[13px] leading-[1.65] text-white/88">
@@ -364,7 +364,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         </div>
       </section>
 
-      <section className="bg-[linear-gradient(180deg,#faf7f1_0%,#f4ece2_100%)] px-6 py-5 sm:px-8 lg:px-8">
+      <section className="bg-[linear-gradient(180deg,#faf7f1_0%,#f4ece2_100%)] px-6 py-7 sm:px-8 lg:px-8">
         <div className="mx-auto max-w-[1080px]">
           <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
@@ -383,7 +383,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         </div>
       </section>
 
-      <section className="bg-white px-6 pb-9 pt-6 sm:px-8 lg:px-8 lg:pb-11">
+      <section className="bg-white px-6 pb-12 pt-8 sm:px-8 lg:px-8 lg:pb-14">
         <div className="mx-auto max-w-[1080px]">
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">FAQ</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
