@@ -266,9 +266,12 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             <div className="mt-7">
               <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/14 bg-[rgba(4,10,18,0.82)] px-4 py-2 text-[10px] font-medium text-white shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/60 text-[8px] text-white">✓</span>
-              Trusted by investors across North Carolina
+            <div className="mt-3 inline-flex h-9 items-center gap-[10px] rounded-[8px] border border-white/15 bg-[#0d1323] px-3.5 text-[14px] font-medium leading-none text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 flex-none text-[#f28c1b]">
+                <path d="M12 3 18 5.5V11c0 4.2-2.7 7.2-6 8.9C8.7 18.2 6 15.2 6 11V5.5L12 3Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="m9.8 11.8 1.5 1.5 3-3.3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>Trusted by investors across North Carolina</span>
             </div>
           </div>
         </div>
