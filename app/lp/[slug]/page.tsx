@@ -256,17 +256,17 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             </div>
           </div>
 
-          <div className="mt-8 max-w-[338px] rounded-[2px] bg-[rgba(4,10,18,0.34)] px-4 py-4 sm:mt-11 lg:mt-9">
+          <div className="mt-8 max-w-[360px] rounded-[3px] bg-[rgba(4,10,18,0.52)] px-5 py-5 shadow-[0_18px_44px_rgba(0,0,0,0.18)] sm:mt-11 lg:mt-9">
             <h1 className="text-[2.28rem] font-black leading-[0.94] tracking-[-0.058em] text-white sm:text-[2.92rem] lg:text-[3.42rem]">
               Don’t Underestimate Your Rehab <span className="text-[#f58220]">Budget</span>
             </h1>
             <p className="mt-4 max-w-[268px] text-[0.95rem] leading-[1.58] text-white sm:text-[0.98rem]">
               Know your real costs before you commit more money to the project.
             </p>
-            <div className="mt-5">
+            <div className="mt-6">
               <PrimaryCta config={config} className="min-w-[178px]" />
             </div>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-[2px] bg-[rgba(4,10,18,0.58)] px-3 py-2 text-[10px] font-medium text-white">
+            <div className="mt-4 inline-flex items-center gap-2 rounded-[3px] bg-[rgba(4,10,18,0.72)] px-3 py-2 text-[10px] font-medium text-white shadow-[0_10px_24px_rgba(0,0,0,0.16)]">
               <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/60 text-[8px] text-white">✓</span>
               Trusted by investors across North Carolina
             </div>
@@ -279,18 +279,18 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Problem</p>
           <h2 className="mt-2 text-center text-[1.92rem] font-black tracking-[-0.03em] text-[#111827]">Most Investors Get This Wrong</h2>
 
-          <div className="mt-7 grid gap-x-7 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
             {problemCards.map((item) => (
               <div key={item.title} className="text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center text-[#d5aa74]"><ProblemIcon type={item.icon as 'triangle' | 'grid' | 'spark' | 'dollar'} /></div>
-                <h3 className="mx-auto mt-2 max-w-[174px] text-[0.98rem] font-extrabold leading-[1.23] text-[#111827]">{item.title}</h3>
+                <h3 className="mx-auto mt-3 max-w-[176px] text-[0.99rem] font-extrabold leading-[1.24] text-[#111827]">{item.title}</h3>
                 <p className="mx-auto mt-2 max-w-[176px] text-[11.5px] leading-[1.56] text-[#525b69]">{item.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-7 flex justify-center">
-            <div className="inline-flex min-w-[210px] items-center justify-center gap-2 rounded-[2px] bg-[#f6e7d7] px-6 py-[11px] text-[12px] font-semibold text-[#77552f]">
+          <div className="mt-8 flex justify-center">
+            <div className="inline-flex min-w-[220px] items-center justify-center gap-2 rounded-[3px] bg-[#f6e7d7] px-6 py-3 text-[12px] font-semibold text-[#77552f]">
               <span className="text-[#f58220]">✦</span>
               That’s how deals go bad.
             </div>
@@ -304,18 +304,18 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">The Solution</p>
           <h2 className="mt-2 text-center text-[1.92rem] font-black tracking-[-0.03em] text-white">What You Get</h2>
 
-          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {solutionCards.map((item) => (
-              <div key={item.title} className="min-h-[170px] rounded-[2px] border border-white/14 bg-[rgba(7,15,27,0.18)] px-5 py-5 text-center text-white">
+              <div key={item.title} className="min-h-[176px] rounded-[3px] border border-white/14 bg-[rgba(7,15,27,0.18)] px-5 py-5 text-center text-white shadow-[0_12px_28px_rgba(0,0,0,0.08)]">
                 <div className="mx-auto flex h-15 w-15 items-center justify-center text-[#f58220]"><SolutionIcon type={item.icon as 'target' | 'layers' | 'alert' | 'arrow'} /></div>
-                <h3 className="mx-auto mt-3 max-w-[148px] text-[0.98rem] font-extrabold leading-[1.22]">{item.title}</h3>
+                <h3 className="mx-auto mt-4 max-w-[148px] text-[0.99rem] font-extrabold leading-[1.22]">{item.title}</h3>
                 <p className="mx-auto mt-2 max-w-[156px] text-[11.5px] leading-[1.56] text-white/72">{item.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-7 flex justify-center">
-            <PrimaryCta config={config} className="min-w-[178px]" />
+          <div className="mt-8 flex justify-center">
+            <PrimaryCta config={config} className="min-w-[188px]" />
           </div>
         </div>
       </section>
@@ -336,8 +336,8 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
             ))}
           </div>
 
-          <div className="mt-9 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-[2px] border border-[#22344b] bg-[#091729] p-5 text-white shadow-[0_14px_34px_rgba(7,15,27,0.14)] min-h-[248px]">
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-[3px] border border-[#22344b] bg-[#091729] p-6 text-white shadow-[0_18px_40px_rgba(7,15,27,0.16)] min-h-[252px]">
               <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">Why Trust Southern Cities</p>
               <ul className="mt-5 space-y-3 text-[13px] leading-[1.65] text-white/88">
                 <li className="flex items-start gap-3"><span className="text-[#f58220]">◉</span><span>Licensed NC General Contractor</span></li>
@@ -350,7 +350,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
               </div>
             </div>
 
-            <div className="rounded-[2px] border border-[#ece6dc] bg-[#fcfaf7] p-5 shadow-[0_10px_24px_rgba(17,24,39,0.04)] min-h-[248px]">
+            <div className="rounded-[3px] border border-[#ece6dc] bg-[#fcfaf7] p-6 shadow-[0_12px_28px_rgba(17,24,39,0.05)] min-h-[252px]">
               <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">What This Is Not</p>
               <ul className="mt-5 space-y-3 text-[13px] leading-[1.65] text-[#3e4856]">
                 <li className="flex items-start gap-3"><span>⊗</span><span>Not a contractor bid</span></li>
@@ -366,14 +366,14 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
 
       <section className="bg-[linear-gradient(180deg,#faf7f1_0%,#f4ece2_100%)] px-6 py-5 sm:px-8 lg:px-8">
         <div className="mx-auto max-w-[1080px]">
-          <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
               <p className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">Budget & Scope Review</p>
-              <p className="mt-2 text-[2.85rem] font-black leading-none tracking-[-0.05em] text-[#111827]">$599</p>
+              <p className="mt-2 text-[3.05rem] font-black leading-none tracking-[-0.05em] text-[#111827]">$599</p>
               <p className="mt-2 text-[12.5px] text-[#59616d]">One flat fee. Clear answers.</p>
             </div>
             <div className="flex flex-col items-start lg:items-center lg:justify-center">
-              <PrimaryCta config={config} className="min-w-[235px]" />
+              <PrimaryCta config={config} className="min-w-[245px]" />
               <div className="mt-4 flex items-center gap-2 text-[10px] text-[#8a6a46]">
                 <span className="text-[#f58220]">✓</span>
                 Secure. Confidential. No obligation.
