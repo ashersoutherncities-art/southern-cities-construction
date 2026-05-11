@@ -335,6 +335,116 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="owner-controlled-build" className="relative overflow-hidden bg-navy-900 py-16 text-white sm:py-20">
+        <div
+          className="absolute inset-0 motion-safe:animate-gradient-pan bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]"
+          style={{ backgroundSize: '180% 180%' }}
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="container-pro relative z-10">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
+                <span className="block h-px w-8 bg-orange/80" aria-hidden="true" />
+                <span>Our flagship build model</span>
+              </p>
+              <h2 className="mt-5 text-[2.25rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.75rem] lg:text-[3.25rem]">
+                Owner-Controlled Build.
+              </h2>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
+                You stay the owner. We provide the GC structure, pull the permits, and run the execution
+                controls. A hybrid model — most of the upside of self-managing, none of the chaos.
+              </p>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {[
+                  { title: 'GC authority on paper', detail: 'Permits pulled under our license.' },
+                  { title: 'Execution controls', detail: 'Scope, schedule, budget, draws.' },
+                  { title: 'You stay PM', detail: 'Own the calls. Keep the margin.' },
+                  { title: 'Real backup', detail: 'Estimator, permit admin, draw support.' },
+                ].map((point) => (
+                  <div key={point.title} className="flex gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-orange/30 bg-orange/10 text-orange">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-bold text-white">{point.title}</p>
+                      <p className="mt-0.5 text-sm text-white/65">{point.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <Link
+                  href={CONSULTATION_CTA_HREF}
+                  className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
+                >
+                  See if this fits your project
+                </Link>
+                <Link
+                  href="/contracting"
+                  className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/25 px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-white/5"
+                >
+                  Compare with full contracting
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="rounded-[24px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm sm:p-6">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/55">
+                  The three execution options
+                </p>
+
+                <div className="mt-5 space-y-3">
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="font-bold text-white">Construction Oversight</p>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Advisory</span>
+                    </div>
+                    <p className="mt-2 text-sm text-white/65">We review. You run it.</p>
+                  </div>
+
+                  <div className="relative rounded-2xl border-2 border-orange/60 bg-orange/[0.12] p-5">
+                    <span className="absolute -top-2.5 left-4 rounded-full bg-orange px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                      Flagship
+                    </span>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="font-bold text-white">Owner-Controlled Build</p>
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange">Hybrid</span>
+                    </div>
+                    <p className="mt-2 text-sm text-white/80">We carry the license. You PM the build.</p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="font-bold text-white">Full Execution</p>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Full GC</span>
+                    </div>
+                    <p className="mt-2 text-sm text-white/65">We run it. You step back.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div className="motion-safe:animate-hero-rise" style={{ animationDelay: '0.2s' }}>
         <TestimonialsCarousel />
       </div>
