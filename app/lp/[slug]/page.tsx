@@ -7,36 +7,38 @@ import FaqItem from '@/components/landing/FaqItem';
 function ProblemIcon({ type }: { type: 'triangle' | 'grid' | 'spark' | 'dollar' }) {
   if (type === 'triangle') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
-        <path d="M24 11 36 33H12L24 11Z" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinejoin="round" />
+      <svg viewBox="0 0 64 64" aria-hidden="true" className="h-12 w-12">
+        <path d="M32 14 50 46H14L32 14Z" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" />
+        <path d="M32 25v10" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+        <circle cx="32" cy="40.5" r="1.8" fill="currentColor" />
       </svg>
     );
   }
 
   if (type === 'grid') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
-        <rect x="13" y="13" width="22" height="22" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.45" />
-        <path d="M20.3 13v22M27.7 13v22M13 20.3h22M13 27.7h22" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+      <svg viewBox="0 0 64 64" aria-hidden="true" className="h-12 w-12">
+        <rect x="16" y="16" width="32" height="32" rx="2.5" fill="none" stroke="currentColor" strokeWidth="2.3" />
+        <path d="M26.7 16v32M37.3 16v32M16 26.7h32M16 37.3h32" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </svg>
     );
   }
 
   if (type === 'spark') {
     return (
-      <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
-        <path d="M13 31h22" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
-        <path d="M16 28V18" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
-        <path d="M18 26l4-5 5 3 5-7 3 2" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
+      <svg viewBox="0 0 64 64" aria-hidden="true" className="h-12 w-12">
+        <path d="M16 43h32" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" />
+        <path d="M20 38V22" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" />
+        <path d="M23 35l7-9 8 5 8-12 4 3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 48 48" aria-hidden="true" className="h-9 w-9">
-      <circle cx="24" cy="24" r="12.4" fill="none" stroke="currentColor" strokeWidth="1.45" />
-      <path d="M27.7 16.2c-1-.55-2.15-.83-3.45-.83-3.05 0-5.22 1.7-5.22 4.08 0 5.9 10.62 3.25 10.62 8.9 0 2.55-2.3 4.28-5.67 4.28-1.7 0-3.45-.47-4.77-1.33" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" />
-      <path d="M24 13.2v21.6" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+    <svg viewBox="0 0 64 64" aria-hidden="true" className="h-12 w-12">
+      <circle cx="32" cy="32" r="16.5" fill="none" stroke="currentColor" strokeWidth="2.3" />
+      <path d="M37 21.5c-1.35-.75-2.9-1.12-4.65-1.12-4.1 0-7.02 2.28-7.02 5.47 0 7.9 14.27 4.37 14.27 11.93 0 3.42-3.1 5.74-7.62 5.74-2.28 0-4.63-.63-6.4-1.78" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" />
+      <path d="M32 17.5v29" fill="none" stroke="currentColor" strokeWidth="1.95" strokeLinecap="round" />
     </svg>
   );
 }
