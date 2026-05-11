@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
+import FaqItem from '@/components/landing/FaqItem';
 
 function ProblemIcon({ type }: { type: 'triangle' | 'grid' | 'spark' | 'dollar' }) {
   if (type === 'triangle') {
@@ -390,11 +391,8 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         <div className="mx-auto max-w-[1080px]">
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#f58220]">FAQ</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            {config.faqs.map((faq) => (
-              <div key={faq.q} className="flex min-h-[44px] items-center justify-between rounded-[2px] border border-[#ece6dc] bg-white px-4 py-[10px] shadow-[0_6px_16px_rgba(17,24,39,0.03)]">
-                <p className="text-[12.5px] font-semibold text-[#111827]">{faq.q}</p>
-                <span className="text-[17px] leading-none text-[#a0a7b1]">+</span>
-              </div>
+            {config.faqs.map((faq, index) => (
+              <FaqItem key={faq.q} faq={faq} defaultOpen={index === 0} />
             ))}
           </div>
         </div>
@@ -516,6 +514,7 @@ function DefaultLandingPage({ config }: { config: LandingPageConfig }) {
     </main>
   );
 }
+
 
 export function generateStaticParams() {
   return LANDING_PAGES.map((page) => ({ slug: page.slug }));
