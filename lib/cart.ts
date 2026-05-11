@@ -24,6 +24,15 @@ export type CartLineItem = {
 };
 
 export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
+  'verification-1': {
+    key: 'verification-1',
+    name: '$1 Verification Charge',
+    shortName: 'Verification',
+    price: 100,
+    priceLabel: '$1 test charge',
+    description: 'Internal $1 test to verify the Stripe checkout + webhook + order pipeline. Refunded after verification.',
+    checkoutAmount: '1',
+  },
   'flagship-permit-oversight': {
     key: 'flagship-permit-oversight',
     name: 'Permit Administration + Construction Oversight',
