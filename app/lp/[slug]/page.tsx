@@ -48,12 +48,12 @@ const LANDING_PAGES: LandingPageConfig[] = [
     productKey: 'budget-review',
     ctaLabel: 'Start Budget Review',
     price: '$599',
-    heroHeadline: 'Know Your Real Rehab Budget Before You Start',
-    heroSubheadline: 'Make sure your budget actually matches the scope before startup, lender conversations, or contractor decisions move further.',
-    problemHeadline: 'What goes wrong if you skip this',
-    problemBullets: ['Underbudgeting key work', 'Missing expensive scope items', 'Approving weak contractor numbers', 'Starting with unrealistic assumptions'],
-    getBullets: ['Clear budget review', 'Scope gap identification', 'Cost pressure callouts', 'Written next-step guidance'],
-    processBullets: ['Submit your project', 'We review the budget against the scope', 'You get a clearer cost direction'],
+    heroHeadline: 'Don’t Underestimate Your Rehab Budget',
+    heroSubheadline: 'Know your real costs before you commit more money to the project.',
+    problemHeadline: 'Most Investors Get This Wrong',
+    problemBullets: ['Budgets miss major scope items', 'Contractor estimates don’t match reality', 'Costs grow halfway through the project', 'Profit disappears'],
+    getBullets: ['Real Budget Alignment', 'Missing Costs Identified', 'High-Risk Areas Flagged', 'Clear Next Steps'],
+    processBullets: ['Submit Your Project', 'We Review Everything', 'You Get Clear Direction'],
     trustQuote: 'It helped us catch the weak spots in the budget before startup.',
     trustName: 'Investor client',
     faqs: [
@@ -161,11 +161,11 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
         <div className="relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-6 sm:px-8 sm:pb-24 sm:pt-10">
           <div className="max-w-4xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Southern Cities Construction</p>
-            <h1 className="mt-6 text-5xl font-black leading-[0.98] tracking-[-0.04em] text-white sm:text-6xl lg:text-[4.5rem]">
-              Know Your Real Rehab <span className="text-orange">Budget</span> Before You Start
+            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.04em] text-white sm:text-6xl lg:text-[4.5rem]">
+              Don’t Underestimate Your Rehab <span className="text-orange">Budget</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/84 sm:text-xl">
-              Make sure your budget actually matches the scope before startup, lender conversations, or contractor decisions move further.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/84 sm:text-xl">
+              Know your real <span className="text-orange">costs</span> before you commit more money to the project.
             </p>
             <div className="mt-10 max-w-sm">
               <PrimaryCta config={config} fullWidth />
@@ -224,7 +224,7 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
       <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
         <div className="grid gap-6 lg:grid-cols-[1.06fr_0.94fr]">
           <section className="rounded-[30px] border border-stone-200 bg-white p-7 shadow-[0_18px_45px_rgba(11,22,48,0.08)] sm:p-9">
-            <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">What Happens Next</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">How It Works</h2>
             <div className="mt-7 space-y-4">
               {config.processBullets.map((bullet, index) => (
                 <div key={bullet} className="flex items-start gap-4 rounded-[22px] border border-stone-200 bg-stone-50 p-5">
@@ -252,7 +252,13 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
               <div className="rounded-[22px] border border-stone-200 bg-stone-50 p-5">
                 <div className="flex items-start gap-3">
                   <span className="text-orange">◉</span>
-                  <span className="text-sm font-semibold text-navy-900">Investor-focused</span>
+                  <span className="text-sm font-semibold text-navy-900">Investor-focused construction support</span>
+                </div>
+              </div>
+              <div className="rounded-[22px] border border-stone-200 bg-stone-50 p-5 sm:col-span-2">
+                <div className="flex items-start gap-3">
+                  <span className="text-orange">▣</span>
+                  <span className="text-sm font-semibold text-navy-900">Projects reviewed across North Carolina</span>
                 </div>
               </div>
             </div>
@@ -267,8 +273,9 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
       <section className="mx-auto max-w-6xl px-5 py-4 sm:px-8 sm:py-6">
         <div className="rounded-[30px] border border-navy-950 bg-[linear-gradient(145deg,#0c1731_0%,#10244a_100%)] p-8 text-white shadow-[0_22px_55px_rgba(11,22,48,0.28)] sm:p-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Pricing</p>
-          <p className="mt-4 text-5xl font-black tracking-[-0.04em] sm:text-6xl">{config.price}</p>
-          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/82">Direct decision product. Clear scope. Fast next step.</p>
+          <p className="mt-4 text-lg font-semibold text-white/88">Budget & Scope Review</p>
+          <p className="mt-2 text-5xl font-black tracking-[-0.04em] sm:text-6xl">{config.price}</p>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/82">One flat fee. Clear answers.</p>
           <div className="mt-8 max-w-sm">
             <PrimaryCta config={config} fullWidth />
           </div>
@@ -277,14 +284,27 @@ function BudgetScopePage({ config }: { config: LandingPageConfig }) {
 
       <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
         <div className="rounded-[30px] border border-stone-200 bg-white p-7 shadow-[0_18px_45px_rgba(11,22,48,0.08)] sm:p-9">
-          <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">FAQ</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {config.faqs.map((faq) => (
-              <div key={faq.q} className="rounded-[22px] border border-stone-200 bg-stone-50 p-5">
-                <p className="font-semibold text-navy-900">{faq.q}</p>
-                <p className="mt-2 text-sm leading-relaxed text-stone-700">{faq.a}</p>
+          <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+            <div>
+              <h2 className="text-2xl font-extrabold tracking-tight text-navy-900 sm:text-[2rem]">FAQ</h2>
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                {config.faqs.map((faq) => (
+                  <div key={faq.q} className="rounded-[22px] border border-stone-200 bg-stone-50 p-5">
+                    <p className="font-semibold text-navy-900">{faq.q}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-stone-700">{faq.a}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            <div className="rounded-[24px] border border-stone-200 bg-[#f7f3ec] p-6">
+              <h3 className="text-xl font-extrabold tracking-tight text-navy-900">What This Is Not</h3>
+              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-stone-700">
+                <li className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange" /><span>Not a contractor bid</span></li>
+                <li className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange" /><span>Not full estimating</span></li>
+                <li className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange" /><span>Not project management</span></li>
+                <li className="flex items-start gap-3"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-orange" /><span>Not permit pulling</span></li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
