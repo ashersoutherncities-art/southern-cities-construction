@@ -391,7 +391,7 @@ export default function Home() {
 
               <div className="mt-10 flex flex-wrap items-center gap-4">
                 <Link
-                  href={CONSULTATION_CTA_HREF}
+                  href="/services/investors/owner-controlled-build"
                   className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-orange-500"
                 >
                   See if this fits your project
