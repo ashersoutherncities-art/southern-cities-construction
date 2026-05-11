@@ -22,6 +22,49 @@ const HIDDEN_DIRECT_LINKS = new Set([
   '/services/realtors/inspection-response',
 ]);
 
+const AD_LANDING_PAGES: InventoryLink[] = [
+  {
+    url: `${BASE_URL}/lp/investor-deal-review`,
+    path: '/lp/investor-deal-review',
+    title: 'Investor Deal Review Landing Page',
+    kind: 'landing_page',
+    audience: 'Investors',
+    hidden: true,
+  },
+  {
+    url: `${BASE_URL}/lp/budget-scope-review`,
+    path: '/lp/budget-scope-review',
+    title: 'Budget Scope Review Landing Page',
+    kind: 'landing_page',
+    audience: 'Investors',
+    hidden: true,
+  },
+  {
+    url: `${BASE_URL}/lp/permit-path-review`,
+    path: '/lp/permit-path-review',
+    title: 'Permit Path Review Landing Page',
+    kind: 'landing_page',
+    audience: 'Investors',
+    hidden: true,
+  },
+  {
+    url: `${BASE_URL}/lp/contractor-fit`,
+    path: '/lp/contractor-fit',
+    title: 'Contractor Fit Landing Page',
+    kind: 'landing_page',
+    audience: 'Investors',
+    hidden: true,
+  },
+  {
+    url: `${BASE_URL}/lp/draw-review`,
+    path: '/lp/draw-review',
+    title: 'Draw Review Landing Page',
+    kind: 'landing_page',
+    audience: 'Investors',
+    hidden: true,
+  },
+];
+
 function labelFromPath(path: string) {
   if (path === '/') return 'Homepage';
   const last = path.split('/').filter(Boolean).pop() || '';
@@ -63,7 +106,7 @@ export function getSouthernCitiesConstructionInventory(): InventoryLink[] {
   });
 
   const deduped = new Map<string, InventoryLink>();
-  [...coreRoutes, ...serviceLinks].forEach((item) => {
+  [...coreRoutes, ...serviceLinks, ...AD_LANDING_PAGES].forEach((item) => {
     if (!deduped.has(item.path)) deduped.set(item.path, item);
   });
 
