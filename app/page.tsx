@@ -6,6 +6,7 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import FaqItem from '@/components/landing/FaqItem';
+import LpLeadForm from '@/components/LpLeadForm';
 
 const CONSULTATION_CTA_HREF = '/services/homeowners/owner-consultation';
 
@@ -683,31 +684,25 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border-2 border-[#f58220]/20 bg-white p-7 shadow-[0_30px_60px_-25px_rgba(8,17,29,0.2)] sm:p-9">
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Next step</p>
-                <h3 className="mt-3 text-3xl font-black tracking-[-0.02em] text-[#08111d]">Choose how you want to start</h3>
-                <p className="mt-4 text-[15px] leading-relaxed text-stone-600">
-                  If you already know you want to talk, book the free call. If you want to send project details first, email us and we will follow up.
-                </p>
-                <div className="mt-8 space-y-4">
+              <div>
+                <LpLeadForm
+                  id="homepage-contact-form"
+                  serviceSlug="homepage-general-inquiry"
+                  serviceName="Homepage — general project inquiry"
+                  source="homepage-contact"
+                  headline="Talk to us about your project"
+                  subhead="Tell us where the project is — scope, timeline, what you're trying to figure out — and a licensed NC GC will get back within 1 business day."
+                  submitLabel="Send Project Details"
+                  variant="light"
+                />
+                <div className="mt-6 rounded-2xl border-2 border-[#f58220]/20 bg-stone-50 p-5">
+                  <p className="text-sm font-bold text-[#08111d]">Prefer to talk live?</p>
                   <Link
                     href={CONSULTATION_CTA_HREF}
-                    className="inline-flex min-h-[56px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                    className="mt-3 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-5 py-3 text-[13px] font-black uppercase tracking-[0.06em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
                   >
                     Schedule a Free Project Call <span aria-hidden="true">→</span>
                   </Link>
-                  <a
-                    href="mailto:info@southerncitiesconstruction.com"
-                    className="inline-flex min-h-[56px] w-full items-center justify-center rounded-full border-2 border-stone-300 bg-white px-6 py-4 text-sm font-black uppercase tracking-[0.06em] text-[#08111d] transition-all hover:-translate-y-0.5 hover:border-[#f58220] hover:text-[#f58220]"
-                  >
-                    Contact Us by Email
-                  </a>
-                </div>
-                <div className="mt-8 rounded-xl bg-stone-50 p-5">
-                  <p className="text-sm font-bold text-[#08111d]">Best fit for this page</p>
-                  <p className="mt-2 text-sm leading-relaxed text-stone-600">
-                    Early-stage project questions, scope clarity, budget direction, permit concerns, contractor planning, and deciding whether you need support or full execution.
-                  </p>
                 </div>
               </div>
             </div>

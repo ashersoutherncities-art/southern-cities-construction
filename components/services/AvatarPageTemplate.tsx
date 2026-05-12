@@ -93,10 +93,24 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
     setError('');
 
     try {
+      // Always forward a hub-inquiry slug so the GHL catch-all workflow fires
+      // even when the user leaves the freeform "service" field blank. The
+      // freeform service text (if typed) is folded into the message body so
+      // it still reaches the inbox.
+      const hubSlug = `${data.slug}-hub-inquiry`;
+      const composedMessage = formData.service
+        ? `Reaching out about: ${formData.service}\n\n${formData.message}`
+        : formData.message;
+
       const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          service: hubSlug,
+          message: composedMessage,
+          source: `hub-${data.slug}`,
+        }),
       });
 
       if (!res.ok) {
