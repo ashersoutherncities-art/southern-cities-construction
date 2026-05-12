@@ -304,7 +304,13 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 function StageSection({ id, stage, title, label, cta, products, compact }: Stage) {
-  const gridClass = compact ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2 xl:grid-cols-4';
+  // Widths are computed so items + gap-5 (1.25rem) exactly fill 100%, which
+  // means full rows look identical to a regular grid. justify-center only
+  // affects PARTIAL last rows (e.g. 5 items in a 3-col layout) — those get
+  // centered instead of left-aligned with awkward empty space.
+  const itemWidthClass = compact
+    ? 'w-full md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]'
+    : 'w-full md:w-[calc(50%-0.625rem)] xl:w-[calc(25%-0.9375rem)]';
 
   return (
     <section id={id} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
@@ -319,9 +325,11 @@ function StageSection({ id, stage, title, label, cta, products, compact }: Stage
         </a>
       </div>
 
-      <div className={`mt-8 grid gap-5 ${gridClass}`}>
+      <div className="mt-8 flex flex-wrap justify-center gap-5">
         {products.map((product) => (
-          <ProductCard key={product.name} product={product} />
+          <div key={product.name} className={itemWidthClass}>
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
     </section>
