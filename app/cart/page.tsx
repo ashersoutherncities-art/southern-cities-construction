@@ -112,14 +112,15 @@ function CartPageContent() {
         // funnel; they came from an LP, they go to Stripe next.
         <header className="border-b border-stone-200 bg-white">
           <div className="container-pro flex h-16 items-center justify-center sm:h-20">
-            <Link href="/" className="text-center">
+            {/* Non-linked wordmark — LP isolation means no clickable path back to main site */}
+            <div className="text-center">
               <p className="text-base font-black tracking-[-0.02em] text-navy-900 sm:text-lg">
                 Southern Cities Construction
               </p>
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange">
                 Licensed NC General Contractor
               </p>
-            </Link>
+            </div>
           </div>
         </header>
       ) : (
@@ -146,22 +147,35 @@ function CartPageContent() {
             </div>
             <h2 className="text-2xl font-bold text-navy-900">Your cart is empty</h2>
             <p className="mx-auto mt-3 max-w-md text-ink/60">
-              Browse the services catalog and add a purchasable item to start checkout, or request a quote for scope-based work.
+              {isIsolatedMode
+                ? 'Use your browser’s back button to return to where you were, or contact us if you need help.'
+                : 'Browse the services catalog and add a purchasable item to start checkout, or request a quote for scope-based work.'}
             </p>
-            <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center rounded-full bg-orange hover:bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-orange transition-colors"
-              >
-                Browse Services
-              </Link>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
-              >
-                Request a Quote
-              </Link>
-            </div>
+            {!isIsolatedMode ? (
+              <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center rounded-full bg-orange hover:bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-orange transition-colors"
+                >
+                  Browse Services
+                </Link>
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            ) : (
+              <div className="mt-7 flex flex-col items-center gap-3">
+                <a
+                  href="mailto:info@southerncitiesconstruction.com"
+                  className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
+                >
+                  Email us about this product
+                </a>
+              </div>
+            )}
           </div>
         ) : (
           <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_0.8fr]">
@@ -240,15 +254,18 @@ function CartPageContent() {
                 </div>
               ))}
 
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900 hover:text-orange transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                </svg>
-                Back to services
-              </Link>
+              {/* "Back to services" goes to the main site — hide in isolated LP-funnel mode. */}
+              {!isIsolatedMode ? (
+                <Link
+                  href="/services"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900 hover:text-orange transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                  </svg>
+                  Back to services
+                </Link>
+              ) : null}
             </div>
 
             <div className="h-fit rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-8 shadow-elev-1">
