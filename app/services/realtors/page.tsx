@@ -238,7 +238,7 @@ export default function RealtorsPage() {
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Monthly support tiers</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Realtor Subscription Plans</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-white/82 sm:text-lg">
-              When the same construction questions keep coming up across your active deals, a monthly plan gives you defined response capacity at predictable cost — sized to whether you're a solo agent, a team, or a full brokerage.
+              When the same construction questions keep coming up across your active deals, a monthly plan gives you defined response capacity at predictable cost — sized to whether you are a solo agent, a team, or a full brokerage.
             </p>
           </div>
 
