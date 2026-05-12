@@ -722,7 +722,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'deal',
     heroHeadlinePost: ' — before you sign.',
     heroSubheadline:
-      'Investor Deal & Scope Review + Budget & Scope Review + Permit & Local Compliance Review + Contractor Fit Consultation, bundled. Every angle a serious investor needs covered before earnest money goes hard. Starting at $1,499.',
+      'Does the construction actually pencil? Will the budget survive contact with reality? Can it get permitted in this jurisdiction? What kind of contractors will the job take? Four questions, four reads, one combined report — before earnest money goes hard. Starting at $1,499.',
     problemHeadline: 'One review is a guess. Four reviews is a decision.',
     problemIntro: 'Investors who buy a single $499 deal review get a useful opinion. Investors who run all four reads catch things any one of them would miss.',
     problemCards: [
@@ -796,7 +796,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'win',
     heroHeadlinePost: ' before construction starts.',
     heroSubheadline:
-      'Contractor-Grade Budget + Scope & Timeline Setup + Permit Administration + Contractor Match & Bid Coordination + Cashflow Schedule, bundled. Everything we hand a customer in the first 30 days of a project — sold as one package so nothing falls through the cracks. Starting at $2,500.',
+      'What does this actually cost to build? What\'s the real timeline? Who\'s filing the permits? Who\'s going to build it? When does money move and from where? Everything answered before the first hammer swings — so the project starts where it should, not where you\'d be six weeks in trying to fix it. Starting at $2,500.',
     problemHeadline: 'The first 30 days decides the next 90',
     problemIntro: 'Projects that get into trouble usually started in trouble. Weak scope, vague timeline, unprepared permits, random bids, and no draw schedule create execution drag that compounds month over month.',
     problemCards: [
@@ -872,7 +872,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'control',
     heroHeadlinePost: ' while the job runs.',
     heroSubheadline:
-      'Construction Oversight + Draw Review + Progress Monitoring + Bid Coordination + Permit Handling, bundled. The full ongoing support layer for an active project — scoped to your scale, with full GC contracting available if you need us to take it over entirely. Starting at $3,500.',
+      'Who\'s watching the field? Is the contractor billing for work actually done? Is the project on schedule? Are inspections getting handled? Site visits, draw reviews, progress checks, and permit follow-through — so an active project doesn\'t quietly drift while nobody\'s looking. Full GC contracting available if you want us to run it ourselves. Starting at $3,500.',
     problemHeadline: 'Active projects drift fast without follow-through',
     problemIntro: 'Even a well-planned project loses money mid-build when nobody is watching the field, the bills, and the contractor in real time.',
     problemCards: [
