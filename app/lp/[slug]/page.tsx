@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
 import FaqItem from '@/components/landing/FaqItem';
+import LpLeadForm from '@/components/LpLeadForm';
 
 type Params = { slug: string };
 
@@ -783,7 +784,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'project-setup-bundle',
-    fallbackHref: '/#contact',
+    fallbackHref: '#quote-form',
     ctaLabel: 'Request Custom Quote',
     price: 'Starting at $2,500',
     priceAnchor: 'Most-bought bundle — sets up an investor project to win',
@@ -859,7 +860,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'execution-support-bundle',
-    fallbackHref: '/#contact',
+    fallbackHref: '#quote-form',
     ctaLabel: 'Request Custom Quote',
     price: 'Starting at $3,500',
     priceAnchor: 'Project oversight + draw control + full contracting available',
@@ -1547,6 +1548,26 @@ export default function LandingPage({ params }: { params: Params }) {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+        ) : null}
+
+        {/* INLINE LEAD FORM — only for non-cart LPs (no productKey). The bundle
+            LPs with variable pricing (Project Setup, Execution Support) and any
+            other quote-style LP route their CTA anchor here. */}
+        {!config.productKey ? (
+          <section className="bg-stone-50">
+            <div className="mx-auto max-w-4xl px-6 py-16 sm:px-8 sm:py-20">
+              <LpLeadForm
+                id="quote-form"
+                serviceSlug={config.slug}
+                serviceName={config.priceLabel || config.heroEyebrow}
+                source={`lp-${config.slug}`}
+                headline={`Request a custom quote — ${config.priceLabel || config.heroEyebrow}`}
+                subhead={`Send a few details about your project (address, scope, timeline, anything we should know) and we'll come back within 1 business day with scope, pricing, and next steps.`}
+                submitLabel={config.ctaLabel}
+                variant="dark"
+              />
             </div>
           </section>
         ) : null}

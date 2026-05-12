@@ -185,5 +185,80 @@ export async function sendOrderToGhl(payload: GhlOrderPayload) {
   }
 }
 
+export type GhlInquiryPayload = {
+  buyer_name: string;
+  buyer_email: string;
+  buyer_phone?: string;
+  service_slug: string;
+  service_name?: string;
+  message?: string;
+  company?: string;
+  source?: string;
+};
+
+/**
+ * Forward a lead-capture form submission to GHL. Upserts the contact and adds
+ * an `inquiry-<service-slug>` tag (distinct from the `purchased-<key>` tag
+ * fired on order completion). GHL workflows can listen to the inquiry tag to
+ * send confirmation email, internal alert, kick off a sales sequence, etc.
+ *
+ * Tag is NOT rotated — each inquiry submission for the same product just adds
+ * the tag once (already-present is a no-op in GHL). For most lead forms a
+ * single tag-add is the right behavior. If a customer submits two inquiries
+ * for the same product, the second one wouldn't fire the workflow again —
+ * but that's usually desired (don't double-email the same lead).
+ *
+ * Returns ok/failure without throwing; caller logs.
+ */
+export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
+  const creds = getCreds();
+  if (!creds) {
+    return { ok: false, reason: 'GHL credentials not configured' as const };
+  }
+
+  const { firstName, lastName } = splitName(payload.buyer_name);
+  const phone = (payload.buyer_phone || '').trim() || undefined;
+  const inquiryTag = `inquiry-${payload.service_slug}`.toLowerCase();
+
+  const upsertBody = {
+    locationId: creds.locationId,
+    firstName,
+    lastName,
+    name: payload.buyer_name,
+    email: payload.buyer_email,
+    phone,
+    source: payload.source || 'Southern Cities — Inquiry Form',
+    tags: [inquiryTag, 'lead-inquiry'],
+  };
+
+  const upsertResult = await ghlFetch(
+    '/contacts/upsert',
+    { method: 'POST', body: JSON.stringify(upsertBody) },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  if (!upsertResult.ok || !contactId) {
+    return {
+      ok: false,
+      status: upsertResult.status,
+      body: upsertResult.body,
+      contactId,
+      tag: inquiryTag,
+    };
+  }
+
+  return {
+    ok: true,
+    status: upsertResult.status,
+    contactId,
+    tag: inquiryTag,
+  };
+}
+
 // Re-export for callers that want to manage tags directly
 export { addContactTags, removeContactTags };

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
+import { sendInquiryToGhl } from '@/lib/ghl';
 
 const requestLog = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
@@ -80,6 +81,30 @@ export async function POST(req: NextRequest) {
       }
     } catch (notifyErr) {
       console.error('Telegram notification failed:', notifyErr);
+    }
+
+    // Forward to GHL as a contact upsert + inquiry tag. Fire-and-forget so
+    // GHL downtime never breaks the lead capture pipeline. The
+    // inquiry-<service-slug> tag fires the GHL workflow for that product's
+    // lead nurture (confirmation email, internal alert, follow-up sequence).
+    if (normalizedService) {
+      try {
+        const ghlResult = await sendInquiryToGhl({
+          buyer_name: name,
+          buyer_email: email,
+          buyer_phone: phone || undefined,
+          service_slug: normalizedService,
+          service_name: normalizedService,
+          message: message || undefined,
+          company: company || undefined,
+          source: source || 'inquiry-form',
+        });
+        if (!ghlResult.ok) {
+          console.error('GHL inquiry forward non-ok:', ghlResult.status, ghlResult.body);
+        }
+      } catch (ghlErr) {
+        console.error('GHL inquiry forward threw (non-fatal):', ghlErr);
+      }
     }
 
     return NextResponse.json({ success: true });
