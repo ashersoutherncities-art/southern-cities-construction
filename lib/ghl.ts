@@ -22,6 +22,9 @@ const CUSTOM_FIELD_IDS: Record<string, string> = {
   'Last Order ID': 'uD5vImab1B7UW4Ln0vE8',
   'Last Product': 'WqO1udEOoeC2WkpLpNjo',
   'Last Order Amount': 'GbRey1pJmXh8C83N3EvW',
+  // Inquiry-specific (reused for lead capture)
+  'Your Message': 'XUtw0Y4pMhiF9DppQ327',
+  'Services Requested': 'r9KEV34O6lk5mzslzWYl',
 };
 
 export type GhlOrderPayload = {
@@ -220,6 +223,20 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
   const phone = (payload.buyer_phone || '').trim() || undefined;
   const inquiryTag = `inquiry-${payload.service_slug}`.toLowerCase();
 
+  // Populate custom fields so the GHL contact carries the full inquiry context
+  // (message body + which product they asked about). The workflow's task step
+  // can then surface these inline via merge tags — no need to bounce out to
+  // Telegram/Supabase to read what the customer wrote.
+  const customFields = [
+    { id: CUSTOM_FIELD_IDS['Your Message'], field_value: payload.message || '' },
+    {
+      id: CUSTOM_FIELD_IDS['Services Requested'],
+      field_value: payload.service_name
+        ? `${payload.service_name} (${payload.service_slug})`
+        : payload.service_slug,
+    },
+  ].filter((field) => Boolean(field.id) && field.field_value);
+
   const upsertBody = {
     locationId: creds.locationId,
     firstName,
@@ -228,6 +245,7 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
     email: payload.buyer_email,
     phone,
     source: payload.source || 'Southern Cities — Inquiry Form',
+    customFields,
     tags: [inquiryTag, 'lead-inquiry'],
   };
 
