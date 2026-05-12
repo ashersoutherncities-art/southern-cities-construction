@@ -125,11 +125,38 @@ const COMPARISON_ROWS_EXECUTION_SUPPORT_BUNDLE: ComparisonRow[] = [
   { label: 'Southern Cities — Execution Support', cost: 'Starting at $3,500/mo', time: 'Monthly engagement', bias: 'None — scoped per project', licensed: true, highlight: true },
 ];
 
-const COMPARISON_ROWS_REALTOR: ComparisonRow[] = [
+// Shared "alternatives" for realtor products — the SC row is per-product
+// (different price + turnaround per LP) so customers see the exact price
+// of THIS product in the comparison, not a category range.
+const REALTOR_ALTERNATIVES: ComparisonRow[] = [
   { label: 'Read inspection yourself', cost: 'Free', time: 'Hours', bias: 'High — no construction context', licensed: false, highlight: false },
   { label: 'Ask a contractor friend', cost: 'Free', time: 'Days, if they reply', bias: 'High (they want the job)', licensed: 'Sometimes', highlight: false },
   { label: 'Second inspector', cost: '$400–800', time: '2–5 days', bias: 'Low', licensed: 'Inspector-licensed', highlight: false },
-  { label: 'Southern Cities Realtor Read', cost: '$199–399', time: '4 hours – 1 day', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_SAME_DAY_QUICK_READ: ComparisonRow[] = [
+  ...REALTOR_ALTERNATIVES,
+  { label: 'Southern Cities — Same-Day Quick Read', cost: '$199', time: '4 hours', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_REALTOR_INSPECTION_REVIEW: ComparisonRow[] = [
+  ...REALTOR_ALTERNATIVES,
+  { label: 'Southern Cities — Inspection Review', cost: '$299', time: '1 business day', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_BUYER_SIDE_PROPERTY_READ: ComparisonRow[] = [
+  ...REALTOR_ALTERNATIVES,
+  { label: 'Southern Cities — Buyer-Side Property Read', cost: '$299', time: '1 business day', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_NEGOTIATION_STRATEGY_READ: ComparisonRow[] = [
+  ...REALTOR_ALTERNATIVES,
+  { label: 'Southern Cities — Negotiation Strategy Read', cost: '$299', time: '1 business day', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_PRE_LISTING_VALUATION: ComparisonRow[] = [
+  ...REALTOR_ALTERNATIVES,
+  { label: 'Southern Cities — Pre-Listing Construction Valuation', cost: '$399', time: '1 business day', bias: 'None — flat fee', licensed: true, highlight: true },
 ];
 
 const COMPARISON_ROWS_PHASED_INSPECTIONS: ComparisonRow[] = [
@@ -1133,7 +1160,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'What do you need from me?', a: 'Just the inspection report PDF and the property address. Photos help but are optional for the quick read.' },
       { q: 'What if the inspection is huge?', a: 'Even for 100+ item reports, the 4-hour SLA holds. We focus on what actually matters for the deal decision.' },
     ],
-    comparisonRows: COMPARISON_ROWS_REALTOR,
+    comparisonRows: COMPARISON_ROWS_SAME_DAY_QUICK_READ,
   },
   {
     slug: 'realtor-inspection-review',
@@ -1208,7 +1235,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Will you tell me what to put in the counter-offer?', a: 'You get cost ranges + severity ratings — strong inputs for your counter. For specific negotiation language and concession analysis, see Negotiation Strategy Read.' },
       { q: 'What if my client is selling, not buying?', a: 'Works either way — same analysis, just framed for the listing side. For pricing-driven analysis on listing decisions, see Pre-Listing Construction Valuation.' },
     ],
-    comparisonRows: COMPARISON_ROWS_REALTOR,
+    comparisonRows: COMPARISON_ROWS_REALTOR_INSPECTION_REVIEW,
   },
   {
     slug: 'buyer-side-property-read',
@@ -1283,7 +1310,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Can you do an on-site walkthrough?', a: 'Not as part of this service — that\'s a separate scoped engagement. Most buyer agents find photo-based reads sufficient for offer strategy.' },
       { q: 'Does this replace an inspection?', a: 'No. Always recommend your buyer get a formal inspection. This read helps them DECIDE whether to make the offer that triggers the inspection.' },
     ],
-    comparisonRows: COMPARISON_ROWS_REALTOR,
+    comparisonRows: COMPARISON_ROWS_BUYER_SIDE_PROPERTY_READ,
   },
   {
     slug: 'negotiation-strategy-read',
@@ -1358,7 +1385,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'What do you need from me?', a: 'The buyer\'s concession ask (or addendum), the inspection report, and the property address.' },
       { q: 'What if the seller is my client?', a: 'Same product, same lens — we just frame the counter strategy from the listing side. Same analysis, opposite advice.' },
     ],
-    comparisonRows: COMPARISON_ROWS_REALTOR,
+    comparisonRows: COMPARISON_ROWS_NEGOTIATION_STRATEGY_READ,
   },
   {
     slug: 'pre-listing-construction-valuation',
@@ -1434,7 +1461,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'What if the home is in great condition?', a: 'You\'ll get that in writing — no value-drag, list at comp ceiling. Confidence in a good number is part of what you\'re paying for.' },
       { q: 'What do you need from me?', a: 'Property address, listing photos (interior + exterior), any prior inspection report if available, and the comp range you\'re considering.' },
     ],
-    comparisonRows: COMPARISON_ROWS_REALTOR,
+    comparisonRows: COMPARISON_ROWS_PRE_LISTING_VALUATION,
   },
 ];
 
