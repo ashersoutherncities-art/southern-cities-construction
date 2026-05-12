@@ -19,6 +19,16 @@ type DecisionPageOverride = {
   whatThisDoes?: string[];
   deliverable?: { heading: string; items: string[] }[];
   testimonial?: { quote: string; name: string; role?: string };
+  addOnBundle?: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    bullets?: string[];
+    bundleProductKey: string;
+    bundleLabel: string;
+    bundlePriceLabel: string;
+    savingsBadge?: string;
+  };
 };
 
 const DECISION_PAGE_OVERRIDES: Record<string, DecisionPageOverride> = {
@@ -37,17 +47,30 @@ const DECISION_PAGE_OVERRIDES: Record<string, DecisionPageOverride> = {
     testimonial: { quote: 'We were about to sink more money in before they walked us through what was actually wrong. Saved us from a bad call.', name: 'Madison M.', role: 'Broker / Investor' },
   },
   'investors:budget-review': {
-    headline: 'Line-item audit before bids and draws lock in',
-    subheadline: 'You own the property. Now we pressure-test your budget against current market costs — line by line — before contractors price it or the lender sets the draw schedule.',
-    whenToUse: ['After purchase, before construction', 'Before contractor bids come in', 'Before lender finalizes the draw schedule', 'When your budget feels too clean to be true'],
-    whatThisDoes: ['Audits your budget line by line against current market rates', 'Finds the scope items missing entirely', 'Corrects unit costs that are unrealistic', 'Surfaces buried assumptions that will break in execution'],
+    headline: 'Line-item audit of a budget you already have',
+    subheadline: 'Pressure-test your numbers against current market costs — pre-purchase (validating an investor pro-forma) or post-purchase (before contractors price it or the lender locks in the draw). You bring a budget; we audit it.',
+    whenToUse: ['Pre-purchase — validating an investor pro-forma or seller-supplied numbers', 'Post-purchase — before contractor bids come in or the lender finalizes the draw schedule', 'When you have a contractor bid in hand and want a second opinion', 'When your budget feels too clean to be true'],
+    whatThisDoes: ['Audits your existing budget line by line against current market rates', 'Finds the scope items missing entirely', 'Corrects unit costs that are unrealistic', 'Surfaces buried assumptions that will break in execution'],
     deliverable: [
       { heading: 'Scope gaps found', items: ['HVAC line missing — add ~$8K', 'Demo + dump fees not included', 'Permit fees absent — $1.4K'] },
       { heading: 'Line-item corrections', items: ['Plumbing: 18% below market — correct to ~$18K', 'Tile allowance light by $4–6K', 'Trim package: assumes builder-grade, your scope calls for upgraded'] },
       { heading: 'Risk-weighted reserves', items: ['Recommended contingency: 12% for this scope size', 'Hidden-condition reserve: add 8% based on photos'] },
-      { heading: 'Bid-grade summary', items: ['Corrected budget total: $86K (was $74K)', 'Take this to contractors and lender before pricing'] },
+      { heading: 'Bid-grade summary', items: ['Corrected budget total: $86K (was $74K)', 'Take this to underwriting, contractors, or your lender'] },
     ],
     testimonial: { quote: 'They caught things we completely missed before we moved forward.', name: 'Justin R.', role: 'Developer' },
+  },
+  'investors:contractor-grade-budget': {
+    headline: 'A budget BUILT for you — not audited',
+    subheadline: 'You have plans or a clear scope but no real budget. We build it from scratch — full takeoffs, real trade-network unit costs, written assumptions, bid-ready spreadsheet. The number you would otherwise pay a GC to put together.',
+    whenToUse: ['You have plans (or a clear scope) but no real budget yet', 'You need a number you can take to contractors or lenders without hiring a GC', 'You want bid-ready instead of vibes-grade', 'Before contractors price the wrong scope'],
+    whatThisDoes: ['Reads your plans, photos, and scope', 'Builds full takeoffs (count, sqft, lf) for each major trade', 'Prices each line at current trade-network unit costs', 'Documents assumptions per major line', 'Delivers a bid-ready spreadsheet you can hand to contractors'],
+    deliverable: [
+      { heading: 'Takeoff sample (kitchen)', items: ['Cabinetry: 22 lf base + 18 lf upper', 'Counter: 38 sqft quartz, level 2', 'Floor: 184 sqft LVP'] },
+      { heading: 'Line-item budget', items: ['Demo + dump: $4,200', 'Rough plumbing + fixtures: $18,400', 'Electrical (incl. 200A upgrade): $11,800', 'Drywall + paint (3 rooms): $9,600'] },
+      { heading: 'Documented assumptions', items: ['Builder-grade tile unless plans say otherwise', 'No structural changes — quote pulled if walls move', 'Permits assumed standard residential — re-quote if commercial-grade'] },
+      { heading: 'Soft costs + reserves', items: ['Contingency: 12% (residential rehab)', 'Soft costs: permits + carrying = 6%', 'Bid-ready total: $94,800'] },
+    ],
+    testimonial: { quote: "We didn't have to wait on a GC to build the budget. We took the spreadsheet straight to lender and bids.", name: 'Trisha W.', role: 'Investor' },
   },
   'investors:permit-local-compliance-review': {
     headline: 'Know if your project can get approved',
@@ -72,6 +95,34 @@ const DECISION_PAGE_OVERRIDES: Record<string, DecisionPageOverride> = {
       { heading: 'Contractors to avoid', items: ['Out-of-area generalist (no permit familiarity)', 'Handyman crew (will not pass inspection)'] },
     ],
     testimonial: { quote: 'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.', name: 'Trisha W.', role: 'Investor' },
+    addOnBundle: {
+      eyebrow: 'Bundle and save',
+      heading: 'Pair with Contractor Match & Bid Coordination — save $300',
+      description: 'Once we tell you what kinds of contractors you need, the obvious next move is to actually go find them and run the bids. Bundle the Fit Consultation ($349) with Contractor Match & Bid Coordination (normally $1,499) for $1,548 total — $300 off.',
+      bullets: [
+        'Contractor Fit Consultation — we tell you what contractor mix this project actually needs',
+        'Contractor Match & Bid Coordination — we go source, bid, and level vetted candidates for you',
+        '$300 off vs buying them separately',
+        'Both kicked off in the same intake — no second form to fill out',
+      ],
+      bundleProductKey: 'fit-plus-match-bundle',
+      bundleLabel: 'Add Bundle — $1,548 (save $300)',
+      bundlePriceLabel: '$1,548 bundle · normally $1,848',
+      savingsBadge: 'Save $300',
+    },
+  },
+  'investors:bid-coordination-contractor-match': {
+    headline: 'Vetted contractor sourcing + leveled bids',
+    subheadline: 'We source contractors that fit your scope, collect bids on the same intake, level them side-by-side, and present the cleanest comparison — so the award decision is easy.',
+    whenToUse: ['When chasing your own bids is eating weeks', 'When the bids you have look incomparable', 'When you need vetted candidates, not random Google results', 'Right after Contractor Fit Consultation tells you what kinds you need'],
+    whatThisDoes: ['Targets vetted candidates that fit your scope', 'Runs a structured bid intake (same line items)', 'Levels the bids side-by-side so you can compare apples to apples', 'Calls out gaps and risks per bid', 'Recommends who to award'],
+    deliverable: [
+      { heading: 'Targeted candidates', items: ['3 GC candidates sized for your scope', '2 specialty subs (framing + HVAC)', 'All license-verified, insurance-confirmed'] },
+      { heading: 'Leveled bid comparison', items: ['Same line items across all bids', 'Unit-cost variances flagged', 'Material vs labor splits exposed'] },
+      { heading: 'Gap and risk notes', items: ['Bid 1 missing permit fees', 'Bid 2 assumes scope change you did not authorize', 'Bid 3 strongest on scope, mid on price'] },
+      { heading: 'Award recommendation', items: ['Award Bid 3 (best scope coverage, mid-price)', 'Hold Bid 1 as backup', 'Reject Bid 2 — assumption mismatch'] },
+    ],
+    testimonial: { quote: 'I would have spent three weeks chasing my own bids. They had it leveled in ten days.', name: 'Madison M.', role: 'Broker / Investor' },
   },
   'investors:draw-review-support': {
     headline: 'Review the draw before the money goes out',
@@ -519,6 +570,51 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
             </div>
           </div>
         </section>
+
+        {/* BUNDLE CROSS-SELL (only renders if override.addOnBundle is set) */}
+        {override?.addOnBundle ? (
+          <section className="bg-stone-50">
+            <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20">
+              <div className="relative overflow-hidden rounded-3xl border-2 border-[#f58220]/40 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] p-8 sm:p-12 shadow-[0_30px_60px_-20px_rgba(8,17,29,0.4)]">
+                <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#f58220]/15 blur-3xl" aria-hidden="true" />
+                <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
+                  <div className="lg:col-span-8">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{override.addOnBundle.eyebrow}</p>
+                      {override.addOnBundle.savingsBadge ? (
+                        <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-emerald-300">{override.addOnBundle.savingsBadge}</span>
+                      ) : null}
+                    </div>
+                    <h3 className="mt-4 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">{override.addOnBundle.heading}</h3>
+                    <p className="mt-5 text-lg leading-relaxed text-white/85">{override.addOnBundle.description}</p>
+                    {override.addOnBundle.bullets ? (
+                      <ul className="mt-7 space-y-3">
+                        {override.addOnBundle.bullets.map((b) => (
+                          <li key={b} className="flex items-start gap-3 text-[15px] leading-relaxed text-white/85">
+                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f58220]/20 text-[#f58220]"><CheckIcon size={14} /></span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                  <div className="lg:col-span-4 flex flex-col items-stretch gap-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-sm">
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Bundle pricing</p>
+                      <p className="mt-3 text-3xl font-black tracking-[-0.03em] text-white">{override.addOnBundle.bundlePriceLabel}</p>
+                    </div>
+                    <AddToCartButton
+                      itemKey={override.addOnBundle.bundleProductKey}
+                      label={override.addOnBundle.bundleLabel}
+                      mode="checkout"
+                      className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#f58220]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* FINAL CTA */}
         <section className="relative overflow-hidden bg-[#08111d]">

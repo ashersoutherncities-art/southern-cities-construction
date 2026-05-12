@@ -8,6 +8,7 @@ const nextConfig = {
       // Investors — legacy URL aliases to canonical services
       { source: '/services/investors/contractor-match-bid-coordination', destination: '/services/investors/bid-coordination-contractor-match', permanent: true },
       { source: '/services/investors/full-due-diligence-package', destination: '/services/investors/investor-review', permanent: true },
+      { source: '/services/investors/rehab-budget-review', destination: '/services/investors/budget-review', permanent: true },
       { source: '/services/investors/project-timeline-schedule-preparation', destination: '/services/investors/regional-investor-setup-consultation', permanent: true },
       { source: '/services/investors/schedule-of-cashflows-preparation', destination: '/services/investors/cashflow-planning', permanent: true },
       { source: '/services/investors/permit-coordination-administration', destination: '/services/investors/permit-local-compliance-review', permanent: true },

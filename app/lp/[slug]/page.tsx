@@ -51,6 +51,17 @@ type LandingPageConfig = {
   finalSubhead: string;
 
   faqs: { q: string; a: string }[];
+
+  addOnBundle?: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    bullets?: string[];
+    bundleProductKey: string;
+    bundleLabel: string;
+    bundlePriceLabel: string;
+    savingsBadge?: string;
+  };
 };
 
 const SHARED_TRUST_STATS = [
@@ -303,6 +314,102 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ],
   },
   {
+    slug: 'contractor-grade-budget',
+    productKey: 'contractor-grade-budget',
+    ctaLabel: 'Build My Budget',
+    price: '$1,799',
+    priceAnchor: 'A GC would charge $3K+ to build this themselves',
+    priceLabel: 'Contractor-Grade Budget',
+    turnaround: '5 business days',
+    audience: 'For owners and investors',
+    heroEyebrow: 'Contractor-Grade Budget',
+    heroHeadlinePre: 'The budget a',
+    heroHeadlineHighlight: 'GC',
+    heroHeadlinePost: ' would build for you — without hiring one.',
+    heroSubheadline:
+      'You have plans or a clear scope but no real budget. We build it from scratch — full takeoffs, real trade-network unit costs, documented assumptions, bid-ready spreadsheet. 5 business days. $1,799 flat.',
+    problemHeadline: 'A vibes-grade budget kills good projects',
+    problemIntro: 'Most owners hand contractors a spreadsheet that was put together with Google searches and guesses. The contractor marks it up, you build to it, and the gap shows up mid-project.',
+    problemCards: [
+      { title: 'Unit costs are off', body: 'Numbers pulled from Google last year do not match current trade pricing.', tone: 'red' },
+      { title: 'Scope items get missed', body: 'The line items a GC would have caught from years of estimating.', tone: 'amber' },
+      { title: 'Assumptions stay hidden', body: 'Until they break — and now you owe a change order.', tone: 'rose' },
+      { title: 'Contractors mark up junk', body: 'Bad inputs produce bid prices that have nothing to do with reality.', tone: 'orange' },
+    ],
+    getHeadline: 'What you actually get',
+    getBullets: [
+      { title: 'Full project takeoff', detail: 'Count, sqft, linear footage for each major trade — same as a GC would do.' },
+      { title: 'Trade-network unit costs', detail: 'Real current pricing from contractors we work with, not internet estimates.' },
+      { title: 'Documented assumptions', detail: 'Every major line has an assumption you can sanity-check.' },
+      { title: 'Bid-ready spreadsheet', detail: 'Hand it to contractors or your lender — it is the same shape as a real estimate.' },
+    ],
+    deliverableTitle: 'Contractor-Grade Budget',
+    deliverableSubtitle: '123 Main St · Charlotte, NC',
+    deliverable: [
+      {
+        heading: 'Takeoff sample (kitchen)',
+        items: ['Cabinetry: 22 lf base + 18 lf upper', 'Counter: 38 sqft quartz, level 2', 'Floor: 184 sqft LVP'],
+      },
+      {
+        heading: 'Line-item budget',
+        items: ['Demo + dump: $4,200', 'Rough plumbing + fixtures: $18,400', 'Electrical (incl. 200A upgrade): $11,800'],
+      },
+      {
+        heading: 'Soft costs + reserves',
+        items: ['Contingency: 12% (residential rehab)', 'Soft costs: permits + carrying = 6%', 'Bid-ready total: $94,800'],
+      },
+    ],
+    processSteps: [
+      { title: 'Submit your project', detail: 'Plans (if you have them), photos, scope notes, and the location.' },
+      { title: 'We build the budget', detail: 'Full takeoff + line-item pricing against current trade-network rates.' },
+      { title: 'You get the spreadsheet', detail: 'Bid-ready Excel + written assumptions in your inbox in 5 business days.' },
+    ],
+    testimonials: [
+      {
+        quote: "We didn't have to wait on a GC to build the budget. We took the spreadsheet straight to lender and bids.",
+        name: 'Trisha W.',
+        role: 'Investor',
+      },
+      {
+        quote: 'They caught things we completely missed before we moved forward.',
+        name: 'Justin R.',
+        role: 'Developer',
+      },
+      {
+        quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.',
+        name: 'Jethro A.',
+        role: 'Wholesaler',
+      },
+    ],
+    notIncluded: [
+      'Not an audit of someone else\'s budget — see Budget & Scope Review',
+      'Not a guaranteed contractor bid',
+      'Not a site walk (available as add-on)',
+      'Not permit submission',
+      'Not project management',
+    ],
+    valueStack: [
+      'Licensed NC GC builds the budget personally',
+      'Full takeoffs per major trade (count, sqft, lf)',
+      'Line-item pricing at current trade-network unit costs',
+      'Soft cost + contingency recommendations',
+      'Documented assumptions per major line',
+      'Bid-ready Excel deliverable',
+      'Email follow-up if anything is unclear',
+      'Money-back if we cannot give you a clear answer',
+    ],
+    finalHeadline: 'Stop handing contractors a vibes-grade spreadsheet.',
+    finalSubhead: 'One licensed-GC line-item build, 5 business days, $1,799. The budget a GC would write — without paying the GC retainer.',
+    faqs: [
+      { q: 'What do you need from me?', a: 'Plans (if you have them), photos, written scope notes, and the property address.' },
+      { q: 'How long does it take?', a: 'Typical turnaround is 5 business days from submission.' },
+      { q: 'What do I get back?', a: 'A bid-ready Excel spreadsheet with full takeoffs, line-item pricing, soft costs + contingency, and documented assumptions per major line.' },
+      { q: 'How is this different from Budget & Scope Review?', a: 'Budget & Scope Review AUDITS a budget you already have. Contractor-Grade Budget BUILDS one from scratch. Different starting point, different deliverable.' },
+      { q: 'Do I need plans?', a: 'Plans help, but a clear written scope + photos can work. The clearer the inputs, the tighter the budget.' },
+      { q: 'What if my project is huge?', a: 'For projects above ~$500K hard cost or with structural/commercial scope, contact us for a custom quote first.' },
+    ],
+  },
+  {
     slug: 'permit-path-review',
     productKey: 'permit-local-compliance-review',
     ctaLabel: 'Start Permit Review',
@@ -485,10 +592,25 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'What do you need from me?', a: 'Project address, photos, scope notes, and any context about the project.' },
       { q: 'How long does it take?', a: 'A scheduled consultation followed by written direction within 1 business day.' },
       { q: 'What do I get back?', a: 'A contractor-mix recommendation (what kinds of contractors fit) plus the reasoning behind each role and the wrong-fit types to avoid.' },
-      { q: 'Is this comparing specific contractors?', a: 'No. This tells you what KINDS of contractors fit — GC, subs, specialists, generalists, license level — not which named candidates are best. Comparing bids is a separate engagement.' },
-      { q: 'Is this contractor sourcing?', a: 'No. This is a fit consultation, not a sourcing campaign.' },
+      { q: 'Is this comparing specific contractors?', a: 'No. This tells you what KINDS of contractors fit — GC, subs, specialists, generalists, license level — not which named candidates are best. Comparing bids is a separate engagement (see Contractor Match & Bid Coordination, or bundle the two together below).' },
+      { q: 'Is this contractor sourcing?', a: 'No — but you can bundle this with our Contractor Match & Bid Coordination service for $300 off.' },
       { q: 'Can you run the project after?', a: 'Yes. Our Owner-Controlled Build and Full Execution options pick up from here.' },
     ],
+    addOnBundle: {
+      eyebrow: 'Bundle and save $300',
+      heading: 'Pair with Contractor Match & Bid Coordination',
+      description: 'Once we tell you what kinds of contractors you need, the next move is to actually go find them. Bundle Contractor Fit Consultation ($349) + Contractor Match & Bid Coordination (normally $1,499) for $1,548 — save $300.',
+      bullets: [
+        'Contractor Fit Consultation — we tell you what contractor mix this project actually needs',
+        'Contractor Match & Bid Coordination — we go source, bid, and level vetted candidates for you',
+        '$300 off vs buying separately',
+        'Both kicked off in the same intake — no second form',
+      ],
+      bundleProductKey: 'fit-plus-match-bundle',
+      bundleLabel: 'Add Bundle — $1,548 (save $300)',
+      bundlePriceLabel: '$1,548 bundle · normally $1,848',
+      savingsBadge: 'Save $300',
+    },
   },
   {
     slug: 'draw-review',
@@ -1156,6 +1278,51 @@ export default function LandingPage({ params }: { params: Params }) {
             </div>
           </div>
         </section>
+
+        {/* BUNDLE CROSS-SELL (only renders if config.addOnBundle is set) */}
+        {config.addOnBundle ? (
+          <section className="bg-stone-50">
+            <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20">
+              <div className="relative overflow-hidden rounded-3xl border-2 border-[#f58220]/40 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] p-8 sm:p-12 shadow-[0_30px_60px_-20px_rgba(8,17,29,0.4)]">
+                <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#f58220]/15 blur-3xl" aria-hidden="true" />
+                <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
+                  <div className="lg:col-span-8">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{config.addOnBundle.eyebrow}</p>
+                      {config.addOnBundle.savingsBadge ? (
+                        <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-emerald-300">{config.addOnBundle.savingsBadge}</span>
+                      ) : null}
+                    </div>
+                    <h3 className="mt-4 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">{config.addOnBundle.heading}</h3>
+                    <p className="mt-5 text-lg leading-relaxed text-white/85">{config.addOnBundle.description}</p>
+                    {config.addOnBundle.bullets ? (
+                      <ul className="mt-7 space-y-3">
+                        {config.addOnBundle.bullets.map((b) => (
+                          <li key={b} className="flex items-start gap-3 text-[15px] leading-relaxed text-white/85">
+                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f58220]/20 text-[#f58220]"><CheckIcon size={14} /></span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                  <div className="lg:col-span-4 flex flex-col items-stretch gap-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-sm">
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Bundle pricing</p>
+                      <p className="mt-3 text-3xl font-black tracking-[-0.03em] text-white">{config.addOnBundle.bundlePriceLabel}</p>
+                    </div>
+                    <AddToCartButton
+                      itemKey={config.addOnBundle.bundleProductKey}
+                      label={config.addOnBundle.bundleLabel}
+                      mode="checkout"
+                      className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#f58220]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* FINAL CTA */}
         <section className="relative overflow-hidden bg-[#08111d]">

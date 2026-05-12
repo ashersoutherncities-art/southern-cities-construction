@@ -47,11 +47,20 @@ const investorStages: Stage[] = [
       {
         name: 'Budget & Scope Review',
         price: '$599',
-        description: 'Already own the property? A line-item audit of your existing budget and scope — market-rate corrections and missing items surfaced before bids or draws lock in.',
+        description: 'Line-item audit of an existing budget — yours, an investor pro-forma, or a contractor bid. Works pre-purchase (vetting a deal) or post-purchase (before bids and draws lock in).',
         href: '/services/investors/budget-review',
         secondaryHref: '/services/investors/budget-review',
         primaryCta: 'View Details',
         itemKey: 'budget-review',
+      },
+      {
+        name: 'Contractor-Grade Budget',
+        price: '$1,799',
+        description: 'No budget yet? We BUILD one from scratch — full takeoffs, real trade-network unit costs, bid-ready spreadsheet. The budget a GC would put together, without hiring one.',
+        href: '/services/investors/contractor-grade-budget',
+        secondaryHref: '/services/investors/contractor-grade-budget',
+        primaryCta: 'View Details',
+        itemKey: 'contractor-grade-budget',
       },
       {
         name: 'Permit & Local Compliance Review',
@@ -83,18 +92,13 @@ const investorStages: Stage[] = [
     compact: true,
     products: [
       {
-        name: 'Budget Validation',
-        description: 'Tighten budget expectations before scope, contractors, and timing drift.',
-        href: '/services/investors/budget-review',
-        secondaryHref: '/services/investors/budget-review',
-        primaryCta: 'View Details',
-      },
-      {
         name: 'Contractor Match & Bid Coordination',
-        description: 'Get a clearer contractor decision path with cleaner bid comparison and scope alignment.',
-        href: '/services/investors/contractor-match-bid-coordination',
-        secondaryHref: '/services/investors/contractor-match-bid-coordination',
+        price: '$1,499',
+        description: 'We source vetted contractors that fit your scope, run a structured bid intake, and level the bids side-by-side so the award decision is easy.',
+        href: '/services/investors/bid-coordination-contractor-match',
+        secondaryHref: '/services/investors/bid-coordination-contractor-match',
         primaryCta: 'View Details',
+        itemKey: 'bid-coordination-contractor-match',
       },
       {
         name: 'Permit, Materials & Lender Prep',
