@@ -134,6 +134,20 @@ const investorStages: Stage[] = [
     compact: true,
     products: [
       {
+        name: 'Phased Third-Party Inspections',
+        description: 'Discrete quality checks at key construction phases — foundation, framing, pre-drywall, final — to catch defects before official inspection or draw approval blocks the project.',
+        href: '/review/phased-third-party-inspections',
+        secondaryHref: '/services/investors/phased-third-party-inspections',
+        primaryCta: 'View Details',
+        covers: [
+          'Foundation / footing inspection',
+          'Framing inspection',
+          'Pre-drywall MEP check',
+          'Final / punch-list inspection',
+          'Written report + photos per phase',
+        ],
+      },
+      {
         name: 'Construction Oversight',
         description: 'You stay in control, and we help keep the project from drifting.',
         href: '/review/construction-oversight',
