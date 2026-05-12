@@ -242,7 +242,7 @@ const supportBundles = [
   {
     label: 'Before You Commit',
     title: 'Due Diligence Bundle',
-    price: 'Starting at $1,499',
+    price: '$1,499 flat',
     includes: ['Deal reviewed', 'Budget checked', 'Permit path mapped', 'Contractor fit reviewed'],
     cta: 'View Details',
     href: '/lp/due-diligence-bundle',

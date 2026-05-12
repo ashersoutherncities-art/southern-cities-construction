@@ -51,15 +51,22 @@ function CartPageContent() {
     [lineItems]
   );
 
+  // Isolated mode: when the URL has ?cart=... the cart is acting as an
+  // LP-funnel single-product view. Do NOT sync to cookie so the customer's
+  // broader-site cart stays untouched. They are checking out for one LP
+  // product, not modifying their global cart.
+  const isIsolatedMode = Boolean(queryCart);
+
   // Sync items state back to the cookie (and notify the nav pill). Skips on
-  // the initial pre-hydration pass so we do not stomp the cookie with [].
+  // the initial pre-hydration pass so we do not stomp the cookie with [],
+  // and skips in isolated mode (see comment above).
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || isIsolatedMode) return;
     const nextHref = buildCartHref(items);
     const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
     setCartParamCookie(nextParam);
     window.dispatchEvent(new Event(CART_SYNC_EVENT));
-  }, [items, hydrated]);
+  }, [items, hydrated, isIsolatedMode]);
 
   const removeItem = useCallback(
     (key: string) => {

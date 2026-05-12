@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
-import CartFloatingPill from '@/components/CartFloatingPill';
 import FaqItem from '@/components/landing/FaqItem';
 
 type Params = { slug: string };
@@ -710,9 +709,9 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'due-diligence-bundle',
-    fallbackHref: '/#contact',
-    ctaLabel: 'Request Custom Quote',
-    price: 'Starting at $1,499',
+    productKey: 'due-diligence-bundle',
+    ctaLabel: 'Add Bundle to Cart',
+    price: '$1,499',
     priceAnchor: 'Individual reviews total $1,846 — bundle saves ~$347',
     priceLabel: 'Due Diligence Bundle',
     turnaround: '2–4 business days',
@@ -722,7 +721,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'deal',
     heroHeadlinePost: ' — before you sign.',
     heroSubheadline:
-      'Does the construction actually pencil? Will the budget survive contact with reality? Can it get permitted in this jurisdiction? What kind of contractors will the job take? Four questions, four reads, one combined report — before earnest money goes hard. Starting at $1,499.',
+      'Does the construction actually pencil? Will the budget survive contact with reality? Can it get permitted in this jurisdiction? What kind of contractors will the job take? Four questions, four reads, one combined report — before earnest money goes hard. $1,499 flat.',
     problemHeadline: 'One review is a guess. Four reviews is a decision.',
     problemIntro: 'Investors who buy a single $499 deal review get a useful opinion. Investors who run all four reads catch things any one of them would miss.',
     problemCards: [
@@ -769,12 +768,12 @@ const LANDING_PAGES: LandingPageConfig[] = [
       '2–4 business day combined turnaround',
       'Single go / renegotiate / walk recommendation',
       'Email follow-up if anything is unclear',
-      'Custom quote based on deal complexity — starts at $1,499',
+      '$1,499 flat — same price every deal',
     ],
     finalHeadline: 'Decide with all four reads, not one.',
-    finalSubhead: 'Four licensed-GC reviews on one deal, bundled. Starting at $1,499 — request a custom quote based on your specific deal.',
+    finalSubhead: 'Four licensed-GC reviews on one deal, bundled. $1,499 flat. Add the bundle to cart and complete checkout in two minutes.',
     faqs: [
-      { q: 'Why is this not flat-priced?', a: 'Deal complexity varies — a single-family rehab gets the $1,499 floor; a multi-unit or commercial conversion gets a custom quote. Most residential investor deals stay at or near the $1,499 floor.' },
+      { q: 'Is this really $1,499 flat?', a: 'Yes — $1,499 flat for any standard residential investor deal in NC. Multi-unit or commercial-grade conversions push into custom pricing; we will let you know on the intake if your deal falls in that bucket and refund the difference, or quote up if more scope is needed.' },
       { q: 'Can I buy just one review instead?', a: 'Yes. Each individual review is purchasable on its own at the prices listed. The bundle is for investors who want every angle covered and saves ~$347 vs buying them separately.' },
       { q: 'How fast?', a: 'Typical turnaround is 2–4 business days for the combined report — slower than a single review because there are four reads to coordinate.' },
       { q: 'What do you need from me?', a: 'Property address, photos, MLS sheet (if available), your stated scope, and any existing budget or contractor numbers.' },
@@ -965,7 +964,7 @@ function PrimaryCta({
   const base = `inline-flex items-center justify-center gap-2 rounded-[4px] font-black uppercase tracking-[0.06em] transition-all duration-150 hover:-translate-y-0.5 ${sizeClasses} ${variantClasses} ${widthClass} ${className}`;
 
   if (config.productKey) {
-    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} mode="checkout" />;
+    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} mode="direct-lp" />;
   }
 
   return (
@@ -1542,7 +1541,7 @@ export default function LandingPage({ params }: { params: Params }) {
                     <AddToCartButton
                       itemKey={config.addOnBundle.bundleProductKey}
                       label={config.addOnBundle.bundleLabel}
-                      mode="checkout"
+                      mode="direct-lp"
                       className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#f58220]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
                     />
                   </div>
@@ -1619,8 +1618,10 @@ export default function LandingPage({ params }: { params: Params }) {
           </p>
         </footer>
 
-        {/* FLOATING CART PILL — only shows when cart has items, since LPs have no global nav */}
-        <CartFloatingPill position="top-right" />
+        {/* LP isolation: no floating cart pill. Each landing page is a focused
+            single-product funnel; the customer's broader-site cart is intentionally
+            invisible here and "Buy Now" routes through a direct-lp checkout that
+            doesn't touch the main cart cookie. */}
 
         {/* STICKY MOBILE CTA */}
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white p-3 shadow-[0_-10px_30px_-15px_rgba(8,17,29,0.3)] lg:hidden">

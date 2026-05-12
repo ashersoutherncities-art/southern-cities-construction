@@ -12,11 +12,15 @@ type AddToCartButtonProps = {
   label?: string;
   className?: string;
   /**
-   * 'continue' (default) — add to cart, stay on the current page, show toast + inline confirmation.
-   * 'checkout' — add to cart and immediately navigate to /cart (kept for landing pages
-   * where the CTA semantically reads "Buy Now").
+   * 'continue' (default) — add to cart cookie, stay on the current page, show toast + inline confirmation.
+   * 'checkout' — add to cart cookie and immediately navigate to /cart.
+   * 'direct-lp' — landing-page isolation mode. Does NOT touch the main cart cookie.
+   *   Navigates straight to /cart?cart=<itemKey> so the cart page renders ONLY this
+   *   product (URL items override cookie). The customer's broader-site cart is
+   *   untouched. Use this on landing pages so the funnel stays focused on the
+   *   advertised product and the customer's main cart doesn't get polluted.
    */
-  mode?: 'continue' | 'checkout';
+  mode?: 'continue' | 'checkout' | 'direct-lp';
 };
 
 export default function AddToCartButton({
@@ -35,6 +39,16 @@ export default function AddToCartButton({
   const handleClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
+
+      // LP isolation: skip cookie entirely and navigate to /cart?cart=<itemKey>
+      // so the cart page shows ONLY this product. The user's broader-site cart
+      // (in the cookie) stays untouched.
+      if (mode === 'direct-lp') {
+        const directHref = buildCartHref([{ key: itemKey, quantity: 1 }]);
+        window.location.assign(directHref);
+        return;
+      }
+
       const existingParam = getCartParamFromCookie();
       const existing = parseCartParam(existingParam);
       const next = [...existing, { key: itemKey, quantity: 1 }];

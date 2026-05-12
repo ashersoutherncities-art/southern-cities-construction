@@ -141,6 +141,15 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'We source vetted contractors that fit your scope, collect bids on a structured intake, level them against each other, and present the cleanest comparison so the award decision is easier.',
     checkoutAmount: '1499',
   },
+  'due-diligence-bundle': {
+    key: 'due-diligence-bundle',
+    name: 'Due Diligence Bundle',
+    shortName: 'Due Diligence Bundle',
+    price: 149900,
+    priceLabel: '$1,499 starting price',
+    description: 'Four licensed-GC reads on the same pre-acquisition deal: scope feasibility + rough budget range, line-item audit of any existing budget, permit path and approval timeline, and contractor-mix recommendation. One combined report covering every angle before earnest money goes hard.',
+    checkoutAmount: '1499',
+  },
   'fit-plus-match-bundle': {
     key: 'fit-plus-match-bundle',
     name: 'Contractor Fit + Match Bundle',
