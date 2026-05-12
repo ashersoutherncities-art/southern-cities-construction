@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, email, phone, audience_type, service, message, company, website, source, honey } = body;
+    const { name, email, phone, audience_type, service, service_price, message, company, website, source, honey } = body;
 
     const normalizedAudienceType = audience_type || null;
     const normalizedService = service || null;
@@ -95,6 +95,7 @@ export async function POST(req: NextRequest) {
           buyer_phone: phone || undefined,
           service_slug: normalizedService,
           service_name: normalizedService,
+          service_price: typeof service_price === 'string' && service_price.trim() ? service_price.trim() : undefined,
           message: message || undefined,
           company: company || undefined,
           source: source || 'inquiry-form',

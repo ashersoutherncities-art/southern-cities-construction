@@ -194,6 +194,7 @@ export type GhlInquiryPayload = {
   buyer_phone?: string;
   service_slug: string;
   service_name?: string;
+  service_price?: string;
   message?: string;
   company?: string;
   source?: string;
@@ -224,16 +225,24 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
   const inquiryTag = `inquiry-${payload.service_slug}`.toLowerCase();
 
   // Populate custom fields so the GHL contact carries the full inquiry context
-  // (message body + which product they asked about). The workflow's task step
-  // can then surface these inline via merge tags — no need to bounce out to
-  // Telegram/Supabase to read what the customer wrote.
+  // (message body + which product they asked about + price). The workflow's
+  // task and SMS steps can then surface these inline via merge tags — no need
+  // to bounce out to Telegram/Supabase or guess the price.
+  //
+  // services_requested format: "Product Name — $Price" when price is known,
+  //   falling back to "Product Name" or just the slug. This format reads
+  //   cleanly in the SMS template ({{contact.services_requested}}) so the
+  //   recipient sees the price inline without a separate merge tag.
+  const serviceLabel = payload.service_name || payload.service_slug;
+  const servicesRequestedValue = payload.service_price
+    ? `${serviceLabel} — ${payload.service_price}`
+    : serviceLabel;
+
   const customFields = [
     { id: CUSTOM_FIELD_IDS['Your Message'], field_value: payload.message || '' },
     {
       id: CUSTOM_FIELD_IDS['Services Requested'],
-      field_value: payload.service_name
-        ? `${payload.service_name} (${payload.service_slug})`
-        : payload.service_slug,
+      field_value: servicesRequestedValue,
     },
   ].filter((field) => Boolean(field.id) && field.field_value);
 

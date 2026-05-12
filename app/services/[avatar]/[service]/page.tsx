@@ -629,6 +629,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
                 id="questions-form"
                 serviceSlug={service.slug}
                 serviceName={service.title}
+                servicePrice={service.monthlyPrice}
                 source={`detail-${service.slug}-presale`}
                 headline="Questions before you buy?"
                 subhead="Send them here and a licensed NC GC will respond within 1 business day. Or use the buy button above to start right away."

@@ -9,6 +9,10 @@ type Props = {
   serviceSlug: string;
   /** Human-readable product/bundle name shown in the form headline. */
   serviceName: string;
+  /** Optional product price (e.g., "$499", "Starting at $2,500"). When set,
+   *  flows through to GHL custom field `services_requested` so the SMS to
+   *  the owner shows the price inline — instant qualification at a glance. */
+  servicePrice?: string;
   /** Optional source label used by GHL for lead attribution. Defaults to 'lp'. */
   source?: string;
   /** Override the default headline ('Request a custom quote'). */
@@ -26,6 +30,7 @@ type Props = {
 export default function LpLeadForm({
   serviceSlug,
   serviceName,
+  servicePrice,
   source = 'lp',
   headline,
   subhead,
@@ -64,6 +69,7 @@ export default function LpLeadForm({
           company: form.company,
           message: form.message || `Inquiry about ${serviceName}.`,
           service: serviceSlug,
+          service_price: servicePrice,
           source,
           honey: form.honey,
         }),

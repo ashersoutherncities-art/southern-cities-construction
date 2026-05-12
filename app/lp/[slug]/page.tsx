@@ -1568,6 +1568,7 @@ export default function LandingPage({ params }: { params: Params }) {
                 id="quote-form"
                 serviceSlug={config.slug}
                 serviceName={config.priceLabel || config.heroEyebrow}
+                servicePrice={config.price}
                 source={`lp-${config.slug}`}
                 headline={`Request a custom quote — ${config.priceLabel || config.heroEyebrow}`}
                 subhead={`Send a few details about your project (address, scope, timeline, anything we should know) and we'll come back within 1 business day with scope, pricing, and next steps.`}
@@ -1583,6 +1584,7 @@ export default function LandingPage({ params }: { params: Params }) {
                 id="questions-form"
                 serviceSlug={config.slug}
                 serviceName={config.priceLabel || config.heroEyebrow}
+                servicePrice={config.price}
                 source={`lp-${config.slug}-presale`}
                 headline="Questions before you buy?"
                 subhead={`Send them here and we'll respond within 1 business day. Or click "${config.ctaLabel}" anywhere on this page to start right away — refunds available within 24 hours if it isn't the right fit.`}
