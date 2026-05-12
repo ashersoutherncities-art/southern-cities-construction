@@ -233,12 +233,12 @@ const investorServices: AvatarPageData = {
     {
       title: 'Before you buy',
       intro: 'Use these when you need a cleaner read before approving a deal, a rehab number, or a contractor decision.',
-      serviceSlugs: ['investor-review', 'budget-review', 'contractor-grade-budget', 'permit-local-compliance-review', 'contractor-fit-consultation'],
+      serviceSlugs: ['investor-review', 'budget-review', 'permit-local-compliance-review', 'contractor-fit-consultation'],
     },
     {
       title: 'Before you start',
       intro: 'Use these when the project is real, but startup decisions still need to be tightened before work or money moves too far.',
-      serviceSlugs: ['regional-investor-setup-consultation', 'contractor-scope-mapping', 'bid-coordination-contractor-match', 'scope-timeline-setup', 'materials-logistics-setup'],
+      serviceSlugs: ['contractor-grade-budget', 'regional-investor-setup-consultation', 'contractor-scope-mapping', 'bid-coordination-contractor-match', 'scope-timeline-setup', 'materials-logistics-setup'],
     },
     {
       title: 'During lender and draw setup',

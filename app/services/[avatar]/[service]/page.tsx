@@ -60,9 +60,9 @@ const DECISION_PAGE_OVERRIDES: Record<string, DecisionPageOverride> = {
     testimonial: { quote: 'They caught things we completely missed before we moved forward.', name: 'Justin R.', role: 'Developer' },
   },
   'investors:contractor-grade-budget': {
-    headline: 'A budget BUILT for you — not audited',
-    subheadline: 'You have plans or a clear scope but no real budget. We build it from scratch — full takeoffs, real trade-network unit costs, written assumptions, bid-ready spreadsheet. The number you would otherwise pay a GC to put together.',
-    whenToUse: ['You have plans (or a clear scope) but no real budget yet', 'You need a number you can take to contractors or lenders without hiring a GC', 'You want bid-ready instead of vibes-grade', 'Before contractors price the wrong scope'],
+    headline: 'A pre-construction budget — built, not audited',
+    subheadline: 'You own the property (or are committed to closing). You have plans or a clear scope, but no real budget yet. We build it from scratch — full takeoffs, real trade-network unit costs, documented assumptions, bid-ready spreadsheet. The number you would otherwise pay a GC to put together.',
+    whenToUse: ['You own (or are closing on) the property and need real numbers', 'You have plans or a clear scope but no real budget yet', 'Before contractor bids come in or the lender finalizes the draw', 'When you would otherwise pay a GC retainer just to get the budget'],
     whatThisDoes: ['Reads your plans, photos, and scope', 'Builds full takeoffs (count, sqft, lf) for each major trade', 'Prices each line at current trade-network unit costs', 'Documents assumptions per major line', 'Delivers a bid-ready spreadsheet you can hand to contractors'],
     deliverable: [
       { heading: 'Takeoff sample (kitchen)', items: ['Cabinetry: 22 lf base + 18 lf upper', 'Counter: 38 sqft quartz, level 2', 'Floor: 184 sqft LVP'] },

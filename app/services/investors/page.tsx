@@ -54,15 +54,6 @@ const investorStages: Stage[] = [
         itemKey: 'budget-review',
       },
       {
-        name: 'Contractor-Grade Budget',
-        price: '$1,799',
-        description: 'No budget yet? We BUILD one from scratch — full takeoffs, real trade-network unit costs, bid-ready spreadsheet. The budget a GC would put together, without hiring one.',
-        href: '/services/investors/contractor-grade-budget',
-        secondaryHref: '/services/investors/contractor-grade-budget',
-        primaryCta: 'View Details',
-        itemKey: 'contractor-grade-budget',
-      },
-      {
         name: 'Permit & Local Compliance Review',
         price: '$399',
         description: 'See permit and code issues before they turn into project drag.',
@@ -91,6 +82,15 @@ const investorStages: Stage[] = [
     cta: 'Plan This Project',
     compact: true,
     products: [
+      {
+        name: 'Contractor-Grade Budget',
+        price: '$1,799',
+        description: 'No real budget yet? We BUILD one from scratch — full takeoffs, real trade-network unit costs, bid-ready spreadsheet. The budget a GC would put together, without hiring one.',
+        href: '/services/investors/contractor-grade-budget',
+        secondaryHref: '/services/investors/contractor-grade-budget',
+        primaryCta: 'View Details',
+        itemKey: 'contractor-grade-budget',
+      },
       {
         name: 'Contractor Match & Bid Coordination',
         price: '$1,499',
