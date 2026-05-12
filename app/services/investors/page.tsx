@@ -2,6 +2,7 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+import LpLeadForm from '@/components/LpLeadForm';
 
 type Product = {
   name: string;
@@ -552,6 +553,21 @@ export default function InvestorsPage() {
       </section>
 
       <TestimonialsCarousel testimonials={investorTestimonials} />
+
+      <section className="bg-stone-50 py-16 sm:py-20">
+        <div className="container-pro max-w-4xl">
+          <LpLeadForm
+            id="investor-inquiry"
+            serviceSlug="investors-hub-inquiry"
+            serviceName="Investor hub — general inquiry"
+            source="hub-investors"
+            headline="Not sure which investor service fits?"
+            subhead="Tell us about the deal or project — address, stage, what you're trying to decide — and a licensed NC GC will point you to the right path (review, planning, execution, or full contracting). Response within 1 business day."
+            submitLabel="Get a Recommendation"
+            variant="dark"
+          />
+        </div>
+      </section>
 
       <section className="bg-navy-950 py-14 text-white sm:py-16">
         <div className="container-pro">

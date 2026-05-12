@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
+import LpLeadForm from '@/components/LpLeadForm';
 import SiteNav from '@/components/SiteNav';
 import TrustStrip from '@/components/TrustStrip';
 
@@ -149,19 +150,23 @@ export default function IndustryPartnersPage() {
         </div>
       </section>
 
-      <section className="bg-navy-950 py-16 sm:py-20 text-white">
+      <section className="bg-stone-50 py-16 sm:py-20">
         <div className="container-pro max-w-4xl">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Need help choosing the right support?</h2>
-          <p className="mt-5 text-[15px] leading-relaxed text-white/85 sm:text-lg">
-            Send the address and the situation, whether that is an inspection report, listing prep question, permit file, or active project. We will point you to the right support piece, review path, or quote path from <a href="mailto:orders@southerncitiesconstruction.com" className="underline hover:text-orange">orders@southerncitiesconstruction.com</a> or by phone.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="tel:+19804737249" className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-orange-500">
-              Call (980) 473-7249
-            </a>
-            <a href="mailto:orders@southerncitiesconstruction.com" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-[15px] font-semibold text-white transition hover:bg-white/20">
-              Email Orders
-            </a>
+          <LpLeadForm
+            id="partner-inquiry"
+            serviceSlug="industry-partners-inquiry"
+            serviceName="Industry partners — general inquiry"
+            source="hub-industry-partners"
+            headline="Need to coordinate on a project with us?"
+            subhead="Send the address and the situation — inspection report, listing prep question, permit file, active project, whatever it is. We'll point you to the right support piece, review path, or quote path within 1 business day."
+            submitLabel="Send Project Details"
+            variant="dark"
+          />
+          <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm text-stone-600">
+            <span>Prefer to talk?</span>
+            <a href="tel:+19804737249" className="font-semibold text-navy hover:text-orange">Call (980) 473-7249</a>
+            <span aria-hidden="true">·</span>
+            <a href="mailto:orders@southerncitiesconstruction.com" className="font-semibold text-navy hover:text-orange">Email orders@southerncitiesconstruction.com</a>
           </div>
         </div>
       </section>
