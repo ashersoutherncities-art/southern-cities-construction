@@ -105,7 +105,26 @@ function CartPageContent() {
 
   return (
     <main className="min-h-screen bg-stone-50">
-      <SiteNav variant="solid" />
+      {isIsolatedMode ? (
+        // LP isolation: no global nav. Show a minimal branded header that
+        // matches the LP visual language — wordmark only, no menu, no
+        // back-to-main-site link. The customer is in a focused checkout
+        // funnel; they came from an LP, they go to Stripe next.
+        <header className="border-b border-stone-200 bg-white">
+          <div className="container-pro flex h-16 items-center justify-center sm:h-20">
+            <Link href="/" className="text-center">
+              <p className="text-base font-black tracking-[-0.02em] text-navy-900 sm:text-lg">
+                Southern Cities Construction
+              </p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange">
+                Licensed NC General Contractor
+              </p>
+            </Link>
+          </div>
+        </header>
+      ) : (
+        <SiteNav variant="solid" />
+      )}
 
       <section className="container-pro pt-14 pb-20 lg:pt-20 lg:pb-28">
         <div className="max-w-3xl">
@@ -310,7 +329,21 @@ function CartPageContent() {
         )}
       </section>
 
-      <SiteFooter />
+      {isIsolatedMode ? (
+        // Minimal footer in isolated mode — trust signals only, no nav links.
+        <footer className="border-t border-stone-200 bg-white py-8">
+          <div className="container-pro flex flex-col items-center gap-2 text-center text-xs text-ink/55">
+            <p>
+              Secure checkout via Stripe · SSL encrypted · No subscription · Licensed NC GC #107724
+            </p>
+            <p>
+              Questions? Email <a href="mailto:info@southerncitiesconstruction.com" className="font-semibold text-navy-900 hover:text-orange">info@southerncitiesconstruction.com</a> · Call <a href="tel:+19804737249" className="font-semibold text-navy-900 hover:text-orange">(980) 473-7249</a>
+            </p>
+          </div>
+        </footer>
+      ) : (
+        <SiteFooter />
+      )}
     </main>
   );
 }

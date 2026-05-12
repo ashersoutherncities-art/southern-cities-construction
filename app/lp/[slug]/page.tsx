@@ -52,6 +52,11 @@ type LandingPageConfig = {
 
   faqs: { q: string; a: string }[];
 
+  /** Optional override for the comparison-table rows. Use when the product's
+   *  price tier or alternatives differ from the Stage 1 default (DIY / free
+   *  contractor consult / architect / Southern Cities $349-599). */
+  comparisonRows?: ComparisonRow[];
+
   addOnBundle?: {
     eyebrow: string;
     heading: string;
@@ -71,39 +76,60 @@ const SHARED_TRUST_STATS = [
   { value: 'NC GC', label: 'Licensed in NC' },
 ];
 
-const COMPARISON_ROWS = [
-  {
-    label: 'DIY estimate',
-    cost: 'Free',
-    time: 'Hours',
-    bias: 'High (your assumptions)',
-    licensed: false,
-    highlight: false,
-  },
-  {
-    label: 'Free contractor consult',
-    cost: 'Free',
-    time: 'Days',
-    bias: 'High (they want the job)',
-    licensed: 'Sometimes',
-    highlight: false,
-  },
-  {
-    label: 'Architect review',
-    cost: '$3,000–5,000+',
-    time: '2–4 weeks',
-    bias: 'Low',
-    licensed: true,
-    highlight: false,
-  },
-  {
-    label: 'Southern Cities Review',
-    cost: '$349–599',
-    time: '2 business days',
-    bias: 'None — flat fee',
-    licensed: true,
-    highlight: true,
-  },
+type ComparisonRow = {
+  label: string;
+  cost: string;
+  time: string;
+  bias: string;
+  licensed: boolean | string;
+  highlight: boolean;
+};
+
+// Default comparison rows — used for Stage 1 review products ($299-599, 2-day turnaround).
+// LPs in higher price tiers or different shapes override this via config.comparisonRows.
+const COMPARISON_ROWS: ComparisonRow[] = [
+  { label: 'DIY estimate', cost: 'Free', time: 'Hours', bias: 'High (your assumptions)', licensed: false, highlight: false },
+  { label: 'Free contractor consult', cost: 'Free', time: 'Days', bias: 'High (they want the job)', licensed: 'Sometimes', highlight: false },
+  { label: 'Architect review', cost: '$3,000–5,000+', time: '2–4 weeks', bias: 'Low', licensed: true, highlight: false },
+  { label: 'Southern Cities Review', cost: '$349–599', time: '2 business days', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+// Per-LP comparison overrides — used when the default doesn't match the product's
+// actual price tier or alternatives.
+const COMPARISON_ROWS_CONTRACTOR_GRADE_BUDGET: ComparisonRow[] = [
+  { label: 'DIY spreadsheet', cost: 'Free', time: 'Days', bias: 'High — no takeoff training', licensed: false, highlight: false },
+  { label: 'Contractor estimate', cost: 'Free', time: 'Days', bias: 'High (they want the job)', licensed: 'Sometimes', highlight: false },
+  { label: 'Estimating service', cost: '$2,000–3,500', time: '1–2 weeks', bias: 'Low', licensed: 'Sometimes', highlight: false },
+  { label: 'Hire GC for budget', cost: '$3,000–5,000 retainer', time: '1–2 weeks', bias: 'Low', licensed: true, highlight: false },
+  { label: 'Southern Cities — Contractor-Grade Budget', cost: '$1,799', time: '5 business days', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_DUE_DILIGENCE_BUNDLE: ComparisonRow[] = [
+  { label: 'DIY due diligence', cost: 'Free', time: 'Weeks', bias: 'High — your assumptions', licensed: false, highlight: false },
+  { label: 'Buy 4 reviews individually', cost: '$1,846 total', time: '2 days each, sequential', bias: 'None — flat fees', licensed: true, highlight: false },
+  { label: 'Hire 4 specialists', cost: '$3,000–5,000+', time: '2–3 weeks', bias: 'Low', licensed: 'Sometimes', highlight: false },
+  { label: 'Southern Cities — Due Diligence Bundle', cost: '$1,499 flat', time: '2–4 business days combined', bias: 'None — flat fee', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_PROJECT_SETUP_BUNDLE: ComparisonRow[] = [
+  { label: 'DIY project setup', cost: 'Free', time: 'Months', bias: 'High risk — your assumptions', licensed: false, highlight: false },
+  { label: 'GC planning retainer', cost: '$3,000–5,000+', time: '2–4 weeks', bias: 'Mixed (they want the build)', licensed: true, highlight: false },
+  { label: 'Architect + PM', cost: '$5,000–15,000+', time: '4–8 weeks', bias: 'Low', licensed: true, highlight: false },
+  { label: 'Southern Cities — Project Setup Bundle', cost: 'Starting at $2,500', time: '2–4 weeks for full setup', bias: 'None — fixed scope', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_EXECUTION_SUPPORT_BUNDLE: ComparisonRow[] = [
+  { label: 'Self-supervise', cost: 'Free', time: 'Project duration', bias: 'High — your blind spots', licensed: false, highlight: false },
+  { label: "Owner's rep", cost: '$2,000–4,000/mo', time: 'Monthly', bias: 'Low', licensed: 'Sometimes', highlight: false },
+  { label: 'Separate oversight GC', cost: '$5,000–10,000/mo', time: 'Monthly', bias: 'Low', licensed: true, highlight: false },
+  { label: 'Southern Cities — Execution Support', cost: 'Starting at $3,500/mo', time: 'Monthly engagement', bias: 'None — scoped per project', licensed: true, highlight: true },
+];
+
+const COMPARISON_ROWS_PHASED_INSPECTIONS: ComparisonRow[] = [
+  { label: 'Trust your contractor', cost: 'Free', time: "On contractor's schedule", bias: 'High — their own work', licensed: 'Varies', highlight: false },
+  { label: 'Home inspector (final only)', cost: '$400–800', time: 'Days', bias: 'Low', licensed: 'Inspector-licensed', highlight: false },
+  { label: 'City / AHJ inspector', cost: 'Included in permits', time: 'On AHJ schedule', bias: 'Code compliance only', licensed: 'Code-licensed', highlight: false },
+  { label: 'Southern Cities — Phased Inspections', cost: 'Per-phase pricing', time: '1–2 days per phase', bias: 'None — independent', licensed: true, highlight: true },
 ];
 
 const LANDING_PAGES: LandingPageConfig[] = [
@@ -410,6 +436,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Do I need plans?', a: 'Plans help, but a clear written scope + photos can work. The clearer the inputs, the tighter the budget.' },
       { q: 'What if my project is huge?', a: 'For projects above ~$500K hard cost or with structural/commercial scope, contact us for a custom quote first.' },
     ],
+    comparisonRows: COMPARISON_ROWS_CONTRACTOR_GRADE_BUDGET,
   },
   {
     slug: 'permit-path-review',
@@ -781,6 +808,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'What is the deliverable?', a: 'One combined PDF with four sections (one per review) and a single top-of-document recommendation.' },
       { q: 'Can I move into project setup after?', a: 'Yes — most investors who close on a deal we reviewed move into the Project Setup Bundle.' },
     ],
+    comparisonRows: COMPARISON_ROWS_DUE_DILIGENCE_BUNDLE,
   },
   {
     slug: 'project-setup-bundle',
@@ -857,6 +885,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Can you also run the project after?', a: 'Yes — Execution Support Bundle picks up from here. Most investors who buy Project Setup move into Execution Support.' },
       { q: 'Do you do new construction?', a: 'Yes, but new construction usually pushes into custom pricing above the $2,500 floor.' },
     ],
+    comparisonRows: COMPARISON_ROWS_PROJECT_SETUP_BUNDLE,
   },
   {
     slug: 'execution-support-bundle',
@@ -933,6 +962,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Can I add this mid-project?', a: 'Yes. We onboard mid-project regularly — typical first month is heavier (catch-up review) then settles into a normal monthly cadence.' },
       { q: 'What about scope changes?', a: 'We document every change, get owner sign-off in writing before approval, and update the budget + schedule.' },
     ],
+    comparisonRows: COMPARISON_ROWS_EXECUTION_SUPPORT_BUNDLE,
   },
   {
     slug: 'phased-third-party-inspections',
@@ -1021,6 +1051,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Can you also schedule the inspections with the AHJ?', a: 'Not as part of this service — that\'s Permit Administration. The two services pair well: we handle official permits + inspections through Permit Admin, and quality inspections through this service.' },
       { q: 'Do you do this outside North Carolina?', a: 'NC residential only right now. The licensed-GC value comes from familiarity with NC code and AHJ practices — we\'d be guessing in other markets.' },
     ],
+    comparisonRows: COMPARISON_ROWS_PHASED_INSPECTIONS,
   },
 ];
 
@@ -1411,7 +1442,7 @@ export default function LandingPage({ params }: { params: Params }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {COMPARISON_ROWS.map((row) => (
+                    {(config.comparisonRows ?? COMPARISON_ROWS).map((row) => (
                       <tr
                         key={row.label}
                         className={`border-t border-stone-200 ${row.highlight ? 'bg-orange-50/60' : 'bg-white'}`}
