@@ -15,12 +15,15 @@ type AddToCartButtonProps = {
    * 'continue' (default) — add to cart cookie, stay on the current page, show toast + inline confirmation.
    * 'checkout' — add to cart cookie and immediately navigate to /cart.
    * 'direct-lp' — landing-page isolation mode. Does NOT touch the main cart cookie.
-   *   Navigates straight to /cart?cart=<itemKey> so the cart page renders ONLY this
-   *   product (URL items override cookie). The customer's broader-site cart is
-   *   untouched. Use this on landing pages so the funnel stays focused on the
-   *   advertised product and the customer's main cart doesn't get polluted.
+   *   Navigates straight to /cart?cart=<itemKey>&lp=1 so the cart page renders ONLY this
+   *   product in isolated chrome. The customer's broader-site cart is untouched.
+   *   Pair with lpSlug so the cart page can render a "Back to landing page" link.
    */
   mode?: 'continue' | 'checkout' | 'direct-lp';
+  /** When set in direct-lp mode, passes the LP slug through the URL as ?from=<slug>
+   *  so the isolated cart can render a "Back to [LP]" link, especially useful on
+   *  the empty-cart state after Clear. */
+  lpSlug?: string;
 };
 
 export default function AddToCartButton({
@@ -28,6 +31,7 @@ export default function AddToCartButton({
   label = 'Add to Cart',
   className,
   mode = 'continue',
+  lpSlug,
 }: AddToCartButtonProps) {
   const [justAdded, setJustAdded] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -48,7 +52,8 @@ export default function AddToCartButton({
       if (mode === 'direct-lp') {
         const directHref = buildCartHref([{ key: itemKey, quantity: 1 }]);
         const separator = directHref.includes('?') ? '&' : '?';
-        window.location.assign(`${directHref}${separator}lp=1`);
+        const fromParam = lpSlug ? `&from=${encodeURIComponent(lpSlug)}` : '';
+        window.location.assign(`${directHref}${separator}lp=1${fromParam}`);
         return;
       }
 
@@ -88,7 +93,7 @@ export default function AddToCartButton({
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => setJustAdded(false), 1800);
     },
-    [itemKey, mode]
+    [itemKey, mode, lpSlug]
   );
 
   return (

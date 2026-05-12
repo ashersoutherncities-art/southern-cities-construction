@@ -1494,7 +1494,7 @@ function PrimaryCta({
   const base = `inline-flex items-center justify-center gap-2 rounded-[4px] font-black uppercase tracking-[0.06em] transition-all duration-150 hover:-translate-y-0.5 ${sizeClasses} ${variantClasses} ${widthClass} ${className}`;
 
   if (config.productKey) {
-    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} mode="direct-lp" />;
+    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} mode="direct-lp" lpSlug={config.slug} />;
   }
 
   return (
@@ -2072,6 +2072,7 @@ export default function LandingPage({ params }: { params: Params }) {
                       itemKey={config.addOnBundle.bundleProductKey}
                       label={config.addOnBundle.bundleLabel}
                       mode="direct-lp"
+                      lpSlug={config.slug}
                       className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#f58220]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
                     />
                   </div>

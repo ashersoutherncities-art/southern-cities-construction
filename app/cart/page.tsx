@@ -57,6 +57,7 @@ function CartPageContent() {
   // Do NOT sync to cookie in isolated mode so the customer's broader-site cart
   // stays untouched.
   const isolationFlag = searchParams.get('lp') === '1';
+  const fromLpSlug = searchParams.get('from');
   const isIsolatedMode = isolationFlag || queryCart !== null;
 
   // Sync items state back to the cookie (and notify the nav pill). Skips on
@@ -71,13 +72,21 @@ function CartPageContent() {
   }, [items, hydrated, isIsolatedMode]);
 
   // When clearing or removing items in isolated mode, navigate to /cart?lp=1
-  // so isolation chrome is preserved (sticky lp=1 flag) but the cart param
-  // gets dropped (so refresh doesn't resurrect the removed item).
-  // In non-isolated mode, just drop the cart param.
+  // (plus &from=<lp-slug> if known) so isolation chrome is preserved and the
+  // "Back to landing page" link stays available. Cart param gets dropped so
+  // refresh doesn't resurrect the removed item. In non-isolated mode, just
+  // drop the cart param.
   const navigateAfterCartChange = useCallback(() => {
     if (!queryCart && !isolationFlag) return;
-    router.replace(isolationFlag ? '/cart?lp=1' : '/cart');
-  }, [queryCart, isolationFlag, router]);
+    if (!isolationFlag) {
+      router.replace('/cart');
+      return;
+    }
+    const params = new URLSearchParams();
+    params.set('lp', '1');
+    if (fromLpSlug) params.set('from', fromLpSlug);
+    router.replace(`/cart?${params.toString()}`);
+  }, [queryCart, isolationFlag, fromLpSlug, router]);
 
   const removeItem = useCallback(
     (key: string) => {
@@ -100,7 +109,7 @@ function CartPageContent() {
       const res = await fetch('/api/cart-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: items, isolated: isIsolatedMode }),
+        body: JSON.stringify({ cart: items, isolated: isIsolatedMode, fromLp: fromLpSlug }),
       });
       const json = await res.json();
       if (!res.ok || !json.url) {
@@ -177,7 +186,18 @@ function CartPageContent() {
                 </Link>
               </div>
             ) : (
-              <div className="mt-7 flex flex-col items-center gap-3">
+              <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                {fromLpSlug ? (
+                  <Link
+                    href={`/lp/${fromLpSlug}`}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-orange hover:bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-orange transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                    Back to landing page
+                  </Link>
+                ) : null}
                 <a
                   href="mailto:info@southerncitiesconstruction.com"
                   className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
