@@ -224,16 +224,19 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
   const phone = (payload.buyer_phone || '').trim() || undefined;
   const inquiryTag = `inquiry-${payload.service_slug}`.toLowerCase();
 
-  // Tag-routing rule: only NON-product (hub / general) inquiries get the
-  // `lead-inquiry` catch-all tag. Product inquiries get just the
-  // product-specific tag, so when per-product workflows exist later they
-  // fire exclusively for their product — no duplicate emails from the
-  // catch-all. Hub/general slugs end in `-hub-inquiry` or `-general-inquiry`
-  // by convention.
+  // Tag-routing rule: hub/general inquiries get `lead-inquiry` (catch-all
+  // workflow). Product inquiries get `product-inquiry` (unified product
+  // pipeline workflow). Both also get the slug-specific tag so future
+  // per-product workflows are possible without server changes.
+  //
+  // Hub/general slugs end in `-hub-inquiry` or `-general-inquiry` by
+  // convention. Anything else is treated as a product.
   const isNonProductInquiry =
     payload.service_slug.endsWith('-hub-inquiry') ||
     payload.service_slug.endsWith('-general-inquiry');
-  const tags = isNonProductInquiry ? [inquiryTag, 'lead-inquiry'] : [inquiryTag];
+  const tags = isNonProductInquiry
+    ? [inquiryTag, 'lead-inquiry']
+    : [inquiryTag, 'product-inquiry'];
 
   // Populate custom fields so the GHL contact carries the full inquiry context
   // (message body + which product they asked about + price). The workflow's
