@@ -29,8 +29,8 @@ export default function SiteFooter() {
               <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">Pricing Overview</Link></li>
               <li><Link href="/services/homeowners" className="text-sm text-white/50 transition-colors hover:text-orange">For Homeowners</Link></li>
               <li><Link href="/services/investors" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors</Link></li>
-              <li><Link href="/services/industry-partners#realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
-              <li><Link href="/services/industry-partners#contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
+              <li><Link href="/services/realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
+              <li><Link href="/services/contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
               <li><Link href="/gallery" className="text-sm text-white/50 transition-colors hover:text-orange">Project Gallery</Link></li>
               <li><Link href="/contracting" className="text-sm text-white/50 transition-colors hover:text-orange">Contracting</Link></li>
               <li><Link href="/recurring-support" className="text-sm text-white/50 transition-colors hover:text-orange">Support Plans</Link></li>
