@@ -23,6 +23,11 @@ const nextConfig = {
 
       // Realtors — legacy URL alias
       { source: '/services/realtors/pre-listing-work', destination: '/services/realtors/pre-listing-budget-prep-review', permanent: true },
+
+      // Memorable short URL aliases for audience hubs
+      { source: '/for-realtors', destination: '/services/realtors', permanent: false },
+      { source: '/for-investors', destination: '/services/investors', permanent: false },
+      { source: '/for-homeowners', destination: '/services/homeowners', permanent: false },
     ];
   },
 };

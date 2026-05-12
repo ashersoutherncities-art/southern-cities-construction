@@ -67,44 +67,6 @@ const stages = [
   },
 ];
 
-const realtorMoments = [
-  {
-    id: 'active-deal',
-    eyebrow: 'Active Deal at Risk',
-    timing: 'When the inspection or negotiation is killing the deal',
-    items: [
-      'Same-day inspection triage from $199',
-      'Repair-cost ranges, item-by-item',
-      'Negotiation strategy + counter ranges',
-    ],
-    cta: 'Get a Construction Read',
-    href: '/services/realtors#active-deal-at-risk',
-  },
-  {
-    id: 'before-offer',
-    eyebrow: 'Before the Offer',
-    timing: 'For buyer agents helping clients commit',
-    items: [
-      'Pre-offer construction-side read',
-      'Visible condition assessment',
-      'Offer-strategy recommendation',
-    ],
-    cta: 'Read the Property',
-    href: '/lp/buyer-side-property-read',
-  },
-  {
-    id: 'pre-listing-moment',
-    eyebrow: 'Pre-Listing',
-    timing: 'For pricing condition-flawed homes',
-    items: [
-      'Construction-side valuation',
-      'Cost-to-fix vs cost-to-leave analysis',
-      'Pricing strategy notes',
-    ],
-    cta: 'Price This Listing',
-    href: '/lp/pre-listing-construction-valuation',
-  },
-];
 
 const homepageTestimonials = [
   {
@@ -542,80 +504,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FOR REALTORS — audience-specific section */}
-        <section id="for-realtors" className="bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">For Realtors</p>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
-                Construction-side answers your clients are already asking.
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-stone-600">
-                Inspection issues, pre-offer reads, listing valuation, and negotiation strategy — powered by a licensed NC GC. One-off when you need it, monthly when the same questions keep coming up.
-              </p>
-            </div>
-            <div className="mt-12 grid gap-5 lg:grid-cols-3">
-              {realtorMoments.map((moment, idx) => (
-                <div
-                  key={moment.id}
-                  id={moment.id}
-                  className="scroll-mt-24 flex h-full flex-col rounded-2xl border-2 border-stone-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#f58220]/40 hover:shadow-[0_24px_60px_-20px_rgba(8,17,29,0.18)] sm:p-10"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#08111d] text-xl font-black">
-                    <span className="text-[#f58220]">0{idx + 1}</span>
-                  </div>
-                  <p className="mt-6 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{moment.eyebrow}</p>
-                  <h3 className="mt-3 text-[1.5rem] font-black leading-tight tracking-[-0.02em] text-[#08111d]">
-                    {moment.timing}
-                  </h3>
-                  <ul className="mt-7 flex flex-1 flex-col space-y-3">
-                    {moment.items.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-[15px] font-medium leading-relaxed text-[#08111d]">
-                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#f58220]">
-                          <CheckIcon size={14} />
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href={moment.href}
-                    className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.4)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
-                  >
-                    {moment.cta} <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 grid gap-6 rounded-3xl border-2 border-stone-200 bg-stone-50 p-8 sm:p-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-              <div>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Plus monthly support tiers</p>
-                <h3 className="mt-3 text-2xl font-black tracking-[-0.02em] text-[#08111d] sm:text-3xl">
-                  Solo agent · Small team · Brokerage
-                </h3>
-                <p className="mt-4 text-[15px] leading-relaxed text-stone-600">
-                  When inspection and pricing questions keep coming up across your active deals, three monthly tiers ($299 / $649 / $2,499) give you defined response capacity sized to your deal flow.
-                </p>
-              </div>
-              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link
-                  href="/services/realtors"
-                  className="inline-flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-full bg-[#08111d] px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-white transition hover:bg-[#0e1a30]"
-                >
-                  See All Realtor Services <span aria-hidden="true">→</span>
-                </Link>
-                <Link
-                  href="/services/realtors#pricing"
-                  className="inline-flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-full border-2 border-[#08111d] bg-white px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-[#08111d] transition hover:bg-stone-50"
-                >
-                  Monthly Plans
-                </Link>
               </div>
             </div>
           </div>
