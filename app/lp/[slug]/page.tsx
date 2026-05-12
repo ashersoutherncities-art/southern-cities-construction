@@ -717,9 +717,9 @@ const LANDING_PAGES: LandingPageConfig[] = [
     turnaround: '2–4 business days',
     audience: 'For residential investors evaluating a deal',
     heroEyebrow: 'Due Diligence Bundle',
-    heroHeadlinePre: 'Four licensed-GC reads on the same',
+    heroHeadlinePre: 'Four licensed-GC reviews of your',
     heroHeadlineHighlight: 'deal',
-    heroHeadlinePost: ' — before you sign.',
+    heroHeadlinePost: ' — before earnest money goes hard.',
     heroSubheadline:
       'Does the construction actually pencil? Will the budget survive contact with reality? Can it get permitted in this jurisdiction? What kind of contractors will the job take? Four questions, four reads, one combined report — before earnest money goes hard. $1,499 flat.',
     problemHeadline: 'One review is a guess. Four reviews is a decision.',
