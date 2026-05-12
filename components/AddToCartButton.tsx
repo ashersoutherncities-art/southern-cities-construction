@@ -40,12 +40,15 @@ export default function AddToCartButton({
     (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
 
-      // LP isolation: skip cookie entirely and navigate to /cart?cart=<itemKey>
-      // so the cart page shows ONLY this product. The user's broader-site cart
-      // (in the cookie) stays untouched.
+      // LP isolation: skip cookie entirely and navigate to /cart?cart=<itemKey>&lp=1
+      // The lp=1 flag is a STICKY isolation marker — survives clear/remove
+      // operations so removing the only item still keeps the customer in the
+      // isolated chrome (minimal header / minimal footer / no main-site links).
+      // The user's broader-site cart (in the cookie) stays untouched.
       if (mode === 'direct-lp') {
         const directHref = buildCartHref([{ key: itemKey, quantity: 1 }]);
-        window.location.assign(directHref);
+        const separator = directHref.includes('?') ? '&' : '?';
+        window.location.assign(`${directHref}${separator}lp=1`);
         return;
       }
 

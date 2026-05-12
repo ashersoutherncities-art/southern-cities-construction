@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Stripe is not configured' }, { status: 500 });
   }
 
-  let body: { cart?: CartSelection[] };
+  let body: { cart?: CartSelection[]; isolated?: boolean };
   try {
     body = await req.json();
   } catch {
@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
 
   const cartItems = Array.isArray(body.cart) ? body.cart : [];
   const lineItems = getCartLineItems(cartItems);
+  const isolated = body.isolated === true;
 
   if (!lineItems.length) {
     return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
@@ -71,7 +72,7 @@ export async function POST(req: NextRequest) {
             line.quantity > 1 ? `${line.key}::${line.quantity}` : line.key
           )
           .join(',')
-      )}&checkout=cancelled`,
+      )}${isolated ? '&lp=1' : ''}&checkout=cancelled`,
       metadata: {
         cart_keys: lineItems.map((l) => l.key).join(','),
         cart_summary: lineItems

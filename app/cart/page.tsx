@@ -51,11 +51,13 @@ function CartPageContent() {
     [lineItems]
   );
 
-  // Isolated mode: when the URL has ?cart=... the cart is acting as an
-  // LP-funnel single-product view. Do NOT sync to cookie so the customer's
-  // broader-site cart stays untouched. They are checking out for one LP
-  // product, not modifying their global cart.
-  const isIsolatedMode = Boolean(queryCart);
+  // Isolated mode: an LP funnel landed the customer here. Detected via either:
+  // - lp=1 query flag (sticky — survives clear/remove operations)
+  // - queryCart presence (backwards compat for old direct-lp URLs without lp=1)
+  // Do NOT sync to cookie in isolated mode so the customer's broader-site cart
+  // stays untouched.
+  const isolationFlag = searchParams.get('lp') === '1';
+  const isIsolatedMode = isolationFlag || queryCart !== null;
 
   // Sync items state back to the cookie (and notify the nav pill). Skips on
   // the initial pre-hydration pass so we do not stomp the cookie with [],
@@ -68,19 +70,27 @@ function CartPageContent() {
     window.dispatchEvent(new Event(CART_SYNC_EVENT));
   }, [items, hydrated, isIsolatedMode]);
 
+  // When clearing or removing items in isolated mode, navigate to /cart?lp=1
+  // so isolation chrome is preserved (sticky lp=1 flag) but the cart param
+  // gets dropped (so refresh doesn't resurrect the removed item).
+  // In non-isolated mode, just drop the cart param.
+  const navigateAfterCartChange = useCallback(() => {
+    if (!queryCart && !isolationFlag) return;
+    router.replace(isolationFlag ? '/cart?lp=1' : '/cart');
+  }, [queryCart, isolationFlag, router]);
+
   const removeItem = useCallback(
     (key: string) => {
       setItems((prev) => prev.filter((item) => item.key !== key));
-      // Drop the cart query param so a refresh does not resurrect the item.
-      if (queryCart) router.replace('/cart');
+      navigateAfterCartChange();
     },
-    [queryCart, router]
+    [navigateAfterCartChange]
   );
 
   const clearCart = useCallback(() => {
     setItems([]);
-    if (queryCart) router.replace('/cart');
-  }, [queryCart, router]);
+    navigateAfterCartChange();
+  }, [navigateAfterCartChange]);
 
   async function startCheckout() {
     if (!lineItems.length) return;
@@ -90,7 +100,7 @@ function CartPageContent() {
       const res = await fetch('/api/cart-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: items }),
+        body: JSON.stringify({ cart: items, isolated: isIsolatedMode }),
       });
       const json = await res.json();
       if (!res.ok || !json.url) {
