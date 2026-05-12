@@ -1552,9 +1552,15 @@ export default function LandingPage({ params }: { params: Params }) {
           </section>
         ) : null}
 
-        {/* INLINE LEAD FORM — only for non-cart LPs (no productKey). The bundle
-            LPs with variable pricing (Project Setup, Execution Support) and any
-            other quote-style LP route their CTA anchor here. */}
+        {/* INLINE LEAD FORM — two variants:
+            - Non-cart LP (no productKey): dark, prominent form replacing the
+              buy path. Lead is the primary conversion goal. (Project Setup,
+              Execution Support.)
+            - Cart LP (productKey set): light, secondary form for visitors who
+              read the page but aren't ready to click Buy. Captures lower-
+              intent leads without diluting the primary CTA. Same GHL tag
+              (inquiry-<slug>) so one workflow handles both flows.
+        */}
         {!config.productKey ? (
           <section className="bg-stone-50">
             <div className="mx-auto max-w-4xl px-6 py-16 sm:px-8 sm:py-20">
@@ -1570,7 +1576,22 @@ export default function LandingPage({ params }: { params: Params }) {
               />
             </div>
           </section>
-        ) : null}
+        ) : (
+          <section className="bg-white">
+            <div className="mx-auto max-w-3xl px-6 py-14 sm:px-8 sm:py-16">
+              <LpLeadForm
+                id="questions-form"
+                serviceSlug={config.slug}
+                serviceName={config.priceLabel || config.heroEyebrow}
+                source={`lp-${config.slug}-presale`}
+                headline="Questions before you buy?"
+                subhead={`Send them here and we'll respond within 1 business day. Or click "${config.ctaLabel}" anywhere on this page to start right away — refunds available within 24 hours if it isn't the right fit.`}
+                submitLabel="Send Questions"
+                variant="light"
+              />
+            </div>
+          </section>
+        )}
 
         {/* FINAL CTA */}
         <section className="relative overflow-hidden bg-[#08111d]">

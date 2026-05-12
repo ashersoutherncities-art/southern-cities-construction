@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import AddToCartButton from '@/components/AddToCartButton';
+import LpLeadForm from '@/components/LpLeadForm';
 import { avatarPages, getServiceBySlug, type ServiceCardData } from '@/lib/services-data';
 
 type Params = { avatar: string; service: string };
@@ -612,6 +613,28 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+        ) : null}
+
+        {/* INLINE LEAD FORM — captures visitors who read the detail page but
+            aren't ready to buy. Fixed-price products show a light, secondary
+            "Questions?" form so the buy CTA stays primary. Review/priced
+            products already route to /review/<slug> or /pricing/<slug> for
+            their forms — no duplicate form rendered here for those. */}
+        {isFixed ? (
+          <section className="bg-white">
+            <div className="mx-auto max-w-3xl px-6 py-14 sm:px-8 sm:py-16">
+              <LpLeadForm
+                id="questions-form"
+                serviceSlug={service.slug}
+                serviceName={service.title}
+                source={`detail-${service.slug}-presale`}
+                headline="Questions before you buy?"
+                subhead="Send them here and a licensed NC GC will respond within 1 business day. Or use the buy button above to start right away."
+                submitLabel="Send Questions"
+                variant="light"
+              />
             </div>
           </section>
         ) : null}
