@@ -154,7 +154,7 @@ export default function IndustryPartnersPage() {
         <div className="container-pro max-w-4xl">
           <LpLeadForm
             id="partner-inquiry"
-            serviceSlug="industry-partners-inquiry"
+            serviceSlug="industry-partners-hub-inquiry"
             serviceName="Industry partners — general inquiry"
             source="hub-industry-partners"
             headline="Need to coordinate on a project with us?"
