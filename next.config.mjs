@@ -24,10 +24,17 @@ const nextConfig = {
       // Realtors — legacy URL alias
       { source: '/services/realtors/pre-listing-work', destination: '/services/realtors/pre-listing-budget-prep-review', permanent: true },
 
+      // Industry-partners catch-all retired — each avatar now has its own
+      // dedicated hub page. Preserve incoming links via redirect.
+      { source: '/services/industry-partners', destination: '/services', permanent: true },
+
       // Memorable short URL aliases for audience hubs
       { source: '/for-realtors', destination: '/services/realtors', permanent: false },
       { source: '/for-investors', destination: '/services/investors', permanent: false },
       { source: '/for-homeowners', destination: '/services/homeowners', permanent: false },
+      { source: '/for-contractors', destination: '/services/contractors', permanent: false },
+      { source: '/for-developers', destination: '/services/developers-landowners', permanent: false },
+      { source: '/for-developers-landowners', destination: '/services/developers-landowners', permanent: false },
     ];
   },
 };
