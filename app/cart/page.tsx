@@ -1,20 +1,23 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { buildCartHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
+import { buildCartHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam, type CartSelection } from '@/lib/cart';
 import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
 const CART_SYNC_EVENT = 'scc:cart-sync';
 
 function CartPageContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const queryCart = searchParams.get(CART_QUERY_KEY);
   const cancelled = searchParams.get('checkout') === 'cancelled';
   const [cookieCart, setCookieCart] = useState('');
+  const [items, setItems] = useState<CartSelection[]>([]);
+  const [hydrated, setHydrated] = useState(false);
   const [checkoutState, setCheckoutState] = useState<'idle' | 'loading' | 'error'>('idle');
   const [checkoutError, setCheckoutError] = useState('');
 
@@ -31,11 +34,16 @@ function CartPageContent() {
     };
   }, []);
 
-  const items = useMemo(() => {
+  // Initialize items from URL query (if present) or cookie. URL wins on first
+  // load so deep links work; subsequent changes are local state and sync back
+  // to the cookie.
+  useEffect(() => {
     const queryItems = parseCartParam(queryCart);
-    if (queryItems.length) return queryItems;
-    return parseCartParam(cookieCart);
-  }, [cookieCart, queryCart]);
+    const cookieItems = parseCartParam(cookieCart);
+    setItems(queryItems.length ? queryItems : cookieItems);
+    setHydrated(true);
+  }, [queryCart, cookieCart]);
+
   const lineItems = useMemo(() => getCartLineItems(items), [items]);
 
   const subtotal = useMemo(
@@ -43,14 +51,29 @@ function CartPageContent() {
     [lineItems]
   );
 
+  // Sync items state back to the cookie (and notify the nav pill). Skips on
+  // the initial pre-hydration pass so we do not stomp the cookie with [].
   useEffect(() => {
-    if (!lineItems.length) {
-      return;
-    }
+    if (!hydrated) return;
     const nextHref = buildCartHref(items);
     const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
     setCartParamCookie(nextParam);
-  }, [items, lineItems]);
+    window.dispatchEvent(new Event(CART_SYNC_EVENT));
+  }, [items, hydrated]);
+
+  const removeItem = useCallback(
+    (key: string) => {
+      setItems((prev) => prev.filter((item) => item.key !== key));
+      // Drop the cart query param so a refresh does not resurrect the item.
+      if (queryCart) router.replace('/cart');
+    },
+    [queryCart, router]
+  );
+
+  const clearCart = useCallback(() => {
+    setItems([]);
+    if (queryCart) router.replace('/cart');
+  }, [queryCart, router]);
 
   async function startCheckout() {
     if (!lineItems.length) return;
@@ -117,12 +140,35 @@ function CartPageContent() {
         ) : (
           <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_0.8fr]">
             <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold text-navy/65">
+                  {lineItems.length} {lineItems.length === 1 ? 'item' : 'items'} in cart
+                </p>
+                <button
+                  type="button"
+                  onClick={clearCart}
+                  className="text-sm font-semibold text-navy/55 hover:text-red-600 transition-colors underline-offset-4 hover:underline"
+                >
+                  Clear cart
+                </button>
+              </div>
+
               {lineItems.map((lineItem) => (
                 <div
                   key={lineItem.key}
-                  className="rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-9 shadow-elev-1"
+                  className="relative rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-9 shadow-elev-1"
                 >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <button
+                    type="button"
+                    onClick={() => removeItem(lineItem.key)}
+                    aria-label={`Remove ${lineItem.product.name} from cart`}
+                    className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-navy/[0.08] bg-white text-navy/45 hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between pr-10">
                     <div className="min-w-0">
                       <h2 className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight">
                         {lineItem.product.name}
@@ -140,6 +186,16 @@ function CartPageContent() {
                           Job variables for Permit Administration are collected on the next page before checkout.
                         </p>
                       )}
+                      <button
+                        type="button"
+                        onClick={() => removeItem(lineItem.key)}
+                        className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy/55 hover:text-red-600 transition-colors"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Remove
+                      </button>
                     </div>
                     <div className="shrink-0 text-left sm:text-right">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-navy/45">
