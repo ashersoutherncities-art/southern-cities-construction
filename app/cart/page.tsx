@@ -5,22 +5,18 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { buildCartHref, buildDirectCheckoutHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
+import { buildCartHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
+import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
 const CART_SYNC_EVENT = 'scc:cart-sync';
-
-function getCheckoutLabel(itemKey: string) {
-  if (itemKey === 'permit-management-service') {
-    return 'Continue to setup';
-  }
-  return 'Continue to checkout';
-}
-import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
 function CartPageContent() {
   const searchParams = useSearchParams();
   const queryCart = searchParams.get(CART_QUERY_KEY);
+  const cancelled = searchParams.get('checkout') === 'cancelled';
   const [cookieCart, setCookieCart] = useState('');
+  const [checkoutState, setCheckoutState] = useState<'idle' | 'loading' | 'error'>('idle');
+  const [checkoutError, setCheckoutError] = useState('');
 
   useEffect(() => {
     const sync = () => setCookieCart(getCartParamFromCookie());
@@ -55,6 +51,27 @@ function CartPageContent() {
     const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
     setCartParamCookie(nextParam);
   }, [items, lineItems]);
+
+  async function startCheckout() {
+    if (!lineItems.length) return;
+    setCheckoutState('loading');
+    setCheckoutError('');
+    try {
+      const res = await fetch('/api/cart-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: items }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.url) {
+        throw new Error(json.error || 'Could not start checkout');
+      }
+      window.location.href = json.url;
+    } catch (err) {
+      setCheckoutState('error');
+      setCheckoutError(err instanceof Error ? err.message : 'Checkout failed');
+    }
+  }
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -138,15 +155,6 @@ function CartPageContent() {
                       )}
                     </div>
                   </div>
-                  <Link
-                    href={buildDirectCheckoutHref({ key: lineItem.key, amount: lineItem.amount })}
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-navy-900 hover:bg-navy px-6 py-3 text-sm font-semibold text-white transition-colors"
-                  >
-                    {getCheckoutLabel(lineItem.key)}
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </Link>
                 </div>
               ))}
 
@@ -186,16 +194,52 @@ function CartPageContent() {
                 ))}
               </div>
 
-              <div className="mt-6 pt-5 border-t border-navy/[0.08] flex items-baseline justify-between">
-                <span className="text-sm font-semibold uppercase tracking-[0.14em] text-navy/55">
-                  Subtotal
-                </span>
-                <span className="text-2xl font-extrabold text-navy-900">
-                  {formatPrice(subtotal)}
-                </span>
+              <div className="mt-6 pt-5 border-t border-navy/[0.08] space-y-2.5">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-sm font-medium text-navy/65">Subtotal</span>
+                  <span className="text-base font-semibold text-navy-900">{formatPrice(subtotal)}</span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-sm font-medium text-navy/65">Tax</span>
+                  <span className="text-sm text-navy/55">Calculated at checkout</span>
+                </div>
+                <div className="pt-3 border-t border-navy/[0.08] flex items-baseline justify-between">
+                  <span className="text-sm font-semibold uppercase tracking-[0.14em] text-navy/55">Total before tax</span>
+                  <span className="text-2xl font-extrabold text-navy-900">{formatPrice(subtotal)}</span>
+                </div>
               </div>
 
-              <p className="mt-5 text-xs leading-relaxed text-ink/55">
+              {cancelled ? (
+                <p className="mt-5 text-xs leading-relaxed text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
+                  Checkout was cancelled. Your cart is saved — review and try again when ready.
+                </p>
+              ) : null}
+
+              {checkoutError ? (
+                <p className="mt-5 text-xs leading-relaxed text-red-700 bg-red-50 border border-red-200 rounded-xl p-3">
+                  {checkoutError}
+                </p>
+              ) : null}
+
+              <button
+                type="button"
+                onClick={startCheckout}
+                disabled={checkoutState === 'loading'}
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange hover:bg-orange-500 px-6 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-glow-orange transition-colors disabled:opacity-60 disabled:cursor-wait"
+              >
+                {checkoutState === 'loading' ? 'Opening secure checkout…' : 'Continue to Checkout'}
+                {checkoutState !== 'loading' ? (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                ) : null}
+              </button>
+
+              <p className="mt-4 text-[11px] leading-relaxed text-ink/55 text-center">
+                Secure checkout powered by Stripe. Billing address, phone, and payment details are collected on the next page. Sales tax (if applicable) is calculated from your billing address.
+              </p>
+
+              <p className="mt-3 text-[11px] leading-relaxed text-ink/55">
                 Final project price may change after scope review when scope-based work is involved. Some services, including Permit Administration, collect job variables on the next page before the checkout amount is finalized.
               </p>
             </div>

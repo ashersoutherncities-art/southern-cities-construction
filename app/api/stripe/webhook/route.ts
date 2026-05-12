@@ -135,43 +135,64 @@ export async function POST(req: NextRequest) {
         // The product-specific tag triggers the GHL fulfillment workflow
         // (email, SMS, task, pipeline opportunity). Fire-and-forget — never
         // breaks the Stripe pipeline if GHL is down.
+        //
+        // Multi-item: if session.metadata.cart_keys is set (new /api/cart-checkout
+        // flow), iterate the list and fire one GHL upsert+tag per product.
+        // Single-item: fall back to session.metadata.item (legacy /portal flow).
         if (session.payment_status === 'paid') {
           try {
-            const product = CART_PRODUCTS[session.metadata?.item ?? ''] ?? null;
-            const ghlResult = await sendOrderToGhl({
-              buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
-              buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
-              buyer_phone: session.metadata?.buyer_phone || session.customer_details?.phone || '',
-              product_key: session.metadata?.item || '',
-              product_name: product?.name || '',
-              amount_paid: typeof session.amount_total === 'number' ? session.amount_total / 100 : 0,
-              project_address: session.metadata?.project_address || '',
-              order_id: session.metadata?.order_id || '',
-              stripe_session_id: session.id,
-              stripe_payment_intent_id:
-                typeof session.payment_intent === 'string'
-                  ? session.payment_intent
-                  : session.payment_intent?.id ?? null,
-              purchased_at: new Date().toISOString(),
-            });
+            const cartKeys = (session.metadata?.cart_keys || '')
+              .split(',')
+              .map((s) => s.trim())
+              .filter(Boolean);
+            const productKeys = cartKeys.length
+              ? cartKeys
+              : session.metadata?.item
+                ? [session.metadata.item]
+                : [];
 
-            if (supabase && session.metadata?.order_id) {
-              await recordOrderEvent(
-                {
-                  order_id: Number(session.metadata.order_id),
-                  event_type: ghlResult.ok ? 'ghl.contact.upserted' : 'ghl.forward.failed',
-                  source: 'stripe_webhook',
-                  message: ghlResult.ok
-                    ? `Forwarded to GHL with tag ${ghlResult.tag}`
-                    : `GHL forward failed: ${JSON.stringify(ghlResult.body).slice(0, 200)}`,
-                  payload: { contactId: ghlResult.contactId, tag: ghlResult.tag, status: ghlResult.status },
-                },
-                supabase
-              );
-            }
+            for (const productKey of productKeys) {
+              const product = CART_PRODUCTS[productKey] ?? null;
+              const lineAmountCents = product?.price ?? 0;
+              const ghlResult = await sendOrderToGhl({
+                buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
+                buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
+                buyer_phone: session.metadata?.buyer_phone || session.customer_details?.phone || '',
+                product_key: productKey,
+                product_name: product?.name || '',
+                amount_paid: cartKeys.length
+                  ? lineAmountCents / 100
+                  : typeof session.amount_total === 'number'
+                    ? session.amount_total / 100
+                    : 0,
+                project_address: session.metadata?.project_address || '',
+                order_id: session.metadata?.order_id || '',
+                stripe_session_id: session.id,
+                stripe_payment_intent_id:
+                  typeof session.payment_intent === 'string'
+                    ? session.payment_intent
+                    : session.payment_intent?.id ?? null,
+                purchased_at: new Date().toISOString(),
+              });
 
-            if (!ghlResult.ok) {
-              console.error('GHL forward returned non-ok:', ghlResult.status, ghlResult.body);
+              if (supabase && session.metadata?.order_id) {
+                await recordOrderEvent(
+                  {
+                    order_id: Number(session.metadata.order_id),
+                    event_type: ghlResult.ok ? 'ghl.contact.upserted' : 'ghl.forward.failed',
+                    source: 'stripe_webhook',
+                    message: ghlResult.ok
+                      ? `Forwarded to GHL with tag ${ghlResult.tag}`
+                      : `GHL forward failed for ${productKey}: ${JSON.stringify(ghlResult.body).slice(0, 200)}`,
+                    payload: { contactId: ghlResult.contactId, tag: ghlResult.tag, status: ghlResult.status, productKey },
+                  },
+                  supabase
+                );
+              }
+
+              if (!ghlResult.ok) {
+                console.error('GHL forward returned non-ok for', productKey, ':', ghlResult.status, ghlResult.body);
+              }
             }
           } catch (ghlErr) {
             console.error('GHL forward threw (non-fatal):', ghlErr);
