@@ -16,9 +16,9 @@ const SERVICES_GROUP: NavGroup = {
     { href: '/services', label: 'Pricing Overview' },
     { href: '/services/homeowners', label: 'For Homeowners' },
     { href: '/services/investors', label: 'For Investors' },
-    { href: '/services/industry-partners#realtors', label: 'For Realtors' },
-    { href: '/services/industry-partners#contractors', label: 'For Contractors' },
-    { href: '/services/industry-partners#developers', label: 'For Developers' },
+    { href: '/services/realtors', label: 'For Realtors' },
+    { href: '/services/contractors', label: 'For Contractors' },
+    { href: '/services/developers-landowners', label: 'For Developers' },
   ],
 };
 
