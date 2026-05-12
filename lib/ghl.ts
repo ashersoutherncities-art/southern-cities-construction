@@ -116,11 +116,22 @@ export async function sendOrderToGhl(payload: GhlOrderPayload) {
   const { firstName, lastName } = splitName(payload.buyer_name);
   const phone = (payload.buyer_phone || '').trim() || undefined;
 
+  // Populate Services Requested with the same "Product Name — $Price" format
+  // that inquiries use, so workflow merge tags work consistently across
+  // inquiry + purchase flows. {{contact.services_requested}} renders properly
+  // in the fulfillment workflow's email/SMS/task instead of being blank.
+  const servicesRequestedValue = payload.product_name
+    ? payload.amount_paid
+      ? `${payload.product_name} — $${payload.amount_paid.toLocaleString('en-US', { maximumFractionDigits: 0 })}`
+      : payload.product_name
+    : '';
+
   const customFields = [
     { id: CUSTOM_FIELD_IDS['Project Address'], field_value: payload.project_address || '' },
     { id: CUSTOM_FIELD_IDS['Last Order ID'], field_value: payload.order_id || '' },
     { id: CUSTOM_FIELD_IDS['Last Product'], field_value: payload.product_name || '' },
     { id: CUSTOM_FIELD_IDS['Last Order Amount'], field_value: String(payload.amount_paid || 0) },
+    { id: CUSTOM_FIELD_IDS['Services Requested'], field_value: servicesRequestedValue },
   ].filter((field) => Boolean(field.id));
 
   const productTag = `purchased-${payload.product_key}`.toLowerCase();
