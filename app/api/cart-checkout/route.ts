@@ -61,7 +61,17 @@ export async function POST(req: NextRequest) {
       billing_address_collection: 'required',
       phone_number_collection: { enabled: true },
       success_url: `${baseUrl}/portal?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/cart?checkout=cancelled`,
+      // Preserve the cart param on cancel so the customer returns to the
+      // ISOLATED cart view (no main-site nav), not the global cart. Without
+      // this param the cart page falls back to non-isolated chrome and
+      // breaks the LP-funnel isolation we just plugged.
+      cancel_url: `${baseUrl}/cart?cart=${encodeURIComponent(
+        lineItems
+          .map((line) =>
+            line.quantity > 1 ? `${line.key}::${line.quantity}` : line.key
+          )
+          .join(',')
+      )}&checkout=cancelled`,
       metadata: {
         cart_keys: lineItems.map((l) => l.key).join(','),
         cart_summary: lineItems
