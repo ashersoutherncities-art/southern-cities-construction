@@ -277,7 +277,7 @@ export default function RealtorsPage() {
             serviceName="Realtor hub — general inquiry"
             source="hub-realtors"
             headline="Not sure which realtor service fits?"
-            subhead="Tell us about the deal or listing — property address, what stage it's in, what you're trying to figure out — and a licensed NC GC will point you to the right path. Response within 1 business day."
+            subhead="Tell us about the deal or listing — property address, what stage it is in, what you are trying to figure out — and a licensed NC GC will point you to the right path. Response within 1 business day."
             submitLabel="Get a Recommendation"
             variant="dark"
           />
@@ -344,6 +344,3 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-const __motionStyles = `
-@keyframes heroFloat { 0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); } 50% { transform: scale(1.08) translate3d(-12px, -8px, 0); } }
-`;
