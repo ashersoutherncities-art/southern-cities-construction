@@ -16,6 +16,14 @@ type LandingPageConfig = {
   productKey?: string;
   fallbackHref?: string;
   ctaLabel: string;
+  /** Optional CTA wording for the mid-page "final section" button (after the
+   *  value stack, before the FAQ). Defaults to "Show Me a Sample →". Use this
+   *  to vary the CTA from the hero button so visitors see a different verb
+   *  by the time they scroll down. */
+  ctaLabelMid?: string;
+  /** Optional CTA wording for the post-FAQ button (final commit moment).
+   *  Defaults to a price-anchored commit like "Get Started — $X". */
+  ctaLabelFinal?: string;
   price: string;
   priceAnchor: string;
   priceLabel: string;
@@ -932,6 +940,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'project-setup-bundle',
     fallbackHref: '#quote-form',
     ctaLabel: 'Request Custom Quote',
+    ctaLabelMid: 'See What Setup Includes',
+    ctaLabelFinal: 'Get My Setup Quote',
     price: 'Starting at $2,500',
     priceAnchor: 'Most-bought bundle — sets up an investor project to win',
     priceLabel: 'Project Setup Bundle',
@@ -1010,6 +1020,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'execution-support-bundle',
     fallbackHref: '#quote-form',
     ctaLabel: 'Request Custom Quote',
+    ctaLabelMid: 'See How Execution Support Works',
+    ctaLabelFinal: 'Get My Execution Quote',
     price: 'Starting at $3,500',
     priceAnchor: 'Project oversight + draw control + full contracting available',
     priceLabel: 'Execution Support Bundle',
@@ -1088,6 +1100,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'phased-third-party-inspections',
     fallbackHref: '#quote-form',
     ctaLabel: 'Request Inspection Plan',
+    ctaLabelMid: 'See How Phased Inspections Work',
+    ctaLabelFinal: 'Get My Inspection Plan',
     price: 'Per-phase pricing',
     priceAnchor: 'A failed inspection or paused draw costs weeks — and the wall has to come back open',
     priceLabel: 'Phased Third-Party Inspections',
@@ -1335,6 +1349,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'gc-grade-property-inspection',
     productKey: 'gc-grade-property-inspection',
     ctaLabel: 'Book the GC-Grade Inspection',
+    ctaLabelMid: 'See a Sample Inspection Report',
+    ctaLabelFinal: 'Book Now — $899',
     price: '$899 standard · $1,199 rush',
     priceAnchor: 'A home inspector tells you what is wrong — a GC tells you what it costs',
     priceLabel: 'GC-Grade Property Inspection',
@@ -1741,6 +1757,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'listing-prep-project-management',
     fallbackHref: '/review/listing-prep-project-management',
     ctaLabel: 'Request Listing Prep Scope',
+    ctaLabelMid: 'See What Prep Work Looks Like',
+    ctaLabelFinal: 'Book a Scoping Call',
     price: 'Starting at $1,499 + cost-plus',
     priceAnchor: 'You shouldn\'t be the contractor concierge for your listings',
     priceLabel: 'Listing Prep Project Management',
@@ -2192,6 +2210,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'listing-transaction-package',
     productKey: 'listing-transaction-package',
     ctaLabel: 'Get the Listing Package',
+    ctaLabelMid: 'See What\'s Inside the Package',
+    ctaLabelFinal: 'Buy Now — $2,299',
     price: '$2,299',
     priceAnchor: 'Buying products one at a time = ~$2,545 + decision fatigue',
     priceLabel: 'Listing Transaction Package',
@@ -2272,6 +2292,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'buyer-transaction-package',
     productKey: 'buyer-transaction-package',
     ctaLabel: 'Get the Buyer Package',
+    ctaLabelMid: 'See What\'s Inside the Package',
+    ctaLabelFinal: 'Buy Now — $1,999',
     price: '$1,999',
     priceAnchor: 'À la carte = ~$2,395 + the work of remembering each step',
     priceLabel: 'Buyer Transaction Package',
@@ -2359,12 +2381,17 @@ function PrimaryCta({
   size = 'lg',
   fullWidth = false,
   className = '',
+  label,
 }: {
   config: LandingPageConfig;
   variant?: 'primary' | 'inverse';
   size?: 'lg' | 'md';
   fullWidth?: boolean;
   className?: string;
+  /** Override the CTA copy for this specific render position. Falls back to
+   *  config.ctaLabel when omitted. Use to give the hero, mid-page, and
+   *  post-FAQ buttons different wording. */
+  label?: string;
 }) {
   const sizeClasses =
     size === 'lg'
@@ -2377,16 +2404,31 @@ function PrimaryCta({
   const widthClass = fullWidth ? 'w-full' : '';
   const base = `inline-flex items-center justify-center gap-2 rounded-[4px] font-black uppercase tracking-[0.06em] transition-all duration-150 hover:-translate-y-0.5 ${sizeClasses} ${variantClasses} ${widthClass} ${className}`;
 
+  const ctaText = label ?? config.ctaLabel;
+
   if (config.productKey) {
-    return <AddToCartButton itemKey={config.productKey} label={`${config.ctaLabel} →`} className={base} mode="direct-lp" lpSlug={config.slug} />;
+    return <AddToCartButton itemKey={config.productKey} label={`${ctaText} →`} className={base} mode="direct-lp" lpSlug={config.slug} />;
   }
 
   return (
     <Link href={config.fallbackHref || '/cart'} className={base}>
-      <span>{config.ctaLabel}</span>
+      <span>{ctaText}</span>
       <span aria-hidden="true">→</span>
     </Link>
   );
+}
+
+/** Derive a mid-page CTA label. Uses explicit ctaLabelMid if set; otherwise
+ *  defaults to a generic outcome-focused button so the mid CTA is never
+ *  identical to the hero CTA. */
+function midCtaLabel(config: LandingPageConfig): string {
+  return config.ctaLabelMid ?? 'Show Me a Sample';
+}
+
+/** Derive a post-FAQ commit CTA. Uses explicit ctaLabelFinal if set;
+ *  otherwise anchors to price for a clear "buy now" feel. */
+function finalCtaLabel(config: LandingPageConfig): string {
+  return config.ctaLabelFinal ?? `Get Started — ${config.price}`;
 }
 
 function ProblemIcon({ tone }: { tone: 'red' | 'amber' | 'rose' | 'orange' }) {
@@ -2909,7 +2951,7 @@ export default function LandingPage({ params }: { params: Params }) {
                     </div>
 
                     <div className="mt-10">
-                      <PrimaryCta config={config} fullWidth />
+                      <PrimaryCta config={config} fullWidth label={midCtaLabel(config)} />
                       <p className="mt-4 text-center text-[11px] text-white/45">
                         Or call{' '}
                         <a href="tel:+19804737249" className="font-bold text-white/70 hover:text-[#f58220]">
@@ -3033,7 +3075,7 @@ export default function LandingPage({ params }: { params: Params }) {
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">{config.finalSubhead}</p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
-              <PrimaryCta config={config} />
+              <PrimaryCta config={config} label={finalCtaLabel(config)} />
               <a
                 href="tel:+19804737249"
                 className="inline-flex items-center gap-2 text-sm font-bold text-white/75 hover:text-white"
@@ -3059,7 +3101,7 @@ export default function LandingPage({ params }: { params: Params }) {
               ))}
             </div>
             <div className="mt-14 text-center">
-              <PrimaryCta config={config} />
+              <PrimaryCta config={config} label={finalCtaLabel(config)} />
               <p className="mt-4 text-sm text-stone-500">
                 Or call{' '}
                 <a href="tel:+19804737249" className="font-bold text-[#08111d] hover:text-[#f58220]">
