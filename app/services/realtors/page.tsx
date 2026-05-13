@@ -268,6 +268,65 @@ export default function RealtorsPage() {
         </div>
       </section>
 
+      {/* FREE GC-CERTIFIED CHECKLISTS (lead magnets) */}
+      <section className="bg-white py-16 sm:py-20">
+        <div className="container-pro max-w-5xl">
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#f58220]">
+              <span className="w-6 h-px bg-[#f58220]/50" />
+              Free GC-Certified Resources
+              <span className="w-6 h-px bg-[#f58220]/50" />
+            </span>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-[#08111d]">
+              Free checklists — built by a licensed NC GC
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-stone-600 leading-relaxed">
+              Two single-document references your sellers and buyers can use directly.
+              GC-certified, no fluff, instantly downloadable. We just need your contact info to send the file.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <Link
+              href="/resources#gc-certified-pre-listing-checklist"
+              className="group rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all hover:border-[#f58220]/50 hover:bg-white hover:shadow-elev-1"
+            >
+              <span className="inline-flex rounded-full bg-[#f58220]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#f58220]">
+                For Sellers
+              </span>
+              <h3 className="mt-4 text-xl font-extrabold tracking-tight text-[#08111d]">
+                Pre-Listing Construction Checklist
+              </h3>
+              <p className="mt-3 text-[14px] text-stone-600 leading-relaxed">
+                What sellers should fix, disclose, or leave alone before listing — with prep-spend
+                budget ranges by price tier. Use this before the listing goes live.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.14em] text-[#f58220] group-hover:gap-3 transition-all">
+                Get the Checklist <span aria-hidden="true">→</span>
+              </span>
+            </Link>
+            <Link
+              href="/resources#gc-certified-pre-offer-checklist"
+              className="group rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all hover:border-[#f58220]/50 hover:bg-white hover:shadow-elev-1"
+            >
+              <span className="inline-flex rounded-full bg-[#f58220]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#f58220]">
+                For Buyers
+              </span>
+              <h3 className="mt-4 text-xl font-extrabold tracking-tight text-[#08111d]">
+                Pre-Offer Construction Checklist
+              </h3>
+              <p className="mt-3 text-[14px] text-stone-600 leading-relaxed">
+                What buyers should look for at the showing — age-based red flags by system,
+                replacement-cost ranges, and walk-away triggers. Use this BEFORE writing the offer.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.14em] text-[#f58220] group-hover:gap-3 transition-all">
+                Get the Checklist <span aria-hidden="true">→</span>
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* INQUIRY FORM */}
       <section className="bg-stone-50 py-16 sm:py-20">
         <div className="container-pro max-w-4xl">

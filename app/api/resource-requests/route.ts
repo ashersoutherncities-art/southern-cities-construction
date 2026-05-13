@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
 import { getResourceBySlug } from '@/lib/resources';
+import { sendLeadMagnetToGhl } from '@/lib/ghl';
 
 const requestLog = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
@@ -73,6 +74,28 @@ export async function POST(req: NextRequest) {
     if (error) {
       console.error('resource_requests insert error:', error);
       return NextResponse.json({ error: 'Failed to save resource request' }, { status: 500 });
+    }
+
+    // For lead magnets, push the capture to GHL so the contact gets tagged
+    // (`lead-magnet-<slug>` + `lead-inquiry`) and the catch-all Lead Inquiry
+    // workflow fires automatically (welcome email + internal SMS).
+    if (resource.leadMagnet) {
+      try {
+        const ghlResult = await sendLeadMagnetToGhl({
+          buyer_name: name,
+          buyer_email: email,
+          buyer_phone: phone,
+          resource_slug: resource.slug,
+          resource_title: resource.title,
+          company: company || undefined,
+          role: role || undefined,
+        });
+        if (!ghlResult.ok) {
+          console.error('GHL lead-magnet forwarding failed:', ghlResult);
+        }
+      } catch (ghlErr) {
+        console.error('GHL lead-magnet forwarding error:', ghlErr);
+      }
     }
 
     try {

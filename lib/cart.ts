@@ -66,7 +66,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Same-Day Read',
     price: 19900,
     priceLabel: '$199 same-day',
-    description: 'Urgent inspection triage for active deals — a licensed NC GC reads the inspection within 4 hours during business hours: critical-vs-cosmetic, rough cost ranges, and a recommended response path.',
+    description: 'Urgent inspection triage for active deals — a licensed NC GC reads the inspection within 4 hours: top 3–5 items that actually matter, rough dollar range per item, and a recommended response path. Noise-vs-matters is judged on cost magnitude + severity + remaining useful life + negotiability — not just severity rating.',
     checkoutAmount: '199',
   },
   'permit-path-review': {

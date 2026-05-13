@@ -11,10 +11,58 @@ export type Resource = {
   summary: string;
   includes: string[];
   bestFor: string;
+  /** If set, file is served directly (no lead-capture form). */
   downloadUrl?: string;
+  /** If true, resource is gated: form is required BEFORE the download link
+   *  appears. Use for lead-magnet checklists. Pair with downloadUrl so the
+   *  success state can reveal the file immediately after capture. */
+  leadMagnet?: boolean;
 };
 
 export const RESOURCES: Resource[] = [
+  {
+    slug: 'gc-certified-pre-listing-checklist',
+    title: 'GC-Certified Pre-Listing Construction Checklist',
+    kind: 'free',
+    category: 'Realtors',
+    audience: 'Realtors · Sellers',
+    format: 'Lead-Magnet PDF',
+    pages: 5,
+    summary:
+      'What sellers should fix, what to disclose, and what to leave alone before a listing goes live — from a licensed NC General Contractor. Use this to make defensible prep-spend decisions and stop dragging the price down with the wrong fixes.',
+    includes: [
+      'Exterior + interior fix-vs-skip-vs-disclose tables',
+      'Major-systems decision matrix (HVAC, roof, plumbing, electrical)',
+      'NC RPDS disclosure-critical items list',
+      'Prep-spend budget guide by price range',
+      'Hire-a-licensed-contractor vs DIY decision rules',
+    ],
+    bestFor: 'Listing agents preparing a seller for market, or sellers deciding what prep work is worth doing before listing.',
+    downloadUrl: '/resources/gc-certified-pre-listing-checklist.pdf',
+    leadMagnet: true,
+  },
+  {
+    slug: 'gc-certified-pre-offer-checklist',
+    title: 'GC-Certified Pre-Offer Construction Checklist for Buyers',
+    kind: 'free',
+    category: 'Realtors',
+    audience: 'Realtors · Buyers',
+    format: 'Lead-Magnet PDF',
+    pages: 5,
+    summary:
+      'What buyers should look for at the showing — and price into the offer BEFORE the inspection. From a licensed NC General Contractor. Use this so the offer reflects construction reality instead of getting blindsided after earnest money is in.',
+    includes: [
+      'At-the-curb 60-second signal scan',
+      'Interior walkthrough red-flag list',
+      'Age-based concerns + replacement-cost ranges by system',
+      'What an inspection won\'t catch',
+      'Walk-away triggers (when to reconsider the deal entirely)',
+      'Pre-offer price-impact math',
+    ],
+    bestFor: 'Buyer\'s agents helping clients evaluate properties before writing an offer.',
+    downloadUrl: '/resources/gc-certified-pre-offer-checklist.pdf',
+    leadMagnet: true,
+  },
   {
     slug: 'nc-residential-permit-prep-checklist',
     title: 'NC Residential Permit Prep Checklist',

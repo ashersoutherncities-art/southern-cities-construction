@@ -1178,7 +1178,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'deal',
     heroHeadlinePost: ' today?',
     heroSubheadline:
-      'A licensed NC general contractor reads the inspection report within 4 hours, ranks every flagged item critical-vs-cosmetic, gives you rough repair cost ranges, and recommends how to respond — so you can move the conversation today instead of losing the deal tomorrow.',
+      'A licensed NC general contractor reads the inspection report within 4 hours, surfaces the top 3–5 items that actually matter, attaches a rough dollar range to each ($X–$Y), explains why the rest is noise, and recommends how to respond — so you can move the conversation today instead of losing the deal tomorrow. Cost magnitude, severity, remaining useful life, and negotiability all factor into the triage — not just severity rating.',
     problemHeadline: 'Why deals die on the clock',
     problemIntro: 'Most blown deals are not blown by the inspection itself — they\'re blown by the agent not having a fast construction-side answer when the buyer panics.',
     problemCards: [
@@ -1189,10 +1189,10 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ],
     getHeadline: 'What you actually get within 4 hours',
     getBullets: [
-      { title: 'Critical-vs-cosmetic triage', detail: 'Every flagged item rated by severity. Five critical items beat fifty cosmetic ones for the conversation.' },
-      { title: 'Rough cost ranges per issue', detail: 'Not contractor-bid precise. Enough to anchor what concession is reasonable.' },
+      { title: 'Top 3–5 items that actually matter', detail: 'Not every flagged item — the ones with real impact. Five items the buyer should care about beat fifty cosmetic ones for the conversation.' },
+      { title: 'Rough dollar range per item ($X–$Y)', detail: 'Real construction numbers from a licensed GC. Not contractor-bid precise, but enough to anchor what concession is reasonable.' },
+      { title: 'Noise-vs-matters logic explained', detail: 'Why the other 30 items are noise. Triage is judged on cost magnitude + severity + remaining useful life + negotiability — not just severity rating.' },
       { title: 'Response-path recommendation', detail: 'A clear written recommendation: counter at X, walk away from Y, ask seller to fix Z.' },
-      { title: 'Licensed NC GC read', detail: 'Real construction perspective, not a generalist inspector\'s vibe-read.' },
     ],
     deliverableTitle: 'Same-Day Quick Read',
     deliverableSubtitle: '123 Main St · Charlotte, NC',
@@ -1221,8 +1221,9 @@ const LANDING_PAGES: LandingPageConfig[] = [
     valueStack: [
       'Same-business-day turnaround (4 hours during business hours)',
       'Licensed NC GC reads personally',
-      'Critical-vs-cosmetic ratings',
-      'Rough cost ranges per issue',
+      'Top 3–5 items that actually matter (not every flagged item)',
+      'Rough dollar range ($X–$Y) per item',
+      'Noise-vs-matters logic explained per item',
       'Written response-path recommendation',
       'PDF deliverable for client sharing',
       'Email follow-up if anything is unclear',

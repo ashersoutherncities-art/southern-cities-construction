@@ -312,5 +312,72 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
   };
 }
 
+export type GhlLeadMagnetPayload = {
+  buyer_name: string;
+  buyer_email: string;
+  buyer_phone?: string;
+  /** Lead-magnet resource slug — used to construct the `lead-magnet-<slug>` tag. */
+  resource_slug: string;
+  resource_title?: string;
+  company?: string;
+  role?: string;
+  source?: string;
+};
+
+/**
+ * Forward a lead-magnet download capture to GHL. Upserts the contact with:
+ *   - `lead-magnet-<resource-slug>` (which magnet they grabbed — for tracking)
+ *   - `lead-inquiry` (so the existing catch-all Lead Inquiry workflow fires)
+ *
+ * Populates `Services Requested` with the resource title so the workflow's
+ * email/SMS templates can reference what was downloaded.
+ */
+export async function sendLeadMagnetToGhl(payload: GhlLeadMagnetPayload) {
+  const creds = getCreds();
+  if (!creds) {
+    return { ok: false, reason: 'GHL credentials not configured' as const };
+  }
+
+  const { firstName, lastName } = splitName(payload.buyer_name);
+  const phone = (payload.buyer_phone || '').trim() || undefined;
+  const magnetTag = `lead-magnet-${payload.resource_slug}`.toLowerCase();
+  const tags = [magnetTag, 'lead-inquiry'];
+
+  const servicesRequestedValue = payload.resource_title || payload.resource_slug;
+  const customFields = [
+    { id: CUSTOM_FIELD_IDS['Services Requested'], field_value: servicesRequestedValue },
+  ].filter((field) => Boolean(field.id) && field.field_value);
+
+  const upsertBody = {
+    locationId: creds.locationId,
+    firstName,
+    lastName,
+    name: payload.buyer_name,
+    email: payload.buyer_email,
+    phone,
+    source: payload.source || 'Southern Cities — Lead Magnet',
+    customFields,
+    tags,
+  };
+
+  const upsertResult = await ghlFetch(
+    '/contacts/upsert',
+    { method: 'POST', body: JSON.stringify(upsertBody) },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  return {
+    ok: upsertResult.ok && !!contactId,
+    status: upsertResult.status,
+    contactId,
+    tag: magnetTag,
+  };
+}
+
 // Re-export for callers that want to manage tags directly
 export { addContactTags, removeContactTags };
