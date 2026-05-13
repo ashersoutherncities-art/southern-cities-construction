@@ -28,6 +28,11 @@ const nextConfig = {
       // dedicated hub page. Preserve incoming links via redirect.
       { source: '/services/industry-partners', destination: '/services', permanent: true },
 
+      // Buyer-Side Property Read retired in favor of on-site GC-Grade
+      // Property Inspection. Preserve any stale ad / bookmark links.
+      { source: '/lp/buyer-side-property-read', destination: '/lp/gc-grade-property-inspection', permanent: true },
+      { source: '/services/realtors/buyer-side-property-read', destination: '/services/realtors/gc-grade-property-inspection', permanent: true },
+
       // Memorable short URL aliases for audience hubs
       { source: '/for-realtors', destination: '/services/realtors', permanent: false },
       { source: '/for-investors', destination: '/services/investors', permanent: false },

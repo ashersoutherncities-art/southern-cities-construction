@@ -141,7 +141,7 @@ const realtorStages: Stage[] = [
 // included (✔) or not (—) in each bundle column — mirrors the investor
 // hub's `supportRows` / `supportBundles` pattern.
 const transactionPackageRows = [
-  'Pre-offer property read (photo)',
+  'GC-Grade Property Inspection (on-site)',
   'Pre-listing construction valuation',
   'Construction confidence sheet (MLS asset)',
   'Listing prep PM coordination call',
@@ -158,10 +158,10 @@ const transactionPackages = [
   {
     label: 'For Buyer Agents',
     title: 'Buyer Transaction Package',
-    price: '$1,599 flat',
-    saves: 'Saves ~$300 vs à la carte',
+    price: '$1,999 flat',
+    saves: 'Saves ~$395 vs à la carte',
     includes: [
-      'Pre-offer property read (photo)',
+      'GC-Grade Property Inspection (on-site)',
       'Realtor Inspection Review',
       'Paste-ready Repair Request Language',
       'Repair Scope Letter (GC-signed, buyer-side)',
@@ -175,9 +175,10 @@ const transactionPackages = [
   {
     label: 'For Listing Agents',
     title: 'Listing Transaction Package',
-    price: '$1,799 flat',
-    saves: 'Saves ~$250 vs à la carte',
+    price: '$2,299 flat',
+    saves: 'Saves ~$245 vs à la carte',
     includes: [
+      'GC-Grade Property Inspection (on-site)',
       'Pre-listing construction valuation',
       'Construction confidence sheet (MLS asset)',
       'Listing prep PM coordination call',
@@ -191,18 +192,19 @@ const transactionPackages = [
     badge: 'Most Common',
   },
   {
-    label: 'Either Side',
+    label: 'No Inspection',
     title: 'Per-Deal Co-Pilot',
     price: '$1,499 flat',
-    saves: 'Pick listing or buying at intake',
+    saves: 'For agents with their own inspector',
     includes: [
-      // Co-Pilot picks listing or buyer side at intake and includes the
-      // standard products on that side. For the chart we show ✔ for any
-      // item covered on either side — the LP explains the side-pick.
-      'Pre-offer property read (photo)',
+      // Per-Deal Co-Pilot does NOT include the inspection — the agent brings
+      // their own inspector. SCC layers analysis + letters + verification on
+      // top of the existing inspection report.
       'Pre-listing construction valuation',
       'Realtor Inspection Review',
       'Paste-ready Repair Request Language',
+      'Repair Scope Letter (GC-signed, buyer-side)',
+      'Repair Credit Letter (GC-signed, listing-side)',
       'Negotiation Strategy memo',
       'Repair Verification Visit',
       'Year-1 Priority Repair Plan',
@@ -306,6 +308,51 @@ export default function RealtorsPage() {
         </div>
       </section>
 
+      {/* FLAGSHIP — GC-Grade Property Inspection */}
+      <section id="flagship" className="relative overflow-hidden bg-[#0d1a2f] py-14 sm:py-18">
+        <div className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-[#f58220]/[0.15] blur-[120px]" />
+        <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[#f58220]/[0.08] blur-[120px]" />
+        <div className="container-pro relative z-10">
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-[28px] border border-[#f58220]/40 bg-gradient-to-br from-[#0a1428] via-[#0e1f3e] to-[#0a1428] p-8 sm:p-12 shadow-[0_30px_80px_-20px_rgba(245,130,32,0.35)]">
+              <span className="inline-flex rounded-full bg-[#f58220] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white">Flagship Product</span>
+              <h2 className="mt-5 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl">
+                GC-Grade Property Inspection<br />+ Budget Report
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-white/85">
+                A licensed inspector visits the property <strong className="text-white">AND</strong> a licensed NC GC reads the inspection through a construction lens — item-by-item severity, real cost ranges per finding, paste-ready repair-request language. The dual-layer flagship that inspectors legally cannot provide on their own.
+              </p>
+              <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl bg-white/[0.06] border border-white/10 p-5">
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">Standard</p>
+                  <p className="mt-1 text-3xl font-black text-white">$899</p>
+                  <p className="mt-1 text-[13px] text-white/65">3–5 business days · statewide NC</p>
+                </div>
+                <div className="rounded-2xl bg-[#f58220]/[0.12] border border-[#f58220]/30 p-5">
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">Rush</p>
+                  <p className="mt-1 text-3xl font-black text-white">$1,199</p>
+                  <p className="mt-1 text-[13px] text-white/65">24–48 hours · priority scheduling</p>
+                </div>
+              </div>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link
+                  href="/lp/gc-grade-property-inspection"
+                  className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#f58220] px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_28px_-8px_rgba(245,130,32,0.55)] transition hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                >
+                  See the Flagship Product →
+                </Link>
+                <a
+                  href="#packages"
+                  className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/20 px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-white/5"
+                >
+                  Or Compare Bundles ↓
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TRANSACTION PACKAGES — bundle comparison chart */}
       <section id="packages" className="bg-[#08111d] py-14 sm:py-18">
         <div className="container-pro">
@@ -313,7 +360,7 @@ export default function RealtorsPage() {
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Transaction packages</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Realtor Bundle Pricing</h2>
             <p className="mt-4 text-[16px] leading-relaxed text-white sm:text-lg">
-              Buy the construction-side coverage your transaction needs in one fixed price — saves vs à la carte and removes per-step purchase decisions.
+              Buy the construction-side coverage your transaction needs in one fixed price — saves vs à la carte and removes per-step purchase decisions. Two bundles include the flagship GC-Grade Inspection; the third is for agents who bring their own inspector.
             </p>
           </div>
 
