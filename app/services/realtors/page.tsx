@@ -137,6 +137,81 @@ const realtorStages: Stage[] = [
   },
 ];
 
+// Transaction-package bundle comparison rows. Each capability is either
+// included (✔) or not (—) in each bundle column — mirrors the investor
+// hub's `supportRows` / `supportBundles` pattern.
+const transactionPackageRows = [
+  'Pre-offer property read (photo)',
+  'Pre-listing construction valuation',
+  'Construction confidence sheet (MLS asset)',
+  'Listing prep PM coordination call',
+  'Realtor Inspection Review',
+  'Paste-ready Repair Request Language',
+  'Repair Scope Letter (GC-signed, buyer-side)',
+  'Repair Credit Letter (GC-signed, listing-side)',
+  'Negotiation Strategy memo',
+  'Repair Verification Visit',
+  'Year-1 Priority Repair Plan',
+];
+
+const transactionPackages = [
+  {
+    label: 'For Buyer Agents',
+    title: 'Buyer Transaction Package',
+    price: '$1,599 flat',
+    saves: 'Saves ~$300 vs à la carte',
+    includes: [
+      'Pre-offer property read (photo)',
+      'Realtor Inspection Review',
+      'Paste-ready Repair Request Language',
+      'Repair Scope Letter (GC-signed, buyer-side)',
+      'Negotiation Strategy memo',
+      'Repair Verification Visit',
+      'Year-1 Priority Repair Plan',
+    ],
+    href: '/lp/buyer-transaction-package',
+    highlighted: false,
+  },
+  {
+    label: 'For Listing Agents',
+    title: 'Listing Transaction Package',
+    price: '$1,799 flat',
+    saves: 'Saves ~$250 vs à la carte',
+    includes: [
+      'Pre-listing construction valuation',
+      'Construction confidence sheet (MLS asset)',
+      'Listing prep PM coordination call',
+      'Realtor Inspection Review',
+      'Paste-ready Repair Request Language',
+      'Repair Credit Letter (GC-signed, listing-side)',
+      'Repair Verification Visit',
+    ],
+    href: '/lp/listing-transaction-package',
+    highlighted: true,
+    badge: 'Most Common',
+  },
+  {
+    label: 'Either Side',
+    title: 'Per-Deal Co-Pilot',
+    price: '$1,499 flat',
+    saves: 'Pick listing or buying at intake',
+    includes: [
+      // Co-Pilot picks listing or buyer side at intake and includes the
+      // standard products on that side. For the chart we show ✔ for any
+      // item covered on either side — the LP explains the side-pick.
+      'Pre-offer property read (photo)',
+      'Pre-listing construction valuation',
+      'Realtor Inspection Review',
+      'Paste-ready Repair Request Language',
+      'Negotiation Strategy memo',
+      'Repair Verification Visit',
+      'Year-1 Priority Repair Plan',
+    ],
+    href: '/lp/per-deal-copilot',
+    highlighted: false,
+  },
+];
+
 const supportTiers = [
   {
     label: 'For solo agents',
@@ -228,6 +303,80 @@ export default function RealtorsPage() {
           {realtorStages.map((stage) => (
             <StageSection key={stage.id} {...stage} />
           ))}
+        </div>
+      </section>
+
+      {/* TRANSACTION PACKAGES — bundle comparison chart */}
+      <section id="packages" className="bg-[#08111d] py-14 sm:py-18">
+        <div className="container-pro">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Transaction packages</p>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Realtor Bundle Pricing</h2>
+            <p className="mt-4 text-[16px] leading-relaxed text-white sm:text-lg">
+              Buy the construction-side coverage your transaction needs in one fixed price — saves vs à la carte and removes per-step purchase decisions.
+            </p>
+          </div>
+
+          <div className="mt-10 overflow-hidden rounded-[24px] border border-white/15 bg-[linear-gradient(135deg,#071b3d_0%,#0b2146_50%,#081730_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.32)]">
+            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10">
+              <div className="px-4 py-4 sm:px-5" />
+              {transactionPackages.map((pkg) => (
+                <div key={pkg.title} className={`px-3 py-4 text-center sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
+                  {pkg.badge ? (
+                    <span className="mb-2 inline-flex rounded-full bg-[#f58220] px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">{pkg.badge}</span>
+                  ) : null}
+                  <p className="mx-auto inline-flex rounded-full border border-[#f58220]/30 bg-[#0b1f44] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#f58220]">{pkg.label}</p>
+                  <h3 className="mt-2 text-base font-extrabold tracking-tight text-white sm:text-lg">{pkg.title}</h3>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10">
+              <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Pricing</div>
+              {transactionPackages.map((pkg) => (
+                <div key={`${pkg.title}-price`} className={`px-3 py-3 text-center text-sm font-bold text-[#f58220] sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
+                  {pkg.price}
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10">
+              <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Value note</div>
+              {transactionPackages.map((pkg) => (
+                <div key={`${pkg.title}-saves`} className={`px-3 py-3 text-center text-[12px] text-white/70 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
+                  {pkg.saves}
+                </div>
+              ))}
+            </div>
+
+            {transactionPackageRows.map((row) => (
+              <div key={row} className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
+                <div className="px-4 py-2.5 text-sm font-semibold text-white sm:px-5">{row}</div>
+                {transactionPackages.map((pkg) => {
+                  const included = pkg.includes.includes(row);
+                  return (
+                    <div key={`${pkg.title}-${row}`} className={`flex items-center justify-center px-3 py-2.5 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
+                      <span className={`text-base font-bold ${included ? 'text-[#f58220]' : 'text-white/25'}`}>{included ? '✔' : '—'}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+
+            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr]">
+              <div className="px-4 py-4 sm:px-5" />
+              {transactionPackages.map((pkg) => (
+                <div key={`${pkg.title}-cta`} className={`px-3 py-4 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
+                  <Link
+                    href={pkg.href}
+                    className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${pkg.highlighted ? 'bg-[#f58220] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)] hover:bg-[#ff9229]' : 'border border-white/25 text-white hover:bg-white/5'}`}
+                  >
+                    View Package
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
