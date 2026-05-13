@@ -23,9 +23,9 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
   {
     resourceSlug: 'gc-certified-pre-listing-checklist',
     audienceTag: 'LISTING AGENTS · SELLERS',
-    heroHeadlinePre: 'Some prep work makes you money.',
-    heroHeadlineHighlight: 'Most don\'t',
-    heroHeadlinePost: '.',
+    heroHeadlinePre: 'Know exactly',
+    heroHeadlineHighlight: 'what to fix',
+    heroHeadlinePost: ', what to disclose, and what to leave alone.',
     heroSubheadline:
       'A licensed NC general contractor wrote a 5-page pre-listing checklist that tells sellers exactly what to fix, what to disclose, and what to leave alone — with prep-spend budget ranges by price tier and the disclosure-critical items that create legal exposure if missed.',
     insideBullets: [
