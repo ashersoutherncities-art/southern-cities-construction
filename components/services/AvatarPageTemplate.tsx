@@ -229,7 +229,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             <div className="max-w-4xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How to buy from this page</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-                Most {data.eyebrow.toLowerCase()} buyers move through the offers in this order.
+                Most clients move through the offers in this order.
               </h2>
               <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
                 Start with the smallest step that fits the decision you need to make. Move into pricing, review, or monthly support only when the work really calls for it.

@@ -381,7 +381,7 @@ export default function InvestorsPage() {
           <div className="mx-auto max-w-5xl text-center">
             <p className="flex items-center justify-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
               <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
-              For Investors · Licensed NC GC #107724
+              The Contractor for Investors · NC GC #107724
               <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
             </p>
             <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">

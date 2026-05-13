@@ -64,7 +64,7 @@ function detailHref(avatar: string, service: string) {
 
 const homeownerServices: AvatarPageData = {
   slug: 'homeowners',
-  eyebrow: 'Homeowners',
+  eyebrow: 'The Contractor for Homeowners',
   shortLabel: 'For Homeowners',
   heroTitle: 'Residential project help before the work gets expensive and after the job starts feeling loose',
   heroSubtitle:
@@ -212,7 +212,7 @@ const homeownerServices: AvatarPageData = {
 
 const investorServices: AvatarPageData = {
   slug: 'investors',
-  eyebrow: 'Investors',
+  eyebrow: 'The Contractor for Investors',
   shortLabel: 'For Investors',
   heroTitle: 'Construction made easier for investors who need the right support piece at the right stage',
   heroSubtitle:
@@ -814,7 +814,7 @@ const investorServices: AvatarPageData = {
 
 const realtorServices: AvatarPageData = {
   slug: 'realtors',
-  eyebrow: 'Realtors',
+  eyebrow: 'The Contractor for Realtors',
   shortLabel: 'For Realtors',
   heroTitle: 'Construction help for realtors before listing work gets messy and when active deals need faster answers',
   heroSubtitle:
@@ -1266,7 +1266,7 @@ const realtorServices: AvatarPageData = {
 
 const contractorServices: AvatarPageData = {
   slug: 'contractors',
-  eyebrow: 'Contractors',
+  eyebrow: 'The Back-Office GC for Contractors',
   shortLabel: 'For Contractors',
   heroTitle: 'Permit and back-office help for contractors who need cleaner setup and less admin drag on active jobs',
   heroSubtitle:
@@ -1440,7 +1440,7 @@ const contractorServices: AvatarPageData = {
 
 const developerServices: AvatarPageData = {
   slug: 'developers-landowners',
-  eyebrow: 'Developers / Landowners',
+  eyebrow: 'The Contractor for Developers + Landowners',
   shortLabel: 'For Developers / Landowners',
   heroTitle: 'Project help for larger residential work where early decisions and active-job discipline both matter',
   heroSubtitle:

@@ -260,7 +260,7 @@ export default function RealtorsPage() {
         <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
         <div className="relative container-pro">
           <div className="max-w-4xl">
-            <p className="inline-flex rounded-full border border-orange/30 bg-orange/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-orange">For Realtors</p>
+            <p className="inline-flex rounded-full border border-orange/40 bg-orange/15 px-4 py-2 text-[12px] font-black uppercase tracking-[0.18em] text-orange">The Contractor for Realtors</p>
             <h1 className="mt-6 text-4xl font-black tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
               Construction-side answers your clients are already asking — delivered in 4 hours to 1 business day.
             </h1>

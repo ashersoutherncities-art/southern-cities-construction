@@ -21,6 +21,11 @@ type LandingPageConfig = {
   priceLabel: string;
   turnaround: string;
   audience: string;
+  /** Short, all-caps audience tag rendered as a prominent pill above the
+   *  hero headline so a visitor can tell instantly whether the page is for
+   *  them. Examples: "BUYER AGENTS", "LISTING AGENTS", "INVESTORS · PRE-DEAL".
+   *  When omitted, the longer `audience` field is shown inline with the eyebrow. */
+  audienceTag?: string;
 
   heroEyebrow: string;
   heroHeadlinePre: string;
@@ -248,6 +253,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Investor Deal Review',
     turnaround: '2 business days',
     audience: 'For residential investors',
+    audienceTag: 'INVESTORS · DEAL REVIEW',
     heroEyebrow: 'Investor Deal Review',
     heroHeadlinePre: "Don't put more money in a",
     heroHeadlineHighlight: 'deal',
@@ -353,6 +359,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Budget & Scope Review',
     turnaround: '2 business days',
     audience: 'For residential investors',
+    audienceTag: 'INVESTORS · BUDGET',
     heroEyebrow: 'Budget & Scope Review',
     heroHeadlinePre: 'Know the real',
     heroHeadlineHighlight: 'cost',
@@ -455,6 +462,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Contractor-Grade Budget',
     turnaround: '5 business days',
     audience: 'For owners and post-purchase investors',
+    audienceTag: 'OWNERS & INVESTORS',
     heroEyebrow: 'Pre-Construction Budget',
     heroHeadlinePre: 'The budget a',
     heroHeadlineHighlight: 'GC',
@@ -553,6 +561,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Permit Path Review',
     turnaround: '2 business days',
     audience: 'For residential investors',
+    audienceTag: 'INVESTORS · PERMITS',
     heroEyebrow: 'Permit Path Review',
     heroHeadlinePre: 'Find out if it can actually get',
     heroHeadlineHighlight: 'permitted',
@@ -647,6 +656,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Contractor Fit & Recommendation',
     turnaround: 'Scheduled call',
     audience: 'For residential investors',
+    audienceTag: 'INVESTORS · CONTRACTOR SETUP',
     heroEyebrow: 'Contractor Fit & Recommendation',
     heroHeadlinePre: 'Know what kinds of',
     heroHeadlineHighlight: 'contractors',
@@ -756,6 +766,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Draw Review Support',
     turnaround: '2 business days',
     audience: 'For residential investors',
+    audienceTag: 'INVESTORS · DRAWS',
     heroEyebrow: 'Draw Review Support',
     heroHeadlinePre: 'Review the draw before the',
     heroHeadlineHighlight: 'money',
@@ -850,6 +861,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Due Diligence Bundle',
     turnaround: '2–4 business days',
     audience: 'For residential investors evaluating a deal',
+    audienceTag: 'INVESTORS · PRE-DEAL',
     heroEyebrow: 'Due Diligence Bundle',
     heroHeadlinePre: 'Four licensed-GC reviews of your',
     heroHeadlineHighlight: 'deal',
@@ -925,6 +937,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Project Setup Bundle',
     turnaround: '7–14 business days',
     audience: 'For investors closing on a deal',
+    audienceTag: 'INVESTORS · PRE-START',
     heroEyebrow: 'Project Setup Bundle',
     heroHeadlinePre: 'Set the project up to',
     heroHeadlineHighlight: 'win',
@@ -1002,6 +1015,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Execution Support Bundle',
     turnaround: 'Monthly engagement',
     audience: 'For investors with an active project',
+    audienceTag: 'INVESTORS · ACTIVE PROJECT',
     heroEyebrow: 'Execution Support Bundle',
     heroHeadlinePre: 'Stay in',
     heroHeadlineHighlight: 'control',
@@ -1079,6 +1093,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Phased Third-Party Inspections',
     turnaround: 'Inspections scheduled per phase',
     audience: 'For investors using outside contractors',
+    audienceTag: 'INVESTORS · INSPECTIONS',
     heroEyebrow: 'Phased Third-Party Inspections',
     heroHeadlinePre: 'Catch problems before they fail an',
     heroHeadlineHighlight: 'inspection',
@@ -1168,6 +1183,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Same-Day Quick Read',
     turnaround: '4 hours during business hours',
     audience: 'For real estate agents with deals on the clock',
+    audienceTag: 'REALTORS · URGENT',
     heroEyebrow: 'Same-Day Quick Read',
     heroHeadlinePre: 'Inspection issues threatening the',
     heroHeadlineHighlight: 'deal',
@@ -1244,6 +1260,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Realtor Inspection Review',
     turnaround: '1 business day',
     audience: 'For real estate agents preparing client conversations',
+    audienceTag: 'REALTORS',
     heroEyebrow: 'Realtor Inspection Review',
     heroHeadlinePre: 'Comprehensive inspection read for your',
     heroHeadlineHighlight: 'client conversation',
@@ -1323,6 +1340,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'GC-Grade Property Inspection',
     turnaround: '3–5 business days standard · 24–48 hours rush',
     audience: 'For realtors who want the inspection + the budget in one product',
+    audienceTag: 'REALTORS · BOTH SIDES',
     heroEyebrow: '★ FLAGSHIP — GC-Grade Property Inspection',
     heroHeadlinePre: 'The inspection AND',
     heroHeadlineHighlight: 'the budget',
@@ -1424,6 +1442,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Negotiation Strategy Read',
     turnaround: '1 business day',
     audience: 'For real estate agents in active negotiation',
+    audienceTag: 'BUYER AGENTS',
     heroEyebrow: 'Negotiation Strategy Read',
     heroHeadlinePre: 'Buyer wants $15K credit — is that',
     heroHeadlineHighlight: 'reasonable',
@@ -1499,6 +1518,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Pre-Listing Construction Valuation',
     turnaround: '1 business day',
     audience: 'For listing agents pricing condition-flawed homes',
+    audienceTag: 'LISTING AGENTS',
     heroEyebrow: 'Pre-Listing Construction Valuation',
     heroHeadlinePre: 'What should this home',
     heroHeadlineHighlight: 'list at',
@@ -1575,6 +1595,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Repair Credit Calculation Letter',
     turnaround: '1 business day',
     audience: 'For real estate agents in active credit negotiations',
+    audienceTag: 'REALTORS · NEGOTIATION',
     heroEyebrow: 'Repair Credit Calculation Letter',
     heroHeadlinePre: 'Anchor the credit conversation on a',
     heroHeadlineHighlight: 'GC-signed number',
@@ -1649,6 +1670,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Repair Scope Letter',
     turnaround: '1 business day',
     audience: 'For buyer\'s agents sending repair requests',
+    audienceTag: 'BUYER AGENTS',
     heroEyebrow: 'Repair Scope Letter',
     heroHeadlinePre: 'Send a repair request the seller',
     heroHeadlineHighlight: 'can\'t dismiss',
@@ -1724,6 +1746,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Listing Prep Project Management',
     turnaround: '1–3 weeks to listing-ready',
     audience: 'For listing agents whose sellers agreed to prep work',
+    audienceTag: 'LISTING AGENTS',
     heroEyebrow: 'Listing Prep Project Management',
     heroHeadlinePre: 'Hand the prep work to',
     heroHeadlineHighlight: 'a licensed GC',
@@ -1798,6 +1821,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Appraisal Response Letter',
     turnaround: '1–2 business days',
     audience: 'For listing agents whose deal is stuck at appraisal stage',
+    audienceTag: 'LISTING AGENTS · APPRAISAL',
     heroEyebrow: 'Appraisal Response Letter',
     heroHeadlinePre: 'Save the deal the',
     heroHeadlineHighlight: 'appraiser just flagged',
@@ -1872,6 +1896,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Repair Verification Visit',
     turnaround: '1–3 business days for site visit',
     audience: 'For realtors verifying seller-side repairs before final walkthrough',
+    audienceTag: 'REALTORS · PRE-CLOSE',
     heroEyebrow: 'Repair Verification Visit',
     heroHeadlinePre: 'Verify the repairs',
     heroHeadlineHighlight: 'before the walkthrough',
@@ -1946,6 +1971,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Multi-Offer Construction Read',
     turnaround: '1 business day',
     audience: 'For listing agents weighing multiple offers',
+    audienceTag: 'LISTING AGENTS',
     heroEyebrow: 'Multi-Offer Construction Read',
     heroHeadlinePre: 'Pick the offer most likely to',
     heroHeadlineHighlight: 'actually close',
@@ -2021,6 +2047,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Year-1 Priority Repair Plan',
     turnaround: '2 business days',
     audience: 'For agents giving clients a real handoff at close',
+    audienceTag: 'BUYER AGENTS · POST-CLOSE',
     heroEyebrow: 'Year-1 Priority Repair Plan',
     heroHeadlinePre: 'Hand your buyer a',
     heroHeadlineHighlight: 'real roadmap',
@@ -2095,6 +2122,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Construction Confidence Sheet',
     turnaround: '1 business day',
     audience: 'For listing agents who want a buyer-facing construction asset',
+    audienceTag: 'LISTING AGENTS',
     heroEyebrow: 'Construction Confidence Sheet',
     heroHeadlinePre: 'Set buyer expectations',
     heroHeadlineHighlight: 'in writing',
@@ -2169,6 +2197,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Listing Transaction Package',
     turnaround: 'Sequenced across the listing lifecycle',
     audience: 'For listing agents who want construction support across the entire deal',
+    audienceTag: 'LISTING AGENTS · PACKAGE',
     heroEyebrow: 'Listing Transaction Package',
     heroHeadlinePre: 'Construction co-pilot for the',
     heroHeadlineHighlight: 'entire listing',
@@ -2248,6 +2277,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'Buyer Transaction Package',
     turnaround: 'Sequenced across the deal lifecycle',
     audience: 'For buyer agents who want construction support across the entire deal',
+    audienceTag: 'BUYER AGENTS · PACKAGE',
     heroEyebrow: 'Buyer Transaction Package',
     heroHeadlinePre: 'Construction co-pilot for the',
     heroHeadlineHighlight: 'entire buying process',
@@ -2507,9 +2537,14 @@ export default function LandingPage({ params }: { params: Params }) {
           {/* HERO CONTENT */}
           <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-12 sm:px-8 sm:pb-24 sm:pt-16 lg:grid lg:grid-cols-12 lg:gap-12 lg:pt-20">
             <div className="lg:col-span-7">
-              <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
+              {config.audienceTag ? (
+                <span className="inline-flex items-center rounded-full border border-[#f58220]/60 bg-[#f58220]/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-[#f58220] motion-safe:animate-[heroRise_850ms_ease-out]">
+                  For {config.audienceTag}
+                </span>
+              ) : null}
+              <p className={`${config.audienceTag ? 'mt-4' : ''} flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out_0.05s_both]`}>
                 <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
-                {config.heroEyebrow} · {config.audience}
+                {config.audienceTag ? config.heroEyebrow : `${config.heroEyebrow} · ${config.audience}`}
               </p>
               <h1
                 className="mt-6 text-[2.6rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.5rem] lg:text-[4.5rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]"
