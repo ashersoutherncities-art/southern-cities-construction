@@ -38,7 +38,7 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     bestFor:
       'Listing agents preparing a seller for market, or sellers deciding what prep work is worth doing before the listing goes live.',
     credibilityLines: [
-      'Written by Asher Borden, NC GC License #107724',
+      'Written by Southern Cities Construction',
       'Built from actual prep-work scoping calls Southern Cities Construction has run',
       'Updated for 2026 NC listing standards',
     ],
@@ -63,7 +63,7 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     bestFor:
       'Residential investors and small operators underwriting deals in NC who want construction risk priced into the offer before earnest money goes hard.',
     credibilityLines: [
-      'Written by Asher Borden, NC GC License #107724',
+      'Written by Southern Cities Construction',
       'Built from actual investor deal reviews Southern Cities runs every month',
       'Rehab cost ranges from 2026 NC trade-network unit pricing',
     ],
@@ -88,7 +88,7 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     bestFor:
       'Buyer\'s agents helping clients evaluate a property before writing an offer.',
     credibilityLines: [
-      'Written by Asher Borden, NC GC License #107724',
+      'Written by Southern Cities Construction',
       'Built from buyer-side construction reads Southern Cities runs every week',
       'Updated for 2026 NC market conditions',
     ],
