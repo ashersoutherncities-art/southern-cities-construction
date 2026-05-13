@@ -1323,7 +1323,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     priceLabel: 'GC-Grade Property Inspection',
     turnaround: '3–5 business days standard · 24–48 hours rush',
     audience: 'For realtors who want the inspection + the budget in one product',
-    heroEyebrow: 'GC-Grade Property Inspection',
+    heroEyebrow: '★ FLAGSHIP — GC-Grade Property Inspection',
     heroHeadlinePre: 'The inspection AND',
     heroHeadlineHighlight: 'the budget',
     heroHeadlinePost: ' — on one document.',
@@ -1396,6 +1396,24 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'What do you need from me to book?', a: 'Property address, target inspection date(s), who you\'re representing (buyer or listing), and your client\'s name. We schedule from there.' },
     ],
     comparisonRows: COMPARISON_ROWS_GC_GRADE_INSPECTION,
+    addOnBundle: {
+      eyebrow: 'Buyer agent? Save with the package',
+      heading: 'Wrap the inspection + everything else into one fixed-price bundle',
+      description: 'The $899 inspection is great solo, but most buyer agents end up buying the Inspection Review, Scope Letter, Verification Visit, Negotiation memo, and Year-1 Plan across the same deal — and pay à la carte for it. Buy the Buyer Transaction Package and bundle the inspection with all those analytical products for $1,999 flat — saves ~$395 vs à la carte. Listing-side equivalent is the Listing Transaction Package at $2,299.',
+      bullets: [
+        'GC-Grade Property Inspection (this product) included',
+        'Realtor Inspection Review + paste-ready repair language',
+        'GC-signed Repair Scope Letter (buyer-side)',
+        'Negotiation Strategy memo',
+        'Repair Verification Visit before walkthrough',
+        'Year-1 Priority Repair Plan (closing-gift handoff)',
+        'Saves ~$395 vs buying each à la carte',
+      ],
+      bundleProductKey: 'buyer-transaction-package',
+      bundleLabel: 'Add Buyer Package — $1,999 (save ~$395)',
+      bundlePriceLabel: '$1,999 flat per deal · normally ~$2,394 à la carte',
+      savingsBadge: 'Save ~$395',
+    },
   },
   {
     slug: 'negotiation-strategy-read',
@@ -2235,7 +2253,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'entire buying process',
     heroHeadlinePost: '.',
     heroSubheadline:
-      'GC-Grade Property Inspection + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan. One fixed price covers the full buyer-side construction co-pilot, anchored by the flagship on-site GC-Grade Inspection that replaces the retired photo-only Buyer-Side Property Read.',
+      'GC-Grade Property Inspection + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan. One fixed price covers the full buyer-side construction co-pilot, anchored by the flagship on-site GC-Grade Property Inspection.',
     problemHeadline: 'À la carte loses you on the buy side',
     problemIntro: 'Buyer-side construction support runs across 4–6 distinct moments — pre-offer, offer, inspection, repair request, walkthrough, post-close. Buying them à la carte means decisions at every step and gaps where you forgot to buy something.',
     problemCards: [
@@ -2246,7 +2264,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ],
     getHeadline: 'What\'s included in the package',
     getBullets: [
-      { title: 'GC-Grade Property Inspection ($899) — flagship', detail: 'On-site licensed inspection + GC-grade analysis layer with real cost ranges. Replaces the retired photo-only Buyer-Side Property Read.' },
+      { title: 'GC-Grade Property Inspection ($899) — flagship', detail: 'On-site licensed inspection + GC-grade analysis layer with real cost ranges, paste-ready repair-request language, and a negotiation framing memo.' },
       { title: 'Negotiation Strategy Read ($299)', detail: 'Counter-offer playbook after inspection.' },
       { title: 'Realtor Inspection Review ($299)', detail: 'Full inspection-report read with item-by-item severity ratings.' },
       { title: 'Repair Scope Letter ($349)', detail: 'GC-signed scope of repair for the repair request.' },

@@ -893,7 +893,7 @@ const realtorServices: AvatarPageData = {
       turnaround: 'Standard 3–5 business days · Rush 24–48 hours',
       proofTitle: 'Useful when you want the inspection + the budget on one product',
       proofBody: 'A standard home inspector tells you what is wrong. A GC tells you what it costs. This product gives you both, on one document, with one purchase.',
-      why: 'Replaces the photo-only Buyer-Side Property Read. The dual-layer (inspector + GC) is what no competitor can match, because inspectors legally cannot give cost ranges.',
+      why: 'The dual-layer (licensed inspector on-site + licensed GC adding real cost ranges) is what no competitor can match, because inspectors legally cannot give cost ranges. This is the flagship of the realtor catalog.',
     },
     {
       slug: 'negotiation-strategy-read',
@@ -1068,7 +1068,7 @@ const realtorServices: AvatarPageData = {
       title: 'Buyer Transaction Package',
       summary: 'The full buyer-side construction co-pilot. GC-Grade Property Inspection + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan.',
       pain: 'You want construction support across the entire buying process — including a real on-site inspection AND the negotiation, repair-request, walkthrough, and post-close handoff that come after — but à la carte is fragmented.',
-      outcome: 'One fixed price covers the full buyer-side construction co-pilot — including the flagship on-site GC-Grade Property Inspection that replaces the retired photo-only Buyer-Side Property Read.',
+      outcome: 'One fixed price covers the full buyer-side construction co-pilot — anchored by the flagship on-site GC-Grade Property Inspection.',
       details: ['GC-Grade Property Inspection (on-site, dual-layer)', 'Negotiation Strategy Read', 'Realtor Inspection Review', 'Repair Scope Letter', 'Repair Verification Visit', 'Year-1 Priority Repair Plan'],
       included: ['All six products listed above', 'Sequenced across the deal lifecycle', 'Single point of contact', 'Priority response time within the package window'],
       notIncluded: ['Listing-side products — see Listing Transaction Package', 'Property purchase / closing services', 'Multi-deal discounts (see subscription tiers for that)'],

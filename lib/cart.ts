@@ -291,7 +291,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Buyer Package',
     price: 199900,
     priceLabel: '$1,999 flat per deal',
-    description: 'The full buyer-side construction co-pilot: GC-Grade Property Inspection + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan. The on-site inspection replaces the retired photo-only Buyer-Side Property Read. Saves vs à la carte.',
+    description: 'The full buyer-side construction co-pilot: GC-Grade Property Inspection + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan. Anchored by the flagship on-site GC-Grade Property Inspection. Saves vs à la carte.',
     checkoutAmount: '1999',
   },
   'per-deal-copilot': {
