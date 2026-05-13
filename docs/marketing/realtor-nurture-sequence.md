@@ -185,4 +185,17 @@ If they go 60+ days post-sequence without buying:
 - **From email:** asher@southerncitiesconstruction.com (or orders@... — pick one and stay consistent across all 6)
 - **Reply-to:** same as From
 - **Template:** Plain text-style for emails 2–6 (no fancy HTML); Email 1 can be more "designed" with the SCC logo + download button
-- **Footer:** Standard SCC footer with unsubscribe + NC GC license + address
+
+### Compliance footer (required on every email)
+
+NC GC licensing law requires the license number to appear on every advertising piece. Every email in this sequence MUST include this footer block:
+
+```
+—
+Southern Cities Construction LLC
+NC GC License #107724
+southerncitiesconstruction.com · (980) 473-7249
+[Unsubscribe] · [Privacy]
+```
+
+Don't ship an email in this sequence without that block. Build it once as a saved email template footer in GHL and apply it to every email.

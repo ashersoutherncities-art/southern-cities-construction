@@ -3115,7 +3115,7 @@ export default function LandingPage({ params }: { params: Params }) {
 
         {/* FOOTER */}
         <footer className="bg-[#040810] py-10 text-center text-xs text-white/40">
-          <p>© 2026 Southern Cities Construction LLC. Licensed NC General Contractor.</p>
+          <p>© 2026 Southern Cities Construction LLC · NC GC License #107724</p>
           <p className="mt-2">
             <Link href="/privacy" className="hover:text-[#f58220]">Privacy</Link>
             <span className="mx-3 text-white/20">·</span>
