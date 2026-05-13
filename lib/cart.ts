@@ -213,6 +213,24 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'Construction-side consultation for investors deciding what contractor setup fits the project before hiring gets expensive.',
     checkoutAmount: '349',
   },
+  'repair-credit-letter': {
+    key: 'repair-credit-letter',
+    name: 'Repair Credit Calculation Letter',
+    shortName: 'Repair Credit Letter',
+    price: 34900,
+    priceLabel: '$349 letter',
+    description: 'A GC-signed single-page letter with itemized repair costs and a recommended total credit figure — built to forward directly to the other side and anchor the negotiation on defensible numbers instead of gut-feel.',
+    checkoutAmount: '349',
+  },
+  'repair-scope-letter': {
+    key: 'repair-scope-letter',
+    name: 'Repair Scope Letter',
+    shortName: 'Repair Scope Letter',
+    price: 34900,
+    priceLabel: '$349 letter',
+    description: 'A GC-signed scope of repair for buyer agents — names each item, defines what "fixed correctly" means, gives a fair-market dollar figure, and lists the trades and permits required. Forces the seller to either agree or hire their own GC to dispute.',
+    checkoutAmount: '349',
+  },
 };
 
 function normalizeAmount(value: string | undefined): number | undefined {
