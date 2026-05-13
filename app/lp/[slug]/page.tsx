@@ -1254,7 +1254,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'client conversation',
     heroHeadlinePost: '.',
     heroSubheadline:
-      'A licensed NC general contractor reads the full inspection report, rates every item by severity, scopes the likely repair path, gives cost ranges, and delivers a client-shareable PDF — ready in 1 business day.',
+      'A licensed NC general contractor reads the full inspection report, rates every item by severity, scopes the likely repair path, gives cost ranges, delivers a client-shareable PDF — AND includes a paste-ready Repair Request Language section the agent can forward to the other side without rewriting anything. Ready in 1 business day.',
     problemHeadline: 'Where realtor inspection conversations go wrong',
     problemIntro: 'A bad inspection conversation does not lose one deal — it loses your client\'s trust for the rest of the transaction.',
     problemCards: [
@@ -1268,7 +1268,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'Item-by-item severity ratings', detail: 'Every flagged item: Critical / Important / Cosmetic. So you know what to prioritize in client conversation.' },
       { title: 'Repair-scope notes per finding', detail: 'What actually needs to happen to fix this — written in plain English you can share.' },
       { title: 'Cost ranges + contractor-fit guidance', detail: 'Realistic cost bands per item, plus what kind of contractor you\'d hire (specialty, GC, handyman).' },
-      { title: 'Client-shareable PDF deliverable', detail: 'Branded, clear, and built to forward directly to your buyer or seller without rewriting anything.' },
+      { title: 'Ready-to-send Repair Request Language', detail: 'A paste-ready section at the end of the PDF — formatted email/letter language you can forward to the other side without rewriting anything. Not GC-signed letterhead (that\'s the $349 letter products) — just clean, professional language drafted by a licensed GC.' },
+      { title: 'Client-shareable PDF deliverable', detail: 'Branded, clear, and built to forward directly to your buyer or seller.' },
     ],
     deliverableTitle: 'Realtor Inspection Review',
     deliverableSubtitle: '123 Main St · Charlotte, NC',
@@ -1277,6 +1278,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { heading: 'Important but negotiable (5)', items: ['Roof: 12 years left of 25 — repair vs replace decision', 'Plumbing: galvanized lines partial — $4K–8K', '...'] },
       { heading: 'Cosmetic (7)', items: ['Paint chips, fixture replacements, cabinet wear', 'None affect deal viability'] },
       { heading: 'Repair-path summary', items: ['Critical items justify $15K–28K credit ask', 'Important items: $5K–12K negotiation zone', 'Cosmetic: skip credit, mention in walkthrough'] },
+      { heading: 'Ready-to-send Repair Request Language (paste-ready)', items: ['"Based on the inspection findings, we are requesting the following repairs or credits prior to closing:"', '"1. Foundation crack at east wall — investigation by licensed structural engineer + repair. Reasonable credit: $6,000."', '"2. HVAC system replacement — 2010 unit at end of useful life. Reasonable credit: $11,000."', '"3. Knob-and-tube wiring remediation — full removal + Romex replacement. Reasonable credit: $4,500."', '"Total credit request: $21,500. Open to discussing seller-completed repairs in lieu of credit on items 1 and 3 if completed by licensed trades prior to closing."'] },
     ],
     processSteps: [
       { title: 'Submit the inspection report', detail: 'Email the PDF + property address. Photos help but optional.' },
@@ -1300,6 +1302,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'Item-by-item severity ratings (Critical/Important/Cosmetic)',
       'Repair-scope notes per finding',
       'Cost ranges + contractor-fit guidance',
+      'Ready-to-send Repair Request Language section (paste-ready)',
       'Client-shareable PDF deliverable',
       'Email follow-up if anything is unclear',
       'Money-back if we cannot give you a clear answer',
@@ -1307,10 +1310,11 @@ const LANDING_PAGES: LandingPageConfig[] = [
     finalHeadline: 'Walk into the client conversation prepared.',
     finalSubhead: 'One licensed-GC inspection review, 1 business day, $299. Real construction numbers instead of inspection-report panic.',
     faqs: [
-      { q: 'How is this different from Same-Day Quick Read?', a: 'Quick Read is $199 / 4-hour urgent triage — critical vs cosmetic + rough numbers. This is $299 / 1-day comprehensive — every item analyzed with cost ranges and a PDF deliverable to share. Use Quick Read for crisis triage, Review for client conversations.' },
+      { q: 'How is this different from Same-Day Quick Read?', a: 'Quick Read is $199 / 4-hour urgent triage — critical vs cosmetic + rough numbers. This is $299 / 1-day comprehensive — every item analyzed with cost ranges, a PDF deliverable to share, AND a paste-ready Repair Request Language section. Use Quick Read for crisis triage, Review for client conversations + sending the repair request.' },
+      { q: 'How is the Repair Request Language different from the Repair Credit Letter or Repair Scope Letter?', a: 'The Repair Request Language in this product is clean, professional email text you can paste directly into your message to the other agent — drafted by a licensed GC but NOT on letterhead and NOT GC-signed. The $349 Repair Credit Letter and Repair Scope Letter are FORMAL signed PDFs on SCC letterhead — they carry more authority weight when the other side is pushing back or you need a document the seller\'s agent can forward to their client. Buy this product when you need the analysis + paste-ready language; buy the $349 letters when you need a formal signed document.' },
       { q: 'What do you need from me?', a: 'Inspection report PDF, property address, and any photos you have. Listing photos are fine.' },
       { q: 'Can I share the PDF with my client?', a: 'Yes — that\'s the point. The deliverable is built to be client-facing, branded but neutral. Many agents forward it directly.' },
-      { q: 'Will you tell me what to put in the counter-offer?', a: 'You get cost ranges + severity ratings — strong inputs for your counter. For specific negotiation language and concession analysis, see Negotiation Strategy Read.' },
+      { q: 'Will you tell me what to put in the counter-offer?', a: 'You get cost ranges + severity ratings + ready-to-send repair-request language — strong inputs for your counter. For deeper concession analysis ("is the seller\'s counter reasonable?") see Negotiation Strategy Read.' },
       { q: 'What if my client is selling, not buying?', a: 'Works either way — same analysis, just framed for the listing side. For pricing-driven analysis on listing decisions, see Pre-Listing Construction Valuation.' },
     ],
     comparisonRows: COMPARISON_ROWS_REALTOR_INSPECTION_REVIEW,

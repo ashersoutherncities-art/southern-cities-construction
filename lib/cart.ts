@@ -93,7 +93,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Inspection Review',
     price: 29900,
     priceLabel: '$299 review',
-    description: 'Comprehensive 1-day inspection-report read by a licensed NC GC — item-by-item severity, repair-scope notes, cost ranges, and a client-shareable PDF deliverable.',
+    description: 'Comprehensive 1-day inspection-report read by a licensed NC GC — item-by-item severity, repair-scope notes, cost ranges, a client-shareable PDF deliverable, AND a ready-to-send Repair Request Language section the agent can paste directly into an email to the other side.',
     checkoutAmount: '299',
   },
   'buyer-side-property-read': {
