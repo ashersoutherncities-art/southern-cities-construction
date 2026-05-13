@@ -116,12 +116,12 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
   },
   'pre-listing-construction-valuation': {
     key: 'pre-listing-construction-valuation',
-    name: 'Pre-Listing Construction Valuation',
-    shortName: 'Construction Valuation',
-    price: 39900,
-    priceLabel: '$399 valuation',
-    description: 'Construction-side valuation read for pricing decisions — condition-adjusted price band, top value-drag items with cost-to-fix vs cost-to-leave analysis, and a pricing strategy note.',
-    checkoutAmount: '399',
+    name: 'Pre-Listing Quick Audit',
+    shortName: 'Pre-Listing Audit',
+    price: 29900,
+    priceLabel: '$299 audit · credited back on repair work',
+    description: 'A licensed NC GC audits the property pre-listing — fix-vs-skip-vs-disclose tables, condition-adjusted price band, repair-spend ROI by item. $299 audit fee is fully credited back if SCC handles any of the repair work afterward. Filter cost for serious sellers, refunded for committed ones.',
+    checkoutAmount: '299',
   },
   'investor-review': {
     key: 'investor-review',
@@ -309,7 +309,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'GC-Grade Inspection',
     price: 89900,
     priceLabel: '$899 standard',
-    description: 'A licensed inspector visits the property AND a licensed NC GC reads the inspection through a construction lens — item-by-item severity, real cost ranges per finding, paste-ready repair-request language, negotiation strategy. The dual-layer flagship: real on-site inspection PLUS GC-grade budget analysis that inspectors legally cannot provide. 3–5 business day turnaround, statewide NC.',
+    description: 'A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier estimate: MANDATORY items (code violations + loan-killers, 5–7 day fix guarantee), HIGH-ROI items (2× return cosmetics), and DISCLOSE & SKIP (formatted as a quote for the seller to credit the buyer). The deliverable that closes deals instead of opening fights. 3–5 business day turnaround, statewide NC.',
     checkoutAmount: '899',
   },
   'gc-grade-property-inspection-rush': {
@@ -318,7 +318,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'GC-Grade Inspection (Rush)',
     price: 119900,
     priceLabel: '$1,199 rush',
-    description: 'Same as the standard GC-Grade Property Inspection but with 24–48 hour turnaround. Priority scheduling + report delivered next business day after on-site visit. Statewide NC.',
+    description: 'Same as the standard GC-Grade Property Inspection (3-tier estimate format: Mandatory / High-ROI / Disclose & Skip + 5–7 day Mandatory fix guarantee) but with 24–48 hour turnaround. Priority scheduling + report delivered next business day after on-site visit. Statewide NC.',
     checkoutAmount: '1199',
   },
 };
