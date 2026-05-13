@@ -191,27 +191,6 @@ const transactionPackages = [
     highlighted: true,
     badge: 'Most Common',
   },
-  {
-    label: 'No Inspection',
-    title: 'Per-Deal Co-Pilot',
-    price: '$1,499 flat',
-    saves: 'For agents with their own inspector',
-    includes: [
-      // Per-Deal Co-Pilot does NOT include the inspection — the agent brings
-      // their own inspector. SCC layers analysis + letters + verification on
-      // top of the existing inspection report.
-      'Pre-listing construction valuation',
-      'Realtor Inspection Review',
-      'Paste-ready Repair Request Language',
-      'Repair Scope Letter (GC-signed, buyer-side)',
-      'Repair Credit Letter (GC-signed, listing-side)',
-      'Negotiation Strategy memo',
-      'Repair Verification Visit',
-      'Year-1 Priority Repair Plan',
-    ],
-    href: '/lp/per-deal-copilot',
-    highlighted: false,
-  },
 ];
 
 const supportTiers = [
@@ -299,15 +278,6 @@ export default function RealtorsPage() {
         </div>
       </section>
 
-      {/* STAGES */}
-      <section id="stages" className="bg-stone-50 py-16 sm:py-20">
-        <div className="container-pro space-y-8">
-          {realtorStages.map((stage) => (
-            <StageSection key={stage.id} {...stage} />
-          ))}
-        </div>
-      </section>
-
       {/* FLAGSHIP — GC-Grade Property Inspection */}
       <section id="flagship" className="relative overflow-hidden bg-[#0d1a2f] py-14 sm:py-18">
         <div className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-[#f58220]/[0.15] blur-[120px]" />
@@ -365,7 +335,7 @@ export default function RealtorsPage() {
           </div>
 
           <div className="mt-10 overflow-hidden rounded-[24px] border border-white/15 bg-[linear-gradient(135deg,#071b3d_0%,#0b2146_50%,#081730_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.32)]">
-            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10">
+            <div className="grid grid-cols-[1.3fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-4 sm:px-5" />
               {transactionPackages.map((pkg) => (
                 <div key={pkg.title} className={`px-3 py-4 text-center sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
@@ -378,7 +348,7 @@ export default function RealtorsPage() {
               ))}
             </div>
 
-            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10">
+            <div className="grid grid-cols-[1.3fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Pricing</div>
               {transactionPackages.map((pkg) => (
                 <div key={`${pkg.title}-price`} className={`px-3 py-3 text-center text-sm font-bold text-[#f58220] sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
@@ -387,7 +357,7 @@ export default function RealtorsPage() {
               ))}
             </div>
 
-            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10">
+            <div className="grid grid-cols-[1.3fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Value note</div>
               {transactionPackages.map((pkg) => (
                 <div key={`${pkg.title}-saves`} className={`px-3 py-3 text-center text-[12px] text-white/70 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
@@ -397,7 +367,7 @@ export default function RealtorsPage() {
             </div>
 
             {transactionPackageRows.map((row) => (
-              <div key={row} className="grid grid-cols-[1.15fr_1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
+              <div key={row} className="grid grid-cols-[1.3fr_1fr_1fr] border-b border-white/10 last:border-b-0">
                 <div className="px-4 py-2.5 text-sm font-semibold text-white sm:px-5">{row}</div>
                 {transactionPackages.map((pkg) => {
                   const included = pkg.includes.includes(row);
@@ -410,7 +380,7 @@ export default function RealtorsPage() {
               </div>
             ))}
 
-            <div className="grid grid-cols-[1.15fr_1fr_1fr_1fr]">
+            <div className="grid grid-cols-[1.3fr_1fr_1fr]">
               <div className="px-4 py-4 sm:px-5" />
               {transactionPackages.map((pkg) => (
                 <div key={`${pkg.title}-cta`} className={`px-3 py-4 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
@@ -520,6 +490,35 @@ export default function RealtorsPage() {
               </span>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* À LA CARTE PRODUCTS — collapsed by default */}
+      <section id="stages" className="bg-stone-50 py-16 sm:py-20">
+        <div className="container-pro">
+          <details className="group rounded-[28px] border border-stone-200 bg-white shadow-elev-1">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-[28px] px-6 py-6 sm:px-8 sm:py-7">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#f58220]">À la carte</p>
+                <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
+                  Browse every individual product
+                </h2>
+                <p className="mt-2 text-[14px] text-stone-600 sm:text-[15px]">
+                  Need a specific product instead of a bundle? Expand to see all individual realtor products organized by deal stage.
+                </p>
+              </div>
+              <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#f58220]/10 text-[#f58220] transition-transform group-open:rotate-180">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </summary>
+            <div className="space-y-8 border-t border-stone-200 px-6 py-8 sm:px-8 sm:py-10">
+              {realtorStages.map((stage) => (
+                <StageSection key={stage.id} {...stage} />
+              ))}
+            </div>
+          </details>
         </div>
       </section>
 

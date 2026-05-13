@@ -231,13 +231,6 @@ const COMPARISON_ROWS_BUYER_PACKAGE: ComparisonRow[] = [
   { label: 'Southern Cities — Buyer Transaction Package', cost: '$1,999 flat', time: 'Sequenced across the deal', bias: 'None — flat fee', licensed: true, highlight: true },
 ];
 
-const COMPARISON_ROWS_PER_DEAL: ComparisonRow[] = [
-  { label: 'Buy products per-step', cost: '$1,800–2,200 typical', time: 'Per-product turnaround', bias: 'None — flat fees', licensed: true, highlight: false },
-  { label: 'Listing or Buyer Package (with inspection)', cost: '$1,999–2,299', time: 'Sequenced', bias: 'None — flat fee', licensed: true, highlight: false },
-  { label: 'Subscription tier (monthly)', cost: '$249–1,499/mo', time: 'Ongoing', bias: 'None — flat fee', licensed: true, highlight: false },
-  { label: 'Southern Cities — Per-Deal Co-Pilot (no inspection)', cost: '$1,499 flat per deal', time: 'Sequenced across the deal', bias: 'None — flat fee', licensed: true, highlight: true },
-];
-
 const COMPARISON_ROWS_PHASED_INSPECTIONS: ComparisonRow[] = [
   { label: 'Trust your contractor', cost: 'Free', time: "On contractor's schedule", bias: 'High — their own work', licensed: 'Varies', highlight: false },
   { label: 'Home inspector (final only)', cost: '$400–800', time: 'Days', bias: 'Low', licensed: 'Inspector-licensed', highlight: false },
@@ -2305,83 +2298,6 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Does this include any consultation calls?', a: 'Yes — a 30-min onboarding call covers timing and what to expect across the deal. Additional calls available à la carte if needed.' },
     ],
     comparisonRows: COMPARISON_ROWS_BUYER_PACKAGE,
-  },
-  {
-    slug: 'per-deal-copilot',
-    productKey: 'per-deal-copilot',
-    ctaLabel: 'Get the Per-Deal Co-Pilot',
-    price: '$1,499',
-    priceAnchor: 'For agents who already have their own inspector — everything else, fixed price',
-    priceLabel: 'Per-Deal Construction Co-Pilot',
-    turnaround: 'Sequenced across the deal lifecycle',
-    audience: 'For agents who already have their own inspector and want the GC analysis + negotiation layer',
-    heroEyebrow: 'Per-Deal Construction Co-Pilot',
-    heroHeadlinePre: 'Construction co-pilot when',
-    heroHeadlineHighlight: 'you already have your inspector',
-    heroHeadlinePost: '.',
-    heroSubheadline:
-      'Keep your inspector. We layer on top of their report — GC-grade item-by-item analysis, paste-ready repair-request language, side-specific signed letter, negotiation memo, verification visit. One fixed price, no per-step purchase decisions. Excludes GC-Grade Property Inspection — buy Buyer or Listing Package if you want SCC to handle the inspection too.',
-    problemHeadline: 'Why agents with their own inspector still need SCC',
-    problemIntro: 'Your inspector is good. But they\'re legally cautioned from giving real cost ranges or repair-request language. Most agents bridge that gap themselves — guessing at numbers, writing requests from scratch, hoping the negotiation lands. The Per-Deal Co-Pilot does that gap-bridge work for you.',
-    problemCards: [
-      { title: 'Your inspector won\'t give cost ranges', body: '"Consult a professional" repeated 47 times. You\'re left to invent the math.', tone: 'red' },
-      { title: 'Writing repair requests from scratch', body: 'Same boilerplate, different items, every deal. SCC writes it for you.', tone: 'amber' },
-      { title: 'No GC authority in the negotiation', body: 'The other side dismisses your numbers. A GC-signed letter changes the dynamic.', tone: 'rose' },
-      { title: '"Did they really fix it?" anxiety pre-close', body: 'Verification visits remove that doubt.', tone: 'orange' },
-    ],
-    getHeadline: 'How it works',
-    getBullets: [
-      { title: 'You bring the inspection', detail: 'Your inspector, your report. We don\'t handle the inspection itself.' },
-      { title: 'Pick the side at purchase', detail: 'Listing or buying. SCC sequences the appropriate analytical products.' },
-      { title: 'Full GC analysis layer', detail: 'Inspection Review + paste-ready language + signed letter + negotiation memo + verification visit.' },
-      { title: 'One number per deal', detail: '$1,499 flat. Cheaper than the side-specific packages because no inspection.' },
-    ],
-    deliverableTitle: 'Per-Deal Construction Co-Pilot',
-    deliverableSubtitle: 'Analytical + negotiation layer · $1,499 flat · No inspection included',
-    deliverable: [
-      { heading: 'If you pick listing side', items: ['Pre-Listing Construction Valuation', 'Realtor Inspection Review of YOUR inspector\'s report', 'Repair Credit Calculation Letter (GC-signed)', 'Repair Verification Visit', 'Negotiation framing memo'] },
-      { heading: 'If you pick buyer side', items: ['Realtor Inspection Review of YOUR inspector\'s report', 'Negotiation Strategy Read', 'Repair Scope Letter (GC-signed)', 'Repair Verification Visit', 'Year-1 Priority Repair Plan'] },
-      { heading: 'Either side', items: ['Single SCC contact for the deal', 'Priority response window throughout the deal', '90-day window from purchase to close', 'NO GC-Grade Inspection (use Buyer/Listing Package for that)'] },
-    ],
-    processSteps: [
-      { title: 'Purchase + pick the side', detail: 'One purchase, one decision. Tell us listing or buying on the onboarding call.' },
-      { title: 'Components fire as the deal progresses', detail: 'No per-step purchase decisions. SCC sequences each product as the deal hits each phase.' },
-      { title: 'One contact owns the deal', detail: 'You talk to one person at SCC across the entire deal lifecycle.' },
-    ],
-    testimonials: [
-      { quote: 'I do both sides — Per-Deal Co-Pilot is the only package that fits. One number per deal, full coverage either way.', name: 'Madison M.', role: 'Realtor' },
-      { quote: 'Stopped thinking about à la carte purchases. Just put SCC on every deal at the start. Done.', name: 'Jethro A.', role: 'Realtor' },
-      { quote: 'Cheapest of the three packages, easiest to remember, fits how I actually work.', name: 'Trisha W.', role: 'Realtor' },
-    ],
-    notIncluded: [
-      'GC-Grade Property Inspection (use Buyer or Listing Package for that — those include the inspection)',
-      'Listing Prep PM execution (separately scoped)',
-      'Construction Confidence Sheet (only in Listing Transaction Package)',
-      'Specialty products (Appraisal Response, Multi-Offer Read) — purchase separately if needed',
-      'Not multi-deal discounts (see subscription tiers for that)',
-    ],
-    valueStack: [
-      'One fixed price per deal ($1,499)',
-      'Pick listing or buyer side',
-      'Inspection Review of YOUR inspector\'s report',
-      'GC-signed side-specific letter',
-      'Paste-ready repair-request language',
-      'Repair Verification Visit',
-      'Year-1 Priority Repair Plan (buyer side)',
-      'Single point of contact at SCC',
-      '90-day window from purchase to close',
-    ],
-    finalHeadline: 'Keep your inspector. We handle everything else.',
-    finalSubhead: 'Per-Deal Construction Co-Pilot, $1,499 flat. Excludes the inspection itself — for agents who already have an inspector they trust. If you want SCC to handle the inspection too, buy the Buyer or Listing Package.',
-    faqs: [
-      { q: 'How is this different from the Listing or Buyer Packages?', a: 'Per-Deal Co-Pilot does NOT include the GC-Grade Property Inspection — you bring your own inspector. Listing Package ($2,299) and Buyer Package ($1,999) both INCLUDE the inspection. Per-Deal is for agents who already have an inspector relationship and just want everything else.' },
-      { q: 'Can I switch sides after I purchase?', a: 'Yes — until the first component fires. After that, the deal is locked to that side.' },
-      { q: 'What if the deal dies?', a: 'Components stay banked for your next deal within 90 days. We honor the co-pilot relationship across deals if this one doesn\'t close.' },
-      { q: 'Can I add the GC-Grade Inspection à la carte?', a: 'Yes — $899 standard or $1,199 rush. But the full Buyer / Listing Packages bundle it in at a better effective price, so consider those instead.' },
-      { q: 'Can I add specialty products à la carte?', a: 'Yes — Appraisal Response, Multi-Offer Read can be added on top of the Per-Deal Co-Pilot. They\'re just not bundled.' },
-      { q: 'How is this different from a monthly subscription?', a: 'Subscription = recurring monthly bucket of reviews and capacity. Per-Deal = one-time per-deal purchase. If you do 4+ deals a month, subscription is cheaper. If you do 1–3 deals a month, Per-Deal usually wins.' },
-    ],
-    comparisonRows: COMPARISON_ROWS_PER_DEAL,
   },
 ];
 

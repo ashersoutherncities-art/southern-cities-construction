@@ -33,6 +33,12 @@ const nextConfig = {
       { source: '/lp/buyer-side-property-read', destination: '/lp/gc-grade-property-inspection', permanent: true },
       { source: '/services/realtors/buyer-side-property-read', destination: '/services/realtors/gc-grade-property-inspection', permanent: true },
 
+      // Per-Deal Co-Pilot retired — Buyer/Listing Packages now include the
+      // GC-Grade Inspection so the "bring your own inspector" niche shrank.
+      // Stale links route to Buyer Package as the closest replacement.
+      { source: '/lp/per-deal-copilot', destination: '/lp/buyer-transaction-package', permanent: true },
+      { source: '/services/realtors/per-deal-copilot', destination: '/services/realtors/buyer-transaction-package', permanent: true },
+
       // Memorable short URL aliases for audience hubs
       { source: '/for-realtors', destination: '/services/realtors', permanent: false },
       { source: '/for-investors', destination: '/services/investors', permanent: false },
