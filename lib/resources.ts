@@ -42,6 +42,28 @@ export const RESOURCES: Resource[] = [
     leadMagnet: true,
   },
   {
+    slug: 'gc-certified-investor-pre-loi-checklist',
+    title: 'GC-Certified Investor Pre-LOI Construction Risk Checklist',
+    kind: 'free',
+    category: 'Investors',
+    audience: 'Residential Investors · Operators',
+    format: 'Lead-Magnet PDF',
+    pages: 5,
+    summary:
+      'The construction-side risks you should price into your offer BEFORE the LOI — from a licensed NC General Contractor. Use this to underwrite the deal at construction reality, not seller-presented condition.',
+    includes: [
+      'Building envelope risks + cost-impact ranges',
+      'Hidden major-system risks (galvanized, polybutylene, aluminum wiring, Federal Pacific panels)',
+      'Foundation + structural risk checklist',
+      'Compliance + permit risks investors regularly miss (unpermitted additions, asbestos, underground oil tanks)',
+      'Rehab budget reality check — realistic $/sqft by scope tier',
+      'Pre-LOI walk-away triggers',
+    ],
+    bestFor: 'Residential investors and small operators underwriting deals in NC who want construction-side risk priced into the offer before earnest money goes hard.',
+    downloadUrl: '/resources/gc-certified-investor-pre-loi-checklist.pdf',
+    leadMagnet: true,
+  },
+  {
     slug: 'gc-certified-pre-offer-checklist',
     title: 'GC-Certified Pre-Offer Construction Checklist for Buyers',
     kind: 'free',
