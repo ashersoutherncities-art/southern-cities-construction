@@ -10,7 +10,7 @@ For the D2C cold-traffic ads (Module 3, Channel 2 of the SCC marketing blueprint
 | **Voice** | ElevenLabs Voice — confident, conversational, mid-tone male. Recommended voice: "Adam" or similar warm baritone. Pacing ~150 wpm with deliberate pauses on key numbers |
 | **Background** | Neutral home interior OR plain studio with soft warm lighting. NOT a generic AI gradient. If using a stock interior, prefer a finished room (kitchen island, living room) over construction sites — the angle is equity, not work-in-progress |
 | **Captions** | Auto-generated, large font, bottom-third position. Most Meta viewers watch with sound off. |
-| **Brand overlays** | SCC logo in upper-left at low opacity (15%) the entire spot. "NC GC License #107724" small text in lower-right corner from second 1 onward. **Required for compliance.** |
+| **Brand overlays** | SCC logo in upper-left at low opacity (15%) the entire spot. "NC GC License #107724" small text in lower-right corner from second 1 onward. **Required for compliance — see dynamic-ads-setup.md for two implementation paths:** (1) bake into the video render, or (2) overlay at the ad-platform level via Meta DCO / Google text-asset overlays so the video render stays reusable. |
 | **Aspect ratios** | 9:16 (Reels / Stories) PRIMARY, 1:1 (feed) SECONDARY, 16:9 (Google YouTube) TERTIARY |
 | **CTA card at end** | 2-second hold on "southerncitiesconstruction.com/guide/pre-listing-checklist" with SCC logo + NC GC #107724 |
 
