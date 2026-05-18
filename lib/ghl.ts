@@ -25,6 +25,12 @@ const CUSTOM_FIELD_IDS: Record<string, string> = {
   // Inquiry-specific (reused for lead capture)
   'Your Message': 'XUtw0Y4pMhiF9DppQ327',
   'Services Requested': 'r9KEV34O6lk5mzslzWYl',
+  // Investor Execution Platform — LM1 form custom fields
+  'LM1 Estimated Budget Range': 'PinybN6PZNZpwk67mlPt',
+  'LM1 Project Category': 'fEUDKfNgbdX2M4IM1L3G',
+  'LM1 Risk Flags': 'ko4oWgoloAX4BquV1ENz',
+  'LM1 Confidence Level': '4aEC2tAz7EHzikLuvM8L',
+  'LM1 Submitted At': 'M08FcP08sX403ofqifM5',
 };
 
 export type GhlOrderPayload = {
@@ -427,6 +433,12 @@ export async function sendRehabSnapshotToGhl(payload: GhlRehabSnapshotPayload) {
     `snapshot-category-${payload.project_category}`,
   ].map((item) => item.toLowerCase());
 
+  // Format the estimated budget range as a human-readable string for use in
+  // email templates (e.g., "$45,000–$72,000")
+  const formatMoney = (n: number) =>
+    new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+  const budgetRangeFormatted = `${formatMoney(payload.estimated_low)}–${formatMoney(payload.estimated_high)}`;
+
   const customFields = [
     { id: CUSTOM_FIELD_IDS['Project Address'], field_value: payload.property_address },
     {
@@ -437,7 +449,28 @@ export async function sendRehabSnapshotToGhl(payload: GhlRehabSnapshotPayload) {
       id: CUSTOM_FIELD_IDS['Your Message'],
       field_value: `Range ${payload.estimated_low}-${payload.estimated_high}; timeline ${payload.timeline_low_weeks}-${payload.timeline_high_weeks} weeks; next step: ${payload.recommended_next_step}`,
     },
-  ].filter((field) => Boolean(field.id));
+    // Investor Execution Platform — LM1 nurture personalization fields
+    {
+      id: CUSTOM_FIELD_IDS['LM1 Estimated Budget Range'],
+      field_value: budgetRangeFormatted,
+    },
+    {
+      id: CUSTOM_FIELD_IDS['LM1 Project Category'],
+      field_value: payload.project_category,
+    },
+    {
+      id: CUSTOM_FIELD_IDS['LM1 Risk Flags'],
+      field_value: payload.risk_flags.join(', '),
+    },
+    {
+      id: CUSTOM_FIELD_IDS['LM1 Confidence Level'],
+      field_value: payload.confidence_level,
+    },
+    {
+      id: CUSTOM_FIELD_IDS['LM1 Submitted At'],
+      field_value: new Date().toISOString(),
+    },
+  ].filter((field) => Boolean(field.id) && field.field_value);
 
   const upsertBody = {
     locationId: creds.locationId,
