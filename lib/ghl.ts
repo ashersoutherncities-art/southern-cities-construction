@@ -324,6 +324,33 @@ export type GhlLeadMagnetPayload = {
   source?: string;
 };
 
+export type GhlRehabSnapshotPayload = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone?: string;
+  company_name?: string | null;
+  investor_type: string;
+  property_address: string;
+  city: string;
+  state: string;
+  zip: string;
+  property_type: string;
+  investment_strategy: string;
+  target_finish_level: string;
+  project_category: string;
+  estimated_low: number;
+  estimated_high: number;
+  confidence_level: string;
+  confidence_score: number;
+  timeline_low_weeks: number;
+  timeline_high_weeks: number;
+  risk_flags: string[];
+  recommended_next_step: string;
+  report_id: string;
+  report_url?: string | null;
+};
+
 /**
  * Forward a lead-magnet download capture to GHL. Upserts the contact with:
  *   - `lead-magnet-<resource-slug>` (which magnet they grabbed — for tracking)
@@ -376,6 +403,83 @@ export async function sendLeadMagnetToGhl(payload: GhlLeadMagnetPayload) {
     status: upsertResult.status,
     contactId,
     tag: magnetTag,
+  };
+}
+
+export async function sendRehabSnapshotToGhl(payload: GhlRehabSnapshotPayload) {
+  const creds = getCreds();
+  if (!creds) {
+    return { ok: false, reason: 'GHL credentials not configured' as const };
+  }
+
+  const fullName = [payload.first_name, payload.last_name].filter(Boolean).join(' ').trim();
+  const phone = (payload.phone || '').trim() || undefined;
+  const tags = [
+    'lead-inquiry',
+    'product-inquiry',
+    'rehab-budget-snapshot',
+    `investor-type-${payload.investor_type}`,
+    `snapshot-confidence-${payload.confidence_level}`,
+    `snapshot-category-${payload.project_category}`,
+  ].map((item) => item.toLowerCase());
+
+  const customFields = [
+    { id: CUSTOM_FIELD_IDS['Project Address'], field_value: payload.property_address },
+    {
+      id: CUSTOM_FIELD_IDS['Services Requested'],
+      field_value: `Rehab Budget Range & Execution Risk Snapshot — ${payload.project_category} — ${payload.confidence_level} confidence`,
+    },
+    {
+      id: CUSTOM_FIELD_IDS['Your Message'],
+      field_value: `Range ${payload.estimated_low}-${payload.estimated_high}; timeline ${payload.timeline_low_weeks}-${payload.timeline_high_weeks} weeks; next step: ${payload.recommended_next_step}`,
+    },
+  ].filter((field) => Boolean(field.id));
+
+  const upsertBody = {
+    locationId: creds.locationId,
+    firstName: payload.first_name,
+    lastName: payload.last_name,
+    name: fullName,
+    email: payload.email,
+    phone,
+    source: 'Southern Cities — Rehab Budget Snapshot',
+    customFields,
+    tags,
+  };
+
+  const upsertResult = await ghlFetch(
+    '/contacts/upsert',
+    { method: 'POST', body: JSON.stringify(upsertBody) },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  const webhookUrl = process.env.GHL_REHAB_SNAPSHOT_WEBHOOK_URL;
+  if (webhookUrl) {
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'rehab-budget-snapshot',
+          contactId,
+          ...payload,
+        }),
+      });
+    } catch (error) {
+      console.error('GHL snapshot webhook failed (non-fatal):', error);
+    }
+  }
+
+  return {
+    ok: upsertResult.ok && !!contactId,
+    status: upsertResult.status,
+    contactId,
+    tag: 'rehab-budget-snapshot',
   };
 }
 

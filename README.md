@@ -58,10 +58,18 @@ Required env for the MVP:
 - `MARKETING_PORTAL_ACCESS_KEY`
 - optional: `NEXT_PUBLIC_SITE_URL`
 
+Required env for Rehab Budget Range & Execution Risk Snapshot:
+
+- `REHAB_SNAPSHOT_ADMIN_KEY` (or reuse `MARKETING_PORTAL_ACCESS_KEY`)
+- one email provider: `RESEND_API_KEY` or `SENDGRID_API_KEY`
+- `REHAB_SNAPSHOT_FROM_EMAIL`
+- optional CRM hooks: `GHL_API_TOKEN`, `GHL_LOCATION_ID`, `GHL_REHAB_SNAPSHOT_WEBHOOK_URL`
+
 Required database setup:
 
 1. Apply the existing SQL files in `supabase/README.md`
 2. Apply `supabase/marketing_assets.sql`
+3. Apply `supabase/rehab_budget_snapshots.sql` for the new investor lead-magnet pipeline
 
 The marketing portal syncs infrastructure-owned pages, logos, and core CTAs from `lib/marketing-registry.ts` into Supabase so website changes can refresh the database source of truth.
 

@@ -42,6 +42,7 @@ const nextConfig = {
       // Memorable short URL aliases for audience hubs
       { source: '/for-realtors', destination: '/services/realtors', permanent: false },
       { source: '/for-investors', destination: '/services/investors', permanent: false },
+      { source: '/investor-tools/rehab-budget-snapshot', destination: '/lp/rehab-budget-range-execution-risk-snapshot', permanent: false },
       { source: '/for-homeowners', destination: '/services/homeowners', permanent: false },
       { source: '/for-contractors', destination: '/services/contractors', permanent: false },
       { source: '/for-developers', destination: '/services/developers-landowners', permanent: false },

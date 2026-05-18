@@ -37,6 +37,15 @@ const investorStages: Stage[] = [
     cta: 'Review Your Project',
     products: [
       {
+        name: 'Rehab Budget Range & Execution Risk Snapshot',
+        price: 'Free',
+        description: 'Fast preliminary feasibility estimate for early-stage underwriting. Get a budget range, confidence level, risk flags, likely project category, timeline range, and next-step recommendation before execution surprises blow up the deal.',
+        href: '/lp/rehab-budget-range-execution-risk-snapshot',
+        secondaryHref: '/lp/rehab-budget-range-execution-risk-snapshot',
+        primaryCta: 'View Details',
+        highlighted: true,
+      },
+      {
         name: 'Investor Deal & Scope Review',
         price: '$499',
         description: 'An underwriting opinion before earnest money: scope feasibility, a rough budget range with confidence levels, and the walk-away trigger. Decision-grade, not bid-grade.',
