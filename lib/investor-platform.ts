@@ -54,6 +54,15 @@ export type PlatformStage = {
   ctaLabelFinal?: string;
   /** Next stage in the funnel (for cross-sell). */
   nextStage?: PlatformStageSlug;
+  /** If the actual tool/checkout for this stage lives at a separate URL,
+   *  set it here. The stage page CTA will route here instead of an internal
+   *  anchor. Used for LM1 (live tool at /lp/rehab-budget-range-execution-risk-snapshot)
+   *  and for paid stages with cart-direct checkout. */
+  toolUrl?: string;
+  /** Optional cart product key for stages with direct-to-cart purchase
+   *  (CO1 etc.). When set, the stage page renders an AddToCartButton
+   *  using this key instead of the generic anchor CTA. */
+  cartProductKey?: string;
 };
 
 // ============================================================
@@ -109,6 +118,7 @@ const LM1: PlatformStage = {
   ctaLabelMid: 'See What the Snapshot Includes',
   ctaLabelFinal: 'Run a Snapshot — Free',
   nextStage: 'co1',
+  toolUrl: '/lp/rehab-budget-range-execution-risk-snapshot',
 };
 
 const CO1: PlatformStage = {
@@ -161,6 +171,7 @@ const CO1: PlatformStage = {
   ctaLabelMid: 'See a Sample Review',
   ctaLabelFinal: 'Get Review — $499 (credited back)',
   nextStage: 'co2',
+  cartProductKey: 'platform-co1-execution-review',
 };
 
 const CO2: PlatformStage = {

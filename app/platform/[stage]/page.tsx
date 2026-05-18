@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import AddToCartButton from '@/components/AddToCartButton';
 import { PLATFORM_STAGES, getPlatformStage } from '@/lib/investor-platform';
 
 type Params = { stage: string };
@@ -90,12 +91,29 @@ export default function PlatformStagePage({ params }: { params: Params }) {
             ) : null}
 
             <div className="mt-9 flex flex-wrap gap-4">
-              <a
-                href="#cta"
-                className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
-              >
-                {stage.ctaLabel} →
-              </a>
+              {stage.toolUrl ? (
+                <Link
+                  href={stage.toolUrl}
+                  className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
+                >
+                  {stage.ctaLabel} →
+                </Link>
+              ) : stage.cartProductKey ? (
+                <AddToCartButton
+                  itemKey={stage.cartProductKey}
+                  label={`${stage.ctaLabel} →`}
+                  className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
+                  mode="direct-lp"
+                  lpSlug={`platform-${stage.slug}`}
+                />
+              ) : (
+                <a
+                  href="#cta"
+                  className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
+                >
+                  {stage.ctaLabel} →
+                </a>
+              )}
               <a
                 href="#deliverables"
                 className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white transition hover:bg-white/10"
@@ -214,12 +232,27 @@ export default function PlatformStagePage({ params }: { params: Params }) {
             {stage.heroSubheadline}
           </p>
           <div className="mt-9">
-            {stage.isPaid ? (
+            {stage.toolUrl ? (
+              <Link
+                href={stage.toolUrl}
+                className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-9 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
+              >
+                {stage.ctaLabelFinal ?? stage.ctaLabel} →
+              </Link>
+            ) : stage.cartProductKey ? (
+              <AddToCartButton
+                itemKey={stage.cartProductKey}
+                label={`${stage.ctaLabelFinal ?? stage.ctaLabel} →`}
+                className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-9 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
+                mode="direct-lp"
+                lpSlug={`platform-${stage.slug}`}
+              />
+            ) : stage.isPaid ? (
               <a
                 href="#contact"
                 className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-9 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
               >
-                {stage.ctaLabelFinal ?? stage.ctaLabel} →
+                {stage.ctaLabelFinal ?? stage.ctaLabel} → (request quote)
               </a>
             ) : (
               <p className="text-[14px] text-white/65">

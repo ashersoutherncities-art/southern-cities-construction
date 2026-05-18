@@ -294,6 +294,15 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'The full buyer-side construction co-pilot: GC-Grade Property Inspection + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan. Anchored by the flagship on-site GC-Grade Property Inspection. Saves vs à la carte.',
     checkoutAmount: '1999',
   },
+  'platform-co1-execution-review': {
+    key: 'platform-co1-execution-review',
+    name: 'CO1 — Investor Execution Review',
+    shortName: 'CO1 Execution Review',
+    price: 49900,
+    priceLabel: '$499 · refundable as credit on CO2–CO5',
+    description: 'Stage 2 of the Investor Execution Platform. A licensed NC GC pressure-tests the budget, validates execution probability, identifies risk, and tells you whether the project realistically executes within the assumptions required for the deal to work. $499 flat — fully refunded as credit if you engage SCC for CO2 (Setup), CO3 (Oversight), CO4 (GC-Supported), or CO5 (Full GC).',
+    checkoutAmount: '499',
+  },
   'per-deal-copilot': {
     key: 'per-deal-copilot',
     name: 'Per-Deal Construction Co-Pilot',

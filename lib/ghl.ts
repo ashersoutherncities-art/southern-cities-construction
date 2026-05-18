@@ -415,9 +415,13 @@ export async function sendRehabSnapshotToGhl(payload: GhlRehabSnapshotPayload) {
   const fullName = [payload.first_name, payload.last_name].filter(Boolean).join(' ').trim();
   const phone = (payload.phone || '').trim() || undefined;
   const tags = [
+    // Platform funnel tags (canonical — used by nurture workflow triggers)
+    'platform-lm1-captured',
+    'platform-lead',
+    // Legacy/general lead tags (kept for compatibility with non-platform workflows)
     'lead-inquiry',
-    'product-inquiry',
     'rehab-budget-snapshot',
+    // Segmentation tags
     `investor-type-${payload.investor_type}`,
     `snapshot-confidence-${payload.confidence_level}`,
     `snapshot-category-${payload.project_category}`,
