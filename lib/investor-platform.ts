@@ -7,7 +7,7 @@
  * This is INTENTIONALLY SEPARATE from `lib/services-data.ts` (legacy
  * investor catalog). The two systems run in parallel.
  *
- * Positioning: SCC is a layered construction execution intelligence +
+ * Positioning: Southern Cities is a layered construction execution intelligence +
  * operational support platform for real estate investors — NOT a
  * traditional contractor company.
  *
@@ -220,18 +220,18 @@ const CO1: PlatformStage = {
   promise:
     'Eliminate $5,000+ of execution risk on your next deal — or confirm the deal is clean. Either way, you stop walking blind — before one missed risk becomes ten.',
   refundMechanic:
-    'Performance guarantee: $499 fully refunded if we cannot perform the Execution Review at SCC standard. SCC evaluates your deal in 24 hours — if we determine we cannot deliver a complete review (deal is too unusual, data too thin, or otherwise outside what we underwrite), refund. Once we accept the engagement, we deliver. The refund trigger is SCC’s call, not the buyer’s.',
+    'Performance guarantee: $499 fully refunded if we cannot perform the Execution Review at Southern Cities standard. Southern Cities evaluates your deal in 24 hours — if we determine we cannot deliver a complete review (deal is too unusual, data too thin, or otherwise outside what we underwrite), refund. Once we accept the engagement, we deliver. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
     'Pay $499 → find at least $5,000 of execution risk on your deal OR confirm the deal is clean. Both answers are worth $499.',
     'Typical findings: $5,000+ of execution risk you would have walked into blind without the review.',
-    '$499 credits forward against any deeper engagement (Project Setup, Active Oversight, GC-Supported Build, Full GC Service) — so if you continue with SCC at any deeper level, it is $0 net.',
+    '$499 credits forward against any deeper engagement (Project Setup, Active Oversight, GC-Supported Build, Full GC Service) — so if you continue with Southern Cities at any deeper level, it is $0 net.',
     'The only buyers who pay $499 net are those who run the review AND walk away from the deal — in which case the review just saved them from a $5K+ mistake.',
   ],
   bonusStack: [
     { label: '48-hour turnaround on the full written review', value: '$0 — included' },
     { label: 'Permit-jurisdiction timeline check for your AHJ', value: '$150 value' },
     { label: 'Vendor-lineup intro list for your submarket', value: '$300 value' },
-    { label: '$499 credits forward to any deeper SCC engagement', value: '$499 value' },
+    { label: '$499 credits forward to any deeper Southern Cities engagement', value: '$499 value' },
   ],
 };
 
@@ -257,7 +257,7 @@ const CO2: PlatformStage = {
     'The project is set up cleanly. Now: how do you keep execution from drifting once construction actually starts?',
   deliverables: [
     'Subcontractor fit analysis (matching project complexity to labor capability)',
-    'Contractor sourcing from the SCC vetted network',
+    'Contractor sourcing from the Southern Cities vetted network',
     'Bid coordination (organizing + normalizing bids against the same scope)',
     'Scope alignment so contractors price identical assumptions',
     'Permit coordination',
@@ -289,7 +289,7 @@ const CO2: PlatformStage = {
   promise:
     'Eliminate the chaos that costs investors $10,000+ mid-build. We structure your entire project end-to-end — subs, bids, scope, permits, schedule, draws — before the cracks split the deal.',
   refundMechanic:
-    'Performance guarantee: full refund if after our 5-day intake we determine we cannot deliver project setup at our standard for your scope. The refund trigger is SCC’s call, not the buyer’s.',
+    'Performance guarantee: full refund if after our 5-day intake we determine we cannot deliver project setup at our standard for your scope. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
     '$2,500 starting fee ($2,001 net after the Execution Review credit applies).',
     'Skip 40–60 hours of contractor sourcing, bid normalization, scope writing, and schedule building yourself.',
@@ -298,7 +298,7 @@ const CO2: PlatformStage = {
   ],
   bonusStack: [
     { label: 'Full vendor lineup with negotiated rate cards', value: 'irreplaceable' },
-    { label: 'Permit submission package — SCC drafts, you submit' },
+    { label: 'Permit submission package — Southern Cities drafts, you submit' },
     { label: 'Draw sequencing logic written for your lender' },
     { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
   ],
@@ -364,7 +364,7 @@ const CO3: PlatformStage = {
   promise:
     'Kill execution drift before it kills your margin. A licensed NC GC tracks progress, monitors budget, flags slippage, escalates issues, and coordinates contractors — every week, for the full duration of your project.',
   refundMechanic:
-    'Performance guarantee: full refund if after the Execution Review we determine we cannot deliver oversight at our standard for your project tier. The refund trigger is SCC’s call, not the buyer’s.',
+    'Performance guarantee: full refund if after the Execution Review we determine we cannot deliver oversight at our standard for your project tier. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
     'Light $6,500 / Standard $12,500 / Heavy $19,500 / Complex $28,500 — scoped flat fee, NOT monthly. You know your total upfront.',
     'Typical execution surprise on a rehab: $5K+. Active Oversight prevents 1+ surprise on nearly every project.',
@@ -373,8 +373,8 @@ const CO3: PlatformStage = {
   ],
   bonusStack: [
     { label: 'Weekly written reports for the duration of the project' },
-    { label: 'Direct cell access to your assigned SCC PM during business hours' },
-    { label: 'Vendor-level escalation handling — SCC fights subs on your behalf' },
+    { label: 'Direct cell access to your assigned Southern Cities PM during business hours' },
+    { label: 'Vendor-level escalation handling — Southern Cities fights subs on your behalf' },
     { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
   ],
 };
@@ -387,7 +387,7 @@ const CO4: PlatformStage = {
   marketingShortName: 'GC-Supported Build',
   internalName: 'Licensed GC structure + oversight, owner manages daily ops',
   audienceTag: 'INVESTORS · OWNER-CONTROLLED',
-  oneLiner: 'Stop running your project on a permit and compliance prayer. SCC pulls permits + owns compliance — you keep daily control.',
+  oneLiner: 'Stop running your project on a permit and compliance prayer. Southern Cities pulls permits + owns compliance — you keep daily control.',
   purpose:
     'Provide licensed GC structure and oversight while the owner or owner-side PM manages daily operations. Best for experienced operators who want the legal + compliance scaffolding without giving up daily control.',
   isAutomated: false,
@@ -398,9 +398,9 @@ const CO4: PlatformStage = {
   ghlTag: 'platform-co4-engaged',
   questionAnswered: 'Who is actually controlling and assuming execution responsibility?',
   revealedProblem:
-    'For some investors, the next call is: have SCC fully operate the project end-to-end.',
+    'For some investors, the next call is: have Southern Cities fully operate the project end-to-end.',
   deliverables: [
-    'Permit pulls under SCC license',
+    'Permit pulls under Southern Cities license',
     'GC oversight + authority structure',
     'Inspection coordination with AHJs',
     'Compliance oversight',
@@ -432,12 +432,12 @@ const CO4: PlatformStage = {
   bucket: 'Delivery',
   verb: 'DELIVER',
   promise:
-    'Eliminate permit and compliance risk on your build. SCC pulls permits under licensed authority, owns compliance, coordinates AHJ inspections, and provides the GC scaffolding that makes the project legally executable — while you run daily ops.',
+    'Eliminate permit and compliance risk on your build. Southern Cities pulls permits under licensed authority, owns compliance, coordinates AHJ inspections, and provides the GC scaffolding that makes the project legally executable — while you run daily ops.',
   refundMechanic:
-    'Performance guarantee: full refund of engagement fee if after planning we determine we cannot deliver GC scaffolding for your project (permit path, compliance scope, or risk profile outside what we can underwrite). The refund trigger is SCC’s call, not the buyer’s.',
+    'Performance guarantee: full refund of engagement fee if after planning we determine we cannot deliver GC scaffolding for your project (permit path, compliance scope, or risk profile outside what we can underwrite). The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
     'Without the GC-Supported Build: investor cannot legally pull permits, sub work runs unlicensed, compliance risk sits on the investor.',
-    'With the GC-Supported Build: project is legally executable under licensed GC, AHJ inspections coordinated, compliance risk transferred to SCC.',
+    'With the GC-Supported Build: project is legally executable under licensed GC, AHJ inspections coordinated, compliance risk transferred to Southern Cities.',
     'Engagement fee from $5,000 + 4% of project budget retainer = pricing scales with project, not flat.',
     'Binary value: this is what makes the project legally possible at all.',
   ],
@@ -455,11 +455,11 @@ const CO5: PlatformStage = {
   shortCode: 'CO5',
   name: 'Full-Service General Contracting',
   marketingShortName: 'Full GC Service',
-  internalName: 'End-to-end project execution under SCC license',
+  internalName: 'End-to-end project execution under Southern Cities license',
   audienceTag: 'INVESTORS · FULLY OUTSOURCED',
-  oneLiner: 'Stop carrying budget and schedule risk yourself. Fixed-price + on-schedule penalty means SCC carries both. You bring capital, we deliver keys.',
+  oneLiner: 'Stop carrying budget and schedule risk yourself. Fixed-price + on-schedule penalty means Southern Cities carries both. You bring capital, we deliver keys.',
   purpose:
-    'Provide full project execution responsibility from planning through delivery. SCC fully manages and operates the project. Investor focuses on capital + strategy + asset goals.',
+    'Provide full project execution responsibility from planning through delivery. Southern Cities fully manages and operates the project. Investor focuses on capital + strategy + asset goals.',
   isAutomated: false,
   isPaid: true,
   pricing: 'Scoped per project',
@@ -490,25 +490,25 @@ const CO5: PlatformStage = {
   thisIs: [
     'Full execution responsibility',
     'Investor focuses on capital + strategy',
-    'SCC handles operations end-to-end',
+    'Southern Cities handles operations end-to-end',
   ],
   heroHeadlinePre: 'Stop carrying',
   heroHeadlineHighlight: 'budget and schedule risk',
   heroHeadlinePost: ' yourself. We carry it.',
   heroSubheadline:
-    'Full project execution from planning through delivery — permits, subs, procurement, scheduling, supervision, draws, inspections, QC, turnover, warranty. Fixed-price contract means budget risk transfers to SCC. On-schedule penalty means holding-cost risk transfers to SCC. You bring capital. We deliver keys. NC GC #107724.',
+    'Full project execution from planning through delivery — permits, subs, procurement, scheduling, supervision, draws, inspections, QC, turnover, warranty. Fixed-price contract means budget risk transfers to Southern Cities. On-schedule penalty means holding-cost risk transfers to Southern Cities. You bring capital. We deliver keys. NC GC #107724.',
   ctaLabel: 'Transfer the Risk — Discuss',
   ctaLabelMid: 'See What the Full GC Service Includes',
-  ctaLabelFinal: 'Transfer Budget + Schedule Risk to SCC',
+  ctaLabelFinal: 'Transfer Budget + Schedule Risk to Southern Cities',
   bucket: 'Delivery',
   verb: 'DELIVER',
   promise:
-    'Transfer budget and schedule risk entirely to SCC. We execute end-to-end — planning, engineering, permits, subs, procurement, scheduling, supervision, draws, inspections, QC, punch, turnover, warranty. You bring capital. We deliver keys.',
+    'Transfer budget and schedule risk entirely to Southern Cities. We execute end-to-end — planning, engineering, permits, subs, procurement, scheduling, supervision, draws, inspections, QC, punch, turnover, warranty. You bring capital. We deliver keys.',
   refundMechanic:
-    'Performance guarantee: full refund of pre-construction fee if we determine we cannot commit to a fixed-price contract at your scope. Once we sign fixed-price, daily penalty against fee for missed schedule milestones. The refund trigger is SCC’s call, not the buyer’s.',
+    'Performance guarantee: full refund of pre-construction fee if we determine we cannot commit to a fixed-price contract at your scope. Once we sign fixed-price, daily penalty against fee for missed schedule milestones. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
-    'Fixed price = budget risk transferred entirely to SCC.',
-    'On-schedule penalty mechanic = holding-cost risk transferred entirely to SCC.',
+    'Fixed price = budget risk transferred entirely to Southern Cities.',
+    'On-schedule penalty mechanic = holding-cost risk transferred entirely to Southern Cities.',
     "Investor's risk = effectively zero. Investor's role = sign contract, collect keys.",
     'No minimum project size — engagement scales to fit any project worth taking.',
   ],

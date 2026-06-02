@@ -146,7 +146,7 @@ export default function LpLeadForm({
             value={form.name}
             onChange={update('name')}
             className={inputClass}
-            placeholder="Asher Smith"
+            placeholder="Jordan Smith"
           />
         </label>
 

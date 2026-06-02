@@ -34,7 +34,7 @@ export default function RehabBudgetRangeExecutionRiskSnapshotPage() {
 
         <div className="relative container-pro">
           <div className="max-w-4xl">
-            <p className="eyebrow">Investor lead magnet</p>
+            <p className="eyebrow">Free tool for NC investors</p>
             <h1 className="mt-4 max-w-4xl text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
               Rehab Budget Range & <span className="text-orange">Execution Risk Snapshot</span>
             </h1>

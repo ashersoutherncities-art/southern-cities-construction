@@ -11,7 +11,7 @@ export const metadata = {
 export default function PlatformHubPage() {
   return (
     <div className="min-h-screen bg-[#08111d] text-white">
-      {/* Minimal nav — distinct from SCC main site nav */}
+      {/* Minimal nav — distinct from Southern Cities main site nav */}
       <header className="border-b border-white/8">
         <div className="container-pro flex items-center justify-between py-5">
           <Link href="/" className="flex items-center gap-3">
@@ -122,7 +122,7 @@ export default function PlatformHubPage() {
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Start here</p>
             <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
               Two ways to start with the platform.<br />
-              Most investors begin at LM1 (free) and advance from there.
+              Most investors begin with the free Budget Snapshot and advance from there.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/70 sm:text-lg">
               The platform has 6 progressive stages. The entry points below are where everyone starts. The deeper stages (project setup → active oversight → GC-supported build → full GC) unlock as your deal moves forward.
@@ -241,7 +241,7 @@ export default function PlatformHubPage() {
             Every stage reduces uncertainty, ambiguity, and execution chaos — while increasing confidence, control, and visibility.
           </h2>
           <p className="mt-6 text-[15px] leading-[1.6] text-white/65">
-            The entire funnel progressively moves the investor from assumptions into organized execution reality. SCC isn&apos;t a contractor company. It&apos;s an execution intelligence layer.
+            Each stage progressively moves you from assumptions into organized execution reality. Southern Cities Construction isn&apos;t just a contractor &mdash; it&apos;s the execution intelligence layer behind your deals.
           </p>
         </div>
       </section>

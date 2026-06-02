@@ -68,16 +68,16 @@ export default function LeadMagnetForm({
             </svg>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Your checklist is ready.</h3>
+            <h3 className="text-lg font-bold text-white">Your download is ready.</h3>
             <p className="mt-1.5 text-sm leading-relaxed text-white/75">
-              Click below to download. We also sent a copy to <strong className="text-white">{form.email}</strong> for later reference.
+              Click below to get <strong className="text-white">{resourceTitle}</strong>. We also sent a copy to <strong className="text-white">{form.email}</strong> for later reference.
             </p>
             <a
               href={downloadUrl}
               download
               className="mt-5 inline-flex items-center justify-center rounded-full bg-orange px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-glow-orange transition-all hover:bg-orange-500 hover:-translate-y-0.5"
             >
-              Download {resourceTitle.split(' ')[0]} Checklist (PDF) ↓
+              Download the PDF ↓
             </a>
           </div>
         </div>

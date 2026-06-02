@@ -120,7 +120,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Pre-Listing Audit',
     price: 29900,
     priceLabel: '$299 audit · credited back on repair work',
-    description: 'A licensed NC GC audits the property pre-listing — fix-vs-skip-vs-disclose tables, condition-adjusted price band, repair-spend ROI by item. $299 audit fee is fully credited back if SCC handles any of the repair work afterward. Filter cost for serious sellers, refunded for committed ones.',
+    description: 'A licensed NC GC audits the property pre-listing — fix-vs-skip-vs-disclose tables, condition-adjusted price band, repair-spend ROI by item. $299 audit fee is fully credited back if Southern Cities handles any of the repair work afterward. Filter cost for serious sellers, refunded for committed ones.',
     checkoutAmount: '299',
   },
   'investor-review': {
@@ -300,7 +300,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Execution Review',
     price: 49900,
     priceLabel: '$499 → stop losing $5K+ to execution mistakes · 48-hour turnaround · refund if we cannot perform · credits forward',
-    description: 'Stop losing $5,000+ to execution mistakes you didn’t see coming. A licensed NC GC pressure-tests your deal in 48 hours and eliminates every hidden execution risk — labor market spikes, permit reality, sequencing gaps, category-shifters — or confirms the deal is clean. Performance guarantee: $499 fully refunded if we cannot perform the review at our standard. The refund trigger is SCC’s call, not the buyer’s — you are paying for our commitment to deliver. $499 credits forward against Project Setup, Active Oversight ($6.5K–$28.5K tiered), GC-Supported Build, or Full GC Service — so if you continue, it is $0 net. Bonuses included: 48-hour turnaround, permit-jurisdiction timeline check ($150 value), vendor-lineup intro list for your submarket ($300 value), $499 credit forward. NC GC License #107724.',
+    description: 'Stop losing $5,000+ to execution mistakes you didn’t see coming. A licensed NC GC pressure-tests your deal in 48 hours and eliminates every hidden execution risk — labor market spikes, permit reality, sequencing gaps, category-shifters — or confirms the deal is clean. Performance guarantee: $499 fully refunded if we cannot perform the review at our standard. The refund trigger is Southern Cities’ call, not the buyer’s — you are paying for our commitment to deliver. $499 credits forward against Project Setup, Active Oversight ($6.5K–$28.5K tiered), GC-Supported Build, or Full GC Service — so if you continue, it is $0 net. Bonuses included: 48-hour turnaround, permit-jurisdiction timeline check ($150 value), vendor-lineup intro list for your submarket ($300 value), $499 credit forward. NC GC License #107724.',
     checkoutAmount: '499',
   },
   'per-deal-copilot': {
@@ -363,7 +363,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Deal Pack Pro',
     price: 89700,
     priceLabel: '$897/mo recurring',
-    description: 'For NC wholesalers doing 2+ deals/month. Includes 2 Bid-Ready Deal Pack credits per month + 25% off any Build-Ready upgrades + priority 5-day turnaround + "GC-Verified by SCC #107724" co-marketing badge for every assignment listing. Cancel anytime.',
+    description: 'For NC wholesalers doing 2+ deals/month. Includes 2 Bid-Ready Deal Pack credits per month + 25% off any Build-Ready upgrades + priority 5-day turnaround + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
     checkoutAmount: '897',
   },
 };

@@ -35,7 +35,7 @@ const PRODUCTS: FeaturedProduct[] = [
     name: 'Deal Pack Pro (Subscription)',
     tagline: 'Monthly · For wholesalers doing 2+ deals/month',
     description:
-      '2 Bid-Ready Deal Pack credits per month, 25% off Build-Ready upgrades, priority 5-day turnaround, and a "GC-Verified by SCC" co-marketing badge for every assignment listing. Cancel anytime.',
+      '2 Bid-Ready Deal Pack credits per month, 25% off Build-Ready upgrades, priority 5-day turnaround, and a "GC-Verified by Southern Cities" co-marketing badge for every assignment listing. Cancel anytime.',
     href: '/deal-pack#tiers',
     primaryCta: 'See Pro details →',
     priceLine: 'Monthly subscription',
@@ -67,10 +67,10 @@ const COMING_SOON = [
       'A licensed NC GC on retainer for your wholesale portfolio. Monthly project intelligence on every active deal, on-demand reviews of scopes / sub-quotes / change-orders / pre-closing sweeps. Subscription model.',
   },
   {
-    name: 'Wholesaler-to-Flipper Conversion Path',
-    timing: 'Open today (CO1 + CO3)',
+    name: 'Wholesaler-to-Flipper Path',
+    timing: 'Open today',
     description:
-      'For wholesalers ready to keep their best deals: CO1 Execution Review pre-purchase + CO3 Active Project Oversight during the build. SCC owns construction execution while you own the deal. See the 9-month transformation case study.',
+      'For wholesalers ready to keep their best deals: an Execution Review before you buy, and Active Oversight during the build. Southern Cities owns construction execution while you own the deal. See the 9-month transformation case study.',
   },
 ];
 
@@ -216,8 +216,8 @@ export default function WholesalersHubPage() {
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {FREE_PLAYBOOKS.map((playbook, idx) => {
               const coverImage = idx === 0
-                ? '/product-mockups/lm1-25-40k-cover-01.jpg'
-                : '/product-mockups/lm2-10k-to-104k-cover-01.jpg';
+                ? '/product-mockups/consistent-assignment-wholesaler-cover.jpg'
+                : '/product-mockups/wholesale-to-flip-9-month-cover.jpg';
               return (
                 <Link
                   key={playbook.name}

@@ -1314,9 +1314,9 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the PDF in 1 business day', detail: 'Client-shareable deliverable in your inbox, ready to forward or anchor the next conversation.' },
     ],
     testimonials: [
-      { quote: 'I sent the SCC review directly to my buyer. Made the negotiation conversation 10x easier — we had real numbers, not vibes.', name: 'Madison M.', role: 'Realtor' },
+      { quote: 'I sent the Southern Cities review directly to my buyer. Made the negotiation conversation 10x easier — we had real numbers, not vibes.', name: 'Madison M.', role: 'Realtor' },
       { quote: 'The deliverable is professional enough to share with clients. That alone is worth $299.', name: 'Jethro A.', role: 'Realtor' },
-      { quote: 'Before SCC I was eyeballing inspection severity. Now I have a licensed GC backing my recommendations.', name: 'Trisha W.', role: 'Listing Agent' },
+      { quote: 'Before Southern Cities I was eyeballing inspection severity. Now I have a licensed GC backing my recommendations.', name: 'Trisha W.', role: 'Listing Agent' },
     ],
     notIncluded: [
       'Not 4-hour turnaround — see Same-Day Quick Read',
@@ -1339,7 +1339,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     finalSubhead: 'One licensed-GC inspection review, 1 business day, $299. Real construction numbers instead of inspection-report panic.',
     faqs: [
       { q: 'How is this different from Same-Day Quick Read?', a: 'Quick Read is $199 / 4-hour urgent triage — critical vs cosmetic + rough numbers. This is $299 / 1-day comprehensive — every item analyzed with cost ranges, a PDF deliverable to share, AND a paste-ready Repair Request Language section. Use Quick Read for crisis triage, Review for client conversations + sending the repair request.' },
-      { q: 'How is the Repair Request Language different from the Repair Credit Letter or Repair Scope Letter?', a: 'The Repair Request Language in this product is clean, professional email text you can paste directly into your message to the other agent — drafted by a licensed GC but NOT on letterhead and NOT GC-signed. The $349 Repair Credit Letter and Repair Scope Letter are FORMAL signed PDFs on SCC letterhead — they carry more authority weight when the other side is pushing back or you need a document the seller\'s agent can forward to their client. Buy this product when you need the analysis + paste-ready language; buy the $349 letters when you need a formal signed document.' },
+      { q: 'How is the Repair Request Language different from the Repair Credit Letter or Repair Scope Letter?', a: 'The Repair Request Language in this product is clean, professional email text you can paste directly into your message to the other agent — drafted by a licensed GC but NOT on letterhead and NOT GC-signed. The $349 Repair Credit Letter and Repair Scope Letter are FORMAL signed PDFs on Southern Cities letterhead — they carry more authority weight when the other side is pushing back or you need a document the seller\'s agent can forward to their client. Buy this product when you need the analysis + paste-ready language; buy the $349 letters when you need a formal signed document.' },
       { q: 'What do you need from me?', a: 'Inspection report PDF, property address, and any photos you have. Listing photos are fine.' },
       { q: 'Can I share the PDF with my client?', a: 'Yes — that\'s the point. The deliverable is built to be client-facing, branded but neutral. Many agents forward it directly.' },
       { q: 'Will you tell me what to put in the counter-offer?', a: 'You get cost ranges + severity ratings + ready-to-send repair-request language — strong inputs for your counter. For deeper concession analysis ("is the seller\'s counter reasonable?") see Negotiation Strategy Read.' },
@@ -1375,20 +1375,20 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ],
     getHeadline: 'What you actually get — the 3-tier estimate',
     getBullets: [
-      { title: 'TIER 1 — MANDATORY (5–7 day fix guarantee)', detail: 'Code violations + loan-killers a buyer\'s inspector will flag (active leaks, double-tapped breakers, GFCI gaps, peeling paint FHA/VA flags). Real cost per item. SCC commits to a 5–7 day completion window when you hire us for the repairs.' },
+      { title: 'TIER 1 — MANDATORY (5–7 day fix guarantee)', detail: 'Code violations + loan-killers a buyer\'s inspector will flag (active leaks, double-tapped breakers, GFCI gaps, peeling paint FHA/VA flags). Real cost per item. Southern Cities commits to a 5–7 day completion window when you hire us for the repairs.' },
       { title: 'TIER 2 — HIGH-ROI fixes (2× return target)', detail: 'Low-cost fixes with reliably positive value-lift math. Fresh trim and paint touch-ups, hardware swaps, landscaping. We don\'t recommend it unless the cost-to-fix vs value-lift math shows positive return.' },
       { title: 'TIER 3 — DISCLOSE & SKIP (formatted as credit quote)', detail: 'Major items too expensive to fix pre-listing (roof on its last legs, full window replacement). Formatted as an exact-dollar credit quote so the seller can offer the buyer a fixed credit — turns negotiation chaos into "here\'s the number on letterhead."' },
-      { title: 'Licensed inspector on-site + paste-ready language', detail: 'Real inspector visits the property. SCC writes the paste-ready repair-request email language so the agent doesn\'t rewrite anything.' },
+      { title: 'Licensed inspector on-site + paste-ready language', detail: 'Real inspector visits the property. Southern Cities writes the paste-ready repair-request email language so the agent doesn\'t rewrite anything.' },
     ],
     deliverableTitle: 'GC-Grade Property Inspection — 3-Tier Estimate',
     deliverableSubtitle: '123 Main St · Charlotte, NC',
     deliverable: [
       { heading: 'Licensed inspector report (standard format)', items: ['Full home inspection PDF', 'Item-by-item findings + photo documentation', 'All major systems covered (structural, electrical, HVAC, plumbing, roof, exterior)'] },
-      { heading: 'TIER 1 — MANDATORY (fix within 5–7 days when SCC handles)', items: ['Double-tapped breakers in panel — $400, electrical permit required', 'Active leak under kitchen sink — $250, day-of fix', 'Missing GFCI outlets in kitchen + bath — $600, code requirement', 'Peeling exterior paint (north elevation) — $1,200, FHA/VA flag if left'] },
+      { heading: 'TIER 1 — MANDATORY (fix within 5–7 days when Southern Cities handles)', items: ['Double-tapped breakers in panel — $400, electrical permit required', 'Active leak under kitchen sink — $250, day-of fix', 'Missing GFCI outlets in kitchen + bath — $600, code requirement', 'Peeling exterior paint (north elevation) — $1,200, FHA/VA flag if left'] },
       { heading: 'TIER 2 — HIGH-ROI (positive value-lift math)', items: ['Fresh trim paint throughout — $1,500 cost, $4–6K value lift = net gain', 'Replace dated cabinet hardware — $300 cost, $1,500–2,500 value lift', 'Refresh landscaping + mulch — $600 cost, $2–3K value lift'] },
       { heading: 'TIER 3 — DISCLOSE & SKIP (formatted as credit quote)', items: ['Roof: 18 years old, 5–8 years remaining. Replacement quote: $18,500. Recommended seller credit: $14,000.', 'HVAC: 2008 unit at end of life. Replacement quote: $11,200. Recommended seller credit: $9,000.', 'Original single-pane windows (efficiency, not safety). Replacement quote: $15,000. Recommended seller credit: $4,000.'] },
       { heading: 'Paste-ready Repair Request Language (or Credit Counter)', items: ['"We are requesting the seller complete the Mandatory tier items prior to closing — total scope $2,450 — AND credit the buyer $27,000 against the Disclose & Skip tier items as documented in the attached GC-Grade Inspection report (Tier 3, Southern Cities Construction, NC GC #107724)."'] },
-      { heading: 'Mandatory-tier speed guarantee', items: ['When the seller hires SCC for the Tier 1 repairs, we commit to a 5–7 business day completion window so the listing date / closing date isn\'t at risk.'] },
+      { heading: 'Mandatory-tier speed guarantee', items: ['When the seller hires Southern Cities for the Tier 1 repairs, we commit to a 5–7 business day completion window so the listing date / closing date isn\'t at risk.'] },
     ],
     processSteps: [
       { title: 'Book the inspection', detail: 'Property address, target inspection date, side (buyer or listing), buyer/seller name. Pay $899 standard or $1,199 rush.' },
@@ -1414,7 +1414,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'TIER 1 — Mandatory / code-violation items with real $ per item',
       'TIER 2 — High-ROI fixes with cost-to-fix vs value-lift math',
       'TIER 3 — Disclose & Skip items formatted as exact-dollar credit quote',
-      '5–7 day fix guarantee on Tier 1 items (when SCC handles the work)',
+      '5–7 day fix guarantee on Tier 1 items (when Southern Cities handles the work)',
       'Paste-ready Repair Request / Credit Counter language',
       'Statewide NC coverage',
       '3–5 business day standard · 24–48 hour rush',
@@ -1423,14 +1423,14 @@ const LANDING_PAGES: LandingPageConfig[] = [
     finalHeadline: 'The inspection report that closes deals instead of opening fights.',
     finalSubhead: 'One on-site inspection + one GC-grade 3-tier estimate (Mandatory / High-ROI / Disclose & Skip) with a 5–7 day Mandatory-fix speed guarantee. $899 standard or $1,199 rush. Statewide NC.',
     faqs: [
-      { q: 'What\'s the 3-tier estimate format?', a: 'TIER 1 — MANDATORY: code violations and loan-killer items the buyer\'s inspector will flag. We give real dollar costs per item and commit to a 5–7 day completion window if you hire SCC for the work. TIER 2 — HIGH-ROI: low-cost fixes with positive value-lift math (cost-to-fix vs value-lift). We only recommend the math-positive ones. TIER 3 — DISCLOSE & SKIP: major items too expensive to fix pre-listing, formatted as an exact-dollar credit quote on SCC letterhead so the seller can offer the buyer a defensible credit instead of a negotiation guess.' },
-      { q: 'How does the 5–7 day Mandatory-fix guarantee work?', a: 'When the seller (or buyer post-close) hires SCC to handle the Tier 1 / Mandatory items, we commit to a 5–7 business day completion window from authorization. This is built so the listing date or closing date isn\'t at risk. Specialty items requiring engineering or permits may extend the window — we flag those upfront on intake.' },
+      { q: 'What\'s the 3-tier estimate format?', a: 'TIER 1 — MANDATORY: code violations and loan-killer items the buyer\'s inspector will flag. We give real dollar costs per item and commit to a 5–7 day completion window if you hire Southern Cities for the work. TIER 2 — HIGH-ROI: low-cost fixes with positive value-lift math (cost-to-fix vs value-lift). We only recommend the math-positive ones. TIER 3 — DISCLOSE & SKIP: major items too expensive to fix pre-listing, formatted as an exact-dollar credit quote on Southern Cities letterhead so the seller can offer the buyer a defensible credit instead of a negotiation guess.' },
+      { q: 'How does the 5–7 day Mandatory-fix guarantee work?', a: 'When the seller (or buyer post-close) hires Southern Cities to handle the Tier 1 / Mandatory items, we commit to a 5–7 business day completion window from authorization. This is built so the listing date or closing date isn\'t at risk. Specialty items requiring engineering or permits may extend the window — we flag those upfront on intake.' },
       { q: 'How is this different from a standard home inspection?', a: 'A standard home inspection identifies issues but legally avoids cost ranges and won\'t prioritize for you. This product gives you the inspection PLUS the 3-tier estimate that turns it into an actionable negotiation document.' },
       { q: 'Who actually performs the inspection?', a: 'A licensed inspector visits the property on our behalf. The inspection report is generated in standard format. Then a licensed NC GC adds the 3-tier analysis layer that inspectors legally cannot provide. The deliverable is a single document with both.' },
       { q: 'How fast is the rush option?', a: 'Standard is 3–5 business days from booking to delivered report. Rush is 24–48 hours from on-site visit. Priority scheduling included with rush.' },
       { q: 'Statewide NC means anywhere?', a: 'Yes — anywhere in North Carolina. Some rural areas may add 1–2 days to scheduling. We\'ll confirm timing on intake.' },
-      { q: 'Why is this $899 when a home inspection alone is $400–700?', a: 'You\'re getting the inspection PLUS the 3-tier estimate format PLUS the Mandatory-fix speed guarantee. Real numbers + actionable structure + the option to have SCC complete the work in 5–7 days. The alternative is the inspection ($500) PLUS a contractor estimate ($500–1,000) PLUS doing the synthesis yourself — that\'s the labor you\'re paying us to do once at a fixed price.' },
-      { q: 'Does this replace Repair Credit Letter or Repair Scope Letter?', a: 'No. This is the inspection + budget product. The $349 letters are GC-signed formal documents on SCC letterhead for high-stakes negotiation moments where authority weight matters. Many agents buy this + a letter when they need both the analysis AND a separate formal signed document.' },
+      { q: 'Why is this $899 when a home inspection alone is $400–700?', a: 'You\'re getting the inspection PLUS the 3-tier estimate format PLUS the Mandatory-fix speed guarantee. Real numbers + actionable structure + the option to have Southern Cities complete the work in 5–7 days. The alternative is the inspection ($500) PLUS a contractor estimate ($500–1,000) PLUS doing the synthesis yourself — that\'s the labor you\'re paying us to do once at a fixed price.' },
+      { q: 'Does this replace Repair Credit Letter or Repair Scope Letter?', a: 'No. This is the inspection + budget product. The $349 letters are GC-signed formal documents on Southern Cities letterhead for high-stakes negotiation moments where authority weight matters. Many agents buy this + a letter when they need both the analysis AND a separate formal signed document.' },
       { q: 'What if the inspection surfaces specialty concerns (mold, sewer, septic)?', a: 'We flag them in the report and recommend the specialty inspection. We can coordinate the specialty inspector at additional cost, or your client can hire one separately.' },
       { q: 'What do you need from me to book?', a: 'Property address, target inspection date(s), who you\'re representing (buyer or listing), and your client\'s name. We schedule from there.' },
     ],
@@ -1500,7 +1500,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ],
     testimonials: [
       { quote: 'Saved my seller $11K on the counter because we had real numbers to push back with. Total bargain.', name: 'Madison M.', role: 'Listing Agent' },
-      { quote: 'Buyer wanted absurd credits. The SCC analysis showed exactly which were fair and which were inflated. We countered with confidence.', name: 'Jethro A.', role: 'Listing Agent' },
+      { quote: 'Buyer wanted absurd credits. The Southern Cities analysis showed exactly which were fair and which were inflated. We countered with confidence.', name: 'Jethro A.', role: 'Listing Agent' },
       { quote: 'I forwarded the talking points directly to the other agent. The conversation got 100x more grounded in reality.', name: 'Trisha W.', role: 'Realtor' },
     ],
     notIncluded: [
@@ -1547,7 +1547,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: '$20K hidden equity loss',
     heroHeadlinePost: ' before the listing goes live.',
     heroSubheadline:
-      'A licensed NC general contractor audits the property pre-listing — fix-vs-skip-vs-disclose tables on every condition item, condition-adjusted price band, and repair-spend ROI math. $299 audit fee is fully credited back if SCC handles any of the repair work afterward. Filter cost for serious sellers, refunded for committed ones.',
+      'A licensed NC general contractor audits the property pre-listing — fix-vs-skip-vs-disclose tables on every condition item, condition-adjusted price band, and repair-spend ROI math. $299 audit fee is fully credited back if Southern Cities handles any of the repair work afterward. Filter cost for serious sellers, refunded for committed ones.',
     problemHeadline: 'How hidden condition issues drop home values during escrow',
     problemIntro: 'Most sellers find out about expensive condition issues AT INSPECTION — when the buyer demands a $20K credit and there\'s no time to fix it. By then the leverage is gone.',
     problemCards: [
@@ -1561,7 +1561,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'Fix-vs-skip-vs-disclose tables per item', detail: 'Every visible condition issue rated: fix it now (and why), skip it (and why), or disclose it (with what language).' },
       { title: 'Condition-adjusted price band', detail: 'What the comps say PLUS what the construction reality says. Recommended list price reflecting both lenses.' },
       { title: 'Repair-spend ROI per item', detail: 'For each fix-it call: cost-to-fix vs value-lift. Stop the seller from spending $15K on a fix that adds $5K.' },
-      { title: 'Refundable $299 fee', detail: 'The $299 is fully credited back if SCC handles any repair work over $1,000 afterward. Filter for serious sellers, refunded for committed ones.' },
+      { title: 'Refundable $299 fee', detail: 'The $299 is fully credited back if Southern Cities handles any repair work over $1,000 afterward. Filter for serious sellers, refunded for committed ones.' },
     ],
     deliverableTitle: 'Pre-Listing Quick Audit',
     deliverableSubtitle: '123 Main St · Charlotte, NC',
@@ -1570,7 +1570,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { heading: 'Items to SKIP (negative ROI to fix)', items: ['Roof: 18 years old. Replacement $18K, value lift $10–12K. Net loss. Disclose with credit option.', 'Original windows: $15K replacement, $5–8K lift. Net loss. Disclose.', 'Cracked driveway: $4K resurface, $1K lift. Net loss. Mention in walkthrough.'] },
       { heading: 'Items to DISCLOSE (in RPDS + buyer-facing sheet)', items: ['Past water staining in basement (2019, remediated)', 'Original electrical panel (functional, dated)', 'Crawlspace moisture noted (drainage, not structural)'] },
       { heading: 'Condition-adjusted price band', items: ['Comp ceiling: $425K · Condition-adjusted recommended list: $410K · Hard floor: $390K', 'Reasoning: HVAC fixed pre-listing recovers $14K. Roof + windows priced into the comp drop.'] },
-      { heading: 'Audit fee refund', items: ['$299 audit fee is credited back against any repair work over $1,000 you have SCC handle (HVAC, etc.). Net cost to seller if they hire SCC for the repairs: $0.'] },
+      { heading: 'Audit fee refund', items: ['$299 audit fee is credited back against any repair work over $1,000 you have Southern Cities handle (HVAC, etc.). Net cost to seller if they hire Southern Cities for the repairs: $0.'] },
     ],
     processSteps: [
       { title: 'Submit the listing', detail: 'Property address, listing photos, any prior inspection if you have one, and the comp range you\'re considering.' },
@@ -1578,8 +1578,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the read in 1 business day', detail: 'Written deliverable ready to inform your CMA conversation with the seller.' },
     ],
     testimonials: [
-      { quote: 'I priced a condition-flawed home aggressively. SCC showed I was leaving $15K on the table. We adjusted up, listed, and sold at the higher number.', name: 'Madison M.', role: 'Listing Agent' },
-      { quote: 'Construction-side valuation is a different lens than market comps. Seller wanted to over-spend on pre-listing repairs. SCC showed which ones actually moved the price.', name: 'Trisha W.', role: 'Listing Agent' },
+      { quote: 'I priced a condition-flawed home aggressively. Southern Cities showed I was leaving $15K on the table. We adjusted up, listed, and sold at the higher number.', name: 'Madison M.', role: 'Listing Agent' },
+      { quote: 'Construction-side valuation is a different lens than market comps. Seller wanted to over-spend on pre-listing repairs. Southern Cities showed which ones actually moved the price.', name: 'Trisha W.', role: 'Listing Agent' },
       { quote: 'Used this to set the right price on a 1980s home that comps didn\'t adjust for properly. Sold in 9 days.', name: 'Iantha M.', role: 'Realtor' },
     ],
     notIncluded: [
@@ -1599,12 +1599,12 @@ const LANDING_PAGES: LandingPageConfig[] = [
       '1 business day turnaround',
     ],
     finalHeadline: 'Protect the equity before the listing goes live.',
-    finalSubhead: 'One licensed-GC pre-listing audit, $299 — credited back if SCC handles any of the repairs afterward. The cheapest GC read in the catalog, refunded for committed sellers.',
+    finalSubhead: 'One licensed-GC pre-listing audit, $299 — credited back if Southern Cities handles any of the repairs afterward. The cheapest GC read in the catalog, refunded for committed sellers.',
     faqs: [
-      { q: 'How does the refund actually work?', a: 'When you buy the audit, you pay $299 upfront. If SCC handles any repair work for that property over $1,000 after the audit (HVAC replacement, GFCI updates, roof patch, etc.), we credit the full $299 against that invoice. Net audit cost = $0 if you hire us for repairs.' },
+      { q: 'How does the refund actually work?', a: 'When you buy the audit, you pay $299 upfront. If Southern Cities handles any repair work for that property over $1,000 after the audit (HVAC replacement, GFCI updates, roof patch, etc.), we credit the full $299 against that invoice. Net audit cost = $0 if you hire us for repairs.' },
       { q: 'How is this different from a full appraisal?', a: 'An appraisal is a formal market-based valuation tied to comps. This is a construction-side audit — what to FIX vs SKIP vs DISCLOSE given the property\'s condition, plus a construction-adjusted price band. Use both lenses.' },
       { q: 'How is this different from the GC-Grade Property Inspection ($899)?', a: 'This is a $299 photo-based audit pre-listing. The $899 GC-Grade Property Inspection is an on-site inspection with a real inspector + full GC analysis layer. Quick Audit is the cheap entry; GC-Grade is the full-fidelity product. Quick Audit is the right pick when you want a fast GC read before committing to the bigger product.' },
-      { q: 'What if the home is in great condition?', a: 'You\'ll get that in writing — no fix items, list at comp ceiling. Confidence in a good number is part of what you\'re paying for. (And the $299 is still refundable if you hire SCC for anything else later.)' },
+      { q: 'What if the home is in great condition?', a: 'You\'ll get that in writing — no fix items, list at comp ceiling. Confidence in a good number is part of what you\'re paying for. (And the $299 is still refundable if you hire Southern Cities for anything else later.)' },
       { q: 'What do you need from me?', a: 'Property address, listing photos (interior + exterior), any prior inspection report if available, and the comp range you\'re considering.' },
       { q: 'Can the seller pay this directly?', a: 'Yes. Agents often have the seller pay it directly — preserves the agent\'s prep budget for marketing. We can also invoice the listing agent if you prefer.' },
     ],
@@ -1638,7 +1638,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     getBullets: [
       { title: 'Itemized repair costs per inspection finding', detail: 'Line-by-line dollar figures from a licensed GC — not contractor sales numbers and not random estimates.' },
       { title: 'Recommended total credit figure', detail: 'A single defensible number you can put on the table with confidence.' },
-      { title: 'Single-page GC-signed letter', detail: 'PDF on SCC letterhead, signed by a licensed NC GC, ready to forward as-is.' },
+      { title: 'Single-page GC-signed letter', detail: 'PDF on Southern Cities letterhead, signed by a licensed NC GC, ready to forward as-is.' },
       { title: 'Written rationale for each item', detail: 'So when the other side asks "why this number," there\'s already an answer in the letter.' },
     ],
     deliverableTitle: 'Repair Credit Calculation Letter',
@@ -1654,7 +1654,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the letter in 1 business day', detail: 'PDF in your inbox, ready to forward to the other agent — no rewriting needed.' },
     ],
     testimonials: [
-      { quote: 'The other agent dismissed my $18K credit ask until I sent the SCC letter. Same number, signed by a GC — they came back with $16K the next day.', name: 'Madison M.', role: 'Realtor' },
+      { quote: 'The other agent dismissed my $18K credit ask until I sent the Southern Cities letter. Same number, signed by a GC — they came back with $16K the next day.', name: 'Madison M.', role: 'Realtor' },
       { quote: 'Saved my client $9K vs the seller\'s original offer. The letter changed the dynamic entirely.', name: 'Jethro A.', role: 'Realtor' },
       { quote: 'When your number is GC-signed, the conversation changes. Worth every penny.', name: 'Trisha W.', role: 'Listing Agent' },
     ],
@@ -1670,7 +1670,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'Itemized repair costs per inspection finding',
       'Recommended total credit figure with range',
       'Written rationale per item',
-      'PDF letter on SCC letterhead, ready to forward',
+      'PDF letter on Southern Cities letterhead, ready to forward',
       'Email follow-up if questions come back',
       'Money-back if we cannot give you a defensible figure',
     ],
@@ -1726,7 +1726,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     processSteps: [
       { title: 'Send the inspection report', detail: 'Email the PDF + property address. Highlight which items you want included in the repair request.' },
       { title: 'We write the scope', detail: 'A licensed NC GC writes the item-by-item scope with standards, costs, and permit requirements.' },
-      { title: 'You get the letter in 1 business day', detail: 'PDF on SCC letterhead, signed, ready to send with your repair request.' },
+      { title: 'You get the letter in 1 business day', detail: 'PDF on Southern Cities letterhead, signed, ready to send with your repair request.' },
     ],
     testimonials: [
       { quote: 'The seller agreed to every item in the letter without negotiation. They knew arguing meant hiring their own GC.', name: 'Madison M.', role: 'Buyer\'s Agent' },
@@ -1747,7 +1747,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'Definition of "fixed correctly" per item',
       'Fair-market dollar figure per item',
       'Trade and permit requirements per item',
-      'PDF letter on SCC letterhead, ready to send',
+      'PDF letter on Southern Cities letterhead, ready to send',
       'Money-back if we cannot give you a defensible scope',
     ],
     finalHeadline: 'Send a repair request with teeth.',
@@ -1807,8 +1807,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'We run the prep + hand you the listing', detail: 'You stay focused on selling. We run the trades, supervise the work, and hit the photo-ready date.' },
     ],
     testimonials: [
-      { quote: 'I was burning 10 hours a week managing contractors for a listing. SCC took the entire thing over and the listing went live a week early.', name: 'Madison M.', role: 'Listing Agent' },
-      { quote: 'The seller stopped calling me. They called SCC. That alone was worth the fee.', name: 'Jethro A.', role: 'Realtor' },
+      { quote: 'I was burning 10 hours a week managing contractors for a listing. Southern Cities took the entire thing over and the listing went live a week early.', name: 'Madison M.', role: 'Listing Agent' },
+      { quote: 'The seller stopped calling me. They called Southern Cities. That alone was worth the fee.', name: 'Jethro A.', role: 'Realtor' },
       { quote: 'Listing prep used to be the worst part of every deal. Now it\'s the part I outsource.', name: 'Trisha W.', role: 'Listing Agent' },
     ],
     notIncluded: [
@@ -1831,7 +1831,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     finalSubhead: 'Hand listing prep to a licensed GC. Get back to selling. Flat baseline + cost-plus on the actual work, scoped on the intake call.',
     faqs: [
       { q: 'How does pricing work exactly?', a: 'Flat $1,499 baseline covers scoping, trade sourcing, supervision, and quality control. Actual work is billed cost-plus 12–15% on materials and labor. Alternative pricing as 12% of total repair budget available for larger scopes.' },
-      { q: 'What if my seller wants to pick their own contractors?', a: 'That defeats the point. SCC manages our own vetted trades — that\'s how quality control works. If the seller has a specific trade, we evaluate them and add them only if they meet our standards.' },
+      { q: 'What if my seller wants to pick their own contractors?', a: 'That defeats the point. Southern Cities manages our own vetted trades — that\'s how quality control works. If the seller has a specific trade, we evaluate them and add them only if they meet our standards.' },
       { q: 'How fast can you start?', a: 'Typical kickoff is within 5 business days of scoping call. Full prep cycles run 1–3 weeks depending on scope.' },
       { q: 'What\'s the typical scope range?', a: 'Most listing prep is paint + floors + punch list + light cosmetic ($8K–25K of actual work). For bigger scopes, see Pre-Listing Renovation.' },
       { q: 'Do you handle the payment to trades?', a: 'No — the seller pays trades directly. We coordinate billing and timing but the seller is the financial party on contractor invoices. This keeps the cost-plus structure clean and avoids construction-payment liability.' },
@@ -1882,8 +1882,8 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the letter in 1–2 days', detail: 'PDF in your inbox, ready for the lender to forward to the appraiser.' },
     ],
     testimonials: [
-      { quote: 'Appraiser flagged the roof as "needs replacement." SCC\'s response showed 12-year-old shingles with 15-year warranty. Concern cleared in 48 hours. Saved the deal.', name: 'Madison M.', role: 'Listing Agent' },
-      { quote: 'FHA peeling-paint flag. Seller refused to paint. SCC scoped the work + offered verification. Lender accepted. Closed on time.', name: 'Jethro A.', role: 'Realtor' },
+      { quote: 'Appraiser flagged the roof as "needs replacement." Southern Cities\'s response showed 12-year-old shingles with 15-year warranty. Concern cleared in 48 hours. Saved the deal.', name: 'Madison M.', role: 'Listing Agent' },
+      { quote: 'FHA peeling-paint flag. Seller refused to paint. Southern Cities scoped the work + offered verification. Lender accepted. Closed on time.', name: 'Jethro A.', role: 'Realtor' },
       { quote: 'Cheaper and faster than a structural engineer report. Same authority for non-structural concerns.', name: 'Trisha W.', role: 'Listing Agent' },
     ],
     notIncluded: [
@@ -1898,7 +1898,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'Point-by-point response per concern',
       'Photo + code documentation',
       'Site visit included if needed',
-      'PDF letter on SCC letterhead',
+      'PDF letter on Southern Cities letterhead',
       'Email follow-up if lender or appraiser pushes back',
       'Money-back if we cannot give you a defensible response',
     ],
@@ -1957,9 +1957,9 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the report within 24 hours of visit', detail: 'PDF report with photo documentation, ready before your final walkthrough.' },
     ],
     testimonials: [
-      { quote: 'Found out at SCC\'s visit that the "replaced HVAC" was actually a used unit. Walked away from the deal. Saved my client $12K post-close.', name: 'Madison M.', role: 'Buyer\'s Agent' },
-      { quote: 'My listing client thought everything was done. SCC caught two missed items the seller didn\'t even realize were on the list. We held escrow.', name: 'Jethro A.', role: 'Listing Agent' },
-      { quote: 'Before SCC verification, my buyers were inheriting whatever showed up at walkthrough. Now they get what they paid for.', name: 'Trisha W.', role: 'Buyer\'s Agent' },
+      { quote: 'Found out at Southern Cities\'s visit that the "replaced HVAC" was actually a used unit. Walked away from the deal. Saved my client $12K post-close.', name: 'Madison M.', role: 'Buyer\'s Agent' },
+      { quote: 'My listing client thought everything was done. Southern Cities caught two missed items the seller didn\'t even realize were on the list. We held escrow.', name: 'Jethro A.', role: 'Listing Agent' },
+      { quote: 'Before Southern Cities verification, my buyers were inheriting whatever showed up at walkthrough. Now they get what they paid for.', name: 'Trisha W.', role: 'Buyer\'s Agent' },
     ],
     notIncluded: [
       'Not the repair work itself',
@@ -1973,7 +1973,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'Written confirmation or punch-list',
       'Photo documentation per item',
       'Recommended path forward if incomplete',
-      'PDF report on SCC letterhead',
+      'PDF report on Southern Cities letterhead',
       'Works for either listing or buyer side',
       'Money-back if we cannot give you a clear verification call',
     ],
@@ -2033,7 +2033,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the memo in 1 business day', detail: 'PDF in your inbox, ready to share with your seller for the decision conversation.' },
     ],
     testimonials: [
-      { quote: 'My seller wanted the highest offer. SCC showed it was the most likely to crater. We took the second offer instead — closed on time at the original number.', name: 'Madison M.', role: 'Listing Agent' },
+      { quote: 'My seller wanted the highest offer. Southern Cities showed it was the most likely to crater. We took the second offer instead — closed on time at the original number.', name: 'Madison M.', role: 'Listing Agent' },
       { quote: 'Saved me from a deal I would have lost two months in. The $199 was the cheapest insurance I\'ve ever bought.', name: 'Jethro A.', role: 'Realtor' },
       { quote: 'The risk-ranking framework alone is worth the fee. Now I think about offers differently.', name: 'Trisha W.', role: 'Listing Agent' },
     ],
@@ -2108,7 +2108,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the PDF in 2 days', detail: 'Hand it to your buyer at close as a closing gift. They thank you for the next 12 months.' },
     ],
     testimonials: [
-      { quote: 'Best closing gift I\'ve ever given. My buyer texts me every month with "look what I just got done from the SCC plan."', name: 'Madison M.', role: 'Buyer\'s Agent' },
+      { quote: 'Best closing gift I\'ve ever given. My buyer texts me every month with "look what I just got done from the Southern Cities plan."', name: 'Madison M.', role: 'Buyer\'s Agent' },
       { quote: 'Three of my past buyers became referrals because of this product. The plan keeps me top-of-mind for 12 months.', name: 'Jethro A.', role: 'Realtor' },
       { quote: 'Worth $299 just for the buyer relationship value, even ignoring the construction guidance.', name: 'Trisha W.', role: 'Buyer\'s Agent' },
     ],
@@ -2135,7 +2135,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'Can you tailor it to a specific buyer profile?', a: 'Yes — tell us if they\'re DIY-comfortable, time-poor, budget-constrained, etc. We adjust the recommendations and trade-fit accordingly.' },
       { q: 'Does this also work for sellers (post-sale handoff)?', a: 'It\'s really designed for the buying side, but yes — works for any new owner. Some agents give it to listing clients moving into their next property too.' },
       { q: 'What if the buyer doesn\'t have an inspection report?', a: 'Then we work from the listing photos + any disclosures. Quality of the plan drops without an inspection, so we recommend running an inspection first if possible.' },
-      { q: 'Will SCC do the actual repair work later?', a: 'Sometimes — we manage homeowner projects too, but the plan doesn\'t lock the buyer into using us. We\'re happy to hand them off to other GCs or trades if needed.' },
+      { q: 'Will Southern Cities do the actual repair work later?', a: 'Sometimes — we manage homeowner projects too, but the plan doesn\'t lock the buyer into using us. We\'re happy to hand them off to other GCs or trades if needed.' },
     ],
     comparisonRows: COMPARISON_ROWS_YEAR_ONE_PLAN,
   },
@@ -2183,7 +2183,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'You get the PDF in 1 business day', detail: 'Brand-neutral PDF in your inbox, ready to attach to the MLS or include in buyer-agent packets.' },
     ],
     testimonials: [
-      { quote: 'I attach the SCC Confidence Sheet to every listing now. Inspection requests come back smaller because buyers already know what they\'re getting.', name: 'Madison M.', role: 'Listing Agent' },
+      { quote: 'I attach the Southern Cities Confidence Sheet to every listing now. Inspection requests come back smaller because buyers already know what they\'re getting.', name: 'Madison M.', role: 'Listing Agent' },
       { quote: 'Best $99 in my marketing budget. Sets the construction conversation upfront.', name: 'Jethro A.', role: 'Realtor' },
       { quote: 'Showings convert better when there\'s a real construction story in the listing packet.', name: 'Trisha W.', role: 'Listing Agent' },
     ],
@@ -2259,13 +2259,13 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { heading: 'À la carte total', items: ['$899 + $399 + $99 + $249 + $299 + $349 + $249 = $2,543', 'Package price: $2,299 — saves ~$245'] },
     ],
     processSteps: [
-      { title: 'Purchase the package upfront', detail: 'One purchase, one price. SCC owns the construction-side support across the listing.' },
+      { title: 'Purchase the package upfront', detail: 'One purchase, one price. Southern Cities owns the construction-side support across the listing.' },
       { title: 'Each component fires as the deal progresses', detail: 'Pre-listing first, then inspection-stage, then pre-close. You don\'t track or remember to order each one.' },
-      { title: 'Single point of contact throughout', detail: 'One contact at SCC manages the package across the listing lifecycle.' },
+      { title: 'Single point of contact throughout', detail: 'One contact at Southern Cities manages the package across the listing lifecycle.' },
     ],
     testimonials: [
       { quote: 'Switched to the Listing Package on every listing. Saves me from forgetting steps and saves my sellers from à la carte sticker shock.', name: 'Madison M.', role: 'Listing Agent' },
-      { quote: 'Same products I was buying à la carte, $250 cheaper, and someone at SCC actually owns the timeline instead of me chasing it.', name: 'Jethro A.', role: 'Realtor' },
+      { quote: 'Same products I was buying à la carte, $250 cheaper, and someone at Southern Cities actually owns the timeline instead of me chasing it.', name: 'Jethro A.', role: 'Realtor' },
       { quote: 'My sellers feel like they got a real construction team. Mostly because they did.', name: 'Trisha W.', role: 'Listing Agent' },
     ],
     notIncluded: [
@@ -2341,9 +2341,9 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { heading: 'À la carte total', items: ['$899 + $299 + $299 + $349 + $249 + $299 = $2,394', 'Package price: $1,999 — saves ~$395'] },
     ],
     processSteps: [
-      { title: 'Purchase the package upfront', detail: 'One purchase, one price. SCC owns the construction-side support across the deal.' },
+      { title: 'Purchase the package upfront', detail: 'One purchase, one price. Southern Cities owns the construction-side support across the deal.' },
       { title: 'Each component fires as the deal progresses', detail: 'Pre-offer first, then inspection, then pre-close, then close. You don\'t track each one.' },
-      { title: 'Single point of contact throughout', detail: 'One contact at SCC manages the package across the deal lifecycle.' },
+      { title: 'Single point of contact throughout', detail: 'One contact at Southern Cities manages the package across the deal lifecycle.' },
     ],
     testimonials: [
       { quote: 'Every buyer client gets the package now. The Year-1 Plan alone keeps me top-of-mind for 12 months post-close.', name: 'Madison M.', role: 'Buyer\'s Agent' },
@@ -3021,15 +3021,8 @@ export default function LandingPage({ params }: { params: Params }) {
           </section>
         ) : null}
 
-        {/* INLINE LEAD FORM — two variants:
-            - Non-cart LP (no productKey): dark, prominent form replacing the
-              buy path. Lead is the primary conversion goal. (Project Setup,
-              Execution Support.)
-            - Cart LP (productKey set): light, secondary form for visitors who
-              read the page but aren't ready to click Buy. Captures lower-
-              intent leads without diluting the primary CTA. Same GHL tag
-              (inquiry-<slug>) so one workflow handles both flows.
-        */}
+        {/* Inline contact form. Prominent on info pages; secondary on pages
+            that lead with a purchase option. */}
         {!config.productKey ? (
           <section className="bg-stone-50">
             <div className="mx-auto max-w-4xl px-6 py-16 sm:px-8 sm:py-20">
@@ -3131,10 +3124,7 @@ export default function LandingPage({ params }: { params: Params }) {
           </p>
         </footer>
 
-        {/* LP isolation: no floating cart pill. Each landing page is a focused
-            single-product funnel; the customer's broader-site cart is intentionally
-            invisible here and "Buy Now" routes through a direct-lp checkout that
-            doesn't touch the main cart cookie. */}
+        {/* No floating cart pill on landing pages — checkout routes directly. */}
 
         {/* STICKY MOBILE CTA */}
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white p-3 shadow-[0_-10px_30px_-15px_rgba(8,17,29,0.3)] lg:hidden">

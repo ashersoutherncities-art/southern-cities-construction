@@ -231,7 +231,7 @@ const supportTiers = [
     price: '$2,499/mo',
     includes: [
       'Unlimited reviews + pricing direction',
-      'Dedicated SCC contact',
+      'Dedicated Southern Cities contact',
       '4-hour urgent SLA',
       'Quarterly business review',
       'White-label client briefings',

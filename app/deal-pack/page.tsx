@@ -106,13 +106,13 @@ const PRO_TIER: Tier = {
   price: '$897/mo',
   priceNote: 'For wholesalers doing 2+ deals/mo',
   promise:
-    'Recurring subscription for active NC wholesalers. Includes 2 Bid-Ready credits per month + 25% off Build-Ready upgrades + priority 5-day turnaround + "GC-Verified by SCC #107724" co-marketing badge for every assignment listing. Cancel anytime.',
+    'Recurring subscription for active NC wholesalers. Includes 2 Bid-Ready credits per month + 25% off Build-Ready upgrades + priority 5-day turnaround + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
   includes: [
     '2 Bid-Ready Deal Pack credits per month (worth $1,198)',
     '25% off any Build-Ready Deal Pack upgrade ($499 savings each)',
     'Priority 5-day turnaround on all requests',
-    '"GC-Verified by SCC #107724" co-marketing badge',
-    'Member-rate routing for your buyers (CO3/CO4 priority)',
+    '"GC-Verified by Southern Cities #107724" co-marketing badge',
+    'Member-rate priority routing for your buyers into Active Oversight + GC-Supported Build',
     'Cancel anytime — no minimum term',
   ],
   cta: 'Subscribe to Pro · $897/mo →',
@@ -192,7 +192,7 @@ export default function DealPackPage() {
                 {/* Behind: secondary PDF tilted */}
                 <div className="absolute -right-12 top-6 w-[200px] rotate-[8deg] opacity-70 blur-[1px] transition-transform hover:rotate-[6deg]">
                   <Image
-                    src="/product-mockups/lm2-10k-to-104k-cover-01.jpg"
+                    src="/product-mockups/wholesale-to-flip-9-month-cover.jpg"
                     alt="Wholesaler-to-Flipper case study PDF"
                     width={200}
                     height={258}
@@ -202,7 +202,7 @@ export default function DealPackPage() {
                 {/* Front: main PDF */}
                 <div className="relative w-[260px] -rotate-[4deg] transition-transform hover:-rotate-[2deg]">
                   <Image
-                    src="/product-mockups/lm1-25-40k-cover-01.jpg"
+                    src="/product-mockups/consistent-assignment-wholesaler-cover.jpg"
                     alt="The $25-40K Assignment Standard PDF cover"
                     width={260}
                     height={335}
@@ -488,7 +488,7 @@ export default function DealPackPage() {
               <div className="shrink-0 self-center sm:self-start">
                 <div className="relative w-[120px] mx-auto sm:mx-0">
                   <Image
-                    src="/product-mockups/lm1-25-40k-cover-01.jpg"
+                    src="/product-mockups/consistent-assignment-wholesaler-cover.jpg"
                     alt="The $25-40K Assignment Standard PDF cover"
                     width={120}
                     height={155}
@@ -516,7 +516,7 @@ export default function DealPackPage() {
               <div className="shrink-0 self-center sm:self-start">
                 <div className="relative w-[120px] mx-auto sm:mx-0">
                   <Image
-                    src="/product-mockups/lm2-10k-to-104k-cover-01.jpg"
+                    src="/product-mockups/wholesale-to-flip-9-month-cover.jpg"
                     alt="From $10K to $104K in 9 Months PDF cover"
                     width={120}
                     height={155}

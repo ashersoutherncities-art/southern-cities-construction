@@ -457,10 +457,10 @@ export default function Home() {
                 <div className="absolute inset-0 rounded-[40px] bg-[#fa8c41]/15 blur-[70px]" aria-hidden="true" />
                 <div className="relative">
                   <div className="absolute -right-10 top-6 w-[180px] rotate-[7deg] opacity-80">
-                    <Image src="/product-mockups/lm2-10k-to-104k-cover-01.jpg" alt="Wholesaler-to-flipper case study" width={180} height={233} className="rounded-[10px] border border-stone-300 shadow-[0_24px_50px_-16px_rgba(8,17,29,0.45)]" />
+                    <Image src="/product-mockups/wholesale-to-flip-9-month-cover.jpg" alt="Wholesaler-to-flipper case study" width={180} height={233} className="rounded-[10px] border border-stone-300 shadow-[0_24px_50px_-16px_rgba(8,17,29,0.45)]" />
                   </div>
                   <div className="relative w-[240px] -rotate-[4deg]">
-                    <Image src="/product-mockups/lm1-25-40k-cover-01.jpg" alt="The $25–40K Assignment Standard" width={240} height={310} className="rounded-[12px] border border-stone-300 shadow-[0_30px_60px_-18px_rgba(8,17,29,0.55)] ring-1 ring-[#fa8c41]/30" />
+                    <Image src="/product-mockups/consistent-assignment-wholesaler-cover.jpg" alt="The $25–40K Assignment Standard" width={240} height={310} className="rounded-[12px] border border-stone-300 shadow-[0_30px_60px_-18px_rgba(8,17,29,0.55)] ring-1 ring-[#fa8c41]/30" />
                     <div className="absolute -top-3 -right-3 rounded-full bg-[#fa8c41] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_-4px_rgba(250,140,65,0.6)]">Free playbooks</div>
                   </div>
                 </div>

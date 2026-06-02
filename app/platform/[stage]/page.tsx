@@ -159,7 +159,7 @@ export default function PlatformStagePage({ params }: { params: Params }) {
                   Refund if we cannot perform
                 </p>
                 <p className="mt-1 text-[12px] leading-[1.45] text-white/65">
-                  SCC&apos;s call after intake. Once we accept, we deliver.
+                  Southern Cities&apos; call after intake. Once we accept, we deliver.
                 </p>
               </div>
               <div className="rounded-2xl border border-orange/30 bg-orange/[0.06] px-5 py-4">
@@ -228,7 +228,7 @@ export default function PlatformStagePage({ params }: { params: Params }) {
                 {stage.refundMechanic}
               </p>
               <p className="mt-4 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-orange/90">
-                The refund trigger is SCC&apos;s call, not the buyer&apos;s — you are paying for our commitment to deliver, not gambling on outcomes.
+                The refund trigger is Southern Cities&apos; call, not the buyer&apos;s — you are paying for our commitment to deliver, not gambling on outcomes.
               </p>
             </div>
           ) : null}
@@ -442,7 +442,7 @@ export default function PlatformStagePage({ params }: { params: Params }) {
               </a>
             ) : (
               <p className="text-[14px] text-white/65">
-                {stage.shortCode} tool is being built. <Link href="/platform" className="text-orange hover:underline">Back to platform overview</Link>.
+                The {stage.marketingShortName} is being finalized. <Link href="/platform" className="text-orange hover:underline">Back to platform overview</Link>.
               </p>
             )}
           </div>

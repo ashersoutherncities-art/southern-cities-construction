@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import LeadMagnetForm from '@/components/LeadMagnetForm';
@@ -35,7 +36,7 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
       'Anonymized 3-page Bid-Ready Deal Pack excerpt (real $32K assignment, line-item scope, risk callouts)',
       '5-Question Rehab Validation Framework — run it on any deal in 15 minutes',
       'The 4 things you can\'t do alone — sub quotes, plans, permit sweep, license stamp',
-      'Four CTA doors: free SF ballpark, Bid-Ready, Build-Ready, Pro subscription',
+      'Four ways to start: free SF ballpark, Bid-Ready, Build-Ready, or the Pro subscription',
     ],
     bestFor:
       'NC wholesalers averaging $5K–$20K assignment fees who want to break the $10K ceiling by attracting real end-investors (not other wholesalers) to their assignments.',
@@ -53,21 +54,21 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     heroHeadlineHighlight: '$10K assignments to $104K flips',
     heroHeadlinePost: ' in 9 months — without learning construction.',
     heroSubheadline:
-      'Real 9-month case study with full disclosed P&L. He didn\'t pick up a hammer. He didn\'t learn construction. He underwrote the deal, approved milestones, signed the checks — SCC ran the build using CO1 Execution Review + CO3 Active Oversight. Total Marcus hours across 9 months: ~20. Net profit on the flip: $104,761. Plus the 5-rule framework for which deals to keep vs. assign, and the honest math on capital, credit, and risk.',
+      'Real 9-month case study with full disclosed P&L. He didn\'t pick up a hammer. He didn\'t learn construction. He underwrote the deal, approved milestones, signed the checks — Southern Cities ran the build using the Execution Review + Active Oversight services. Total hours across 9 months: ~20. Net profit on the flip: $104,761. Plus the 5-rule framework for which deals to keep vs. assign, and the honest math on capital, credit, and risk.',
     insideBullets: [
       'The wholesaler ceiling — why even $40K assignments still cap your business',
       'Marcus\'s 9-month transformation timeline (Discovery → Decision → Execution → Sale)',
       'Full disclosed P&L on the $104K flip — sale price, financing, rehab, fees, net',
       'The honest math — capital required ($25K–$60K), credit profile (650+), time commitment (~20 hrs)',
-      'How SCC runs the execution side — CO1 + CO3 + CO4 explained, license-level risk allocation',
-      '5-rule decision framework for which deals to keep vs. assign (spread × 3, CO1 clean, capital ready, etc.)',
-      'Three CTA doors: $499 CO1 Execution Review, Build Desk membership, 30-min founder call',
+      'How Southern Cities runs the execution side — the Execution Review, Active Oversight, and GC-Supported Build explained, with license-level risk allocation',
+      '5-rule decision framework for which deals to keep vs. assign (spread × 3, a clean Execution Review, capital ready, etc.)',
+      'Three ways to work with us: the $499 Execution Review, a Build Desk membership, or a 30-minute founder call',
     ],
     bestFor:
       'NC wholesalers averaging $25K+ assignment fees who feel they\'ve outgrown wholesaling and want to evolve into flippers without taking on the construction risk themselves.',
     credibilityLines: [
       'I\'m Darius T. Walton — licensed NC General Contractor #107724 — and I built this entire platform because I tried to do exactly what Marcus did, 8 years ago, without a GC license or a sub network. I lost over $100K before I figured out the actual playbook.',
-      'CO1 + CO3 are the products I wish I\'d had when I was making those mistakes. They\'re the reason a wholesaler-to-flipper conversion now takes 9 months with SCC instead of 3 years on your own.',
+      'The Execution Review and Active Oversight are the products I wish I\'d had when I was making those mistakes. They\'re the reason a wholesaler-to-flipper transition now takes 9 months with Southern Cities instead of 3 years on your own.',
       'Most GCs won\'t co-pilot a wholesaler\'s first flip. We will. That\'s the wedge — and the reason this 9-month path is reproducible across NC.',
     ],
     submitLabel: 'Get the $104K Case Study — Free',
@@ -192,29 +193,42 @@ export default function LeadMagnetLandingPage({ params }: { params: Params }) {
   const resource = getResourceBySlug(config.resourceSlug);
   if (!resource || !resource.downloadUrl) notFound();
 
+  const coverImage = `/product-mockups/${config.resourceSlug}-cover.jpg`;
+  const pageCount = resource.pages ?? 0;
+
   return (
     <div className="min-h-screen bg-[#08111d] text-white">
-      {/* Minimal nav — single SCC wordmark, no nav links (focused funnel page) */}
-      <header className="border-b border-white/8">
-        <div className="container-pro flex items-center justify-between py-5">
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="text-[15px] font-black tracking-tight text-white">
-              SOUTHERN CITIES <span className="text-orange">CONSTRUCTION</span>
-            </span>
+      {/* Focused header — brand logo + license, no nav links */}
+      <header className="border-b border-white/8 bg-[#08111d]/80 backdrop-blur">
+        <div className="container-pro flex items-center justify-between py-4">
+          <Link href="/" className="flex items-center" aria-label="Southern Cities Construction">
+            <Image src="/sc-construction-logo-reversed.png" alt="Southern Cities Construction" width={280} height={109} className="h-9 w-auto sm:h-11" priority />
           </Link>
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
-            NC GC #107724
+          <span className="hidden items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white sm:inline-flex">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            Licensed NC GC · #107724
           </span>
         </div>
       </header>
 
       {/* HERO + FORM (side-by-side on desktop, stacked on mobile) */}
-      <section className="relative overflow-hidden py-14 sm:py-18 lg:py-22">
-        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-orange/[0.16] blur-[140px]" aria-hidden="true" />
-        <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-orange/[0.08] blur-[140px]" aria-hidden="true" />
+      <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+        <div className="absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full bg-orange/[0.20] blur-[150px]" aria-hidden="true" />
+        <div className="absolute -bottom-32 -left-32 w-[440px] h-[440px] rounded-full bg-orange/[0.08] blur-[140px]" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '54px 54px',
+            maskImage: 'radial-gradient(ellipse at center, black 35%, transparent 78%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 35%, transparent 78%)',
+          }}
+          aria-hidden="true"
+        />
         <div className="relative z-10 container-pro grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
-          <div>
-            <span className="inline-flex items-center rounded-full border border-orange/50 bg-orange/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-orange">
+          <div className="motion-safe:animate-[heroRise_900ms_ease-out_both]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-orange/50 bg-orange/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-orange">
+              <span className="h-1.5 w-1.5 rounded-full bg-orange motion-safe:animate-pulse" />
               For {config.audienceTag}
             </span>
             <h1 className="mt-5 text-3xl font-black leading-[1.05] tracking-[-0.035em] text-white sm:text-4xl lg:text-[3.25rem]">
@@ -226,12 +240,21 @@ export default function LeadMagnetLandingPage({ params }: { params: Params }) {
               {config.heroSubheadline}
             </p>
 
+            {/* Trust-stat row */}
+            <div className="mt-7 flex flex-wrap gap-x-7 gap-y-3 text-[12px] font-bold uppercase tracking-[0.1em] text-white/55">
+              <span><span className="text-orange">Free</span> · instant access</span>
+              {pageCount > 0 && <span><span className="text-orange">{pageCount}</span>-page PDF</span>}
+              <span><span className="text-orange">Licensed</span> NC GC #107724</span>
+            </div>
+
             <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
               <p className="text-[10px] font-black uppercase tracking-[0.22em] text-orange">What&apos;s inside</p>
               <ul className="mt-3 space-y-2.5">
                 {config.insideBullets.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-[14px] leading-relaxed text-white/85 sm:text-[15px]">
-                    <span className="mt-2 flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange" aria-hidden="true" />
+                    <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-orange" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" />
+                    </svg>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -243,7 +266,27 @@ export default function LeadMagnetLandingPage({ params }: { params: Params }) {
             </p>
           </div>
 
-          <div className="lg:pt-2">
+          <div className="lg:pt-2 motion-safe:animate-[heroRise_1000ms_ease-out_0.15s_both]">
+            {/* Floating PDF preview above the form */}
+            <div className="mb-6 flex items-end justify-center gap-4 lg:justify-start">
+              <div className="relative w-[140px] shrink-0 sm:w-[160px]">
+                <div className="absolute inset-0 rounded-[12px] bg-orange/20 blur-[40px]" aria-hidden="true" />
+                <Image
+                  src={coverImage}
+                  alt={`${resource.title} cover`}
+                  width={160}
+                  height={207}
+                  className="relative w-full rounded-[10px] border border-white/15 shadow-[0_30px_60px_-18px_rgba(0,0,0,0.7)] ring-1 ring-orange/25 -rotate-[4deg]"
+                />
+                <div className="absolute -top-2.5 -right-2.5 rounded-full bg-orange px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-white shadow-[0_8px_18px_-4px_rgba(250,140,65,0.6)]">Free</div>
+              </div>
+              <div className="pb-2">
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-orange">Your free download</p>
+                <p className="mt-1 text-[15px] font-bold leading-snug text-white">{resource.title}</p>
+                {pageCount > 0 && <p className="mt-1 text-[12px] text-white/55">{pageCount}-page branded PDF · instant access</p>}
+              </div>
+            </div>
+
             <LeadMagnetForm
               resourceSlug={config.resourceSlug}
               resourceTitle={resource.title}
@@ -253,10 +296,11 @@ export default function LeadMagnetLandingPage({ params }: { params: Params }) {
             />
             <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.03] p-4">
               <p className="text-[10px] font-black uppercase tracking-[0.18em] text-orange">Why trust this</p>
-              <ul className="mt-2 space-y-1.5">
+              <ul className="mt-2.5 space-y-2">
                 {config.credibilityLines.map((line) => (
-                  <li key={line} className="text-[12px] leading-relaxed text-white/70">
-                    · {line}
+                  <li key={line} className="flex items-start gap-2 text-[12px] leading-relaxed text-white/70">
+                    <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-orange/70" aria-hidden="true" />
+                    <span>{line}</span>
                   </li>
                 ))}
               </ul>
