@@ -64,6 +64,10 @@ export type PlatformStage = {
    *  (CO1 etc.). When set, the stage page renders an AddToCartButton
    *  using this key instead of the generic anchor CTA. */
   cartProductKey?: string;
+  /** Optional branded SAMPLE deliverable — anonymized example of what the
+   *  customer receives. When set, the stage page shows a preview thumbnail
+   *  + download so prospects can see the actual output before buying. */
+  sampleDeliverable?: { pdfUrl: string; coverUrl: string; pages: number };
 
   // ============================================================
   // NO-BRAINER ARCHITECTURE FIELDS
@@ -215,6 +219,11 @@ const CO1: PlatformStage = {
   ctaLabelFinal: 'Stop My Losses — $499 (refunded if continued)',
   nextStage: 'co2',
   cartProductKey: 'platform-co1-execution-review',
+  sampleDeliverable: {
+    pdfUrl: '/resources/samples/investor-execution-review-sample.pdf',
+    coverUrl: '/product-mockups/investor-execution-review-sample-cover.jpg',
+    pages: 5,
+  },
   bucket: 'Diagnosis',
   verb: 'FIND',
   promise:
