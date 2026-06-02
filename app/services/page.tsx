@@ -49,7 +49,7 @@ const roleMeta: Record<
     href: '/services/investors',
     pain: 'The deal, rehab, or turn has too much uncertainty around budget, hiring, timeline, or execution.',
     outcome: 'You get better numbers, fewer surprises, and less delay before the deal loses momentum.',
-    topServices: ['Investor Deal & Scope Review', 'Rehab Budget Review', 'Rent-Ready Turn'],
+    topServices: ['Investor Execution Review', 'Rehab Budget Review', 'Rent-Ready Turn'],
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   realtors: {
@@ -98,7 +98,7 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/investors',
     start: 'Need a better read on the deal before spending more money',
     stops: [
-      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Deal & Scope Review', 'Rehab Budget Review'], tone: 'start' },
+      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Execution Review', 'Rehab Budget Review'], tone: 'start' },
       { label: 'Need help hiring the right contractor and setting the job up right', services: ['Contractor Fit Consultation', 'Bid Coordination & Contractor Match', 'Materials Logistics Setup'], tone: 'info' },
       { label: 'Need help with lender scope, bids, or draws', services: ['Lender Scope & Bid Package', 'Draw Review Support'], tone: 'build' },
       { label: 'Need tighter follow-through on an active job', services: ['Rent-Ready Turn', 'Construction Oversight'], tone: 'control' },

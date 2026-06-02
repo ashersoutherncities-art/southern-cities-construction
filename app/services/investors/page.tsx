@@ -46,13 +46,12 @@ const investorStages: Stage[] = [
         highlighted: true,
       },
       {
-        name: 'Investor Deal & Scope Review',
+        name: 'Investor Execution Review',
         price: '$499',
-        description: 'You bring the deal, we build the numbers. An underwriting opinion before earnest money: scope feasibility, a rough budget range with confidence levels, and the walk-away trigger — no spreadsheet input needed. Decision-grade, not bid-grade.',
-        href: '/services/investors/investor-review',
-        secondaryHref: '/services/investors/investor-review',
+        description: 'You bring the deal, we build the numbers. A pre-acquisition underwriting opinion: scope feasibility, a rough budget range with confidence levels, construction risk callouts, and the walk-away trigger — no spreadsheet input needed. Refundable if we cannot perform, and the fee credits forward if you continue. Decision-grade, not bid-grade.',
+        href: '/platform/co1',
+        secondaryHref: '/platform/co1',
         primaryCta: 'View Details',
-        itemKey: 'investor-deal-scope-review',
       },
       {
         name: 'Budget & Scope Review',

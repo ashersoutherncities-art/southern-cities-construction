@@ -259,7 +259,7 @@ const investorServices: AvatarPageData = {
   fixed: [
     {
       slug: 'investor-review',
-      title: 'Investor Deal & Scope Review',
+      title: 'Investor Execution Review',
       summary: 'A pre-acquisition underwriting opinion. You send the deal; we send back scope feasibility, a rough budget range with confidence levels, the construction risks, and the walk-away trigger.',
       pain: 'You need a construction-side opinion on this deal before earnest money goes hard — but you do not need a line-item budget yet.',
       outcome: 'Get a decision-grade read: scope feasibility, a rough budget range you can underwrite with, the risks worth knowing before close, and a clear go / renegotiate / walk recommendation.',
@@ -307,7 +307,7 @@ const investorServices: AvatarPageData = {
       outcome: 'Get a bid-grade output: corrected line items, scope gaps filled, market-rate assumptions surfaced, and a budget you can confidently use for underwriting, contractor bids, or lender draws.',
       details: ['Line-by-line budget review', 'Scope gap analysis', 'Market-rate corrections', 'Missing scope items surfaced', 'Hidden-condition reserve recommendations'],
       included: ['Line-item budget audit', 'Scope gap callouts', 'Market-rate cost corrections', 'Recommended contingency + reserves', 'Bid-grade summary number'],
-      notIncluded: ['Decision-grade range only — see Investor Deal & Scope Review (no spreadsheet input needed)', 'Budget built from scratch — see Contractor-Grade Budget', 'Guaranteed contractor bid', 'Unlimited revisions'],
+      notIncluded: ['Decision-grade range only — see Investor Execution Review (no spreadsheet input needed)', 'Budget built from scratch — see Contractor-Grade Budget', 'Guaranteed contractor bid', 'Unlimited revisions'],
       fit: 'Best when you already have a budget (yours, an investor pro-forma, or a contractor bid) and need it pressure-tested against real market costs.',
       purchaseType: 'fixed',
       primaryAction: 'buy',
@@ -770,7 +770,7 @@ const investorServices: AvatarPageData = {
       summary: 'A monthly package for investors evaluating 2–3 deals per month who need consistent licensed-GC review before committing.',
       pain: 'Deal flow is real, but one-off reviews are expensive and slow when the pipeline is steady.',
       outcome: 'Get capped-volume due-diligence review built around your deal pace.',
-      details: ['Up to 3 deal reviews per month', 'Investor Deal & Scope Review covered', 'Budget validation included', 'Permit-path read included', 'Written review per deal', 'Priority response on active deals'],
+      details: ['Up to 3 deal reviews per month', 'Investor Execution Review covered', 'Budget validation included', 'Permit-path read included', 'Written review per deal', 'Priority response on active deals'],
       included: ['Defined monthly review cap', 'Standard 2-day turnaround per deal', 'Email follow-up'],
       notIncluded: ['Unlimited reviews', 'Permit filing', 'Contractor sourcing'],
       fit: 'Best for investors with consistent deal flow who want pre-buy review built into the workflow.',

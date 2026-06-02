@@ -125,8 +125,8 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
   },
   'investor-review': {
     key: 'investor-review',
-    name: 'Investor Deal & Scope Review',
-    shortName: 'Deal & Scope Review',
+    name: 'Investor Execution Review',
+    shortName: 'Execution Review',
     price: 49900,
     priceLabel: '$499 review',
     description: 'You bring the deal — we build the numbers. A pre-acquisition underwriting opinion for a property you do not own yet: scope feasibility, a rough budget range with confidence levels, construction risk callouts, and the walk-away trigger. No spreadsheet input needed. Decision-grade, not bid-grade.',

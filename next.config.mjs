@@ -7,7 +7,14 @@ const nextConfig = {
     return [
       // Investors — legacy URL aliases to canonical services
       { source: '/services/investors/contractor-match-bid-coordination', destination: '/services/investors/bid-coordination-contractor-match', permanent: true },
-      { source: '/services/investors/full-due-diligence-package', destination: '/services/investors/investor-review', permanent: true },
+      { source: '/services/investors/full-due-diligence-package', destination: '/platform/co1', permanent: true },
+
+      // Investor Deal & Scope Review consolidated into the canonical
+      // Investor Execution Review (platform stage CO1). Retire the duplicate
+      // legacy catalog + LP surfaces by redirecting to the canonical product.
+      { source: '/services/investors/investor-review', destination: '/platform/co1', permanent: true },
+      { source: '/lp/investor-deal-review', destination: '/platform/co1', permanent: true },
+      { source: '/review/investor-review', destination: '/platform/co1', permanent: true },
       { source: '/services/investors/rehab-budget-review', destination: '/services/investors/budget-review', permanent: true },
       { source: '/services/investors/lender-ready-scope-bid-package', destination: '/services/investors/lender-scope-bid-package', permanent: true },
       { source: '/services/investors/project-timeline-schedule-preparation', destination: '/services/investors/regional-investor-setup-consultation', permanent: true },
