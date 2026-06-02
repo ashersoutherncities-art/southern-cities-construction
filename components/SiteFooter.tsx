@@ -12,9 +12,9 @@ export default function SiteFooter() {
       <div className="relative container-pro pt-16 pb-10">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={176} height={44} className="mb-5 h-11 w-auto" />
+            <Image src="/sc-construction-logo-reversed.png" alt="Southern Cities Construction" width={260} height={101} className="mb-5 h-12 w-auto" />
             <div className="space-y-3 text-sm leading-relaxed text-white/65 max-w-sm">
-              <p>Southern Cities Construction LLC</p>
+              <p>Southern Cities Construction</p>
               <p>Residential construction made easier in North Carolina. Two clear ways to work with us: focused project support on a specific piece, or full licensed contracting when one company should run the whole project.</p>
               <p>Project support: planning · permits · budgets · contractor fit · coordination · oversight · support plans</p>
               <p>Full contracting: renovations · rehabs · additions · new builds</p>
@@ -61,7 +61,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="mt-12 border-t border-white/5 pt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs tracking-wide text-white/30">© {YEAR} Southern Cities Construction LLC · A Division of Southern Cities Enterprises</p>
+          <p className="text-xs tracking-wide text-white/30">© {YEAR} Southern Cities Construction · A Division of Southern Cities Enterprises</p>
         </div>
       </div>
     </footer>
