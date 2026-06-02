@@ -34,7 +34,7 @@ const TIERS: Tier[] = [
       'Square-footage + vintage cost ranges',
       'Project category tier (Cosmetic / Light Major / Full Gut)',
       'Top 3 likely lender-killer flags by vintage',
-      'Free CTA to upgrade to Bid-Ready',
+      'A clear upgrade path to a full Bid-Ready Deal Pack',
     ],
     cta: 'Submit a deal for a free ballpark →',
     ctaHref: '/lp/rehab-budget-range-execution-risk-snapshot',
