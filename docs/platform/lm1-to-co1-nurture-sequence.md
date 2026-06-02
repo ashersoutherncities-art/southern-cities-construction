@@ -4,7 +4,7 @@
 
 **Trigger:** Contact tagged `platform-lm1-captured` (fires automatically when investor submits the Rehab Budget Snapshot form at `/lp/rehab-budget-range-execution-risk-snapshot`).
 
-**Sender:** Asher Borden / Southern Cities Construction · NC GC License #107724
+**Sender:** Darius T. Walton / Southern Cities Construction · NC GC License #107724
 
 **Sequence length:** 6 emails over ~28 days
 
@@ -34,7 +34,7 @@
 >
 > The next step — when you're ready — is a licensed-GC pressure test of those assumptions before earnest money goes hard. Reply to this email or hit the link below. I'll show you what the CO1 Investor Execution Review looks like and we'll talk about whether this specific deal needs it.
 >
-> — Asher Borden
+> — Darius T. Walton
 > Southern Cities Construction · NC GC License #107724
 
 ---
@@ -60,7 +60,7 @@
 >
 > Want to run the snapshot you got through a CO1 review? Reply and I'll send the intake form.
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -88,7 +88,7 @@
 >
 > Want to know what CO1 covers specifically? Here's the page: https://southerncitiesconstruction.com/platform/co1
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -119,7 +119,7 @@
 >
 > Run yours: https://southerncitiesconstruction.com/platform/co1
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -150,7 +150,7 @@
 >
 > https://southerncitiesconstruction.com/platform/co1
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -169,7 +169,7 @@
 >
 > If neither of those fits — I'll move you off this sequence and onto the monthly platform newsletter. Reply with anything if you want me to know what you're actually working on. I read every reply personally.
 >
-> — Asher Borden
+> — Darius T. Walton
 > Southern Cities Construction
 > NC GC License #107724
 > (980) 473-7249
@@ -180,7 +180,7 @@
 
 ```
 —
-Southern Cities Construction LLC
+Southern Cities Construction
 NC GC License #107724
 southerncitiesconstruction.com · (980) 473-7249
 [Unsubscribe] · [Privacy]

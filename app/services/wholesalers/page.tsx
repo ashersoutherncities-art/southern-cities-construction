@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import FounderStory from '@/components/FounderStory';
 
 export const metadata = {
   title: 'For Wholesalers — GC-Verified Deal Packages | Southern Cities Construction',
@@ -268,36 +269,12 @@ export default function WholesalersHubPage() {
 
       {/* TRUST */}
       <section className="bg-white py-16 sm:py-20 border-b border-stone-200">
-        <div className="container-pro max-w-3xl">
-          <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Why trust this</p>
-          <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-navy sm:text-4xl">
-            Anti-guru. License-backed. Across NC.
-          </h2>
-          <div className="mt-8 space-y-5 text-[16px] leading-[1.65] text-stone-700">
-            <p>
-              I&apos;m not a real estate guru. I&apos;m Darius T. Walton — a licensed North Carolina General Contractor (License #107724) and the founder of Southern Cities Construction.
-            </p>
-            <p>
-              I built the Deal Pack series because I lost over $100K on my own real estate investing deals when I first got into the industry 8 years ago — bad budget assumptions, the wrong sub network, missed permit timelines. The execution mistakes I made are exactly the mistakes I now help NC wholesalers and investors avoid.
-            </p>
-            <p>
-              <strong className="text-navy">Most GCs won&apos;t review a deal you don&apos;t own yet.</strong> We will. That&apos;s the wedge — and the reason verified Deal Packs unlock end-investor buyer pools that unverified wholesale contracts can&apos;t reach.
-            </p>
-          </div>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/deal-pack"
-              className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
-            >
-              See Deal Pack tiers →
-            </Link>
-            <Link
-              href="/guide/wholesale-to-flip-9-month"
-              className="inline-flex min-h-[56px] items-center justify-center rounded-full border-2 border-navy/15 bg-white px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-navy transition hover:border-orange/40 hover:text-orange"
-            >
-              Free $104K Case Study →
-            </Link>
-          </div>
+        <div className="container-pro">
+          <FounderStory
+            theme="light"
+            productName="the Deal Pack series"
+            cta={{ label: 'See Deal Pack tiers →', href: '/deal-pack' }}
+          />
         </div>
       </section>
 

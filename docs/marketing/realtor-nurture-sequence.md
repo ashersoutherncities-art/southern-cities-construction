@@ -6,7 +6,7 @@
 
 **Sequence length:** 6 emails over ~5 weeks
 
-**Sender:** Asher Borden / Southern Cities Construction (orders@southerncitiesconstruction.com or asher@... — pick one and stay consistent)
+**Sender:** Darius T. Walton / Southern Cities Construction (orders@southerncitiesconstruction.com or asher@... — pick one and stay consistent)
 
 ---
 
@@ -26,7 +26,7 @@
 >
 > No pressure. The checklist is free. If it's useful, forward it to another agent. If you ever need a real construction-side answer on a deal, you know where I am.
 >
-> — Asher
+> — Darius
 
 **Internal Notes:** This email is the ONLY one that includes the PDF link directly. After this, the PDF lives in their email forever (or in their downloads folder).
 
@@ -49,7 +49,7 @@
 >
 > Most agents who buy it once buy it again within 90 days. It's the cheapest "panic button" in the catalog.
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -74,7 +74,7 @@
 >
 > If you're already using a different inspector you trust — keep them. We add to their work, we don't replace it.
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -98,7 +98,7 @@
 >
 > [See the Credit Letter] · [See the Scope Letter]
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -128,7 +128,7 @@
 >
 > Or — if you already have an inspector you trust — see the Per-Deal Co-Pilot or just the Inspection Review. We layer onto whatever inspector you bring.
 >
-> — Asher
+> — Darius
 
 ---
 
@@ -161,7 +161,7 @@
 >
 > If you want to talk it through — reply to this email or call (980) 473-7249. I'm the guy who picks up.
 >
-> — Asher
+> — Darius
 >
 > P.S. Everything is on the realtor hub: [southerncitiesconstruction.com/services/realtors] — the flagship inspection is at the top, the bundle chart below it. The free checklists are still free if you want to share with another agent.
 
@@ -181,7 +181,7 @@ If they go 60+ days post-sequence without buying:
 
 ## Sender + brand specs
 
-- **From name:** Asher Borden — Southern Cities Construction
+- **From name:** Darius T. Walton — Southern Cities Construction
 - **From email:** asher@southerncitiesconstruction.com (or orders@... — pick one and stay consistent across all 6)
 - **Reply-to:** same as From
 - **Template:** Plain text-style for emails 2–6 (no fancy HTML); Email 1 can be more "designed" with the SCC logo + download button
@@ -192,7 +192,7 @@ NC GC licensing law requires the license number to appear on every advertising p
 
 ```
 —
-Southern Cities Construction LLC
+Southern Cities Construction
 NC GC License #107724
 southerncitiesconstruction.com · (980) 473-7249
 [Unsubscribe] · [Privacy]

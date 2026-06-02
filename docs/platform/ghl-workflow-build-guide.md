@@ -28,7 +28,7 @@ For each of the 6 emails below:
 
 1. Click **New Template**
 2. Name it exactly as shown in the "Template Name" column
-3. Set **From Name:** `Asher Borden — Southern Cities Construction`
+3. Set **From Name:** `Darius T. Walton — Southern Cities Construction`
 4. Set **From Email:** `asher@southerncitiesconstruction.com` (or `orders@…` — pick one and stay consistent)
 5. Set **Reply-To:** same as From
 6. Paste the **Subject** and **Pre-header**
@@ -41,7 +41,7 @@ For each of the 6 emails below:
 
 ```
 —
-Southern Cities Construction LLC
+Southern Cities Construction
 NC GC License #107724
 southerncitiesconstruction.com · (980) 473-7249
 {{custom_values.unsubscribe_url}} · {{custom_values.privacy_url}}

@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
       first_name: requiredString(formData, 'first_name'),
       last_name: requiredString(formData, 'last_name'),
       email: requiredString(formData, 'email'),
-      phone: requiredString(formData, 'phone'),
+      phone: optionalString(formData, 'phone') ?? '',
       company_name: optionalString(formData, 'company_name'),
       investor_type: requiredString(formData, 'investor_type') as InvestorType,
       source: 'rehab-budget-range-execution-risk-snapshot',
@@ -113,16 +113,16 @@ export async function POST(req: NextRequest) {
 
     const project = {
       property_address: requiredString(formData, 'property_address'),
-      city: requiredString(formData, 'city'),
-      state: requiredString(formData, 'state'),
-      zip: requiredString(formData, 'zip'),
+      city: optionalString(formData, 'city') ?? '',
+      state: optionalString(formData, 'state') ?? 'NC',
+      zip: optionalString(formData, 'zip') ?? '',
       property_type: requiredString(formData, 'property_type') as PropertyType,
       square_feet: intField(formData, 'square_feet'),
       year_built: numberField(formData, 'year_built'),
       stories: numberField(formData, 'stories'),
       bedrooms: numberField(formData, 'bedrooms'),
       bathrooms: numberField(formData, 'bathrooms'),
-      occupancy_status: requiredString(formData, 'occupancy_status') as OccupancyStatus,
+      occupancy_status: (optionalString(formData, 'occupancy_status') ?? 'vacant') as OccupancyStatus,
       investment_strategy: requiredString(formData, 'investment_strategy') as InvestmentStrategy,
       target_finish_level: requiredString(formData, 'target_finish_level') as TargetFinishLevel,
     };
@@ -157,18 +157,14 @@ export async function POST(req: NextRequest) {
       landscaping: boolField(formData, 'landscaping'),
       driveway: boolField(formData, 'driveway'),
       permit_required_unknown: boolField(formData, 'permit_required_unknown'),
-      notes: requiredString(formData, 'notes'),
+      notes: optionalString(formData, 'notes') ?? '',
     };
 
     if (
       !lead.first_name ||
       !lead.last_name ||
       !lead.email ||
-      !lead.phone ||
       !project.property_address ||
-      !project.city ||
-      !project.state ||
-      !project.zip ||
       !project.square_feet
     ) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });

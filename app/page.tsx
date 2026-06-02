@@ -124,13 +124,15 @@ const faqs = [
   { question: 'How do I know which service to choose?', answer: 'Start with the free project call. We can point you toward the right review, planning service, or execution support based on where the project stands.' },
 ];
 
+// Disciplined navy↔orange identity — alternating warm/cool tints instead of a
+// six-hue rainbow, so the proof grid reads as one brand system.
 const TONE_CLASSES: Record<string, string> = {
-  red: 'from-rose-500 to-red-600',
-  amber: 'from-amber-400 to-orange-500',
-  rose: 'from-pink-500 to-rose-600',
-  orange: 'from-orange-400 to-amber-500',
-  navy: 'from-indigo-500 to-[#163061]',
-  emerald: 'from-emerald-500 to-teal-600',
+  red: 'from-[#fa8c41] to-[#e87520]',
+  amber: 'from-[#1f376b] to-[#0a1530]',
+  rose: 'from-[#fa8c41] to-[#e87520]',
+  orange: 'from-[#1f376b] to-[#0a1530]',
+  navy: 'from-[#fa8c41] to-[#e87520]',
+  emerald: 'from-[#1f376b] to-[#0a1530]',
 };
 
 function StarIcon() {
@@ -251,12 +253,12 @@ export default function Home() {
 
           <div className="relative z-10 mx-auto max-w-7xl px-6 pb-24 pt-14 sm:px-8 sm:pb-28 sm:pt-16">
             <div className="max-w-4xl">
-              <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
-                <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+              <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+                <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
                 Licensed NC General Contractor · Investor-focused
               </p>
               <h1 className="mt-6 text-[3rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[4.5rem] lg:text-[5.5rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
-                Plan it right. <span className="text-[#f58220]">Run it better.</span>
+                Plan it right. <span className="text-[#fa8c41]">Run it better.</span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-[1.55] text-white/85 sm:text-2xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
                 Due diligence, planning, and execution support for residential projects.
@@ -265,19 +267,19 @@ export default function Home() {
               <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 max-w-2xl motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
                 <Link
                   href="#due-diligence"
-                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#f58220]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
                   Project Due Diligence
                 </Link>
                 <Link
                   href="#planning"
-                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#f58220]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
                   Project Planning
                 </Link>
                 <Link
                   href="#execution"
-                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#f58220]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
                   Project Execution
                 </Link>
@@ -286,13 +288,13 @@ export default function Home() {
               <div className="mt-9 flex flex-wrap items-center gap-5 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
                 <Link
                   href={CONSULTATION_CTA_HREF}
-                  className="inline-flex min-h-[60px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                  className="inline-flex min-h-[60px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
                 >
                   Book a Free Project Call <span aria-hidden="true">→</span>
                 </Link>
                 <p className="text-sm font-medium text-white/75">
                   Not sure where to start?{' '}
-                  <Link href={CONSULTATION_CTA_HREF} className="text-white underline underline-offset-4 hover:text-[#f58220]">
+                  <Link href={CONSULTATION_CTA_HREF} className="text-white underline underline-offset-4 hover:text-[#fa8c41]">
                     Talk through your project.
                   </Link>
                 </p>
@@ -333,7 +335,7 @@ export default function Home() {
         <section className="bg-stone-50">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">What to handle before you move forward</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">What to handle before you move forward</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                 Before You Move Forward, Handle These First
               </h2>
@@ -357,7 +359,7 @@ export default function Home() {
             <div className="mt-12 flex items-center justify-center">
               <Link
                 href={CONSULTATION_CTA_HREF}
-                className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
               >
                 Talk Through Your Project <span aria-hidden="true">→</span>
               </Link>
@@ -369,7 +371,7 @@ export default function Home() {
         <section className="bg-white">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Three places we step in</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Three places we step in</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                 Start at the stage you&rsquo;re actually in.
               </h2>
@@ -379,19 +381,19 @@ export default function Home() {
                 <div
                   key={stage.id}
                   id={stage.id}
-                  className="scroll-mt-24 flex h-full flex-col rounded-2xl border-2 border-stone-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#f58220]/40 hover:shadow-[0_24px_60px_-20px_rgba(8,17,29,0.18)] sm:p-10"
+                  className="scroll-mt-24 flex h-full flex-col rounded-2xl border-2 border-stone-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#fa8c41]/40 hover:shadow-[0_24px_60px_-20px_rgba(8,17,29,0.18)] sm:p-10"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#08111d] text-xl font-black">
-                    <span className="text-[#f58220]">0{idx + 1}</span>
+                    <span className="text-[#fa8c41]">0{idx + 1}</span>
                   </div>
-                  <p className="mt-6 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{stage.eyebrow}</p>
+                  <p className="mt-6 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{stage.timing}</p>
                   <h3 className="mt-3 text-[1.75rem] font-black leading-tight tracking-[-0.02em] text-[#08111d]">
-                    {stage.timing}
+                    {stage.eyebrow}
                   </h3>
                   <ul className="mt-7 flex flex-1 flex-col space-y-3">
                     {stage.items.map((item) => (
                       <li key={item} className="flex items-start gap-3 text-[15px] font-medium leading-relaxed text-[#08111d]">
-                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#f58220]">
+                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#fa8c41]">
                           <CheckIcon size={14} />
                         </span>
                         <span>{item}</span>
@@ -400,7 +402,7 @@ export default function Home() {
                   </ul>
                   <Link
                     href={CONSULTATION_CTA_HREF}
-                    className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.4)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                    className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.4)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
                   >
                     {stage.cta} <span aria-hidden="true">→</span>
                   </Link>
@@ -410,10 +412,60 @@ export default function Home() {
 
             <p className="mt-10 text-center text-sm font-medium text-stone-600">
               Need full contracting?{' '}
-              <Link href="/contracting" className="font-bold text-[#08111d] underline underline-offset-4 hover:text-[#f58220]">
+              <Link href="/contracting" className="font-bold text-[#08111d] underline underline-offset-4 hover:text-[#fa8c41]">
                 We handle that when your project calls for it.
               </Link>
             </p>
+          </div>
+        </section>
+
+        {/* DEAL PACK BRIDGE — wholesalers + realtors flagship, on brand cream */}
+        <section className="bg-[#F6F2EC]">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+              <div>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">For wholesalers + realtors</p>
+                <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
+                  Selling or assigning a deal?<br />Hand the buyer a GC-verified package.
+                </h2>
+                <p className="mt-6 max-w-xl text-lg leading-[1.6] text-stone-700">
+                  Real investors won&rsquo;t pay top dollar for an unverified deal. Attach a licensed NC GC&rsquo;s
+                  rehab budget, scope, and risk report to your assignment or listing &mdash; and attract the buyer pool
+                  that actually pays for it. Same property, different buyer pool, 2&ndash;4&times; the fee.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Link
+                    href="/deal-pack"
+                    className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(250,140,65,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
+                  >
+                    See the Deal Pack <span aria-hidden="true">→</span>
+                  </Link>
+                  <Link
+                    href="/guide/consistent-assignment-wholesaler"
+                    className="text-sm font-bold text-[#08111d] underline underline-offset-4 hover:text-[#fa8c41]"
+                  >
+                    Or grab the free playbook
+                  </Link>
+                </div>
+                <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] font-bold uppercase tracking-[0.08em] text-stone-500">
+                  <span><span className="text-[#fa8c41]">2&ndash;4&times;</span> fee uplift</span>
+                  <span><span className="text-[#fa8c41]">5&ndash;9</span> days to close</span>
+                  <span><span className="text-[#fa8c41]">NC GC</span> #107724 stamp</span>
+                </div>
+              </div>
+              <div className="relative flex items-center justify-center">
+                <div className="absolute inset-0 rounded-[40px] bg-[#fa8c41]/15 blur-[70px]" aria-hidden="true" />
+                <div className="relative">
+                  <div className="absolute -right-10 top-6 w-[180px] rotate-[7deg] opacity-80">
+                    <Image src="/product-mockups/lm2-10k-to-104k-cover-01.jpg" alt="Wholesaler-to-flipper case study" width={180} height={233} className="rounded-[10px] border border-stone-300 shadow-[0_24px_50px_-16px_rgba(8,17,29,0.45)]" />
+                  </div>
+                  <div className="relative w-[240px] -rotate-[4deg]">
+                    <Image src="/product-mockups/lm1-25-40k-cover-01.jpg" alt="The $25–40K Assignment Standard" width={240} height={310} className="rounded-[12px] border border-stone-300 shadow-[0_30px_60px_-18px_rgba(8,17,29,0.55)] ring-1 ring-[#fa8c41]/30" />
+                    <div className="absolute -top-3 -right-3 rounded-full bg-[#fa8c41] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_-4px_rgba(250,140,65,0.6)]">Free playbooks</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -433,12 +485,12 @@ export default function Home() {
           <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-7">
-                <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">
-                  <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+                <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">
+                  <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
                   Our flagship build model
                 </p>
                 <h2 className="mt-5 text-4xl font-black leading-[1.0] tracking-[-0.03em] text-white sm:text-6xl">
-                  Owner-Controlled <span className="text-[#f58220]">Build.</span>
+                  Owner-Controlled <span className="text-[#fa8c41]">Build.</span>
                 </h2>
                 <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
                   You stay the owner. We provide the GC structure, pull the permits, and run the execution controls. A hybrid model — most of the upside of self-managing, none of the chaos.
@@ -451,7 +503,7 @@ export default function Home() {
                     { title: 'Real backup', detail: 'Estimator, permit admin, draw support.' },
                   ].map((point) => (
                     <div key={point.title} className="flex gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#f58220]/30 bg-[#f58220]/10 text-[#f58220]">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#fa8c41]/30 bg-[#fa8c41]/10 text-[#fa8c41]">
                         <CheckIcon size={20} />
                       </div>
                       <div>
@@ -464,7 +516,7 @@ export default function Home() {
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link
                     href="/services/investors/owner-controlled-build"
-                    className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-7 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] hover:-translate-y-0.5 hover:bg-[#ff9229] transition-all"
+                    className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] hover:-translate-y-0.5 hover:bg-[#ffa463] transition-all"
                   >
                     See If It Fits <span aria-hidden="true">→</span>
                   </Link>
@@ -487,11 +539,11 @@ export default function Home() {
                       </div>
                       <p className="mt-2 text-sm text-white/65">We review. You run it.</p>
                     </div>
-                    <div className="relative rounded-xl border-2 border-[#f58220]/60 bg-[#f58220]/[0.12] p-5">
-                      <span className="absolute -top-2.5 left-4 rounded-full bg-[#f58220] px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-white">Flagship</span>
+                    <div className="relative rounded-xl border-2 border-[#fa8c41]/60 bg-[#fa8c41]/[0.12] p-5">
+                      <span className="absolute -top-2.5 left-4 rounded-full bg-[#fa8c41] px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-white">Flagship</span>
                       <div className="flex items-center justify-between gap-3">
                         <p className="font-bold text-white">Owner-Controlled Build</p>
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f58220]">Hybrid</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#fa8c41]">Hybrid</span>
                       </div>
                       <p className="mt-2 text-sm text-white/80">We carry the license. You PM the build.</p>
                     </div>
@@ -513,7 +565,7 @@ export default function Home() {
         <section className="bg-stone-50">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Reviews</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Reviews</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                 What clients say after working with Southern Cities.
               </h2>
@@ -527,12 +579,12 @@ export default function Home() {
                   key={t.name + t.role}
                   className="rounded-2xl border border-stone-200 bg-white p-7 transition-all hover:-translate-y-0.5 hover:shadow-lg"
                 >
-                  <div className="flex items-center gap-1 text-[#f58220]">
+                  <div className="flex items-center gap-1 text-[#fa8c41]">
                     {[1, 2, 3, 4, 5].map((i) => (<StarIcon key={i} />))}
                   </div>
                   <p className="mt-5 text-[15px] leading-[1.55] text-[#08111d]">&ldquo;{t.quote}&rdquo;</p>
                   <footer className="mt-6 flex items-center gap-3 border-t border-stone-100 pt-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#f58220] text-sm font-black text-white">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#fa8c41] text-sm font-black text-white">
                       {t.name.charAt(0)}
                     </div>
                     <div>
@@ -551,7 +603,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div className="max-w-2xl">
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Real project gallery</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Real project gallery</p>
                 <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                   Real Projects. Real Work.
                 </h2>
@@ -561,7 +613,7 @@ export default function Home() {
               </div>
               <Link
                 href="/gallery"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-stone-300 bg-white px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-[#08111d] transition-all hover:-translate-y-0.5 hover:border-[#f58220] hover:text-[#f58220]"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-stone-300 bg-white px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-[#08111d] transition-all hover:-translate-y-0.5 hover:border-[#fa8c41] hover:text-[#fa8c41]"
               >
                 View Full Gallery →
               </Link>
@@ -585,7 +637,7 @@ export default function Home() {
         <section className="bg-stone-50">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Our process</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Our process</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">How projects move forward</h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-600">
                 A simple process to help you get clarity, choose the right next step, and keep the project moving.
@@ -602,13 +654,13 @@ export default function Home() {
             </div>
 
             <div className="relative mt-16 grid gap-8 md:grid-cols-4">
-              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#f58220]/30 to-transparent md:block" aria-hidden="true" />
+              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#fa8c41]/30 to-transparent md:block" aria-hidden="true" />
               {processSteps.map((step) => (
                 <div key={step.number} className="relative">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#08111d] text-xl font-black shadow-lg ring-8 ring-stone-50">
-                    <span className="text-[#f58220]">{step.number}</span>
+                    <span className="text-[#fa8c41]">{step.number}</span>
                   </div>
-                  <p className="mt-5 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Step {step.number}</p>
+                  <p className="mt-5 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Step {step.number}</p>
                   <h3 className="mt-2 text-xl font-extrabold tracking-tight text-[#08111d]">{step.title}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{step.detail}</p>
                 </div>
@@ -631,7 +683,7 @@ export default function Home() {
           />
           <div className="relative mx-auto max-w-4xl px-6 py-20 text-center sm:px-8 sm:py-24">
             <h2 className="text-4xl font-black leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl">
-              Ready to move your project <span className="text-[#f58220]">forward?</span>
+              Ready to move your project <span className="text-[#fa8c41]">forward?</span>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
               Book a free project call to talk through the job, get clarity on the next step, and decide what support makes sense.
@@ -639,7 +691,7 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
               <Link
                 href={CONSULTATION_CTA_HREF}
-                className="inline-flex min-h-[60px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                className="inline-flex min-h-[60px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
               >
                 Book a Free Project Call <span aria-hidden="true">→</span>
               </Link>
@@ -654,7 +706,7 @@ export default function Home() {
         <section id="contact" className="bg-white">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Get in touch</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Get in touch</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">Talk with us about your project</h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-600">
                 Have questions about the project, the budget, or the right next step? Contact us or book a free project call.
@@ -664,21 +716,21 @@ export default function Home() {
             <div className="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-[0.95fr_1.05fr]">
               <div className="space-y-4">
                 <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Call</p>
-                  <a href="tel:+19804737249" className="mt-3 block text-2xl font-black tracking-tight text-[#08111d] hover:text-[#f58220]">
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Call</p>
+                  <a href="tel:+19804737249" className="mt-3 block text-2xl font-black tracking-tight text-[#08111d] hover:text-[#fa8c41]">
                     (980) 473-7249
                   </a>
                   <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Talk through the job, ask questions, and get help figuring out the next move.</p>
                 </div>
                 <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Email</p>
-                  <a href="mailto:info@southerncitiesconstruction.com" className="mt-3 block break-all text-lg font-black tracking-tight text-[#08111d] hover:text-[#f58220]">
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Email</p>
+                  <a href="mailto:info@southerncitiesconstruction.com" className="mt-3 block break-all text-lg font-black tracking-tight text-[#08111d] hover:text-[#fa8c41]">
                     info@southerncitiesconstruction.com
                   </a>
                   <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Send over your project details, timeline, or questions and we can point you in the right direction.</p>
                 </div>
                 <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Service area</p>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Service area</p>
                   <p className="mt-3 text-xl font-black tracking-tight text-[#08111d]">North Carolina Statewide</p>
                   <p className="mt-2 text-[15px] font-semibold leading-relaxed text-[#08111d]">525 N Tryon St, Charlotte, NC 28202</p>
                   <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Residential projects, investor work, planning support, permits, oversight, and full contracting when needed.</p>
@@ -696,11 +748,11 @@ export default function Home() {
                   submitLabel="Send Project Details"
                   variant="light"
                 />
-                <div className="mt-6 rounded-2xl border-2 border-[#f58220]/20 bg-stone-50 p-5">
+                <div className="mt-6 rounded-2xl border-2 border-[#fa8c41]/20 bg-stone-50 p-5">
                   <p className="text-sm font-bold text-[#08111d]">Prefer to talk live?</p>
                   <Link
                     href={CONSULTATION_CTA_HREF}
-                    className="mt-3 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-5 py-3 text-[13px] font-black uppercase tracking-[0.06em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                    className="mt-3 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-5 py-3 text-[13px] font-black uppercase tracking-[0.06em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
                   >
                     Schedule a Free Project Call <span aria-hidden="true">→</span>
                   </Link>
@@ -714,7 +766,7 @@ export default function Home() {
         <section className="bg-stone-50">
           <div className="mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">FAQ</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">FAQ</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">Frequently asked questions</h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-600">
                 Straight answers to the questions clients usually ask before they move forward.

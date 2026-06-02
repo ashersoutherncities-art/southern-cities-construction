@@ -20,6 +20,16 @@ type ResultState = {
 };
 
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
+type WizardStep = 1 | 2;
+
+type ContactInfo = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  company_name: string;
+  investor_type: string;
+};
 
 const INVESTOR_TYPES = [
   ['flipper', 'Flipper'],
@@ -127,12 +137,61 @@ function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
   );
 }
 
+function investorTypeLabel(value: string): string {
+  const match = INVESTOR_TYPES.find(([v]) => v === value);
+  return match ? match[1] : value;
+}
+
 export default function RehabRiskSnapshotForm() {
+  const [step, setStep] = useState<WizardStep>(1);
+  const [contact, setContact] = useState<ContactInfo>({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    company_name: '',
+    investor_type: 'flipper',
+  });
   const [state, setState] = useState<SubmissionState>('idle');
   const [error, setError] = useState('');
   const [result, setResult] = useState<ResultState | null>(null);
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function onStep1Submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const fd = new FormData(form);
+    const next: ContactInfo = {
+      first_name: String(fd.get('first_name') ?? '').trim(),
+      last_name: String(fd.get('last_name') ?? '').trim(),
+      email: String(fd.get('email') ?? '').trim(),
+      phone: String(fd.get('phone') ?? '').trim(),
+      company_name: String(fd.get('company_name') ?? '').trim(),
+      investor_type: String(fd.get('investor_type') ?? 'flipper'),
+    };
+    if (!next.first_name || !next.last_name || !next.email) {
+      setError('First name, last name, and email are required.');
+      return;
+    }
+    setError('');
+    setContact(next);
+    setStep(2);
+
+    // Fire-and-forget — capture partial lead in GHL so we keep them even if
+    // they bail before completing Step 2. We deliberately don't await.
+    void fetch('/api/rehab-budget-snapshots/lead-capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...next, honey: '' }),
+      keepalive: true,
+    }).catch(() => {
+      // Silent — partial capture failure should never block the wizard.
+    });
+
+    // Scroll to top of form to show the read-only summary card
+    window.scrollTo({ top: window.scrollY - 100, behavior: 'smooth' });
+  }
+
+  async function onStep2Submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setState('loading');
     setError('');
@@ -140,6 +199,14 @@ export default function RehabRiskSnapshotForm() {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    // Inject the locked-in contact info from step 1
+    formData.set('first_name', contact.first_name);
+    formData.set('last_name', contact.last_name);
+    formData.set('email', contact.email);
+    formData.set('phone', contact.phone);
+    formData.set('company_name', contact.company_name);
+    formData.set('investor_type', contact.investor_type);
 
     for (const key of SCOPE_CHECKS.map(([name]) => name)) {
       if (!formData.has(key)) {
@@ -173,189 +240,260 @@ export default function RehabRiskSnapshotForm() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      <form onSubmit={onSubmit} className="space-y-8 rounded-[30px] border border-white/12 bg-navy-900/85 p-6 shadow-[0_35px_90px_-40px_rgba(6,13,32,0.95)] backdrop-blur md:p-8">
-        <input type="hidden" name="honey" value="" readOnly />
+      {step === 1 ? (
+        <form onSubmit={onStep1Submit} className="space-y-7 rounded-[30px] border border-white/12 bg-navy-900/85 p-6 shadow-[0_35px_90px_-40px_rgba(6,13,32,0.95)] backdrop-blur md:p-8">
+          <input type="hidden" name="honey" value="" readOnly />
 
-        <section>
-          <div className="mb-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Investor intake</p>
-            <h3 className="mt-2 text-2xl font-extrabold text-white">Tell us who is underwriting the deal</h3>
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Step 1 of 2 · Contact</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">Step 2 · Property details</p>
           </div>
+
+          <div>
+            <h3 className="text-2xl font-extrabold text-white">Where should we send your snapshot?</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-white/65">
+              Quick step. Then property + scope details on the next screen.
+            </p>
+          </div>
+
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <FieldLabel>First name *</FieldLabel>
-              <Input name="first_name" required placeholder="Darius" />
+              <Input name="first_name" required placeholder="Darius" defaultValue={contact.first_name} />
             </div>
             <div>
               <FieldLabel>Last name *</FieldLabel>
-              <Input name="last_name" required placeholder="Walton" />
+              <Input name="last_name" required placeholder="Walton" defaultValue={contact.last_name} />
             </div>
             <div>
               <FieldLabel>Email *</FieldLabel>
-              <Input name="email" required type="email" placeholder="you@example.com" />
+              <Input name="email" required type="email" placeholder="you@example.com" defaultValue={contact.email} />
             </div>
             <div>
-              <FieldLabel>Phone *</FieldLabel>
-              <Input name="phone" required type="tel" placeholder="(704) 555-1212" />
+              <FieldLabel>Phone</FieldLabel>
+              <Input name="phone" type="tel" placeholder="(704) 555-1212" defaultValue={contact.phone} />
             </div>
             <div>
               <FieldLabel>Company</FieldLabel>
-              <Input name="company_name" placeholder="Southern Cities" />
+              <Input name="company_name" placeholder="Southern Cities" defaultValue={contact.company_name} />
             </div>
             <div>
               <FieldLabel>Investor type *</FieldLabel>
-              <Select name="investor_type" required defaultValue="flipper">
+              <Select name="investor_type" required defaultValue={contact.investor_type}>
                 {INVESTOR_TYPES.map(([value, label]) => (
                   <option key={value} value={value}>{label}</option>
                 ))}
               </Select>
             </div>
           </div>
-        </section>
 
-        <section>
-          <div className="mb-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Property profile</p>
-            <h3 className="mt-2 text-2xl font-extrabold text-white">Set the underwriting frame</h3>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="sm:col-span-2">
-              <FieldLabel>Property address *</FieldLabel>
-              <Input name="property_address" required placeholder="123 Main St" />
-            </div>
-            <div>
-              <FieldLabel>City *</FieldLabel>
-              <Input name="city" required placeholder="Charlotte" />
-            </div>
-            <div>
-              <FieldLabel>State *</FieldLabel>
-              <Input name="state" required defaultValue="NC" />
-            </div>
-            <div>
-              <FieldLabel>ZIP *</FieldLabel>
-              <Input name="zip" required placeholder="28205" />
-            </div>
-            <div>
-              <FieldLabel>Square feet *</FieldLabel>
-              <Input name="square_feet" required type="number" min={400} placeholder="1650" />
-            </div>
-            <div>
-              <FieldLabel>Year built</FieldLabel>
-              <Input name="year_built" type="number" placeholder="1968" />
-            </div>
-            <div>
-              <FieldLabel>Stories</FieldLabel>
-              <Input name="stories" type="number" placeholder="1" />
-            </div>
-            <div>
-              <FieldLabel>Bedrooms</FieldLabel>
-              <Input name="bedrooms" type="number" placeholder="3" />
-            </div>
-            <div>
-              <FieldLabel>Bathrooms</FieldLabel>
-              <Input name="bathrooms" type="number" step="0.5" placeholder="2" />
-            </div>
-            <div>
-              <FieldLabel>Property type *</FieldLabel>
-              <Select name="property_type" required defaultValue="single_family">
-                {PROPERTY_TYPES.map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </Select>
-            </div>
-            <div>
-              <FieldLabel>Occupancy *</FieldLabel>
-              <Select name="occupancy_status" required defaultValue="vacant">
-                {OCCUPANCY.map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </Select>
-            </div>
-            <div>
-              <FieldLabel>Strategy *</FieldLabel>
-              <Select name="investment_strategy" required defaultValue="flip">
-                {STRATEGIES.map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </Select>
-            </div>
-            <div>
-              <FieldLabel>Finish target *</FieldLabel>
-              <Select name="target_finish_level" required defaultValue="basic_flip">
-                {FINISH_LEVELS.map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </Select>
-            </div>
-          </div>
-        </section>
+          <button
+            type="submit"
+            className="inline-flex min-h-[58px] w-full items-center justify-center rounded-full bg-orange px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_18px_45px_-18px_rgba(250,140,65,0.8)] transition hover:-translate-y-0.5 hover:bg-orange-500"
+          >
+            Continue → Property Details
+          </button>
 
-        <section>
-          <div className="mb-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Scope signals</p>
-            <h3 className="mt-2 text-2xl font-extrabold text-white">Mark what is likely in play</h3>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {SCOPE_CHECKS.map(([name, label]) => (
-              <label key={name} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/88">
-                <input type="checkbox" name={name} value="true" className="h-4 w-4 rounded border-white/20 bg-transparent text-orange focus:ring-orange" />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div>
-              <FieldLabel>Bathroom refresh count</FieldLabel>
-              <Input name="bathroom_refresh_count" type="number" min={0} defaultValue={0} />
-            </div>
-            <div>
-              <FieldLabel>Bathroom full count</FieldLabel>
-              <Input name="bathroom_full_count" type="number" min={0} defaultValue={0} />
-            </div>
-          </div>
-        </section>
+          {error ? <p className="text-sm text-rose-300">{error}</p> : null}
 
-        <section>
-          <div className="mb-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Context that moves the number</p>
-            <h3 className="mt-2 text-2xl font-extrabold text-white">Upload context and explain what you know</h3>
+          <p className="text-xs leading-relaxed text-white/48">
+            Only fields marked with <span className="font-bold text-orange">*</span> are required. The snapshot is free.
+          </p>
+        </form>
+      ) : (
+        <form onSubmit={onStep2Submit} className="space-y-8 rounded-[30px] border border-white/12 bg-navy-900/85 p-6 shadow-[0_35px_90px_-40px_rgba(6,13,32,0.95)] backdrop-blur md:p-8">
+          <input type="hidden" name="honey" value="" readOnly />
+
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/45">Step 1 · Contact ✓</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Step 2 of 2 · Property details</p>
           </div>
-          <div className="grid gap-4">
-            <div>
-              <FieldLabel>Project photos</FieldLabel>
-              <Input name="project_photos" type="file" accept="image/*,.pdf" multiple className="file:mr-4 file:rounded-full file:border-0 file:bg-orange file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-orange-500" />
+
+          {/* Read-only contact summary */}
+          <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/[0.06] p-5">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center justify-center rounded-md bg-emerald-400/20 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-black tracking-[0.18em] text-emerald-300">
+                  CONFIRMED
+                </span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">
+                  Your contact info
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange hover:text-orange-400 transition-colors"
+              >
+                ← Edit
+              </button>
             </div>
-            <div>
-              <FieldLabel>Existing budget / inspection / scope file</FieldLabel>
-              <Input name="existing_budget_file" type="file" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx,image/*" className="file:mr-4 file:rounded-full file:border-0 file:bg-white/15 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-white/20" />
-            </div>
-            <div>
-              <FieldLabel>Notes *</FieldLabel>
-              <textarea
-                name="notes"
-                required
-                rows={5}
-                placeholder="Tell us what you think is going on. Example: 1960s brick ranch, likely full kitchen, two baths, older panel, possible roof soon, water stains in rear bedroom, aiming for mid-grade flip."
-                className="w-full rounded-2xl border border-white/15 bg-[#0d1830] px-4 py-3 text-[15px] text-white placeholder:text-white/35 transition-colors focus:border-orange/60 focus:outline-none focus:ring-2 focus:ring-orange/20"
-              />
+            <div className="mt-4 grid gap-2 text-[14px] text-white/90 sm:grid-cols-2">
+              <div>
+                <span className="text-white/45">Name:</span> {contact.first_name} {contact.last_name}
+              </div>
+              <div>
+                <span className="text-white/45">Email:</span> {contact.email}
+              </div>
+              {contact.phone ? (
+                <div>
+                  <span className="text-white/45">Phone:</span> {contact.phone}
+                </div>
+              ) : null}
+              {contact.company_name ? (
+                <div>
+                  <span className="text-white/45">Company:</span> {contact.company_name}
+                </div>
+              ) : null}
+              <div>
+                <span className="text-white/45">Investor:</span> {investorTypeLabel(contact.investor_type)}
+              </div>
             </div>
           </div>
-        </section>
 
-        <button
-          type="submit"
-          disabled={state === 'loading'}
-          className="inline-flex min-h-[58px] w-full items-center justify-center rounded-full bg-orange px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_18px_45px_-18px_rgba(250,140,65,0.8)] transition hover:-translate-y-0.5 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-65"
-        >
-          {state === 'loading' ? 'Building Snapshot...' : 'Get My Rehab Snapshot'}
-        </button>
+          <section>
+            <div className="mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Property profile</p>
+              <h3 className="mt-2 text-2xl font-extrabold text-white">Set the underwriting frame</h3>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="sm:col-span-2">
+                <FieldLabel>Property address *</FieldLabel>
+                <Input name="property_address" required placeholder="123 Main St" />
+              </div>
+              <div>
+                <FieldLabel>City</FieldLabel>
+                <Input name="city" placeholder="Charlotte" />
+              </div>
+              <div>
+                <FieldLabel>State</FieldLabel>
+                <Input name="state" defaultValue="NC" />
+              </div>
+              <div>
+                <FieldLabel>ZIP</FieldLabel>
+                <Input name="zip" placeholder="28205" />
+              </div>
+              <div>
+                <FieldLabel>Square feet *</FieldLabel>
+                <Input name="square_feet" required type="number" min={400} placeholder="1650" />
+              </div>
+              <div>
+                <FieldLabel>Year built</FieldLabel>
+                <Input name="year_built" type="number" placeholder="1968" />
+              </div>
+              <div>
+                <FieldLabel>Stories</FieldLabel>
+                <Input name="stories" type="number" placeholder="1" />
+              </div>
+              <div>
+                <FieldLabel>Bedrooms</FieldLabel>
+                <Input name="bedrooms" type="number" placeholder="3" />
+              </div>
+              <div>
+                <FieldLabel>Bathrooms</FieldLabel>
+                <Input name="bathrooms" type="number" step="0.5" placeholder="2" />
+              </div>
+              <div>
+                <FieldLabel>Property type *</FieldLabel>
+                <Select name="property_type" required defaultValue="single_family">
+                  {PROPERTY_TYPES.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </Select>
+              </div>
+              <div>
+                <FieldLabel>Occupancy</FieldLabel>
+                <Select name="occupancy_status" defaultValue="vacant">
+                  {OCCUPANCY.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </Select>
+              </div>
+              <div>
+                <FieldLabel>Strategy *</FieldLabel>
+                <Select name="investment_strategy" required defaultValue="flip">
+                  {STRATEGIES.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </Select>
+              </div>
+              <div>
+                <FieldLabel>Finish target *</FieldLabel>
+                <Select name="target_finish_level" required defaultValue="basic_flip">
+                  {FINISH_LEVELS.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </Select>
+              </div>
+            </div>
+          </section>
 
-        {state === 'error' ? <p className="text-sm text-rose-300">{error}</p> : null}
+          <section>
+            <div className="mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Scope signals</p>
+              <h3 className="mt-2 text-2xl font-extrabold text-white">Mark what is likely in play</h3>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {SCOPE_CHECKS.map(([name, label]) => (
+                <label key={name} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/88">
+                  <input type="checkbox" name={name} value="true" className="h-4 w-4 rounded border-white/20 bg-transparent text-orange focus:ring-orange" />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </div>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div>
+                <FieldLabel>Bathroom refresh count</FieldLabel>
+                <Input name="bathroom_refresh_count" type="number" min={0} defaultValue={0} />
+              </div>
+              <div>
+                <FieldLabel>Bathroom full count</FieldLabel>
+                <Input name="bathroom_full_count" type="number" min={0} defaultValue={0} />
+              </div>
+            </div>
+          </section>
 
-        <p className="text-xs leading-relaxed text-white/48">
-          This is a preliminary feasibility estimate. It is not a quote, bid, proposal, or guaranteed price. Final pricing requires scope validation, site conditions review, contractor/vendor pricing, and formal agreement.
-        </p>
-      </form>
+          <section>
+            <div className="mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Context that moves the number</p>
+              <h3 className="mt-2 text-2xl font-extrabold text-white">Upload context and explain what you know</h3>
+            </div>
+            <div className="grid gap-4">
+              <div>
+                <FieldLabel>Project photos</FieldLabel>
+                <Input name="project_photos" type="file" accept="image/*,.pdf" multiple className="file:mr-4 file:rounded-full file:border-0 file:bg-orange file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-orange-500" />
+              </div>
+              <div>
+                <FieldLabel>Existing budget / inspection / scope file</FieldLabel>
+                <Input name="existing_budget_file" type="file" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx,image/*" className="file:mr-4 file:rounded-full file:border-0 file:bg-white/15 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-white/20" />
+              </div>
+              <div>
+                <FieldLabel>Notes</FieldLabel>
+                <textarea
+                  name="notes"
+                  rows={5}
+                  placeholder="Tell us what you think is going on. Example: 1960s brick ranch, likely full kitchen, two baths, older panel, possible roof soon, water stains in rear bedroom, aiming for mid-grade flip."
+                  className="w-full rounded-2xl border border-white/15 bg-[#0d1830] px-4 py-3 text-[15px] text-white placeholder:text-white/35 transition-colors focus:border-orange/60 focus:outline-none focus:ring-2 focus:ring-orange/20"
+                />
+              </div>
+            </div>
+          </section>
+
+          <button
+            type="submit"
+            disabled={state === 'loading'}
+            className="inline-flex min-h-[58px] w-full items-center justify-center rounded-full bg-orange px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_18px_45px_-18px_rgba(250,140,65,0.8)] transition hover:-translate-y-0.5 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-65"
+          >
+            {state === 'loading' ? 'Building Snapshot...' : 'Get My Rehab Snapshot'}
+          </button>
+
+          {state === 'error' ? <p className="text-sm text-rose-300">{error}</p> : null}
+
+          <p className="text-xs leading-relaxed text-white/48">
+            This is a preliminary feasibility estimate. It is not a quote, bid, proposal, or guaranteed price. Final pricing requires scope validation, site conditions review, contractor/vendor pricing, and formal agreement.
+          </p>
+        </form>
+      )}
 
       <div className="space-y-6">
         <div className="rounded-[30px] border border-[#eadfd1] bg-white p-6 shadow-[0_30px_80px_-45px_rgba(19,36,82,0.55)] md:p-8">

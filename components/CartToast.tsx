@@ -74,7 +74,7 @@ export default function CartToast() {
           </span>
           <Link
             href="/cart"
-            className="inline-flex items-center gap-1.5 rounded-full bg-[#f58220] px-4 py-1.5 text-xs font-black uppercase tracking-[0.08em] text-white shadow-[0_8px_20px_-6px_rgba(245,130,32,0.45)] transition hover:bg-[#ff9229]"
+            className="inline-flex items-center gap-1.5 rounded-full bg-[#fa8c41] px-4 py-1.5 text-xs font-black uppercase tracking-[0.08em] text-white shadow-[0_8px_20px_-6px_rgba(245,130,32,0.45)] transition hover:bg-[#ffa463]"
           >
             View cart <span aria-hidden="true">→</span>
           </Link>

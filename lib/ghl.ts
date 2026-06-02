@@ -330,6 +330,78 @@ export type GhlLeadMagnetPayload = {
   source?: string;
 };
 
+export type GhlLm1Step1Payload = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone?: string;
+  company_name?: string | null;
+  investor_type: string;
+};
+
+/**
+ * LM1 wizard Step 1 — partial lead capture.
+ *
+ * Fires when the investor submits Step 1 (contact info) but BEFORE they complete
+ * Step 2 (property + scope details). Captures the contact in GHL so we have them
+ * even if they bail mid-wizard.
+ *
+ * Tags applied:
+ *   - `platform-lm1-step1-only` — partial completion signal (different from
+ *     `platform-lm1-captured` which is reserved for full Step 2 submissions).
+ *   - `platform-lead` — funnel-wide lead identifier.
+ *   - `lead-inquiry` — fires the catch-all Lead Inquiry workflow.
+ *   - `investor-type-<type>` — segmentation.
+ *
+ * Intentionally does NOT fire `platform-lm1-captured` — that tag triggers the
+ * full LM1→CO1 nurture sequence whose email templates reference custom fields
+ * that only get populated after Step 2. Use a separate "complete-your-snapshot"
+ * nurture for this tag if you want to recover Step 1 bailers.
+ */
+export async function sendLm1Step1ToGhl(payload: GhlLm1Step1Payload) {
+  const creds = getCreds();
+  if (!creds) {
+    return { ok: false, reason: 'GHL credentials not configured' as const };
+  }
+
+  const fullName = [payload.first_name, payload.last_name].filter(Boolean).join(' ').trim();
+  const phone = (payload.phone || '').trim() || undefined;
+  const tags = [
+    'platform-lm1-step1-only',
+    'platform-lead',
+    'lead-inquiry',
+    `investor-type-${payload.investor_type}`,
+  ].map((item) => item.toLowerCase());
+
+  const upsertBody = {
+    locationId: creds.locationId,
+    firstName: payload.first_name,
+    lastName: payload.last_name,
+    name: fullName,
+    email: payload.email,
+    phone,
+    source: 'Southern Cities — LM1 Step 1 (Partial)',
+    tags,
+  };
+
+  const upsertResult = await ghlFetch(
+    '/contacts/upsert',
+    { method: 'POST', body: JSON.stringify(upsertBody) },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  return {
+    ok: upsertResult.ok && !!contactId,
+    status: upsertResult.status,
+    contactId,
+  };
+}
+
 export type GhlRehabSnapshotPayload = {
   first_name: string;
   last_name: string;

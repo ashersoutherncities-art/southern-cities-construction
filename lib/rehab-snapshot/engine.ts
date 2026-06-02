@@ -99,6 +99,7 @@ export function classifyProjectCategory(
     Number(scope.hvac) +
     Number(scope.plumbing_full) +
     Number(scope.electrical_full) +
+    Number(scope.framing) +
     Number(scope.layout_changes) +
     Number(scope.water_damage);
 
@@ -179,6 +180,7 @@ function getAgeMultiplier(rules: EstimateRuleRecord[], yearBuilt: number | null)
 function inferPermitComplexity(projectCategory: ProjectCategory, scope: RehabSnapshotScopeInput): PermitComplexity {
   if (scope.permit_required_unknown) return 'unknown';
   if (scope.addition || scope.structural || scope.foundation || scope.full_gut) return 'high';
+  if (scope.framing) return 'moderate';
   if (
     scope.layout_changes ||
     scope.electrical_full ||
@@ -198,7 +200,7 @@ function inferExecutionDifficulty(
 ): ExecutionDifficulty {
   if (projectCategory === 'addition' || projectCategory === 'structural_heavy') return 'severe';
   if (projectCategory === 'full_gut' || projectCategory === 'heavy_rehab') return 'high';
-  if (projectCategory === 'moderate_rehab' || scope.layout_changes || scope.electrical_full || scope.plumbing_full) {
+  if (projectCategory === 'moderate_rehab' || scope.framing || scope.layout_changes || scope.electrical_full || scope.plumbing_full) {
     return 'moderate';
   }
   return 'low';
@@ -310,6 +312,7 @@ function computeConfidence(
   if (!hasWalkthroughVideo) score -= 15;
   if (project.year_built !== null && project.year_built < 1970) score -= 10;
   if (scope.water_damage || scope.fire_damage || scope.structural || scope.foundation) score -= 20;
+  if (scope.framing) score -= 10;
   if (projectCategory === 'full_gut') score -= 10;
   if (projectCategory === 'addition') score -= 15;
   if (scope.notes.trim().length < 40) score -= 10;
@@ -461,6 +464,7 @@ export function computeEstimate(
   const hasHighRiskFlags =
     input.scope.water_damage ||
     input.scope.fire_damage ||
+    input.scope.framing ||
     input.scope.structural ||
     input.scope.foundation ||
     input.scope.addition;

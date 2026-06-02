@@ -281,12 +281,12 @@ export default function RealtorsPage() {
 
       {/* FLAGSHIP — GC-Grade Property Inspection */}
       <section id="flagship" className="relative overflow-hidden bg-[#0d1a2f] py-14 sm:py-18">
-        <div className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-[#f58220]/[0.15] blur-[120px]" />
-        <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[#f58220]/[0.08] blur-[120px]" />
+        <div className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-[#fa8c41]/[0.15] blur-[120px]" />
+        <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[#fa8c41]/[0.08] blur-[120px]" />
         <div className="container-pro relative z-10">
           <div className="mx-auto max-w-4xl">
-            <div className="rounded-[28px] border border-[#f58220]/40 bg-gradient-to-br from-[#0a1428] via-[#0e1f3e] to-[#0a1428] p-8 sm:p-12 shadow-[0_30px_80px_-20px_rgba(245,130,32,0.35)]">
-              <span className="inline-flex rounded-full bg-[#f58220] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white">Flagship Product</span>
+            <div className="rounded-[28px] border border-[#fa8c41]/40 bg-gradient-to-br from-[#0a1428] via-[#0e1f3e] to-[#0a1428] p-8 sm:p-12 shadow-[0_30px_80px_-20px_rgba(245,130,32,0.35)]">
+              <span className="inline-flex rounded-full bg-[#fa8c41] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white">Flagship Product</span>
               <h2 className="mt-5 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl">
                 GC-Grade Property Inspection<br />+ Budget Report
               </h2>
@@ -295,12 +295,12 @@ export default function RealtorsPage() {
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-2xl bg-white/[0.06] border border-white/10 p-5">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">Standard</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Standard</p>
                   <p className="mt-1 text-3xl font-black text-white">$899</p>
                   <p className="mt-1 text-[13px] text-white/65">3–5 business days · statewide NC</p>
                 </div>
-                <div className="rounded-2xl bg-[#f58220]/[0.12] border border-[#f58220]/30 p-5">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">Rush</p>
+                <div className="rounded-2xl bg-[#fa8c41]/[0.12] border border-[#fa8c41]/30 p-5">
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Rush</p>
                   <p className="mt-1 text-3xl font-black text-white">$1,199</p>
                   <p className="mt-1 text-[13px] text-white/65">24–48 hours · priority scheduling</p>
                 </div>
@@ -308,7 +308,7 @@ export default function RealtorsPage() {
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link
                   href="/lp/gc-grade-property-inspection"
-                  className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#f58220] px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_28px_-8px_rgba(245,130,32,0.55)] transition hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                  className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#fa8c41] px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_28px_-8px_rgba(245,130,32,0.55)] transition hover:-translate-y-0.5 hover:bg-[#ffa463]"
                 >
                   See the Flagship Product →
                 </Link>
@@ -327,36 +327,36 @@ export default function RealtorsPage() {
       {/* DEAL PACK FOR LISTINGS */}
       <section className="bg-gradient-to-br from-[#0a1428] via-[#0d1a30] to-[#0a1428] py-14 sm:py-18 border-t border-white/8">
         <div className="container-pro">
-          <div className="mx-auto max-w-5xl rounded-[28px] border-2 border-[#f58220]/40 bg-gradient-to-br from-[#f58220]/[0.08] via-[#f58220]/[0.02] to-transparent p-8 sm:p-12 shadow-[0_24px_60px_-16px_rgba(245,130,32,0.25)]">
+          <div className="mx-auto max-w-5xl rounded-[28px] border-2 border-[#fa8c41]/40 bg-gradient-to-br from-[#fa8c41]/[0.08] via-[#fa8c41]/[0.02] to-transparent p-8 sm:p-12 shadow-[0_24px_60px_-16px_rgba(245,130,32,0.25)]">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex rounded-full bg-[#f58220] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">NEW · FOR LISTING AGENTS</span>
+              <span className="inline-flex rounded-full bg-[#fa8c41] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">NEW · FOR LISTING AGENTS</span>
               <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">Rehab-needed listings · investor-buyer pools</span>
             </div>
             <h2 className="mt-5 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">
               Attach a GC-Verified Deal Pack to your listing.<br />
-              <span className="text-[#f58220]">Attract the investor-buyers who actually pay top of market.</span>
+              <span className="text-[#fa8c41]">Attract the investor-buyers who actually pay top of market.</span>
             </h2>
             <p className="mt-5 text-lg leading-[1.55] text-white/85">
               For rehab-needed or investor-grade listings: a licensed NC GC delivers a branded Deal Pack — verified rehab budget, scope, risk callouts (Bid-Ready) or full plans + designs + sub quotes + closing sweep (Build-Ready). Attach it to your MLS marketing and disclosure packet. Investor-buyers stop passing on un-scoped properties because they no longer have to bring their own GC.
             </p>
             <div className="mt-7 grid gap-4 sm:grid-cols-3">
               <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">For your listing</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">For your listing</p>
                 <p className="mt-2 text-[15px] leading-[1.5] text-white/85">Branded PDF with NC GC #107724 stamp — attach to MLS, disclosure packet, showing folder</p>
               </div>
               <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">For your buyer</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">For your buyer</p>
                 <p className="mt-2 text-[15px] leading-[1.5] text-white/85">Lender-ready scope means investor financing approves faster; fewer contingencies; fewer credit demands</p>
               </div>
               <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">For you</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">For you</p>
                 <p className="mt-2 text-[15px] leading-[1.5] text-white/85">List at top of band with confidence · close investor-friendly properties faster · win more listing presentations</p>
               </div>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/deal-pack"
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#f58220] px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_28px_-8px_rgba(245,130,32,0.55)] transition hover:-translate-y-0.5 hover:bg-[#ff9229]"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#fa8c41] px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_28px_-8px_rgba(245,130,32,0.55)] transition hover:-translate-y-0.5 hover:bg-[#ffa463]"
               >
                 See Deal Pack Tiers →
               </Link>
@@ -375,7 +375,7 @@ export default function RealtorsPage() {
       <section id="packages" className="bg-[#08111d] py-14 sm:py-18">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Transaction packages</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Transaction packages</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Realtor Bundle Pricing</h2>
             <p className="mt-4 text-[16px] leading-relaxed text-white sm:text-lg">
               Buy the construction-side coverage your transaction needs in one fixed price — saves vs à la carte and removes per-step purchase decisions. Two bundles include the flagship GC-Grade Inspection; the third is for agents who bring their own inspector.
@@ -386,11 +386,11 @@ export default function RealtorsPage() {
             <div className="grid grid-cols-[1.3fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-4 sm:px-5" />
               {transactionPackages.map((pkg) => (
-                <div key={pkg.title} className={`px-3 py-4 text-center sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
+                <div key={pkg.title} className={`px-3 py-4 text-center sm:px-5 ${pkg.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>
                   {pkg.badge ? (
-                    <span className="mb-2 inline-flex rounded-full bg-[#f58220] px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">{pkg.badge}</span>
+                    <span className="mb-2 inline-flex rounded-full bg-[#fa8c41] px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">{pkg.badge}</span>
                   ) : null}
-                  <p className="mx-auto inline-flex rounded-full border border-[#f58220]/30 bg-[#0b1f44] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#f58220]">{pkg.label}</p>
+                  <p className="mx-auto inline-flex rounded-full border border-[#fa8c41]/30 bg-[#0b1f44] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#fa8c41]">{pkg.label}</p>
                   <h3 className="mt-2 text-base font-extrabold tracking-tight text-white sm:text-lg">{pkg.title}</h3>
                 </div>
               ))}
@@ -399,7 +399,7 @@ export default function RealtorsPage() {
             <div className="grid grid-cols-[1.3fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Pricing</div>
               {transactionPackages.map((pkg) => (
-                <div key={`${pkg.title}-price`} className={`px-3 py-3 text-center text-sm font-bold text-[#f58220] sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
+                <div key={`${pkg.title}-price`} className={`px-3 py-3 text-center text-sm font-bold text-[#fa8c41] sm:px-5 ${pkg.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
                   {pkg.price}
                 </div>
               ))}
@@ -408,7 +408,7 @@ export default function RealtorsPage() {
             <div className="grid grid-cols-[1.3fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Value note</div>
               {transactionPackages.map((pkg) => (
-                <div key={`${pkg.title}-saves`} className={`px-3 py-3 text-center text-[12px] text-white/70 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
+                <div key={`${pkg.title}-saves`} className={`px-3 py-3 text-center text-[12px] text-white/70 sm:px-5 ${pkg.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
                   {pkg.saves}
                 </div>
               ))}
@@ -420,8 +420,8 @@ export default function RealtorsPage() {
                 {transactionPackages.map((pkg) => {
                   const included = pkg.includes.includes(row);
                   return (
-                    <div key={`${pkg.title}-${row}`} className={`flex items-center justify-center px-3 py-2.5 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
-                      <span className={`text-base font-bold ${included ? 'text-[#f58220]' : 'text-white/25'}`}>{included ? '✔' : '—'}</span>
+                    <div key={`${pkg.title}-${row}`} className={`flex items-center justify-center px-3 py-2.5 sm:px-5 ${pkg.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
+                      <span className={`text-base font-bold ${included ? 'text-[#fa8c41]' : 'text-white/25'}`}>{included ? '✔' : '—'}</span>
                     </div>
                   );
                 })}
@@ -431,10 +431,10 @@ export default function RealtorsPage() {
             <div className="grid grid-cols-[1.3fr_1fr_1fr]">
               <div className="px-4 py-4 sm:px-5" />
               {transactionPackages.map((pkg) => (
-                <div key={`${pkg.title}-cta`} className={`px-3 py-4 sm:px-5 ${pkg.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
+                <div key={`${pkg.title}-cta`} className={`px-3 py-4 sm:px-5 ${pkg.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>
                   <Link
                     href={pkg.href}
-                    className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${pkg.highlighted ? 'bg-[#f58220] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)] hover:bg-[#ff9229]' : 'border border-white/25 text-white hover:bg-white/5'}`}
+                    className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${pkg.highlighted ? 'bg-[#fa8c41] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)] hover:bg-[#ffa463]' : 'border border-white/25 text-white hover:bg-white/5'}`}
                   >
                     View Package
                   </Link>
@@ -449,7 +449,7 @@ export default function RealtorsPage() {
       <section id="pricing" className="bg-[#08111d] py-14 sm:py-18">
         <div className="container-pro">
           <div className="max-w-3xl">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Monthly support tiers</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Monthly support tiers</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Realtor Subscription Plans</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-white/82 sm:text-lg">
               When the same construction questions keep coming up across your active deals, a monthly plan gives you defined response capacity at predictable cost — sized to whether you are a solo agent, a team, or a full brokerage.
@@ -458,22 +458,22 @@ export default function RealtorsPage() {
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {supportTiers.map((tier) => (
-              <div key={tier.title} className={`rounded-3xl border p-7 sm:p-8 ${tier.highlighted ? 'border-[#f58220]/60 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] shadow-[0_30px_60px_-20px_rgba(245,130,32,0.25)]' : 'border-white/10 bg-white/[0.03]'}`}>
+              <div key={tier.title} className={`rounded-3xl border p-7 sm:p-8 ${tier.highlighted ? 'border-[#fa8c41]/60 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] shadow-[0_30px_60px_-20px_rgba(245,130,32,0.25)]' : 'border-white/10 bg-white/[0.03]'}`}>
                 {tier.badge ? (
-                  <p className="inline-flex rounded-full bg-[#f58220] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white">{tier.badge}</p>
+                  <p className="inline-flex rounded-full bg-[#fa8c41] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white">{tier.badge}</p>
                 ) : null}
-                <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#f58220]">{tier.label}</p>
+                <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#fa8c41]">{tier.label}</p>
                 <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">{tier.title}</h3>
                 <p className="mt-3 text-3xl font-black tracking-[-0.02em] text-white">{tier.price}</p>
                 <ul className="mt-6 space-y-2.5 text-[14px] leading-relaxed text-white/85">
                   {tier.includes.map((item) => (
                     <li key={item} className="flex items-start gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#f58220]" />
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#fa8c41]" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-                <Link href={tier.href} className={`mt-7 inline-flex min-h-[48px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-bold uppercase tracking-wider transition ${tier.highlighted ? 'bg-[#f58220] text-white hover:bg-[#ff9229] shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)]' : 'border border-white/25 text-white hover:bg-white/5'}`}>
+                <Link href={tier.href} className={`mt-7 inline-flex min-h-[48px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-bold uppercase tracking-wider transition ${tier.highlighted ? 'bg-[#fa8c41] text-white hover:bg-[#ffa463] shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)]' : 'border border-white/25 text-white hover:bg-white/5'}`}>
                   {tier.cta}
                 </Link>
               </div>
@@ -486,10 +486,10 @@ export default function RealtorsPage() {
       <section className="bg-white py-16 sm:py-20">
         <div className="container-pro max-w-5xl">
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#f58220]">
-              <span className="w-6 h-px bg-[#f58220]/50" />
+            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#fa8c41]">
+              <span className="w-6 h-px bg-[#fa8c41]/50" />
               Free GC-Certified Resources
-              <span className="w-6 h-px bg-[#f58220]/50" />
+              <span className="w-6 h-px bg-[#fa8c41]/50" />
             </span>
             <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-[#08111d]">
               Free checklists — built by a licensed NC GC
@@ -503,9 +503,9 @@ export default function RealtorsPage() {
           <div className="grid gap-6 sm:grid-cols-2">
             <Link
               href="/resources#gc-certified-pre-listing-checklist"
-              className="group rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all hover:border-[#f58220]/50 hover:bg-white hover:shadow-elev-1"
+              className="group rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all hover:border-[#fa8c41]/50 hover:bg-white hover:shadow-elev-1"
             >
-              <span className="inline-flex rounded-full bg-[#f58220]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#f58220]">
+              <span className="inline-flex rounded-full bg-[#fa8c41]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#fa8c41]">
                 For Sellers
               </span>
               <h3 className="mt-4 text-xl font-extrabold tracking-tight text-[#08111d]">
@@ -515,15 +515,15 @@ export default function RealtorsPage() {
                 What sellers should fix, disclose, or leave alone before listing — with prep-spend
                 budget ranges by price tier. Use this before the listing goes live.
               </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.14em] text-[#f58220] group-hover:gap-3 transition-all">
+              <span className="mt-5 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.14em] text-[#fa8c41] group-hover:gap-3 transition-all">
                 Get the Checklist <span aria-hidden="true">→</span>
               </span>
             </Link>
             <Link
               href="/resources#gc-certified-pre-offer-checklist"
-              className="group rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all hover:border-[#f58220]/50 hover:bg-white hover:shadow-elev-1"
+              className="group rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all hover:border-[#fa8c41]/50 hover:bg-white hover:shadow-elev-1"
             >
-              <span className="inline-flex rounded-full bg-[#f58220]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#f58220]">
+              <span className="inline-flex rounded-full bg-[#fa8c41]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#fa8c41]">
                 For Buyers
               </span>
               <h3 className="mt-4 text-xl font-extrabold tracking-tight text-[#08111d]">
@@ -533,7 +533,7 @@ export default function RealtorsPage() {
                 What buyers should look for at the showing — age-based red flags by system,
                 replacement-cost ranges, and walk-away triggers. Use this BEFORE writing the offer.
               </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.14em] text-[#f58220] group-hover:gap-3 transition-all">
+              <span className="mt-5 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.14em] text-[#fa8c41] group-hover:gap-3 transition-all">
                 Get the Checklist <span aria-hidden="true">→</span>
               </span>
             </Link>
@@ -547,7 +547,7 @@ export default function RealtorsPage() {
           <details className="group rounded-[28px] border border-stone-200 bg-white shadow-elev-1">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-[28px] px-6 py-6 sm:px-8 sm:py-7">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#f58220]">À la carte</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#fa8c41]">À la carte</p>
                 <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
                   Browse every individual product
                 </h2>
@@ -555,7 +555,7 @@ export default function RealtorsPage() {
                   Need a specific product instead of a bundle? Expand to see all individual realtor products organized by deal stage.
                 </p>
               </div>
-              <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#f58220]/10 text-[#f58220] transition-transform group-open:rotate-180">
+              <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#fa8c41]/10 text-[#fa8c41] transition-transform group-open:rotate-180">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

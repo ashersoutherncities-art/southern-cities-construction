@@ -47,7 +47,7 @@ export default function CartFloatingPill({ position = 'top-right' }: { position?
     <Link
       href={href}
       aria-label={`Cart, ${count} item${count === 1 ? '' : 's'} — go to checkout`}
-      className={`fixed ${positionClasses} z-40 inline-flex items-center gap-2 rounded-full bg-[#08111d] px-4 py-2.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] ring-2 ring-[#f58220]/70 transition hover:-translate-y-0.5 hover:bg-[#0e1a30]`}
+      className={`fixed ${positionClasses} z-40 inline-flex items-center gap-2 rounded-full bg-[#08111d] px-4 py-2.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] ring-2 ring-[#fa8c41]/70 transition hover:-translate-y-0.5 hover:bg-[#0e1a30]`}
     >
       <span className="relative flex h-5 w-5 items-center justify-center">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} aria-hidden="true">
@@ -55,7 +55,7 @@ export default function CartFloatingPill({ position = 'top-right' }: { position?
         </svg>
       </span>
       <span className="hidden sm:inline">View cart</span>
-      <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#f58220] px-1.5 text-[11px] font-black text-white">
+      <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#fa8c41] px-1.5 text-[11px] font-black text-white">
         {count}
       </span>
     </Link>

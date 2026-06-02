@@ -20,8 +20,9 @@ export type PlatformStageSlug = 'lm1' | 'co1' | 'co2' | 'co3' | 'co4' | 'co5';
 export type PlatformStage = {
   slug: PlatformStageSlug;
   stageNumber: number;
-  shortCode: string; // "LM1", "CO1", etc.
-  name: string; // marketing-facing name
+  shortCode: string; // INTERNAL ONLY — "LM1", "CO1", etc. Never used in customer-facing copy.
+  name: string; // marketing-facing full name
+  marketingShortName: string; // marketing-facing short name (e.g., "Execution Review"). Use this anywhere a short label is needed customer-side.
   internalName: string; // back-office descriptor
   audienceTag: string; // pill text in hero
   oneLiner: string; // 1-sentence positioning
@@ -63,6 +64,29 @@ export type PlatformStage = {
    *  (CO1 etc.). When set, the stage page renders an AddToCartButton
    *  using this key instead of the generic anchor CTA. */
   cartProductKey?: string;
+
+  // ============================================================
+  // NO-BRAINER ARCHITECTURE FIELDS
+  // ============================================================
+
+  /** Which guarantee bucket this offer falls into. */
+  bucket: 'Diagnosis' | 'Delivery' | 'Performance';
+  /** The verb that shapes the promise. */
+  verb: 'FIND' | 'DELIVER' | 'SOLVE';
+  /** The verb-shaped outcome promise that headlines the offer. */
+  promise: string;
+  /** "Refund if we cannot perform" guarantee language. Omit for free offers. */
+  refundMechanic?: string;
+  /** Bullet list of asymmetric-ROI reasoning shown on the page. */
+  noBrainerMath: string[];
+  /** Bonus items stacked on the offer to raise perceived value. */
+  bonusStack: Array<{ label: string; value?: string }>;
+  /** Optional testimonials shown in a trust-band section. Render only if non-empty. */
+  testimonials?: Array<{
+    quote: string;
+    attribution: string; // e.g., "BRRRR operator, Charlotte" or "Flipper, Wilmington"
+    dollar?: string; // optional: "$22K saved" — appears as a chip
+  }>;
 };
 
 // ============================================================
@@ -74,20 +98,21 @@ const LM1: PlatformStage = {
   stageNumber: 1,
   shortCode: 'LM1',
   name: 'Rehab Budget Range & Execution Risk Snapshot',
+  marketingShortName: 'Budget Snapshot',
   internalName: 'Automated rules-based rehab budget tool — lead magnet',
   audienceTag: 'INVESTORS · UNDERWRITING',
-  oneLiner: 'Free automated rehab budget range + execution risk snapshot for early-stage underwriting.',
+  oneLiner: '$0 to keep $10K+ in your pocket. A licensed NC GC delivers a decision-grade rehab budget range you can underwrite from. Free.',
   purpose:
-    'Near-free automated tool that gives investors a directional budget range, timeline, and risk flags before they commit earnest money. Designed to create awareness that deeper validation (CO1) is needed.',
+    'Rules-based automated tool that gives investors a decision-grade rehab budget range, timeline, project category, and risk flags for early-stage underwriting. Built to be ~80% directionally useful so investors can make a confident go/no-go call on the deal — or build deeper analysis from. Designed to surface the need for deeper validation (the Execution Review) when the stakes get serious.',
   isAutomated: true,
   isPaid: false,
   pricing: 'Free',
   pricingDetail: 'Free tool · automated · no contractor review at this stage',
-  turnaround: 'Instant',
+  turnaround: 'Instant snapshot · ~5-minute intake',
   ghlTag: 'platform-lm1-captured',
   questionAnswered: 'What is this project LIKELY to cost to execute?',
   revealedProblem:
-    'The range gives you a number — but it cannot tell you whether the project is realistically executable within those assumptions. That is what the Investor Execution Review (CO1) answers.',
+    'The range gives you a number — but it cannot tell you whether the project is realistically executable within those assumptions. That is what the Investor Execution Review answers.',
   deliverables: [
     'Preliminary budget range based on classification + multipliers',
     'Timeline range estimate',
@@ -104,21 +129,38 @@ const LM1: PlatformStage = {
     'Manual contractor review',
   ],
   thisIs: [
-    'Preliminary execution budgeting',
-    'Directional feasibility analysis',
-    'Execution risk snapshot',
-    'Underwriting support',
+    'Decision-grade rehab budget range for go/no-go underwriting',
+    'Foundation for deeper underwriting analysis',
+    'Contractor-grade rules-based project classification',
+    'Directional execution risk snapshot',
   ],
-  heroHeadlinePre: 'Get a',
-  heroHeadlineHighlight: 'preliminary rehab budget range',
-  heroHeadlinePost: ' in 60 seconds — before earnest money goes hard.',
+  heroHeadlinePre: '$0 to keep',
+  heroHeadlineHighlight: '$10K+',
+  heroHeadlinePost: ' in your pocket.',
   heroSubheadline:
-    'Free automated tool. Drop in the property address, square footage, year built, scope, and a few photos. Get a directional budget range, timeline estimate, and execution risk snapshot. Not a quote — early-stage underwriting support.',
-  ctaLabel: 'Get the Budget Snapshot',
+    'Submit property details, scope of work, finish target, strategy, and photos. A licensed NC GC’s rules-based engine delivers a decision-grade budget range, timeline, project category, and execution risk flags — free. Built to be ~80% directionally useful so you can underwrite the deal or build deeper analysis from. Before one missed risk becomes ten.',
+  ctaLabel: 'Get My Rehab Budget — Free',
   ctaLabelMid: 'See What the Snapshot Includes',
-  ctaLabelFinal: 'Run a Snapshot — Free',
+  ctaLabelFinal: 'Get My Rehab Budget — Free',
   nextStage: 'co1',
-  toolUrl: '/lp/rehab-budget-range-execution-risk-snapshot',
+  toolUrl: '#rehab-snapshot-form',
+  bucket: 'Diagnosis',
+  verb: 'FIND',
+  promise:
+    'Find a decision-grade rehab budget range, timeline, project category, and execution risk snapshot for your deal — a contractor-grade underwriting foundation before one missed risk becomes ten.',
+  noBrainerMath: [
+    "It's free. Takes about 5 minutes of intake — snapshot delivers instantly.",
+    'Tells you immediately whether the deal is even in the ballpark — before you sink time into deeper analysis.',
+    'Decision-grade range you can underwrite from, or use as the foundation for deeper review.',
+    'Surfaces risk flags that a spreadsheet budget cannot catch.',
+    'Branded PDF emailed automatically — keep it for the file.',
+  ],
+  bonusStack: [
+    { label: 'Branded PDF emailed automatically' },
+    { label: 'Project category classification (cosmetic → structural)' },
+    { label: 'Confidence-level scoring on the estimate' },
+    { label: 'Risk flags surfaced from your inputs' },
+  ],
 };
 
 const CO1: PlatformStage = {
@@ -126,15 +168,16 @@ const CO1: PlatformStage = {
   stageNumber: 2,
   shortCode: 'CO1',
   name: 'Investor Execution Review',
+  marketingShortName: 'Execution Review',
   internalName: 'Human-reviewed execution feasibility validation',
   audienceTag: 'INVESTORS · PRE-LOI / PRE-OFFER',
-  oneLiner: 'Human-reviewed execution feasibility — pressure-tests the budget, validates execution probability, identifies risk before earnest money.',
+  oneLiner: 'Stop losing $5K+ to execution mistakes. A licensed NC GC eliminates the hidden risk on your next deal in 48 hours — or refund.',
   purpose:
     'This is where actual expertise enters. A licensed NC GC validates whether the project realistically works, whether the assumptions are executable, and whether the budget is pressure-tested.',
   isAutomated: false,
   isPaid: true,
   pricing: '$499',
-  pricingDetail: '$499 flat fee · 2 business day turnaround · refundable as credit on CO2 / CO3 / CO4 / CO5',
+  pricingDetail: '$499 flat fee · 2 business day turnaround · refundable as credit on Project Setup, Active Oversight, GC-Supported Build, or Full GC Service',
   turnaround: '2 business days',
   ghlTag: 'platform-co1-purchased',
   questionAnswered: 'Can this project realistically be executed within the assumptions required for the deal to work?',
@@ -162,16 +205,34 @@ const CO1: PlatformStage = {
     'Reduced decision error',
     'Investment clarity',
   ],
-  heroHeadlinePre: 'Find out whether the project',
-  heroHeadlineHighlight: 'actually executes',
-  heroHeadlinePost: ' — before earnest money goes hard.',
+  heroHeadlinePre: 'Stop losing',
+  heroHeadlineHighlight: '$5,000+',
+  heroHeadlinePost: ' to execution mistakes you didn’t see coming.',
   heroSubheadline:
-    'A licensed NC GC pressure-tests the budget against real market labor and materials, validates the permit path, reviews timing, and tells you exactly where the execution risk lives. $499 flat — refundable as credit against any CO2 / CO3 / CO4 / CO5 engagement.',
-  ctaLabel: 'Book the Execution Review',
+    'A licensed NC GC pressure-tests your deal in 48 hours and eliminates every hidden execution risk — labor market spikes, permit reality, sequencing gaps, category-shifters. $499 flat. Performance guarantee: full refund if we cannot perform the review at our standard. NC GC #107724.',
+  ctaLabel: 'Stop My Losses — $499',
   ctaLabelMid: 'See a Sample Review',
-  ctaLabelFinal: 'Get Review — $499 (credited back)',
+  ctaLabelFinal: 'Stop My Losses — $499 (refunded if continued)',
   nextStage: 'co2',
   cartProductKey: 'platform-co1-execution-review',
+  bucket: 'Diagnosis',
+  verb: 'FIND',
+  promise:
+    'Eliminate $5,000+ of execution risk on your next deal — or confirm the deal is clean. Either way, you stop walking blind — before one missed risk becomes ten.',
+  refundMechanic:
+    'Performance guarantee: $499 fully refunded if we cannot perform the Execution Review at SCC standard. SCC evaluates your deal in 24 hours — if we determine we cannot deliver a complete review (deal is too unusual, data too thin, or otherwise outside what we underwrite), refund. Once we accept the engagement, we deliver. The refund trigger is SCC’s call, not the buyer’s.',
+  noBrainerMath: [
+    'Pay $499 → find at least $5,000 of execution risk on your deal OR confirm the deal is clean. Both answers are worth $499.',
+    'Typical findings: $5,000+ of execution risk you would have walked into blind without the review.',
+    '$499 credits forward against any deeper engagement (Project Setup, Active Oversight, GC-Supported Build, Full GC Service) — so if you continue with SCC at any deeper level, it is $0 net.',
+    'The only buyers who pay $499 net are those who run the review AND walk away from the deal — in which case the review just saved them from a $5K+ mistake.',
+  ],
+  bonusStack: [
+    { label: '48-hour turnaround on the full written review', value: '$0 — included' },
+    { label: 'Permit-jurisdiction timeline check for your AHJ', value: '$150 value' },
+    { label: 'Vendor-lineup intro list for your submarket', value: '$300 value' },
+    { label: '$499 credits forward to any deeper SCC engagement', value: '$499 value' },
+  ],
 };
 
 const CO2: PlatformStage = {
@@ -179,9 +240,10 @@ const CO2: PlatformStage = {
   stageNumber: 3,
   shortCode: 'CO2',
   name: 'Project Setup & Contractor Coordination',
+  marketingShortName: 'Project Setup',
   internalName: 'Pre-construction operational setup',
   audienceTag: 'INVESTORS · PRE-CONSTRUCTION',
-  oneLiner: 'Organize the project operationally — bid coordination, scope alignment, permit prep, draw planning, contractor sourcing — BEFORE active execution begins.',
+  oneLiner: 'Eliminate the chaos that costs investors $10K+ mid-build. We structure your project end-to-end before the cracks split the deal.',
   purpose:
     'This is pre-construction setup infrastructure. The goal is to remove ambiguity and chaos before any subcontractor touches the property.',
   isAutomated: false,
@@ -213,15 +275,33 @@ const CO2: PlatformStage = {
     'Operational organization',
     'Coordination layer',
   ],
-  heroHeadlinePre: 'Organize the project',
-  heroHeadlineHighlight: 'before construction starts',
-  heroHeadlinePost: ' — not after the chaos hits.',
+  heroHeadlinePre: 'Stop letting bad pre-construction cost you',
+  heroHeadlineHighlight: '$10,000+',
+  heroHeadlinePost: ' in execution corrections.',
   heroSubheadline:
-    'Bid coordination, scope alignment, permit prep, contractor sourcing, draw planning. Done by a licensed NC GC before a single subcontractor touches the property. Most projects fail because pre-construction was skipped.',
-  ctaLabel: 'Set Up the Project',
+    'A licensed NC GC structures your entire project before the cracks split the deal — bid coordination, scope alignment, permit prep, contractor sourcing, draw planning. Eliminate the chaos that costs investors $10K+ mid-build. Performance guarantee: full refund if we cannot perform setup at our standard. NC GC #107724.',
+  ctaLabel: 'Eliminate the Chaos — Get Quote',
   ctaLabelMid: 'See What Setup Includes',
-  ctaLabelFinal: 'Get Setup Quote',
+  ctaLabelFinal: 'Stop Mid-Build Surprises — Get Quote',
   nextStage: 'co3',
+  bucket: 'Delivery',
+  verb: 'DELIVER',
+  promise:
+    'Eliminate the chaos that costs investors $10,000+ mid-build. We structure your entire project end-to-end — subs, bids, scope, permits, schedule, draws — before the cracks split the deal.',
+  refundMechanic:
+    'Performance guarantee: full refund if after our 5-day intake we determine we cannot deliver project setup at our standard for your scope. The refund trigger is SCC’s call, not the buyer’s.',
+  noBrainerMath: [
+    '$2,500 starting fee ($2,001 net after the Execution Review credit applies).',
+    'Skip 40–60 hours of contractor sourcing, bid normalization, scope writing, and schedule building yourself.',
+    'A botched pre-construction setup typically costs $10K+ in execution corrections downstream.',
+    'First-prevented setup miss ROI: 4x–12x.',
+  ],
+  bonusStack: [
+    { label: 'Full vendor lineup with negotiated rate cards', value: 'irreplaceable' },
+    { label: 'Permit submission package — SCC drafts, you submit' },
+    { label: 'Draw sequencing logic written for your lender' },
+    { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
+  ],
 };
 
 const CO3: PlatformStage = {
@@ -229,16 +309,17 @@ const CO3: PlatformStage = {
   stageNumber: 4,
   shortCode: 'CO3',
   name: 'Active Project Oversight',
+  marketingShortName: 'Active Oversight',
   internalName: 'Ongoing execution oversight + coordination during construction',
   audienceTag: 'INVESTORS · ACTIVE CONSTRUCTION',
-  oneLiner: 'Execution visibility, coordination, and monitoring during active construction. Keeps execution from drifting.',
+  oneLiner: 'Stop watching your budget bleed $5K+ mid-project. A licensed NC GC kills execution drift weekly — scoped flat fee, not monthly.',
   purpose:
     'Provide ongoing execution visibility, coordination, monitoring, and operational control support DURING active construction.',
   isAutomated: false,
   isPaid: true,
-  pricing: 'Starting at $3,500/mo',
-  pricingDetail: 'Monthly engagement · scoped per project size + complexity · typical $3,500–$7,500/mo for residential rehab projects',
-  turnaround: 'Monthly engagement during active construction',
+  pricing: 'From $6,500 — scoped per project',
+  pricingDetail: 'Flat fee per project (not monthly) · Light $6,500 / Standard $12,500 / Heavy $19,500 / Complex $28,500 · tier confirmed during the Execution Review based on project type and duration',
+  turnaround: 'Engagement spans active construction (typical 6 weeks–12 months by tier)',
   ghlTag: 'platform-co3-purchased',
   questionAnswered: 'How do I keep execution from drifting once construction actually starts?',
   revealedProblem:
@@ -259,8 +340,8 @@ const CO3: PlatformStage = {
   ],
   notThisIs: [
     'Simple admin work',
-    'Pre-construction setup (that is CO2)',
-    'Full GC execution (that is CO5)',
+    'Pre-construction setup (handled by Project Setup)',
+    'Full GC execution (handled by Full GC Service)',
     'Daily on-site supervision',
   ],
   thisIs: [
@@ -269,15 +350,33 @@ const CO3: PlatformStage = {
     'Operational visibility',
     'Project control support',
   ],
-  heroHeadlinePre: 'Stop execution from',
-  heroHeadlineHighlight: 'drifting',
-  heroHeadlinePost: ' once construction starts.',
+  heroHeadlinePre: 'Stop watching your budget',
+  heroHeadlineHighlight: 'bleed $5K+',
+  heroHeadlinePost: ' mid-project.',
   heroSubheadline:
-    'Weekly progress tracking, budget monitoring, change tracking, contractor coordination, periodic site inspections. A licensed NC GC keeps execution on plan — without you running the daily ops.',
-  ctaLabel: 'Get Oversight Quote',
+    'Weekly progress tracking, budget monitoring, schedule monitoring, contractor coordination, site inspections — for the full duration of your project at a scoped flat fee. A licensed NC GC kills execution drift before it kills your margin. Performance guarantee: full refund if we cannot perform oversight at our standard. NC GC #107724.',
+  ctaLabel: 'Kill the Drift — Get Quote',
   ctaLabelMid: 'See How Oversight Works',
-  ctaLabelFinal: 'Get My Oversight Quote',
+  ctaLabelFinal: 'Stop My Budget Bleed — Get Quote',
   nextStage: 'co4',
+  bucket: 'Delivery',
+  verb: 'DELIVER',
+  promise:
+    'Kill execution drift before it kills your margin. A licensed NC GC tracks progress, monitors budget, flags slippage, escalates issues, and coordinates contractors — every week, for the full duration of your project.',
+  refundMechanic:
+    'Performance guarantee: full refund if after the Execution Review we determine we cannot deliver oversight at our standard for your project tier. The refund trigger is SCC’s call, not the buyer’s.',
+  noBrainerMath: [
+    'Light $6,500 / Standard $12,500 / Heavy $19,500 / Complex $28,500 — scoped flat fee, NOT monthly. You know your total upfront.',
+    'Typical execution surprise on a rehab: $5K+. Active Oversight prevents 1+ surprise on nearly every project.',
+    '100+ hours of your time saved chasing contractors, draws, and slippage.',
+    "The Execution Review's $499 credits forward — net cost is even lower if you came through the funnel.",
+  ],
+  bonusStack: [
+    { label: 'Weekly written reports for the duration of the project' },
+    { label: 'Direct cell access to your assigned SCC PM during business hours' },
+    { label: 'Vendor-level escalation handling — SCC fights subs on your behalf' },
+    { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
+  ],
 };
 
 const CO4: PlatformStage = {
@@ -285,15 +384,16 @@ const CO4: PlatformStage = {
   stageNumber: 5,
   shortCode: 'CO4',
   name: 'GC-Supported Owner Build',
+  marketingShortName: 'GC-Supported Build',
   internalName: 'Licensed GC structure + oversight, owner manages daily ops',
   audienceTag: 'INVESTORS · OWNER-CONTROLLED',
-  oneLiner: 'Licensed GC structure (permits, compliance, authority) while you or your PM run the daily operations.',
+  oneLiner: 'Stop running your project on a permit and compliance prayer. SCC pulls permits + owns compliance — you keep daily control.',
   purpose:
     'Provide licensed GC structure and oversight while the owner or owner-side PM manages daily operations. Best for experienced operators who want the legal + compliance scaffolding without giving up daily control.',
   isAutomated: false,
   isPaid: true,
-  pricing: 'Scoped per project',
-  pricingDetail: 'Custom engagement · typical $5K–$15K + ongoing oversight retainer · depends on project size and risk profile',
+  pricing: 'From $5,000 + 4% of project budget',
+  pricingDetail: 'Engagement fee $5,000–$15,000 (scoped by complexity) + ongoing oversight retainer at 4% of project budget, billed monthly during active construction · scaled to project size and risk profile',
   turnaround: 'Engagement starts at permit pull',
   ghlTag: 'platform-co4-engaged',
   questionAnswered: 'Who is actually controlling and assuming execution responsibility?',
@@ -311,7 +411,7 @@ const CO4: PlatformStage = {
     'Contract structure guidance',
   ],
   notThisIs: [
-    'Full-service GC execution (that is CO5)',
+    'Full-service GC execution (handled by Full GC Service)',
     'Daily site supervision',
     'Labor coordination',
   ],
@@ -320,15 +420,33 @@ const CO4: PlatformStage = {
     'Owner-controlled execution under licensed GC infrastructure',
     'Risk + authority layer without daily ops',
   ],
-  heroHeadlinePre: 'Keep daily control —',
-  heroHeadlineHighlight: 'get GC scaffolding underneath',
-  heroHeadlinePost: '.',
+  heroHeadlinePre: 'Stop running your project on a',
+  heroHeadlineHighlight: 'permit and compliance prayer',
+  heroHeadlinePost: '. Keep daily control.',
   heroSubheadline:
-    'You or your PM run daily ops. Southern Cities pulls permits, owns compliance, coordinates inspections, and provides the licensed-GC oversight that makes the project legally executable. For experienced operators who want structure without giving up control.',
-  ctaLabel: 'Discuss CO4 Engagement',
-  ctaLabelMid: 'See How CO4 Works',
-  ctaLabelFinal: 'Discuss Engagement',
+    'You or your PM run daily ops. Southern Cities pulls permits under our license, owns compliance, coordinates inspections, and provides the licensed-GC scaffolding that makes the project legally executable. For experienced operators who want structure without giving up control. Performance guarantee: full refund if we cannot perform the scaffolding at our standard. NC GC #107724.',
+  ctaLabel: 'Eliminate Permit Risk — Discuss',
+  ctaLabelMid: 'See How GC-Supported Build Works',
+  ctaLabelFinal: 'Eliminate Permit + Compliance Risk',
   nextStage: 'co5',
+  bucket: 'Delivery',
+  verb: 'DELIVER',
+  promise:
+    'Eliminate permit and compliance risk on your build. SCC pulls permits under licensed authority, owns compliance, coordinates AHJ inspections, and provides the GC scaffolding that makes the project legally executable — while you run daily ops.',
+  refundMechanic:
+    'Performance guarantee: full refund of engagement fee if after planning we determine we cannot deliver GC scaffolding for your project (permit path, compliance scope, or risk profile outside what we can underwrite). The refund trigger is SCC’s call, not the buyer’s.',
+  noBrainerMath: [
+    'Without the GC-Supported Build: investor cannot legally pull permits, sub work runs unlicensed, compliance risk sits on the investor.',
+    'With the GC-Supported Build: project is legally executable under licensed GC, AHJ inspections coordinated, compliance risk transferred to SCC.',
+    'Engagement fee from $5,000 + 4% of project budget retainer = pricing scales with project, not flat.',
+    'Binary value: this is what makes the project legally possible at all.',
+  ],
+  bonusStack: [
+    { label: 'Permit pulls included (no markup on permit fees)' },
+    { label: 'AHJ inspection coordination across your jurisdiction' },
+    { label: 'Contract structure templates for your subs' },
+    { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
+  ],
 };
 
 const CO5: PlatformStage = {
@@ -336,15 +454,16 @@ const CO5: PlatformStage = {
   stageNumber: 6,
   shortCode: 'CO5',
   name: 'Full-Service General Contracting',
+  marketingShortName: 'Full GC Service',
   internalName: 'End-to-end project execution under SCC license',
   audienceTag: 'INVESTORS · FULLY OUTSOURCED',
-  oneLiner: 'Southern Cities fully operates the project from planning through delivery. You provide capital + strategy.',
+  oneLiner: 'Stop carrying budget and schedule risk yourself. Fixed-price + on-schedule penalty means SCC carries both. You bring capital, we deliver keys.',
   purpose:
     'Provide full project execution responsibility from planning through delivery. SCC fully manages and operates the project. Investor focuses on capital + strategy + asset goals.',
   isAutomated: false,
   isPaid: true,
   pricing: 'Scoped per project',
-  pricingDetail: 'Custom engagement · typically scoped at GC fee + cost-plus or fixed-bid depending on project',
+  pricingDetail: 'GC fee + cost-plus OR fixed-bid · no minimum project size · scoped after pre-construction review',
   turnaround: 'Engagement starts at planning',
   ghlTag: 'platform-co5-engaged',
   questionAnswered: 'I want Southern Cities to fully operate this project. What does that look like?',
@@ -365,7 +484,7 @@ const CO5: PlatformStage = {
     'Turnover + warranty coordination',
   ],
   notThisIs: [
-    'Owner-controlled (that is CO4)',
+    'Owner-controlled (handled by GC-Supported Build)',
     'Cost-plus only — depends on engagement structure',
   ],
   thisIs: [
@@ -373,14 +492,32 @@ const CO5: PlatformStage = {
     'Investor focuses on capital + strategy',
     'SCC handles operations end-to-end',
   ],
-  heroHeadlinePre: 'You bring',
-  heroHeadlineHighlight: 'capital and strategy',
-  heroHeadlinePost: '. We handle execution end-to-end.',
+  heroHeadlinePre: 'Stop carrying',
+  heroHeadlineHighlight: 'budget and schedule risk',
+  heroHeadlinePost: ' yourself. We carry it.',
   heroSubheadline:
-    'Full project execution from planning through delivery — permits, subs, procurement, scheduling, supervision, draws, inspections, QC, turnover. For investors who want operational ownership off the table entirely.',
-  ctaLabel: 'Discuss CO5 Engagement',
-  ctaLabelMid: 'See What CO5 Includes',
-  ctaLabelFinal: 'Discuss Engagement',
+    'Full project execution from planning through delivery — permits, subs, procurement, scheduling, supervision, draws, inspections, QC, turnover, warranty. Fixed-price contract means budget risk transfers to SCC. On-schedule penalty means holding-cost risk transfers to SCC. You bring capital. We deliver keys. NC GC #107724.',
+  ctaLabel: 'Transfer the Risk — Discuss',
+  ctaLabelMid: 'See What the Full GC Service Includes',
+  ctaLabelFinal: 'Transfer Budget + Schedule Risk to SCC',
+  bucket: 'Delivery',
+  verb: 'DELIVER',
+  promise:
+    'Transfer budget and schedule risk entirely to SCC. We execute end-to-end — planning, engineering, permits, subs, procurement, scheduling, supervision, draws, inspections, QC, punch, turnover, warranty. You bring capital. We deliver keys.',
+  refundMechanic:
+    'Performance guarantee: full refund of pre-construction fee if we determine we cannot commit to a fixed-price contract at your scope. Once we sign fixed-price, daily penalty against fee for missed schedule milestones. The refund trigger is SCC’s call, not the buyer’s.',
+  noBrainerMath: [
+    'Fixed price = budget risk transferred entirely to SCC.',
+    'On-schedule penalty mechanic = holding-cost risk transferred entirely to SCC.',
+    "Investor's risk = effectively zero. Investor's role = sign contract, collect keys.",
+    'No minimum project size — engagement scales to fit any project worth taking.',
+  ],
+  bonusStack: [
+    { label: 'First 90 days of Active Oversight equivalent included', value: '$6.5K–$12.5K value' },
+    { label: 'Execution Review free on your next deal', value: '$499 value' },
+    { label: 'All permit costs pass-through, zero markup' },
+    { label: 'All prior platform credits applied across the ladder' },
+  ],
 };
 
 // ============================================================
@@ -401,6 +538,10 @@ export const PLATFORM_GHL_TAGS = {
   generalLead: 'platform-lead',
   hubInquiry: 'platform-hub-inquiry',
   nurtureComplete: 'platform-nurture-complete',
+  // LM1 wizard Step 1 partial capture — fires when investor submits Step 1 (contact)
+  // but BEFORE completing Step 2 (property + scope). Different from
+  // `platform-lm1-captured` which fires only on full Step 2 completion.
+  lm1Step1Only: 'platform-lm1-step1-only',
 } as const;
 
 /** Master positioning statement — the master hook. */

@@ -271,18 +271,18 @@ export default function ServicesOverviewPage() {
         />
         <div className="relative z-10 container-pro">
           <div className="max-w-4xl">
-            <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
-              <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+            <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
               Pricing
             </p>
             <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
-              Pricing for <span className="text-[#f58220]">project support.</span>
+              Pricing for <span className="text-[#fa8c41]">project support.</span>
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
               Pick how you want to start. Buy a fixed-price service now, get pricing or request a review when scope or condition affects the number, or subscribe to a monthly support plan. Full contracting is the other door when the project needs a licensed GC running it end to end.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
-              <a href="#start-here" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]">
+              <a href="#start-here" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
                 Start Here <span aria-hidden="true">→</span>
               </a>
               <a href="/recurring-support" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
@@ -489,6 +489,27 @@ export default function ServicesOverviewPage() {
             {filteredCards.map((card) => (
               <div key={card.href}>{card.title}</div>
             ))}
+          </div>
+
+          {/* Wholesalers + Realtors → Deal Pack cross-link (keeps the audience reachable from the hub) */}
+          <div className="mt-6 overflow-hidden rounded-[24px] border-2 border-orange/40 bg-gradient-to-br from-orange/[0.07] via-orange/[0.02] to-transparent p-6 shadow-elev-1 sm:rounded-[28px] sm:p-8">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Wholesaling or selling a deal?</p>
+                <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
+                  Attach a GC-verified Deal Pack to your assignment or listing.
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
+                  Real investors won&rsquo;t pay top dollar for an unverified deal. A licensed NC GC verifies the budget, scope, and risk &mdash; so you attract the buyer pool that actually pays for it.
+                </p>
+              </div>
+              <Link
+                href="/deal-pack"
+                className="shrink-0 inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white shadow-glow-orange transition hover:-translate-y-0.5 hover:bg-orange-500"
+              >
+                See the Deal Pack →
+              </Link>
+            </div>
           </div>
         </div>
       </section>

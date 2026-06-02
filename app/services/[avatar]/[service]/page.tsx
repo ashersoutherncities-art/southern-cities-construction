@@ -204,7 +204,7 @@ function DeliverablePreview({ service, override }: { service: ServiceCardData; o
       <div className="relative overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-br from-white to-stone-50 p-7 text-[#0c1627] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] sm:p-8">
         <div className="flex items-start justify-between border-b border-stone-200 pb-4">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f58220]">Southern Cities Construction</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#fa8c41]">Southern Cities Construction</p>
             <h3 className="mt-1.5 text-lg font-extrabold tracking-tight text-[#08111d]">{service.title}</h3>
             <p className="mt-0.5 text-xs text-stone-500">Sample deliverable · For illustration</p>
           </div>
@@ -217,13 +217,13 @@ function DeliverablePreview({ service, override }: { service: ServiceCardData; o
           {sections.map((section, idx) => (
             <div key={section.heading}>
               <div className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#f58220] text-[10px] font-black text-white">{idx + 1}</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#fa8c41] text-[10px] font-black text-white">{idx + 1}</span>
                 <h4 className="text-[13px] font-extrabold uppercase tracking-wider text-[#08111d]">{section.heading}</h4>
               </div>
               <ul className="mt-2.5 space-y-1.5 pl-7">
                 {section.items.map((item) => (
                   <li key={item} className="flex items-start gap-2 text-[13px] leading-relaxed text-stone-700">
-                    <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-[#f58220]" />
+                    <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-[#fa8c41]" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -253,7 +253,7 @@ function PrimaryCta({
   const base =
     variant === 'inverse'
       ? `inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-[#08111d] transition-all hover:-translate-y-0.5 hover:bg-stone-100 ${className}`
-      : `inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229] ${className}`;
+      : `inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463] ${className}`;
   const label = isFixed ? `Add to Cart · ${service.monthlyPrice || ''}`.trim() : service.cta;
   if (isFixed && service.itemKey) {
     return <AddToCartButton itemKey={service.itemKey} label={label} className={base} />;
@@ -317,7 +317,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
 
           <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-14 sm:px-8 sm:pb-24 sm:pt-16 lg:grid lg:grid-cols-12 lg:gap-12 lg:pt-20">
             <div className="lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <div className="flex flex-wrap items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
                 <Link href={meta.backToCatalog} className="text-white/55 hover:text-white">{meta.label}</Link>
                 <span className="text-white/30">/</span>
                 <span>{service.title}</span>
@@ -389,25 +389,25 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
               <div>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">When to use this</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">When to use this</p>
                 <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">{service.pain || 'Use this when…'}</h2>
                 <p className="mt-5 text-lg leading-relaxed text-stone-600">{service.outcome}</p>
                 <ul className="mt-7 space-y-3">
                   {whenToUse.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-[#08111d]">
-                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#f58220]"><CheckIcon size={14} /></span>
+                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#fa8c41]"><CheckIcon size={14} /></span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">What this does</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">What this does</p>
                 <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">{service.title}</h2>
                 <div className="mt-7 grid gap-3">
                   {whatThisDoes.map((item, idx) => (
                     <div key={item + idx} className="flex items-start gap-4 rounded-2xl border border-stone-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-[#f58220] text-white"><CheckIcon size={18} /></span>
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-[#fa8c41] text-white"><CheckIcon size={18} /></span>
                       <p className="text-[15px] font-medium leading-relaxed text-[#08111d]">{item}</p>
                     </div>
                   ))}
@@ -454,7 +454,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
         <section className="bg-stone-50">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">The Process</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">The Process</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">How it works</h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-600">
                 {service.turnaround ? `Three steps. ${service.turnaround} from submission to direction.` : 'A simple three-step process from submission to direction.'}
@@ -462,7 +462,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
             </div>
 
             <div className="relative mt-14 grid gap-8 md:grid-cols-3">
-              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#f58220]/30 to-transparent md:block" aria-hidden="true" />
+              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#fa8c41]/30 to-transparent md:block" aria-hidden="true" />
               {[
                 { title: 'Submit your project', detail: 'Share the address, photos, scope notes, and anything else relevant. Submission takes a few minutes.' },
                 { title: 'We review it', detail: 'A licensed NC GC reads the project, runs the numbers, and writes the direction in plain language.' },
@@ -470,7 +470,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
               ].map((step, idx) => (
                 <div key={step.title} className="relative">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#08111d] text-xl font-black shadow-lg ring-8 ring-stone-50">
-                    <span className="text-[#f58220]">{idx + 1}</span>
+                    <span className="text-[#fa8c41]">{idx + 1}</span>
                   </div>
                   <h3 className="mt-6 text-2xl font-extrabold tracking-tight text-[#08111d]">{step.title}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{step.detail}</p>
@@ -494,11 +494,11 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
           <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
               <div>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Best fit for</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Best fit for</p>
                 <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">{service.fit || meta.label}</h2>
                 {service.why ? (
                   <div className="mt-7 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Why this fits</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Why this fits</p>
                     <p className="mt-3 text-[15px] leading-relaxed text-white/85">{service.why}</p>
                   </div>
                 ) : null}
@@ -506,12 +506,12 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
 
               {testimonial ? (
                 <blockquote className="rounded-2xl border border-white/10 bg-white/[0.05] p-8 backdrop-blur-sm">
-                  <div className="flex items-center gap-1 text-[#f58220]">
+                  <div className="flex items-center gap-1 text-[#fa8c41]">
                     {[1, 2, 3, 4, 5].map((i) => (<StarIcon key={i} />))}
                   </div>
                   <p className="mt-5 text-lg font-medium leading-[1.55] text-white/90">&ldquo;{testimonial.quote}&rdquo;</p>
                   <footer className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#f58220] text-base font-black text-white">{testimonial.name.charAt(0)}</div>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#fa8c41] text-base font-black text-white">{testimonial.name.charAt(0)}</div>
                     <div>
                       <p className="font-extrabold text-white">{testimonial.name}</p>
                       {testimonial.role ? <p className="text-[13px] text-white/60">{testimonial.role}</p> : null}
@@ -520,7 +520,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
                 </blockquote>
               ) : service.proofTitle ? (
                 <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-8 backdrop-blur-sm">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Why it matters</p>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Why it matters</p>
                   <p className="mt-4 text-xl font-bold leading-[1.4] text-white">{service.proofTitle}</p>
                   {service.proofBody ? <p className="mt-3 text-[15px] leading-relaxed text-white/75">{service.proofBody}</p> : null}
                 </div>
@@ -532,10 +532,10 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
         {/* PRICING */}
         <section className="bg-gradient-to-b from-stone-50 to-stone-100">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="overflow-hidden rounded-3xl bg-white shadow-[0_40px_80px_-20px_rgba(8,17,29,0.15)] ring-2 ring-[#f58220]/10">
+            <div className="overflow-hidden rounded-3xl bg-white shadow-[0_40px_80px_-20px_rgba(8,17,29,0.15)] ring-2 ring-[#fa8c41]/10">
               <div className="grid lg:grid-cols-12">
                 <div className="lg:col-span-7 p-10 sm:p-12 lg:p-14">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Pricing</p>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Pricing</p>
                   <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">Ready when you are.</h2>
                   <p className="mt-5 text-lg leading-relaxed text-stone-600">{service.summary}</p>
 
@@ -553,7 +553,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
                 <div className="relative overflow-hidden bg-[#08111d] p-10 text-white sm:p-12 lg:col-span-5 flex flex-col justify-center">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(245,130,32,0.18),transparent_60%)]" />
                   <div className="relative">
-                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{service.title}</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{service.title}</p>
                     <p className="mt-3 text-5xl font-black tracking-[-0.03em] sm:text-6xl">{priceLabel}</p>
                     <p className="mt-2 text-sm text-white/70">{priceSub}{service.turnaround ? ` · ${service.turnaround}` : ''}</p>
 
@@ -576,12 +576,12 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
         {override?.addOnBundle ? (
           <section className="bg-stone-50">
             <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20">
-              <div className="relative overflow-hidden rounded-3xl border-2 border-[#f58220]/40 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] p-8 sm:p-12 shadow-[0_30px_60px_-20px_rgba(8,17,29,0.4)]">
-                <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#f58220]/15 blur-3xl" aria-hidden="true" />
+              <div className="relative overflow-hidden rounded-3xl border-2 border-[#fa8c41]/40 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] p-8 sm:p-12 shadow-[0_30px_60px_-20px_rgba(8,17,29,0.4)]">
+                <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#fa8c41]/15 blur-3xl" aria-hidden="true" />
                 <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
                   <div className="lg:col-span-8">
                     <div className="flex flex-wrap items-center gap-3">
-                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{override.addOnBundle.eyebrow}</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{override.addOnBundle.eyebrow}</p>
                       {override.addOnBundle.savingsBadge ? (
                         <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-emerald-300">{override.addOnBundle.savingsBadge}</span>
                       ) : null}
@@ -592,7 +592,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
                       <ul className="mt-7 space-y-3">
                         {override.addOnBundle.bullets.map((b) => (
                           <li key={b} className="flex items-start gap-3 text-[15px] leading-relaxed text-white/85">
-                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f58220]/20 text-[#f58220]"><CheckIcon size={14} /></span>
+                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#fa8c41]/20 text-[#fa8c41]"><CheckIcon size={14} /></span>
                             <span>{b}</span>
                           </li>
                         ))}
@@ -601,14 +601,14 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
                   </div>
                   <div className="lg:col-span-4 flex flex-col items-stretch gap-4">
                     <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-sm">
-                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Bundle pricing</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Bundle pricing</p>
                       <p className="mt-3 text-3xl font-black tracking-[-0.03em] text-white">{override.addOnBundle.bundlePriceLabel}</p>
                     </div>
                     <AddToCartButton
                       itemKey={override.addOnBundle.bundleProductKey}
                       label={override.addOnBundle.bundleLabel}
                       mode="checkout"
-                      className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#f58220]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
+                      className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#fa8c41]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
                     />
                   </div>
                 </div>
@@ -654,7 +654,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
           />
           <div className="relative mx-auto max-w-4xl px-6 py-20 text-center sm:px-8 sm:py-24">
             <h2 className="text-4xl font-black leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl">
-              Not sure yet? <span className="text-[#f58220]">Just ask.</span>
+              Not sure yet? <span className="text-[#fa8c41]">Just ask.</span>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
               A short call is the fastest way to confirm whether this product fits — or whether something else makes more sense.

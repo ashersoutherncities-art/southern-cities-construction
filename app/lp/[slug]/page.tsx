@@ -2408,7 +2408,7 @@ function PrimaryCta({
   const variantClasses =
     variant === 'inverse'
       ? 'bg-white text-[#08111d] hover:bg-stone-100'
-      : 'bg-[#f58220] text-white hover:bg-[#ff9229] shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)]';
+      : 'bg-[#fa8c41] text-white hover:bg-[#ffa463] shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)]';
   const widthClass = fullWidth ? 'w-full' : '';
   const base = `inline-flex items-center justify-center gap-2 rounded-[4px] font-black uppercase tracking-[0.06em] transition-all duration-150 hover:-translate-y-0.5 ${sizeClasses} ${variantClasses} ${widthClass} ${className}`;
 
@@ -2494,7 +2494,7 @@ function DeliverablePreview({ config }: { config: LandingPageConfig }) {
       <div className="relative overflow-hidden rounded-[8px] border border-white/20 bg-gradient-to-br from-white to-stone-50 p-7 text-[#0c1627] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] sm:p-8">
         <div className="flex items-start justify-between border-b border-stone-200 pb-4">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f58220]">Southern Cities Construction</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#fa8c41]">Southern Cities Construction</p>
             <h3 className="mt-1.5 text-lg font-extrabold tracking-tight text-[#08111d]">{config.deliverableTitle}</h3>
             <p className="mt-0.5 text-xs text-stone-500">{config.deliverableSubtitle}</p>
           </div>
@@ -2510,7 +2510,7 @@ function DeliverablePreview({ config }: { config: LandingPageConfig }) {
           {config.deliverable.map((section, idx) => (
             <div key={section.heading}>
               <div className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#f58220] text-[10px] font-black text-white">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#fa8c41] text-[10px] font-black text-white">
                   {idx + 1}
                 </span>
                 <h4 className="text-[13px] font-extrabold uppercase tracking-wider text-[#08111d]">{section.heading}</h4>
@@ -2518,7 +2518,7 @@ function DeliverablePreview({ config }: { config: LandingPageConfig }) {
               <ul className="mt-2.5 space-y-1.5 pl-7">
                 {section.items.map((item) => (
                   <li key={item} className="flex items-start gap-2 text-[13px] leading-relaxed text-stone-700">
-                    <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-[#f58220]" />
+                    <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-[#fa8c41]" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -2588,19 +2588,19 @@ export default function LandingPage({ params }: { params: Params }) {
           <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-12 sm:px-8 sm:pb-24 sm:pt-16 lg:grid lg:grid-cols-12 lg:gap-12 lg:pt-20">
             <div className="lg:col-span-7">
               {config.audienceTag ? (
-                <span className="inline-flex items-center rounded-full border border-[#f58220]/60 bg-[#f58220]/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-[#f58220] motion-safe:animate-[heroRise_850ms_ease-out]">
+                <span className="inline-flex items-center rounded-full border border-[#fa8c41]/60 bg-[#fa8c41]/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-[#fa8c41] motion-safe:animate-[heroRise_850ms_ease-out]">
                   For {config.audienceTag}
                 </span>
               ) : null}
-              <p className={`${config.audienceTag ? 'mt-4' : ''} flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out_0.05s_both]`}>
-                <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+              <p className={`${config.audienceTag ? 'mt-4' : ''} flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out_0.05s_both]`}>
+                <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
                 {config.audienceTag ? config.heroEyebrow : `${config.heroEyebrow} · ${config.audience}`}
               </p>
               <h1
                 className="mt-6 text-[2.6rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.5rem] lg:text-[4.5rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]"
               >
                 {config.heroHeadlinePre}{' '}
-                <span className="text-[#f58220]">{config.heroHeadlineHighlight}</span>
+                <span className="text-[#fa8c41]">{config.heroHeadlineHighlight}</span>
                 {config.heroHeadlinePost}
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-[1.6] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
@@ -2650,7 +2650,7 @@ export default function LandingPage({ params }: { params: Params }) {
                   ))}
                 </div>
                 <div>
-                  <div className="flex items-center gap-1 text-[#f58220]">
+                  <div className="flex items-center gap-1 text-[#fa8c41]">
                     {[1, 2, 3, 4, 5].map((i) => (
                       <StarIcon key={i} />
                     ))}
@@ -2682,7 +2682,7 @@ export default function LandingPage({ params }: { params: Params }) {
         <section className="bg-stone-50">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">The Problem</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">The Problem</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">{config.problemHeadline}</h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-600">{config.problemIntro}</p>
             </div>
@@ -2706,7 +2706,7 @@ export default function LandingPage({ params }: { params: Params }) {
         <section id="what-you-get" className="bg-white">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">What you get</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">What you get</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">{config.getHeadline}</h2>
             </div>
 
@@ -2715,9 +2715,9 @@ export default function LandingPage({ params }: { params: Params }) {
                 {config.getBullets.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f58220]/30 hover:bg-white hover:shadow-lg"
+                    className="rounded-2xl border border-stone-200 bg-stone-50 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#fa8c41]/30 hover:bg-white hover:shadow-lg"
                   >
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-[#f58220] text-white shadow-md">
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-[#fa8c41] text-white shadow-md">
                       <CheckIcon size={22} />
                     </span>
                     <h3 className="mt-4 text-lg font-extrabold tracking-tight text-[#08111d]">{item.title}</h3>
@@ -2728,7 +2728,7 @@ export default function LandingPage({ params }: { params: Params }) {
 
               <div className="lg:sticky lg:top-8">
                 <div className="rounded-3xl bg-[#08111d] p-6 shadow-2xl sm:p-8">
-                  <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#f58220]">Sample deliverable</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Sample deliverable</p>
                   <p className="mt-2 text-base font-bold text-white">This is what arrives in your inbox.</p>
                   <div className="mt-6">
                     <DeliverablePreview config={config} />
@@ -2743,7 +2743,7 @@ export default function LandingPage({ params }: { params: Params }) {
         <section className="bg-stone-50">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">The Process</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">The Process</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">How it works</h2>
               <p className="mt-5 text-lg leading-relaxed text-stone-600">
                 Three steps. {config.turnaround} from submission to direction.
@@ -2751,11 +2751,11 @@ export default function LandingPage({ params }: { params: Params }) {
             </div>
 
             <div className="relative mt-14 grid gap-8 md:grid-cols-3">
-              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#f58220]/30 to-transparent md:block" aria-hidden="true" />
+              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#fa8c41]/30 to-transparent md:block" aria-hidden="true" />
               {config.processSteps.map((step, idx) => (
                 <div key={step.title} className="relative">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#08111d] text-xl font-black text-white shadow-lg ring-8 ring-stone-50">
-                    <span className="text-[#f58220]">{idx + 1}</span>
+                    <span className="text-[#fa8c41]">{idx + 1}</span>
                   </div>
                   <h3 className="mt-6 text-2xl font-extrabold tracking-tight text-[#08111d]">{step.title}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{step.detail}</p>
@@ -2769,7 +2769,7 @@ export default function LandingPage({ params }: { params: Params }) {
         <section className="bg-white">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Compare</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Compare</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                 Why not just&hellip;
               </h2>
@@ -2799,7 +2799,7 @@ export default function LandingPage({ params }: { params: Params }) {
                         <td className="px-6 py-5">
                           <div className="flex items-center gap-3">
                             {row.highlight ? (
-                              <span className="rounded bg-[#f58220] px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
+                              <span className="rounded bg-[#fa8c41] px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
                                 Recommended
                               </span>
                             ) : null}
@@ -2836,7 +2836,7 @@ export default function LandingPage({ params }: { params: Params }) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(245,130,32,0.12),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(80,120,255,0.12),transparent_50%)]" />
           <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Trust</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Trust</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-white sm:text-5xl">
                 From clients who actually used this.
               </h2>
@@ -2848,14 +2848,14 @@ export default function LandingPage({ params }: { params: Params }) {
                   key={t.name + t.role}
                   className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm"
                 >
-                  <div className="flex items-center gap-1 text-[#f58220]">
+                  <div className="flex items-center gap-1 text-[#fa8c41]">
                     {[1, 2, 3, 4, 5].map((i) => (
                       <StarIcon key={i} />
                     ))}
                   </div>
                   <p className="mt-5 text-[17px] font-medium leading-[1.55] text-white/90">&ldquo;{t.quote}&rdquo;</p>
                   <footer className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#f58220] text-base font-black text-white">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#fa8c41] text-base font-black text-white">
                       {t.name.charAt(0)}
                     </div>
                     <div>
@@ -2873,7 +2873,7 @@ export default function LandingPage({ params }: { params: Params }) {
         <section className="bg-white">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">What this is not</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">What this is not</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                 So you know exactly what you&rsquo;re buying.
               </h2>
@@ -2897,18 +2897,18 @@ export default function LandingPage({ params }: { params: Params }) {
         {/* PRICING with value stack + anchor */}
         <section className="bg-gradient-to-b from-stone-50 to-stone-100">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="overflow-hidden rounded-3xl bg-white shadow-[0_40px_80px_-20px_rgba(8,17,29,0.15)] ring-2 ring-[#f58220]/10">
+            <div className="overflow-hidden rounded-3xl bg-white shadow-[0_40px_80px_-20px_rgba(8,17,29,0.15)] ring-2 ring-[#fa8c41]/10">
               <div className="grid lg:grid-cols-12">
                 {/* Left: value stack */}
                 <div className="lg:col-span-7 p-10 sm:p-12 lg:p-14">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Pricing</p>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Pricing</p>
                   <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                     {config.finalHeadline}
                   </h2>
                   <p className="mt-5 text-lg leading-relaxed text-stone-600">{config.finalSubhead}</p>
 
-                  <div className="mt-8 rounded-2xl border-l-4 border-[#f58220] bg-orange-50 p-5">
-                    <p className="text-[11px] font-black uppercase tracking-wider text-[#f58220]">For context</p>
+                  <div className="mt-8 rounded-2xl border-l-4 border-[#fa8c41] bg-orange-50 p-5">
+                    <p className="text-[11px] font-black uppercase tracking-wider text-[#fa8c41]">For context</p>
                     <p className="mt-1.5 text-[15px] font-semibold text-[#08111d]">{config.priceAnchor}</p>
                   </div>
 
@@ -2930,7 +2930,7 @@ export default function LandingPage({ params }: { params: Params }) {
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(245,130,32,0.18),transparent_60%)]" />
                   <div className="relative flex h-full flex-col justify-between">
                     <div>
-                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{config.priceLabel}</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{config.priceLabel}</p>
                       <div className="mt-3 flex items-baseline gap-2">
                         <span className="text-6xl font-black tracking-[-0.03em] sm:text-7xl">{config.price}</span>
                       </div>
@@ -2962,7 +2962,7 @@ export default function LandingPage({ params }: { params: Params }) {
                       <PrimaryCta config={config} fullWidth label={midCtaLabel(config)} />
                       <p className="mt-4 text-center text-[11px] text-white/45">
                         Or call{' '}
-                        <a href="tel:+19804737249" className="font-bold text-white/70 hover:text-[#f58220]">
+                        <a href="tel:+19804737249" className="font-bold text-white/70 hover:text-[#fa8c41]">
                           (980) 473-7249
                         </a>{' '}
                         first
@@ -2979,12 +2979,12 @@ export default function LandingPage({ params }: { params: Params }) {
         {config.addOnBundle ? (
           <section className="bg-stone-50">
             <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-20">
-              <div className="relative overflow-hidden rounded-3xl border-2 border-[#f58220]/40 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] p-8 sm:p-12 shadow-[0_30px_60px_-20px_rgba(8,17,29,0.4)]">
-                <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#f58220]/15 blur-3xl" aria-hidden="true" />
+              <div className="relative overflow-hidden rounded-3xl border-2 border-[#fa8c41]/40 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] p-8 sm:p-12 shadow-[0_30px_60px_-20px_rgba(8,17,29,0.4)]">
+                <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#fa8c41]/15 blur-3xl" aria-hidden="true" />
                 <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
                   <div className="lg:col-span-8">
                     <div className="flex flex-wrap items-center gap-3">
-                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">{config.addOnBundle.eyebrow}</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{config.addOnBundle.eyebrow}</p>
                       {config.addOnBundle.savingsBadge ? (
                         <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-emerald-300">{config.addOnBundle.savingsBadge}</span>
                       ) : null}
@@ -2995,7 +2995,7 @@ export default function LandingPage({ params }: { params: Params }) {
                       <ul className="mt-7 space-y-3">
                         {config.addOnBundle.bullets.map((b) => (
                           <li key={b} className="flex items-start gap-3 text-[15px] leading-relaxed text-white/85">
-                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f58220]/20 text-[#f58220]"><CheckIcon size={14} /></span>
+                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#fa8c41]/20 text-[#fa8c41]"><CheckIcon size={14} /></span>
                             <span>{b}</span>
                           </li>
                         ))}
@@ -3004,7 +3004,7 @@ export default function LandingPage({ params }: { params: Params }) {
                   </div>
                   <div className="lg:col-span-4 flex flex-col items-stretch gap-4">
                     <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center backdrop-blur-sm">
-                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Bundle pricing</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Bundle pricing</p>
                       <p className="mt-3 text-3xl font-black tracking-[-0.03em] text-white">{config.addOnBundle.bundlePriceLabel}</p>
                     </div>
                     <AddToCartButton
@@ -3012,7 +3012,7 @@ export default function LandingPage({ params }: { params: Params }) {
                       label={config.addOnBundle.bundleLabel}
                       mode="direct-lp"
                       lpSlug={config.slug}
-                      className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#f58220] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#f58220]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
+                      className="inline-flex min-h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-6 py-4 text-[15px] font-black uppercase tracking-wider text-white shadow-lg shadow-[#fa8c41]/30 transition-all hover:bg-[#e3720d] hover:shadow-xl"
                     />
                   </div>
                 </div>
@@ -3098,7 +3098,7 @@ export default function LandingPage({ params }: { params: Params }) {
         <section className="bg-white">
           <div className="mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="text-center">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">FAQ</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">FAQ</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
                 Questions before you buy.
               </h2>
@@ -3112,7 +3112,7 @@ export default function LandingPage({ params }: { params: Params }) {
               <PrimaryCta config={config} label={finalCtaLabel(config)} />
               <p className="mt-4 text-sm text-stone-500">
                 Or call{' '}
-                <a href="tel:+19804737249" className="font-bold text-[#08111d] hover:text-[#f58220]">
+                <a href="tel:+19804737249" className="font-bold text-[#08111d] hover:text-[#fa8c41]">
                   (980) 473-7249
                 </a>{' '}
                 to talk it through first.
@@ -3125,9 +3125,9 @@ export default function LandingPage({ params }: { params: Params }) {
         <footer className="bg-[#040810] py-10 text-center text-xs text-white/40">
           <p>© 2026 Southern Cities Construction · NC GC License #107724</p>
           <p className="mt-2">
-            <Link href="/privacy" className="hover:text-[#f58220]">Privacy</Link>
+            <Link href="/privacy" className="hover:text-[#fa8c41]">Privacy</Link>
             <span className="mx-3 text-white/20">·</span>
-            <Link href="/terms" className="hover:text-[#f58220]">Terms</Link>
+            <Link href="/terms" className="hover:text-[#fa8c41]">Terms</Link>
           </p>
         </footer>
 

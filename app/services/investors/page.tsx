@@ -388,13 +388,13 @@ export default function InvestorsPage() {
         />
         <div className="relative z-10 container-pro">
           <div className="mx-auto max-w-5xl text-center">
-            <p className="flex items-center justify-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
-              <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+            <p className="flex items-center justify-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
               The Contractor for Investors · NC GC #107724
-              <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
             </p>
             <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
-              Construction support for <span className="text-[#f58220]">investment projects.</span>
+              Construction support for <span className="text-[#fa8c41]">investment projects.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
               Choose where you are in the project and get the right support before costs, delays, or execution problems grow.
@@ -404,9 +404,9 @@ export default function InvestorsPage() {
                 <a
                   key={stage.id}
                   href={`#${stage.id}`}
-                  className="w-full max-w-[200px] flex-1 basis-[180px] rounded-[16px] border border-white/15 bg-white/[0.06] px-4 py-4 text-left text-white transition hover:-translate-y-0.5 hover:border-[#f58220]/60 hover:bg-white/[0.1] sm:max-w-[220px]"
+                  className="w-full max-w-[200px] flex-1 basis-[180px] rounded-[16px] border border-white/15 bg-white/[0.06] px-4 py-4 text-left text-white transition hover:-translate-y-0.5 hover:border-[#fa8c41]/60 hover:bg-white/[0.1] sm:max-w-[220px]"
                 >
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#f58220]">{stage.stage}</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#fa8c41]">{stage.stage}</p>
                   <p className="mt-2 text-base font-extrabold leading-tight">{stage.heroLabel}</p>
                 </a>
               ))}
@@ -497,7 +497,7 @@ export default function InvestorsPage() {
       <section id="pricing" className="bg-[#08111d] py-14 sm:py-16">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220]">Pricing bundles</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Pricing bundles</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Investor Bundle Pricing</h2>
             <p className="mt-4 text-[16px] leading-relaxed text-white sm:text-lg">
               Choose the right support based on where you are in the project.
@@ -508,8 +508,8 @@ export default function InvestorsPage() {
             <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
-                  <p className="mx-auto inline-flex rounded-full border border-[#f58220]/30 bg-[#0b1f44] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#f58220]">{bundle.label}</p>
+                <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>
+                  <p className="mx-auto inline-flex rounded-full border border-[#fa8c41]/30 bg-[#0b1f44] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#fa8c41]">{bundle.label}</p>
                   <h3 className="mt-2 text-lg font-extrabold tracking-tight text-white">{bundle.title}</h3>
                 </div>
               ))}
@@ -518,7 +518,7 @@ export default function InvestorsPage() {
             <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Pricing</div>
               {supportBundles.map((bundle) => (
-                <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-[#f58220] sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
+                <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-[#fa8c41] sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
                   {bundle.price}
                 </div>
               ))}
@@ -530,8 +530,8 @@ export default function InvestorsPage() {
                 {supportBundles.map((bundle) => {
                   const included = bundle.includes.includes(row);
                   return (
-                    <div key={`${bundle.title}-${row}`} className={`flex items-center justify-center px-4 py-2.5 sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.06]' : ''}`}>
-                      <span className={`text-base font-bold ${included ? 'text-[#f58220]' : 'text-white/25'}`}>{included ? '✔' : '—'}</span>
+                    <div key={`${bundle.title}-${row}`} className={`flex items-center justify-center px-4 py-2.5 sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
+                      <span className={`text-base font-bold ${included ? 'text-[#fa8c41]' : 'text-white/25'}`}>{included ? '✔' : '—'}</span>
                     </div>
                   );
                 })}
@@ -541,8 +541,8 @@ export default function InvestorsPage() {
             <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr]">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-[#f58220]/40 bg-[#f58220]/[0.08]' : ''}`}>
-                  <a href={bundle.href} className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${bundle.highlighted ? 'bg-[#f58220] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)] hover:bg-[#ff9229]' : 'border border-white/25 text-white hover:bg-white/5'}`}>
+                <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>
+                  <a href={bundle.href} className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${bundle.highlighted ? 'bg-[#fa8c41] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)] hover:bg-[#ffa463]' : 'border border-white/25 text-white hover:bg-white/5'}`}>
                     View Pricing
                   </a>
                 </div>

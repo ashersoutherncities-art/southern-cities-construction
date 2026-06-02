@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import FounderStory from '@/components/FounderStory';
 
 export const metadata = {
   title: 'Deal Pack — Licensed GC Verification for NC Wholesalers + Realtors | Southern Cities Construction',
@@ -36,7 +37,7 @@ const TIERS: Tier[] = [
       'Free CTA to upgrade to Bid-Ready',
     ],
     cta: 'Submit a deal for a free ballpark →',
-    ctaHref: '/cart?cart=deal-pack-bid-ready',
+    ctaHref: '/lp/rehab-budget-range-execution-risk-snapshot',
   },
   {
     badge: 'TIER 1',
@@ -542,36 +543,12 @@ export default function DealPackPage() {
 
       {/* TRUST */}
       <section className="bg-[#0a1428] py-20 sm:py-24 border-t border-white/8">
-        <div className="container-pro max-w-3xl">
-          <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Why trust this</p>
-          <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
-            Anti-guru. License-backed. Across NC.
-          </h2>
-          <div className="mt-8 space-y-5 text-[16px] leading-[1.65] text-white/80">
-            <p>
-              I&apos;m not a real estate guru. I&apos;m Darius T. Walton — a licensed North Carolina General Contractor (License #107724) and the founder of Southern Cities Construction.
-            </p>
-            <p>
-              I built the Deal Pack because I lost over $100K on my own real estate investing deals when I first got into the industry 8 years ago — bad budget assumptions, the wrong sub network, missed permit timelines. The execution mistakes I made on those deals are the exact mistakes I now help NC wholesalers, realtors, and investors avoid.
-            </p>
-            <p>
-              <strong>Most GCs won&apos;t review a deal you don&apos;t own yet.</strong> We will. That&apos;s the wedge. Combined with the license stamp and the verified-package format, it&apos;s why end-investors are willing to pay $25–40K+ in assignment fees instead of $10K — and why your rehab-needed listing closes faster at top of band instead of dragging through 60 days of price cuts.
-            </p>
-          </div>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/cart?cart=deal-pack-bid-ready"
-              className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
-            >
-              Order Bid-Ready · $599 →
-            </Link>
-            <Link
-              href="/cart?cart=deal-pack-build-ready"
-              className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white transition hover:bg-white/10"
-            >
-              Order Build-Ready · $1,997 →
-            </Link>
-          </div>
+        <div className="container-pro">
+          <FounderStory
+            theme="dark"
+            productName="the Deal Pack"
+            cta={{ label: 'Order Bid-Ready · $599 →', href: '/cart?cart=deal-pack-bid-ready' }}
+          />
         </div>
       </section>
 

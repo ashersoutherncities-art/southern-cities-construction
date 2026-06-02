@@ -76,18 +76,18 @@ export default function GalleryPage() {
           aria-hidden="true"
         />
         <div className="relative z-10 container-pro">
-          <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
-            <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+          <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+            <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
             Real project gallery
           </p>
           <h1 className="mt-6 max-w-4xl text-[2.5rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.5rem] lg:text-[4rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
-            Real before and after work, <span className="text-[#f58220]">shown more clearly.</span>
+            Real before and after work, <span className="text-[#fa8c41]">shown more clearly.</span>
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
             This page gives Southern Cities a cleaner place to show real project proof without forcing weak pairings into small homepage cards.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
-            <Link href="/#contact" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]">
+            <Link href="/#contact" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
               Request Review <span aria-hidden="true">→</span>
             </Link>
             <Link href="/services" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">

@@ -89,7 +89,7 @@ export default function LpLeadForm({
     : 'rounded-3xl border border-stone-200 bg-white p-8 sm:p-12 shadow-elev-1';
   const labelClass = isDark ? 'text-white/70' : 'text-navy/65';
   const inputClass = isDark
-    ? 'mt-2 w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-white placeholder-white/30 focus:border-[#f58220] focus:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-[#f58220]/30'
+    ? 'mt-2 w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-white placeholder-white/30 focus:border-[#fa8c41] focus:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-[#fa8c41]/30'
     : 'mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-navy placeholder-navy/30 focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/30';
   const headlineClass = isDark ? 'text-white' : 'text-navy';
   const subheadClass = isDark ? 'text-white/75' : 'text-navy/70';
@@ -115,7 +115,7 @@ export default function LpLeadForm({
 
   return (
     <div id={id} className={wrapperClass}>
-      <p className={`text-[11px] font-black uppercase tracking-[0.22em] ${isDark ? 'text-[#f58220]' : 'text-orange'}`}>{serviceName}</p>
+      <p className={`text-[11px] font-black uppercase tracking-[0.22em] ${isDark ? 'text-[#fa8c41]' : 'text-orange'}`}>{serviceName}</p>
       <h3 className={`mt-3 text-3xl font-black tracking-[-0.03em] sm:text-4xl ${headlineClass}`}>
         {headline || 'Request a custom quote'}
       </h3>
@@ -205,7 +205,7 @@ export default function LpLeadForm({
           <button
             type="submit"
             disabled={state === 'loading'}
-            className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-7 py-3 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition hover:-translate-y-0.5 hover:bg-[#ff9229] disabled:cursor-wait disabled:opacity-60"
+            className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition hover:-translate-y-0.5 hover:bg-[#ffa463] disabled:cursor-wait disabled:opacity-60"
           >
             {state === 'loading' ? 'Sending…' : submitLabel}
             {state !== 'loading' ? (

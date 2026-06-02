@@ -159,8 +159,8 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
         />
         <div className="relative z-10 container-pro">
           <div className="max-w-4xl">
-            <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#f58220] motion-safe:animate-[heroRise_900ms_ease-out]">
-              <span className="block h-px w-10 bg-[#f58220]/80" aria-hidden="true" />
+            <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
               {data.eyebrow}
             </p>
             <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
@@ -169,7 +169,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             <p className="mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">{data.heroSubtitle}</p>
             <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
               {firstFixed ? (
-                <a href={firstFixed.detailHref} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#f58220] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ff9229]">
+                <a href={firstFixed.detailHref} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
                   {firstFixed.cta} <span aria-hidden="true">→</span>
                 </a>
               ) : null}
