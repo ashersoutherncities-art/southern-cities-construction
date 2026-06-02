@@ -217,7 +217,32 @@ def build_execution_review():
     s.append(NextPageTemplate("content"))
     s.append(PageBreak())
 
-    # Page 1 — Verdict + deal snapshot
+    # Page 1 — How to read this report (methodology + confidence)
+    s.append(Paragraph("HOW TO READ THIS REPORT", S["eyebrow"]))
+    s.append(Paragraph("What this is — and how we got here", S["h1"]))
+    s.append(Paragraph(
+        "The Investor Execution Review is a decision-grade underwriting read by a licensed NC General "
+        "Contractor on a deal you do not own yet. It is built to answer one question before earnest money "
+        "goes hard: <b>does this deal execute at the budget your spreadsheet assumes?</b> It is not a "
+        "line-item bid and it is not a home inspection — it is the construction-side opinion you take into "
+        "the buy decision.", S["body"]))
+    s.append(Paragraph("What we reviewed", S["h2"]))
+    s.append(data_table(["DATA SOURCE", "USED FOR"], [
+        ["MLS listing + 38 photos", "Condition read, finish level, visible system age"],
+        ["County GIS + tax records", "Year built, square footage, lot, prior permits"],
+        ["Mecklenburg permit portal", "Open/closed permits, code violations"],
+        ["Drive-by (street + aerial)", "Roof, grading, exterior envelope, block context"],
+        ["3 recent comparable sales", "Verified ARV range (see ARV basis)"],
+        ["2026 NC trade-network unit costs", "Budget ranges by trade"],
+    ], col_widths=[2.3 * inch, FRAME_W - 2.3 * inch]))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(callout("HOW TO READ OUR CONFIDENCE LEVELS",
+        "<b>High</b> = interior access or strong photo coverage; budget ±5%. <b>Medium-High</b> = good photos + "
+        "records, no interior walk; budget ±8%. <b>Medium</b> = limited photos; budget ±12%. This deal is "
+        "<b>Medium-High</b>. An on-site walk (Active Oversight intake) moves it to High before you commit subs."))
+    s.append(PageBreak())
+
+    # Page 2 — Verdict + deal snapshot
     s.append(Paragraph("THE BOTTOM LINE", S["eyebrow"]))
     s.append(Paragraph("Recommendation", S["h1"]))
     s.append(verdict_box("RENEGOTIATE", "Deal works at $172K acquisition — not the $185K on the table. Specific basis below.", WARN))
@@ -238,7 +263,29 @@ def build_execution_review():
         "deal clears a 15%+ margin at the Tier 2 finish level."))
     s.append(PageBreak())
 
-    # Page 2 — Scope feasibility + budget range
+    # Page 3 — ARV & comparable sales
+    s.append(Paragraph("VERIFIED ARV BASIS", S["eyebrow"]))
+    s.append(Paragraph("Where the after-repair value comes from", S["h1"]))
+    s.append(Paragraph(
+        "Three closed sales within 0.5 miles, last 6 months, comparable beds/baths/size and finish. "
+        "Adjusted to this property's lot and condition-at-completion.", S["body"]))
+    s.append(data_table(["COMP", "DIST / SOLD", "SF · BR/BA", "SALE PRICE", "$/SF"], [
+        ["Comp A (renovated)", "0.2 mi · 41d ago", "1,510 · 3/2", "$391,000", "$259"],
+        ["Comp B (renovated)", "0.3 mi · 78d ago", "1,380 · 3/2", "$372,500", "$270"],
+        ["Comp C (renovated)", "0.4 mi · 95d ago", "1,605 · 4/2", "$405,000", "$252"],
+    ], col_widths=[1.5 * inch, 1.4 * inch, 1.1 * inch, 1.1 * inch, FRAME_W - 5.1 * inch]))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(callout("RECONCILED ARV RANGE: $372,000 – $398,000",
+        "At ~1,420 sf and a Tier 2 finish, we weight toward Comp B (closest size/finish) and cap near Comp A. "
+        "Underwrite to <b>$382,000</b> as the working ARV; treat $398K as a stretch that requires Tier 3 finishes "
+        "the block does not reliably support."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("COMP RISK NOTE",
+        "Comp C is a 4-bedroom — its higher absolute price does not transfer without adding a bedroom (not in "
+        "this scope). We excluded two larger 'flipped' sales over 1,800 sf as non-comparable."))
+    s.append(PageBreak())
+
+    # Page 4 — Scope feasibility + budget range
     s.append(Paragraph("SCOPE FEASIBILITY + BUDGET RANGE", S["eyebrow"]))
     s.append(Paragraph("What it realistically takes to execute", S["h1"]))
     s.append(Paragraph(
@@ -259,49 +306,146 @@ def build_execution_review():
         "±5% before you commit subs."))
     s.append(PageBreak())
 
-    # Page 3 — Execution risk callouts
-    s.append(Paragraph("EXECUTION RISK CALLOUTS", S["eyebrow"]))
+    # Page 5 — Line-item budget detail (Tier 2)
+    s.append(Paragraph("LINE-ITEM BUDGET DETAIL", S["eyebrow"]))
+    s.append(Paragraph("Tier 2 (Market-Standard) by trade", S["h1"]))
+    s.append(data_table(["TRADE / SCOPE", "RANGE"], [
+        ["Demo + dumpster + protection", "$2,400 – $3,200"],
+        ["Roof (replace, architectural shingle)", "$8,600 – $11,200"],
+        ["HVAC (3-ton condenser + furnace)", "$8,800 – $10,400"],
+        ["Plumbing (PEX re-pipe + 1 bath rebuild)", "$9,200 – $12,400"],
+        ["Electrical (200A panel + fixtures + devices)", "$4,800 – $6,600"],
+        ["Kitchen (mid cabinets + quartz + appliances)", "$18,200 – $22,800"],
+        ["Bath (mid tile + plumbing fixtures)", "$6,800 – $9,200"],
+        ["Flooring (LVP throughout, refinish 2 BR)", "$7,200 – $9,400"],
+        ["Interior + exterior paint", "$5,400 – $6,800"],
+        ["Windows (partial replace) + exterior doors", "$4,200 – $6,000"],
+        ["Punch + closeout + light staging", "$2,400 – $3,200"],
+        ["Contingency (10%)", "$8,400 – $10,200"],
+        ["<b>TOTAL · TIER 2</b>", "<b>$92,000 – $106,400</b>"],
+    ], col_widths=[FRAME_W - 1.8 * inch, 1.8 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(Paragraph("<i>Ranges reflect 2026 Charlotte-area sub pricing. Validated against current "
+                       "trade-network quotes; not a contractor bid. NC GC #107724.</i>", S["muted"]))
+    s.append(PageBreak())
+
+    # Page 6 — Execution risk register (summary + risks 1-3)
+    s.append(Paragraph("EXECUTION RISK REGISTER", S["eyebrow"]))
     s.append(Paragraph("The risks worth pricing before earnest money goes hard", S["h1"]))
+    s.append(data_table(["#", "RISK", "SEVERITY", "EXPOSURE"], [
+        ["1", "Open water-heater permit (2014)", "High", "$325 + delay"],
+        ["2", "Polybutylene supply lines", "Medium", "$4.5K – $7.2K"],
+        ["3", "HVAC at end of life", "Medium", "$8.8K – $10.4K"],
+        ["4", "Soffit rot, SW corner", "Low", "$850 – $1.4K"],
+        ["5", "Federal Pacific panel", "High", "$2.2K – $3.4K"],
+        ["6", "Clay sewer lateral (age)", "Medium", "$0 – $9K (scope risk)"],
+    ], col_widths=[0.4 * inch, FRAME_W - 3.0 * inch, 1.0 * inch, 1.6 * inch]))
+    s.append(Spacer(1, 0.12 * inch))
     s.append(callout("RISK 1 · OPEN PERMIT (HIGH)",
         "Water-heater permit pulled 2014, never closed. Blocks clean title transfer until resolved. "
         "<b>Cost to cure:</b> ~$325 + 5 business days. <b>Action:</b> make seller close it pre-close, or escrow for it."))
     s.append(Spacer(1, 0.07 * inch))
     s.append(callout("RISK 2 · POLYBUTYLENE SUPPLY LINES (MEDIUM)",
         "Gray poly visible at the water heater in listing photos. Flagged by FHA, VA, and most DSCR lenders. "
-        "<b>Cost to cure:</b> $4,500 – $7,200 (re-pipe to PEX). Already inside the Tier 2 range above."))
+        "<b>Cost to cure:</b> $4,500 – $7,200 (re-pipe to PEX). Already inside the Tier 2 range."))
     s.append(Spacer(1, 0.07 * inch))
     s.append(callout("RISK 3 · HVAC AT END OF LIFE (MEDIUM)",
         "Condenser date plate reads 2006. Past expected useful life; a buyer's inspector will flag it. "
-        "<b>Cost to cure:</b> $8,800 – $10,400 (replace 3-ton + furnace). The single biggest swing in the budget."))
-    s.append(Spacer(1, 0.07 * inch))
-    s.append(callout("RISK 4 · SOFFIT ROT, SW CORNER (LOW)",
-        "Active moisture penetration visible at the southwest corner. <b>Cost to cure:</b> $850 – $1,400. "
-        "Cosmetic priority, but an inspector will call it."))
+        "<b>Cost to cure:</b> $8,800 – $10,400. The single biggest swing in the budget."))
     s.append(PageBreak())
 
-    # Page 4 — Timeline + walk-away trigger + next step
-    s.append(Paragraph("TIMELINE + WALK-AWAY TRIGGER", S["eyebrow"]))
-    s.append(Paragraph("Pace the deal and protect your downside", S["h1"]))
-    s.append(data_table(["PHASE", "REALISTIC WINDOW"], [
-        ["Close + permit close-out", "Weeks 1–2"],
-        ["Demo + systems (HVAC, re-pipe, panel)", "Weeks 3–6"],
-        ["Kitchen / bath / finishes", "Weeks 7–11"],
-        ["Punch + list + sell", "Weeks 12–16"],
-        ["Total to resale", "75 – 110 days from acquisition"],
-    ], col_widths=[FRAME_W - 1.9 * inch, 1.9 * inch]))
-    s.append(Spacer(1, 0.14 * inch))
+    # Page 7 — Risk register cont. (risks 4-6)
+    s.append(Paragraph("EXECUTION RISK REGISTER (CONTINUED)", S["eyebrow"]))
+    s.append(Paragraph("The two that catch people late", S["h1"]))
+    s.append(callout("RISK 4 · SOFFIT ROT, SW CORNER (LOW)",
+        "Active moisture penetration visible at the southwest corner. <b>Cost to cure:</b> $850 – $1,400. "
+        "Cosmetic priority, but an inspector will call it — fix it during the exterior paint phase."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("RISK 5 · FEDERAL PACIFIC PANEL (HIGH)",
+        "Panel photo shows a Federal Pacific Stab-Lok — a known fire-risk panel most insurers and lenders will "
+        "not accept. <b>Cost to cure:</b> $2,200 – $3,400 (200A replacement, included in the electrical line). "
+        "Non-negotiable for a clean resale."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("RISK 6 · CLAY SEWER LATERAL (MEDIUM — SCOPE RISK)",
+        "1956 build almost certainly has a clay sewer lateral. We could not verify condition without a scope. "
+        "<b>Exposure:</b> $0 if intact, up to $9,000 if collapsed/root-intruded. <b>Action:</b> $250 sewer scope "
+        "during inspection contingency — the single cheapest way to retire a five-figure surprise."))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("TOTAL DOWNSIDE IF EVERYTHING BREAKS",
+        "Worst-case stacked exposure beyond the Tier 2 base budget: ~<b>$11K</b> (mostly the sewer + permit + "
+        "soffit, since HVAC/poly/panel are already in the budget). This is why the re-trade target carries a "
+        "cushion.", bg=HexColor("#FDE9E2"), bar=WARN))
+    s.append(PageBreak())
+
+    # Page 8 — Deal math / margin scenarios
+    s.append(Paragraph("DEAL MATH", S["eyebrow"]))
+    s.append(Paragraph("Margin at three acquisition prices", S["h1"]))
+    s.append(Paragraph(
+        "All scenarios: Tier 2 rehab at the top of range ($106K), ARV $382K, 9-month hold, hard-money "
+        "financing, 6% selling cost. This is why the recommendation is renegotiate.", S["body"]))
+    s.append(data_table(["LINE", "AT $185K", "AT $178K", "AT $172K"], [
+        ["Sale price (ARV)", "$382,000", "$382,000", "$382,000"],
+        ["Acquisition", "($185,000)", "($178,000)", "($172,000)"],
+        ["Rehab (Tier 2, top)", "($106,400)", "($106,400)", "($106,400)"],
+        ["Financing (pts + 9 mo)", "($12,400)", "($12,100)", "($11,800)"],
+        ["Holding (tax/ins/util)", "($4,800)", "($4,800)", "($4,800)"],
+        ["Selling cost (6%)", "($22,920)", "($22,920)", "($22,920)"],
+        ["Closing + contingency", "($6,400)", "($6,400)", "($6,400)"],
+        ["<b>NET PROFIT</b>", "<b>$44,080</b>", "<b>$51,380</b>", "<b>$57,680</b>"],
+        ["<b>Margin on cost</b>", "<b>~9.6%</b>", "<b>~11.3%</b>", "<b>~12.9%</b>"],
+    ], col_widths=[FRAME_W - 4.2 * inch, 1.4 * inch, 1.4 * inch, 1.4 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("READ THE TABLE",
+        "At $185K the margin sits under 10% — too thin for a 1950s systems rehab where surprises hide behind "
+        "walls. Every $1K you re-trade drops almost straight to your net. The $172K target is where the deal "
+        "earns its risk."))
+    s.append(PageBreak())
+
+    # Page 9 — Timeline + draw alignment
+    s.append(Paragraph("EXECUTION TIMELINE", S["eyebrow"]))
+    s.append(Paragraph("Phase-by-phase, aligned to lender draws", S["h1"]))
+    s.append(data_table(["PHASE", "WINDOW", "DRAW MILESTONE"], [
+        ["Close + permit close-out", "Weeks 1–2", "Acquisition draw"],
+        ["Demo + rough systems (HVAC, re-pipe, panel)", "Weeks 3–6", "Draw 1 — rough-in"],
+        ["Insulation, drywall, paint", "Weeks 6–8", "Draw 2 — close-up"],
+        ["Kitchen / bath / flooring / finishes", "Weeks 8–11", "Draw 3 — finishes"],
+        ["Punch, closeout, stage", "Weeks 12–13", "Final draw"],
+        ["List + sell", "Weeks 13–16", "Payoff at sale"],
+        ["Total to resale", "75 – 110 days", "—"],
+    ], col_widths=[FRAME_W - 3.4 * inch, 1.5 * inch, 1.9 * inch]))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(callout("SEQUENCING NOTE",
+        "Pull the panel + HVAC permits in week 1 — Mecklenburg rough-electrical inspection is the usual "
+        "bottleneck on 1950s rewires and can add 5–10 days if it slips behind drywall scheduling."))
+    s.append(PageBreak())
+
+    # Page 10 — Walk-away trigger + next step + scope + disclaimer
+    s.append(Paragraph("WALK-AWAY TRIGGER + NEXT STEPS", S["eyebrow"]))
+    s.append(Paragraph("Protect your downside, then move", S["h1"]))
     s.append(callout("WALK-AWAY TRIGGER",
         "If the seller won't move below <b>$178K</b> AND won't close the open permit, walk. Below that line the "
         "Tier 2 margin compresses under 10% once you carry holding + selling costs — not enough cushion for a "
         "1950s systems rehab where surprises are likely behind the walls.", bg=HexColor("#FDE9E2"), bar=WARN))
-    s.append(Spacer(1, 0.1 * inch))
+    s.append(Spacer(1, 0.08 * inch))
     s.append(callout("YOUR NEXT STEP",
         "Take the $172K re-trade to the seller with this report attached — it gives your number a licensed-GC "
-        "basis instead of a feeling. If you move forward, the Execution Review fee credits forward against "
-        "Active Oversight on the build. NC GC License #107724."))
+        "basis instead of a feeling. Order a $250 sewer scope inside your inspection contingency. If you move "
+        "forward, this Execution Review fee credits forward against Active Oversight on the build."))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(Paragraph("Scope of this engagement", S["h2"]))
+    s.append(data_table(["INCLUDED", "NOT INCLUDED"], [
+        ["Decision-grade scope + budget range", "Line-item contractor bid"],
+        ["Verified ARV basis + comps", "Formal appraisal or BPO"],
+        ["Execution risk register", "On-site / interior inspection"],
+        ["Deal-math scenarios", "Structural / engineering sign-off"],
+        ["Walk-away trigger + next step", "Permit pulling or filing"],
+    ], col_widths=[FRAME_W / 2, FRAME_W / 2]))
     s.append(Spacer(1, 0.12 * inch))
-    s.append(Paragraph("<i>This is an anonymized sample of the Investor Execution Review deliverable. Your "
-                       "report covers your specific deal. Southern Cities Construction · NC GC #107724.</i>", S["muted"]))
+    s.append(Paragraph(
+        "<i>This is an anonymized sample of the Investor Execution Review deliverable; figures are "
+        "illustrative. Your report covers your specific deal. A construction-side opinion by a licensed NC "
+        "General Contractor — not a home inspection, appraisal, or guarantee of resale value. "
+        "Southern Cities Construction · NC GC License #107724.</i>", S["muted"]))
     doc.build(s)
     print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
 

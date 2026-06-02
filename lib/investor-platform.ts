@@ -222,7 +222,7 @@ const CO1: PlatformStage = {
   sampleDeliverable: {
     pdfUrl: '/resources/samples/investor-execution-review-sample.pdf',
     coverUrl: '/product-mockups/investor-execution-review-sample-cover.jpg',
-    pages: 5,
+    pages: 11,
   },
   bucket: 'Diagnosis',
   verb: 'FIND',
