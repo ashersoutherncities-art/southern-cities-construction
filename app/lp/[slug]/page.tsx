@@ -104,7 +104,7 @@ const COMPARISON_ROWS: ComparisonRow[] = [
   { label: 'DIY estimate', cost: 'Free', time: 'Hours', bias: 'High (your assumptions)', licensed: false, highlight: false },
   { label: 'Free contractor consult', cost: 'Free', time: 'Days', bias: 'High (they want the job)', licensed: 'Sometimes', highlight: false },
   { label: 'Architect review', cost: '$3,000–5,000+', time: '2–4 weeks', bias: 'Low', licensed: true, highlight: false },
-  { label: 'Southern Cities Review', cost: '$349–599', time: '2 business days', bias: 'None — flat fee', licensed: true, highlight: true },
+  { label: 'Southern Cities Review', cost: '$349–499', time: '2 business days', bias: 'None — flat fee', licensed: true, highlight: true },
 ];
 
 // Per-LP comparison overrides — used when the default doesn't match the product's
@@ -364,7 +364,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     slug: 'budget-scope-review',
     productKey: 'budget-review',
     ctaLabel: 'Start Budget Review',
-    price: '$599',
+    price: '$399',
     priceAnchor: 'A scope gap can cost $40K+',
     priceLabel: 'Budget & Scope Review',
     turnaround: '2 business days',
@@ -375,7 +375,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'cost',
     heroHeadlinePost: ' before you cut the check.',
     heroSubheadline:
-      'Pressure-test your numbers — a licensed-GC line-by-line audit of your existing budget against current market costs. Works pre-purchase (vetting a pro-forma) or post-purchase (before contractors price it or the lender locks in the draw). In your inbox in 2 business days. $599 flat.',
+      'You bring the numbers — we pressure-test them. A licensed-GC line-by-line audit of your existing budget against current market costs. Works pre-purchase (vetting a pro-forma) or post-purchase (before contractors price it or the lender locks in the draw). In your inbox in 2 business days. $399 flat.',
     problemHeadline: 'Where investor budgets quietly break',
     problemIntro: 'A budget that looks tight on paper falls apart when contractors price it or scope catches up to it.',
     problemCards: [
@@ -452,7 +452,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'Money-back if we cannot give you a clear answer',
     ],
     finalHeadline: 'Catch the gap before the project does.',
-    finalSubhead: 'One licensed-GC line-item audit, 2 business days, $599. Get the number right before contractors price it or the lender locks in the draw.',
+    finalSubhead: 'One licensed-GC line-item audit, 2 business days, $399. Get the number right before contractors price it or the lender locks in the draw.',
     faqs: [
       { q: 'What do you need from me?', a: 'Property address, photos, scope notes, and the budget spreadsheet or contractor numbers you want audited.' },
       { q: 'How long does it take?', a: 'Typical turnaround is 2 business days from submission.' },
@@ -553,7 +553,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     finalSubhead: 'One licensed-GC line-item build, 5 business days, $1,799. The budget a GC would write — without paying the GC retainer.',
     faqs: [
       { q: 'Should I buy this before or after closing?', a: 'After. This is a pre-construction product — built for owners (and post-purchase investors) who need a real number to take to contractors and lenders. If you are still deciding whether to buy a deal, use the Investor Deal & Scope Review ($499) instead — it gives you a rough budget range fast enough to fit inside an offer window.' },
-      { q: 'How is this different from Budget & Scope Review?', a: 'Budget & Scope Review ($599) AUDITS a budget you already have — corrects line items, flags gaps. Contractor-Grade Budget BUILDS one from scratch with full takeoffs and trade-network pricing. Different starting point, different deliverable, different price.' },
+      { q: 'How is this different from Budget & Scope Review?', a: 'Budget & Scope Review ($399) AUDITS a budget you already have — corrects line items, flags gaps. Contractor-Grade Budget BUILDS one from scratch with full takeoffs and trade-network pricing. Different starting point, different deliverable, different price.' },
       { q: 'What do you need from me?', a: 'Plans (if you have them), photos, written scope notes, and the property address.' },
       { q: 'How long does it take?', a: 'Typical turnaround is 5 business days from submission.' },
       { q: 'What do I get back?', a: 'A bid-ready Excel spreadsheet with full takeoffs, line-item pricing, soft costs + contingency, and documented assumptions per major line.' },
@@ -889,7 +889,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     getHeadline: 'Every review, on the same deal, in one engagement',
     getBullets: [
       { title: 'Investor Deal & Scope Review ($499)', detail: 'Scope feasibility, rough budget range with confidence, risk callouts, and walk-away trigger.' },
-      { title: 'Budget & Scope Review ($599)', detail: 'Line-item audit of any budget or pro-forma you have, against current market costs.' },
+      { title: 'Budget & Scope Review ($399)', detail: 'Line-item audit of any budget or pro-forma you have, against current market costs.' },
       { title: 'Permit & Local Compliance Review ($399)', detail: 'Likely permit path, compliance risk, and approval timeline for the jurisdiction.' },
       { title: 'Contractor Fit Consultation ($349)', detail: 'What kinds of contractors this project actually needs, and why.' },
     ],

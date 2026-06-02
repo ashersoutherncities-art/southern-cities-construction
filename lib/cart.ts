@@ -129,7 +129,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Deal & Scope Review',
     price: 49900,
     priceLabel: '$499 review',
-    description: 'A pre-acquisition underwriting opinion. Scope feasibility, a rough budget range with confidence levels, construction risk callouts, and the walk-away trigger — for investors evaluating a deal they do not own yet. Decision-grade, not bid-grade.',
+    description: 'You bring the deal — we build the numbers. A pre-acquisition underwriting opinion for a property you do not own yet: scope feasibility, a rough budget range with confidence levels, construction risk callouts, and the walk-away trigger. No spreadsheet input needed. Decision-grade, not bid-grade.',
     checkoutAmount: '499',
   },
   'permit-local-compliance-review': {
@@ -145,10 +145,10 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     key: 'budget-review',
     name: 'Budget & Scope Review',
     shortName: 'Budget & Scope Review',
-    price: 59900,
-    priceLabel: '$599 review',
-    description: 'Pressure-test the numbers — a line-by-line audit of your existing budget and scope against current market costs. Works pre-purchase (vetting an investor pro-forma) or post-purchase (before contractors price it or the lender locks in the draw). You bring a budget; we audit it.',
-    checkoutAmount: '599',
+    price: 39900,
+    priceLabel: '$399 review',
+    description: 'You bring the numbers — we pressure-test them. A line-by-line audit of an existing budget and scope against current market costs. Works pre-purchase (vetting an investor pro-forma) or post-purchase (before contractors price it or the lender locks in the draw). Bring a budget; we audit it.',
+    checkoutAmount: '399',
   },
   'contractor-grade-budget': {
     key: 'contractor-grade-budget',

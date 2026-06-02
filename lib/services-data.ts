@@ -314,7 +314,7 @@ const investorServices: AvatarPageData = {
       cta: 'Buy Now',
       detailHref: detailHref('investors', 'budget-review'),
       itemKey: 'budget-review',
-      monthlyPrice: '$599',
+      monthlyPrice: '$399',
       turnaround: 'Typical turnaround: 2 business days',
       proofTitle: 'Useful before bids and draws lock in the wrong numbers',
       proofBody: 'Line-item audit, not a vibes review. We catch the gaps you would otherwise discover mid-construction.',
@@ -339,7 +339,7 @@ const investorServices: AvatarPageData = {
       turnaround: 'Typical turnaround: 5 business days',
       proofTitle: 'Useful before contractors price the wrong scope',
       proofBody: 'A real budget — takeoffs and trade-priced — replaces the spreadsheet you would otherwise hand a contractor to mark up.',
-      why: 'Some buyers need a budget built, not audited — this fills the gap between the $599 audit product and a full GC engagement.',
+      why: 'Some buyers need a budget built, not audited — this fills the gap between the $399 audit product and a full GC engagement.',
     },
     {
       slug: 'contractor-fit-consultation',

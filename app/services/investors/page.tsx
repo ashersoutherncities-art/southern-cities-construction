@@ -48,7 +48,7 @@ const investorStages: Stage[] = [
       {
         name: 'Investor Deal & Scope Review',
         price: '$499',
-        description: 'An underwriting opinion before earnest money: scope feasibility, a rough budget range with confidence levels, and the walk-away trigger. Decision-grade, not bid-grade.',
+        description: 'You bring the deal, we build the numbers. An underwriting opinion before earnest money: scope feasibility, a rough budget range with confidence levels, and the walk-away trigger — no spreadsheet input needed. Decision-grade, not bid-grade.',
         href: '/services/investors/investor-review',
         secondaryHref: '/services/investors/investor-review',
         primaryCta: 'View Details',
@@ -56,8 +56,8 @@ const investorStages: Stage[] = [
       },
       {
         name: 'Budget & Scope Review',
-        price: '$599',
-        description: 'Line-item audit of an existing budget — yours, an investor pro-forma, or a contractor bid. Works pre-purchase (vetting a deal) or post-purchase (before bids and draws lock in).',
+        price: '$399',
+        description: 'You bring the numbers, we pressure-test them. A line-item audit of an existing budget — yours, an investor pro-forma, or a contractor bid — against current market costs. Works pre-purchase (vetting a deal) or post-purchase (before bids and draws lock in).',
         href: '/services/investors/budget-review',
         secondaryHref: '/services/investors/budget-review',
         primaryCta: 'View Details',
