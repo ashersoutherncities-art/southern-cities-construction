@@ -16,6 +16,7 @@ const SERVICES_GROUP: NavGroup = {
     { href: '/services', label: 'Pricing Overview' },
     { href: '/services/homeowners', label: 'For Homeowners' },
     { href: '/services/investors', label: 'For Investors' },
+    { href: '/services/wholesalers', label: 'For Wholesalers' },
     { href: '/services/realtors', label: 'For Realtors' },
     { href: '/services/contractors', label: 'For Contractors' },
     { href: '/services/developers-landowners', label: 'For Developers' },
@@ -23,6 +24,7 @@ const SERVICES_GROUP: NavGroup = {
 };
 
 const PRIMARY_LINKS: NavLink[] = [
+  { href: '/deal-pack', label: 'Deal Pack' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contracting', label: 'Contracting' },
   { href: '/recurring-support', label: 'Support Plans' },

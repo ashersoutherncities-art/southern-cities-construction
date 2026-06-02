@@ -324,6 +324,53 @@ export default function RealtorsPage() {
         </div>
       </section>
 
+      {/* DEAL PACK FOR LISTINGS */}
+      <section className="bg-gradient-to-br from-[#0a1428] via-[#0d1a30] to-[#0a1428] py-14 sm:py-18 border-t border-white/8">
+        <div className="container-pro">
+          <div className="mx-auto max-w-5xl rounded-[28px] border-2 border-[#f58220]/40 bg-gradient-to-br from-[#f58220]/[0.08] via-[#f58220]/[0.02] to-transparent p-8 sm:p-12 shadow-[0_24px_60px_-16px_rgba(245,130,32,0.25)]">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="inline-flex rounded-full bg-[#f58220] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">NEW · FOR LISTING AGENTS</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">Rehab-needed listings · investor-buyer pools</span>
+            </div>
+            <h2 className="mt-5 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">
+              Attach a GC-Verified Deal Pack to your listing.<br />
+              <span className="text-[#f58220]">Attract the investor-buyers who actually pay top of market.</span>
+            </h2>
+            <p className="mt-5 text-lg leading-[1.55] text-white/85">
+              For rehab-needed or investor-grade listings: a licensed NC GC delivers a branded Deal Pack — verified rehab budget, scope, risk callouts (Bid-Ready) or full plans + designs + sub quotes + closing sweep (Build-Ready). Attach it to your MLS marketing and disclosure packet. Investor-buyers stop passing on un-scoped properties because they no longer have to bring their own GC.
+            </p>
+            <div className="mt-7 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">For your listing</p>
+                <p className="mt-2 text-[15px] leading-[1.5] text-white/85">Branded PDF with NC GC #107724 stamp — attach to MLS, disclosure packet, showing folder</p>
+              </div>
+              <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">For your buyer</p>
+                <p className="mt-2 text-[15px] leading-[1.5] text-white/85">Lender-ready scope means investor financing approves faster; fewer contingencies; fewer credit demands</p>
+              </div>
+              <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#f58220]">For you</p>
+                <p className="mt-2 text-[15px] leading-[1.5] text-white/85">List at top of band with confidence · close investor-friendly properties faster · win more listing presentations</p>
+              </div>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/deal-pack"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#f58220] px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_28px_-8px_rgba(245,130,32,0.55)] transition hover:-translate-y-0.5 hover:bg-[#ff9229]"
+              >
+                See Deal Pack Tiers →
+              </Link>
+              <Link
+                href="/guide/consistent-assignment-wholesaler"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/25 px-7 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-white/5"
+              >
+                Free Deal Pack Playbook (PDF) →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TRANSACTION PACKAGES — bundle comparison chart */}
       <section id="packages" className="bg-[#08111d] py-14 sm:py-18">
         <div className="container-pro">

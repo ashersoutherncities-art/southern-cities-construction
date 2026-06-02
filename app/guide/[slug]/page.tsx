@@ -21,6 +21,84 @@ type LeadMagnetLpConfig = {
 
 const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
   {
+    resourceSlug: 'consistent-assignment-wholesaler',
+    audienceTag: 'NC WHOLESALERS · 2026 PLAYBOOK',
+    heroHeadlinePre: 'How NC wholesalers are consistently closing',
+    heroHeadlineHighlight: '$25–40K+ assignments',
+    heroHeadlinePost: ' to real investors — without becoming flippers.',
+    heroSubheadline:
+      'Your assignment fee isn\'t capped by your deals. It\'s capped by who you\'re selling them to. Real investors won\'t touch unverified wholesale contracts — so you\'re stuck selling to other wholesalers and low-tier flippers. A licensed NC GC documented the two-layer problem, the 5-question framework you can run on any deal in 15 minutes, and shipped an anonymized excerpt of a real GC-Verified Deal Pack that closed a $32K assignment in 9 days.',
+    insideBullets: [
+      'The two-layer problem: spread cap + buyer pool quality',
+      'Three reasons real investors skip your assignments today (lender veto, capital partner veto, duplicate DD)',
+      'The Build-Ready Standard — buyer pool before / after comparison',
+      'Anonymized 3-page Bid-Ready Deal Pack excerpt (real $32K assignment, line-item scope, risk callouts)',
+      '5-Question Rehab Validation Framework — run it on any deal in 15 minutes',
+      'The 4 things you can\'t do alone — sub quotes, plans, permit sweep, license stamp',
+      'Four CTA doors: free SF ballpark, Bid-Ready, Build-Ready, Pro subscription',
+    ],
+    bestFor:
+      'NC wholesalers averaging $5K–$20K assignment fees who want to break the $10K ceiling by attracting real end-investors (not other wholesalers) to their assignments.',
+    credibilityLines: [
+      'I\'m not a real estate guru. I\'m a licensed NC General Contractor (#107724) running actual jobsites across NC — my name is on the license, so if the work\'s wrong, NC can pull it. Coaches don\'t have that downside.',
+      'I built the Deal Pack because I lost over $100K on my own real estate investing deals 8 years ago — bad budget assumptions, the wrong sub network, missed permit timelines. The framework in this PDF is tuition I paid that you don\'t have to.',
+      'Most GCs won\'t review a deal you don\'t own yet. We will, because the wholesale-deal-pre-LOI walk is the most defensible thing a licensed NC GC can do for the investor market.',
+    ],
+    submitLabel: 'Get the $25–40K Assignment Playbook — Free',
+  },
+  {
+    resourceSlug: 'wholesale-to-flip-9-month',
+    audienceTag: 'NC WHOLESALERS · LEVELING UP',
+    heroHeadlinePre: 'How one NC wholesaler went from',
+    heroHeadlineHighlight: '$10K assignments to $104K flips',
+    heroHeadlinePost: ' in 9 months — without learning construction.',
+    heroSubheadline:
+      'Real 9-month case study with full disclosed P&L. He didn\'t pick up a hammer. He didn\'t learn construction. He underwrote the deal, approved milestones, signed the checks — SCC ran the build using CO1 Execution Review + CO3 Active Oversight. Total Marcus hours across 9 months: ~20. Net profit on the flip: $104,761. Plus the 5-rule framework for which deals to keep vs. assign, and the honest math on capital, credit, and risk.',
+    insideBullets: [
+      'The wholesaler ceiling — why even $40K assignments still cap your business',
+      'Marcus\'s 9-month transformation timeline (Discovery → Decision → Execution → Sale)',
+      'Full disclosed P&L on the $104K flip — sale price, financing, rehab, fees, net',
+      'The honest math — capital required ($25K–$60K), credit profile (650+), time commitment (~20 hrs)',
+      'How SCC runs the execution side — CO1 + CO3 + CO4 explained, license-level risk allocation',
+      '5-rule decision framework for which deals to keep vs. assign (spread × 3, CO1 clean, capital ready, etc.)',
+      'Three CTA doors: $499 CO1 Execution Review, Build Desk membership, 30-min founder call',
+    ],
+    bestFor:
+      'NC wholesalers averaging $25K+ assignment fees who feel they\'ve outgrown wholesaling and want to evolve into flippers without taking on the construction risk themselves.',
+    credibilityLines: [
+      'I\'m Darius T. Walton — licensed NC General Contractor #107724 — and I built this entire platform because I tried to do exactly what Marcus did, 8 years ago, without a GC license or a sub network. I lost over $100K before I figured out the actual playbook.',
+      'CO1 + CO3 are the products I wish I\'d had when I was making those mistakes. They\'re the reason a wholesaler-to-flipper conversion now takes 9 months with SCC instead of 3 years on your own.',
+      'Most GCs won\'t co-pilot a wholesaler\'s first flip. We will. That\'s the wedge — and the reason this 9-month path is reproducible across NC.',
+    ],
+    submitLabel: 'Get the $104K Case Study — Free',
+  },
+  {
+    resourceSlug: 'nc-execution-risks-investor',
+    audienceTag: 'NC INVESTORS · PRE-OFFER',
+    heroHeadlinePre: 'The 9 execution risks killing',
+    heroHeadlineHighlight: 'NC investor deals',
+    heroHeadlinePost: ' in 2026 — and how to spot each one in 5 seconds.',
+    heroSubheadline:
+      'Your next deal probably has 2 or 3 of them. They cost $5K–$50K each when discovered after earnest money goes hard. A licensed NC General Contractor documented all 9 in a free 12-page PDF — what each risk looks like in listing photos, dollar cost ranges from 2025–2026 NC jobs, and why your buyer’s lender cares.',
+    insideBullets: [
+      'Stale labor-multiplier diagnostic — Charlotte +28%, Raleigh +22% since 2024 ($12K–$16K typical impact)',
+      'Permit-jurisdiction reality table — Mecklenburg / Wake / Durham / New Hanover / Cumberland',
+      'Hidden major-system risks — galvanized plumbing, Federal Pacific / Zinsco panels, aluminum wiring, polybutylene',
+      'Roof-life misjudgment and clay-sewer-line collapse — $6K–$18K impacts',
+      'HVAC sequencing trap that costs $3K–$8K in rework',
+      'Total cost-impact summary table for all 9 risks',
+      'When and how to escalate to a licensed-GC Execution Review',
+    ],
+    bestFor:
+      'NC real estate investors actively underwriting deals — flippers, BRRRR operators, small portfolio builders — who want to know which execution risks are hiding in the property before earnest money goes hard.',
+    credibilityLines: [
+      "I'm not a real estate guru. I'm a licensed NC General Contractor (#107724) running actual jobsites across NC — my name is on the license, so if the work's wrong, NC can pull it. Coaches don't have that downside.",
+      "I built this because I lost over $100K on my own investing deals when I first got into real estate 8 years ago — bad budget assumptions, wrong labor multipliers, missed permit timelines. The 9 risks in this PDF are tuition I paid that you don't have to.",
+      "Most GCs won't review a deal you don't own yet. We will, because we know exactly what costs investors money.",
+    ],
+    submitLabel: 'Get the 9-Risk PDF — Free',
+  },
+  {
     resourceSlug: 'gc-certified-pre-listing-checklist',
     audienceTag: 'LISTING AGENTS · SELLERS',
     heroHeadlinePre: 'Know exactly',
@@ -191,7 +269,7 @@ export default function LeadMagnetLandingPage({ params }: { params: Params }) {
       <footer className="border-t border-white/8 bg-[#040810] py-8">
         <div className="container-pro flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p className="text-[12px] text-white/45">
-            © 2026 Southern Cities Construction LLC · NC GC License #107724
+            © 2026 Southern Cities Construction · NC GC License #107724
           </p>
           <p className="text-[12px] text-white/45">
             <Link href="/privacy" className="hover:text-orange">Privacy</Link>
