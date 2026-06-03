@@ -68,6 +68,12 @@ export type PlatformStage = {
    *  customer receives. When set, the stage page shows a preview thumbnail
    *  + download so prospects can see the actual output before buying. */
   sampleDeliverable?: { pdfUrl: string; coverUrl: string; pages: number };
+  /** Who this stage is ideally for, across the investor avatars. Rendered
+   *  as a "Who this is for" section when present. */
+  idealFor?: Array<{ label: string; detail: string }>;
+  /** Scope-boundary clarification (what's included vs. add-on, who holds
+   *  permits/liability). Rendered as a callout band when present. */
+  scopeNote?: string;
 
   // ============================================================
   // NO-BRAINER ARCHITECTURE FIELDS
@@ -328,7 +334,7 @@ const CO3: PlatformStage = {
   sampleDeliverable: {
     pdfUrl: '/resources/samples/active-oversight-sample.pdf',
     coverUrl: '/product-mockups/active-oversight-sample-cover.jpg',
-    pages: 8,
+    pages: 9,
   },
   stageNumber: 4,
   shortCode: 'CO3',
@@ -336,9 +342,19 @@ const CO3: PlatformStage = {
   marketingShortName: 'Active Oversight',
   internalName: 'Ongoing execution oversight + coordination during construction',
   audienceTag: 'INVESTORS · ACTIVE CONSTRUCTION',
-  oneLiner: 'Stop watching your budget bleed $5K+ mid-project. A licensed NC GC kills execution drift weekly — scoped flat fee, not monthly.',
+  oneLiner: 'We become your project manager. You keep the permits, the funding, and the upside — a licensed NC GC runs the execution layer so the job moves without you managing it.',
   purpose:
-    'Provide ongoing execution visibility, coordination, monitoring, and operational control support DURING active construction.',
+    'On Active Oversight, Southern Cities effectively becomes your project manager and execution layer during construction. You provide the funding and — where permits are required — remain the GC of record holding the permits and the liability that comes with them. We run execution: we coordinate the subs and materials you have in place, track budget and schedule against baseline, flag slippage early, manage draw releases, and run weekly site oversight. We do not pull permits (that is GC-Supported Build) and base scope does not include sourcing your crews (sourcing is an add-on, priced per trade, or step up to Project Setup).',
+  idealFor: [
+    { label: 'Active flippers with crews', detail: 'You have your subs but you are running too many projects to project-manage each one yourself.' },
+    { label: 'BRRRR operators scaling', detail: 'You have outgrown what you can personally oversee and need a pro running each active build.' },
+    { label: 'Out-of-state / remote investors', detail: 'You own NC property but cannot be on-site — we are your eyes, hands, and weekly control on the ground.' },
+    { label: 'Wholesalers who kept a deal', detail: 'You can fund it and hold the permits, but you have never run a build — we run execution while you keep the upside.' },
+    { label: 'Capital-rich, time-poor investors', detail: 'You want the margin of owning the deal without becoming the project manager.' },
+    { label: 'Owner-builders of record', detail: 'You can legally pull the permits and want a licensed GC operating the job within that frame.' },
+  ],
+  scopeNote:
+    'You hold the permits (where required) and the GC-of-record liability that comes with them; we run the execution layer. Base scope coordinates the labor and materials YOU provide. Need us to source or recommend crews? That is an add-on, priced per trade — or step up to Project Setup. Permit-pulling under our license is GC-Supported Build.',
   isAutomated: false,
   isPaid: true,
   pricing: 'From $6,500 — scoped per project',
@@ -349,24 +365,24 @@ const CO3: PlatformStage = {
   revealedProblem:
     'Oversight is in place. Now: who is actually controlling and assuming execution responsibility?',
   deliverables: [
-    'Labor coordination',
+    'We act as your project manager / execution layer',
+    'Coordination of the labor YOU provide (base scope)',
     'Materials coordination',
     'Progress tracking against schedule',
     'Budget monitoring against approved baseline',
     'Schedule monitoring + slippage flagging',
-    'Change tracking',
-    'Issue escalation to investor',
+    'Change tracking + written change log',
+    'Draw release tracking + recommendations',
     'Periodic site inspections (frequency scoped per project)',
-    'Execution reporting (weekly cadence)',
-    'Contractor communication support',
-    'Draw tracking support',
-    'Owner update cadence',
+    'Weekly written execution reports',
+    'Contractor communication on your behalf',
+    'Issue escalation + owner decision cadence',
   ],
   notThisIs: [
+    'Permit pulling (that is GC-Supported Build — you remain GC of record here)',
+    'Sourcing your crews from scratch (add-on, priced per trade, or Project Setup)',
+    'Full GC execution / risk transfer (handled by Full GC Service)',
     'Simple admin work',
-    'Pre-construction setup (handled by Project Setup)',
-    'Full GC execution (handled by Full GC Service)',
-    'Daily on-site supervision',
   ],
   thisIs: [
     'Execution coordination',

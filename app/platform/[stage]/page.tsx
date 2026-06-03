@@ -371,8 +371,36 @@ export default function PlatformStagePage({ params }: { params: Params }) {
               </li>
             ))}
           </ul>
+
+          {/* SCOPE BOUNDARY — what's included vs add-on / who holds permits */}
+          {stage.scopeNote ? (
+            <div className="mt-8 rounded-2xl border border-orange/40 bg-orange/[0.06] p-6 sm:p-7">
+              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Scope &amp; the line we don&apos;t cross</p>
+              <p className="mt-3 text-[15px] leading-[1.65] text-white/85">{stage.scopeNote}</p>
+            </div>
+          ) : null}
         </div>
       </section>
+
+      {/* WHO THIS IS FOR — ideal avatars */}
+      {stage.idealFor && stage.idealFor.length > 0 ? (
+        <section className="bg-[#08111d] py-14 sm:py-16 border-t border-white/8">
+          <div className="container-pro max-w-5xl">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Who this is for</p>
+            <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
+              Ideal for these investors.
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {stage.idealFor.map((a) => (
+                <div key={a.label} className="rounded-xl border border-white/10 bg-white/[0.025] p-5">
+                  <p className="text-[14.5px] font-black tracking-tight text-white">{a.label}</p>
+                  <p className="mt-2 text-[13.5px] leading-[1.55] text-white/70">{a.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {/* SAMPLE DELIVERABLE — branded example of what you receive */}
       {stage.sampleDeliverable ? (

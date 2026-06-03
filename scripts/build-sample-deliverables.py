@@ -704,15 +704,17 @@ def build_active_oversight():
     s = []
     cover_block(s, "WHAT YOU RECEIVE · WEEKLY",
         "Active Project Oversight",
-        "A licensed NC GC tracks your build every week — progress vs schedule, budget vs baseline, slippage "
-        "flagged early, changes logged, draws released clean. This is one week's report.",
+        "We become your project manager. You provide the funding and hold the permits; a licensed NC GC runs "
+        "the execution layer — tracking progress, budget, and schedule, logging changes, and releasing draws "
+        "clean. This is one week's report.",
         "Sample Investor · Week 5 of 13 · Charlotte NC<br/>From $6,500 scoped per project · NC GC License #107724")
 
-    s.append(Paragraph("HOW OVERSIGHT WORKS", S["eyebrow"]))
-    s.append(Paragraph("What we track, every week", S["h1"]))
-    s.append(Paragraph("You own the project; we kill execution drift before it kills your margin. Each week you "
+    s.append(Paragraph("HOW THIS WORKS", S["eyebrow"]))
+    s.append(Paragraph("We run execution. You keep the seat.", S["h1"]))
+    s.append(Paragraph("On Active Oversight, Southern Cities effectively becomes your project manager — we run "
+                       "the execution layer week to week so the job moves without you managing it. Each week you "
                        "get this report: where the build actually is, where the money actually is, what's "
-                       "slipping, and what needs your decision. No guessing, no surprise at draw time.", S["body"]))
+                       "slipping, and what needs your decision.", S["body"]))
     s.append(data_table(["WE TRACK", "YOU SEE"], [
         ["Progress vs schedule", "% complete by trade, on/behind"],
         ["Budget vs baseline", "Spent vs approved, variance flags"],
@@ -720,6 +722,30 @@ def build_active_oversight():
         ["Changes", "Logged + priced before work proceeds"],
         ["Issues", "Escalated to you in writing within 24h"],
     ], col_widths=[2.2 * inch, FRAME_W - 2.2 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WHO HOLDS WHAT",
+        "<b>You provide:</b> funding, and — where permits are required — you remain the GC of record holding the "
+        "permits and the liability that comes with them. <b>We provide:</b> the execution layer — coordinating "
+        "the subs and materials you have in place. <b>We do NOT pull permits</b> (that's GC-Supported Build) and "
+        "<b>base scope does not source your crews</b> — if you need us to find or recommend labor, that's an "
+        "add-on priced per trade.", bg=ACCENT_LIGHT, bar=ORANGE))
+    s.append(PageBreak())
+
+    s.append(Paragraph("WHO THIS IS FOR", S["eyebrow"]))
+    s.append(Paragraph("Ideal across the investor avatars", S["h1"]))
+    s.append(data_table(["AVATAR", "WHY IT FITS"], [
+        ["Active flippers with crews", "Subs lined up, too many projects to PM each one yourself"],
+        ["BRRRR operators scaling", "Outgrown what you can personally oversee"],
+        ["Out-of-state / remote investors", "Own NC property, can't be on-site — we're your control on the ground"],
+        ["Wholesalers who kept a deal", "Can fund + hold permits, never run a build"],
+        ["Capital-rich, time-poor", "Want the deal's upside without becoming the PM"],
+        ["Owner-builders of record", "Can legally pull permits; want a licensed GC operating the job"],
+    ], col_widths=[2.3 * inch, FRAME_W - 2.3 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("NOT THE RIGHT FIT?",
+        "If you need crews sourced from scratch, start with Project Setup. If you'd rather we pull the permits "
+        "and carry the license-level risk, that's GC-Supported Build. If you want zero involvement and full "
+        "risk transfer, that's Full GC."))
     s.append(PageBreak())
 
     s.append(Paragraph("WEEK 5 · PROGRESS REPORT", S["eyebrow"]))
