@@ -1022,6 +1022,288 @@ def build_full_gc():
     print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
 
 
+# ============================================================
+# DELIVERABLE: Budget & Scope Review ($399 — you bring numbers, we audit)
+# ============================================================
+
+def build_budget_scope_review():
+    out = str(OUT_DIR / "budget-scope-review-sample.pdf")
+    doc = make_doc(out, "BUDGET & SCOPE REVIEW · SAMPLE", "Budget & Scope Review — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Budget &amp; Scope Review",
+        "You bring the numbers — we pressure-test them. A licensed NC GC audits your existing budget and "
+        "scope line by line against current market costs, finds the gaps, and hands back a number you can "
+        "take to contractors and lenders.",
+        "Sample Investor · budget audit · Charlotte NC<br/>$399 flat · 2 business days · NC GC License #107724")
+
+    s.append(Paragraph("HOW TO READ THIS AUDIT", S["eyebrow"]))
+    s.append(Paragraph("What we pressure-tested", S["h1"]))
+    s.append(Paragraph("You sent us a budget — a pro-forma, a spreadsheet, or a contractor bid. We audited every "
+                       "line against 2026 NC trade-network costs, checked the scope for missing items, and "
+                       "flagged the numbers that won't survive contractor pricing or lender review. This is the "
+                       "corrected, bid-grade version.", S["body"]))
+    s.append(callout("WHAT YOU SENT", "1,420 sf cosmetic-plus rehab pro-forma · total budget submitted: <b>$78,500</b> · 22 line items · prepared from a wholesaler's marketing sheet."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE VERDICT", S["eyebrow"]))
+    s.append(Paragraph("Your budget vs. reality", S["h1"]))
+    s.append(verdict_box("UNDER BY ~$24K", "Submitted $78,500 · realistic $98,000–$104,000. Three missing trades + four off-market lines.", WARN))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(callout("THE HEADLINE", "Your budget isn't wrong on the items it includes — it's wrong on the items it's missing. A rehab budget that pencils at $78.5K here gets you to drywall and then stalls when the systems and contingency you didn't price show up."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("SCOPE GAP ANALYSIS", S["eyebrow"]))
+    s.append(Paragraph("What your budget left out", S["h1"]))
+    s.append(data_table(["MISSING ITEM", "WHY IT'S REQUIRED", "ADD"], [
+        ["Panel replacement", "Federal Pacific — uninsurable, will fail", "$2,800"],
+        ["Sewer lateral allowance", "1956 clay line, unknown condition", "$4,500"],
+        ["Permit + inspection fees", "Not a line in your sheet", "$1,400"],
+        ["Dumpster / disposal", "Underpriced at $400", "$2,200"],
+        ["Contingency (10%)", "Zero contingency budgeted", "$9,000"],
+    ], col_widths=[1.9 * inch, FRAME_W - 3.1 * inch, 1.2 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE BIG ONE", "Zero contingency on a 1950s systems rehab is the single most expensive assumption in this budget. Behind-the-wall surprises aren't a maybe at this vintage — they're a when."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("MARKET-RATE CORRECTIONS", S["eyebrow"]))
+    s.append(Paragraph("Lines that are off-market", S["h1"]))
+    s.append(data_table(["LINE ITEM", "YOUR NUMBER", "MARKET", "DELTA"], [
+        ["Kitchen (full reno)", "$12,000", "$18,200 – $22,800", "+$8,200"],
+        ["HVAC replacement", "$6,500", "$8,800 – $10,400", "+$3,000"],
+        ["Roof", "$6,000", "$8,600 – $11,200", "+$3,200"],
+        ["Plumbing re-pipe", "$5,000", "$9,200 – $12,400", "+$5,400"],
+    ], col_widths=[2.0 * inch, 1.3 * inch, 1.5 * inch, FRAME_W - 4.8 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WHY THESE DRIFT", "Marketing sheets carry last cycle's numbers. Kitchen and plumbing are where 2026 NC pricing has moved most — these two lines alone account for $13.6K of the gap."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("CONTINGENCY + RESERVES", S["eyebrow"]))
+    s.append(Paragraph("What to hold back", S["h1"]))
+    s.append(data_table(["RESERVE", "RECOMMENDATION", "BASIS"], [
+        ["Construction contingency", "10% of hard costs", "1950s systems risk"],
+        ["Sewer scope reserve", "$250 (scope) + $9K (if bad)", "Unverified clay lateral"],
+        ["Holding-cost buffer", "+2 weeks", "Permit timeline variance"],
+    ], col_widths=[2.0 * inch, FRAME_W - 3.6 * inch, 1.6 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("RULE OF THUMB", "On pre-1970 NC rehabs we recommend a hard 10% contingency, not the 5% most spreadsheets carry. It's the difference between absorbing a surprise and re-trading the deal mid-build."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("CORRECTED BID-GRADE BUDGET", S["eyebrow"]))
+    s.append(Paragraph("The number you can actually use", S["h1"]))
+    s.append(data_table(["CATEGORY", "YOUR BUDGET", "CORRECTED"], [
+        ["Systems (HVAC/plumb/elec)", "$11,500", "$24,000"],
+        ["Kitchen / bath", "$16,000", "$28,000"],
+        ["Finishes", "$18,000", "$19,400"],
+        ["Envelope (roof/paint/ext)", "$14,000", "$17,200"],
+        ["Permits / disposal / misc", "$2,000", "$4,400"],
+        ["Contingency", "$0", "$9,000"],
+        ["TOTAL", "$78,500", "$102,000"],
+    ], col_widths=[2.2 * inch, 1.5 * inch, FRAME_W - 3.7 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("NEXT STEP", S["eyebrow"]))
+    s.append(Paragraph("Take a real number into the deal", S["h1"]))
+    s.append(callout("WHAT THIS CHANGES", "Re-run your deal math at $102K, not $78.5K. If it still pencils, you have a budget contractors will price against and lenders will fund. If it doesn't, you just avoided a deal that would have gone upside-down at drywall."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("IF YOU NEED THE BUDGET BUILT, NOT AUDITED", "This product audits a budget you have. If you're starting from scratch, the Contractor-Grade Budget builds one from full takeoffs."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
+# ============================================================
+# DELIVERABLE: Contractor-Grade Budget ($1,799 — built from scratch)
+# ============================================================
+
+def build_contractor_grade_budget():
+    out = str(OUT_DIR / "contractor-grade-budget-sample.pdf")
+    doc = make_doc(out, "CONTRACTOR-GRADE BUDGET · SAMPLE", "Contractor-Grade Budget — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Contractor-Grade Budget",
+        "No budget yet? We build one from scratch — full takeoffs, real 2026 NC trade-network unit costs, "
+        "written assumptions, and a bid-ready spreadsheet. The number you'd otherwise pay a GC to assemble, "
+        "without hiring one.",
+        "Sample Investor · budget built from scratch · Charlotte NC<br/>$1,799 · NC GC License #107724")
+
+    s.append(Paragraph("HOW THIS WAS BUILT", S["eyebrow"]))
+    s.append(Paragraph("Takeoffs, not guesses", S["h1"]))
+    s.append(Paragraph("This budget was built the way a GC builds a bid: measured quantities (takeoffs) for each "
+                       "trade, priced against current NC trade-network unit costs, with every assumption written "
+                       "down so you can defend the number to a contractor or a lender.", S["body"]))
+    s.append(data_table(["INPUT", "SOURCE"], [
+        ["Quantities (sf, lf, counts)", "Takeoff from plans + photos"],
+        ["Unit costs", "2026 NC trade-network pricing"],
+        ["Labor multipliers", "Charlotte submarket, current cycle"],
+        ["Allowances", "Finish level: Market-Standard (Tier 2)"],
+    ], col_widths=[2.2 * inch, FRAME_W - 2.2 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("BUDGET SUMMARY", S["eyebrow"]))
+    s.append(Paragraph("The number, by category", S["h1"]))
+    s.append(verdict_box("$104,200", "Bid-ready total · Market-Standard finish · 1,420 sf · 2026 Charlotte pricing.", NAVY))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(data_table(["CATEGORY", "AMOUNT", "% OF TOTAL"], [
+        ["Demo + site", "$3,000", "3%"],
+        ["Systems (HVAC/plumb/elec)", "$24,400", "23%"],
+        ["Kitchen / bath", "$30,100", "29%"],
+        ["Finishes (floor/paint/trim)", "$21,300", "20%"],
+        ["Envelope (roof/window/ext)", "$16,200", "16%"],
+        ["GC + permits + contingency", "$9,200", "9%"],
+    ], col_widths=[2.3 * inch, 1.5 * inch, FRAME_W - 3.8 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("LINE-ITEM DETAIL (1 OF 2)", S["eyebrow"]))
+    s.append(Paragraph("Quantity × unit cost", S["h1"]))
+    s.append(data_table(["ITEM", "QTY", "UNIT", "TOTAL"], [
+        ["Demo + dumpster", "1,420 sf", "$2.10/sf", "$2,982"],
+        ["Roof — arch shingle", "18 sq", "$525/sq", "$9,450"],
+        ["HVAC — 3-ton + furnace", "1 ea", "$9,600", "$9,600"],
+        ["Plumbing re-pipe (PEX)", "1,420 sf", "$5.40/sf", "$7,668"],
+        ["Bath rebuild", "1 ea", "$8,200", "$8,200"],
+        ["Electrical — 200A + devices", "1 ea", "$5,600", "$5,600"],
+        ["LVP flooring", "1,050 sf", "$5.20/sf", "$5,460"],
+    ], col_widths=[2.2 * inch, 1.1 * inch, 1.2 * inch, FRAME_W - 4.5 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("LINE-ITEM DETAIL (2 OF 2)", S["eyebrow"]))
+    s.append(Paragraph("Quantity × unit cost", S["h1"]))
+    s.append(data_table(["ITEM", "QTY", "UNIT", "TOTAL"], [
+        ["Kitchen cabinets (mid)", "18 lf", "$420/lf", "$7,560"],
+        ["Quartz counters", "42 sf", "$78/sf", "$3,276"],
+        ["Appliances (SS package)", "1 ea", "$4,200", "$4,200"],
+        ["Interior paint", "1,420 sf", "$2.80/sf", "$3,976"],
+        ["Exterior paint", "1 ea", "$3,400", "$3,400"],
+        ["Trim + interior doors", "1 ea", "$3,800", "$3,800"],
+        ["Windows (partial)", "8 ea", "$520/ea", "$4,160"],
+    ], col_widths=[2.2 * inch, 1.1 * inch, 1.2 * inch, FRAME_W - 4.5 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("ASSUMPTIONS + EXCLUSIONS", S["eyebrow"]))
+    s.append(Paragraph("What this number assumes", S["h1"]))
+    s.append(data_table(["ASSUMED", "EXCLUDED (priced separately if found)"], [
+        ["Sound foundation + framing", "Structural repair"],
+        ["Clay sewer intact", "Sewer lateral replacement"],
+        ["No asbestos / lead remediation", "Hazmat abatement"],
+        ["Standard Mecklenburg permit path", "Variance / rezoning"],
+        ["Market-Standard finish level", "Premium / custom upgrades"],
+    ], col_widths=[FRAME_W / 2, FRAME_W / 2]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WHY THIS MATTERS", "A budget without written assumptions is a number you can't defend. When a contractor's bid comes in different, this page tells you whether it's a real difference or a scope misunderstanding."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("ALLOWANCES + CONTINGENCY", S["eyebrow"]))
+    s.append(Paragraph("Where flexibility is built in", S["h1"]))
+    s.append(data_table(["ALLOWANCE", "INCLUDED", "NOTE"], [
+        ["Cabinet allowance", "$7,560", "Semi-custom; upgrade swaps net to budget"],
+        ["Fixture allowance", "$2,400", "Mid-grade; itemized in spreadsheet"],
+        ["Flooring allowance", "$5,460", "LVP; hardwood refinish priced separate"],
+        ["Contingency", "$5,200", "5% — raise to 10% for pre-1970 risk"],
+    ], col_widths=[1.9 * inch, 1.3 * inch, FRAME_W - 3.8 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("HOW TO USE THIS BUDGET", S["eyebrow"]))
+    s.append(Paragraph("From spreadsheet to execution", S["h1"]))
+    s.append(callout("BID AGAINST IT", "Hand contractors the scope + this line-item budget so every bid prices the same thing. The bids that come back wildly off are telling you something — usually a scope gap, not a better price."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("FUND AGAINST IT", "The category breakdown maps to a lender draw schedule. This is the document that gets a construction loan released without back-and-forth."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("DELIVERED AS A LIVE SPREADSHEET", "You also receive the editable spreadsheet — adjust finishes, quantities, or allowances and the totals recompute. The PDF is the snapshot; the spreadsheet is the working file."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
+# ============================================================
+# DELIVERABLE: Permit & Compliance Review
+# ============================================================
+
+def build_permit_compliance_review():
+    out = str(OUT_DIR / "permit-compliance-review-sample.pdf")
+    doc = make_doc(out, "PERMIT & COMPLIANCE REVIEW · SAMPLE", "Permit & Compliance Review — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Permit &amp; Compliance Review",
+        "Before you close, a licensed NC GC reads the permit path and local compliance picture — required "
+        "permits, open permits, code and zoning exposure — so the rehab path can't become an expensive "
+        "surprise after closing.",
+        "Sample Investor · pre-close review · Charlotte NC<br/>$399 · 2 business days · NC GC License #107724")
+
+    s.append(Paragraph("WHAT WE REVIEWED", S["eyebrow"]))
+    s.append(Paragraph("The permit + compliance picture", S["h1"]))
+    s.append(Paragraph("We pulled the county permit history, checked the parcel's zoning and code exposure, and "
+                       "mapped the permit path your intended scope will require — before earnest money goes hard.", S["body"]))
+    s.append(data_table(["SOURCE", "REVIEWED FOR"], [
+        ["Mecklenburg permit portal", "Open / closed / expired permits"],
+        ["County GIS + zoning", "Use, setbacks, overlay districts"],
+        ["Tax + parcel records", "Unpermitted additions vs. record sf"],
+        ["Scope of work (your inputs)", "Permits the rehab will require"],
+    ], col_widths=[2.3 * inch, FRAME_W - 2.3 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE VERDICT", S["eyebrow"]))
+    s.append(Paragraph("Permit path summary", S["h1"]))
+    s.append(verdict_box("CLEAR — WITH ONE FIX", "Path is straightforward for your scope. One open permit must be closed before resale. Details below.", WARN))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(callout("BOTTOM LINE", "Nothing here kills the deal — but the open 2014 permit and a record-square-footage discrepancy both need handling, and both are cheaper to fix now than to discover at your resale closing."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("REQUIRED PERMITS", S["eyebrow"]))
+    s.append(Paragraph("What your scope will need", S["h1"]))
+    s.append(data_table(["PERMIT", "TRIGGERED BY", "EST. TIMELINE"], [
+        ["Building (alteration)", "Kitchen/bath reconfig", "1 – 2 weeks"],
+        ["Electrical", "Panel + rewire", "Same submittal"],
+        ["Plumbing", "Re-pipe + bath", "Same submittal"],
+        ["Mechanical", "HVAC replacement", "Same submittal"],
+    ], col_widths=[1.8 * inch, FRAME_W - 3.2 * inch, 1.4 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("GOOD NEWS", "Your scope stays within the existing footprint — no variance, no rezoning, no engineered drawings required. This is the fast permit path."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("OPEN PERMITS + VIOLATIONS", S["eyebrow"]))
+    s.append(Paragraph("What's on the record now", S["h1"]))
+    s.append(data_table(["FINDING", "SEVERITY", "ACTION"], [
+        ["Open water-heater permit (2014)", "High", "Close before resale — $325 + 5d"],
+        ["No active code violations", "—", "Clean ✓"],
+        ["Record sf vs actual (+180 sf)", "Medium", "Likely unpermitted sunroom"],
+    ], col_widths=[2.6 * inch, 1.1 * inch, FRAME_W - 3.7 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE SQUARE-FOOTAGE FLAG", "Tax record shows 180 sf less than the listing. Usually an unpermitted sunroom or enclosed porch. Options: permit it retroactively, disclose it, or exclude it from advertised sf — but don't get surprised by it at appraisal."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("COMPLIANCE RISKS", S["eyebrow"]))
+    s.append(Paragraph("Zoning + code exposure", S["h1"]))
+    s.append(data_table(["AREA", "STATUS"], [
+        ["Zoning use (single-family)", "Conforming ✓"],
+        ["Setbacks (existing footprint)", "Conforming ✓"],
+        ["Overlay / historic district", "None ✓"],
+        ["Egress / bedroom windows", "Verify during permit"],
+        ["Unpermitted addition (sunroom)", "Resolve — see above"],
+    ], col_widths=[FRAME_W - 1.8 * inch, 1.8 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("JURISDICTION NOTES", S["eyebrow"]))
+    s.append(Paragraph("How Mecklenburg runs this", S["h1"]))
+    s.append(callout("SUBMITTAL", "Mecklenburg accepts a combined trade submittal for a single-family alteration — building, electrical, plumbing, mechanical on one application. Plan review on this scope typically runs 5–10 business days."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("THE USUAL BOTTLENECK", "Rough-electrical inspection on a panel + rewire is the item that slips schedules on 1950s homes. Pull early and schedule the inspection before drywall is booked."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("RECOMMENDED NEXT STEPS", S["eyebrow"]))
+    s.append(Paragraph("Before you close", S["h1"]))
+    s.append(data_table(["STEP", "WHEN", "WHY"], [
+        ["Require seller close 2014 permit", "Pre-close", "Blocks clean title at resale"],
+        ["Decide sunroom path", "Pre-close", "Avoid appraisal/sf surprise"],
+        ["Budget the fast permit path", "Underwriting", "1–2 wk submittal, no variance"],
+    ], col_widths=[2.4 * inch, 1.2 * inch, FRAME_W - 3.6 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("NET", "This is a clean permit path with two housekeeping items. Handle both as seller conditions or pre-close tasks and you close without a compliance cloud over the resale."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
 SAMPLES = {
     "investor-execution-review": build_execution_review,
     "budget-snapshot": build_budget_snapshot,
@@ -1029,6 +1311,9 @@ SAMPLES = {
     "active-oversight": build_active_oversight,
     "gc-supported-build": build_gc_supported_build,
     "full-gc": build_full_gc,
+    "budget-scope-review": build_budget_scope_review,
+    "contractor-grade-budget": build_contractor_grade_budget,
+    "permit-compliance-review": build_permit_compliance_review,
 }
 
 

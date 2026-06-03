@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import SiteNav from '@/components/SiteNav';
@@ -528,6 +529,37 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
             </div>
           </div>
         </section>
+
+        {/* SAMPLE DELIVERABLE — branded example report */}
+        {service.sampleDeliverable ? (
+          <section className="bg-white border-t border-stone-200">
+            <div className="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-20">
+              <div className="grid items-center gap-8 sm:grid-cols-[auto_1fr]">
+                <a href={service.sampleDeliverable.pdfUrl} target="_blank" rel="noopener noreferrer" className="group relative mx-auto block w-[170px] shrink-0 sm:mx-0">
+                  <div className="absolute inset-0 rounded-[12px] bg-orange/20 blur-[40px]" aria-hidden="true" />
+                  <Image
+                    src={service.sampleDeliverable.coverUrl}
+                    alt={`${service.title} — sample report cover`}
+                    width={170}
+                    height={220}
+                    className="relative w-full rounded-[10px] border border-stone-300 shadow-[0_24px_50px_-16px_rgba(8,17,29,0.45)] ring-1 ring-orange/30 transition-transform group-hover:-rotate-2 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute -top-2.5 -right-2.5 rounded-full bg-orange px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.14em] text-white shadow-glow-orange">Sample</div>
+                </a>
+                <div>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">See it before you buy</p>
+                  <h2 className="mt-3 text-2xl font-black tracking-[-0.02em] text-navy sm:text-3xl">A real example of the report you receive.</h2>
+                  <p className="mt-3 text-[15px] leading-[1.6] text-stone-600">
+                    Open an anonymized {service.sampleDeliverable.pages}-page sample of the actual branded {service.title} — real findings, real numbers, exactly what lands in your inbox.
+                  </p>
+                  <a href={service.sampleDeliverable.pdfUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-orange/50 bg-orange/10 px-7 py-3 text-sm font-black uppercase tracking-[0.08em] text-orange-600 transition hover:bg-orange/20 hover:-translate-y-0.5">
+                    Open the sample report (PDF) ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* PRICING */}
         <section className="bg-gradient-to-b from-stone-50 to-stone-100">

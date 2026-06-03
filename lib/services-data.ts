@@ -36,6 +36,9 @@ export type ServiceCardData = {
   nextStep?: string;
   why?: string;
   warnings?: string[];
+  /** Optional branded SAMPLE deliverable — anonymized example report shown on
+   *  the service detail page as a preview thumbnail + download. */
+  sampleDeliverable?: { pdfUrl: string; coverUrl: string; pages: number };
 };
 
 export type AvatarPageData = {
@@ -293,6 +296,7 @@ const investorServices: AvatarPageData = {
       cta: 'Buy Now',
       detailHref: detailHref('investors', 'permit-local-compliance-review'),
       itemKey: 'permit-local-compliance-review',
+      sampleDeliverable: { pdfUrl: '/resources/samples/permit-compliance-review-sample.pdf', coverUrl: '/product-mockups/permit-compliance-review-sample-cover.jpg', pages: 8 },
       monthlyPrice: '$399',
       turnaround: 'Typical turnaround: 2 business days',
       proofTitle: 'Useful before local issues wreck the deal math',

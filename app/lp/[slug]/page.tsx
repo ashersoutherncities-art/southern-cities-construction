@@ -35,6 +35,10 @@ type LandingPageConfig = {
    *  When omitted, the longer `audience` field is shown inline with the eyebrow. */
   audienceTag?: string;
 
+  /** Optional branded SAMPLE deliverable — anonymized example of the report
+   *  the customer receives. Renders a preview thumbnail + download. */
+  sampleDeliverable?: { pdfUrl: string; coverUrl: string; pages: number };
+
   heroEyebrow: string;
   heroHeadlinePre: string;
   heroHeadlineHighlight: string;
@@ -362,6 +366,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'budget-scope-review',
+    sampleDeliverable: { pdfUrl: '/resources/samples/budget-scope-review-sample.pdf', coverUrl: '/product-mockups/budget-scope-review-sample-cover.jpg', pages: 8 },
     productKey: 'budget-review',
     ctaLabel: 'Start Budget Review',
     price: '$399',
@@ -465,6 +470,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'contractor-grade-budget',
+    sampleDeliverable: { pdfUrl: '/resources/samples/contractor-grade-budget-sample.pdf', coverUrl: '/product-mockups/contractor-grade-budget-sample-cover.jpg', pages: 8 },
     productKey: 'contractor-grade-budget',
     ctaLabel: 'Build My Budget',
     price: '$1,799',
@@ -3056,6 +3062,49 @@ export default function LandingPage({ params }: { params: Params }) {
             </div>
           </section>
         )}
+
+        {/* SAMPLE DELIVERABLE — branded example, before the final ask */}
+        {config.sampleDeliverable ? (
+          <section className="bg-white border-t border-stone-200">
+            <div className="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-20">
+              <div className="grid items-center gap-8 sm:grid-cols-[auto_1fr]">
+                <a
+                  href={config.sampleDeliverable.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative mx-auto block w-[180px] shrink-0 sm:mx-0"
+                >
+                  <div className="absolute inset-0 rounded-[12px] bg-[#fa8c41]/20 blur-[40px]" aria-hidden="true" />
+                  <Image
+                    src={config.sampleDeliverable.coverUrl}
+                    alt={`${config.deliverableTitle} — sample report cover`}
+                    width={180}
+                    height={233}
+                    className="relative w-full rounded-[10px] border border-stone-300 shadow-[0_24px_50px_-16px_rgba(8,17,29,0.45)] ring-1 ring-[#fa8c41]/30 transition-transform group-hover:-rotate-2 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute -top-2.5 -right-2.5 rounded-full bg-[#fa8c41] px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.14em] text-white shadow-[0_8px_18px_-4px_rgba(250,140,65,0.6)]">Sample</div>
+                </a>
+                <div>
+                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">See it before you buy</p>
+                  <h2 className="mt-3 text-2xl font-black tracking-[-0.02em] text-[#08111d] sm:text-3xl">
+                    A real example of the report you receive.
+                  </h2>
+                  <p className="mt-3 text-[15px] leading-[1.6] text-stone-600">
+                    Open an anonymized {config.sampleDeliverable.pages}-page sample of the actual branded {config.deliverableTitle} — real findings, real numbers, exactly what lands in your inbox.
+                  </p>
+                  <a
+                    href={config.sampleDeliverable.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-[#fa8c41]/50 bg-[#fa8c41]/10 px-7 py-3 text-sm font-black uppercase tracking-[0.08em] text-[#c45e10] transition hover:bg-[#fa8c41]/20 hover:-translate-y-0.5"
+                  >
+                    Open the sample report (PDF) ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* FINAL CTA */}
         <section className="relative overflow-hidden bg-[#08111d]">
