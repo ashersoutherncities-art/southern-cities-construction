@@ -99,6 +99,11 @@ export type PlatformStage = {
 
 const LM1: PlatformStage = {
   slug: 'lm1',
+  sampleDeliverable: {
+    pdfUrl: '/resources/samples/budget-snapshot-sample.pdf',
+    coverUrl: '/product-mockups/budget-snapshot-sample-cover.jpg',
+    pages: 8,
+  },
   stageNumber: 1,
   shortCode: 'LM1',
   name: 'Rehab Budget Range & Execution Risk Snapshot',
@@ -246,6 +251,11 @@ const CO1: PlatformStage = {
 
 const CO2: PlatformStage = {
   slug: 'co2',
+  sampleDeliverable: {
+    pdfUrl: '/resources/samples/project-setup-sample.pdf',
+    coverUrl: '/product-mockups/project-setup-sample-cover.jpg',
+    pages: 8,
+  },
   stageNumber: 3,
   shortCode: 'CO2',
   name: 'Project Setup & Contractor Coordination',
@@ -315,6 +325,11 @@ const CO2: PlatformStage = {
 
 const CO3: PlatformStage = {
   slug: 'co3',
+  sampleDeliverable: {
+    pdfUrl: '/resources/samples/active-oversight-sample.pdf',
+    coverUrl: '/product-mockups/active-oversight-sample-cover.jpg',
+    pages: 8,
+  },
   stageNumber: 4,
   shortCode: 'CO3',
   name: 'Active Project Oversight',
@@ -390,6 +405,11 @@ const CO3: PlatformStage = {
 
 const CO4: PlatformStage = {
   slug: 'co4',
+  sampleDeliverable: {
+    pdfUrl: '/resources/samples/gc-supported-build-sample.pdf',
+    coverUrl: '/product-mockups/gc-supported-build-sample-cover.jpg',
+    pages: 8,
+  },
   stageNumber: 5,
   shortCode: 'CO4',
   name: 'GC-Supported Owner Build',
@@ -460,6 +480,11 @@ const CO4: PlatformStage = {
 
 const CO5: PlatformStage = {
   slug: 'co5',
+  sampleDeliverable: {
+    pdfUrl: '/resources/samples/full-gc-sample.pdf',
+    coverUrl: '/product-mockups/full-gc-sample-cover.jpg',
+    pages: 8,
+  },
   stageNumber: 6,
   shortCode: 'CO5',
   name: 'Full-Service General Contracting',
