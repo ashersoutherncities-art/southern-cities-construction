@@ -1304,6 +1304,444 @@ def build_permit_compliance_review():
     print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
 
 
+def letter_signature(s):
+    s.append(Spacer(1, 0.22 * inch))
+    s.append(Paragraph("Sincerely,", S["body"]))
+    s.append(Spacer(1, 0.06 * inch))
+    s.append(Paragraph("<b>Darius T. Walton</b>", S["body"]))
+    s.append(Paragraph("Licensed NC General Contractor · License #107724<br/>Southern Cities Construction", S["muted"]))
+
+
+# ============================================================
+# DELIVERABLE: GC-Grade Property Inspection + Budget Report ($899 flagship)
+# ============================================================
+
+def build_gc_grade_inspection():
+    out = str(OUT_DIR / "gc-grade-inspection-sample.pdf")
+    doc = make_doc(out, "GC-GRADE INSPECTION + BUDGET REPORT · SAMPLE", "GC-Grade Property Inspection — Sample")
+    s = []
+    cover_block(s, "WHAT YOUR CLIENT RECEIVES",
+        "GC-Grade Property Inspection<br/>+ Budget Report",
+        "A licensed inspector visits the property AND a licensed NC GC prices every finding — the dual-layer "
+        "report an inspector legally can't give you. Items sorted into Mandatory / High-ROI / Disclose &amp; "
+        "Skip, with paste-ready repair-request language.",
+        "Sample · listing-side · Charlotte NC<br/>$899 standard / $1,199 rush · NC GC License #107724")
+
+    s.append(Paragraph("HOW TO READ THIS REPORT", S["eyebrow"]))
+    s.append(Paragraph("Inspection + a GC's price tag", S["h1"]))
+    s.append(Paragraph("A home inspector tells you what's wrong but legally can't tell you what it costs. This "
+                       "report adds the licensed-GC layer: real dollar ranges, and every item sorted into three "
+                       "tiers so you know what to fix, what pays back, and what to disclose.", S["body"]))
+    s.append(data_table(["TIER", "WHAT IT MEANS"], [
+        ["1 · Mandatory", "Code + loan-killers a buyer's inspector will flag (5–7 day fix guarantee)"],
+        ["2 · High-ROI", "Low-cost fixes with positive value-lift math"],
+        ["3 · Disclose & Skip", "Too expensive to fix pre-listing — formatted as a credit quote"],
+    ], col_widths=[1.6 * inch, FRAME_W - 1.6 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("EXECUTIVE SUMMARY", S["eyebrow"]))
+    s.append(Paragraph("The whole picture in one page", S["h1"]))
+    s.append(verdict_box("LIST-READY WITH 4 FIXES", "$6,100 in Mandatory items · $3,400 High-ROI upside · $14K Disclose-and-credit. Net move: fix Tier 1, list.", GO_GREEN))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(callout("THE STRATEGY", "Spend $6,100 on the four Mandatory items so no buyer's inspector can re-trade you on them, skip the big-ticket HVAC (disclose + credit instead), and the High-ROI cosmetics are optional upside if the seller wants top dollar."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("TIER 1 · MANDATORY", S["eyebrow"]))
+    s.append(Paragraph("Fix these — a buyer's inspector will find them", S["h1"]))
+    s.append(data_table(["ITEM", "WHY IT MATTERS", "COST"], [
+        ["Double-tapped breakers", "Safety + inspector flag", "$400"],
+        ["Missing GFCI (kitchen/bath)", "Code requirement", "$600"],
+        ["Active leak under sink", "Will worsen + flag", "$250"],
+        ["Peeling exterior paint (N)", "FHA/VA loan-killer", "$1,200"],
+        ["Soffit rot (SW corner)", "Moisture + inspector flag", "$1,350"],
+    ], col_widths=[2.0 * inch, FRAME_W - 3.0 * inch, 1.0 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("5–7 DAY FIX GUARANTEE", "When the seller hires Southern Cities for these Tier 1 items, we commit to a 5–7 business-day completion window so the listing date isn't at risk. NC GC #107724."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("TIER 2 · HIGH-ROI", S["eyebrow"]))
+    s.append(Paragraph("Optional — these pay back", S["h1"]))
+    s.append(data_table(["ITEM", "COST", "EST. VALUE LIFT"], [
+        ["Fresh interior paint (main)", "$2,400", "$5,000 – $7,000"],
+        ["Re-glaze tub + re-caulk", "$450", "Shows like new"],
+        ["Cabinet hardware + faucet", "$550", "Kitchen 'pops' in photos"],
+    ], col_widths=[2.4 * inch, 1.3 * inch, FRAME_W - 3.7 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WE ONLY LIST THE MATH-POSITIVE ONES", "Every High-ROI item here returns more than it costs. We deliberately leave off the feel-good upgrades that don't move the appraisal or the photos."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("TIER 3 · DISCLOSE & SKIP", S["eyebrow"]))
+    s.append(Paragraph("Don't fix — credit instead", S["h1"]))
+    s.append(data_table(["ITEM", "FULL FIX COST", "SUGGESTED CREDIT"], [
+        ["HVAC (18 yrs, working)", "$9,200", "$6,000 credit"],
+        ["Roof (8 yrs life left)", "$11,000", "Disclose age, no credit"],
+        ["Windows (single-pane, 6)", "$5,400", "$2,500 credit"],
+    ], col_widths=[2.2 * inch, 1.5 * inch, FRAME_W - 3.7 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WHY CREDIT, NOT FIX", "These cost more to fix than they return pre-listing. Formatted as an exact-dollar credit, the seller offers a defensible number instead of negotiating from a position of 'we don't know.'"))
+    s.append(PageBreak())
+
+    s.append(Paragraph("PASTE-READY REPAIR LANGUAGE", S["eyebrow"]))
+    s.append(Paragraph("Copy this into your email", S["h1"]))
+    s.append(callout("FOR THE OTHER AGENT",
+        "\"Our licensed-GC report identifies four code/safety items totaling $6,100 that we've elected to "
+        "complete prior to closing — double-tapped breakers, GFCI protection, an active supply leak, and "
+        "exterior paint flagged for FHA/VA. For the HVAC (18 yrs, functional) and single-pane windows, the "
+        "seller is offering an $8,500 credit in lieu of repair, supported by the attached GC pricing.\""))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("WHY THIS WINS", "The other side gets specific items, real numbers, and a licensed-GC basis — not a vague 'as-is' or a panic credit. Deals close from clarity, not from fights."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("NEXT STEP", S["eyebrow"]))
+    s.append(Paragraph("From report to closed", S["h1"]))
+    s.append(callout("THE PLAY", "Complete the four Mandatory items (5–7 day guarantee if we handle them), disclose + credit the big-ticket items with this report attached, and list. Your seller goes to market with no inspection surprises waiting to re-trade them."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
+# ============================================================
+# DELIVERABLE: Repair Credit Letter (GC-signed, $349)
+# ============================================================
+
+def build_repair_credit_letter():
+    out = str(OUT_DIR / "repair-credit-letter-sample.pdf")
+    doc = make_doc(out, "REPAIR CREDIT LETTER · SAMPLE", "Repair Credit Letter — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Repair Credit Letter",
+        "A formal, GC-signed letter on Southern Cities letterhead that puts an exact, defensible dollar credit "
+        "on inspection items — the document that ends the 'we don't know what it costs' stalemate and gets the "
+        "other agent to a number.",
+        "Sample · GC-signed · Charlotte NC<br/>$349 · 1 business day · NC GC License #107724")
+
+    s.append(Paragraph("WHAT THIS IS + HOW TO USE IT", S["eyebrow"]))
+    s.append(Paragraph("Authority weight, on paper", S["h1"]))
+    s.append(Paragraph("When the other side dismisses your repair-credit ask, a paste-ready email isn't enough — "
+                       "you need a formal document on a licensed GC's letterhead. This is that document: a signed "
+                       "letter assigning an exact dollar credit per item, with the pricing basis attached.", S["body"]))
+    s.append(callout("WHEN TO USE IT", "Use this the moment the other agent pushes back on a credit ask, or when the seller's agent needs something they can forward to their client. The signature is what moves the number."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE LETTER", S["eyebrow"]))
+    s.append(Paragraph("As your client receives it", S["h1"]))
+    s.append(Paragraph("[Date] · RE: 123 Sample St, Charlotte NC 28205", S["muted"]))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(Paragraph("To whom it may concern,", S["body"]))
+    s.append(Paragraph("At the request of the buyer's agent, Southern Cities Construction (NC GC License #107724) "
+                       "reviewed the inspection report for the above property and priced the flagged repair items "
+                       "at current Charlotte-area cost. Based on that review, a repair credit of <b>$11,400</b> is "
+                       "supported, itemized as follows and detailed on the attached schedule.", S["body"]))
+    s.append(Paragraph("This figure reflects licensed-GC pricing for materials and labor to bring the identified "
+                       "items to standard. It is provided as a good-faith basis for the parties' negotiation.", S["body"]))
+    letter_signature(s)
+    s.append(PageBreak())
+
+    s.append(Paragraph("ITEMIZED CREDIT BACKUP", S["eyebrow"]))
+    s.append(Paragraph("Every dollar, defensible", S["h1"]))
+    s.append(data_table(["ITEM", "SCOPE", "CREDIT"], [
+        ["HVAC", "18-yr unit, replace 3-ton + furnace", "$6,000"],
+        ["Roof", "Patch + 3 yrs life, disclose", "$0"],
+        ["Plumbing", "Poly supply lines, partial re-pipe", "$3,200"],
+        ["Electrical", "Panel double-taps + GFCI", "$1,000"],
+        ["Exterior", "Peeling paint (FHA flag)", "$1,200"],
+        ["TOTAL", "", "$11,400"],
+    ], col_widths=[1.4 * inch, FRAME_W - 2.6 * inch, 1.2 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("PRICING METHODOLOGY", S["eyebrow"]))
+    s.append(Paragraph("How the credit was set", S["h1"]))
+    s.append(callout("BASIS", "Each item priced at 2026 Charlotte-area trade-network cost for materials + labor to bring it to standard — not retail, not worst-case. Where an item has remaining useful life (e.g., the roof), no credit is assigned; condition is disclosed instead."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("WHY IT HOLDS UP", "Because it's specific and licensed-GC-signed, the number survives scrutiny. The other side can argue a vibe; they can't easily argue a GC's itemized pricing on letterhead."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("BUYER-SIDE vs LISTING-SIDE", S["eyebrow"]))
+    s.append(Paragraph("Same letter, two plays", S["h1"]))
+    s.append(data_table(["SIDE", "HOW YOU USE IT"], [
+        ["Buyer's agent", "Justify the credit ask with a licensed-GC number the seller can't hand-wave away"],
+        ["Listing agent", "Set a defensible credit so you're not negotiating against an inflated demand blind"],
+        ["Either", "A document the other agent can forward to their client — moves the conversation off 'feelings'"],
+    ], col_widths=[1.5 * inch, FRAME_W - 1.5 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE COMMON CASE", "Many agents order this the day after the inspection report lands — before the other side anchors high. A GC-signed number on the table first sets the frame for the whole negotiation."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("HOW TO DELIVER IT", S["eyebrow"]))
+    s.append(Paragraph("Win the negotiation", S["h1"]))
+    s.append(callout("THE MOVE", "Forward the letter to the other agent with one line: 'Attached is our licensed-GC credit basis — happy to discuss any line.' You've replaced an argument with a document. Most counters come back within a day, and closer to your number."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("FAQ", S["eyebrow"]))
+    s.append(Paragraph("Common questions", S["h1"]))
+    s.append(callout("CAN I USE IT BUYER-SIDE AND LISTING-SIDE?", "Yes. Buyer-side it justifies the ask; listing-side it sets a defensible credit so you're not negotiating blind."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("HOW FAST?", "One business day from the inspection report. Rush available."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("WHAT IF THEY DISPUTE A LINE?", "We'll discuss any item directly — the pricing is ours to defend, which is exactly why it carries weight."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
+# ============================================================
+# DELIVERABLE: Repair Scope Letter (GC-signed, $349)
+# ============================================================
+
+def build_repair_scope_letter():
+    out = str(OUT_DIR / "repair-scope-letter-sample.pdf")
+    doc = make_doc(out, "REPAIR SCOPE LETTER · SAMPLE", "Repair Scope Letter — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Repair Scope Letter",
+        "A formal, GC-signed letter that defines exactly WHAT work each inspection item requires — the written "
+        "scope, trade, and permit needs — so 'fix the issues' becomes a specific, enforceable list instead of "
+        "an argument at the final walk-through.",
+        "Sample · GC-signed · Charlotte NC<br/>$349 · 1 business day · NC GC License #107724")
+
+    s.append(Paragraph("WHAT THIS IS + HOW TO USE IT", S["eyebrow"]))
+    s.append(Paragraph("Defines the work, not just the dollar", S["h1"]))
+    s.append(Paragraph("A credit letter sets a number; a scope letter sets the WORK. Use this when repairs (not "
+                       "credits) are being negotiated — so both sides agree on exactly what 'repaired' means, "
+                       "which trade does it, and whether a permit is required. It prevents the final-walk fight.", S["body"]))
+    s.append(callout("WHEN TO USE IT", "Whenever the seller agrees to repair rather than credit. Without a defined scope, 'fixed' is subjective — and that's where deals blow up at the walk-through."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE LETTER", S["eyebrow"]))
+    s.append(Paragraph("As your client receives it", S["h1"]))
+    s.append(Paragraph("[Date] · RE: 123 Sample St, Charlotte NC 28205", S["muted"]))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(Paragraph("To whom it may concern,", S["body"]))
+    s.append(Paragraph("At the request of the agent, Southern Cities Construction (NC GC License #107724) reviewed "
+                       "the inspection findings for the above property and defined the scope of work required to "
+                       "bring each flagged item to standard. The work is specified on the attached schedule, "
+                       "including the responsible trade and permit requirements.", S["body"]))
+    s.append(Paragraph("Completion to this scope, verified, constitutes 'repaired' for the purposes of the "
+                       "parties' agreement.", S["body"]))
+    letter_signature(s)
+    s.append(PageBreak())
+
+    s.append(Paragraph("ITEMIZED SCOPE OF WORK", S["eyebrow"]))
+    s.append(Paragraph("Exactly what 'fixed' means", S["h1"]))
+    s.append(data_table(["ITEM", "SCOPE OF WORK", "TRADE / PERMIT"], [
+        ["Double-tapped breakers", "Re-terminate to code, label panel", "Electrician / permit"],
+        ["GFCI protection", "Add GFCI at kitchen + baths", "Electrician / permit"],
+        ["Supply leak", "Replace angle stop + supply line", "Plumber / none"],
+        ["Exterior paint", "Scrape, prime, paint N elevation", "Painter / none"],
+    ], col_widths=[1.8 * inch, FRAME_W - 3.6 * inch, 1.8 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("METHODOLOGY", S["eyebrow"]))
+    s.append(Paragraph("How scope is defined", S["h1"]))
+    s.append(callout("STANDARD", "Each scope is written to bring the item to current NC code and accepted trade practice — no more (gold-plating), no less (band-aids). Where a permit is required, it's stated so nobody is surprised by an inspection."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("USING IT IN NEGOTIATION", S["eyebrow"]))
+    s.append(Paragraph("Close the ambiguity gap", S["h1"]))
+    s.append(callout("THE MOVE", "Attach the scope letter to the repair addendum. Now 'seller to repair inspection items' has a precise, GC-signed definition. The final walk becomes a checklist, not a debate."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("VERIFICATION", S["eyebrow"]))
+    s.append(Paragraph("What 'done' looks like", S["h1"]))
+    s.append(data_table(["ITEM", "VERIFIED WHEN"], [
+        ["Double-tapped breakers", "Re-terminated + panel passes electrical inspection"],
+        ["GFCI protection", "Devices installed + tested at each location"],
+        ["Supply leak", "New stop + line, no weep under pressure"],
+        ["Exterior paint", "N elevation scraped, primed, finish-coated"],
+    ], col_widths=[2.0 * inch, FRAME_W - 2.0 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("OPTIONAL VERIFICATION VISIT", "For an add-on, Southern Cities returns to confirm the scope was completed to standard and issues a one-line sign-off — the document that lets your buyer close without a final-walk standoff."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("FAQ", S["eyebrow"]))
+    s.append(Paragraph("Common questions", S["h1"]))
+    s.append(callout("SCOPE LETTER OR CREDIT LETTER?", "Scope when the seller is repairing; credit when the buyer is taking money instead. Many agents order both for the same deal."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("CAN SOUTHERN CITIES DO THE WORK?", "Optional. If the seller hires us, the same scope becomes the work order — and Mandatory items carry the 5–7 day guarantee."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
+# ============================================================
+# DELIVERABLE: Negotiation Strategy memo ($299)
+# ============================================================
+
+def build_negotiation_strategy():
+    out = str(OUT_DIR / "negotiation-strategy-sample.pdf")
+    doc = make_doc(out, "NEGOTIATION STRATEGY MEMO · SAMPLE", "Negotiation Strategy Read — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Negotiation Strategy Memo",
+        "A licensed NC GC reads the buyer's concession demands and tells you, per item, what's legitimate, "
+        "what's inflated, and what a fair counter looks like — so you negotiate from construction reality "
+        "instead of guessing.",
+        "Sample · listing-side · Charlotte NC<br/>$299 · 1 business day · NC GC License #107724")
+
+    s.append(Paragraph("HOW TO READ THIS MEMO", S["eyebrow"]))
+    s.append(Paragraph("Their ask vs. reality", S["h1"]))
+    s.append(Paragraph("The buyer asked for $24,000 in credits. This memo prices each item the way a GC would, "
+                       "flags what's inflated, and gives you a defensible counter — with talking points you can "
+                       "use on the client call.", S["body"]))
+    s.append(callout("THE BUYER'S ASK", "$24,000 total across 6 items, citing their inspection. Summarized and analyzed item-by-item on the next pages."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE VERDICT", S["eyebrow"]))
+    s.append(Paragraph("Counter at ~$9,500", S["h1"]))
+    s.append(verdict_box("$24K ASK → $9,500 FAIR", "Three items are legitimate, two are inflated, one is normal wear. Counter basis below.", WARN))
+    s.append(Spacer(1, 0.12 * inch))
+    s.append(callout("THE HEADLINE", "The buyer stacked a real HVAC concern with three cosmetic/maintenance items dressed up as defects. Concede the legitimate ones, document why the rest aren't, and you've cut the ask by 60% with a GC standing behind your number."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("PER-ISSUE ANALYSIS", S["eyebrow"]))
+    s.append(Paragraph("Legit, inflated, or normal wear", S["h1"]))
+    s.append(data_table(["BUYER ASK", "AMOUNT", "VERDICT", "FAIR"], [
+        ["HVAC replacement", "$10,000", "Legit (18 yrs)", "$6,000"],
+        ["'Failing' roof", "$8,000", "Inflated (8 yrs left)", "$0"],
+        ["Plumbing leak", "$2,500", "Legit", "$2,500"],
+        ["Panel issues", "$2,000", "Legit", "$1,000"],
+        ["'Old' water heater", "$1,000", "Normal wear", "$0"],
+        ["Cosmetic cracks", "$500", "Normal wear", "$0"],
+    ], col_widths=[1.8 * inch, 1.1 * inch, FRAME_W - 4.5 * inch, 1.0 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("COUNTER-RANGE", S["eyebrow"]))
+    s.append(Paragraph("Where to land", S["h1"]))
+    s.append(callout("RECOMMENDED COUNTER: $9,500",
+        "Open at $8,500 (the three legitimate items at GC cost), settle up to $9,500. Anything above $10K means "
+        "you're paying for the inflated roof and the normal-wear items — don't."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("WALK-AWAY READ", "This buyer wants the house — the inflated asks are a test, not a dealbreaker. A documented, GC-backed counter holds; they're unlikely to walk over a roof that has 8 years of life."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("TALKING POINTS", S["eyebrow"]))
+    s.append(Paragraph("For the client call", S["h1"]))
+    s.append(callout("WHAT TO TELL YOUR SELLER",
+        "\"A licensed GC reviewed their list. Three items are real and we should credit them — about $9,500. "
+        "The roof has 8 years left and the inspector confirmed it; the water heater and cracks are normal wear. "
+        "We'll counter at $9,500 with the GC's itemized basis attached, so it's their inflated number vs. our "
+        "documented one.\""))
+    s.append(PageBreak())
+
+    s.append(Paragraph("INFLATION PATTERNS", S["eyebrow"]))
+    s.append(Paragraph("How asks get padded", S["h1"]))
+    s.append(data_table(["PATTERN", "WHAT TO WATCH FOR"], [
+        ["Replace what can be repaired", "'Failing roof' with 8 yrs of life = repair, not replace"],
+        ["Retail-price the labor", "Quoting full retail on items a GC sources at trade cost"],
+        ["Normal wear as defect", "Aged-but-working water heater billed as a credit item"],
+        ["Stack cosmetics", "Hairline cracks + caulk lines padded onto a real concern"],
+    ], col_widths=[2.1 * inch, FRAME_W - 2.1 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE TELL", "A legitimate ask is specific and proportional. When the total is round, the items are vague, and the cosmetics are stacked on a single real issue, you're looking at a negotiating position — not a repair bill."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("WHY THIS WORKS", S["eyebrow"]))
+    s.append(Paragraph("Construction reality beats vibes", S["h1"]))
+    s.append(callout("THE EDGE", "Most concession fights are won by whoever has documentation. The buyer has an inspection that says 'noted'; you have a licensed GC who says 'here's what it actually costs.' That asymmetry is the whole product."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
+# ============================================================
+# DELIVERABLE: Appraisal Response Letter (GC-signed)
+# ============================================================
+
+def build_appraisal_response():
+    out = str(OUT_DIR / "appraisal-response-sample.pdf")
+    doc = make_doc(out, "APPRAISAL RESPONSE LETTER · SAMPLE", "Appraisal Response Letter — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Appraisal Response Letter",
+        "When an appraiser flags a condition that threatens the loan, a licensed NC GC writes the documented "
+        "rebuttal — per-concern, with photos and remaining-useful-life evidence — so a 'subject-to' or a "
+        "low value doesn't kill your deal.",
+        "Sample · GC-signed · Charlotte NC<br/>1 business day · NC GC License #107724")
+
+    s.append(Paragraph("WHAT THIS IS + HOW TO USE IT", S["eyebrow"]))
+    s.append(Paragraph("Save the deal at appraisal", S["h1"]))
+    s.append(Paragraph("Appraisers flag conditions — roof, peeling paint, 'apparent' issues — that trigger "
+                       "repair requirements or 'subject-to' conditions the lender won't fund around. A licensed "
+                       "GC's documented response, with evidence, is what clears those flags fast.", S["body"]))
+    s.append(callout("WHEN TO USE IT", "The moment an appraisal comes back subject-to-repair or with a condition flag that threatens financing. Speed matters — this is a one-business-day deliverable."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("WHY APPRAISAL FLAGS KILL DEALS", S["eyebrow"]))
+    s.append(Paragraph("What's actually at stake", S["h1"]))
+    s.append(data_table(["FLAG TYPE", "WHAT IT TRIGGERS"], [
+        ["Subject-to-repair", "Lender won't fund until the item is fixed or cleared"],
+        ["FHA/VA condition", "Strict habitability standard — paint, handrails, etc."],
+        ["'Recommend inspection'", "A second specialist report + delay, or a value hold"],
+        ["Low value", "Appraisal gap the buyer must cover or renegotiate"],
+    ], col_widths=[1.9 * inch, FRAME_W - 1.9 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE CLOCK", "Every one of these stalls the close. The deals that die at appraisal usually die from silence — nobody pushes back with documentation. A same-day, licensed-GC rebuttal is how you keep the timeline alive."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE APPRAISER'S CONCERNS", S["eyebrow"]))
+    s.append(Paragraph("What was flagged", S["h1"]))
+    s.append(data_table(["FLAG", "APPRAISER NOTE", "THREAT"], [
+        ["Roof", "'Apparent wear, recommend inspection'", "Subject-to"],
+        ["Exterior paint", "'Peeling, FHA concern'", "Repair required"],
+        ["Crawlspace", "'Possible moisture'", "Subject-to"],
+    ], col_widths=[1.4 * inch, FRAME_W - 2.7 * inch, 1.3 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE LETTER", S["eyebrow"]))
+    s.append(Paragraph("As submitted to the lender", S["h1"]))
+    s.append(Paragraph("[Date] · RE: 123 Sample St — Appraisal Condition Response", S["muted"]))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(Paragraph("To the lender / appraisal management company,", S["body"]))
+    s.append(Paragraph("Southern Cities Construction (NC GC License #107724) inspected the conditions noted in the "
+                       "appraisal for the above property. Our findings, with supporting photographs, are below and "
+                       "attached. In our professional opinion as a licensed General Contractor, the noted "
+                       "conditions do not represent a deficiency that impairs habitability or value as detailed.", S["body"]))
+    letter_signature(s)
+    s.append(PageBreak())
+
+    s.append(Paragraph("PER-CONCERN RESPONSE", S["eyebrow"]))
+    s.append(Paragraph("Evidence the lender accepts", S["h1"]))
+    s.append(callout("ROOF — CLEARED",
+        "Architectural shingle, manufacture date 2018 (photo of date strip attached). Approximately 12 years of "
+        "remaining useful life. No active leaks, no compromised decking observed. Recommend the subject-to "
+        "condition be removed."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("EXTERIOR PAINT — SCOPED",
+        "Peeling limited to north elevation trim. Scope to scrape, prime, and paint provided; cost $1,200. "
+        "Recommend repair-escrow rather than holding the loan."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("CRAWLSPACE — CLEARED",
+        "Moisture reading within normal range; vapor barrier intact (photos attached). No standing water or "
+        "structural impact. Recommend the subject-to condition be removed."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("DOCUMENTATION PACKAGE", S["eyebrow"]))
+    s.append(Paragraph("What's attached + how to submit", S["h1"]))
+    s.append(data_table(["EVIDENCE", "FOR"], [
+        ["Date-stamped photos (9)", "Roof, paint, crawlspace"],
+        ["Roof date-strip close-up", "Remaining-life claim"],
+        ["Moisture reading photo", "Crawlspace clearance"],
+        ["GC-signed letter", "The professional opinion of record"],
+    ], col_widths=[2.4 * inch, FRAME_W - 2.4 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("HOW TO SUBMIT", "Your lender forwards the package to the appraiser / AMC as a reconsideration. A licensed-GC opinion with photo evidence is the format that clears subject-to conditions without a second appraisal."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("OUTCOME + TIMELINE", S["eyebrow"]))
+    s.append(Paragraph("What happens after you submit", S["h1"]))
+    s.append(data_table(["STEP", "TYPICAL TIMING"], [
+        ["GC response delivered to you", "1 business day"],
+        ["Lender forwards reconsideration", "Same / next day"],
+        ["Appraiser reviews evidence", "1–3 business days"],
+        ["Condition cleared or repair-escrowed", "Deal back on track"],
+    ], col_widths=[FRAME_W - 1.9 * inch, 1.9 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE LIKELY RESULT", "Two of the three flags here (roof, crawlspace) clear outright with the photo evidence; the paint moves to a small repair-escrow. Net: financing proceeds instead of the deal dying on a 'subject-to' you could have answered in a day."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
 SAMPLES = {
     "investor-execution-review": build_execution_review,
     "budget-snapshot": build_budget_snapshot,
@@ -1314,6 +1752,11 @@ SAMPLES = {
     "budget-scope-review": build_budget_scope_review,
     "contractor-grade-budget": build_contractor_grade_budget,
     "permit-compliance-review": build_permit_compliance_review,
+    "gc-grade-inspection": build_gc_grade_inspection,
+    "repair-credit-letter": build_repair_credit_letter,
+    "repair-scope-letter": build_repair_scope_letter,
+    "negotiation-strategy": build_negotiation_strategy,
+    "appraisal-response": build_appraisal_response,
 }
 
 

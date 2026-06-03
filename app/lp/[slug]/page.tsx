@@ -1355,6 +1355,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'gc-grade-property-inspection',
+    sampleDeliverable: { pdfUrl: '/resources/samples/gc-grade-inspection-sample.pdf', coverUrl: '/product-mockups/gc-grade-inspection-sample-cover.jpg', pages: 8 },
     productKey: 'gc-grade-property-inspection',
     ctaLabel: 'Book the GC-Grade Inspection',
     ctaLabelMid: 'See a Sample Inspection Report',
@@ -1462,6 +1463,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'negotiation-strategy-read',
+    sampleDeliverable: { pdfUrl: '/resources/samples/negotiation-strategy-sample.pdf', coverUrl: '/product-mockups/negotiation-strategy-sample-cover.jpg', pages: 8 },
     productKey: 'negotiation-strategy-read',
     ctaLabel: 'Start My Negotiation Read',
     price: '$299',
@@ -1618,6 +1620,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'repair-credit-letter',
+    sampleDeliverable: { pdfUrl: '/resources/samples/repair-credit-letter-sample.pdf', coverUrl: '/product-mockups/repair-credit-letter-sample-cover.jpg', pages: 8 },
     productKey: 'repair-credit-letter',
     ctaLabel: 'Start My Repair Credit Letter',
     price: '$349',
@@ -1693,6 +1696,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'repair-scope-letter',
+    sampleDeliverable: { pdfUrl: '/resources/samples/repair-scope-letter-sample.pdf', coverUrl: '/product-mockups/repair-scope-letter-sample-cover.jpg', pages: 8 },
     productKey: 'repair-scope-letter',
     ctaLabel: 'Start My Repair Scope Letter',
     price: '$349',
@@ -1846,6 +1850,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
   },
   {
     slug: 'appraisal-response-letter',
+    sampleDeliverable: { pdfUrl: '/resources/samples/appraisal-response-sample.pdf', coverUrl: '/product-mockups/appraisal-response-sample-cover.jpg', pages: 8 },
     productKey: 'appraisal-response-letter',
     ctaLabel: 'Start My Appraisal Response',
     price: '$449',
