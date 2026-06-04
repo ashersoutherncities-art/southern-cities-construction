@@ -2576,6 +2576,17 @@ export default function LandingPage({ params }: { params: Params }) {
           <div className="absolute left-[-10%] top-[10%] h-72 w-72 rounded-full bg-[rgba(245,130,32,0.12)] blur-3xl" />
           <div className="absolute bottom-[-6rem] right-[5%] h-80 w-80 rounded-full bg-[rgba(255,255,255,0.06)] blur-3xl" />
           <div className="absolute inset-0 bg-[linear-gradient(95deg,rgba(4,10,18,0.97)_0%,rgba(5,12,22,0.94)_38%,rgba(6,15,27,0.78)_64%,rgba(7,15,27,0.52)_88%,rgba(7,15,27,0.4)_100%)]" />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+              backgroundSize: '56px 56px',
+              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 82%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 82%)',
+            }}
+            aria-hidden="true"
+          />
 
           {/* TOP BAR — logo + license badge */}
           <div className="relative z-10 mx-auto max-w-7xl px-6 pt-6 sm:px-8 sm:pt-8">
@@ -2599,7 +2610,8 @@ export default function LandingPage({ params }: { params: Params }) {
           <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-12 sm:px-8 sm:pb-24 sm:pt-16 lg:grid lg:grid-cols-12 lg:gap-12 lg:pt-20">
             <div className="lg:col-span-7">
               {config.audienceTag ? (
-                <span className="inline-flex items-center rounded-full border border-[#fa8c41]/60 bg-[#fa8c41]/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-[#fa8c41] motion-safe:animate-[heroRise_850ms_ease-out]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#fa8c41]/60 bg-[#fa8c41]/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-[#fa8c41] motion-safe:animate-[heroRise_850ms_ease-out]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#fa8c41] motion-safe:animate-pulse" aria-hidden="true" />
                   For {config.audienceTag}
                 </span>
               ) : null}
@@ -2678,12 +2690,13 @@ export default function LandingPage({ params }: { params: Params }) {
         </section>
 
         {/* TRUST BAR */}
-        <section className="border-y border-stone-200 bg-white">
-          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-8 sm:grid-cols-4 sm:px-8">
-            {SHARED_TRUST_STATS.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">{stat.value}</p>
-                <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-stone-500">{stat.label}</p>
+        <section className="border-b border-stone-200 bg-gradient-to-b from-white to-stone-50">
+          <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#fa8c41]/50 to-transparent" aria-hidden="true" />
+          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-6 py-9 sm:grid-cols-4 sm:px-8">
+            {SHARED_TRUST_STATS.map((stat, i) => (
+              <div key={stat.label} className={`text-center ${i > 0 ? 'sm:border-l sm:border-stone-200' : ''}`}>
+                <p className="text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-[2.5rem]">{stat.value}</p>
+                <p className="mt-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-stone-500">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -2751,7 +2764,7 @@ export default function LandingPage({ params }: { params: Params }) {
         </section>
 
         {/* PROCESS */}
-        <section className="bg-stone-50">
+        <section className="bg-[#F6F2EC]">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
               <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">The Process</p>
@@ -2765,7 +2778,7 @@ export default function LandingPage({ params }: { params: Params }) {
               <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#fa8c41]/30 to-transparent md:block" aria-hidden="true" />
               {config.processSteps.map((step, idx) => (
                 <div key={step.title} className="relative">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#08111d] text-xl font-black text-white shadow-lg ring-8 ring-stone-50">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#08111d] text-xl font-black text-white shadow-lg ring-8 ring-[#F6F2EC]">
                     <span className="text-[#fa8c41]">{idx + 1}</span>
                   </div>
                   <h3 className="mt-6 text-2xl font-extrabold tracking-tight text-[#08111d]">{step.title}</h3>
