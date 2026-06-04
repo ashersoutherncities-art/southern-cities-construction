@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { createMarketingAsset, createMarketingLink, syncMarketingInfrastructure } from '@/lib/marketing';
+import { safeKeyEqual } from '@/lib/secure-compare';
 
 function ensureAccessKey(formData: FormData) {
   const expected = process.env.MARKETING_PORTAL_ACCESS_KEY;
@@ -9,7 +10,7 @@ function ensureAccessKey(formData: FormData) {
     throw new Error('MARKETING_PORTAL_ACCESS_KEY is not configured.');
   }
   const received = String(formData.get('access_key') || '');
-  if (received !== expected) {
+  if (!safeKeyEqual(received, expected)) {
     throw new Error('Invalid access key.');
   }
 }

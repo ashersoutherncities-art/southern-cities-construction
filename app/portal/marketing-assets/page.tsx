@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import { safeKeyEqual } from '@/lib/secure-compare';
 import {
   getTrackedLinkUrl,
   listMarketingAssets,
@@ -130,7 +131,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
     );
   }
 
-  if (accessKey !== expectedKey) {
+  if (!safeKeyEqual(accessKey, expectedKey)) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

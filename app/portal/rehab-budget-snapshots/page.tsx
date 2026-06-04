@@ -1,6 +1,7 @@
 import SiteFooter from '@/components/SiteFooter';
 import SiteNav from '@/components/SiteNav';
 import { getServiceClient } from '@/lib/supabase';
+import { safeKeyEqual } from '@/lib/secure-compare';
 import { updateRehabSnapshotLeadStatusAction } from './actions';
 
 export const dynamic = 'force-dynamic';
@@ -45,7 +46,7 @@ export default async function RehabBudgetSnapshotsAdminPage({ searchParams }: Pa
     );
   }
 
-  if (accessKey !== expectedKey) {
+  if (!safeKeyEqual(accessKey, expectedKey)) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

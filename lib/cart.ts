@@ -446,9 +446,12 @@ export function getCartLineItems(items: CartSelection[]): CartLineItem[] {
       const product = CART_PRODUCTS[item.key];
       if (!product) return null;
       const quantity = item.quantity ?? 1;
+      // SECURITY: price is authoritative from the server-side catalog only.
+      // The client-supplied `item.amount` is NEVER trusted for the charge —
+      // it cannot lower (or raise) what Stripe bills. Prevents price tampering.
       return {
         key: item.key,
-        amount: (item.amount ?? product.price) * quantity,
+        amount: product.price * quantity,
         quantity,
         product,
       };

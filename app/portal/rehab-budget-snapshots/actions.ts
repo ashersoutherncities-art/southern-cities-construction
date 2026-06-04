@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { getServiceClient } from '@/lib/supabase';
 import { updateLeadStatus } from '@/lib/rehab-snapshot/repository';
 import { LEAD_STATUSES, LeadStatus } from '@/lib/rehab-snapshot/types';
+import { safeKeyEqual } from '@/lib/secure-compare';
 
 export async function updateRehabSnapshotLeadStatusAction(formData: FormData) {
   const expectedKey = process.env.REHAB_SNAPSHOT_ADMIN_KEY || process.env.MARKETING_PORTAL_ACCESS_KEY;
@@ -11,7 +12,7 @@ export async function updateRehabSnapshotLeadStatusAction(formData: FormData) {
   const leadId = String(formData.get('lead_id') || '');
   const status = String(formData.get('status') || '');
 
-  if (!expectedKey || accessKey !== expectedKey || !leadId || !isLeadStatus(status)) {
+  if (!safeKeyEqual(accessKey, expectedKey) || !leadId || !isLeadStatus(status)) {
     return;
   }
 

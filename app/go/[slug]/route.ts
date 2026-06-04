@@ -2,6 +2,31 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getMarketingLinkBySlug, recordMarketingLinkClick } from '@/lib/marketing';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
 
+// Open-redirect guard: a tracked link may only point to https on our own
+// domains or an explicit partner allowlist. Anything else is rejected so the
+// branded domain can't be weaponized as a phishing redirector.
+const ALLOWED_REDIRECT_HOSTS = new Set([
+  'southerncitiesconstruction.com',
+  'www.southerncitiesconstruction.com',
+  'clients.southerncitiesconstruction.com',
+  'app.gohighlevel.com',
+  'api.leadconnectorhq.com',
+  'calendly.com',
+]);
+
+function isAllowedDestination(raw: string): boolean {
+  try {
+    const u = new URL(raw);
+    if (u.protocol !== 'https:') return false;
+    const host = u.hostname.toLowerCase();
+    if (ALLOWED_REDIRECT_HOSTS.has(host)) return true;
+    // allow any subdomain of our own apex domain
+    return host === 'southerncitiesconstruction.com' || host.endsWith('.southerncitiesconstruction.com');
+  } catch {
+    return false;
+  }
+}
+
 export async function GET(
   req: NextRequest,
   { params }: { params: { slug: string } }
@@ -12,6 +37,11 @@ export async function GET(
 
     if (!link) {
       return NextResponse.json({ error: 'Unknown tracked link' }, { status: 404 });
+    }
+
+    if (!isAllowedDestination(link.destination_url)) {
+      console.error('blocked tracked-link redirect to disallowed destination:', link.slug);
+      return NextResponse.json({ error: 'Destination not allowed' }, { status: 400 });
     }
 
     const forwardedFor = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null;

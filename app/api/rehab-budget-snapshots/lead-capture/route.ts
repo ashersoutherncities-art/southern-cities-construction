@@ -18,7 +18,29 @@ function asString(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+// Basic per-IP rate limit to keep the CRM from being spammed. (Per-instance
+// in-memory; back with Vercel KV/Upstash for a hard limit at scale.)
+const requestLog = new Map<string, number[]>();
+const WINDOW_MS = 60_000;
+const MAX_REQUESTS_PER_WINDOW = 6;
+function isRateLimited(ip: string) {
+  const now = Date.now();
+  const recent = (requestLog.get(ip) || []).filter((t) => now - t < WINDOW_MS);
+  if (recent.length >= MAX_REQUESTS_PER_WINDOW) {
+    requestLog.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  requestLog.set(ip, recent);
+  return false;
+}
+
 export async function POST(req: Request) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ error: 'Too many requests. Please try again shortly.' }, { status: 429 });
+  }
+
   let body: LeadCaptureBody;
   try {
     body = (await req.json()) as LeadCaptureBody;
