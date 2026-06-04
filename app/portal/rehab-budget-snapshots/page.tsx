@@ -1,7 +1,7 @@
 import SiteFooter from '@/components/SiteFooter';
 import SiteNav from '@/components/SiteNav';
 import { getServiceClient } from '@/lib/supabase';
-import { safeKeyEqual } from '@/lib/secure-compare';
+import { hasPortalAccess } from '@/lib/portal-auth';
 import { updateRehabSnapshotLeadStatusAction } from './actions';
 
 export const dynamic = 'force-dynamic';
@@ -27,9 +27,11 @@ async function getSignedUrl(path: string | null) {
   return data?.signedUrl || null;
 }
 
-export default async function RehabBudgetSnapshotsAdminPage({ searchParams }: PageProps) {
+export default async function RehabBudgetSnapshotsAdminPage(_props: PageProps) {
   const expectedKey = process.env.REHAB_SNAPSHOT_ADMIN_KEY || process.env.MARKETING_PORTAL_ACCESS_KEY;
-  const accessKey = searchParams?.key || '';
+  // Legacy hidden form field placeholder — server actions now authenticate via
+  // the httpOnly portal cookie, so this stays empty.
+  const accessKey = '';
 
   if (!expectedKey) {
     return (
@@ -46,7 +48,7 @@ export default async function RehabBudgetSnapshotsAdminPage({ searchParams }: Pa
     );
   }
 
-  if (!safeKeyEqual(accessKey, expectedKey)) {
+  if (!hasPortalAccess(process.env.REHAB_SNAPSHOT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY)) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

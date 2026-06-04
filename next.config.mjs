@@ -4,10 +4,27 @@ const nextConfig = {
     unoptimized: true,
   },
   // Baseline security headers applied to every response.
-  // NOTE: a full Content-Security-Policy is a deliberate follow-up — it must
-  // allowlist the GHL chat widget, Stripe, fonts, and analytics before
-  // enforcing, or it will break those embeds. Ship report-only first.
+  // CSP is shipped REPORT-ONLY first: it allowlists the GHL chat widget,
+  // Stripe, Google Ads/Analytics, and self, and logs (does not block)
+  // violations to the browser console. Review reports for ~1-2 weeks, tune
+  // the allowlist, then promote this exact policy to an enforcing
+  // `Content-Security-Policy` header. ('unsafe-inline'/'unsafe-eval' are
+  // present because Next.js + gtag + the GHL widget use inline scripts;
+  // tightening to nonces is a later step.)
   async headers() {
+    const csp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://widgets.leadconnectorhq.com https://js.stripe.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com https://*.leadconnectorhq.com https://*.googleadservices.com https://www.google.com",
+      "frame-src 'self' https://widgets.leadconnectorhq.com https://js.stripe.com https://checkout.stripe.com https://td.doubleclick.net",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self' https://checkout.stripe.com",
+      "frame-ancestors 'none'",
+    ].join('; ');
     return [
       {
         source: '/:path*',
@@ -18,6 +35,7 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          { key: 'Content-Security-Policy-Report-Only', value: csp },
         ],
       },
     ];
