@@ -19,6 +19,7 @@ type Tier = {
   cta: string;
   ctaHref: string;
   highlight?: boolean;
+  sample?: { pdfUrl: string; pages: number };
 };
 
 const TIERS: Tier[] = [
@@ -78,6 +79,7 @@ const TIERS: Tier[] = [
     ],
     cta: 'Order Build-Ready · $1,997 →',
     ctaHref: '/cart?cart=deal-pack-build-ready',
+    sample: { pdfUrl: '/resources/samples/build-ready-deal-pack-sample.pdf', pages: 9 },
   },
   {
     badge: 'ADD-ON',
@@ -96,6 +98,7 @@ const TIERS: Tier[] = [
     ],
     cta: 'Add Site Scan · $499 →',
     ctaHref: '/cart?cart=deal-pack-site-scan',
+    sample: { pdfUrl: '/resources/samples/site-scan-as-built-sample.pdf', pages: 8 },
   },
 ];
 
@@ -392,6 +395,16 @@ export default function DealPackPage() {
                       </li>
                     ))}
                   </ul>
+                  {tier.sample ? (
+                    <a
+                      href={tier.sample.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-white/80 transition hover:border-orange/40 hover:text-orange"
+                    >
+                      See a {tier.sample.pages}-page sample ↗
+                    </a>
+                  ) : null}
                   <Link
                     href={tier.ctaHref}
                     className={`mt-auto pt-6 inline-flex items-center gap-1 font-black uppercase tracking-[0.08em] transition group-hover:gap-2 ${

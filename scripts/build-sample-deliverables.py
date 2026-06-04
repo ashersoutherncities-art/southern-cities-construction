@@ -1742,6 +1742,208 @@ def build_appraisal_response():
     print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
 
 
+# ============================================================
+# DELIVERABLE: Build-Ready Deal Pack ($1,997 — wholesaler/realtor premium)
+# ============================================================
+
+def build_build_ready_deal_pack():
+    out = str(OUT_DIR / "build-ready-deal-pack-sample.pdf")
+    doc = make_doc(out, "BUILD-READY DEAL PACK · SAMPLE", "Build-Ready Deal Pack — Sample")
+    s = []
+    cover_block(s, "GC-VERIFIED · WHAT YOUR BUYER RECEIVES",
+        "Build-Ready Deal Pack",
+        "The shovel-ready package you attach to an assignment or listing: a licensed NC GC's certified budget, "
+        "full scope, design concepts, vetted sub quotes, draw schedule, and a pre-closing sweep — so your buyer "
+        "can close Tuesday and start demo Wednesday.",
+        "Sample · 1,420 sf ranch · Charlotte NC<br/>$1,997 per deal · NC GC License #107724")
+
+    s.append(Paragraph("WHAT'S IN THIS PACK", S["eyebrow"]))
+    s.append(Paragraph("Everything the buyer needs to act", S["h1"]))
+    s.append(data_table(["#", "COMPONENT"], [
+        ["1", "GC-Certified rehab budget (tiered)"],
+        ["2", "Full scope of work (room-by-room)"],
+        ["3", "Floor plan + design concepts"],
+        ["4", "3 vetted sub-trade quotes per major trade"],
+        ["5", "Lender-ready draw schedule"],
+        ["6", "Pre-closing sweep (permits / liens / code)"],
+        ["7", "GC-Verified stamp for your marketing (NC GC #107724)"],
+    ], col_widths=[0.5 * inch, FRAME_W - 0.5 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WHY IT CHANGES YOUR BUYER POOL", "An unverified contract attracts other wholesalers and lowball flippers. This package attracts real end-investors whose lenders require exactly this documentation — the buyer pool that pays top of market."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("PROPERTY + CERTIFIED BUDGET", S["eyebrow"]))
+    s.append(Paragraph("GC-certified, three tiers", S["h1"]))
+    s.append(data_table(["FIELD", "VALUE"], [
+        ["Property", "1,420 sf · 3BR/1BA · built 1956"],
+        ["Verified ARV range", "$372,000 – $398,000"],
+        ["Tier 1 · Lender-Pass", "$84,200 → list $358K"],
+        ["Tier 2 · Market-Standard", "$96,800 → list $382K"],
+        ["Tier 3 · Premium", "$112,800 → list $398K"],
+    ], col_widths=[2.1 * inch, FRAME_W - 2.1 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("CERTIFIED, NOT GUESSED", "Every tier is priced by a licensed NC GC against 2026 Charlotte trade-network costs — the number a DSCR or hard-money lender will underwrite against without a second opinion."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("FULL SCOPE OF WORK", S["eyebrow"]))
+    s.append(Paragraph("Room-by-room (Tier 2)", S["h1"]))
+    s.append(data_table(["AREA", "SCOPE"], [
+        ["Kitchen", "Full reno — mid cabinets, quartz, tile backsplash, SS appliances"],
+        ["Bath", "Gut + rebuild — tub/shower, vanity, tile, fixtures"],
+        ["Systems", "Replace HVAC, PEX re-pipe, 200A panel"],
+        ["Flooring", "LVP main, refinish 2 BR hardwood"],
+        ["Envelope", "Roof replace, soffit repair, partial windows"],
+        ["Paint", "Full interior + exterior"],
+    ], col_widths=[1.4 * inch, FRAME_W - 1.4 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("DESIGN: PLANS + CONCEPTS", S["eyebrow"]))
+    s.append(Paragraph("So the buyer can pre-sell the finished home", S["h1"]))
+    s.append(callout("FLOOR PLAN", "[ Full as-built + proposed floor plan included in the delivered pack ] — existing layout with the proposed kitchen/bath reconfiguration dimensioned for permitting and bidding."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("DESIGN CONCEPTS (3)", "Three finish concepts at the Market-Standard tier — cabinet/counter/floor/paint palettes with real SKUs — so the end-buyer can picture (and market) the finished product, not a gutted shell."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("WHY DESIGN MATTERS HERE", "A wholesaler hands over a contract. With Build-Ready, your buyer hands their buyer a vision. That's the difference between a $15K assignment and a $40K one."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("VETTED SUB-TRADE QUOTES", S["eyebrow"]))
+    s.append(Paragraph("Three real quotes per major trade", S["h1"]))
+    s.append(Paragraph("Sample trade — plumbing (PEX re-pipe + bath). Real NC subs, leveled to the same scope.", S["body"]))
+    s.append(data_table(["SUB", "LEVELED QUOTE", "NOTES"], [
+        ["Sub A", "$11,900", "Permit + fixtures included"],
+        ["Sub B", "$11,200", "Low bid, full scope"],
+        ["Sub C", "$12,800", "+ 1-yr warranty"],
+    ], col_widths=[1.0 * inch, 1.6 * inch, FRAME_W - 2.6 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE BUYER INHERITS A BID SET", "Three vetted quotes per trade means the end-investor can start the day they close — no 3-week scramble to find and vet crews. That speed is worth real money on holding costs."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("LENDER-READY DRAW SCHEDULE", S["eyebrow"]))
+    s.append(Paragraph("Milestone-based", S["h1"]))
+    s.append(data_table(["DRAW", "MILESTONE", "% OF BUDGET"], [
+        ["1", "Demo + rough-in + inspected", "30%"],
+        ["2", "Close-up (drywall + paint)", "25%"],
+        ["3", "Finishes", "30%"],
+        ["4", "Punch + final", "15%"],
+    ], col_widths=[0.7 * inch, FRAME_W - 2.2 * inch, 1.5 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WHY LENDERS LIKE IT", "Draws tied to inspectable milestones are what construction lenders release against without friction — pre-built so your buyer's financing moves fast."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("PRE-CLOSING SWEEP", S["eyebrow"]))
+    s.append(Paragraph("No surprises at the closing table", S["h1"]))
+    s.append(data_table(["CHECK", "FINDING"], [
+        ["Open permits", "1 (2014 water heater) — close before transfer"],
+        ["Code violations", "None ✓"],
+        ["Liens", "None on record ✓"],
+        ["Record sf vs actual", "+180 sf — likely unpermitted sunroom (disclose)"],
+    ], col_widths=[2.0 * inch, FRAME_W - 2.0 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("DEAL-KILLER INSURANCE", "The sweep catches the legacy issues that blow up at the closing table or the resale. Your buyer closes knowing exactly what they're getting — and you don't lose the deal to a surprise."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("MARKET THE DEAL WITH THIS", S["eyebrow"]))
+    s.append(Paragraph("The GC-Verified stamp", S["h1"]))
+    s.append(callout("HOW TO USE IT", "Attach this pack to your assignment or listing and lead with: 'GC-Verified Build-Ready Deal — budget, scope, plans, and vetted crews included. NC GC License #107724.' You're no longer selling a contract; you're selling a turnkey investment."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("THE FEE MATH", "Pay $1,997 for the pack, charge $8K–$15K more on the assignment because the buyer is getting a verified, build-ready deal. That's a 4–7× return on the pack — before you count the faster close."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
+# ============================================================
+# DELIVERABLE: Site Scan + As-Built ($499)
+# ============================================================
+
+def build_site_scan_as_built():
+    out = str(OUT_DIR / "site-scan-as-built-sample.pdf")
+    doc = make_doc(out, "SITE SCAN + AS-BUILT · SAMPLE", "Site Scan + As-Built — Sample")
+    s = []
+    cover_block(s, "WHAT YOU RECEIVE",
+        "Site Scan + As-Built",
+        "No plans? No measurements? We send an NC field agent with a LIDAR scanner, then our designer turns the "
+        "scan into a dimensioned as-built floor plan — the accurate foundation a real Deal Pack budget is built "
+        "on, instead of a square-footage guess.",
+        "Sample · 1,420 sf ranch · Charlotte NC<br/>$499 add-on or standalone · NC GC License #107724")
+
+    s.append(Paragraph("WHAT YOU RECEIVE", S["eyebrow"]))
+    s.append(Paragraph("A measured, dimensioned as-built", S["h1"]))
+    s.append(data_table(["DELIVERABLE", "DETAIL"], [
+        ["As-built floor plan (PDF)", "Dimensioned, room labels, areas"],
+        ["Native CAD file", "Editable Chief Architect file"],
+        ["Room schedule", "Every room measured + sf"],
+        ["Verified totals", "Gross, heated, footprint sf"],
+        ["LIDAR scan reference", "Point-cloud capture on file"],
+    ], col_widths=[2.2 * inch, FRAME_W - 2.2 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("HOW IT'S CAPTURED", S["eyebrow"]))
+    s.append(Paragraph("Field agent → LIDAR → designer", S["h1"]))
+    s.append(data_table(["STEP", "WHAT HAPPENS"], [
+        ["1. Schedule", "We coordinate access with the seller / your timeline"],
+        ["2. Scan", "NC field agent captures the interior with a LIDAR scanner"],
+        ["3. Process", "Point cloud uploaded; designer builds the as-built"],
+        ["4. Deliver", "Dimensioned plan + native file in 5 business days"],
+    ], col_widths=[1.5 * inch, FRAME_W - 1.5 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("WHY LIDAR, NOT A TAPE MEASURE", "A LIDAR scan captures the whole space to the centimeter in minutes — no missed jogs, no transcription errors. The as-built is accurate enough to bid and permit from."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("THE AS-BUILT FLOOR PLAN", S["eyebrow"]))
+    s.append(Paragraph("Existing conditions, dimensioned", S["h1"]))
+    s.append(callout("FLOOR PLAN", "[ Dimensioned as-built floor plan included in the delivered file ] — every wall, opening, and room dimensioned from the scan, with the existing layout ready to overlay a proposed reconfiguration."))
+    s.append(Spacer(1, 0.07 * inch))
+    s.append(callout("WHAT IT'S DRAWN IN", "Chief Architect — so the same file carries straight into design concepts and permit drawings without re-measuring. You're not paying to measure the house twice."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("MEASURED ROOM SCHEDULE", S["eyebrow"]))
+    s.append(Paragraph("Every room, verified", S["h1"]))
+    s.append(data_table(["ROOM", "DIMENSIONS", "AREA"], [
+        ["Living", "15'2\" × 13'8\"", "207 sf"],
+        ["Kitchen", "11'4\" × 10'0\"", "113 sf"],
+        ["Primary BR", "12'6\" × 11'2\"", "140 sf"],
+        ["BR 2", "11'0\" × 10'4\"", "114 sf"],
+        ["BR 3", "10'8\" × 9'6\"", "101 sf"],
+        ["Bath", "8'0\" × 5'0\"", "40 sf"],
+        ["Hall + misc", "—", "85 sf"],
+    ], col_widths=[2.0 * inch, 1.8 * inch, FRAME_W - 3.8 * inch]))
+    s.append(PageBreak())
+
+    s.append(Paragraph("VERIFIED TOTALS", S["eyebrow"]))
+    s.append(Paragraph("The numbers that anchor the budget", S["h1"]))
+    s.append(data_table(["MEASURE", "VALUE", "NOTE"], [
+        ["Heated sf (measured)", "1,420 sf", "Matches tax record ✓"],
+        ["Footprint sf", "1,512 sf", "Incl. covered porch"],
+        ["Wall lf (interior)", "248 lf", "For drywall / paint takeoff"],
+        ["Sunroom (unpermitted)", "+180 sf", "Flagged — not in heated sf"],
+    ], col_widths=[1.9 * inch, 1.3 * inch, FRAME_W - 3.2 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE SUNROOM CATCH", "The scan caught 180 sf the listing counted but the tax record doesn't — an unpermitted sunroom. Better to know now than at the buyer's appraisal."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("ACCURACY: BALLPARK vs MEASURED", S["eyebrow"]))
+    s.append(Paragraph("Why the as-built pays for itself", S["h1"]))
+    s.append(data_table(["INPUT", "SF-BALLPARK", "MEASURED AS-BUILT"], [
+        ["Flooring (sf)", "± 20% guess", "Exact room areas"],
+        ["Paint / drywall (wall lf)", "Estimated from sf", "248 lf measured"],
+        ["Cabinet run (lf)", "Assumed", "Measured kitchen wall"],
+        ["Heated vs total sf", "Listing number", "Verified — caught +180 sf"],
+    ], col_widths=[2.0 * inch, 1.6 * inch, FRAME_W - 3.6 * inch]))
+    s.append(Spacer(1, 0.1 * inch))
+    s.append(callout("THE PAYBACK", "A 20% swing on a $96K rehab is ~$19K of uncertainty. A $499 scan converts that guess into measured quantities — the cheapest accuracy you can buy on a deal you don't own yet."))
+    s.append(PageBreak())
+
+    s.append(Paragraph("WHAT THIS UNLOCKS", S["eyebrow"]))
+    s.append(Paragraph("From guess to bid-grade", S["h1"]))
+    s.append(callout("ACCURATE BUDGET", "A square-footage ballpark can be off ±20%. With real measured quantities, the Deal Pack budget tightens to bid-grade — wall lf for paint/drywall, room sf for flooring, fixture counts for plumbing."))
+    s.append(Spacer(1, 0.08 * inch))
+    s.append(callout("NEXT STEP", "The as-built feeds straight into a Bid-Ready or Build-Ready Deal Pack — no re-measuring, no guessing. This is the input that makes the rest of the package accurate."))
+    closing(s, DISCLAIMER)
+    doc.build(s)
+    print(f"  ✓ {out}  ({os.path.getsize(out)/1024:.0f} KB)")
+
+
 SAMPLES = {
     "investor-execution-review": build_execution_review,
     "budget-snapshot": build_budget_snapshot,
@@ -1757,6 +1959,8 @@ SAMPLES = {
     "repair-scope-letter": build_repair_scope_letter,
     "negotiation-strategy": build_negotiation_strategy,
     "appraisal-response": build_appraisal_response,
+    "build-ready-deal-pack": build_build_ready_deal_pack,
+    "site-scan-as-built": build_site_scan_as_built,
 }
 
 
