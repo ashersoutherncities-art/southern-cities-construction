@@ -380,7 +380,7 @@ const CO3: PlatformStage = {
   ],
   notThisIs: [
     'Permit pulling (that is GC-Supported Build — you remain GC of record here)',
-    'Sourcing your crews from scratch (add-on, priced per trade, or Project Setup)',
+    'Sourcing your crews from scratch (add-on: $400 per trade, or Project Setup)',
     'Full GC execution / risk transfer (handled by Full GC Service)',
     'Simple admin work',
   ],

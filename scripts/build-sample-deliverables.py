@@ -728,7 +728,7 @@ def build_active_oversight():
         "permits and the liability that comes with them. <b>We provide:</b> the execution layer — coordinating "
         "the subs and materials you have in place. <b>We do NOT pull permits</b> (that's GC-Supported Build) and "
         "<b>base scope does not source your crews</b> — if you need us to find or recommend labor, that's an "
-        "add-on priced per trade.", bg=ACCENT_LIGHT, bar=ORANGE))
+        "add-on at <b>$400 per trade</b> (at 3+ trades, step up to Project Setup).", bg=ACCENT_LIGHT, bar=ORANGE))
     s.append(PageBreak())
 
     s.append(Paragraph("WHO THIS IS FOR", S["eyebrow"]))
