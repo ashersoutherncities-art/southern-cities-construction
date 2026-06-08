@@ -60,11 +60,11 @@ def tracked_width(d, text, f, spacing=2):
     return w
 
 
-# Three tiers — same content, different visual treatment per render
+# Three tiers — sharper descriptions, buyer-perspective
 TIERS = [
-    {"slot": "THE GUESS",     "desc": "Napkin number off comps.",        "amt": "$8K",       "win": False},
-    {"slot": "THE ESTIMATE",  "desc": "Solo budget exercise.",           "amt": "$15K",      "win": False},
-    {"slot": "THE STANDARD",  "desc": "Licensed GC writes the number.",  "amt": "$25–40K+", "win": True},
+    {"slot": "THE GUESS",     "desc": "Napkin off comps. Buyer brought a sharpie.",   "amt": "$8K",       "win": False},
+    {"slot": "THE ESTIMATE",  "desc": "Comps + walk-through. Still his number.",      "amt": "$15K",      "win": False},
+    {"slot": "THE STANDARD",  "desc": "GC walked it. GC signed it.", "amt": "$25–40K+", "win": True},
 ]
 
 
@@ -135,63 +135,48 @@ def build_square():
     # left/right gutter
     GUT = 80
 
-    # eyebrow
-    eb = font(BOLD, 20)
-    eb_text = "WHOLESALER ECONOMICS  ·  CHARLOTTE, NC"
+    # ---- HOOK: targeting tag + giant dollar gap ----
+    eb = font(BOLD, 22)
+    eb_text = "FOR NC WHOLESALERS"
     tracked(d, GUT, 144, eb_text, eb, ORANGE, spacing=3)
 
-    # headline (Georgia serif — editorial)
-    fh = font(GEORGIA_BOLD, 64)
-    d.text((GUT, 188), "Same property.", font=fh, fill=NAVY)
-    d.text((GUT, 268), "Three numbers at the table.", font=fh, fill=NAVY)
+    # The hook — biggest type on the canvas, the scroll-stopper
+    fh = font(GEORGIA_BOLD, 86)
+    d.text((GUT, 196), "$8K. $40K.", font=fh, fill=NAVY)
+    d.text((GUT, 296), "Same property.", font=fh, fill=NAVY)
 
-    # hairline divider under headline
-    d.line([GUT, 380, W - GUT, 380], fill=HAIRLINE, width=1)
-
-    # subhead / kicker (one editorial line)
-    fk = font(REG, 22)
-    d.text((GUT, 404), "Same wholesaler. Same week. Same deal package.",
-           font=fk, fill=MUTED)
-    d.text((GUT, 434), "What changes is who wrote the rehab number.",
-           font=fk, fill=MUTED)
-
-    # tier rows
+    # ---- BODY: the 3-tier comparison ----
     row_x0 = GUT
     row_x1 = W - GUT
-    rows_top = 520
-    row_h = 90
-    row_gap = 26
-    slot_w = 220
+    rows_top = 470
+    row_h = 100
+    row_gap = 28
+    slot_w = 230
 
     for i, t in enumerate(TIERS):
         y = rows_top + i * (row_h + row_gap)
-        # hairline divider above each row except first
         if i > 0:
             d.line([row_x0, y - row_gap // 2, row_x1, y - row_gap // 2], fill=HAIRLINE, width=1)
         render_tier_row(
             d, t, row_x0, row_x1, y, row_h,
             slot_w=slot_w, amt_w=200,
-            slot_size=26, desc_size=22, amt_size=44,
+            slot_size=28, desc_size=23, amt_size=48,
             is_highlighted=t["win"],
         )
 
-    # thicker rule before CTA
+    # ---- CTA: clear single action ----
     d.line([GUT, 900, W - GUT, 900], fill=NAVY, width=2)
-
-    # editorial CTA — text-only, no button
-    fc = font(BLACK, 26)
-    cta = "GET THE FREE PLAYBOOK"
+    fc = font(BLACK, 28)
+    cta = "GET THE PLAYBOOK"
     cta_w = tracked_width(d, cta, fc, spacing=3)
     cta_x = GUT
     tracked(d, cta_x, 932, cta, fc, NAVY, spacing=3)
-    # arrow rendered separately
     arrow_x = cta_x + cta_w + 18
-    d.text((arrow_x, 928), "→", font=font(BLACK, 30), fill=ORANGE)
-
-    # right-aligned helper line
+    d.text((arrow_x, 926), "→", font=font(BLACK, 34), fill=ORANGE)
+    # right-aligned helper
     fh2 = font(REG, 18)
-    helper = "Free · NC wholesalers only · 2-min read"
-    d.text((W - GUT - tw(d, helper, fh2), 938), helper, font=fh2, fill=MUTED)
+    helper = "Free  ·  NC wholesalers only"
+    d.text((W - GUT - tw(d, helper, fh2), 940), helper, font=fh2, fill=MUTED)
 
     # bottom credit line
     draw_bottom_credit(d, W, H)
@@ -212,31 +197,21 @@ def build_vertical():
 
     GUT = 80
 
-    # eyebrow
-    eb = font(BOLD, 22)
-    eb_text = "WHOLESALER ECONOMICS  ·  CHARLOTTE, NC"
-    tracked(d, GUT, 230, eb_text, eb, ORANGE, spacing=3)
+    # ---- HOOK: targeting tag + massive dollar gap ----
+    eb = font(BOLD, 24)
+    eb_text = "FOR NC WHOLESALERS"
+    tracked(d, GUT, 220, eb_text, eb, ORANGE, spacing=3)
 
-    # headline (Georgia serif)
-    fh = font(GEORGIA_BOLD, 84)
-    d.text((GUT, 286), "Same property.", font=fh, fill=NAVY)
-    d.text((GUT, 388), "Three numbers", font=fh, fill=NAVY)
-    d.text((GUT, 490), "at the table.", font=fh, fill=NAVY)
+    # The hook — biggest type on the canvas
+    fh = font(GEORGIA_BOLD, 108)
+    d.text((GUT, 280), "$8K. $40K.", font=fh, fill=NAVY)
+    fh2 = font(GEORGIA_BOLD, 96)
+    d.text((GUT, 420), "Same property.", font=fh2, fill=NAVY)
 
-    # hairline divider
-    d.line([GUT, 630, W - GUT, 630], fill=HAIRLINE, width=1)
-
-    # kicker
-    fk = font(REG, 28)
-    d.text((GUT, 666), "Same wholesaler. Same week. Same deal package.",
-           font=fk, fill=MUTED)
-    d.text((GUT, 706), "What changes is who wrote the rehab number.",
-           font=fk, fill=MUTED)
-
-    # tier rows — stack: slot name on top row, description as smaller subline
+    # ---- BODY: 3-tier comparison (stacked layout for vertical width) ----
     row_x0 = GUT
     row_x1 = W - GUT
-    rows_top = 880
+    rows_top = 730
     row_h = 150
     row_gap = 60
 
@@ -244,19 +219,15 @@ def build_vertical():
         y = rows_top + i * (row_h + row_gap)
         if i > 0:
             d.line([row_x0, y - row_gap // 2, row_x1, y - row_gap // 2], fill=HAIRLINE, width=1)
-        # highlight bg for winner
         if t["win"]:
             d.rounded_rectangle([row_x0 - 16, y - 14, row_x1 + 16, y + row_h + 14],
                                 radius=10, fill=HIGHLIGHT_BG)
-        # slot name (top of row, large)
         fs = font(BOLD, 34)
         slot_color = ORANGE if t["win"] else NAVY
         d.text((row_x0, y + 6), t["slot"], font=fs, fill=slot_color)
-        # description (under slot name, smaller, muted)
         fd = font(REG, 28)
         desc_color = INK if t["win"] else MUTED
         d.text((row_x0, y + 56), t["desc"], font=fd, fill=desc_color)
-        # amount (right-aligned, vertically centered)
         fa = font(BLACK, 64)
         amt_w = tw(d, t["amt"], fa)
         amt_color = ORANGE if t["win"] else NAVY
@@ -265,19 +236,18 @@ def build_vertical():
     # thicker rule before CTA
     d.line([GUT, 1680, W - GUT, 1680], fill=NAVY, width=2)
 
-    # editorial CTA
-    fc = font(BLACK, 32)
-    cta = "GET THE FREE PLAYBOOK"
+    # ---- CTA: single clear action ----
+    fc = font(BLACK, 34)
+    cta = "GET THE PLAYBOOK"
     cta_w = tracked_width(d, cta, fc, spacing=3)
     cta_x = GUT
     tracked(d, cta_x, 1720, cta, fc, NAVY, spacing=3)
     arrow_x = cta_x + cta_w + 22
-    d.text((arrow_x, 1715), "→", font=font(BLACK, 38), fill=ORANGE)
-
-    # helper sub-line under CTA
+    d.text((arrow_x, 1714), "→", font=font(BLACK, 42), fill=ORANGE)
+    # helper sub-line
     fh2 = font(REG, 22)
-    helper = "Free · NC wholesalers only · 2-min read"
-    d.text((GUT, 1780), helper, font=fh2, fill=MUTED)
+    helper = "Free  ·  NC wholesalers only"
+    d.text((GUT, 1782), helper, font=fh2, fill=MUTED)
 
     # bottom credit line
     draw_bottom_credit(d, W, H)
