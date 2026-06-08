@@ -1,32 +1,39 @@
 #!/usr/bin/env python3
 """
-"Same deal. Three outcomes." — 3-tier avatar ladder.
-$8K Guesser -> $15K Diligent -> $25-40K+ The Standard (GC-verified Deal Pack).
+"Same property. Three numbers at the table." — editorial / financial-document
+style B2B ad for NC wholesalers.
 
 Generates BOTH 1:1 (1080x1080) for Feed and 9:16 (1080x1920) for Stories/Reels.
 """
 import os
 from PIL import Image, ImageDraw, ImageFont
 
+# Restrained palette — cream/navy/orange only, no red/amber alert colors
 NAVY = (19, 36, 82)
 ORANGE = (250, 140, 65)
-CREAM = (246, 242, 236)
+CREAM = (248, 244, 237)
+PAPER = (251, 249, 245)   # background
 WHITE = (255, 255, 255)
-INK = (28, 32, 44)
-RED = (193, 60, 55)
-AMBER = (196, 132, 38)
-MUTED = (96, 104, 120)
-MUTED_NAVY = (188, 198, 224)
+INK = (24, 28, 38)
+MUTED = (118, 122, 134)
+HAIRLINE = (210, 206, 196)
+HIGHLIGHT_BG = (244, 240, 230)  # subtle cream highlight for winner row
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "meta-ad-creatives")
 F = "/System/Library/Fonts/Supplemental/"
-LOGO = os.path.join(ROOT, "public", "sc-construction-logo.png")
-BLACK, BOLD, REG = "Arial Black.ttf", "Arial Bold.ttf", "Arial.ttf"
+LOGO_NAVY = os.path.join(ROOT, "public", "sc-construction-logo.png")
+
+# Editorial typography: Georgia serif for the headline (newspaper feel),
+# Arial sans for everything else (clean, modern brand DNA preserved)
+GEORGIA_BOLD = "Georgia Bold.ttf"
+BLACK = "Arial Black.ttf"
+BOLD = "Arial Bold.ttf"
+REG = "Arial.ttf"
 
 
-def font(n, s):
-    return ImageFont.truetype(F + n, s)
+def font(name, size):
+    return ImageFont.truetype(F + name, size)
 
 
 def tw(d, s, f):
@@ -34,176 +41,246 @@ def tw(d, s, f):
     return b[2] - b[0]
 
 
-def wrap(d, s, f, mw):
-    out, cur = [], ""
-    for w in s.split():
-        t = (cur + " " + w).strip()
-        if tw(d, t, f) <= mw:
-            cur = t
-        else:
-            out.append(cur) if cur else None
-            cur = w
-    if cur:
-        out.append(cur)
-    return out
+def th(f):
+    return f.size
 
 
-# Tier definitions — used by both renders
+def tracked(d, x, y, text, f, fill, spacing=2):
+    """Render text with letter-spacing (tracking) for the editorial eyebrow."""
+    cur_x = x
+    for ch in text:
+        d.text((cur_x, y), ch, font=f, fill=fill)
+        cur_x += tw(d, ch, f) + spacing
+    return cur_x  # return final x for chaining
+
+
+def tracked_width(d, text, f, spacing=2):
+    """Width of a tracked string."""
+    w = sum(tw(d, ch, f) for ch in text) + spacing * (len(text) - 1)
+    return w
+
+
+# Three tiers — same content, different visual treatment per render
 TIERS = [
-    {"amt": "$8K", "label": "GUESSED IT",
-     "line": "Napkin off comps. Buyer cut 70% at the table.",
-     "bg": (250, 238, 236), "accent": RED, "amt_color": RED, "label_color": RED, "line_color": INK, "win": False},
-    {"amt": "$15K", "label": "ESTIMATED IT",
-     "line": "Did the homework. Buyer still cut 40%.",
-     "bg": (250, 243, 230), "accent": AMBER, "amt_color": AMBER, "label_color": AMBER, "line_color": INK, "win": False},
-    {"amt": "$25–40K+", "label": "GC-VERIFIED IT",
-     "line": "Licensed GC wrote the number. Buyer signed. Closed at the top.",
-     "bg": NAVY, "accent": ORANGE, "amt_color": WHITE, "label_color": ORANGE, "line_color": MUTED_NAVY, "win": True},
+    {"slot": "THE GUESS",     "desc": "Napkin number off comps.",        "amt": "$8K",       "win": False},
+    {"slot": "THE ESTIMATE",  "desc": "Solo budget exercise.",           "amt": "$15K",      "win": False},
+    {"slot": "THE STANDARD",  "desc": "Licensed GC writes the number.",  "amt": "$25–40K+", "win": True},
 ]
 
 
-def render_tier_band(d, t, lx0, lx1, y0, band_h):
-    """Render one tier band — amount on left, label+description on right."""
-    y1 = y0 + band_h
-    width = lx1 - lx0
-    # rounded rect bg
-    d.rounded_rectangle([lx0, y0, lx1, y1], radius=22, fill=t["bg"])
-    if t["win"]:
-        d.rounded_rectangle([lx0, y0, lx1, y1], radius=22, outline=ORANGE, width=4)
-    # left accent stripe
-    d.rounded_rectangle([lx0, y0, lx0 + 10, y1], radius=5, fill=t["accent"])
-    # amount text (left zone)
-    amt = t["amt"]
-    fa = font(BLACK, 72 if len(amt) <= 4 else 50)
-    left_zone_w = int(width * 0.35)
-    az_cx = lx0 + left_zone_w // 2
-    d.text((az_cx - tw(d, amt, fa) / 2, y0 + band_h / 2 - (fa.size / 2) - 6),
-           amt, font=fa, fill=t["amt_color"])
-    # divider line
-    div_x = lx0 + left_zone_w + 8
-    d.line([div_x, y0 + 36, div_x, y1 - 36],
-           fill=(t["accent"] if not t["win"] else WHITE), width=2)
-    # right zone: label + description
-    rx = div_x + 26
-    rw = lx1 - rx - 28
-    fl = font(BLACK, 30)
-    d.text((rx, y0 + 34), t["label"], font=fl, fill=t["label_color"])
-    fn = font(REG, 26)
-    lines = wrap(d, t["line"], fn, rw)
-    yy = y0 + 80
-    for ln in lines:
-        d.text((rx, yy), ln, font=fn, fill=t["line_color"])
-        yy += 34
+def render_tier_row(d, t, row_x0, row_x1, row_y, row_h, slot_w, amt_w, slot_size, desc_size, amt_size, is_highlighted):
+    """Render one tier row in editorial financial-document style.
+
+    Layout:  | THE SLOT    description text                         $AMT |
+    Winner row has subtle cream highlight + orange amount.
+    """
+    if is_highlighted:
+        d.rounded_rectangle([row_x0 - 16, row_y - 8, row_x1 + 16, row_y + row_h + 8],
+                            radius=8, fill=HIGHLIGHT_BG)
+    # slot column (left)
+    fs = font(BOLD, slot_size)
+    slot_color = ORANGE if t["win"] else NAVY
+    d.text((row_x0, row_y + (row_h - slot_size) // 2 - 2), t["slot"], font=fs, fill=slot_color)
+    # description column (middle, between slot and amount)
+    fd = font(REG, desc_size)
+    desc_x = row_x0 + slot_w + 28
+    d.text((desc_x, row_y + (row_h - desc_size) // 2 - 1), t["desc"], font=fd, fill=INK if t["win"] else MUTED)
+    # amount column (right-aligned, financial-document convention)
+    fa = font(BLACK, amt_size)
+    amt_w_actual = tw(d, t["amt"], fa)
+    amt_color = ORANGE if t["win"] else NAVY
+    d.text((row_x1 - amt_w_actual, row_y + (row_h - amt_size) // 2 - 4), t["amt"], font=fa, fill=amt_color)
 
 
-def draw_pill_cta(d, cx, y, label, padding_x=44, padding_y=22, font_size=28):
-    """Draw an orange pill-style CTA button with white bold text."""
-    f = font(BLACK, font_size)
-    text_w = tw(d, label, f)
-    pill_w = text_w + padding_x * 2
-    pill_h = font_size + padding_y * 2
-    x0 = cx - pill_w // 2
-    y0 = y
-    x1 = x0 + pill_w
-    y1 = y0 + pill_h
-    d.rounded_rectangle([x0, y0, x1, y1], radius=pill_h // 2, fill=ORANGE)
-    d.text((cx - text_w / 2, y0 + padding_y - 2), label, font=f, fill=WHITE)
-    return y1
+def draw_top_bar(img, d, W, logo_size=44, license_text="NC GC LICENSE #107724"):
+    """Slim navy header bar with logo + license — establishes authority."""
+    bar_h = 76
+    d.rectangle([0, 0, W, bar_h], fill=NAVY)
+    # logo on left (need white/reverse — but we have navy logo so paste it differently)
+    # use orange brand mark instead — just a small triangle or use existing logo
+    lg = Image.open(LOGO_NAVY).convert("RGBA")
+    r = logo_size / lg.height
+    lg = lg.resize((int(lg.width * r), logo_size), Image.LANCZOS)
+    # Logo on dark bg — keep navy/orange parts visible (it's a navy+orange logo on white,
+    # which doesn't render great on navy bg). Use a cream backing chip:
+    chip_pad = 8
+    chip = Image.new("RGB", (lg.width + chip_pad * 2, lg.height + chip_pad * 2), CREAM)
+    chip_draw = ImageDraw.Draw(chip)
+    img.paste(chip, (28, (bar_h - chip.height) // 2))
+    img.paste(lg, (28 + chip_pad, (bar_h - chip.height) // 2 + chip_pad), lg)
+    # license text on right
+    fl = font(BOLD, 16)
+    label_w = tracked_width(d, license_text, fl, spacing=2)
+    tracked(d, W - label_w - 32, (bar_h - 16) // 2, license_text, fl, CREAM, spacing=2)
 
+
+def draw_bottom_credit(d, W, H, fill=MUTED):
+    """Bottom editorial credit line."""
+    fc = font(BOLD, 15)
+    txt = "SOUTHERN CITIES CONSTRUCTION  ·  LICENSED NC GENERAL CONTRACTOR  ·  #107724"
+    w = tracked_width(d, txt, fc, spacing=2)
+    tracked(d, (W - w) // 2, H - 44, txt, fc, fill, spacing=2)
+
+
+# -------- SQUARE (1080 x 1080) for Feed --------
 
 def build_square():
-    """1080x1080 for Feed placement — winner-band-dominant layout."""
     W = H = 1080
-    img = Image.new("RGB", (W, H), WHITE)
+    img = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(img)
-    cx = W // 2
-    d.rectangle([0, 0, W, 12], fill=ORANGE)
 
-    # logo
-    lg = Image.open(LOGO).convert("RGBA")
-    r = 180 / lg.width
-    lg = lg.resize((180, int(lg.height * r)), Image.LANCZOS)
-    img.paste(lg, (int((W - lg.width) / 2), 38), lg)
+    # navy top bar with logo + license
+    draw_top_bar(img, d, W)
 
-    # eyebrow + headline (two-line punch)
-    eb = font(BOLD, 25)
-    d.text((cx - tw(d, "FOR NC WHOLESALERS", eb) / 2, 152), "FOR NC WHOLESALERS", font=eb, fill=ORANGE)
-    fh = font(BLACK, 58)
-    d.text((cx - tw(d, "$8K. $15K. $40K.", fh) / 2, 188), "$8K. $15K. $40K.", font=fh, fill=NAVY)
-    fh2 = font(BLACK, 44)
-    d.text((cx - tw(d, "Same property.", fh2) / 2, 256), "Same property.", font=fh2, fill=NAVY)
+    # left/right gutter
+    GUT = 80
 
-    # tier bands — winner gets ~1.4x height
-    base_h = 168
-    win_h = 235
-    gap = 16
-    top = 326
-    lx0, lx1 = 56, W - 56
+    # eyebrow
+    eb = font(BOLD, 20)
+    eb_text = "WHOLESALER ECONOMICS  ·  CHARLOTTE, NC"
+    tracked(d, GUT, 144, eb_text, eb, ORANGE, spacing=3)
 
-    y = top
+    # headline (Georgia serif — editorial)
+    fh = font(GEORGIA_BOLD, 64)
+    d.text((GUT, 188), "Same property.", font=fh, fill=NAVY)
+    d.text((GUT, 268), "Three numbers at the table.", font=fh, fill=NAVY)
+
+    # hairline divider under headline
+    d.line([GUT, 380, W - GUT, 380], fill=HAIRLINE, width=1)
+
+    # subhead / kicker (one editorial line)
+    fk = font(REG, 22)
+    d.text((GUT, 404), "Same wholesaler. Same week. Same deal package.",
+           font=fk, fill=MUTED)
+    d.text((GUT, 434), "What changes is who wrote the rehab number.",
+           font=fk, fill=MUTED)
+
+    # tier rows
+    row_x0 = GUT
+    row_x1 = W - GUT
+    rows_top = 520
+    row_h = 90
+    row_gap = 26
+    slot_w = 220
+
     for i, t in enumerate(TIERS):
-        h = win_h if t["win"] else base_h
-        render_tier_band(d, t, lx0, lx1, y, h)
-        y += h + gap
+        y = rows_top + i * (row_h + row_gap)
+        # hairline divider above each row except first
+        if i > 0:
+            d.line([row_x0, y - row_gap // 2, row_x1, y - row_gap // 2], fill=HAIRLINE, width=1)
+        render_tier_row(
+            d, t, row_x0, row_x1, y, row_h,
+            slot_w=slot_w, amt_w=200,
+            slot_size=26, desc_size=22, amt_size=44,
+            is_highlighted=t["win"],
+        )
 
-    # CTA pill — center horizontally above license
-    cta_y = H - 130
-    draw_pill_cta(d, cx, cta_y, "Get the free playbook  →", font_size=24)
+    # thicker rule before CTA
+    d.line([GUT, 900, W - GUT, 900], fill=NAVY, width=2)
 
-    # license footer
-    fl2 = font(BOLD, 19)
-    lic = "Southern Cities Construction · NC GC License #107724"
-    d.text((cx - tw(d, lic, fl2) / 2, H - 36), lic, font=fl2, fill=MUTED)
+    # editorial CTA — text-only, no button
+    fc = font(BLACK, 26)
+    cta = "GET THE FREE PLAYBOOK"
+    cta_w = tracked_width(d, cta, fc, spacing=3)
+    cta_x = GUT
+    tracked(d, cta_x, 932, cta, fc, NAVY, spacing=3)
+    # arrow rendered separately
+    arrow_x = cta_x + cta_w + 18
+    d.text((arrow_x, 928), "→", font=font(BLACK, 30), fill=ORANGE)
+
+    # right-aligned helper line
+    fh2 = font(REG, 18)
+    helper = "Free · NC wholesalers only · 2-min read"
+    d.text((W - GUT - tw(d, helper, fh2), 938), helper, font=fh2, fill=MUTED)
+
+    # bottom credit line
+    draw_bottom_credit(d, W, H)
 
     img.save(os.path.join(OUT, "wholesaler-tiers.png"))
     print("built wholesaler-tiers.png")
 
 
-def build_vertical():
-    """1080x1920 for Stories / Reels placement."""
-    W, H = 1080, 1920
-    img = Image.new("RGB", (W, H), WHITE)
-    d = ImageDraw.Draw(img)
-    cx = W // 2
-    d.rectangle([0, 0, W, 14], fill=ORANGE)
+# -------- VERTICAL (1080 x 1920) for Stories / Reels --------
 
-    # logo (positioned below Stories top UI overlay)
-    lg = Image.open(LOGO).convert("RGBA")
-    r = 260 / lg.width
-    lg = lg.resize((260, int(lg.height * r)), Image.LANCZOS)
-    img.paste(lg, (int((W - lg.width) / 2), 200), lg)
+def build_vertical():
+    W, H = 1080, 1920
+    img = Image.new("RGB", (W, H), PAPER)
+    d = ImageDraw.Draw(img)
+
+    # navy top bar with logo + license
+    draw_top_bar(img, d, W, logo_size=48)
+
+    GUT = 80
 
     # eyebrow
-    eb = font(BOLD, 30)
-    d.text((cx - tw(d, "FOR NC WHOLESALERS", eb) / 2, 400), "FOR NC WHOLESALERS", font=eb, fill=ORANGE)
+    eb = font(BOLD, 22)
+    eb_text = "WHOLESALER ECONOMICS  ·  CHARLOTTE, NC"
+    tracked(d, GUT, 230, eb_text, eb, ORANGE, spacing=3)
 
-    # headline — punchy dollar line + setup
-    fh = font(BLACK, 84)
-    d.text((cx - tw(d, "$8K. $15K. $40K.", fh) / 2, 450), "$8K. $15K. $40K.", font=fh, fill=NAVY)
-    fh2 = font(BLACK, 62)
-    d.text((cx - tw(d, "Same property.", fh2) / 2, 555), "Same property.", font=fh2, fill=NAVY)
+    # headline (Georgia serif)
+    fh = font(GEORGIA_BOLD, 84)
+    d.text((GUT, 286), "Same property.", font=fh, fill=NAVY)
+    d.text((GUT, 388), "Three numbers", font=fh, fill=NAVY)
+    d.text((GUT, 490), "at the table.", font=fh, fill=NAVY)
 
-    # tier bands — winner gets ~1.3x height
-    base_h = 290
-    win_h = 380
-    gap = 26
-    top = 700
-    lx0, lx1 = 56, W - 56
+    # hairline divider
+    d.line([GUT, 630, W - GUT, 630], fill=HAIRLINE, width=1)
 
-    y = top
-    for t in TIERS:
-        h = win_h if t["win"] else base_h
-        render_tier_band(d, t, lx0, lx1, y, h)
-        y += h + gap
+    # kicker
+    fk = font(REG, 28)
+    d.text((GUT, 666), "Same wholesaler. Same week. Same deal package.",
+           font=fk, fill=MUTED)
+    d.text((GUT, 706), "What changes is who wrote the rehab number.",
+           font=fk, fill=MUTED)
 
-    # CTA pill button (breathing room above)
-    cta_y = H - 170
-    draw_pill_cta(d, cx, cta_y, "Get the free playbook  →", font_size=30)
+    # tier rows — stack: slot name on top row, description as smaller subline
+    row_x0 = GUT
+    row_x1 = W - GUT
+    rows_top = 880
+    row_h = 150
+    row_gap = 60
 
-    # license footer
-    fl2 = font(BOLD, 22)
-    lic = "Southern Cities Construction · NC GC License #107724"
-    d.text((cx - tw(d, lic, fl2) / 2, H - 50), lic, font=fl2, fill=MUTED)
+    for i, t in enumerate(TIERS):
+        y = rows_top + i * (row_h + row_gap)
+        if i > 0:
+            d.line([row_x0, y - row_gap // 2, row_x1, y - row_gap // 2], fill=HAIRLINE, width=1)
+        # highlight bg for winner
+        if t["win"]:
+            d.rounded_rectangle([row_x0 - 16, y - 14, row_x1 + 16, y + row_h + 14],
+                                radius=10, fill=HIGHLIGHT_BG)
+        # slot name (top of row, large)
+        fs = font(BOLD, 34)
+        slot_color = ORANGE if t["win"] else NAVY
+        d.text((row_x0, y + 6), t["slot"], font=fs, fill=slot_color)
+        # description (under slot name, smaller, muted)
+        fd = font(REG, 28)
+        desc_color = INK if t["win"] else MUTED
+        d.text((row_x0, y + 56), t["desc"], font=fd, fill=desc_color)
+        # amount (right-aligned, vertically centered)
+        fa = font(BLACK, 64)
+        amt_w = tw(d, t["amt"], fa)
+        amt_color = ORANGE if t["win"] else NAVY
+        d.text((row_x1 - amt_w, y + (row_h - 64) // 2 - 4), t["amt"], font=fa, fill=amt_color)
+
+    # thicker rule before CTA
+    d.line([GUT, 1680, W - GUT, 1680], fill=NAVY, width=2)
+
+    # editorial CTA
+    fc = font(BLACK, 32)
+    cta = "GET THE FREE PLAYBOOK"
+    cta_w = tracked_width(d, cta, fc, spacing=3)
+    cta_x = GUT
+    tracked(d, cta_x, 1720, cta, fc, NAVY, spacing=3)
+    arrow_x = cta_x + cta_w + 22
+    d.text((arrow_x, 1715), "→", font=font(BLACK, 38), fill=ORANGE)
+
+    # helper sub-line under CTA
+    fh2 = font(REG, 22)
+    helper = "Free · NC wholesalers only · 2-min read"
+    d.text((GUT, 1780), helper, font=fh2, fill=MUTED)
+
+    # bottom credit line
+    draw_bottom_credit(d, W, H)
 
     img.save(os.path.join(OUT, "wholesaler-tiers-vertical.png"))
     print("built wholesaler-tiers-vertical.png")
