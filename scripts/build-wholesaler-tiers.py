@@ -50,14 +50,14 @@ def wrap(d, s, f, mw):
 
 # Tier definitions — used by both renders
 TIERS = [
-    {"amt": "$8K", "label": "THE GUESSER",
-     "line": "Napkin number off comps. Buyer chopped 70%.",
+    {"amt": "$8K", "label": "GUESSED IT",
+     "line": "Napkin off comps. Buyer cut 70% at the table.",
      "bg": (250, 238, 236), "accent": RED, "amt_color": RED, "label_color": RED, "line_color": INK, "win": False},
-    {"amt": "$15K", "label": "THE SOLO ESTIMATOR",
-     "line": "Did the homework. Still got chopped 40%.",
+    {"amt": "$15K", "label": "ESTIMATED IT",
+     "line": "Did the homework. Buyer still cut 40%.",
      "bg": (250, 243, 230), "accent": AMBER, "amt_color": AMBER, "label_color": AMBER, "line_color": INK, "win": False},
-    {"amt": "$25–40K+", "label": "THE STANDARD",
-     "line": "Licensed GC wrote the number. Buyer signed it. Closed at the top.",
+    {"amt": "$25–40K+", "label": "GC-VERIFIED IT",
+     "line": "Licensed GC wrote the number. Buyer signed. Closed at the top.",
      "bg": NAVY, "accent": ORANGE, "amt_color": WHITE, "label_color": ORANGE, "line_color": MUTED_NAVY, "win": True},
 ]
 
@@ -96,8 +96,23 @@ def render_tier_band(d, t, lx0, lx1, y0, band_h):
         yy += 34
 
 
+def draw_pill_cta(d, cx, y, label, padding_x=44, padding_y=22, font_size=28):
+    """Draw an orange pill-style CTA button with white bold text."""
+    f = font(BLACK, font_size)
+    text_w = tw(d, label, f)
+    pill_w = text_w + padding_x * 2
+    pill_h = font_size + padding_y * 2
+    x0 = cx - pill_w // 2
+    y0 = y
+    x1 = x0 + pill_w
+    y1 = y0 + pill_h
+    d.rounded_rectangle([x0, y0, x1, y1], radius=pill_h // 2, fill=ORANGE)
+    d.text((cx - text_w / 2, y0 + padding_y - 2), label, font=f, fill=WHITE)
+    return y1
+
+
 def build_square():
-    """Original 1080x1080 for Feed placement."""
+    """1080x1080 for Feed placement — winner-band-dominant layout."""
     W = H = 1080
     img = Image.new("RGB", (W, H), WHITE)
     d = ImageDraw.Draw(img)
@@ -106,31 +121,39 @@ def build_square():
 
     # logo
     lg = Image.open(LOGO).convert("RGBA")
-    r = 190 / lg.width
-    lg = lg.resize((190, int(lg.height * r)), Image.LANCZOS)
-    img.paste(lg, (int((W - lg.width) / 2), 48), lg)
+    r = 180 / lg.width
+    lg = lg.resize((180, int(lg.height * r)), Image.LANCZOS)
+    img.paste(lg, (int((W - lg.width) / 2), 38), lg)
 
-    # eyebrow + headline
+    # eyebrow + headline (two-line punch)
     eb = font(BOLD, 25)
-    d.text((cx - tw(d, "FOR NC WHOLESALERS", eb) / 2, 168), "FOR NC WHOLESALERS", font=eb, fill=ORANGE)
-    fh = font(BLACK, 52)
-    d.text((cx - tw(d, "Same deal. Three outcomes.", fh) / 2, 208), "Same deal. Three outcomes.", font=fh, fill=NAVY)
+    d.text((cx - tw(d, "FOR NC WHOLESALERS", eb) / 2, 152), "FOR NC WHOLESALERS", font=eb, fill=ORANGE)
+    fh = font(BLACK, 58)
+    d.text((cx - tw(d, "$8K. $15K. $40K.", fh) / 2, 188), "$8K. $15K. $40K.", font=fh, fill=NAVY)
+    fh2 = font(BLACK, 44)
+    d.text((cx - tw(d, "Same property.", fh2) / 2, 256), "Same property.", font=fh2, fill=NAVY)
 
-    # tier bands
-    top = 300
-    band_h = 198
-    gap = 18
+    # tier bands — winner gets ~1.4x height
+    base_h = 168
+    win_h = 235
+    gap = 16
+    top = 326
     lx0, lx1 = 56, W - 56
-    for i, t in enumerate(TIERS):
-        render_tier_band(d, t, lx0, lx1, top + i * (band_h + gap), band_h)
 
-    # footer + license
-    ff = font(BOLD, 24)
-    foot = "Free $25–40K Assignment Playbook ↓"
-    d.text((cx - tw(d, foot, ff) / 2, H - 86), foot, font=ff, fill=NAVY)
-    fl2 = font(BOLD, 21)
+    y = top
+    for i, t in enumerate(TIERS):
+        h = win_h if t["win"] else base_h
+        render_tier_band(d, t, lx0, lx1, y, h)
+        y += h + gap
+
+    # CTA pill — center horizontally above license
+    cta_y = H - 130
+    draw_pill_cta(d, cx, cta_y, "Get the free playbook  →", font_size=24)
+
+    # license footer
+    fl2 = font(BOLD, 19)
     lic = "Southern Cities Construction · NC GC License #107724"
-    d.text((cx - tw(d, lic, fl2) / 2, H - 50), lic, font=fl2, fill=MUTED)
+    d.text((cx - tw(d, lic, fl2) / 2, H - 36), lic, font=fl2, fill=MUTED)
 
     img.save(os.path.join(OUT, "wholesaler-tiers.png"))
     print("built wholesaler-tiers.png")
@@ -154,26 +177,33 @@ def build_vertical():
     eb = font(BOLD, 30)
     d.text((cx - tw(d, "FOR NC WHOLESALERS", eb) / 2, 400), "FOR NC WHOLESALERS", font=eb, fill=ORANGE)
 
-    # headline — split across two lines for impact
-    fh = font(BLACK, 76)
-    d.text((cx - tw(d, "Same deal.", fh) / 2, 460), "Same deal.", font=fh, fill=NAVY)
-    d.text((cx - tw(d, "Three outcomes.", fh) / 2, 555), "Three outcomes.", font=fh, fill=NAVY)
+    # headline — punchy dollar line + setup
+    fh = font(BLACK, 84)
+    d.text((cx - tw(d, "$8K. $15K. $40K.", fh) / 2, 450), "$8K. $15K. $40K.", font=fh, fill=NAVY)
+    fh2 = font(BLACK, 62)
+    d.text((cx - tw(d, "Same property.", fh2) / 2, 555), "Same property.", font=fh2, fill=NAVY)
 
-    # tier bands — bigger, more vertical room
+    # tier bands — winner gets ~1.3x height
+    base_h = 290
+    win_h = 380
+    gap = 26
     top = 700
-    band_h = 340
-    gap = 28
     lx0, lx1 = 56, W - 56
-    for i, t in enumerate(TIERS):
-        render_tier_band(d, t, lx0, lx1, top + i * (band_h + gap), band_h)
 
-    # footer + license (above Stories bottom UI overlay)
-    ff = font(BOLD, 28)
-    foot = "Free $25–40K Assignment Playbook ↓"
-    d.text((cx - tw(d, foot, ff) / 2, H - 110), foot, font=ff, fill=NAVY)
-    fl2 = font(BOLD, 24)
+    y = top
+    for t in TIERS:
+        h = win_h if t["win"] else base_h
+        render_tier_band(d, t, lx0, lx1, y, h)
+        y += h + gap
+
+    # CTA pill button (breathing room above)
+    cta_y = H - 170
+    draw_pill_cta(d, cx, cta_y, "Get the free playbook  →", font_size=30)
+
+    # license footer
+    fl2 = font(BOLD, 22)
     lic = "Southern Cities Construction · NC GC License #107724"
-    d.text((cx - tw(d, lic, fl2) / 2, H - 60), lic, font=fl2, fill=MUTED)
+    d.text((cx - tw(d, lic, fl2) / 2, H - 50), lic, font=fl2, fill=MUTED)
 
     img.save(os.path.join(OUT, "wholesaler-tiers-vertical.png"))
     print("built wholesaler-tiers-vertical.png")
