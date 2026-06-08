@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-"Which wholesaler are you?" — 3-tier avatar ladder.
+"Same deal. Three outcomes." — 3-tier avatar ladder.
 $8K Guesser -> $15K Diligent -> $25-40K+ The Standard (GC-verified Deal Pack).
 
 Generates BOTH 1:1 (1080x1080) for Feed and 9:16 (1080x1920) for Stories/Reels.
@@ -51,13 +51,13 @@ def wrap(d, s, f, mw):
 # Tier definitions — used by both renders
 TIERS = [
     {"amt": "$8K", "label": "THE GUESSER",
-     "line": "Hyped about the assignment — then the buyer chopped him on value and rehab cost he couldn't defend.",
+     "line": "Napkin number off comps. Buyer chopped 70%.",
      "bg": (250, 238, 236), "accent": RED, "amt_color": RED, "label_color": RED, "line_color": INK, "win": False},
-    {"amt": "$15K", "label": "THE DILIGENT ONE",
-     "line": "Real comps, a careful rehab estimate — but it's still his number, so buyers still talk it down.",
+    {"amt": "$15K", "label": "THE SOLO ESTIMATOR",
+     "line": "Did the homework. Still got chopped 40%.",
      "bg": (250, 243, 230), "accent": AMBER, "amt_color": AMBER, "label_color": AMBER, "line_color": INK, "win": False},
     {"amt": "$25–40K+", "label": "THE STANDARD",
-     "line": "A GC-verified Deal Pack on every property. Buyers can't argue the number. Closes at the top.",
+     "line": "Licensed GC wrote the number. Buyer signed it. Closed at the top.",
      "bg": NAVY, "accent": ORANGE, "amt_color": WHITE, "label_color": ORANGE, "line_color": MUTED_NAVY, "win": True},
 ]
 
@@ -114,7 +114,7 @@ def build_square():
     eb = font(BOLD, 25)
     d.text((cx - tw(d, "FOR NC WHOLESALERS", eb) / 2, 168), "FOR NC WHOLESALERS", font=eb, fill=ORANGE)
     fh = font(BLACK, 52)
-    d.text((cx - tw(d, "Which wholesaler are you?", fh) / 2, 208), "Which wholesaler are you?", font=fh, fill=NAVY)
+    d.text((cx - tw(d, "Same deal. Three outcomes.", fh) / 2, 208), "Same deal. Three outcomes.", font=fh, fill=NAVY)
 
     # tier bands
     top = 300
@@ -126,7 +126,7 @@ def build_square():
 
     # footer + license
     ff = font(BOLD, 24)
-    foot = "The free $25–40K Assignment Playbook shows you how to be #3."
+    foot = "Free $25–40K Assignment Playbook ↓"
     d.text((cx - tw(d, foot, ff) / 2, H - 86), foot, font=ff, fill=NAVY)
     fl2 = font(BOLD, 21)
     lic = "Southern Cities Construction · NC GC License #107724"
@@ -155,9 +155,9 @@ def build_vertical():
     d.text((cx - tw(d, "FOR NC WHOLESALERS", eb) / 2, 400), "FOR NC WHOLESALERS", font=eb, fill=ORANGE)
 
     # headline — split across two lines for impact
-    fh = font(BLACK, 72)
-    d.text((cx - tw(d, "Which wholesaler", fh) / 2, 460), "Which wholesaler", font=fh, fill=NAVY)
-    d.text((cx - tw(d, "are you?", fh) / 2, 545), "are you?", font=fh, fill=NAVY)
+    fh = font(BLACK, 76)
+    d.text((cx - tw(d, "Same deal.", fh) / 2, 460), "Same deal.", font=fh, fill=NAVY)
+    d.text((cx - tw(d, "Three outcomes.", fh) / 2, 555), "Three outcomes.", font=fh, fill=NAVY)
 
     # tier bands — bigger, more vertical room
     top = 700
@@ -169,7 +169,7 @@ def build_vertical():
 
     # footer + license (above Stories bottom UI overlay)
     ff = font(BOLD, 28)
-    foot = "The free $25–40K Assignment Playbook shows you how to be #3."
+    foot = "Free $25–40K Assignment Playbook ↓"
     d.text((cx - tw(d, foot, ff) / 2, H - 110), foot, font=ff, fill=NAVY)
     fl2 = font(BOLD, 24)
     lic = "Southern Cities Construction · NC GC License #107724"
