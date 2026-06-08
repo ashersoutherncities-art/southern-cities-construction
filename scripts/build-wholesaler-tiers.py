@@ -64,7 +64,7 @@ def tracked_width(d, text, f, spacing=2):
 TIERS = [
     {"slot": "THE GUESS",     "desc": "Napkin off comps. Buyer brought a sharpie.",   "amt": "$8K",       "win": False},
     {"slot": "THE ESTIMATE",  "desc": "Comps + walk-through. Still his number.",      "amt": "$15K",      "win": False},
-    {"slot": "THE STANDARD",  "desc": "GC walked it. GC signed it.", "amt": "$25–40K+", "win": True},
+    {"slot": "THE STANDARD",  "desc": "GC wrote it. GC will build it.", "amt": "$25–40K+", "win": True},
 ]
 
 
