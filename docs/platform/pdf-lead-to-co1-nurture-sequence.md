@@ -201,6 +201,34 @@
 
 ---
 
+## Bonus / on-request email — "How do you contract the actual build?" (send when asked)
+
+**When to send:** Not part of the timed sequence. Send manually (or trigger on tag `asked-about-build-structure`) whenever a financed investor asks how the build itself is contracted — lenders and budget-driven investors ask this early. Tag-trigger it so it fires the moment the question comes up.
+
+**Subject:** Cost-Plus or GMP — how we structure the build (and which one fits you)
+**Pre-header:** The short version: one gives you flexibility, one gives you a guaranteed ceiling.
+
+> Hey {{contact.first_name}},
+>
+> You asked how we contract the actual build, so here's the straight answer. We run full contracting two ways, and both are open-book — you always see the real numbers. The difference is who carries the risk on the final cost.
+>
+> **Cost-Plus** — you pay the actual cost of labor, materials, and subs, plus one agreed, transparent fee. Best when scope is still evolving, on rehabs where you don't know what's behind the walls yet, or when you want to start fast and stay flexible. The trade-off: the final number isn't fixed up front, so you carry the cost if scope grows.
+>
+> **GMP (Guaranteed Maximum Price)** — same open-book model, but I guarantee a maximum price. Anything above that cap is on me, not you. Come in under, the savings are yours. Best when the scope is defined and you (or your lender) need a hard ceiling for the budget to pencil. The trade-off: setting the cap takes more planning before we break ground.
+>
+> **Quick rule:** if a lender is funding this, you almost always want **GMP** — they need the ceiling. If you're self-funding a rehab with unknowns, **Cost-Plus** usually moves faster and keeps you flexible.
+>
+> Full breakdown here: 👉 [How we contract](https://southerncitiesconstruction.com/contracting)
+>
+> Not sure which fits your deal? Reply with the address and how you're funding it, and I'll tell you which structure I'd recommend and why.
+>
+> — Darius T. Walton
+> Southern Cities Construction
+> NC GC License #107724
+> (980) 473-7249
+
+---
+
 ## Compliance footer (paste at the bottom of every email — required)
 
 ```

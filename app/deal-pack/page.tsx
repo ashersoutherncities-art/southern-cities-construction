@@ -206,7 +206,7 @@ export default function DealPackPage() {
                 <div className="relative w-[260px] -rotate-[4deg] transition-transform hover:-rotate-[2deg]">
                   <Image
                     src="/product-mockups/consistent-assignment-wholesaler-cover.jpg"
-                    alt="The $25-40K Assignment Standard PDF cover"
+                    alt="The $25-40K Assignment Playbook PDF cover"
                     width={260}
                     height={335}
                     className="rounded-[14px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] border border-white/15 ring-1 ring-orange/30"
@@ -502,7 +502,7 @@ export default function DealPackPage() {
                 <div className="relative w-[120px] mx-auto sm:mx-0">
                   <Image
                     src="/product-mockups/consistent-assignment-wholesaler-cover.jpg"
-                    alt="The $25-40K Assignment Standard PDF cover"
+                    alt="The $25-40K Assignment Playbook PDF cover"
                     width={120}
                     height={155}
                     className="rounded-lg shadow-[0_12px_24px_-8px_rgba(0,0,0,0.5)] border border-white/15 transition-transform group-hover:scale-105 group-hover:-rotate-2"
@@ -512,7 +512,7 @@ export default function DealPackPage() {
               <div className="flex-1">
                 <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">FREE · 12 PAGES · WHOLESALER</p>
                 <h3 className="mt-2 text-lg font-black tracking-tight text-white group-hover:text-orange sm:text-xl">
-                  The $25–40K Assignment Standard
+                  The $25–40K Assignment Playbook
                 </h3>
                 <p className="mt-2 text-[14px] leading-[1.55] text-white/75">
                   How NC wholesalers are consistently closing $25–40K+ assignments without becoming flippers. Includes a sample Deal Pack excerpt that closed a $32K assignment in 9 days.

@@ -22,7 +22,7 @@ export type Resource = {
 export const RESOURCES: Resource[] = [
  {
   slug: 'consistent-assignment-wholesaler',
-  title: 'The $25–40K Assignment Standard',
+  title: 'The $25–40K Assignment Playbook',
   kind: 'free',
   category: 'Wholesalers',
   audience: 'NC Wholesalers · Assigners',

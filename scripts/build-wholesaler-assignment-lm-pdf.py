@@ -2,7 +2,7 @@
 """
 build-wholesaler-assignment-lm-pdf.py
 
-LM #1 — "The $25–40K Assignment Standard"
+LM #1 — "The $25–40K Assignment Playbook"
 Sells: Deal Pack (Bid-Ready, Build-Ready, Site Scan, Pro Subscription)
 Audience: NC wholesalers who want to stay wholesalers but capture bigger fees
 
@@ -179,7 +179,7 @@ def cover_story():
     s = []
     s.append(Spacer(1, 2.1 * inch))
     s.append(Paragraph("FOR NC WHOLESALERS · 2026 PLAYBOOK", S["cover_eyebrow"]))
-    s.append(Paragraph("The $25–40K Assignment Standard", S["cover_title"]))
+    s.append(Paragraph("The $25–40K Assignment Playbook", S["cover_title"]))
     s.append(Paragraph(
         "How NC wholesalers are consistently closing $25–40K+ "
         "assignments to real investors — without becoming flippers, and "
@@ -543,7 +543,7 @@ def build():
         OUTPUT_PDF, pagesize=LETTER,
         leftMargin=MARGIN_L, rightMargin=MARGIN_R,
         topMargin=MARGIN_T, bottomMargin=MARGIN_B,
-        title="The $25-40K Assignment Standard",
+        title="The $25-40K Assignment Playbook",
         author="Darius T. Walton · Southern Cities Construction",
         subject="NC Wholesaler Lead Magnet · Deal Pack",
     )

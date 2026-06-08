@@ -44,7 +44,7 @@ const PRODUCTS: FeaturedProduct[] = [
 
 const FREE_PLAYBOOKS = [
   {
-    name: 'The $25–40K Assignment Standard',
+    name: 'The $25–40K Assignment Playbook',
     pages: 12,
     description:
       'How NC wholesalers are consistently closing $25–40K+ assignments to real end-investors — without becoming flippers. The buyer-pool problem, the 5-question rehab validation framework, and an anonymized excerpt of a real Bid-Ready Deal Pack that closed a $32K assignment in 9 days.',

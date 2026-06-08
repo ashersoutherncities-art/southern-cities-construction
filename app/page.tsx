@@ -43,6 +43,20 @@ const proofCards: { label: string; detail: string; tone: 'red' | 'amber' | 'rose
   { label: 'Know What to Do Next', detail: 'Clear direction before moving forward', tone: 'emerald', icon: 'compass' },
 ];
 
+const standardBelief = {
+  eyebrow: 'Our Standard',
+  heading: 'A home is where someone lives their life. That deserves a standard.',
+  body: 'Not a half-finished flip thrown back on the market. Not overpriced “luxury” nobody can afford. The standard isn’t fancy — it’s process, planning, execution, and management, done right. We hold ourselves and every investor and flipper we work with to it. Big fund or first flip, it doesn’t change.',
+  tagline: 'Built to a standard. Priced for real life.',
+};
+
+const standardPillars = [
+  { title: 'Held to a standard', detail: 'Every real estate professional — flippers included — accountable to real process, planning, and management.' },
+  { title: 'Homes, not units', detail: 'A place where someone lives their life. We make it great, every time, to the best of our ability.' },
+  { title: 'Quality, fairly priced', detail: 'Not janky half-fixes. Not unaffordable “luxury.” Places people can actually live in for a reasonable price.' },
+  { title: 'Do right and do well', detail: 'Build it right and make money. It isn’t either/or — it’s both.' },
+];
+
 const stages = [
   {
     id: 'due-diligence',
@@ -460,7 +474,7 @@ export default function Home() {
                     <Image src="/product-mockups/wholesale-to-flip-9-month-cover.jpg" alt="Wholesaler-to-flipper case study" width={180} height={233} className="rounded-[10px] border border-stone-300 shadow-[0_24px_50px_-16px_rgba(8,17,29,0.45)]" />
                   </div>
                   <div className="relative w-[240px] -rotate-[4deg]">
-                    <Image src="/product-mockups/consistent-assignment-wholesaler-cover.jpg" alt="The $25–40K Assignment Standard" width={240} height={310} className="rounded-[12px] border border-stone-300 shadow-[0_30px_60px_-18px_rgba(8,17,29,0.55)] ring-1 ring-[#fa8c41]/30" />
+                    <Image src="/product-mockups/consistent-assignment-wholesaler-cover.jpg" alt="The $25–40K Assignment Playbook" width={240} height={310} className="rounded-[12px] border border-stone-300 shadow-[0_30px_60px_-18px_rgba(8,17,29,0.55)] ring-1 ring-[#fa8c41]/30" />
                     <div className="absolute -top-3 -right-3 rounded-full bg-[#fa8c41] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_-4px_rgba(250,140,65,0.6)]">Free playbooks</div>
                   </div>
                 </div>
@@ -629,6 +643,46 @@ export default function Home() {
                   </div>
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* OUR STANDARD — brand belief */}
+        <section className="relative overflow-hidden bg-[#08111d]">
+          <div
+            className="absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+              backgroundSize: '56px 56px',
+              maskImage: 'radial-gradient(ellipse at top left, black 30%, transparent 75%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at top left, black 30%, transparent 75%)',
+            }}
+            aria-hidden="true"
+          />
+          <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{standardBelief.eyebrow}</p>
+              <h2 className="mt-3 text-4xl font-black leading-[1.08] tracking-[-0.03em] text-white sm:text-5xl">
+                {standardBelief.heading}
+              </h2>
+              <p className="mt-6 text-lg leading-relaxed text-white/75">{standardBelief.body}</p>
+            </div>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {standardPillars.map((pillar) => (
+                <div
+                  key={pillar.title}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-7 transition-all hover:-translate-y-0.5 hover:border-[#fa8c41]/40"
+                >
+                  <p className="text-lg font-extrabold tracking-tight text-white">{pillar.title}</p>
+                  <p className="mt-3 text-[15px] leading-relaxed text-white/65">{pillar.detail}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 flex flex-col items-start gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-2xl font-black tracking-tight text-[#fa8c41] sm:text-3xl">{standardBelief.tagline}</p>
+              <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-white/50">NC General Contractor · License #107724</p>
             </div>
           </div>
         </section>
