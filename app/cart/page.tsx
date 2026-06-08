@@ -1,26 +1,25 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { buildCartHref, buildDirectCheckoutHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam } from '@/lib/cart';
+import { buildCartHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam, type CartSelection } from '@/lib/cart';
+import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
 const CART_SYNC_EVENT = 'scc:cart-sync';
 
-function getCheckoutLabel(itemKey: string) {
-  if (itemKey === 'permit-management-service') {
-    return 'Continue to setup';
-  }
-  return 'Continue to checkout';
-}
-import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
-
 function CartPageContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const queryCart = searchParams.get(CART_QUERY_KEY);
+  const cancelled = searchParams.get('checkout') === 'cancelled';
   const [cookieCart, setCookieCart] = useState('');
+  const [items, setItems] = useState<CartSelection[]>([]);
+  const [hydrated, setHydrated] = useState(false);
+  const [checkoutState, setCheckoutState] = useState<'idle' | 'loading' | 'error'>('idle');
+  const [checkoutError, setCheckoutError] = useState('');
 
   useEffect(() => {
     const sync = () => setCookieCart(getCartParamFromCookie());
@@ -35,11 +34,16 @@ function CartPageContent() {
     };
   }, []);
 
-  const items = useMemo(() => {
+  // Initialize items from URL query (if present) or cookie. URL wins on first
+  // load so deep links work; subsequent changes are local state and sync back
+  // to the cookie.
+  useEffect(() => {
     const queryItems = parseCartParam(queryCart);
-    if (queryItems.length) return queryItems;
-    return parseCartParam(cookieCart);
-  }, [cookieCart, queryCart]);
+    const cookieItems = parseCartParam(cookieCart);
+    setItems(queryItems.length ? queryItems : cookieItems);
+    setHydrated(true);
+  }, [queryCart, cookieCart]);
+
   const lineItems = useMemo(() => getCartLineItems(items), [items]);
 
   const subtotal = useMemo(
@@ -47,18 +51,100 @@ function CartPageContent() {
     [lineItems]
   );
 
+  // Isolated mode: an LP funnel landed the customer here. Detected via either:
+  // - lp=1 query flag (sticky — survives clear/remove operations)
+  // - queryCart presence (backwards compat for old direct-lp URLs without lp=1)
+  // Do NOT sync to cookie in isolated mode so the customer's broader-site cart
+  // stays untouched.
+  const isolationFlag = searchParams.get('lp') === '1';
+  const fromLpSlug = searchParams.get('from');
+  const isIsolatedMode = isolationFlag || queryCart !== null;
+
+  // Sync items state back to the cookie (and notify the nav pill). Skips on
+  // the initial pre-hydration pass so we do not stomp the cookie with [],
+  // and skips in isolated mode (see comment above).
   useEffect(() => {
-    if (!lineItems.length) {
-      return;
-    }
+    if (!hydrated || isIsolatedMode) return;
     const nextHref = buildCartHref(items);
     const nextParam = nextHref.split(`${CART_QUERY_KEY}=`)[1] || '';
     setCartParamCookie(nextParam);
-  }, [items, lineItems]);
+    window.dispatchEvent(new Event(CART_SYNC_EVENT));
+  }, [items, hydrated, isIsolatedMode]);
+
+  // When clearing or removing items in isolated mode, navigate to /cart?lp=1
+  // (plus &from=<lp-slug> if known) so isolation chrome is preserved and the
+  // "Back to landing page" link stays available. Cart param gets dropped so
+  // refresh doesn't resurrect the removed item. In non-isolated mode, just
+  // drop the cart param.
+  const navigateAfterCartChange = useCallback(() => {
+    if (!queryCart && !isolationFlag) return;
+    if (!isolationFlag) {
+      router.replace('/cart');
+      return;
+    }
+    const params = new URLSearchParams();
+    params.set('lp', '1');
+    if (fromLpSlug) params.set('from', fromLpSlug);
+    router.replace(`/cart?${params.toString()}`);
+  }, [queryCart, isolationFlag, fromLpSlug, router]);
+
+  const removeItem = useCallback(
+    (key: string) => {
+      setItems((prev) => prev.filter((item) => item.key !== key));
+      navigateAfterCartChange();
+    },
+    [navigateAfterCartChange]
+  );
+
+  const clearCart = useCallback(() => {
+    setItems([]);
+    navigateAfterCartChange();
+  }, [navigateAfterCartChange]);
+
+  async function startCheckout() {
+    if (!lineItems.length) return;
+    setCheckoutState('loading');
+    setCheckoutError('');
+    try {
+      const res = await fetch('/api/cart-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: items, isolated: isIsolatedMode, fromLp: fromLpSlug }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.url) {
+        throw new Error(json.error || 'Could not start checkout');
+      }
+      window.location.href = json.url;
+    } catch (err) {
+      setCheckoutState('error');
+      setCheckoutError(err instanceof Error ? err.message : 'Checkout failed');
+    }
+  }
 
   return (
     <main className="min-h-screen bg-stone-50">
-      <SiteNav variant="solid" />
+      {isIsolatedMode ? (
+        // LP isolation: no global nav. Show a minimal branded header that
+        // matches the LP visual language — wordmark only, no menu, no
+        // back-to-main-site link. The customer is in a focused checkout
+        // funnel; they came from an LP, they go to Stripe next.
+        <header className="border-b border-stone-200 bg-white">
+          <div className="container-pro flex h-16 items-center justify-center sm:h-20">
+            {/* Non-linked wordmark — LP isolation means no clickable path back to main site */}
+            <div className="text-center">
+              <p className="text-base font-black tracking-[-0.02em] text-navy-900 sm:text-lg">
+                Southern Cities Construction
+              </p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange">
+                Licensed NC General Contractor
+              </p>
+            </div>
+          </div>
+        </header>
+      ) : (
+        <SiteNav variant="solid" />
+      )}
 
       <section className="container-pro pt-14 pb-20 lg:pt-20 lg:pb-28">
         <div className="max-w-3xl">
@@ -80,32 +166,79 @@ function CartPageContent() {
             </div>
             <h2 className="text-2xl font-bold text-navy-900">Your cart is empty</h2>
             <p className="mx-auto mt-3 max-w-md text-ink/60">
-              Browse the services catalog and add a purchasable item to start checkout, or request a quote for scope-based work.
+              {isIsolatedMode
+                ? 'Use your browser’s back button to return to where you were, or contact us if you need help.'
+                : 'Browse the services catalog and add a purchasable item to start checkout, or request a quote for scope-based work.'}
             </p>
-            <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center rounded-full bg-orange hover:bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-orange transition-colors"
-              >
-                Browse Services
-              </Link>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
-              >
-                Request a Quote
-              </Link>
-            </div>
+            {!isIsolatedMode ? (
+              <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center rounded-full bg-orange hover:bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-orange transition-colors"
+                >
+                  Browse Services
+                </Link>
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            ) : (
+              <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                {fromLpSlug ? (
+                  <Link
+                    href={`/lp/${fromLpSlug}`}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-orange hover:bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-orange transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                    Back to landing page
+                  </Link>
+                ) : null}
+                <a
+                  href="mailto:info@southerncitiesconstruction.com"
+                  className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
+                >
+                  Email us about this product
+                </a>
+              </div>
+            )}
           </div>
         ) : (
           <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_0.8fr]">
             <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold text-navy/65">
+                  {lineItems.length} {lineItems.length === 1 ? 'item' : 'items'} in cart
+                </p>
+                <button
+                  type="button"
+                  onClick={clearCart}
+                  className="text-sm font-semibold text-navy/55 hover:text-red-600 transition-colors underline-offset-4 hover:underline"
+                >
+                  Clear cart
+                </button>
+              </div>
+
               {lineItems.map((lineItem) => (
                 <div
                   key={lineItem.key}
-                  className="rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-9 shadow-elev-1"
+                  className="relative rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-9 shadow-elev-1"
                 >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <button
+                    type="button"
+                    onClick={() => removeItem(lineItem.key)}
+                    aria-label={`Remove ${lineItem.product.name} from cart`}
+                    className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-navy/[0.08] bg-white text-navy/45 hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between pr-10">
                     <div className="min-w-0">
                       <h2 className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight">
                         {lineItem.product.name}
@@ -123,6 +256,16 @@ function CartPageContent() {
                           Job variables for Permit Administration are collected on the next page before checkout.
                         </p>
                       )}
+                      <button
+                        type="button"
+                        onClick={() => removeItem(lineItem.key)}
+                        className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy/55 hover:text-red-600 transition-colors"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Remove
+                      </button>
                     </div>
                     <div className="shrink-0 text-left sm:text-right">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-navy/45">
@@ -138,27 +281,21 @@ function CartPageContent() {
                       )}
                     </div>
                   </div>
-                  <Link
-                    href={buildDirectCheckoutHref({ key: lineItem.key, amount: lineItem.amount })}
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-navy-900 hover:bg-navy px-6 py-3 text-sm font-semibold text-white transition-colors"
-                  >
-                    {getCheckoutLabel(lineItem.key)}
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </Link>
                 </div>
               ))}
 
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900 hover:text-orange transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                </svg>
-                Back to services
-              </Link>
+              {/* "Back to services" goes to the main site — hide in isolated LP-funnel mode. */}
+              {!isIsolatedMode ? (
+                <Link
+                  href="/services"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900 hover:text-orange transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                  </svg>
+                  Back to services
+                </Link>
+              ) : null}
             </div>
 
             <div className="h-fit rounded-3xl border border-navy/[0.08] bg-white p-7 sm:p-8 shadow-elev-1">
@@ -186,16 +323,52 @@ function CartPageContent() {
                 ))}
               </div>
 
-              <div className="mt-6 pt-5 border-t border-navy/[0.08] flex items-baseline justify-between">
-                <span className="text-sm font-semibold uppercase tracking-[0.14em] text-navy/55">
-                  Subtotal
-                </span>
-                <span className="text-2xl font-extrabold text-navy-900">
-                  {formatPrice(subtotal)}
-                </span>
+              <div className="mt-6 pt-5 border-t border-navy/[0.08] space-y-2.5">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-sm font-medium text-navy/65">Subtotal</span>
+                  <span className="text-base font-semibold text-navy-900">{formatPrice(subtotal)}</span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-sm font-medium text-navy/65">Tax</span>
+                  <span className="text-sm text-navy/55">Calculated at checkout</span>
+                </div>
+                <div className="pt-3 border-t border-navy/[0.08] flex items-baseline justify-between">
+                  <span className="text-sm font-semibold uppercase tracking-[0.14em] text-navy/55">Total before tax</span>
+                  <span className="text-2xl font-extrabold text-navy-900">{formatPrice(subtotal)}</span>
+                </div>
               </div>
 
-              <p className="mt-5 text-xs leading-relaxed text-ink/55">
+              {cancelled ? (
+                <p className="mt-5 text-xs leading-relaxed text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
+                  Checkout was cancelled. Your cart is saved — review and try again when ready.
+                </p>
+              ) : null}
+
+              {checkoutError ? (
+                <p className="mt-5 text-xs leading-relaxed text-red-700 bg-red-50 border border-red-200 rounded-xl p-3">
+                  {checkoutError}
+                </p>
+              ) : null}
+
+              <button
+                type="button"
+                onClick={startCheckout}
+                disabled={checkoutState === 'loading'}
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange hover:bg-orange-500 px-6 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-glow-orange transition-colors disabled:opacity-60 disabled:cursor-wait"
+              >
+                {checkoutState === 'loading' ? 'Opening secure checkout…' : 'Continue to Checkout'}
+                {checkoutState !== 'loading' ? (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                ) : null}
+              </button>
+
+              <p className="mt-4 text-[11px] leading-relaxed text-ink/55 text-center">
+                Secure checkout powered by Stripe. Billing address, phone, and payment details are collected on the next page. Sales tax (if applicable) is calculated from your billing address.
+              </p>
+
+              <p className="mt-3 text-[11px] leading-relaxed text-ink/55">
                 Final project price may change after scope review when scope-based work is involved. Some services, including Permit Administration, collect job variables on the next page before the checkout amount is finalized.
               </p>
             </div>
@@ -203,7 +376,21 @@ function CartPageContent() {
         )}
       </section>
 
-      <SiteFooter />
+      {isIsolatedMode ? (
+        // Minimal footer in isolated mode — trust signals only, no nav links.
+        <footer className="border-t border-stone-200 bg-white py-8">
+          <div className="container-pro flex flex-col items-center gap-2 text-center text-xs text-ink/55">
+            <p>
+              Secure checkout via Stripe · SSL encrypted · No subscription · Licensed NC GC #107724
+            </p>
+            <p>
+              Questions? Email <a href="mailto:info@southerncitiesconstruction.com" className="font-semibold text-navy-900 hover:text-orange">info@southerncitiesconstruction.com</a> · Call <a href="tel:+19804737249" className="font-semibold text-navy-900 hover:text-orange">(980) 473-7249</a>
+            </p>
+          </div>
+        </footer>
+      ) : (
+        <SiteFooter />
+      )}
     </main>
   );
 }

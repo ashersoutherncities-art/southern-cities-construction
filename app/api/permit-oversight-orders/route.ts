@@ -1,3 +1,4 @@
+import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
 import {
@@ -7,13 +8,36 @@ import {
   updateOrder,
 } from '@/lib/orders';
 
+/**
+ * Cryptographically secure temporary password. Uses node:crypto's randomBytes
+ * rather than Math.random so the output cannot be predicted from rough
+ * knowledge of creation time. Small modulo bias (~3%) is acceptable for a
+ * 14-char alphanumeric+symbol temp password that gets rotated on first login.
+ */
 function generateTemporaryPassword(length = 14) {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%';
+  const bytes = randomBytes(length);
   let out = '';
   for (let i = 0; i < length; i += 1) {
-    out += chars[Math.floor(Math.random() * chars.length)];
+    out += chars[bytes[i] % chars.length];
   }
   return out;
+}
+
+/**
+ * Constant-time comparison of the request's x-internal-secret header against
+ * the INTERNAL_API_SECRET env var. Used to lock this endpoint down to
+ * server-to-server calls from the Stripe webhook only. Returns false (deny)
+ * if the env var is missing — fail closed.
+ */
+function isAuthorizedInternalCall(req: NextRequest): boolean {
+  const expected = process.env.INTERNAL_API_SECRET;
+  if (!expected) return false;
+  const provided = req.headers.get('x-internal-secret') || '';
+  const a = Buffer.from(provided);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }
 
 function buildOrderSummary(body: Record<string, unknown>) {
@@ -35,6 +59,14 @@ function buildOrderSummary(body: Record<string, unknown>) {
 }
 
 export async function POST(req: NextRequest) {
+  // Server-to-server only: this endpoint writes order rows + sends Telegram
+  // notifications, and used to be publicly callable. Now requires the shared
+  // INTERNAL_API_SECRET header that the Stripe webhook (the only legitimate
+  // caller) sets. Anything else gets 401.
+  if (!isAuthorizedInternalCall(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     let supabase;
     try {

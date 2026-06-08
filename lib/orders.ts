@@ -125,6 +125,34 @@ function isDuplicateStripeEvent(error: { code?: string; message?: string }) {
   return error.code === '23505' && (error.message || '').includes('stripe_event_id');
 }
 
+/**
+ * Returns true if a Stripe event with this id has already been recorded in
+ * order_events. Used by the Stripe webhook to short-circuit retries before
+ * running business logic (so customers don't get duplicate confirmation
+ * emails / SMS / GHL workflow firings when Stripe re-delivers an event).
+ *
+ * Fails open: on lookup error we return false (allow processing). Duplicate
+ * fulfillment is annoying; missed fulfillment is worse.
+ */
+export async function hasProcessedStripeEvent(
+  stripeEventId: string,
+  client?: SupabaseClient
+): Promise<boolean> {
+  if (!stripeEventId) return false;
+  const supabase = client ?? getServiceClient();
+  const { data, error } = await supabase
+    .from('order_events')
+    .select('id')
+    .eq('stripe_event_id', stripeEventId)
+    .limit(1)
+    .maybeSingle();
+  if (error) {
+    console.error('stripe event dedupe lookup error:', error);
+    return false;
+  }
+  return Boolean(data);
+}
+
 export async function findOrderByStripeSession(
   sessionId: string,
   client?: SupabaseClient

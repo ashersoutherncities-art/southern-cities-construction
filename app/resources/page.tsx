@@ -29,7 +29,9 @@ function ResourceCard({
   onRequest: (resource: Resource) => void;
 }) {
   const isPaid = resource.kind === 'paid';
-  const isDirectDownload = !isPaid && !!resource.downloadUrl;
+  // Lead magnets are gated even if downloadUrl is set — the link is revealed
+  // after form submit, not at the card level.
+  const isDirectDownload = !isPaid && !!resource.downloadUrl && !resource.leadMagnet;
   return (
     <div className="group flex h-full flex-col rounded-2xl border border-stone-200 bg-white shadow-elev-1 card-hover overflow-hidden">
       <div
@@ -359,16 +361,32 @@ export default function ResourcesPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                   </div>
-                  <h4 className="text-xl font-bold text-navy tracking-tight">Request received.</h4>
+                  <h4 className="text-xl font-bold text-navy tracking-tight">
+                    {active.leadMagnet && active.downloadUrl
+                      ? 'Your checklist is ready.'
+                      : 'Request received.'}
+                  </h4>
                   <p className="mt-2 text-stone-500 leading-relaxed">
-                    We&apos;ll {active.kind === 'paid' ? 'reply with invoice and delivery' : 'send the file'} within one business day — look for an email from orders@southerncitiesconstruction.com.
+                    {active.leadMagnet && active.downloadUrl
+                      ? 'Click below to download. We also sent a copy to your email so you can refer back to it later.'
+                      : `We'll ${active.kind === 'paid' ? 'reply with invoice and delivery' : 'send the file'} within one business day — look for an email from orders@southerncitiesconstruction.com.`}
                   </p>
-                  <button
-                    onClick={closeRequest}
-                    className="mt-6 inline-flex items-center justify-center rounded-full bg-navy hover:bg-navy-700 text-white px-6 py-3 text-sm font-semibold transition-colors"
-                  >
-                    Close
-                  </button>
+                  {active.leadMagnet && active.downloadUrl ? (
+                    <a
+                      href={active.downloadUrl}
+                      download
+                      className="mt-6 inline-flex items-center justify-center rounded-full bg-orange hover:bg-orange-500 text-white px-7 py-3.5 text-sm font-semibold shadow-glow-orange transition-all"
+                    >
+                      Download the Checklist (PDF)
+                    </a>
+                  ) : (
+                    <button
+                      onClick={closeRequest}
+                      className="mt-6 inline-flex items-center justify-center rounded-full bg-navy hover:bg-navy-700 text-white px-6 py-3 text-sm font-semibold transition-colors"
+                    >
+                      Close
+                    </button>
+                  )}
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">

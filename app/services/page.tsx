@@ -49,7 +49,7 @@ const roleMeta: Record<
     href: '/services/investors',
     pain: 'The deal, rehab, or turn has too much uncertainty around budget, hiring, timeline, or execution.',
     outcome: 'You get better numbers, fewer surprises, and less delay before the deal loses momentum.',
-    topServices: ['Investor Deal & Scope Review', 'Rehab Budget Review', 'Rent-Ready Turn'],
+    topServices: ['Investor Execution Review', 'Rehab Budget Review', 'Rent-Ready Turn'],
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   realtors: {
@@ -98,7 +98,7 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/services/investors',
     start: 'Need a better read on the deal before spending more money',
     stops: [
-      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Deal & Scope Review', 'Rehab Budget Review'], tone: 'start' },
+      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Execution Review', 'Rehab Budget Review'], tone: 'start' },
       { label: 'Need help hiring the right contractor and setting the job up right', services: ['Contractor Fit Consultation', 'Bid Coordination & Contractor Match', 'Materials Logistics Setup'], tone: 'info' },
       { label: 'Need help with lender scope, bids, or draws', services: ['Lender Scope & Bid Package', 'Draw Review Support'], tone: 'build' },
       { label: 'Need tighter follow-through on an active job', services: ['Rent-Ready Turn', 'Construction Oversight'], tone: 'control' },
@@ -255,30 +255,46 @@ export default function ServicesOverviewPage() {
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav variant="solid" />
 
-      <section className="relative overflow-hidden bg-navy-900 pt-32 pb-24 sm:pt-40 sm:pb-32">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
+      <section className="relative overflow-hidden bg-[#08111d] pt-32 pb-24 sm:pt-36 sm:pb-28">
+        <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
+        <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
+        <div className="absolute left-[-10%] top-[10%] h-72 w-72 rounded-full bg-[rgba(245,130,32,0.12)] blur-3xl" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          }}
+          aria-hidden="true"
+        />
         <div className="relative z-10 container-pro">
           <div className="max-w-4xl">
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+            <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
               Pricing
-            </div>
-            <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Pricing for project support.
+            </p>
+            <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
+              Pricing for <span className="text-[#fa8c41]">project support.</span>
             </h1>
-            <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
+            <p className="mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
               Pick how you want to start. Buy a fixed-price service now, get pricing or request a review when scope or condition affects the number, or subscribe to a monthly support plan. Full contracting is the other door when the project needs a licensed GC running it end to end.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#start-here" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
-                Start Here
+            <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
+              <a href="#start-here" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
+                Start Here <span aria-hidden="true">→</span>
               </a>
-              <a href="/recurring-support" className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+              <a href="/recurring-support" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
                 See Support Plans
               </a>
             </div>
           </div>
         </div>
+        <style>{`
+@keyframes heroFloat { 0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); } 50% { transform: scale(1.08) translate3d(-12px, -8px, 0); } }
+@keyframes heroRise { 0% { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(4px); } 60% { filter: blur(0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); } }
+`}</style>
       </section>
 
       <section id="start-here" className="border-b border-stone-200 bg-white py-16 sm:py-20">
@@ -473,6 +489,27 @@ export default function ServicesOverviewPage() {
             {filteredCards.map((card) => (
               <div key={card.href}>{card.title}</div>
             ))}
+          </div>
+
+          {/* Wholesalers + Realtors → Deal Pack cross-link (keeps the audience reachable from the hub) */}
+          <div className="mt-6 overflow-hidden rounded-[24px] border-2 border-orange/40 bg-gradient-to-br from-orange/[0.07] via-orange/[0.02] to-transparent p-6 shadow-elev-1 sm:rounded-[28px] sm:p-8">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Wholesaling or selling a deal?</p>
+                <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
+                  Attach a GC-verified Deal Pack to your assignment or listing.
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
+                  Real investors won&rsquo;t pay top dollar for an unverified deal. A licensed NC GC verifies the budget, scope, and risk &mdash; so you attract the buyer pool that actually pays for it.
+                </p>
+              </div>
+              <Link
+                href="/deal-pack"
+                className="shrink-0 inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white shadow-glow-orange transition hover:-translate-y-0.5 hover:bg-orange-500"
+              >
+                See the Deal Pack →
+              </Link>
+            </div>
           </div>
         </div>
       </section>

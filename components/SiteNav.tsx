@@ -16,13 +16,15 @@ const SERVICES_GROUP: NavGroup = {
     { href: '/services', label: 'Pricing Overview' },
     { href: '/services/homeowners', label: 'For Homeowners' },
     { href: '/services/investors', label: 'For Investors' },
-    { href: '/services/industry-partners#realtors', label: 'For Realtors' },
-    { href: '/services/industry-partners#contractors', label: 'For Contractors' },
-    { href: '/services/industry-partners#developers', label: 'For Developers' },
+    { href: '/services/wholesalers', label: 'For Wholesalers' },
+    { href: '/services/realtors', label: 'For Realtors' },
+    { href: '/services/contractors', label: 'For Contractors' },
+    { href: '/services/developers-landowners', label: 'For Developers' },
   ],
 };
 
 const PRIMARY_LINKS: NavLink[] = [
+  { href: '/deal-pack', label: 'Deal Pack' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contracting', label: 'Contracting' },
   { href: '/recurring-support', label: 'Support Plans' },
@@ -96,7 +98,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
         <div className="container-pro">
           <div className="flex h-20 lg:h-[84px] items-center justify-between gap-6">
             <Link href="/" className="flex items-center shrink-0" aria-label="Southern Cities Construction">
-              <Image src="/sc-construction-logo.png" alt="Southern Cities Construction" width={224} height={56} className="h-11 w-auto md:h-12 lg:h-14" priority />
+              <Image src="/sc-construction-logo-reversed.png" alt="Southern Cities Construction" width={360} height={140} className="h-12 w-auto md:h-14 lg:h-[60px]" priority />
             </Link>
 
             <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">

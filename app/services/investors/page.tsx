@@ -2,6 +2,7 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+import LpLeadForm from '@/components/LpLeadForm';
 
 type Product = {
   name: string;
@@ -36,18 +37,26 @@ const investorStages: Stage[] = [
     cta: 'Review Your Project',
     products: [
       {
-        name: 'Investor Deal & Scope Review',
-        price: '$499',
-        description: 'Get a fast construction-side read before you put more money at risk.',
-        href: '/services/investors/investor-review',
-        secondaryHref: '/services/investors/investor-review',
+        name: 'Rehab Budget Range & Execution Risk Snapshot',
+        price: 'Free',
+        description: 'Fast preliminary feasibility estimate for early-stage underwriting. Get a budget range, confidence level, risk flags, likely project category, timeline range, and next-step recommendation before execution surprises blow up the deal.',
+        href: '/lp/rehab-budget-range-execution-risk-snapshot',
+        secondaryHref: '/lp/rehab-budget-range-execution-risk-snapshot',
         primaryCta: 'View Details',
-        itemKey: 'investor-deal-scope-review',
+        highlighted: true,
+      },
+      {
+        name: 'Investor Execution Review',
+        price: '$499',
+        description: 'You bring the deal, we build the numbers. A pre-acquisition underwriting opinion: scope feasibility, a rough budget range with confidence levels, construction risk callouts, and the walk-away trigger — no spreadsheet input needed. Refundable if we cannot perform, and the fee credits forward if you continue. Decision-grade, not bid-grade.',
+        href: '/platform/co1',
+        secondaryHref: '/platform/co1',
+        primaryCta: 'View Details',
       },
       {
         name: 'Budget & Scope Review',
-        price: '$599',
-        description: 'Review your project budget and scope to identify gaps, risks, and realistic costs.',
+        price: '$399',
+        description: 'You bring the numbers, we pressure-test them. A line-item audit of an existing budget — yours, an investor pro-forma, or a contractor bid — against current market costs. Works pre-purchase (vetting a deal) or post-purchase (before bids and draws lock in).',
         href: '/services/investors/budget-review',
         secondaryHref: '/services/investors/budget-review',
         primaryCta: 'View Details',
@@ -83,24 +92,42 @@ const investorStages: Stage[] = [
     compact: true,
     products: [
       {
-        name: 'Budget Validation',
-        description: 'Tighten budget expectations before scope, contractors, and timing drift.',
-        href: '/services/investors/budget-review',
-        secondaryHref: '/services/investors/budget-review',
+        name: 'Contractor-Grade Budget',
+        price: '$1,799',
+        description: 'No real budget yet? We BUILD one from scratch — full takeoffs, real trade-network unit costs, bid-ready spreadsheet. The budget a GC would put together, without hiring one.',
+        href: '/services/investors/contractor-grade-budget',
+        secondaryHref: '/services/investors/contractor-grade-budget',
         primaryCta: 'View Details',
+        itemKey: 'contractor-grade-budget',
       },
       {
         name: 'Contractor Match & Bid Coordination',
-        description: 'Get a clearer contractor decision path with cleaner bid comparison and scope alignment.',
-        href: '/services/investors/contractor-match-bid-coordination',
-        secondaryHref: '/services/investors/contractor-match-bid-coordination',
+        price: '$1,499',
+        description: 'We source vetted contractors that fit your scope, run a structured bid intake, and level the bids side-by-side so the award decision is easy.',
+        href: '/services/investors/bid-coordination-contractor-match',
+        secondaryHref: '/services/investors/bid-coordination-contractor-match',
+        primaryCta: 'View Details',
+        itemKey: 'bid-coordination-contractor-match',
+      },
+      {
+        name: 'Permit Administration',
+        description: 'Permit submission, correction handling, and inspection coordination so paperwork drag does not slow the project once construction starts.',
+        href: '/services/investors/permit-administration',
+        secondaryHref: '/services/investors/permit-administration',
         primaryCta: 'View Details',
       },
       {
-        name: 'Permit, Materials & Lender Prep',
-        description: 'Prepare permits, sourcing, and lender-facing scope before execution pressure builds.',
-        href: '/services/investors/lender-ready-scope-bid-package',
-        secondaryHref: '/services/investors/lender-ready-scope-bid-package',
+        name: 'Materials & Logistics Setup',
+        description: 'Purchasing, delivery sequencing, and materials responsibility scoped before the job starts so the schedule does not slip on supply timing.',
+        href: '/services/investors/materials-logistics-setup',
+        secondaryHref: '/services/investors/materials-logistics-setup',
+        primaryCta: 'View Details',
+      },
+      {
+        name: 'Lender Scope & Bid Package',
+        description: 'Scope-of-work and bid package built around your lender or capital partner so funding conversations and draw approvals start from cleaner support.',
+        href: '/services/investors/lender-scope-bid-package',
+        secondaryHref: '/services/investors/lender-scope-bid-package',
         primaryCta: 'View Details',
       },
     ],
@@ -114,6 +141,20 @@ const investorStages: Stage[] = [
     cta: 'Run This Project',
     compact: true,
     products: [
+      {
+        name: 'Phased Third-Party Inspections',
+        description: 'Discrete quality checks at key construction phases — foundation, framing, pre-drywall, final — to catch defects before official inspection or draw approval blocks the project.',
+        href: '/review/phased-third-party-inspections',
+        secondaryHref: '/services/investors/phased-third-party-inspections',
+        primaryCta: 'View Details',
+        covers: [
+          'Foundation / footing inspection',
+          'Framing inspection',
+          'Pre-drywall MEP check',
+          'Final / punch-list inspection',
+          'Written report + photos per phase',
+        ],
+      },
       {
         name: 'Construction Oversight',
         description: 'You stay in control, and we help keep the project from drifting.',
@@ -223,30 +264,30 @@ const supportRows = [
 const supportBundles = [
   {
     label: 'Before You Commit',
-    title: 'Due Diligence Pricing',
-    price: 'Starting at $1,499',
+    title: 'Due Diligence Bundle',
+    price: '$1,499 flat',
     includes: ['Deal reviewed', 'Budget checked', 'Permit path mapped', 'Contractor fit reviewed'],
     cta: 'View Details',
-    href: '/services/investors/investor-review',
+    href: '/lp/due-diligence-bundle',
     highlighted: false,
   },
   {
     label: 'Before You Start',
-    title: 'Project Setup Pricing',
+    title: 'Project Setup Bundle',
     price: 'Starting at $2,500',
     includes: ['Scope prepared', 'Timeline built', 'Permit prep', 'Bid coordination', 'Cashflow schedule'],
     cta: 'View Details',
-    href: '/services/investors/contractor-match-bid-coordination',
+    href: '/lp/project-setup-bundle',
     highlighted: true,
     badge: 'Most Common',
   },
   {
     label: 'During Construction',
-    title: 'Execution Support Pricing',
+    title: 'Execution Support Bundle',
     price: 'Custom / Starting at $3,500',
     includes: ['Bid coordination', 'Cashflow schedule', 'Draws reviewed', 'Progress monitored', 'Permit prep', 'Project oversight', 'Full contracting available'],
     cta: 'View Details',
-    href: '/services/investors/construction-oversight',
+    href: '/lp/execution-support-bundle',
     highlighted: false,
   },
 ];
@@ -286,7 +327,13 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 function StageSection({ id, stage, title, label, cta, products, compact }: Stage) {
-  const gridClass = compact ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2 xl:grid-cols-4';
+  // Widths are computed so items + gap-5 (1.25rem) exactly fill 100%, which
+  // means full rows look identical to a regular grid. justify-center only
+  // affects PARTIAL last rows (e.g. 5 items in a 3-col layout) — those get
+  // centered instead of left-aligned with awkward empty space.
+  const itemWidthClass = compact
+    ? 'w-full md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]'
+    : 'w-full md:w-[calc(50%-0.625rem)] xl:w-[calc(25%-0.9375rem)]';
 
   return (
     <section id={id} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-elev-1 sm:p-8">
@@ -301,9 +348,11 @@ function StageSection({ id, stage, title, label, cta, products, compact }: Stage
         </a>
       </div>
 
-      <div className={`mt-8 grid gap-5 ${gridClass}`}>
+      <div className="mt-8 flex flex-wrap justify-center gap-5">
         {products.map((product) => (
-          <ProductCard key={product.name} product={product} />
+          <div key={product.name} className={itemWidthClass}>
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
     </section>
@@ -321,31 +370,52 @@ export default function InvestorsPage() {
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav variant="solid" />
 
-      <section className="relative overflow-hidden bg-navy-900 pt-32 pb-20 sm:pt-40 sm:pb-24">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
+      <section className="relative overflow-hidden bg-[#08111d] pt-32 pb-24 sm:pt-36 sm:pb-28">
+        <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
+        <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
+        <div className="absolute left-[-10%] top-[10%] h-72 w-72 rounded-full bg-[rgba(245,130,32,0.12)] blur-3xl" />
+        <div className="absolute bottom-[-6rem] right-[5%] h-80 w-80 rounded-full bg-[rgba(255,255,255,0.06)] blur-3xl" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          }}
+          aria-hidden="true"
+        />
         <div className="relative z-10 container-pro">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-orange">For Investors · Licensed NC General Contractor #107724</p>
-            <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Construction Support for Investment Projects
+          <div className="mx-auto max-w-5xl text-center">
+            <p className="flex items-center justify-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
+              The Contractor for Investors · NC GC #107724
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
+            </p>
+            <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
+              Construction support for <span className="text-[#fa8c41]">investment projects.</span>
             </h1>
-            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">
+            <p className="mx-auto mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
               Choose where you are in the project and get the right support before costs, delays, or execution problems grow.
             </p>
-            <div className="mt-10 grid gap-3 text-left sm:grid-cols-2 xl:grid-cols-5">
+            <div className="mt-10 flex flex-wrap justify-center gap-3 motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
               {investorStages.map((stage) => (
                 <a
                   key={stage.id}
                   href={`#${stage.id}`}
-                  className="rounded-[22px] border border-white/14 bg-white/8 px-4 py-4 text-left text-white transition hover:border-orange hover:bg-white/12"
+                  className="w-full max-w-[200px] flex-1 basis-[180px] rounded-[16px] border border-white/15 bg-white/[0.06] px-4 py-4 text-left text-white transition hover:-translate-y-0.5 hover:border-[#fa8c41]/60 hover:bg-white/[0.1] sm:max-w-[220px]"
                 >
-                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">{stage.stage}</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#fa8c41]">{stage.stage}</p>
                   <p className="mt-2 text-base font-extrabold leading-tight">{stage.heroLabel}</p>
                 </a>
               ))}
             </div>
           </div>
         </div>
+        <style>{`
+@keyframes heroFloat { 0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); } 50% { transform: scale(1.08) translate3d(-12px, -8px, 0); } }
+@keyframes heroRise { 0% { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(4px); } 60% { filter: blur(0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); } }
+`}</style>
       </section>
 
       <section className="bg-white py-8 sm:py-10">
@@ -363,37 +433,22 @@ export default function InvestorsPage() {
                   <span className="mt-1 block text-orange">Support</span>
                 </h2>
 
-                <p className="mt-4 max-w-xl text-[15px] leading-[1.65] text-white/84 sm:text-[16px]">
+                <p className="mt-4 max-w-xl text-[16px] leading-[1.65] text-white sm:text-[17px]">
                   You stay close to the project. We provide the structure, permits, and GC backing to keep it on track.
                 </p>
 
-                <div className="mt-6 hidden lg:grid lg:grid-cols-5">
+                <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
                   {[
                     { title: 'You stay in control', desc: 'You act as project manager.' },
                     { title: 'GC structure', desc: 'Controls and compliance.' },
                     { title: 'Permits under GC', desc: 'Prepared and pulled.' },
                     { title: 'Built right', desc: 'Clear execution standards.' },
                     { title: 'Flexible path', desc: 'Can move to full contracting.' },
-                  ].map((item, index) => (
-                    <div key={item.title} className={`${index > 0 ? 'border-l border-white/14 pl-4' : 'pr-4'} ${index < 4 ? 'pr-4' : ''}`}>
-                      <span className="block text-[18px] leading-none text-orange">◎</span>
-                      <p className="mt-3 text-[12px] font-bold leading-tight text-white">{item.title}</p>
-                      <p className="mt-2 text-[11px] leading-[1.45] text-white/64">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 grid grid-cols-2 gap-3 lg:hidden">
-                  {[
-                    'You stay in control',
-                    'GC structure',
-                    'Permits under GC',
-                    'Built right',
-                    'Flexible path',
                   ].map((item) => (
-                    <div key={item} className="rounded-[16px] border border-white/10 bg-white/[0.04] px-3 py-3">
+                    <div key={item.title} className="rounded-[14px] border border-white/15 bg-white/[0.06] px-3 py-3">
                       <span className="block text-[16px] leading-none text-orange">◎</span>
-                      <p className="mt-2 text-[12px] font-bold leading-tight text-white">{item}</p>
+                      <p className="mt-2 text-[12px] font-bold leading-tight text-white">{item.title}</p>
+                      <p className="mt-1.5 text-[11px] leading-[1.5] text-white/90">{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -427,7 +482,7 @@ export default function InvestorsPage() {
                       <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[#081b3a] text-[18px] text-orange shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]">◎</span>
                       <div className="min-w-0">
                         <p className="text-[14px] font-bold leading-tight text-white">{item.title}</p>
-                        <p className="mt-1.5 text-[12px] leading-[1.55] text-white/82">{item.desc}</p>
+                        <p className="mt-1.5 text-[13px] leading-[1.55] text-white/95">{item.desc}</p>
                       </div>
                     </li>
                   ))}
@@ -438,54 +493,55 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      <section id="pricing" className="bg-white py-12 sm:py-14">
+      <section id="pricing" className="bg-[#08111d] py-14 sm:py-16">
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Investor Bundle Pricing</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-stone-700 sm:text-lg">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Pricing bundles</p>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Investor Bundle Pricing</h2>
+            <p className="mt-4 text-[16px] leading-relaxed text-white sm:text-lg">
               Choose the right support based on where you are in the project.
             </p>
           </div>
 
-          <div className="mt-8 overflow-hidden rounded-[24px] border border-stone-200 bg-white shadow-elev-1">
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200 bg-stone-50">
+          <div className="mt-10 overflow-hidden rounded-[24px] border border-white/15 bg-[linear-gradient(135deg,#071b3d_0%,#0b2146_50%,#081730_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.32)]">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.04]' : ''}`}>
-                  <p className="mx-auto inline-flex rounded-full border border-orange/20 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-orange">{bundle.label}</p>
-                  <h3 className="mt-2 text-lg font-extrabold tracking-tight text-navy">{bundle.title}</h3>
+                <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>
+                  <p className="mx-auto inline-flex rounded-full border border-[#fa8c41]/30 bg-[#0b1f44] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#fa8c41]">{bundle.label}</p>
+                  <h3 className="mt-2 text-lg font-extrabold tracking-tight text-white">{bundle.title}</h3>
                 </div>
               ))}
             </div>
 
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200">
-              <div className="px-4 py-3 text-sm font-semibold text-stone-600 sm:px-5">Pricing</div>
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
+              <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Pricing</div>
               {supportBundles.map((bundle) => (
-                <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-orange sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}>
+                <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-[#fa8c41] sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
                   {bundle.price}
                 </div>
               ))}
             </div>
 
             {supportRows.map((row) => (
-              <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-stone-200 last:border-b-0">
-                <div className="px-4 py-2.5 text-sm font-semibold text-navy-900 sm:px-5">{row}</div>
+              <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
+                <div className="px-4 py-2.5 text-sm font-semibold text-white sm:px-5">{row}</div>
                 {supportBundles.map((bundle) => {
                   const included = bundle.includes.includes(row);
                   return (
-                    <div key={`${bundle.title}-${row}`} className={`flex items-center justify-center px-4 py-2.5 sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.03]' : ''}`}>
-                      <span className={`text-base font-bold ${included ? 'text-orange' : 'text-stone-300'}`}>{included ? '✔' : '—'}</span>
+                    <div key={`${bundle.title}-${row}`} className={`flex items-center justify-center px-4 py-2.5 sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
+                      <span className={`text-base font-bold ${included ? 'text-[#fa8c41]' : 'text-white/25'}`}>{included ? '✔' : '—'}</span>
                     </div>
                   );
                 })}
               </div>
             ))}
 
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] bg-stone-50">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr]">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
-                <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-orange/30 bg-orange/[0.05]' : ''}`}>
-                  <a href={bundle.href} className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold transition ${bundle.highlighted ? 'bg-orange text-white hover:bg-orange-500' : 'bg-navy text-white hover:bg-navy-900'}`}>
+                <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>
+                  <a href={bundle.href} className={`inline-flex min-h-[46px] w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${bundle.highlighted ? 'bg-[#fa8c41] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)] hover:bg-[#ffa463]' : 'border border-white/25 text-white hover:bg-white/5'}`}>
                     View Pricing
                   </a>
                 </div>
@@ -519,6 +575,21 @@ export default function InvestorsPage() {
       </section>
 
       <TestimonialsCarousel testimonials={investorTestimonials} />
+
+      <section className="bg-stone-50 py-16 sm:py-20">
+        <div className="container-pro max-w-4xl">
+          <LpLeadForm
+            id="investor-inquiry"
+            serviceSlug="investors-hub-inquiry"
+            serviceName="Investor hub — general inquiry"
+            source="hub-investors"
+            headline="Not sure which investor service fits?"
+            subhead="Tell us about the deal or project — address, stage, what you're trying to decide — and a licensed NC GC will point you to the right path (review, planning, execution, or full contracting). Response within 1 business day."
+            submitLabel="Get a Recommendation"
+            variant="dark"
+          />
+        </div>
+      </section>
 
       <section className="bg-navy-950 py-14 text-white sm:py-16">
         <div className="container-pro">

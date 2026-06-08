@@ -93,10 +93,24 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
     setError('');
 
     try {
+      // Always forward a hub-inquiry slug so the GHL catch-all workflow fires
+      // even when the user leaves the freeform "service" field blank. The
+      // freeform service text (if typed) is folded into the message body so
+      // it still reaches the inbox.
+      const hubSlug = `${data.slug}-hub-inquiry`;
+      const composedMessage = formData.service
+        ? `Reaching out about: ${formData.service}\n\n${formData.message}`
+        : formData.message;
+
       const res = await fetch('/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          service: hubSlug,
+          message: composedMessage,
+          source: `hub-${data.slug}`,
+        }),
       });
 
       if (!res.ok) {
@@ -128,36 +142,50 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
     <div className="min-h-screen overflow-x-hidden bg-white">
       <SiteNav variant="solid" />
 
-      <section className="relative overflow-hidden bg-navy-900 pt-32 pb-24 sm:pt-40 sm:pb-32">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#163061_0%,#10254c_100%)]" />
+      <section className="relative overflow-hidden bg-[#08111d] pt-32 pb-24 sm:pt-36 sm:pb-28">
+        <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
+        <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
+        <div className="absolute left-[-10%] top-[10%] h-72 w-72 rounded-full bg-[rgba(245,130,32,0.12)] blur-3xl" />
+        <div className="absolute bottom-[-6rem] right-[5%] h-80 w-80 rounded-full bg-[rgba(255,255,255,0.06)] blur-3xl" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          }}
+          aria-hidden="true"
+        />
         <div className="relative z-10 container-pro">
           <div className="max-w-4xl">
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+            <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
               {data.eyebrow}
-            </div>
-            <h1 className="mb-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            </p>
+            <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
               {data.heroTitle}
             </h1>
-            <p className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">{data.heroSubtitle}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p className="mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">{data.heroSubtitle}</p>
+            <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
               {firstFixed ? (
-                <a href={firstFixed.detailHref} className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
-                  {firstFixed.cta}
+                <a href={firstFixed.detailHref} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
+                  {firstFixed.cta} <span aria-hidden="true">→</span>
                 </a>
               ) : null}
               {firstPriced ? (
-                <a href={firstPriced.ctaHref || firstPriced.detailHref} className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+                <a href={firstPriced.ctaHref || firstPriced.detailHref} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
                   {firstPriced.cta}
                 </a>
               ) : firstReview ? (
-                <a href={firstReview.ctaHref || firstReview.detailHref} className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white">
+                <a href={firstReview.ctaHref || firstReview.detailHref} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
                   {firstReview.cta}
                 </a>
               ) : null}
             </div>
           </div>
         </div>
+        <style>{__avatarHeroMotion}</style>
       </section>
 
       <section className="border-b border-stone-200 bg-white py-16 sm:py-20">
@@ -201,7 +229,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             <div className="max-w-4xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How to buy from this page</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-                Most {data.eyebrow.toLowerCase()} buyers move through the offers in this order.
+                Most clients move through the offers in this order.
               </h2>
               <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
                 Start with the smallest step that fits the decision you need to make. Move into pricing, review, or monthly support only when the work really calls for it.
@@ -497,3 +525,15 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
     </div>
   );
 }
+
+const __avatarHeroMotion = `
+@keyframes heroFloat {
+  0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); }
+  50% { transform: scale(1.08) translate3d(-12px, -8px, 0); }
+}
+@keyframes heroRise {
+  0% { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(4px); }
+  60% { filter: blur(0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+`;

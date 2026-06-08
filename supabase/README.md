@@ -12,6 +12,7 @@ idempotent (`create table if not exists`, `add column if not exists`,
 6. `order_events.sql` — depends on `orders`
 7. `permit_oversight_orders.sql` — depends on `orders` (foreign key)
 8. `marketing_assets.sql`
+9. `rehab_budget_snapshots.sql`
 
 ## Tables
 
@@ -33,3 +34,6 @@ idempotent (`create table if not exists`, `add column if not exists`,
 - `marketing_links` — trackable marketing links and CTA destinations, including
   click counters and campaign metadata.
 - `marketing_link_events` — append-only click log for trackable marketing links.
+- `leads`, `projects`, `project_scope_inputs`, `estimate_rules`, and
+  `estimate_reports` — the Rehab Budget Range & Execution Risk Snapshot
+  pipeline, including file uploads and PDF report delivery.

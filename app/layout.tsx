@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import CartToast from "@/components/CartToast";
 
 export const metadata: Metadata = {
   title: "Southern Cities Construction | Project Support and Full Contracting — Charlotte, NC",
@@ -46,6 +47,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <CartToast />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18126177237"
           strategy="afterInteractive"

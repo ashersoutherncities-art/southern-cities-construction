@@ -274,34 +274,53 @@ export default function RecurringSupportPage() {
     <div className="min-h-screen bg-white text-navy">
       <SiteNav variant="solid" />
 
-      <section className="border-b border-stone-200 bg-navy-900 py-20 sm:py-24">
-        <div className="container-pro grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <section className="relative overflow-hidden border-b border-stone-200 bg-[#08111d] pt-32 pb-24 sm:pt-36 sm:pb-28">
+        <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
+        <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          }}
+          aria-hidden="true"
+        />
+        <div className="relative z-10 container-pro grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="max-w-4xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Recurring Support</p>
-            <h1 className="mt-4 text-4xl font-extrabold leading-[1.04] tracking-tight text-white sm:text-6xl">
-              Ongoing construction support for repeat needs.
+            <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
+              <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
+              Recurring Support
+            </p>
+            <h1 className="mt-6 text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.75rem] lg:text-[4.5rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
+              Ongoing construction support for <span className="text-[#fa8c41]">repeat needs.</span>
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
+            <p className="mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
               These plans give repeat clients ongoing access to specific support capacity for permits, inspections, listing prep, budgeting, project coordination, and active-job decisions without starting from scratch each time.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white">
-                See One-Time Services
+            <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
+              <Link href="/services" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
+                See One-Time Services <span aria-hidden="true">→</span>
               </Link>
-              <a href="#plans" className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-3 text-sm font-semibold text-white">
+              <a href="#plans" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
                 Review Plans
               </a>
             </div>
           </div>
-          <div className="rounded-[28px] border border-white/12 bg-white p-7 shadow-elev-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">When ongoing help makes sense</p>
+          <div className="rounded-[20px] border border-white/12 bg-white/95 p-7 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.4)] motion-safe:animate-[heroRise_1400ms_ease-out_0.5s_both]">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">When ongoing help makes sense</p>
             <div className="mt-5 space-y-4 text-sm leading-relaxed text-stone-700">
-              <p><strong className="text-navy">Use these plans</strong> when permit, inspection, coordination, or project questions keep coming back.</p>
-              <p><strong className="text-navy">Do not use these plans</strong> for custom labor, undefined site work, or open-ended project execution.</p>
-              <p><strong className="text-navy">Every plan has clear limits</strong> so you know what is included and how to use it.</p>
+              <p><strong className="text-[#08111d]">Use these plans</strong> when permit, inspection, coordination, or project questions keep coming back.</p>
+              <p><strong className="text-[#08111d]">Do not use these plans</strong> for custom labor, undefined site work, or open-ended project execution.</p>
+              <p><strong className="text-[#08111d]">Every plan has clear limits</strong> so you know what is included and how to use it.</p>
             </div>
           </div>
         </div>
+        <style>{`
+@keyframes heroFloat { 0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); } 50% { transform: scale(1.08) translate3d(-12px, -8px, 0); } }
+@keyframes heroRise { 0% { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(4px); } 60% { filter: blur(0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); } }
+`}</style>
       </section>
 
       <section id="plans" className="border-b border-stone-200 bg-stone-50 py-8">
@@ -318,33 +337,16 @@ export default function RecurringSupportPage() {
         <section key={section.id} id={section.id} className={index % 2 === 0 ? 'bg-white py-20 sm:py-24' : 'border-y border-stone-200 bg-stone-50 py-20 sm:py-24'}>
           <div className="container-pro">
             <SectionHeader eyebrow={section.eyebrow} title={section.title} intro={section.intro} />
-            <div className={`mt-10 grid gap-6 md:grid-cols-2 ${section.id === 'realtors' ? 'xl:grid-cols-2' : 'xl:grid-cols-6'}`}>
-              {section.cards.map((card, index) => {
-                if (section.id === 'realtors') {
-                  return (
-                    <div key={card.name} className="flex justify-center">
-                      <RecurringCardView card={card} />
-                    </div>
-                  );
-                }
-
-                const isLast = index === section.cards.length - 1;
-                const isSecondToLast = index === section.cards.length - 2;
-
-                let tailClass = 'xl:col-span-2';
-
-                if (section.cards.length % 3 === 1 && isLast) {
-                  tailClass = 'xl:col-start-3 xl:col-span-2';
-                } else if (section.cards.length % 3 === 2 && (isSecondToLast || isLast)) {
-                  tailClass = 'xl:col-span-3';
-                }
-
-                return (
-                  <div key={card.name} className={`${tailClass} flex justify-center`}>
-                    <RecurringCardView card={card} />
-                  </div>
-                );
-              })}
+            {/* Centered flex-wrap: partial last rows stay centered, no lopsided col-span juggling */}
+            <div className="mt-10 flex flex-wrap justify-center gap-6">
+              {section.cards.map((card) => (
+                <div
+                  key={card.name}
+                  className="w-full sm:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] flex justify-center"
+                >
+                  <RecurringCardView card={card} />
+                </div>
+              ))}
             </div>
           </div>
         </section>

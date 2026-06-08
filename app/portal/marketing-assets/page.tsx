@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import { hasPortalAccess } from '@/lib/portal-auth';
 import {
   getTrackedLinkUrl,
   listMarketingAssets,
@@ -108,9 +109,12 @@ function StatCard({ label, value, note }: { label: string; value: string | numbe
   );
 }
 
-export default async function MarketingAssetsPage({ searchParams }: PageProps) {
+export default async function MarketingAssetsPage(_props: PageProps) {
   const expectedKey = process.env.MARKETING_PORTAL_ACCESS_KEY;
-  const accessKey = searchParams?.key || '';
+  // Auth rides on the httpOnly cookie set by middleware after a one-time
+  // `?key=` exchange — never the query string. accessKey kept empty for the
+  // legacy hidden form fields (server actions now authenticate via cookie).
+  const accessKey = '';
 
   if (!expectedKey) {
     return (
@@ -130,7 +134,7 @@ export default async function MarketingAssetsPage({ searchParams }: PageProps) {
     );
   }
 
-  if (accessKey !== expectedKey) {
+  if (!hasPortalAccess(expectedKey)) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

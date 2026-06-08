@@ -59,6 +59,7 @@ export default function ServiceLeadForm({ service }: Props) {
           company: formData.company,
           audience_type: service.avatarLabel,
           service: service.title,
+          service_price: service.monthlyPrice,
           source: `${service.purchaseType}:${service.slug}`,
           message: buildDefaultMessage(
             service,

@@ -2,14 +2,14 @@
 
 import { revalidatePath } from 'next/cache';
 import { createMarketingAsset, createMarketingLink, syncMarketingInfrastructure } from '@/lib/marketing';
+import { hasPortalAccess } from '@/lib/portal-auth';
 
-function ensureAccessKey(formData: FormData) {
-  const expected = process.env.MARKETING_PORTAL_ACCESS_KEY;
-  if (!expected) {
+function ensureAccessKey(_formData: FormData) {
+  if (!process.env.MARKETING_PORTAL_ACCESS_KEY) {
     throw new Error('MARKETING_PORTAL_ACCESS_KEY is not configured.');
   }
-  const received = String(formData.get('access_key') || '');
-  if (received !== expected) {
+  // Authenticate from the httpOnly portal session cookie, not a form field.
+  if (!hasPortalAccess(process.env.MARKETING_PORTAL_ACCESS_KEY)) {
     throw new Error('Invalid access key.');
   }
 }
