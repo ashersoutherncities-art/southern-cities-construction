@@ -192,11 +192,6 @@ def build_card(card):
     eyebrow = f"FOR NC WHOLESALERS  ·  {card['eyebrow']}"
     tracked(d, GUT + 26, eb_y - 4, eyebrow, fe, ORANGE, spacing=3)
 
-    # Top right — hook number tag (tiny, navigational)
-    fhn = font(BOLD, 13)
-    hook_tag = f"HOOK Nº {n:02d}"
-    d.text((W - GUT - tw(d, hook_tag, fhn), eb_y - 2), hook_tag, font=fhn, fill=ORANGE)
-
     # Thin orange rule under eyebrow (editorial separator)
     rule_y = eb_y + 28
     d.line([GUT, rule_y, GUT + 90, rule_y], fill=ORANGE, width=2)
