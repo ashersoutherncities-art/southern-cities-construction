@@ -336,7 +336,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Bid-Ready Deal Pack',
     price: 59900,
     priceLabel: '$599 per deal',
-    description: 'GC-Certified rehab budget range, dollarized scope of work, lender-killer risk flags, execution risk report. Branded PDF the wholesaler attaches to their assignment marketing. 3–7 business day turnaround. Required input: existing plans, dimensions, OR Site Scan + As-Built add-on. NC GC License #107724.',
+    description: 'GC-Certified rehab budget range, dollarized scope of work, lender-killer risk flags, execution risk report. Branded PDF the wholesaler attaches to their assignment marketing. 2–3 business day turnaround. Required input: existing plans, dimensions, OR Site Scan + As-Built add-on. NC GC License #107724.',
     checkoutAmount: '599',
   },
   'deal-pack-build-ready': {
@@ -345,7 +345,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Build-Ready Deal Pack',
     price: 199700,
     priceLabel: '$1,997 per deal',
-    description: 'Everything in Bid-Ready PLUS floor plans + design renderings + 3 vetted sub-trade quotes per major trade + draw schedule template + pre-closing open-permit sweep. The shovel-ready package end-investors expect for $40K+ assignment fees. 7–14 business day turnaround. NC GC License #107724.',
+    description: 'Everything in Bid-Ready PLUS floor plans + design renderings + 3 vetted sub-trade quotes per major trade + draw schedule template + pre-closing open-permit sweep. The shovel-ready package end-investors expect for $40K+ assignment fees — and we commit to do the work at the price we write. 3–4 business day turnaround. NC GC License #107724.',
     checkoutAmount: '1997',
   },
   'deal-pack-site-scan': {
@@ -363,7 +363,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Deal Pack Pro',
     price: 89700,
     priceLabel: '$897/mo recurring',
-    description: 'For NC wholesalers doing 2+ deals/month. Includes 2 Bid-Ready Deal Pack credits per month + 25% off any Build-Ready upgrades + priority 5-day turnaround + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
+    description: 'For NC wholesalers doing 2+ deals/month. Includes 2 Bid-Ready Deal Pack credits per month + 25% off any Build-Ready upgrades + priority 2-day turnaround on every request + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
     checkoutAmount: '897',
   },
 };

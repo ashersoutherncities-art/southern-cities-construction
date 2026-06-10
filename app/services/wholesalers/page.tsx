@@ -25,7 +25,7 @@ const PRODUCTS: FeaturedProduct[] = [
     name: 'Deal Pack Series',
     tagline: 'Per-deal · Branded packages for your assignments',
     description:
-      'GC-Verified Deal Packs you attach to wholesale assignments. Four tiers: free SF-based ballpark, Bid-Ready (budget + scope + risks), Build-Ready (plans + designs + sub quotes + closing sweep), and the Site Scan + As-Built add-on for properties without existing plans. Branded with NC GC License #107724.',
+      'GC-Verified Deal Packs you attach to wholesale assignments. Four tiers: free SF-based ballpark, Bid-Ready (budget + scope + risks), Build-Ready (plans + designs + sub quotes + closing sweep — and we commit to do the work at the price we write, 3–4 day turnaround), and the Site Scan + As-Built add-on for properties without existing plans. Branded with NC GC License #107724.',
     href: '/deal-pack',
     primaryCta: 'See the Deal Pack tiers →',
     priceLine: 'From free · Bid-Ready · Build-Ready · Site Scan add-on',
@@ -35,7 +35,7 @@ const PRODUCTS: FeaturedProduct[] = [
     name: 'Deal Pack Pro (Subscription)',
     tagline: 'Monthly · For wholesalers doing 2+ deals/month',
     description:
-      '2 Bid-Ready Deal Pack credits per month, 25% off Build-Ready upgrades, priority 5-day turnaround, and a "GC-Verified by Southern Cities" co-marketing badge for every assignment listing. Cancel anytime.',
+      '2 Bid-Ready Deal Pack credits per month, 25% off Build-Ready upgrades, priority 2-day turnaround on every request (faster than one-off Build-Ready), and a "GC-Verified by Southern Cities" co-marketing badge for every assignment listing. Cancel anytime.',
     href: '/deal-pack#tiers',
     primaryCta: 'See Pro details →',
     priceLine: 'Monthly subscription',

@@ -71,7 +71,7 @@
 >
 > Two tiers most wholesalers use:
 > • **Bid-Ready ($599)** — a GC-verified rehab budget and scope you attach to your assignment. The number buyers trust.
-> • **Build-Ready ($1,997)** — everything in Bid-Ready plus a full trade-by-trade scope and plan, for buyers who want to move straight to construction.
+> • **Build-Ready ($1,997)** — everything in Bid-Ready plus a full trade-by-trade scope and plan, AND we commit to do the work at the price we write. 3–4 day turnaround. For buyers who want to move straight to construction with the same GC who wrote the number.
 >
 > Not sure your deal even pencils yet? Start free with a ballpark range — we'll give you a rough number before you spend a dime.
 >

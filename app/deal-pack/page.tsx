@@ -45,7 +45,7 @@ const TIERS: Tier[] = [
     badgeColor: 'orange',
     name: 'Bid-Ready Deal Pack',
     price: '$599',
-    priceNote: 'Per deal · 3–7 day turnaround',
+    priceNote: 'Per deal · 2–3 day turnaround',
     promise:
       'GC-Certified rehab budget, dollarized scope of work, execution risk callouts, lender-killer flags. Branded PDF you attach to your assignment marketing — designed for real-investor buyers, not other wholesalers.',
     includes: [
@@ -65,11 +65,12 @@ const TIERS: Tier[] = [
     badgeColor: 'orange',
     name: 'Build-Ready Deal Pack',
     price: '$1,997',
-    priceNote: 'Per deal · 7–14 day turnaround',
+    priceNote: 'Per deal · 3–4 day turnaround',
     promise:
-      'Shovel-ready package end-investors actually pay top-of-market for. Floor plans, design renderings, full scope, vetted sub-trade quotes, draw schedule, pre-closing open-permit sweep. The premium tier.',
+      'Shovel-ready package end-investors actually pay top-of-market for — and we commit to do the work at the price we write. Floor plans, design renderings, full scope, vetted sub-trade quotes, draw schedule, pre-closing open-permit sweep. The premium tier.',
     includes: [
       'Everything in Bid-Ready PLUS',
+      'We commit to do the work at the price we write — buyer can argue with the GC who’s going to swing the hammer, or sign',
       'Floor plans + 2–3 design renderings',
       'Full written scope of work (room-by-room)',
       '3 vetted NC sub-trade quotes per major trade',
@@ -109,11 +110,11 @@ const PRO_TIER: Tier = {
   price: '$897/mo',
   priceNote: 'For wholesalers doing 2+ deals/mo',
   promise:
-    'Recurring subscription for active NC wholesalers. Includes 2 Bid-Ready credits per month + 25% off Build-Ready upgrades + priority 5-day turnaround + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
+    'Recurring subscription for active NC wholesalers. Includes 2 Bid-Ready credits per month + 25% off Build-Ready upgrades + priority 2-day turnaround on every request + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
   includes: [
     '2 Bid-Ready Deal Pack credits per month (worth $1,198)',
     '25% off any Build-Ready Deal Pack upgrade ($499 savings each)',
-    'Priority 5-day turnaround on all requests',
+    'Priority 2-day turnaround on every request (faster than one-off Build-Ready)',
     '"GC-Verified by Southern Cities #107724" co-marketing badge',
     'Member-rate priority routing for your buyers into Active Oversight + GC-Supported Build',
     'Cancel anytime — no minimum term',
