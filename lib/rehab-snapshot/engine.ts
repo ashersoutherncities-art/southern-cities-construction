@@ -46,21 +46,22 @@ const CATEGORY_LABELS: Record<ProjectCategory, string> = {
 // 18% OH&P + 12% sub markup; 25% is SCC's blended all-in fee.)
 const GC_FEE_RATE = 0.25;
 
-// Hard backstop: maximum sane ALL-IN $/SF per category (raw + GC fee +
-// contingency). No combination of finish/age/market/risk multipliers should
-// exceed these. Anchored to real SCC jobs + the ~$125/SF NC new-build figure:
-// a finished addition tops out ~$130/SF all-in; a full gut ~$200; nothing
-// residential realistically exceeds these. Stops pathological inputs (every
-// box checked) from producing absurd numbers.
+// Hard backstop: maximum sane ALL-IN $/SF per category. Anchored to the
+// RSMeans residential NEW-CONSTRUCTION reference (openclaw RSMeans export
+// EC_REAL_Cost_RES: economy 1-story residential, Elizabeth City NC, 2026 Q1 =
+// $153.35/SF all-in; ~$161/SF national). A rehab reuses the existing shell,
+// foundation, and framing, so NO rehab category may exceed new construction —
+// except an addition, which is net-new square footage with tie-in complexity.
+// Full gut caps just at new-build; everything else scales down from there.
 const PER_SF_CEILING: Record<ProjectCategory, number> = {
-  cosmetic: 55,
-  rental_turn: 50,
-  moderate_rehab: 110,
-  heavy_rehab: 150,
-  full_gut: 200,
-  structural_heavy: 240,
-  addition: 270,
-  unknown: 135,
+  cosmetic: 45,
+  rental_turn: 40,
+  moderate_rehab: 80,
+  heavy_rehab: 110,
+  full_gut: 155,
+  structural_heavy: 170,
+  addition: 185,
+  unknown: 100,
 };
 
 function clamp(value: number, min: number, max: number) {
