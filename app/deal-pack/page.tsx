@@ -3,6 +3,49 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import FounderStory from '@/components/FounderStory';
+import ProductJsonLd from '@/components/seo/ProductJsonLd';
+
+// Product schema for the 4 Deal Pack tiers. Prices must match the page copy
+// exactly (and the Stripe products). When tiers/prices change, update both.
+const DEAL_PACK_PRODUCTS = [
+  {
+    name: 'Bid-Ready Deal Pack',
+    description:
+      'Licensed NC GC verification of your wholesale deal — rough rehab budget range, scope flags, and a credibility marker for end-investor buyers. 24-hour turnaround.',
+    url: '/deal-pack',
+    priceUsd: 599,
+    category: 'Deal Pack',
+    sku: 'deal-pack-bid-ready',
+  },
+  {
+    name: 'Build-Ready Deal Pack',
+    description:
+      'Full GC-verified Deal Pack: as-built floorplans + elevations, itemized rehab budget, and the GC commitment to do the work at that price. Sell your wholesale deal as a finished pre-construction product.',
+    url: '/deal-pack',
+    priceUsd: 1997,
+    category: 'Deal Pack',
+    sku: 'deal-pack-build-ready',
+  },
+  {
+    name: 'Site Scan + As-Built',
+    description:
+      'NC field-agent LIDAR scan converted into a Chief Architect as-built floorplan. Required input for high-accuracy Bid-Ready or Build-Ready Deal Packs when measurements or plans are missing.',
+    url: '/deal-pack',
+    priceUsd: 499,
+    category: 'Deal Pack',
+    sku: 'deal-pack-site-scan',
+  },
+  {
+    name: 'Deal Pack Pro',
+    description:
+      'Recurring subscription for active NC wholesalers — 2 Bid-Ready credits per month, 25% off Build-Ready upgrades, priority 2-day turnaround, and a "GC-Verified by Southern Cities #107724" co-marketing badge for every listing.',
+    url: '/deal-pack',
+    priceUsd: 897,
+    recurrence: 'monthly' as const,
+    category: 'Deal Pack',
+    sku: 'deal-pack-pro',
+  },
+];
 
 export const metadata = {
   title: 'Deal Pack — Licensed GC Verification for NC Wholesalers + Realtors | Southern Cities Construction',
@@ -151,6 +194,7 @@ function badgeClass(color: 'orange' | 'white' | 'navy') {
 export default function DealPackPage() {
   return (
     <div className="min-h-screen bg-[#08111d] text-white">
+      <ProductJsonLd products={DEAL_PACK_PRODUCTS} />
       <SiteNav variant="solid" />
       {/* Page-context tag below the unified nav */}
       <div className="border-b border-white/8 pt-20 lg:pt-[84px]">

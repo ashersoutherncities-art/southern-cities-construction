@@ -7,6 +7,7 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import FaqItem from '@/components/landing/FaqItem';
 import LpLeadForm from '@/components/LpLeadForm';
+import FaqJsonLd from '@/components/seo/FaqJsonLd';
 
 // All generic "Book a Project Call" / "Talk Through Your Project" CTAs on
 // the homepage route to /book — a role-routing page that lets the user
@@ -823,6 +824,7 @@ export default function Home() {
 
         {/* FAQ */}
         <section className="bg-stone-50">
+          <FaqJsonLd items={faqs} />
           <div className="mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24">
             <div className="text-center max-w-3xl mx-auto">
               <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">FAQ</p>

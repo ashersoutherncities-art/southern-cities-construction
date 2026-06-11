@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import CartToast from "@/components/CartToast";
+import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 /**
@@ -66,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <LocalBusinessJsonLd />
         {children}
         <CartToast />
         <Script
