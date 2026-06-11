@@ -523,7 +523,7 @@ function buildWhatCouldChangeThisNumber(projectCategory: ProjectCategory, permit
 }
 
 function buildRecommendation() {
-  return 'Your preliminary range gives you a starting point. The next step is validating whether this budget is actually executable in the current contractor market. Book an Investor Execution Review to refine the scope, pressure-test the budget, review permit risks, and identify execution pitfalls before you commit more capital.';
+  return 'This range is a directional starting point — not a firm quote. Before you commit capital, have a licensed NC GC walk the property and pressure-test this budget against real subcontractor pricing, scope, and permit requirements. That turns this ballpark into a number you can actually underwrite to.';
 }
 
 function buildSummary(

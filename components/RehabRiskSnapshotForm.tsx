@@ -190,7 +190,25 @@ const inputClass =
   'w-full rounded-xl border border-white/12 bg-[#0c172e] px-4 py-3 text-[15px] text-white placeholder:text-white/30 transition-colors focus:border-orange/60 focus:outline-none focus:ring-2 focus:ring-orange/20';
 
 function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className={`${inputClass} ${props.className || ''}`} />;
+  const isNumber = props.type === 'number';
+  // Block negative entry on every numeric field: prevent the "-", "+", and
+  // exponent keys, and clear any pasted negative value.
+  const numberGuards = isNumber
+    ? {
+        min: props.min ?? 0,
+        inputMode: props.inputMode ?? ('numeric' as const),
+        onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+          if (['-', '+', 'e', 'E'].includes(e.key)) e.preventDefault();
+          props.onKeyDown?.(e);
+        },
+        onInput: (e: React.FormEvent<HTMLInputElement>) => {
+          const t = e.currentTarget;
+          if (t.value !== '' && Number(t.value) < 0) t.value = '';
+          props.onInput?.(e);
+        },
+      }
+    : {};
+  return <input {...props} {...numberGuards} className={`${inputClass} ${props.className || ''}`} />;
 }
 
 function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
@@ -560,10 +578,16 @@ export default function RehabRiskSnapshotForm() {
                       <div className="rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2">
                         <FieldLabel>Bathroom refreshes</FieldLabel>
                         <Input name="bathroom_refresh_count" type="number" min={0} defaultValue={0} className="py-2" />
+                        <p className="mt-1.5 text-[11px] leading-snug text-white/40">
+                          Cosmetic only — new vanity, fixtures, paint, reglaze. Same layout &amp; plumbing.
+                        </p>
                       </div>
                       <div className="rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2">
                         <FieldLabel>Full bathrooms</FieldLabel>
                         <Input name="bathroom_full_count" type="number" min={0} defaultValue={0} className="py-2" />
+                        <p className="mt-1.5 text-[11px] leading-snug text-white/40">
+                          Gut renovation — tear out to studs, new tile &amp; plumbing fixtures.
+                        </p>
                       </div>
                     </>
                   )}
@@ -740,8 +764,13 @@ function ResultPanel({ result }: { result: ResultState }) {
               href="/book"
               className="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-orange px-6 py-3 text-[13px] font-black uppercase tracking-[0.06em] text-white transition hover:-translate-y-0.5 hover:bg-orange-500"
             >
-              Book an execution review →
+              Have the GC verify this budget →
             </Link>
+            <p className="mt-2.5 text-[11.5px] leading-relaxed text-white/45">
+              A licensed NC GC walks the property and pressure-tests this range against real
+              subcontractor pricing — so you get a firm number you can underwrite to before you
+              commit capital.
+            </p>
           </div>
 
           <p className="text-[11.5px] leading-relaxed text-white/40">
