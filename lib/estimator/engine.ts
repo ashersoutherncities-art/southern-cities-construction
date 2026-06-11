@@ -14,8 +14,8 @@ import {
   GUT_CREDIT_RATE,
   GUT_CREDIT_SCOPE,
   LENDER_KILLER_FLAGS,
-  P6_INSULATION_BUFFER_DAYS,
-  PHASES,
+  P9_SYSTEM_KEYS,
+  PHASE_DAYS,
   SCOPE_ITEMS,
 } from './data.ts';
 import type {
@@ -220,66 +220,71 @@ function computeFlags(yearBuilt: number | null): ActivatedFlag[] {
   return out;
 }
 
+// Faithful translation of the workbook Timeline Model formulas. Within a phase
+// trades overlap (MAX); across phases gates are sequential (SUM). Uses the exact
+// per-phase durations in PHASE_DAYS (which differ from items' Schedule durations).
+function p0Days(active: Set<ScopeKey>): number {
+  return active.has('permit_unknown') ? PHASE_DAYS.p0Permit : PHASE_DAYS.p0Baseline;
+}
+
 function computePhases(
   active: Set<ScopeKey>,
   bathRefreshCount: number,
   bathFullCount: number,
-  windowCount: number,
-  additionSf: number
+  windowCount: number
 ): { phases: PhaseDuration[]; interiorDays: number } {
-  const itemMap = new Map<ScopeKey, ScopeItem>();
-  for (const item of SCOPE_ITEMS) itemMap.set(item.key, item);
+  const d = PHASE_DAYS;
+  const has = (k: ScopeKey) => active.has(k);
 
-  const phases: PhaseDuration[] = [];
-  let interiorDays = 0;
+  const p0 = p0Days(active);
+  const p1 = Math.max(has('full_gut') ? d.p1FullGut : 0, has('layout') ? d.p1Layout : 0);
+  const p2 = Math.max(
+    has('fire') ? d.p2Fire : 0,
+    has('water') ? d.p2Water : 0,
+    has('mold') ? d.p2Mold : 0,
+    has('termite') ? d.p2Termite : 0
+  );
+  const p3 =
+    (has('foundation') ? d.p3Foundation : 0) +
+    (has('structural') ? d.p3Structural : 0) +
+    (has('framing') ? d.p3Framing : 0) +
+    (has('layout') ? d.p3Layout : 0);
+  const p4 = has('roof') ? d.p4Roof : 0;
+  const p5 = Math.max(
+    has('plumb_full') ? d.p5PlumbFull : 0,
+    has('elec_full') ? d.p5ElecFull : 0,
+    has('hvac') ? d.p5Hvac : 0,
+    has('plumb_partial') ? d.p5PlumbPartial : 0,
+    has('elec_partial') ? d.p5ElecPartial : 0
+  );
+  const p6 = has('drywall') ? d.p6Drywall : 0;
+  const p7 = Math.max(
+    has('kitchen_full') ? d.p7KitchenFull : 0,
+    has('kitchen_refresh') ? d.p7KitchenRefresh : 0,
+    bathFullCount > 0 ? d.p7BathFull : 0,
+    bathRefreshCount > 0 ? d.p7BathRefresh : 0
+  );
+  const p8 =
+    (has('paint') ? d.p8Paint : 0) +
+    (has('flooring') ? d.p8Flooring : 0) +
+    (windowCount > 0 ? d.p8Windows : 0);
+  const systemsPresent = P9_SYSTEM_KEYS.some((k) => has(k));
+  const p9 = systemsPresent ? d.p9WithSystems : d.p9Baseline;
 
-  for (const phase of PHASES) {
-    const durations: number[] = [];
-    for (const key of phase.items) {
-      // Addition is NOT part of the interior path; it has its own track.
-      if (key === 'addition') continue;
-      if (!active.has(key)) continue;
-      const item = itemMap.get(key);
-      if (!item) continue;
-      // Skip parallel items in the critical-path roll-up; they overlap and
-      // do not extend the spine.
-      if (item.path === 'PARALLEL') continue;
-      durations.push(item.durationDays);
-    }
-
-    let phaseDays = phase.baselineDays;
-    if (durations.length > 0) {
-      const aggregated =
-        phase.aggregation === 'MAX'
-          ? Math.max(...durations)
-          : durations.reduce((a, b) => a + b, 0);
-      phaseDays = Math.max(phaseDays, aggregated);
-    }
-
-    // P6 implicit insulation buffer when drywall or full_gut is in play.
-    if (phase.key === 'P6' && (active.has('drywall') || active.has('full_gut'))) {
-      phaseDays += P6_INSULATION_BUFFER_DAYS;
-    }
-
-    phases.push({ key: phase.key, label: phase.label, workingDays: phaseDays });
-    interiorDays += phaseDays;
-  }
-
-  // Silence unused-param warnings for inputs reserved for future calibration.
-  void bathRefreshCount; void bathFullCount; void windowCount; void additionSf;
-
+  const phases: PhaseDuration[] = [
+    { key: 'P0', label: 'Permits & mobilization', workingDays: p0 },
+    { key: 'P1', label: 'Demo / gut', workingDays: p1 },
+    { key: 'P2', label: 'Remediation', workingDays: p2 },
+    { key: 'P3', label: 'Foundation → structural → framing', workingDays: p3 },
+    { key: 'P4', label: 'Roof dry-in', workingDays: p4 },
+    { key: 'P5', label: 'MEP rough-ins', workingDays: p5 },
+    { key: 'P6', label: 'Insulation + drywall', workingDays: p6 },
+    { key: 'P7', label: 'Wet-area finishes', workingDays: p7 },
+    { key: 'P8', label: 'General finishes', workingDays: p8 },
+    { key: 'P9', label: 'MEP trim + punch', workingDays: p9 },
+  ];
+  const interiorDays = phases.reduce((s, p) => s + p.workingDays, 0);
   return { phases, interiorDays };
-}
-
-function p0Days(active: Set<ScopeKey>): number {
-  // P0 uses permit_unknown duration if selected, else baseline.
-  const p0 = PHASES.find((p) => p.key === 'P0')!;
-  let days = p0.baselineDays;
-  if (active.has('permit_unknown')) {
-    const item = SCOPE_ITEMS.find((i) => i.key === 'permit_unknown')!;
-    days = Math.max(days, item.durationDays);
-  }
-  return days;
 }
 
 export function estimate(input: EstimateInput): EstimateResult {
@@ -339,8 +344,7 @@ export function estimate(input: EstimateInput): EstimateResult {
     active,
     input.bathRefreshCount,
     input.bathFullCount,
-    input.windowCount,
-    input.additionSf
+    input.windowCount
   );
 
   const additionDays = active.has('addition')

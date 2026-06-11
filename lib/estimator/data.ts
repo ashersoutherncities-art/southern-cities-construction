@@ -295,6 +295,38 @@ export const PHASES: Phase[] = [
     items: [], aggregation: 'MAX', baselineDays: 3 },
 ];
 
-export const P6_INSULATION_BUFFER_DAYS = 2;
+export const P6_INSULATION_BUFFER_DAYS = 2; // deprecated — not in workbook; engine no longer uses it
 export const ADDITION_PATH_BUILD_DAYS = 45;
 export const CALENDAR_WEEK_BUFFER = 1.15;
+
+/**
+ * Exact per-phase working-day durations from the workbook Timeline Model
+ * formulas (these differ from each item's Schedule-sheet durationDays — e.g.
+ * HVAC contributes 4 in P5 vs its 5-day Schedule ref; layout contributes 2 in
+ * P1 and 3 in P3). The engine MUST use these to reproduce the verified totals.
+ *   P0 = permit ? 10 : 3
+ *   P1 = MAX(full_gut?6, layout?2)
+ *   P2 = MAX(fire?10, water?6, mold?4, termite?4)
+ *   P3 = foundation?10 + structural?7 + framing?6 + layout?3   (sequential SUM)
+ *   P4 = roof?3
+ *   P5 = MAX(plumb_full?6, elec_full?6, hvac?4, plumb_partial?2, elec_partial?2)
+ *   P6 = drywall?7
+ *   P7 = MAX(kitchen_full?15, kitchen_refresh?8, bathFull>0?10, bathRefresh>0?6)
+ *   P8 = paint?4 + flooring?4 + windows>0?1                     (sequential SUM)
+ *   P9 = (any of hvac/plumb_full/elec_full/plumb_partial/elec_partial/kitchen_full) ? 5 : 3
+ */
+export const PHASE_DAYS = {
+  p0Permit: 10, p0Baseline: 3,
+  p1FullGut: 6, p1Layout: 2,
+  p2Fire: 10, p2Water: 6, p2Mold: 4, p2Termite: 4,
+  p3Foundation: 10, p3Structural: 7, p3Framing: 6, p3Layout: 3,
+  p4Roof: 3,
+  p5PlumbFull: 6, p5ElecFull: 6, p5Hvac: 4, p5PlumbPartial: 2, p5ElecPartial: 2,
+  p6Drywall: 7,
+  p7KitchenFull: 15, p7KitchenRefresh: 8, p7BathFull: 10, p7BathRefresh: 6,
+  p8Paint: 4, p8Flooring: 4, p8Windows: 1,
+  p9WithSystems: 5, p9Baseline: 3,
+} as const;
+
+/** Keys whose presence makes P9 (MEP trim + punch) run 5 days instead of 3. */
+export const P9_SYSTEM_KEYS: ScopeKey[] = ['hvac', 'plumb_full', 'elec_full', 'plumb_partial', 'elec_partial', 'kitchen_full'];

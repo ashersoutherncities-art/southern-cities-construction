@@ -117,6 +117,29 @@ test('addition-driven job — addition path governs total working days', () => {
   assert.ok(r.fieldVerificationKeys.includes('addition'));
 });
 
+test('timeline — systems WITHOUT drywall: P9=5, P6=0 (catches the offsetting-bug)', () => {
+  // HVAC + full plumbing, no drywall. Workbook: P0 3 + P5 max(6,4)=6 + P9 5 = 14.
+  // (P5 = max(plumb_full 6, hvac 4) = 6.)
+  const r = estimate(
+    baseInput({ yearBuilt: 2000, selections: selections('hvac', 'plumb_full') })
+  );
+  const phase = (k: string) => r.phases.find((p) => p.key === k)?.workingDays;
+  assert.equal(phase('P6'), 0, 'P6 must be 0 with no drywall (no fictional insulation buffer)');
+  assert.equal(phase('P9'), 5, 'P9 must be 5 when systems are present');
+  assert.equal(r.interiorWorkingDays, 14, `interior ${r.interiorWorkingDays}`);
+});
+
+test('timeline — drywall WITHOUT systems: P6=7, P9=3', () => {
+  // Drywall + paint, no systems. Workbook: P0 3 + P6 7 + P8 4 + P9 3 = 17.
+  const r = estimate(
+    baseInput({ yearBuilt: 2000, selections: selections('drywall', 'paint') })
+  );
+  const phase = (k: string) => r.phases.find((p) => p.key === k)?.workingDays;
+  assert.equal(phase('P6'), 7, 'P6 = drywall 7, no extra buffer');
+  assert.equal(phase('P9'), 3, 'P9 = 3 with no systems');
+  assert.equal(r.interiorWorkingDays, 17, `interior ${r.interiorWorkingDays}`);
+});
+
 test('condition-risk job — +5% contingency adder applies', () => {
   const r = estimate(
     baseInput({
