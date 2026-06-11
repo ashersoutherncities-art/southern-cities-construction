@@ -16,25 +16,34 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   //   cosmetic $15-40 · moderate $40-90 · heavy $70-125 ·
   //   full gut $110-175 · structural $120-190 · addition $135-210.
   // ----------------------------------------------------------------------
-  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 10, high_value: 22, unit: 'per_sf', active: true },
-  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 9, high_value: 20, unit: 'per_sf', active: true },
-  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 24, high_value: 44, unit: 'per_sf', active: true },
-  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 48, high_value: 72, unit: 'per_sf', active: true },
-  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 72, high_value: 105, unit: 'per_sf', active: true },
-  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 90, high_value: 130, unit: 'per_sf', active: true },
-  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 120, high_value: 175, unit: 'per_sf', active: true },
-  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 28, high_value: 55, unit: 'per_sf', active: true },
+  // RAW $/SF (a 25% GC fee is added later in the engine to get all-in). Values
+  // represent a BASIC-FLIP finish, typical mid-century age, average NC market
+  // (all multipliers = 1.0). Anchored to real SCC jobs: a comprehensive full
+  // reno (full systems + kitchen + finishes) ran ~$55/SF raw → that's the
+  // heavy_rehab center; a light systems-reset reno ran ~$22/SF raw → rental_turn.
+  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 12, high_value: 24, unit: 'per_sf', active: true },
+  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 15, high_value: 28, unit: 'per_sf', active: true },
+  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 28, high_value: 46, unit: 'per_sf', active: true },
+  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 40, high_value: 58, unit: 'per_sf', active: true },
+  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 58, high_value: 85, unit: 'per_sf', active: true },
+  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 78, high_value: 115, unit: 'per_sf', active: true },
+  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 70, high_value: 105, unit: 'per_sf', active: true },
+  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 28, high_value: 52, unit: 'per_sf', active: true },
 
-  { rule_name: 'finish-rental-grade', category: 'finish_multiplier', condition_json: { target_finish_level: 'rental_grade' }, low_value: 0.9, high_value: 0.9, unit: 'multiplier', active: true },
+  // Finish multipliers CENTERED on basic_flip = 1.0 (the common investor case).
+  // A typical flip should not be inflated; only above/below basic adjusts.
+  { rule_name: 'finish-rental-grade', category: 'finish_multiplier', condition_json: { target_finish_level: 'rental_grade' }, low_value: 0.88, high_value: 0.88, unit: 'multiplier', active: true },
   { rule_name: 'finish-basic-flip', category: 'finish_multiplier', condition_json: { target_finish_level: 'basic_flip' }, low_value: 1, high_value: 1, unit: 'multiplier', active: true },
-  { rule_name: 'finish-mid-grade', category: 'finish_multiplier', condition_json: { target_finish_level: 'mid_grade' }, low_value: 1.15, high_value: 1.15, unit: 'multiplier', active: true },
-  { rule_name: 'finish-high-end', category: 'finish_multiplier', condition_json: { target_finish_level: 'high_end' }, low_value: 1.35, high_value: 1.35, unit: 'multiplier', active: true },
-  { rule_name: 'finish-luxury', category: 'finish_multiplier', condition_json: { target_finish_level: 'luxury' }, low_value: 1.75, high_value: 1.75, unit: 'multiplier', active: true },
+  { rule_name: 'finish-mid-grade', category: 'finish_multiplier', condition_json: { target_finish_level: 'mid_grade' }, low_value: 1.12, high_value: 1.12, unit: 'multiplier', active: true },
+  { rule_name: 'finish-high-end', category: 'finish_multiplier', condition_json: { target_finish_level: 'high_end' }, low_value: 1.3, high_value: 1.3, unit: 'multiplier', active: true },
+  { rule_name: 'finish-luxury', category: 'finish_multiplier', condition_json: { target_finish_level: 'luxury' }, low_value: 1.6, high_value: 1.6, unit: 'multiplier', active: true },
 
-  { rule_name: 'age-before-1940', category: 'age_multiplier', condition_json: { max_year_built: 1939 }, low_value: 1.2, high_value: 1.2, unit: 'multiplier', active: true },
-  { rule_name: 'age-1940-1979', category: 'age_multiplier', condition_json: { min_year_built: 1940, max_year_built: 1979 }, low_value: 1.12, high_value: 1.12, unit: 'multiplier', active: true },
-  { rule_name: 'age-1980-1999', category: 'age_multiplier', condition_json: { min_year_built: 1980, max_year_built: 1999 }, low_value: 1.06, high_value: 1.06, unit: 'multiplier', active: true },
-  { rule_name: 'age-2000-plus', category: 'age_multiplier', condition_json: { min_year_built: 2000 }, low_value: 1, high_value: 1, unit: 'multiplier', active: true },
+  // Age multipliers CENTERED on typical mid-century (1940–79) = 1.0. Older
+  // stock carries modest extra exposure; newer is slightly cheaper.
+  { rule_name: 'age-before-1940', category: 'age_multiplier', condition_json: { max_year_built: 1939 }, low_value: 1.08, high_value: 1.08, unit: 'multiplier', active: true },
+  { rule_name: 'age-1940-1979', category: 'age_multiplier', condition_json: { min_year_built: 1940, max_year_built: 1979 }, low_value: 1.0, high_value: 1.0, unit: 'multiplier', active: true },
+  { rule_name: 'age-1980-1999', category: 'age_multiplier', condition_json: { min_year_built: 1980, max_year_built: 1999 }, low_value: 0.97, high_value: 0.97, unit: 'multiplier', active: true },
+  { rule_name: 'age-2000-plus', category: 'age_multiplier', condition_json: { min_year_built: 2000 }, low_value: 0.95, high_value: 0.95, unit: 'multiplier', active: true },
 
   { rule_name: 'risk-water-damage', category: 'risk_multiplier', condition_json: { field: 'water_damage', label: 'Water damage', risk_flag: 'Water damage often expands after demolition and can pull hidden framing, subfloor, and mold exposure into the job.' }, low_value: 1.08, high_value: 1.18, unit: 'multiplier', active: true },
   { rule_name: 'risk-fire-damage', category: 'risk_multiplier', condition_json: { field: 'fire_damage', label: 'Fire damage', risk_flag: 'Fire damage can move the project into hidden framing, insulation, smoke remediation, and full-system replacement territory.' }, low_value: 1.2, high_value: 1.5, unit: 'multiplier', active: true },
