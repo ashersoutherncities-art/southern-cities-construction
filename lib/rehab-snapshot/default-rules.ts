@@ -21,14 +21,19 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   // (all multipliers = 1.0). Anchored to real SCC jobs: a comprehensive full
   // reno (full systems + kitchen + finishes) ran ~$55/SF raw → that's the
   // heavy_rehab center; a light systems-reset reno ran ~$22/SF raw → rental_turn.
-  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 12, high_value: 24, unit: 'per_sf', active: true },
-  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 15, high_value: 28, unit: 'per_sf', active: true },
-  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 28, high_value: 46, unit: 'per_sf', active: true },
-  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 40, high_value: 58, unit: 'per_sf', active: true },
-  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 58, high_value: 85, unit: 'per_sf', active: true },
-  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 78, high_value: 115, unit: 'per_sf', active: true },
-  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 70, high_value: 105, unit: 'per_sf', active: true },
-  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 28, high_value: 52, unit: 'per_sf', active: true },
+  // Per-SF base barely escalates past "heavy" (a comprehensive full-systems
+  // reno = the real ~$55/SF raw anchor). Full gut / structural are NOT 2× per
+  // SF — they are a comprehensive reno PLUS flat structural-shell add-ons
+  // (framing/foundation/structural, applied as line items). Only an addition
+  // (net-new square footage = new construction) carries a genuinely higher base.
+  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 12, high_value: 22, unit: 'per_sf', active: true },
+  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 14, high_value: 26, unit: 'per_sf', active: true },
+  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 26, high_value: 42, unit: 'per_sf', active: true },
+  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 38, high_value: 54, unit: 'per_sf', active: true },
+  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 42, high_value: 58, unit: 'per_sf', active: true },
+  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 44, high_value: 60, unit: 'per_sf', active: true },
+  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 65, high_value: 100, unit: 'per_sf', active: true },
+  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 26, high_value: 46, unit: 'per_sf', active: true },
 
   // Finish multipliers CENTERED on basic_flip = 1.0 (the common investor case).
   // A typical flip should not be inflated; only above/below basic adjusts.
@@ -48,8 +53,8 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   { rule_name: 'risk-water-damage', category: 'risk_multiplier', condition_json: { field: 'water_damage', label: 'Water damage', risk_flag: 'Water damage often expands after demolition and can pull hidden framing, subfloor, and mold exposure into the job.' }, low_value: 1.08, high_value: 1.18, unit: 'multiplier', active: true },
   { rule_name: 'risk-fire-damage', category: 'risk_multiplier', condition_json: { field: 'fire_damage', label: 'Fire damage', risk_flag: 'Fire damage can move the project into hidden framing, insulation, smoke remediation, and full-system replacement territory.' }, low_value: 1.2, high_value: 1.5, unit: 'multiplier', active: true },
   { rule_name: 'risk-framing', category: 'risk_multiplier', condition_json: { field: 'framing', label: 'Framing work', risk_flag: 'Framing work usually means structure is being opened, sequencing tightens up, and the budget becomes more exposed to hidden conditions.' }, low_value: 1.08, high_value: 1.22, unit: 'multiplier', active: true },
-  { rule_name: 'risk-structural', category: 'risk_multiplier', condition_json: { field: 'structural', label: 'Structural concern', risk_flag: 'Structural issues can change the scope materially once engineering, demolition, and rebuild sequencing are validated.' }, low_value: 1.2, high_value: 1.6, unit: 'multiplier', active: true },
-  { rule_name: 'risk-foundation', category: 'risk_multiplier', condition_json: { field: 'foundation', label: 'Foundation concern', risk_flag: 'Foundation concerns can materially change sequencing, engineer involvement, and repair cost once exposed.' }, low_value: 1.2, high_value: 1.6, unit: 'multiplier', active: true },
+  { rule_name: 'risk-structural', category: 'risk_multiplier', condition_json: { field: 'structural', label: 'Structural concern', risk_flag: 'Structural issues can change the scope materially once engineering, demolition, and rebuild sequencing are validated.' }, low_value: 1.05, high_value: 1.15, unit: 'multiplier', active: true },
+  { rule_name: 'risk-foundation', category: 'risk_multiplier', condition_json: { field: 'foundation', label: 'Foundation concern', risk_flag: 'Foundation concerns can materially change sequencing, engineer involvement, and repair cost once exposed.' }, low_value: 1.05, high_value: 1.15, unit: 'multiplier', active: true },
   { rule_name: 'risk-electrical-full', category: 'risk_multiplier', condition_json: { field: 'electrical_full', label: 'Full electrical', risk_flag: 'Full electrical replacement adds wall-open work, panel coordination, and inspection exposure.' }, low_value: 1.08, high_value: 1.2, unit: 'multiplier', active: true },
   { rule_name: 'risk-plumbing-full', category: 'risk_multiplier', condition_json: { field: 'plumbing_full', label: 'Full plumbing', risk_flag: 'Full plumbing replacement adds access, trade coordination, and wall-close sequencing exposure.' }, low_value: 1.08, high_value: 1.2, unit: 'multiplier', active: true },
   { rule_name: 'risk-layout-changes', category: 'risk_multiplier', condition_json: { field: 'layout_changes', label: 'Layout changes', risk_flag: 'Layout changes usually move the job out of straight finish work and into coordination, framing, and permit risk.' }, low_value: 1.1, high_value: 1.25, unit: 'multiplier', active: true },
@@ -69,6 +74,7 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   { rule_name: 'allowance-plumbing-full', category: 'scope_line', condition_json: { field: 'plumbing_full', label: 'Plumbing full replacement' }, low_value: 8000, high_value: 18000, unit: 'flat', active: true },
   { rule_name: 'allowance-framing', category: 'scope_line', condition_json: { field: 'framing', label: 'Framing scope allowance' }, low_value: 6000, high_value: 20000, unit: 'flat', active: true },
   { rule_name: 'allowance-foundation', category: 'scope_line', condition_json: { field: 'foundation', label: 'Foundation scope allowance' }, low_value: 10000, high_value: 35000, unit: 'flat', active: true },
+  { rule_name: 'allowance-structural', category: 'scope_line', condition_json: { field: 'structural', label: 'Structural work allowance' }, low_value: 8000, high_value: 28000, unit: 'flat', active: true },
   { rule_name: 'allowance-siding', category: 'scope_line', condition_json: { field: 'siding', label: 'Siding' }, low_value: 8000, high_value: 22000, unit: 'flat', active: true },
 
   { rule_name: 'timeline-permit-high', category: 'timeline_risk', condition_json: { permit_complexity: 'high', label: 'Permit complexity high' }, low_value: 4, high_value: 12, unit: 'weeks', active: true },

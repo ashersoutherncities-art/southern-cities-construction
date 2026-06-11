@@ -54,14 +54,14 @@ const GC_FEE_RATE = 0.25;
 // except an addition, which is net-new square footage with tie-in complexity.
 // Full gut caps just at new-build; everything else scales down from there.
 const PER_SF_CEILING: Record<ProjectCategory, number> = {
-  cosmetic: 45,
-  rental_turn: 40,
-  moderate_rehab: 80,
-  heavy_rehab: 110,
-  full_gut: 155,
-  structural_heavy: 170,
-  addition: 185,
-  unknown: 100,
+  cosmetic: 42,
+  rental_turn: 38,
+  moderate_rehab: 62,
+  heavy_rehab: 85,
+  full_gut: 98,
+  structural_heavy: 108,
+  addition: 155,
+  unknown: 75,
 };
 
 function clamp(value: number, min: number, max: number) {
@@ -290,13 +290,29 @@ function inferExecutionDifficulty(
   return 'low';
 }
 
-function buildScopeLineItems(rules: EstimateRuleRecord[], scope: RehabSnapshotScopeInput) {
+// Structural-shell flat add-ons (framing, foundation, structural). These are
+// localized lump-sum costs (a beam, posts, footing repair) that apply ON TOP
+// of any category — including heavy/gut/structural — because the per-SF base
+// does NOT include them. Distinct from SYSTEM flats (kitchen/HVAC/plumbing/
+// electrical/roof/bath) which ARE embedded in the heavy+ per-SF base and so
+// get suppressed for those categories to avoid double-counting.
+const STRUCTURAL_FLAT_FIELDS = new Set(['framing', 'foundation', 'structural']);
+
+function buildScopeLineItems(
+  rules: EstimateRuleRecord[],
+  scope: RehabSnapshotScopeInput,
+  suppressSystemFlats = false
+) {
   const rows: EstimateBreakdownRow[] = [];
 
   for (const rule of rules.filter((item) => item.category === 'scope_line')) {
     const condition = rule.condition_json as RuleCondition;
     const field = String(condition.field || '');
     if (!field) continue;
+
+    // For heavy+ categories, keep only structural-shell flats; the rest are
+    // embedded in the per-SF base.
+    if (suppressSystemFlats && !STRUCTURAL_FLAT_FIELDS.has(field)) continue;
 
     const rawValue = scope[field as keyof RehabSnapshotScopeInput];
     if (rule.unit === 'flat' && rawValue === true) {
@@ -569,7 +585,10 @@ export function computeEstimate(
     projectCategory === 'full_gut' ||
     projectCategory === 'structural_heavy' ||
     projectCategory === 'addition';
-  const scopeRows = baseEmbedsSystems ? [] : buildScopeLineItems(rules, input.scope);
+  // For heavy+ categories, suppress SYSTEM flats (embedded in base) but STILL
+  // add structural-shell flats (framing/foundation/structural) — those are
+  // genuine lump-sum add-ons the per-SF base does not cover.
+  const scopeRows = buildScopeLineItems(rules, input.scope, baseEmbedsSystems);
   breakdown.push(...scopeRows);
 
   let subtotalLow = breakdown.reduce((sum, row) => sum + row.low, 0);
