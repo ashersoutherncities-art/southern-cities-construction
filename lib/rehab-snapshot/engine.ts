@@ -39,6 +39,22 @@ const CATEGORY_LABELS: Record<ProjectCategory, string> = {
   unknown: 'Unknown',
 };
 
+// Hard backstop: maximum sane effective $/SF per category. No combination of
+// finish/age/market/risk multipliers should ever exceed these — they sit
+// comfortably above the legitimate worst-case mid/high-grade ranges and exist
+// purely to stop pathological inputs (every scope box checked) from producing
+// absurd numbers. Anchor: NC contractor-grade new build is ~$125/SF.
+const PER_SF_CEILING: Record<ProjectCategory, number> = {
+  cosmetic: 60,
+  rental_turn: 55,
+  moderate_rehab: 130,
+  heavy_rehab: 165,
+  full_gut: 215,
+  structural_heavy: 255,
+  addition: 295,
+  unknown: 150,
+};
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
@@ -550,10 +566,15 @@ export function computeEstimate(
   let subtotalHigh = breakdown.reduce((sum, row) => sum + row.high, 0);
 
   const { multipliers, riskFlags } = buildRiskAdjustments(rules, input, permitComplexity, baseEmbedsSystems);
-  for (const multiplier of multipliers) {
-    subtotalLow *= multiplier.low_value;
-    subtotalHigh *= multiplier.high_value;
-  }
+
+  // Additive, CAPPED risk premium. Multiplying every risk multiplier together
+  // let a handful of checked boxes explode the estimate (6 risks ≈ 10×, which
+  // produced $2,000+/SF). Instead, sum each risk's premium over 1.0 and cap
+  // the total so risk meaningfully widens the range but can never run away.
+  const riskDeltaLow = multipliers.reduce((sum, m) => sum + Math.max(0, m.low_value - 1), 0);
+  const riskDeltaHigh = multipliers.reduce((sum, m) => sum + Math.max(0, m.high_value - 1), 0);
+  subtotalLow *= 1 + Math.min(riskDeltaLow, 0.4);
+  subtotalHigh *= 1 + Math.min(riskDeltaHigh, 0.9);
 
   const hasHighRiskFlags =
     input.scope.water_damage ||
@@ -574,6 +595,15 @@ export function computeEstimate(
   subtotalLow += contingencyLow;
   subtotalHigh += contingencyHigh;
 
+  // Hard backstop: clamp effective $/SF to a sane per-category ceiling so no
+  // multiplier combination can yield an absurd number.
+  const sf = input.project.square_feet || 0;
+  if (sf > 0) {
+    const ceiling = PER_SF_CEILING[projectCategory] * sf;
+    subtotalHigh = Math.min(subtotalHigh, ceiling);
+    subtotalLow = Math.min(subtotalLow, subtotalHigh);
+  }
+
   const { confidenceScore, confidenceLevel } = computeConfidence(input, projectCategory, hasHighRiskFlags);
   const timeline = computeTimeline(rules, projectCategory, input.scope, permitComplexity);
   const highRiskEstimate = roundCurrency(
@@ -589,7 +619,6 @@ export function computeEstimate(
 
   const finalLow = roundCurrency(subtotalLow);
   const finalHigh = roundCurrency(subtotalHigh);
-  const sf = input.project.square_feet || 0;
 
   return {
     projectCategory,
