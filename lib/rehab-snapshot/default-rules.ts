@@ -69,49 +69,50 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
 ];
 
 /**
- * Statewide-default market tier table (fallback when the Supabase
- * `market_tiers` table is unavailable). Maps NC 3-digit ZIP prefixes to a
- * regional cost tier + base-cost multiplier.
- *
- *   Tier A — high-cost metros (Charlotte, Triangle, Asheville/mountains)
- *   Tier B — mid-cost (Triad, Wilmington, Hickory)
- *   Tier C — lower-cost rural / eastern NC
- *
- * Multipliers scale the per-SF BASE cost only.
+ * NC regional cost multipliers, sourced from the openclaw cost-analyzer
+ * skill's `nc-region-multipliers.json` (RSMeans-derived NC metro/micropolitan
+ * city cost indexes), mapped to 3-digit ZIP prefixes. The real NC spread is
+ * TIGHT — roughly ±5% from the statewide average, not the ±20% that was
+ * guessed previously. The multiplier is a single point value per region
+ * (applied equally to low and high) because regional cost shifts the LEVEL,
+ * not the spread. tier letter is display-only (A >1.0, B ~1.0, C <0.98).
  */
 export const DEFAULT_MARKET_TIERS: MarketTierRecord[] = [
-  // Tier A — high-cost metros
-  { zip_prefix: '275', tier: 'A', label: 'Raleigh', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
-  { zip_prefix: '276', tier: 'A', label: 'Raleigh–Durham', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
-  { zip_prefix: '277', tier: 'A', label: 'Durham', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
-  { zip_prefix: '280', tier: 'A', label: 'Charlotte Metro (Gastonia)', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
-  { zip_prefix: '281', tier: 'A', label: 'Charlotte Metro', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
-  { zip_prefix: '282', tier: 'A', label: 'Charlotte', cost_multiplier_low: 1.12, cost_multiplier_high: 1.20, active: true },
-  { zip_prefix: '287', tier: 'A', label: 'Asheville Area', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
-  { zip_prefix: '288', tier: 'A', label: 'Asheville', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
-  { zip_prefix: '289', tier: 'A', label: 'Western NC Mountains', cost_multiplier_low: 1.08, cost_multiplier_high: 1.16, active: true },
-  // Tier B — mid-cost
-  { zip_prefix: '270', tier: 'B', label: 'Greensboro', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
-  { zip_prefix: '271', tier: 'B', label: 'Winston-Salem', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
-  { zip_prefix: '272', tier: 'B', label: 'Greensboro', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
-  { zip_prefix: '273', tier: 'B', label: 'Triad', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
-  { zip_prefix: '274', tier: 'B', label: 'High Point', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
-  { zip_prefix: '284', tier: 'B', label: 'Wilmington', cost_multiplier_low: 1.02, cost_multiplier_high: 1.08, active: true },
-  { zip_prefix: '286', tier: 'B', label: 'Hickory', cost_multiplier_low: 0.98, cost_multiplier_high: 1.04, active: true },
-  // Tier C — lower-cost rural / eastern NC
-  { zip_prefix: '278', tier: 'C', label: 'Rocky Mount', cost_multiplier_low: 0.90, cost_multiplier_high: 0.96, active: true },
-  { zip_prefix: '279', tier: 'C', label: 'Elizabeth City', cost_multiplier_low: 0.90, cost_multiplier_high: 0.96, active: true },
-  { zip_prefix: '283', tier: 'C', label: 'Fayetteville', cost_multiplier_low: 0.92, cost_multiplier_high: 0.98, active: true },
-  { zip_prefix: '285', tier: 'C', label: 'Kinston / Goldsboro', cost_multiplier_low: 0.90, cost_multiplier_high: 0.96, active: true },
+  // Triangle (Raleigh-Cary 1.04, Durham-Chapel Hill 1.04)
+  { zip_prefix: '275', tier: 'A', label: 'Raleigh', cost_multiplier_low: 1.04, cost_multiplier_high: 1.04, active: true },
+  { zip_prefix: '276', tier: 'A', label: 'Raleigh–Durham', cost_multiplier_low: 1.04, cost_multiplier_high: 1.04, active: true },
+  { zip_prefix: '277', tier: 'A', label: 'Durham', cost_multiplier_low: 1.04, cost_multiplier_high: 1.04, active: true },
+  // Charlotte-Concord-Gastonia 1.03
+  { zip_prefix: '280', tier: 'A', label: 'Charlotte Metro (Gastonia)', cost_multiplier_low: 1.03, cost_multiplier_high: 1.03, active: true },
+  { zip_prefix: '281', tier: 'A', label: 'Charlotte Metro', cost_multiplier_low: 1.03, cost_multiplier_high: 1.03, active: true },
+  { zip_prefix: '282', tier: 'A', label: 'Charlotte', cost_multiplier_low: 1.03, cost_multiplier_high: 1.03, active: true },
+  // Asheville 1.02, Wilmington 1.01
+  { zip_prefix: '287', tier: 'A', label: 'Asheville Area', cost_multiplier_low: 1.02, cost_multiplier_high: 1.02, active: true },
+  { zip_prefix: '288', tier: 'A', label: 'Asheville', cost_multiplier_low: 1.02, cost_multiplier_high: 1.02, active: true },
+  { zip_prefix: '289', tier: 'A', label: 'Western NC Mountains', cost_multiplier_low: 1.02, cost_multiplier_high: 1.02, active: true },
+  { zip_prefix: '284', tier: 'A', label: 'Wilmington', cost_multiplier_low: 1.01, cost_multiplier_high: 1.01, active: true },
+  // Triad (Greensboro-High Point 0.98, Winston-Salem 0.98)
+  { zip_prefix: '270', tier: 'B', label: 'Greensboro', cost_multiplier_low: 0.98, cost_multiplier_high: 0.98, active: true },
+  { zip_prefix: '271', tier: 'B', label: 'Winston-Salem', cost_multiplier_low: 0.98, cost_multiplier_high: 0.98, active: true },
+  { zip_prefix: '272', tier: 'B', label: 'Greensboro', cost_multiplier_low: 0.98, cost_multiplier_high: 0.98, active: true },
+  { zip_prefix: '273', tier: 'B', label: 'Triad', cost_multiplier_low: 0.98, cost_multiplier_high: 0.98, active: true },
+  { zip_prefix: '274', tier: 'B', label: 'High Point', cost_multiplier_low: 0.98, cost_multiplier_high: 0.98, active: true },
+  // Fayetteville 0.97, Hickory-Lenoir-Morganton 0.97
+  { zip_prefix: '283', tier: 'C', label: 'Fayetteville', cost_multiplier_low: 0.97, cost_multiplier_high: 0.97, active: true },
+  { zip_prefix: '286', tier: 'C', label: 'Hickory', cost_multiplier_low: 0.97, cost_multiplier_high: 0.97, active: true },
+  // Rocky Mount 0.95, Goldsboro 0.96, Kinston 0.94, Elizabeth City 0.95
+  { zip_prefix: '278', tier: 'C', label: 'Rocky Mount', cost_multiplier_low: 0.95, cost_multiplier_high: 0.95, active: true },
+  { zip_prefix: '279', tier: 'C', label: 'Elizabeth City', cost_multiplier_low: 0.95, cost_multiplier_high: 0.95, active: true },
+  { zip_prefix: '285', tier: 'C', label: 'Kinston / Goldsboro', cost_multiplier_low: 0.95, cost_multiplier_high: 0.95, active: true },
 ];
 
 /**
  * Applied when the ZIP doesn't match a known NC prefix (or is out of state).
- * Slight high-side buffer to stay conservative on unknown markets.
+ * RSMeans NC "default" index is 1.00 — no high-side guessing.
  */
 export const DEFAULT_REGION_FALLBACK = {
   tier: 'NC',
   label: 'Statewide NC (default)',
   cost_multiplier_low: 1.0,
-  cost_multiplier_high: 1.05,
+  cost_multiplier_high: 1.0,
 };

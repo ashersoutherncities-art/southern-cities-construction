@@ -45,29 +45,26 @@ alter table public.market_tiers enable row level security;
 
 -- Seed / upsert NC tiers. Re-running updates values in place.
 insert into public.market_tiers (zip_prefix, tier, label, cost_multiplier_low, cost_multiplier_high, active) values
-  -- Tier A — high-cost metros
-  ('275', 'A', 'Raleigh',                    1.10, 1.18, true),
-  ('276', 'A', 'Raleigh–Durham',             1.10, 1.18, true),
-  ('277', 'A', 'Durham',                     1.10, 1.18, true),
-  ('280', 'A', 'Charlotte Metro (Gastonia)', 1.10, 1.18, true),
-  ('281', 'A', 'Charlotte Metro',            1.10, 1.18, true),
-  ('282', 'A', 'Charlotte',                  1.12, 1.20, true),
-  ('287', 'A', 'Asheville Area',             1.10, 1.18, true),
-  ('288', 'A', 'Asheville',                  1.10, 1.18, true),
-  ('289', 'A', 'Western NC Mountains',       1.08, 1.16, true),
-  -- Tier B — mid-cost
-  ('270', 'B', 'Greensboro',                 1.00, 1.05, true),
-  ('271', 'B', 'Winston-Salem',              1.00, 1.05, true),
-  ('272', 'B', 'Greensboro',                 1.00, 1.05, true),
-  ('273', 'B', 'Triad',                      1.00, 1.05, true),
-  ('274', 'B', 'High Point',                 1.00, 1.05, true),
-  ('284', 'B', 'Wilmington',                 1.02, 1.08, true),
-  ('286', 'B', 'Hickory',                    0.98, 1.04, true),
-  -- Tier C — lower-cost rural / eastern NC
-  ('278', 'C', 'Rocky Mount',                0.90, 0.96, true),
-  ('279', 'C', 'Elizabeth City',             0.90, 0.96, true),
-  ('283', 'C', 'Fayetteville',               0.92, 0.98, true),
-  ('285', 'C', 'Kinston / Goldsboro',        0.90, 0.96, true)
+  ('275', 'A', 'Raleigh', 1.04, 1.04, true),
+  ('276', 'A', 'Raleigh–Durham', 1.04, 1.04, true),
+  ('277', 'A', 'Durham', 1.04, 1.04, true),
+  ('280', 'A', 'Charlotte Metro (Gastonia)', 1.03, 1.03, true),
+  ('281', 'A', 'Charlotte Metro', 1.03, 1.03, true),
+  ('282', 'A', 'Charlotte', 1.03, 1.03, true),
+  ('287', 'A', 'Asheville Area', 1.02, 1.02, true),
+  ('288', 'A', 'Asheville', 1.02, 1.02, true),
+  ('289', 'A', 'Western NC Mountains', 1.02, 1.02, true),
+  ('284', 'A', 'Wilmington', 1.01, 1.01, true),
+  ('270', 'B', 'Greensboro', 0.98, 0.98, true),
+  ('271', 'B', 'Winston-Salem', 0.98, 0.98, true),
+  ('272', 'B', 'Greensboro', 0.98, 0.98, true),
+  ('273', 'B', 'Triad', 0.98, 0.98, true),
+  ('274', 'B', 'High Point', 0.98, 0.98, true),
+  ('283', 'C', 'Fayetteville', 0.97, 0.97, true),
+  ('286', 'C', 'Hickory', 0.97, 0.97, true),
+  ('278', 'C', 'Rocky Mount', 0.95, 0.95, true),
+  ('279', 'C', 'Elizabeth City', 0.95, 0.95, true),
+  ('285', 'C', 'Kinston / Goldsboro', 0.95, 0.95, true)
 on conflict (zip_prefix) do update set
   tier = excluded.tier,
   label = excluded.label,
