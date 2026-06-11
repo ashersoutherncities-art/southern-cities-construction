@@ -518,7 +518,18 @@ export function computeEstimate(
     },
   ];
 
-  const scopeRows = buildScopeLineItems(rules, input.scope);
+  // Avoid double-counting: heavy / gut / structural / addition per-SF bases
+  // already embed major systems (kitchen, baths, roof, HVAC, electrical,
+  // plumbing). Adding the flat scope allowances on top of those bases — and
+  // then multiplying by finish/age/region — produced implausibly high tops.
+  // Only add discrete flat allowances for the lighter categories where the
+  // per-SF base does NOT already include that work.
+  const baseEmbedsSystems =
+    projectCategory === 'heavy_rehab' ||
+    projectCategory === 'full_gut' ||
+    projectCategory === 'structural_heavy' ||
+    projectCategory === 'addition';
+  const scopeRows = baseEmbedsSystems ? [] : buildScopeLineItems(rules, input.scope);
   breakdown.push(...scopeRows);
 
   let subtotalLow = breakdown.reduce((sum, row) => sum + row.low, 0);
