@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import SiteNav from '@/components/SiteNav';
+import SiteFooter from '@/components/SiteFooter';
 import FounderStory from '@/components/FounderStory';
 
 export const metadata = {
@@ -149,24 +151,15 @@ function badgeClass(color: 'orange' | 'white' | 'navy') {
 export default function DealPackPage() {
   return (
     <div className="min-h-screen bg-[#08111d] text-white">
-      {/* Header */}
-      <header className="border-b border-white/8">
-        <div className="container-pro flex items-center justify-between py-5">
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/sc-construction-logo-reversed.png"
-              alt="Southern Cities Construction"
-              width={180}
-              height={48}
-              className="h-8 w-auto sm:h-10"
-              priority
-            />
-          </Link>
+      <SiteNav variant="solid" />
+      {/* Page-context tag below the unified nav */}
+      <div className="border-b border-white/8 pt-20 lg:pt-[84px]">
+        <div className="container-pro py-3 text-center sm:text-right">
           <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
             Deal Pack · For NC Wholesalers + Realtors · NC GC #107724
           </span>
         </div>
-      </header>
+      </div>
 
       {/* HERO */}
       <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
@@ -581,12 +574,7 @@ export default function DealPackPage() {
         </div>
       </section>
 
-      {/* FOOTER STRIP */}
-      <footer className="border-t border-white/8 py-10 text-center">
-        <p className="text-[12px] uppercase tracking-[0.18em] text-white/55">
-          Southern Cities Construction · NC GC License #107724 · Serving wholesalers, realtors, and investors across NC
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { SITE_CONFIG } from '@/lib/site-config';
 
 const YEAR = new Date().getFullYear();
 
@@ -12,14 +13,14 @@ export default function SiteFooter() {
       <div className="relative container-pro pt-16 pb-10">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <Image src="/sc-construction-logo-reversed.png" alt="Southern Cities Construction" width={260} height={101} className="mb-5 h-12 w-auto" />
+            <Image src={SITE_CONFIG.logoReversed} alt={SITE_CONFIG.name} width={260} height={101} className="mb-5 h-12 w-auto" />
             <div className="space-y-3 text-sm leading-relaxed text-white/65 max-w-sm">
-              <p>Southern Cities Construction</p>
+              <p>{SITE_CONFIG.name}</p>
               <p>Residential construction made easier in North Carolina. Two clear ways to work with us: focused project support on a specific piece, or full licensed contracting when one company should run the whole project.</p>
               <p>Project support: planning · permits · budgets · contractor fit · coordination · oversight · support plans</p>
               <p>Full contracting: renovations · rehabs · additions · new builds</p>
-              <p>Licensed NC General Contractor · NC GC License #107724</p>
-              <p>5 years in business · 15+ projects completed · Charlotte, NC · Statewide NC coverage</p>
+              <p>Licensed NC General Contractor · {SITE_CONFIG.license.formatted}</p>
+              <p>{SITE_CONFIG.stats.footerLine}</p>
             </div>
           </div>
 
@@ -43,25 +44,25 @@ export default function SiteFooter() {
               <li><Link href="/blog" className="text-sm text-white/50 transition-colors hover:text-orange">NC Construction Blog</Link></li>
               <li><Link href="/resources" className="text-sm text-white/50 transition-colors hover:text-orange">Resources & Playbooks</Link></li>
               <li><Link href="/partners" className="text-sm text-white/50 transition-colors hover:text-orange">Partner With Us</Link></li>
-              <li><a href="https://clients.southerncitiesconstruction.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 transition-colors hover:text-orange">Client Portal</a></li>
+              <li><a href={SITE_CONFIG.portalUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 transition-colors hover:text-orange">Client Portal</a></li>
               <li><Link href="/cart" className="text-sm text-white/50 transition-colors hover:text-orange">Cart</Link></li>
-              <li><Link href="/services/homeowners/owner-consultation" className="text-sm text-white/50 transition-colors hover:text-orange">Book a Project Call</Link></li>
+              <li><Link href="/book" className="text-sm text-white/50 transition-colors hover:text-orange">Book a Project Call</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="mb-5 text-sm font-semibold tracking-wide text-white">Contact</h4>
             <ul className="space-y-3 text-sm text-white/50">
-              <li><a href="tel:+19804737249" className="transition-colors hover:text-orange">(980) 473-7249</a></li>
-              <li><a href="mailto:orders@southerncitiesconstruction.com" className="break-all transition-colors hover:text-orange">orders@southerncitiesconstruction.com</a></li>
-              <li><a href="mailto:info@southerncitiesconstruction.com" className="break-all transition-colors hover:text-orange">info@southerncitiesconstruction.com</a></li>
-              <li>Charlotte, NC</li>
+              <li><a href={`tel:${SITE_CONFIG.phoneTel}`} className="transition-colors hover:text-orange">{SITE_CONFIG.phone}</a></li>
+              <li><a href={`mailto:${SITE_CONFIG.emailInfo}`} className="break-all transition-colors hover:text-orange">{SITE_CONFIG.emailInfo}</a></li>
+              <li><a href={`mailto:${SITE_CONFIG.emailOrders}`} className="break-all transition-colors hover:text-orange">{SITE_CONFIG.emailOrders}</a></li>
+              <li>{SITE_CONFIG.address.formatted}</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 border-t border-white/5 pt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs tracking-wide text-white/30">© {YEAR} Southern Cities Construction · A Division of Southern Cities Enterprises</p>
+          <p className="text-xs tracking-wide text-white/30">© {YEAR} {SITE_CONFIG.legalLine}</p>
         </div>
       </div>
     </footer>

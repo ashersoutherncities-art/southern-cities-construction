@@ -5,15 +5,16 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import CartNavLink from '@/components/CartNavLink';
+import { SITE_CONFIG } from '@/lib/site-config';
 
 type NavLink = { href: string; label: string };
 type NavGroup = { label: string; href: string; children: NavLink[] };
 
 const SERVICES_GROUP: NavGroup = {
-  label: 'Pricing',
+  label: 'Services',
   href: '/services',
   children: [
-    { href: '/services', label: 'Pricing Overview' },
+    { href: '/services', label: 'Services Overview' },
     { href: '/services/homeowners', label: 'For Homeowners' },
     { href: '/services/investors', label: 'For Investors' },
     { href: '/services/wholesalers', label: 'For Wholesalers' },
@@ -97,8 +98,8 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
       >
         <div className="container-pro">
           <div className="flex h-20 lg:h-[84px] items-center justify-between gap-6">
-            <Link href="/" className="flex items-center shrink-0" aria-label="Southern Cities Construction">
-              <Image src="/sc-construction-logo-reversed.png" alt="Southern Cities Construction" width={360} height={140} className="h-12 w-auto md:h-14 lg:h-[60px]" priority />
+            <Link href="/" className="flex items-center shrink-0" aria-label={SITE_CONFIG.name}>
+              <Image src={SITE_CONFIG.logoReversed} alt={SITE_CONFIG.name} width={360} height={140} className="h-12 w-auto md:h-14 lg:h-[60px]" priority />
             </Link>
 
             <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
@@ -152,7 +153,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
               })}
               <CartNavLink compact className="px-2.5 xl:px-3 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-200 whitespace-nowrap inline-flex" />
               <a
-                href="https://clients.southerncitiesconstruction.com"
+                href={SITE_CONFIG.portalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-white/45 bg-white/10 px-3.5 xl:px-4 py-2 text-[12.5px] xl:text-[13px] font-semibold text-white transition-all duration-200 whitespace-nowrap hover:bg-white/20 hover:border-white"
@@ -162,7 +163,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
               </a>
-              <Link href="/services/homeowners/owner-consultation" className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-orange px-4 xl:px-5 py-2 text-[12.5px] xl:text-[13px] font-bold text-white shadow-glow-orange transition-all duration-200 whitespace-nowrap hover:bg-orange-500">
+              <Link href="/book" className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-orange px-4 xl:px-5 py-2 text-[12.5px] xl:text-[13px] font-bold text-white shadow-glow-orange transition-all duration-200 whitespace-nowrap hover:bg-orange-500">
                 Book a Project Call
               </Link>
             </div>
@@ -221,10 +222,10 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
               <Link href="/cart" onClick={() => setMobileOpen(false)} className={`block rounded-lg px-3 py-3 text-base font-medium transition-colors ${pathname === '/cart' ? 'bg-white/10 text-white' : 'text-white/85 hover:text-orange'}`}>
                 Cart
               </Link>
-              <a href="https://clients.southerncitiesconstruction.com" target="_blank" rel="noopener noreferrer" className="block rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:text-orange">
+              <a href={SITE_CONFIG.portalUrl} target="_blank" rel="noopener noreferrer" className="block rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:text-orange">
                 Portal
               </a>
-              <Link href="/services/homeowners/owner-consultation" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-full bg-orange px-5 py-3 text-center text-sm font-bold text-white shadow-glow-orange transition-all hover:bg-orange-500">
+              <Link href="/book" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-full bg-orange px-5 py-3 text-center text-sm font-bold text-white shadow-glow-orange transition-all hover:bg-orange-500">
                 Book a Project Call
               </Link>
             </div>

@@ -4,7 +4,7 @@ const trustItems = [
   { label: 'NC GC License #107724', href: 'https://portal.nclbgc.org/Public/Search' },
   { label: 'Fully Insured' },
   { label: '5 Years in Business' },
-  { label: '15+ Projects Completed' },
+  { label: '120+ Investors & Owners Served' },
   { label: 'Charlotte HQ · Statewide NC' },
 ];
 

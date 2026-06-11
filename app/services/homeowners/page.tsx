@@ -12,7 +12,7 @@ export default function HomeownerServicesPage() {
     ...baseData,
     heroTitle: 'Residential project help before you overcommit',
     heroSubtitle:
-      'Southern Cities helps homeowners buy the right support at the right stage, from clearer next steps and permit-path review to budget direction, project support, and full contracting when the project calls for that level of execution. NC GC License #107724. 5 years in business, 15+ completed projects, Charlotte HQ, statewide NC.',
+      'Southern Cities helps homeowners buy the right support at the right stage, from clearer next steps and permit-path review to budget direction, project support, and full contracting when the project calls for that level of execution. NC GC License #107724. 5 years in business, 120+ investors & owners served, Charlotte HQ, statewide NC.',
     painPoints: [
       'You need a clearer next step before spending more money.',
       'Permit questions and paperwork are creating hesitation around what to do next.',
