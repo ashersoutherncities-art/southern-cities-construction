@@ -3,7 +3,9 @@ import SiteFooter from '@/components/SiteFooter';
 
 export const metadata = {
   title: 'Terms of Use | Southern Cities Construction',
-  description: 'Terms of use for Southern Cities Construction.',
+  description:
+    'Terms of use for the Southern Cities Construction website and digital products.',
+  alternates: { canonical: '/terms' },
 };
 
 export default function TermsPage() {

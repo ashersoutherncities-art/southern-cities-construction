@@ -274,6 +274,26 @@ export function generateStaticParams() {
   });
 }
 
+export function generateMetadata({ params }: { params: Params }) {
+  const service = getServiceBySlug(params.avatar, params.service);
+  const avatar = avatarPages.find((page) => page.slug === params.avatar);
+  if (!service || !avatar) return { title: 'Service not found | Southern Cities Construction' };
+  const path = `/services/${params.avatar}/${params.service}`;
+  const title = `${service.title} — ${avatar.shortLabel} | Southern Cities Construction`;
+  return {
+    title,
+    description: service.summary,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      url: path,
+      title: `${service.title} — ${avatar.shortLabel}`,
+      description: service.summary,
+      siteName: 'Southern Cities Construction',
+    },
+  };
+}
+
 export default function ServiceDetailPage({ params }: { params: Params }) {
   const service = getServiceBySlug(params.avatar, params.service);
   const avatar = avatarPages.find((page) => page.slug === params.avatar);

@@ -363,6 +363,15 @@ export const metadata = {
   title: 'For Investors | Southern Cities Construction',
   description:
     'Construction made buyable for investors. Buy the exact construction support you need at the right stage, from due diligence to draws, execution, and repeat operations.',
+  alternates: { canonical: '/services/investors' },
+  openGraph: {
+    type: 'website',
+    url: '/services/investors',
+    title: 'Construction Support for NC Real Estate Investors',
+    description:
+      'Buy the exact construction support you need at the right stage — due diligence to draws, execution, and repeat operations.',
+    siteName: 'Southern Cities Construction',
+  },
 };
 
 export default function InvestorsPage() {

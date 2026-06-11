@@ -330,9 +330,18 @@ export function generateMetadata({ params }: { params: Params }) {
   const config = LEAD_MAGNET_LPS.find((lp) => lpRouteSlug(lp.resourceSlug) === params.slug);
   if (!config) return {};
   const resource = getResourceBySlug(config.resourceSlug);
+  const path = `/guide/${params.slug}`;
   return {
     title: `${resource?.title ?? 'Free GC-Certified Checklist'} | Southern Cities Construction`,
     description: config.heroSubheadline,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      url: path,
+      title: resource?.title ?? 'Free GC-Certified Checklist',
+      description: config.heroSubheadline,
+      siteName: 'Southern Cities Construction',
+    },
     robots: { index: true, follow: true },
   };
 }

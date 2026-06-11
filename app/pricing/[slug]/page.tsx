@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import SiteNav from '@/components/SiteNav';
@@ -10,6 +11,26 @@ export function generateStaticParams() {
   return getAllServices()
     .filter((service) => service.purchaseType === 'priced')
     .map((service) => ({ slug: service.slug }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const service = getAllServices().find(
+    (entry) => entry.slug === params.slug && entry.purchaseType === 'priced'
+  );
+  if (!service) return { title: 'Pricing not found | Southern Cities Construction' };
+  const path = `/pricing/${service.slug}`;
+  return {
+    title: `${service.title} — Pricing | Southern Cities Construction`,
+    description: service.summary,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      url: path,
+      title: `${service.title} — Pricing`,
+      description: service.summary,
+      siteName: 'Southern Cities Construction',
+    },
+  };
 }
 
 export default function PricingPage({ params }: { params: { slug: string } }) {

@@ -16,9 +16,18 @@ export const dynamicParams = false;
 export function generateMetadata({ params }: { params: Params }) {
   const stage = getPlatformStage(params.stage);
   if (!stage) return {};
+  const path = `/platform/${stage.slug}`;
   return {
     title: `${stage.name} | Southern Cities Investor Execution Platform`,
     description: stage.heroSubheadline,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      url: path,
+      title: `${stage.name} — Investor Execution Platform`,
+      description: stage.heroSubheadline,
+      siteName: 'Southern Cities Construction',
+    },
   };
 }
 

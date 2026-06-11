@@ -247,6 +247,15 @@ export const metadata = {
   title: 'For Realtors | Southern Cities Construction',
   description:
     'Construction help for realtors — inspection response, listing prep, pre-offer property reads, negotiation strategy, and tiered monthly support for solo agents, teams, and brokerages.',
+  alternates: { canonical: '/services/realtors' },
+  openGraph: {
+    type: 'website',
+    url: '/services/realtors',
+    title: 'Construction Help for NC Realtors',
+    description:
+      'Inspection response, listing prep, pre-offer property reads, negotiation strategy, and monthly support for solo agents, teams, and brokerages.',
+    siteName: 'Southern Cities Construction',
+  },
 };
 
 export default function RealtorsPage() {

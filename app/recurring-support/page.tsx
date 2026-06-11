@@ -2,6 +2,21 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 
+export const metadata = {
+  title: 'Monthly Support Plans — Ongoing Construction Oversight | Southern Cities Construction',
+  description:
+    'Recurring monthly support plans for owners, investors, realtors, and small operators in North Carolina. Get a licensed NC GC on retainer for project reviews, scope checks, contractor screening, and execution oversight.',
+  alternates: { canonical: '/recurring-support' },
+  openGraph: {
+    type: 'website',
+    url: '/recurring-support',
+    title: 'Monthly Support Plans — Construction Oversight on Retainer',
+    description:
+      'Licensed NC GC on retainer for project reviews, scope checks, contractor screening, and execution oversight. Tiered monthly plans.',
+    siteName: 'Southern Cities Construction',
+  },
+};
+
 type RecurringCard = {
   name: string;
   tag: string;

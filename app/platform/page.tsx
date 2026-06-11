@@ -6,6 +6,15 @@ export const metadata = {
   title: 'Investor Execution Platform | Southern Cities Construction',
   description:
     'Most real estate projects do not fail at acquisition. They fail during execution. Southern Cities Construction is a layered construction execution intelligence and operational support platform for real estate investors.',
+  alternates: { canonical: '/platform' },
+  openGraph: {
+    type: 'website',
+    url: '/platform',
+    title: 'Investor Execution Platform — Construction Intelligence for NC Investors',
+    description:
+      'Layered construction execution intelligence and operational support — across due diligence, planning, funding, execution, and scale.',
+    siteName: 'Southern Cities Construction',
+  },
 };
 
 export default function PlatformHubPage() {

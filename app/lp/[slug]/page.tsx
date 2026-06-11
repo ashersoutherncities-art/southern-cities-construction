@@ -2553,6 +2553,26 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
+export function generateMetadata({ params }: { params: Params }) {
+  const config = getConfig(params.slug);
+  if (!config) return { title: 'Landing page not found | Southern Cities Construction' };
+  const path = `/lp/${config.slug}`;
+  const title = `${config.priceLabel ?? config.heroEyebrow ?? config.slug} | Southern Cities Construction`;
+  const description = config.heroSubheadline ?? `${config.priceLabel} — ${config.audience}`;
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      url: path,
+      title: config.priceLabel ?? config.heroEyebrow ?? title,
+      description,
+      siteName: 'Southern Cities Construction',
+    },
+  };
+}
+
 export default function LandingPage({ params }: { params: Params }) {
   const config = getConfig(params.slug);
   if (!config) notFound();

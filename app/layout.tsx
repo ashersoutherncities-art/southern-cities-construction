@@ -2,26 +2,46 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import CartToast from "@/components/CartToast";
+import { SITE_CONFIG } from "@/lib/site-config";
 
+/**
+ * Root layout metadata.
+ *
+ * The canonical here points to the HOMEPAGE ('/'). It is inherited by
+ * the homepage automatically, which is what we want.
+ *
+ * Every OTHER page in the app MUST declare its own self-referencing
+ * canonical via `alternates.canonical` in its own `metadata` export
+ * (or sibling layout.tsx for client-component pages). If a page does
+ * not override, Google will incorrectly index it as a duplicate of
+ * the homepage. This was the bug that nuked SEO.
+ *
+ * Likewise, never inject <link rel="canonical"> in <head> from this
+ * root layout — it would clobber per-page canonicals defined via the
+ * Metadata API.
+ */
 export const metadata: Metadata = {
-  title: "Southern Cities Construction | Project Support and Full Contracting — Charlotte, NC",
-  description: "Southern Cities makes residential construction easier in North Carolina. Buy clear project support for permits, budgets, contractor fit, and oversight, or bring in our licensed general contracting team when one company should run the whole project.",
-  keywords: "residential construction support Charlotte NC, permit administration, budget review, construction oversight, contractor fit, full contracting, renovations, rehabs, additions, new construction Charlotte, Southern Cities Construction",
-  metadataBase: new URL("https://southerncitiesconstruction.com"),
+  metadataBase: new URL(SITE_CONFIG.baseUrl),
+  // Per-page titles already include "| Southern Cities Construction" — NO
+  // title.template here, otherwise the brand suffix double-stamps. This is
+  // the default that applies ONLY when a page doesn't export its own title.
+  title: `${SITE_CONFIG.name} | Project Support and Full Contracting — Charlotte, NC`,
+  description:
+    "Southern Cities makes residential construction easier in North Carolina. Buy clear project support for permits, budgets, contractor fit, and oversight, or bring in our licensed general contracting team when one company should run the whole project.",
   alternates: {
-    canonical: "https://southerncitiesconstruction.com",
+    canonical: '/',
   },
   openGraph: {
     type: "website",
-    url: "https://southerncitiesconstruction.com",
-    title: "Southern Cities Construction | Project Support and Full Contracting — Charlotte, NC",
-    description: "Southern Cities makes residential construction easier in North Carolina. Project support for permits, budgets, contractor fit, and oversight — plus full contracting when one company should run the whole project.",
-    siteName: "Southern Cities Construction",
+    url: '/',
+    siteName: SITE_CONFIG.name,
+    locale: "en_US",
+    title: `${SITE_CONFIG.name} | Project Support and Full Contracting — Charlotte, NC`,
+    description:
+      "Residential construction support and full general contracting across North Carolina — permits, budgets, contractor fit, oversight, renovations, rehabs, additions, new builds.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Southern Cities Construction | Project Support and Full Contracting — Charlotte, NC",
-    description: "Residential construction made easier in North Carolina. Buy clear project support, or bring in licensed full contracting when the project calls for it.",
   },
   icons: {
     icon: [
@@ -33,6 +53,9 @@ export const metadata: Metadata = {
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
+  authors: [{ name: SITE_CONFIG.name }],
+  creator: SITE_CONFIG.name,
+  publisher: SITE_CONFIG.legalName,
 };
 
 export default function RootLayout({
@@ -42,9 +65,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="canonical" href="https://southerncitiesconstruction.com" />
-      </head>
       <body>
         {children}
         <CartToast />

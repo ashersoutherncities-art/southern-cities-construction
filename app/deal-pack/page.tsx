@@ -5,7 +5,22 @@ import FounderStory from '@/components/FounderStory';
 export const metadata = {
   title: 'Deal Pack — Licensed GC Verification for NC Wholesalers + Realtors | Southern Cities Construction',
   description:
-    'Real investors won&apos;t pay top dollar for unverified deals. Attach a licensed NC General Contractor&apos;s verification to your next assignment or listing — and attract the buyer pool that actually pays for it. NC GC License #107724.',
+    "Real investors won't pay top dollar for unverified deals. Attach a licensed NC General Contractor's verification to your next assignment or listing — and attract the buyer pool that actually pays for it. NC GC License #107724.",
+  alternates: { canonical: '/deal-pack' },
+  openGraph: {
+    type: 'website',
+    url: '/deal-pack',
+    title: 'Deal Pack — Licensed GC Verification for NC Wholesalers + Realtors',
+    description:
+      "Attach a licensed NC GC's verification to your next assignment or listing — attract the buyer pool that actually pays for it.",
+    siteName: 'Southern Cities Construction',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Deal Pack — Licensed GC Verification',
+    description:
+      "Attach a licensed NC GC's verification to your next assignment or listing — attract the buyers who pay top dollar.",
+  },
 };
 
 type Tier = {

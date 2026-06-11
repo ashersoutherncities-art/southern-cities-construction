@@ -3,7 +3,9 @@ import SiteFooter from '@/components/SiteFooter';
 
 export const metadata = {
   title: 'Privacy Policy | Southern Cities Construction',
-  description: 'Privacy policy for Southern Cities Construction.',
+  description:
+    'How Southern Cities Construction collects, uses, and protects information from site visitors and clients.',
+  alternates: { canonical: '/privacy' },
 };
 
 export default function PrivacyPage() {

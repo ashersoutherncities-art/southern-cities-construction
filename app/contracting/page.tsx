@@ -3,6 +3,21 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TrustStrip from '@/components/TrustStrip';
 
+export const metadata = {
+  title: 'Full Contracting — Licensed NC General Contractor | Southern Cities Construction',
+  description:
+    'Full residential general contracting in North Carolina — renovations, investor rehabs, additions, and ground-up builds. One company, one point of accountability, structured planning and oversight. NC GC License #107724.',
+  alternates: { canonical: '/contracting' },
+  openGraph: {
+    type: 'website',
+    url: '/contracting',
+    title: 'Full Contracting — Licensed NC General Contractor',
+    description:
+      'Renovations, investor rehabs, additions, and ground-up residential builds across NC — one company running the whole project.',
+    siteName: 'Southern Cities Construction',
+  },
+};
+
 const scopeList = [
   'Full home renovations',
   'Investor rehabs and turn projects',

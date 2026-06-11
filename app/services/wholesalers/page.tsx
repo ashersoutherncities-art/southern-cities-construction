@@ -8,6 +8,15 @@ export const metadata = {
   title: 'For Wholesalers — GC-Verified Deal Packages | Southern Cities Construction',
   description:
     'For NC wholesalers: stop selling option contracts. Sell GC-Verified Deal Packs and consistently close $25–40K+ assignments to real end-investors. From a licensed NC General Contractor (#107724).',
+  alternates: { canonical: '/services/wholesalers' },
+  openGraph: {
+    type: 'website',
+    url: '/services/wholesalers',
+    title: 'For Wholesalers — GC-Verified Deal Packages',
+    description:
+      'Sell GC-Verified Deal Packs instead of option contracts. Close $25–40K+ assignments with a licensed NC GC behind the package.',
+    siteName: 'Southern Cities Construction',
+  },
 };
 
 type FeaturedProduct = {

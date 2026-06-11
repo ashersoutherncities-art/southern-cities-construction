@@ -19,6 +19,15 @@ export const metadata = {
   title: 'Rehab Budget Range & Execution Risk Snapshot | Southern Cities Construction',
   description:
     'Fast preliminary construction budget range for investors underwriting residential deals. Get a directional budget bucket, confidence level, execution risks, timeline range, and next step.',
+  alternates: { canonical: '/lp/rehab-budget-range-execution-risk-snapshot' },
+  openGraph: {
+    type: 'website',
+    url: '/lp/rehab-budget-range-execution-risk-snapshot',
+    title: 'Rehab Budget Range & Execution Risk Snapshot',
+    description:
+      'Fast preliminary budget bucket + execution risks + timeline range for investors underwriting NC residential deals.',
+    siteName: 'Southern Cities Construction',
+  },
 };
 
 export default function RehabBudgetRangeExecutionRiskSnapshotPage() {

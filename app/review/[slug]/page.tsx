@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import SiteNav from '@/components/SiteNav';
@@ -10,6 +11,29 @@ export function generateStaticParams() {
   return getAllServices()
     .filter((service) => service.purchaseType === 'review' || service.purchaseType === 'recurring')
     .map((service) => ({ slug: service.slug }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const service = getAllServices().find(
+    (entry) =>
+      entry.slug === params.slug &&
+      (entry.purchaseType === 'review' || entry.purchaseType === 'recurring')
+  );
+  if (!service) return { title: 'Service not found | Southern Cities Construction' };
+  const path = `/review/${service.slug}`;
+  const kind = service.purchaseType === 'recurring' ? 'Plan' : 'Review';
+  return {
+    title: `${service.title} — ${kind} | Southern Cities Construction`,
+    description: service.summary,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      url: path,
+      title: `${service.title} — ${kind}`,
+      description: service.summary,
+      siteName: 'Southern Cities Construction',
+    },
+  };
 }
 
 export default function ReviewPage({ params }: { params: { slug: string } }) {
