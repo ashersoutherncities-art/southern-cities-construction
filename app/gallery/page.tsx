@@ -11,7 +11,9 @@ type GalleryProject = {
   summary: string;
   rank: string;
   before: string;
+  beforeAlt: string;
   after: string;
+  afterAlt: string;
   notes: string[];
 };
 
@@ -22,7 +24,9 @@ const galleryProjects: GalleryProject[] = [
     summary: 'A clean transformation on a standard builder-grade home, with a strong before-and-after jump that reads clearly for homeowners and investors.',
     rank: 'Top proof set',
     before: '/gallery/white-house-before.jpg',
+    beforeAlt: 'Standard builder-grade two-story home exterior before renovation — dated white siding, original landscaping, plain entry',
     after: '/gallery/white-house-after.jpg',
+    afterAlt: 'Same two-story home after Southern Cities Construction exterior refresh — updated paint scheme, refreshed trim and entry, improved curb appeal',
     notes: [
       'Standard builder-grade home with clear visible improvement',
       'Strong proof set for homeowner and investor-facing credibility',
@@ -35,7 +39,9 @@ const galleryProjects: GalleryProject[] = [
     summary: 'A farmhouse-style exterior refresh with new siding and deck work that gives the property a stronger finished presence.',
     rank: 'Secondary proof set',
     before: '/gallery/farmhouse-before.jpg',
+    beforeAlt: 'NC farmhouse-style residence before exterior renovation — original siding, weathered deck, dated facade',
     after: '/gallery/farmhouse-after.jpg',
+    afterAlt: 'NC farmhouse after Southern Cities Construction renovation — new vertical siding, rebuilt covered deck, modern farmhouse facade',
     notes: [
       'Farmhouse-style exterior with upgraded siding and deck work',
       'Strong supporting gallery proof with visible curb appeal improvement',
@@ -48,7 +54,9 @@ const galleryProjects: GalleryProject[] = [
     summary: 'A distinctive exterior transformation on a home located in a prominent North Carolina waterfront city within a historic district.',
     rank: 'Supporting proof set',
     before: '/gallery/red-house-before.jpg',
+    beforeAlt: 'Historic NC waterfront district home before exterior transformation — faded original paint, aging trim, dated curb presentation',
     after: '/gallery/red-house-after.jpg',
+    afterAlt: 'Historic NC waterfront district home after Southern Cities Construction exterior transformation — vibrant red paint, restored trim, distinctive finished character',
     notes: [
       'Located in a prominent waterfront city in a North Carolina historic district',
       'Distinctive finished look with real visual character',
@@ -119,7 +127,7 @@ export default function GalleryPage() {
               <div className="mt-8 grid gap-5 lg:grid-cols-2">
                 <div className="overflow-hidden rounded-[24px] border border-stone-200 bg-stone-50">
                   <div className="relative aspect-[4/3] bg-white">
-                    <Image src={project.before} alt={`${project.title} before`} fill className="object-cover" />
+                    <Image src={project.before} alt={project.beforeAlt} fill className="object-cover" />
                   </div>
                   <div className="px-5 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Before</p>
@@ -128,7 +136,7 @@ export default function GalleryPage() {
 
                 <div className="overflow-hidden rounded-[24px] border border-stone-200 bg-stone-50">
                   <div className="relative aspect-[4/3] bg-white">
-                    <Image src={project.after} alt={`${project.title} after`} fill className="object-cover" />
+                    <Image src={project.after} alt={project.afterAlt} fill className="object-cover" />
                   </div>
                   <div className="px-5 py-4">
                     <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">After</p>
