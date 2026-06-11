@@ -13,6 +13,9 @@ import {
   PropertyType,
   TargetFinishLevel,
 } from '@/lib/rehab-snapshot/types';
+import { estimate as estimateV2 } from '@/lib/estimator/engine';
+import type { EstimateInput as V2Input, FinishTier } from '@/lib/estimator/engine';
+import type { ScopeKey } from '@/lib/estimator/data';
 
 const requestLog = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
@@ -125,6 +128,9 @@ export async function POST(req: NextRequest) {
       occupancy_status: (optionalString(formData, 'occupancy_status') ?? 'vacant') as OccupancyStatus,
       investment_strategy: requiredString(formData, 'investment_strategy') as InvestmentStrategy,
       target_finish_level: requiredString(formData, 'target_finish_level') as TargetFinishLevel,
+      finish_tier: intField(formData, 'finish_tier', 2),
+      addition_sf: intField(formData, 'addition_sf', 0),
+      window_count: intField(formData, 'window_count', 0),
     };
 
     const scope = {
@@ -223,6 +229,76 @@ export async function POST(req: NextRequest) {
       rules,
       marketTiers
     );
+
+    // === V2 engine (workbook source of truth) =================================
+    const v2Selections: Partial<Record<ScopeKey, boolean>> = {
+      paint: scope.cosmetic_paint,
+      flooring: scope.flooring,
+      drywall: scope.drywall,
+      windows: scope.windows,
+      kitchen_refresh: scope.kitchen_refresh,
+      kitchen_full: scope.kitchen_full,
+      roof: scope.roof,
+      hvac: scope.hvac,
+      plumb_partial: scope.plumbing_partial,
+      plumb_full: scope.plumbing_full,
+      elec_partial: scope.electrical_partial,
+      elec_full: scope.electrical_full,
+      framing: scope.framing,
+      structural: scope.structural,
+      foundation: scope.foundation,
+      addition: scope.addition,
+      layout: scope.layout_changes,
+      full_gut: scope.full_gut,
+      fire: scope.fire_damage,
+      water: scope.water_damage,
+      mold: scope.mold_concern,
+      termite: scope.termite_concern,
+      siding: scope.siding,
+      exterior: scope.exterior_work,
+      landscaping: scope.landscaping,
+      driveway: scope.driveway,
+      permit_unknown: scope.permit_required_unknown,
+    };
+    const finishTier = (project.finish_tier === 1 || project.finish_tier === 3
+      ? project.finish_tier
+      : 2) as FinishTier;
+    const v2Input: V2Input = {
+      totalSf: project.square_feet,
+      additionSf: project.addition_sf,
+      bathRefreshCount: scope.bathroom_refresh_count,
+      bathFullCount: scope.bathroom_full_count,
+      finishTier,
+      yearBuilt: project.year_built,
+      selections: v2Selections,
+      windowCount: project.window_count,
+    };
+    const v2 = estimateV2(v2Input);
+    const roundToDollar = (n: number) => Math.round(n);
+    const v2Low = roundToDollar(v2.rangeInclContingency.low);
+    const v2High = roundToDollar(v2.rangeInclContingency.high);
+    const v2RawLow = roundToDollar(v2.rawRange.low);
+    const v2RawHigh = roundToDollar(v2.rawRange.high);
+
+    // Overwrite the cost/timeline/flag fields on `estimate` so PDF, email, and
+    // GHL forwarders all see workbook-authoritative numbers. Marketing fields
+    // (confidence, market tier, execution summary) stay on the existing engine.
+    estimate.estimatedLow = v2Low;
+    estimate.estimatedHigh = v2High;
+    estimate.costPerSfLow = project.square_feet > 0 ? Math.round(v2Low / project.square_feet) : 0;
+    estimate.costPerSfHigh = project.square_feet > 0 ? Math.round(v2High / project.square_feet) : 0;
+    estimate.timelineLowWeeks = v2.calendarWeeks;
+    estimate.timelineHighWeeks = v2.calendarWeeks;
+    const v2FlagLabels = v2.lenderKillerFlags.map(
+      (f) => `${f.label} (${f.vintageWindow}, ${f.severity}) — ${f.whyLendersCare}`
+    );
+    estimate.riskFlags = [...v2FlagLabels, ...estimate.riskFlags];
+    estimate.breakdown = v2.perItem.map((row) => ({
+      label: row.label,
+      low: roundToDollar(row.low),
+      high: roundToDollar(row.high),
+      notes: row.section,
+    }));
     const persisted = await saveSnapshot(
       supabase,
       lead,
@@ -337,11 +413,32 @@ export async function POST(req: NextRequest) {
           lowWeeks: estimate.timelineLowWeeks,
           highWeeks: estimate.timelineHighWeeks,
         },
+        breakdown: estimate.breakdown.map((row) => ({
+          label: row.label,
+          low: row.low,
+          high: row.high,
+          notes: row.notes ?? null,
+        })),
         recommendedNextStep: estimate.recommendedNextStep,
         executionSummary: estimate.executionSummary,
         assumptions: estimate.assumptions,
         whatCouldChangeThisNumber: estimate.whatCouldChangeThisNumber,
         emailStatus,
+        // v2 workbook engine outputs --------------------------------------
+        rangeInclContingency: { low: v2Low, high: v2High },
+        rawRange: { low: v2RawLow, high: v2RawHigh },
+        contingencyRate: Math.round(v2.contingencyRate * 1000) / 1000,
+        gutCredit: {
+          low: roundToDollar(v2.gutCredit.low),
+          high: roundToDollar(v2.gutCredit.high),
+        },
+        projectTier: v2.projectTier,
+        calendarWeeks: v2.calendarWeeks,
+        totalWorkingDays: v2.totalWorkingDays,
+        phases: v2.phases,
+        lenderKillerFlags: v2.lenderKillerFlags,
+        fieldVerificationRequired: v2.fieldVerificationRequired,
+        fieldVerificationKeys: v2.fieldVerificationKeys,
       },
     });
   } catch (error) {
