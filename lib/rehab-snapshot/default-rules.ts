@@ -2,20 +2,28 @@ import { EstimateRuleRecord, MarketTierRecord } from '@/lib/rehab-snapshot/types
 
 export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   // ----------------------------------------------------------------------
-  // Base per-SF cost by project category — STATEWIDE NC BASELINE.
-  // These are deliberately set to a mid-state baseline; the market-tier
-  // multiplier (see DEFAULT_MARKET_TIERS) then scales them up for metro
-  // markets (Charlotte/Raleigh/Asheville) and down for rural NC. Do not
-  // bake metro pricing into these — that's the tier's job.
+  // Base per-SF cost by project category — STATEWIDE NC BASELINE, anchored
+  // to the reality that contractor-grade NEW construction in NC is ~$125/SF.
+  // A rehab keeps the shell/foundation/framing/roof structure, so it should
+  // cost a FRACTION of new-build for most categories. Only a full gut (to
+  // the studs), structural-heavy, or an addition (net-new square footage)
+  // should approach or exceed new-build cost per SF.
+  //
+  // These bases represent a basic-flip finish, newer build, average market
+  // (all multipliers = 1.0). The finish / age / market-tier multipliers
+  // then scale up from here. After the full multiplier stack + contingency,
+  // effective $/SF should land roughly:
+  //   cosmetic $15-40 · moderate $40-90 · heavy $70-125 ·
+  //   full gut $110-175 · structural $120-190 · addition $135-210.
   // ----------------------------------------------------------------------
-  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 20, high_value: 40, unit: 'per_sf', active: true },
-  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 18, high_value: 45, unit: 'per_sf', active: true },
-  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 42, high_value: 85, unit: 'per_sf', active: true },
-  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 85, high_value: 160, unit: 'per_sf', active: true },
-  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 130, high_value: 230, unit: 'per_sf', active: true },
-  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 160, high_value: 280, unit: 'per_sf', active: true },
-  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 165, high_value: 325, unit: 'per_sf', active: true },
-  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 48, high_value: 110, unit: 'per_sf', active: true },
+  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 10, high_value: 22, unit: 'per_sf', active: true },
+  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 9, high_value: 20, unit: 'per_sf', active: true },
+  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 24, high_value: 44, unit: 'per_sf', active: true },
+  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 48, high_value: 72, unit: 'per_sf', active: true },
+  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 72, high_value: 105, unit: 'per_sf', active: true },
+  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 90, high_value: 130, unit: 'per_sf', active: true },
+  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 120, high_value: 175, unit: 'per_sf', active: true },
+  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 28, high_value: 55, unit: 'per_sf', active: true },
 
   { rule_name: 'finish-rental-grade', category: 'finish_multiplier', condition_json: { target_finish_level: 'rental_grade' }, low_value: 0.9, high_value: 0.9, unit: 'multiplier', active: true },
   { rule_name: 'finish-basic-flip', category: 'finish_multiplier', condition_json: { target_finish_level: 'basic_flip' }, low_value: 1, high_value: 1, unit: 'multiplier', active: true },
@@ -39,16 +47,20 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   { rule_name: 'risk-addition', category: 'risk_multiplier', condition_json: { field: 'addition', label: 'Addition', risk_flag: 'Additions increase permitting, structural integration, and schedule risk well beyond a standard rehab.' }, low_value: 1.25, high_value: 1.8, unit: 'multiplier', active: true },
   { rule_name: 'risk-permit-unknown', category: 'risk_multiplier', condition_json: { field: 'permit_required_unknown', label: 'Unknown permit complexity', risk_flag: 'Unknown permit complexity can change both cost and timeline once trade, zoning, and jurisdiction requirements are known.' }, low_value: 1.05, high_value: 1.15, unit: 'multiplier', active: true },
 
-  { rule_name: 'allowance-roof', category: 'scope_line', condition_json: { field: 'roof', label: 'Roof replacement' }, low_value: 7500, high_value: 18000, unit: 'flat', active: true },
-  { rule_name: 'allowance-hvac', category: 'scope_line', condition_json: { field: 'hvac', label: 'HVAC replacement' }, low_value: 8000, high_value: 16000, unit: 'flat', active: true },
-  { rule_name: 'allowance-kitchen-full', category: 'scope_line', condition_json: { field: 'kitchen_full', label: 'Full kitchen renovation' }, low_value: 18000, high_value: 45000, unit: 'flat', active: true },
-  { rule_name: 'allowance-bathroom-full', category: 'scope_line', condition_json: { field: 'bathroom_full_count', label: 'Full bathroom renovation' }, low_value: 8000, high_value: 22000, unit: 'per_item', active: true },
-  { rule_name: 'allowance-windows', category: 'scope_line', condition_json: { field: 'windows', label: 'Windows', fallback_count: 10 }, low_value: 600, high_value: 1500, unit: 'per_item', active: true },
-  { rule_name: 'allowance-electrical-full', category: 'scope_line', condition_json: { field: 'electrical_full', label: 'Electrical full rewire' }, low_value: 10000, high_value: 28000, unit: 'flat', active: true },
-  { rule_name: 'allowance-plumbing-full', category: 'scope_line', condition_json: { field: 'plumbing_full', label: 'Plumbing full replacement' }, low_value: 10000, high_value: 28000, unit: 'flat', active: true },
-  { rule_name: 'allowance-framing', category: 'scope_line', condition_json: { field: 'framing', label: 'Framing scope allowance' }, low_value: 8000, high_value: 30000, unit: 'flat', active: true },
-  { rule_name: 'allowance-foundation', category: 'scope_line', condition_json: { field: 'foundation', label: 'Foundation scope allowance' }, low_value: 12000, high_value: 45000, unit: 'flat', active: true },
-  { rule_name: 'allowance-siding', category: 'scope_line', condition_json: { field: 'siding', label: 'Siding' }, low_value: 10000, high_value: 30000, unit: 'flat', active: true },
+  // Flat allowances reflect NC basic-flip / investor-grade pricing (not
+  // high-end-finish). These apply ONLY to lighter categories (cosmetic /
+  // rental_turn / moderate / unknown); heavy+ categories already embed these
+  // systems in their per-SF base (see engine double-count suppression).
+  { rule_name: 'allowance-roof', category: 'scope_line', condition_json: { field: 'roof', label: 'Roof replacement' }, low_value: 6000, high_value: 14000, unit: 'flat', active: true },
+  { rule_name: 'allowance-hvac', category: 'scope_line', condition_json: { field: 'hvac', label: 'HVAC replacement' }, low_value: 6000, high_value: 12000, unit: 'flat', active: true },
+  { rule_name: 'allowance-kitchen-full', category: 'scope_line', condition_json: { field: 'kitchen_full', label: 'Full kitchen renovation' }, low_value: 12000, high_value: 28000, unit: 'flat', active: true },
+  { rule_name: 'allowance-bathroom-full', category: 'scope_line', condition_json: { field: 'bathroom_full_count', label: 'Full bathroom renovation' }, low_value: 6000, high_value: 14000, unit: 'per_item', active: true },
+  { rule_name: 'allowance-windows', category: 'scope_line', condition_json: { field: 'windows', label: 'Windows', fallback_count: 10 }, low_value: 500, high_value: 1000, unit: 'per_item', active: true },
+  { rule_name: 'allowance-electrical-full', category: 'scope_line', condition_json: { field: 'electrical_full', label: 'Electrical full rewire' }, low_value: 8000, high_value: 18000, unit: 'flat', active: true },
+  { rule_name: 'allowance-plumbing-full', category: 'scope_line', condition_json: { field: 'plumbing_full', label: 'Plumbing full replacement' }, low_value: 8000, high_value: 18000, unit: 'flat', active: true },
+  { rule_name: 'allowance-framing', category: 'scope_line', condition_json: { field: 'framing', label: 'Framing scope allowance' }, low_value: 6000, high_value: 20000, unit: 'flat', active: true },
+  { rule_name: 'allowance-foundation', category: 'scope_line', condition_json: { field: 'foundation', label: 'Foundation scope allowance' }, low_value: 10000, high_value: 35000, unit: 'flat', active: true },
+  { rule_name: 'allowance-siding', category: 'scope_line', condition_json: { field: 'siding', label: 'Siding' }, low_value: 8000, high_value: 22000, unit: 'flat', active: true },
 
   { rule_name: 'timeline-permit-high', category: 'timeline_risk', condition_json: { permit_complexity: 'high', label: 'Permit complexity high' }, low_value: 4, high_value: 12, unit: 'weeks', active: true },
   { rule_name: 'timeline-structural', category: 'timeline_risk', condition_json: { any_fields: ['framing', 'structural', 'foundation'], label: 'Framing, structural, or foundation work' }, low_value: 4, high_value: 16, unit: 'weeks', active: true },

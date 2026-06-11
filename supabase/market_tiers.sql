@@ -76,15 +76,31 @@ on conflict (zip_prefix) do update set
   active = excluded.active;
 
 -- ---------------------------------------------------------------------------
--- Refine per-SF base_cost values to a statewide NC baseline. The tier
--- multiplier above now scales these up for metros and down for rural NC, so
--- the base should NOT carry metro pricing. Idempotent UPDATE by rule_name.
+-- Recalibrate per-SF base_cost to a statewide NC baseline anchored to the
+-- reality that contractor-grade NEW construction in NC is ~$125/SF. A rehab
+-- keeps the shell/foundation/framing, so it costs a FRACTION of new-build for
+-- most categories; only full gut / structural / addition approach or exceed
+-- it. Bases are basic-finish / newer-build / average-market (multipliers=1.0);
+-- finish/age/tier multipliers + contingency scale up from here.
+-- Idempotent UPDATE by rule_name.
 -- ---------------------------------------------------------------------------
-update public.estimate_rules set low_value = 20,  high_value = 40  where rule_name = 'base-cosmetic';
-update public.estimate_rules set low_value = 18,  high_value = 45  where rule_name = 'base-rental-turn';
-update public.estimate_rules set low_value = 42,  high_value = 85  where rule_name = 'base-moderate-rehab';
-update public.estimate_rules set low_value = 85,  high_value = 160 where rule_name = 'base-heavy-rehab';
-update public.estimate_rules set low_value = 130, high_value = 230 where rule_name = 'base-full-gut';
-update public.estimate_rules set low_value = 160, high_value = 280 where rule_name = 'base-structural-heavy';
-update public.estimate_rules set low_value = 165, high_value = 325 where rule_name = 'base-addition';
-update public.estimate_rules set low_value = 48,  high_value = 110 where rule_name = 'base-unknown';
+update public.estimate_rules set low_value = 10,  high_value = 22  where rule_name = 'base-cosmetic';
+update public.estimate_rules set low_value = 9,   high_value = 20  where rule_name = 'base-rental-turn';
+update public.estimate_rules set low_value = 24,  high_value = 44  where rule_name = 'base-moderate-rehab';
+update public.estimate_rules set low_value = 48,  high_value = 72  where rule_name = 'base-heavy-rehab';
+update public.estimate_rules set low_value = 72,  high_value = 105 where rule_name = 'base-full-gut';
+update public.estimate_rules set low_value = 90,  high_value = 130 where rule_name = 'base-structural-heavy';
+update public.estimate_rules set low_value = 120, high_value = 175 where rule_name = 'base-addition';
+update public.estimate_rules set low_value = 28,  high_value = 55  where rule_name = 'base-unknown';
+
+-- Recalibrate flat scope allowances to NC basic-flip / investor-grade pricing.
+update public.estimate_rules set low_value = 6000,  high_value = 14000 where rule_name = 'allowance-roof';
+update public.estimate_rules set low_value = 6000,  high_value = 12000 where rule_name = 'allowance-hvac';
+update public.estimate_rules set low_value = 12000, high_value = 28000 where rule_name = 'allowance-kitchen-full';
+update public.estimate_rules set low_value = 6000,  high_value = 14000 where rule_name = 'allowance-bathroom-full';
+update public.estimate_rules set low_value = 500,   high_value = 1000  where rule_name = 'allowance-windows';
+update public.estimate_rules set low_value = 8000,  high_value = 18000 where rule_name = 'allowance-electrical-full';
+update public.estimate_rules set low_value = 8000,  high_value = 18000 where rule_name = 'allowance-plumbing-full';
+update public.estimate_rules set low_value = 6000,  high_value = 20000 where rule_name = 'allowance-framing';
+update public.estimate_rules set low_value = 10000, high_value = 35000 where rule_name = 'allowance-foundation';
+update public.estimate_rules set low_value = 8000,  high_value = 22000 where rule_name = 'allowance-siding';
