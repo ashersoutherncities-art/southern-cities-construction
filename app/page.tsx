@@ -8,7 +8,12 @@ import SiteFooter from '@/components/SiteFooter';
 import FaqItem from '@/components/landing/FaqItem';
 import LpLeadForm from '@/components/LpLeadForm';
 
-const CONSULTATION_CTA_HREF = '/services/homeowners/owner-consultation';
+// All generic "Book a Project Call" / "Talk Through Your Project" CTAs on
+// the homepage route to /book — a role-routing page that lets the user
+// pick the right consultation path (homeowner / investor / wholesaler /
+// realtor). Previously this pointed to the homeowner-specific consultation
+// page, which sent investor and wholesaler intent into the wrong funnel.
+const CONSULTATION_CTA_HREF = '/book';
 
 const galleryPreview = [
   { title: 'Standard builder-grade home exterior refresh', image: '/gallery/white-house-after.jpg' },

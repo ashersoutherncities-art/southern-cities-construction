@@ -9,7 +9,28 @@ import { avatarPages, getServiceBySlug, type ServiceCardData } from '@/lib/servi
 
 type Params = { avatar: string; service: string };
 
-const CONSULTATION_CTA_HREF = '/services/homeowners/owner-consultation';
+/**
+ * Map a service-detail avatar slug to the consultation/booking destination
+ * that matches the user's intent. Homeowner intent stays in the homeowner
+ * funnel; wholesaler intent routes to the Deal Pack offer; everyone else
+ * lands on /book (the role-router) since no single-purpose investor /
+ * realtor consultation page exists today.
+ */
+function consultationHrefForAvatar(avatar: string): string {
+  switch (avatar) {
+    case 'homeowners':
+      return '/services/homeowners/owner-consultation';
+    case 'wholesalers':
+      return '/deal-pack';
+    case 'investors':
+    case 'realtors':
+    case 'contractors':
+    case 'developers-landowners':
+    case 'industry-partners':
+    default:
+      return '/book';
+  }
+}
 
 // Per-service decision-page overrides for the 5 fixed-price reviews +
 // the 2 realtor inspection products. Optional — services without
@@ -371,7 +392,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
 
               <div className="mt-10 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
                 <PrimaryCta service={service} />
-                <Link href={CONSULTATION_CTA_HREF} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
+                <Link href={consultationHrefForAvatar(params.avatar)} className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
                   {meta.nextStep}
                 </Link>
               </div>
