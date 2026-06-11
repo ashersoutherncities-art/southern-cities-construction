@@ -17,11 +17,30 @@ type ResultState = {
   riskFlags: string[];
   projectCategory: string;
   timelineRange: { lowWeeks: number; highWeeks: number };
+  breakdown?: { label: string; low: number; high: number; notes?: string | null }[];
   recommendedNextStep: string;
   executionSummary: string;
   assumptions: string[];
   whatCouldChangeThisNumber: string[];
   emailStatus: string;
+  // v2 engine outputs --------------------------------------
+  rangeInclContingency?: { low: number; high: number };
+  rawRange?: { low: number; high: number };
+  contingencyRate?: number;
+  gutCredit?: { low: number; high: number };
+  projectTier?: 'Cosmetic' | 'Light Major' | 'Full Gut / Heavy';
+  calendarWeeks?: number;
+  totalWorkingDays?: number;
+  phases?: { key: string; label: string; workingDays: number }[];
+  lenderKillerFlags?: {
+    key: string;
+    label: string;
+    severity: 'FLAG' | 'CHECK';
+    whyLendersCare: string;
+    vintageWindow: string;
+  }[];
+  fieldVerificationRequired?: boolean;
+  fieldVerificationKeys?: string[];
 };
 
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
@@ -50,6 +69,7 @@ type PropertyInfo = {
   occupancy_status: string;
   investment_strategy: string;
   target_finish_level: string;
+  finish_tier: string;
 };
 
 const INVESTOR_TYPES = [
@@ -90,6 +110,13 @@ const FINISH_LEVELS = [
   ['mid_grade', 'Mid-grade'],
   ['high_end', 'High-end'],
   ['luxury', 'Luxury'],
+];
+
+// Engine tier — drives the workbook v2 finish multiplier (×0.90 / ×1.00 / ×1.25).
+const FINISH_TIERS: [string, string][] = [
+  ['1', 'Lender-Pass'],
+  ['2', 'Market-Standard'],
+  ['3', 'Premium'],
 ];
 
 const OCCUPANCY = [
@@ -287,6 +314,7 @@ export default function RehabRiskSnapshotForm() {
     occupancy_status: 'vacant',
     investment_strategy: 'flip',
     target_finish_level: 'basic_flip',
+    finish_tier: '2',
   });
   const [state, setState] = useState<SubmissionState>('idle');
   const [error, setError] = useState('');
@@ -345,6 +373,7 @@ export default function RehabRiskSnapshotForm() {
       occupancy_status: String(fd.get('occupancy_status') ?? 'vacant'),
       investment_strategy: String(fd.get('investment_strategy') ?? 'flip'),
       target_finish_level: String(fd.get('target_finish_level') ?? 'basic_flip'),
+      finish_tier: String(fd.get('finish_tier') ?? '2'),
     };
     if (!next.property_address || !next.square_feet || Number(next.square_feet) <= 0) {
       setError('Property address and a valid square footage are required.');
@@ -536,6 +565,14 @@ export default function RehabRiskSnapshotForm() {
                   ))}
                 </Select>
               </div>
+              <div>
+                <FieldLabel>Engine finish tier *</FieldLabel>
+                <Select name="finish_tier" required defaultValue={property.finish_tier}>
+                  {FINISH_TIERS.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </Select>
+              </div>
             </div>
             {error && <p className="text-sm text-rose-300">{error}</p>}
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -573,6 +610,15 @@ export default function RehabRiskSnapshotForm() {
                       <span>{label}</span>
                     </label>
                   ))}
+                  {group.title === 'Finishes & cosmetic' && (
+                    <div className="rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2">
+                      <FieldLabel>Window count (if windows checked)</FieldLabel>
+                      <Input name="window_count" type="number" min={0} defaultValue={0} className="py-2" />
+                      <p className="mt-1.5 text-[11px] leading-snug text-white/40">
+                        Number of vinyl replacement windows. Pricing scales per unit.
+                      </p>
+                    </div>
+                  )}
                   {group.title === 'Kitchen & bath' && (
                     <>
                       <div className="rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2">
@@ -590,6 +636,15 @@ export default function RehabRiskSnapshotForm() {
                         </p>
                       </div>
                     </>
+                  )}
+                  {group.title === 'Structure & layout' && (
+                    <div className="rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2">
+                      <FieldLabel>Addition square feet (if addition checked)</FieldLabel>
+                      <Input name="addition_sf" type="number" min={0} defaultValue={0} className="py-2" />
+                      <p className="mt-1.5 text-[11px] leading-snug text-white/40">
+                        New conditioned square feet. Drives the addition price and own schedule track.
+                      </p>
+                    </div>
                   )}
                 </div>
               </fieldset>
@@ -688,52 +743,114 @@ function ValuePanel({ contact, property, step }: { contact: ContactInfo; propert
 }
 
 function ResultPanel({ result }: { result: ResultState }) {
-  const confidence = Math.max(0, Math.min(100, result.confidenceScore));
-  const confidenceColor =
-    confidence >= 80 ? 'bg-emerald-400' : confidence >= 55 ? 'bg-amber-400' : 'bg-rose-400';
+  const headlineRange = result.rangeInclContingency ?? result.budgetRange;
+  const rawRange = result.rawRange;
+  const contingencyPct =
+    result.contingencyRate !== undefined ? Math.round(result.contingencyRate * 1000) / 10 : null;
+  const tierLabel = result.projectTier ?? result.projectCategory;
 
   return (
     <div className="space-y-5">
       <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#0a142b] text-white shadow-[0_40px_100px_-50px_rgba(6,13,32,0.95)]">
-        {/* Hero budget */}
+        {/* Hero: range INCLUDING contingency + raw range + contingency % + project tier */}
         <div className="border-b border-white/10 bg-gradient-to-br from-orange/[0.14] to-transparent p-6 sm:p-7">
           <div className="flex items-center justify-between gap-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Preliminary budget range</p>
-            {result.marketTier && (
-              <span className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/70">
-                {result.marketTier.label}{result.marketTier.tier?.length === 1 ? ` · Tier ${result.marketTier.tier}` : ''}
-              </span>
-            )}
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">
+              Rehab range (incl. contingency)
+            </p>
+            <span className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/70">
+              {tierLabel}
+            </span>
           </div>
           <p className="mt-3 text-[2.1rem] font-black leading-none tracking-tight sm:text-[2.6rem]">
-            {currency(result.budgetRange.low)} – {currency(result.budgetRange.high)}
+            {currency(headlineRange.low)} – {currency(headlineRange.high)}
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-white/65">
+            {rawRange && (
+              <span>
+                Raw range {currency(rawRange.low)}–{currency(rawRange.high)}
+              </span>
+            )}
+            {contingencyPct !== null && <span>Contingency {contingencyPct}%</span>}
             {result.costPerSf && result.costPerSf.high > 0 && (
               <span>{currency(result.costPerSf.low)}–{currency(result.costPerSf.high)} / sq ft</span>
             )}
-            <span>Likely: {result.projectCategory}</span>
           </div>
         </div>
 
         {/* Metrics */}
         <div className="space-y-5 p-6 sm:p-7">
-          <div>
-            <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
-              <span>Confidence</span>
-              <span className="text-white/80">{result.confidenceLevel.toUpperCase()} · {confidence}/100</span>
+          {result.fieldVerificationRequired && (
+            <div className="rounded-2xl border border-amber-400/40 bg-amber-400/[0.10] p-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-amber-200">
+                FIELD VERIFICATION REQUIRED
+              </p>
+              <p className="mt-2 text-[13px] leading-6 text-white/85">
+                {result.fieldVerificationKeys && result.fieldVerificationKeys.length > 0
+                  ? `Allowance-class scope selected (${result.fieldVerificationKeys.join(', ')}). These display as wide planning ranges, not firm prices, until walked and verified on site.`
+                  : 'Allowance-class scope selected — figures display as wide planning ranges, not firm prices.'}
+              </p>
             </div>
-            <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
-              <div className={`h-full rounded-full ${confidenceColor}`} style={{ width: `${confidence}%` }} />
-            </div>
-          </div>
+          )}
 
           <div className="grid grid-cols-2 gap-3">
-            <Metric label="Timeline" value={`${result.timelineRange.lowWeeks}–${result.timelineRange.highWeeks} wks`} />
+            <Metric
+              label="Timeline"
+              value={
+                result.calendarWeeks !== undefined
+                  ? `${result.calendarWeeks} wks`
+                  : `${result.timelineRange.lowWeeks}–${result.timelineRange.highWeeks} wks`
+              }
+            />
+            <Metric
+              label="Working days"
+              value={result.totalWorkingDays !== undefined ? `${result.totalWorkingDays} days` : '—'}
+            />
+            <Metric label="Project tier" value={String(tierLabel)} />
             <Metric label="High-risk scenario" value={currency(result.highRiskBudget)} />
-            <Metric label="Execution" value={cap(result.executionDifficulty)} />
-            <Metric label="Permit" value={cap(result.permitComplexity)} />
           </div>
+
+          {result.phases && result.phases.length > 0 && (
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Phase breakdown</p>
+              <div className="mt-2.5 overflow-hidden rounded-xl border border-white/10">
+                {result.phases.map((p, i) => (
+                  <div
+                    key={p.key}
+                    className={`flex items-baseline justify-between gap-3 px-3.5 py-2.5 text-[13px] ${
+                      i % 2 === 0 ? 'bg-white/[0.02]' : 'bg-transparent'
+                    }`}
+                  >
+                    <span className="text-white/80">{p.key} · {p.label}</span>
+                    <span className="shrink-0 font-semibold tabular-nums text-white/90">
+                      {p.workingDays} days
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {result.breakdown && result.breakdown.length > 0 && (
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Cost breakdown — by item</p>
+              <div className="mt-2.5 overflow-hidden rounded-xl border border-white/10">
+                {result.breakdown.map((row, i) => (
+                  <div
+                    key={`${row.label}-${i}`}
+                    className={`flex items-baseline justify-between gap-3 px-3.5 py-2.5 text-[13px] ${
+                      i % 2 === 0 ? 'bg-white/[0.02]' : 'bg-transparent'
+                    }`}
+                  >
+                    <span className="text-white/80">{row.label}</span>
+                    <span className="shrink-0 font-semibold tabular-nums text-white/90">
+                      {currency(row.low)} – {currency(row.high)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Execution read</p>
@@ -741,19 +858,52 @@ function ResultPanel({ result }: { result: ResultState }) {
           </div>
 
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Risk flags</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Lender-killer flags</p>
             <div className="mt-2.5 space-y-2">
-              {result.riskFlags.length ? (
-                result.riskFlags.map((flag) => (
-                  <div key={flag} className="rounded-xl border border-orange/20 bg-orange/[0.07] px-4 py-2.5 text-[13px] leading-6 text-white/85">
-                    {flag}
-                  </div>
-                ))
+              {result.lenderKillerFlags && result.lenderKillerFlags.length > 0 ? (
+                result.lenderKillerFlags.map((f) => {
+                  const isFlag = f.severity === 'FLAG';
+                  const ringClass = isFlag
+                    ? 'border-rose-400/30 bg-rose-400/[0.07]'
+                    : 'border-amber-300/30 bg-amber-300/[0.07]';
+                  const chipClass = isFlag
+                    ? 'bg-rose-400/20 text-rose-200'
+                    : 'bg-amber-300/20 text-amber-200';
+                  return (
+                    <div
+                      key={f.key}
+                      className={`rounded-xl border px-4 py-2.5 text-[13px] leading-6 text-white/85 ${ringClass}`}
+                    >
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span
+                          className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.12em] ${chipClass}`}
+                        >
+                          {f.severity}
+                        </span>
+                        <span className="font-bold">{f.label}</span>
+                        <span className="text-[11px] uppercase tracking-[0.12em] text-white/45">
+                          {f.vintageWindow}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-[12.5px] leading-5 text-white/65">{f.whyLendersCare}</p>
+                    </div>
+                  );
+                })
               ) : (
                 <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-[13px] leading-6 text-white/70">
-                  No major execution flags surfaced beyond normal rehab variance from this intake.
+                  No lender-killer flags surfaced for this vintage.
                 </div>
               )}
+              {result.riskFlags
+                .filter((f) => !result.lenderKillerFlags?.some((l) => f.startsWith(l.label)))
+                .map((flag) => (
+                  <div
+                    key={flag}
+                    className="rounded-xl border border-orange/20 bg-orange/[0.07] px-4 py-2.5 text-[13px] leading-6 text-white/85"
+                  >
+                    {flag}
+                  </div>
+                ))}
             </div>
           </div>
 
@@ -811,6 +961,3 @@ function Metric({ label, value }: { label: string; value: string }) {
   );
 }
 
-function cap(value: string) {
-  return value ? value.charAt(0).toUpperCase() + value.slice(1) : value;
-}
