@@ -307,10 +307,18 @@ function buildScopeLineItems(rules: EstimateRuleRecord[], scope: RehabSnapshotSc
   return rows;
 }
 
+// Risk multipliers for systems that are already embedded in the per-SF base
+// of heavy+ categories. Applying these on top of an embedded-systems base
+// double-dips on the risk side and inflates the high. Genuine hidden-
+// condition risks (water/fire damage, structural, foundation, permit
+// uncertainty) are NOT in this list and always apply.
+const EMBEDDED_SYSTEM_RISK_FIELDS = new Set(['electrical_full', 'plumbing_full', 'layout_changes']);
+
 function buildRiskAdjustments(
   rules: EstimateRuleRecord[],
   input: EngineInput,
-  permitComplexity: PermitComplexity
+  permitComplexity: PermitComplexity,
+  baseEmbedsSystems: boolean
 ) {
   const multipliers: EstimateRuleRecord[] = [];
   const riskFlags: string[] = [];
@@ -319,6 +327,12 @@ function buildRiskAdjustments(
   for (const rule of rules.filter((item) => item.category === 'risk_multiplier')) {
     const condition = rule.condition_json as RuleCondition;
     const field = typeof condition.field === 'string' ? condition.field : null;
+
+    // Skip embedded-system risk multipliers for heavy+ categories (the base
+    // already prices those systems and their risk).
+    if (baseEmbedsSystems && field && EMBEDDED_SYSTEM_RISK_FIELDS.has(field)) {
+      continue;
+    }
 
     if (field && isTruthyScopeField(scope, field)) {
       multipliers.push(rule);
@@ -535,7 +549,7 @@ export function computeEstimate(
   let subtotalLow = breakdown.reduce((sum, row) => sum + row.low, 0);
   let subtotalHigh = breakdown.reduce((sum, row) => sum + row.high, 0);
 
-  const { multipliers, riskFlags } = buildRiskAdjustments(rules, input, permitComplexity);
+  const { multipliers, riskFlags } = buildRiskAdjustments(rules, input, permitComplexity, baseEmbedsSystems);
   for (const multiplier of multipliers) {
     subtotalLow *= multiplier.low_value;
     subtotalHigh *= multiplier.high_value;
