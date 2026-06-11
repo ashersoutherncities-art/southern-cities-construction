@@ -97,8 +97,8 @@ const TIERS: Tier[] = [
       'Top 3 likely lender-killer flags by vintage',
       'A clear upgrade path to a full Bid-Ready Deal Pack',
     ],
-    cta: 'Submit a deal for a free ballpark →',
-    ctaHref: '/lp/rehab-budget-range-execution-risk-snapshot',
+    cta: 'Talk through your deal →',
+    ctaHref: '/book',
   },
   {
     badge: 'TIER 1',

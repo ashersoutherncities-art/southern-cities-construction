@@ -1,9 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+
+type MarketTier = { tier: string; label: string; matched: boolean };
 
 type ResultState = {
   budgetRange: { low: number; high: number };
+  costPerSf?: { low: number; high: number };
+  marketTier?: MarketTier | null;
   highRiskBudget: number;
   confidenceLevel: string;
   confidenceScore: number;
@@ -20,7 +25,7 @@ type ResultState = {
 };
 
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
-type WizardStep = 1 | 2;
+type WizardStep = 1 | 2 | 3;
 
 type ContactInfo = {
   first_name: string;
@@ -29,6 +34,22 @@ type ContactInfo = {
   phone: string;
   company_name: string;
   investor_type: string;
+};
+
+type PropertyInfo = {
+  property_address: string;
+  city: string;
+  state: string;
+  zip: string;
+  square_feet: string;
+  year_built: string;
+  stories: string;
+  bedrooms: string;
+  bathrooms: string;
+  property_type: string;
+  occupancy_status: string;
+  investment_strategy: string;
+  target_finish_level: string;
 };
 
 const INVESTOR_TYPES = [
@@ -77,35 +98,72 @@ const OCCUPANCY = [
   ['unknown', 'Unknown'],
 ];
 
-const SCOPE_CHECKS = [
-  ['cosmetic_paint', 'Paint reset'],
-  ['flooring', 'Flooring replacement'],
-  ['kitchen_refresh', 'Kitchen refresh'],
-  ['kitchen_full', 'Full kitchen'],
-  ['roof', 'Roof'],
-  ['hvac', 'HVAC'],
-  ['plumbing_partial', 'Partial plumbing'],
-  ['plumbing_full', 'Full plumbing'],
-  ['electrical_partial', 'Partial electrical'],
-  ['electrical_full', 'Full electrical'],
-  ['windows', 'Windows'],
-  ['siding', 'Siding / cladding'],
-  ['drywall', 'Drywall'],
-  ['framing', 'Framing'],
-  ['structural', 'Structural work'],
-  ['foundation', 'Foundation'],
-  ['addition', 'Addition'],
-  ['layout_changes', 'Layout changes'],
-  ['full_gut', 'Full gut'],
-  ['fire_damage', 'Fire damage'],
-  ['water_damage', 'Water damage'],
-  ['mold_concern', 'Mold concern'],
-  ['termite_concern', 'Termite concern'],
-  ['exterior_work', 'Exterior work'],
-  ['landscaping', 'Landscaping'],
-  ['driveway', 'Driveway / hardscape'],
-  ['permit_required_unknown', 'Permit path unknown'],
+// Grouped for display. Every boolean field below is also flattened into
+// SCOPE_CHECK_NAMES so the final submit always posts true/false for each.
+const SCOPE_GROUPS: { title: string; items: [string, string][] }[] = [
+  {
+    title: 'Finishes & cosmetic',
+    items: [
+      ['cosmetic_paint', 'Paint reset'],
+      ['flooring', 'Flooring replacement'],
+      ['drywall', 'Drywall'],
+      ['windows', 'Windows'],
+    ],
+  },
+  {
+    title: 'Kitchen & bath',
+    items: [
+      ['kitchen_refresh', 'Kitchen refresh'],
+      ['kitchen_full', 'Full kitchen'],
+    ],
+  },
+  {
+    title: 'Systems',
+    items: [
+      ['roof', 'Roof'],
+      ['hvac', 'HVAC'],
+      ['plumbing_partial', 'Partial plumbing'],
+      ['plumbing_full', 'Full plumbing'],
+      ['electrical_partial', 'Partial electrical'],
+      ['electrical_full', 'Full electrical'],
+    ],
+  },
+  {
+    title: 'Structure & layout',
+    items: [
+      ['framing', 'Framing'],
+      ['structural', 'Structural work'],
+      ['foundation', 'Foundation'],
+      ['addition', 'Addition'],
+      ['layout_changes', 'Layout changes'],
+      ['full_gut', 'Full gut'],
+    ],
+  },
+  {
+    title: 'Condition risks',
+    items: [
+      ['fire_damage', 'Fire damage'],
+      ['water_damage', 'Water damage'],
+      ['mold_concern', 'Mold concern'],
+      ['termite_concern', 'Termite concern'],
+    ],
+  },
+  {
+    title: 'Exterior & site',
+    items: [
+      ['siding', 'Siding / cladding'],
+      ['exterior_work', 'Exterior work'],
+      ['landscaping', 'Landscaping'],
+      ['driveway', 'Driveway / hardscape'],
+    ],
+  },
+  {
+    title: 'Permitting',
+    items: [['permit_required_unknown', 'Permit path unknown']],
+  },
 ];
+
+const SCOPE_CHECK_NAMES = SCOPE_GROUPS.flatMap((group) => group.items.map(([name]) => name));
 
 function currency(value: number) {
   return new Intl.NumberFormat('en-US', {
@@ -115,32 +173,77 @@ function currency(value: number) {
   }).format(value);
 }
 
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">{children}</label>;
-}
-
-function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <input
-      {...props}
-      className={`w-full rounded-2xl border border-white/15 bg-[#0d1830] px-4 py-3 text-[15px] text-white placeholder:text-white/35 transition-colors focus:border-orange/60 focus:outline-none focus:ring-2 focus:ring-orange/20 ${props.className || ''}`}
-    />
-  );
-}
-
-function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
-  return (
-    <select
-      {...props}
-      className={`w-full rounded-2xl border border-white/15 bg-[#0d1830] px-4 py-3 text-[15px] text-white transition-colors focus:border-orange/60 focus:outline-none focus:ring-2 focus:ring-orange/20 ${props.className || ''}`}
-    />
-  );
-}
-
 function investorTypeLabel(value: string): string {
   const match = INVESTOR_TYPES.find(([v]) => v === value);
   return match ? match[1] : value;
 }
+
+function FieldLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
+      {children}
+    </label>
+  );
+}
+
+const inputClass =
+  'w-full rounded-xl border border-white/12 bg-[#0c172e] px-4 py-3 text-[15px] text-white placeholder:text-white/30 transition-colors focus:border-orange/60 focus:outline-none focus:ring-2 focus:ring-orange/20';
+
+function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input {...props} className={`${inputClass} ${props.className || ''}`} />;
+}
+
+function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return <select {...props} className={`${inputClass} ${props.className || ''}`} />;
+}
+
+function ProgressHeader({ step }: { step: WizardStep }) {
+  const steps = ['Contact', 'Property', 'Scope'];
+  return (
+    <div className="mb-7">
+      <div className="flex items-center gap-2">
+        {steps.map((label, idx) => {
+          const n = (idx + 1) as WizardStep;
+          const done = step > n;
+          const active = step === n;
+          return (
+            <div key={label} className="flex flex-1 items-center gap-2">
+              <div className="flex items-center gap-2">
+                <span
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[12px] font-black transition-colors ${
+                    done
+                      ? 'bg-emerald-400 text-[#06210f]'
+                      : active
+                        ? 'bg-orange text-white'
+                        : 'bg-white/10 text-white/45'
+                  }`}
+                >
+                  {done ? '✓' : n}
+                </span>
+                <span
+                  className={`text-[12px] font-bold uppercase tracking-[0.12em] ${
+                    active ? 'text-white' : done ? 'text-white/65' : 'text-white/35'
+                  }`}
+                >
+                  {label}
+                </span>
+              </div>
+              {idx < steps.length - 1 && (
+                <div className={`h-[2px] flex-1 rounded-full ${done ? 'bg-emerald-400/60' : 'bg-white/10'}`} />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+const primaryBtn =
+  'inline-flex min-h-[56px] w-full items-center justify-center gap-2 rounded-full bg-orange px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_18px_45px_-18px_rgba(250,140,65,0.8)] transition hover:-translate-y-0.5 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-60';
+
+const ghostBtn =
+  'inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 px-6 py-4 text-sm font-bold text-white/80 transition hover:border-white/45 hover:text-white';
 
 export default function RehabRiskSnapshotForm() {
   const [step, setStep] = useState<WizardStep>(1);
@@ -152,14 +255,34 @@ export default function RehabRiskSnapshotForm() {
     company_name: '',
     investor_type: 'flipper',
   });
+  const [property, setProperty] = useState<PropertyInfo>({
+    property_address: '',
+    city: '',
+    state: 'NC',
+    zip: '',
+    square_feet: '',
+    year_built: '',
+    stories: '',
+    bedrooms: '',
+    bathrooms: '',
+    property_type: 'single_family',
+    occupancy_status: 'vacant',
+    investment_strategy: 'flip',
+    target_finish_level: 'basic_flip',
+  });
   const [state, setState] = useState<SubmissionState>('idle');
   const [error, setError] = useState('');
   const [result, setResult] = useState<ResultState | null>(null);
 
+  function scrollFormTop() {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: window.scrollY - 120, behavior: 'smooth' });
+    }
+  }
+
   function onStep1Submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = event.currentTarget;
-    const fd = new FormData(form);
+    const fd = new FormData(event.currentTarget);
     const next: ContactInfo = {
       first_name: String(fd.get('first_name') ?? '').trim(),
       last_name: String(fd.get('last_name') ?? '').trim(),
@@ -176,226 +299,196 @@ export default function RehabRiskSnapshotForm() {
     setContact(next);
     setStep(2);
 
-    // Fire-and-forget — capture partial lead in GHL so we keep them even if
-    // they bail before completing Step 2. We deliberately don't await.
+    // Fire-and-forget partial-lead capture so we keep them even if they bail.
     void fetch('/api/rehab-budget-snapshots/lead-capture', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...next, honey: '' }),
       keepalive: true,
-    }).catch(() => {
-      // Silent — partial capture failure should never block the wizard.
-    });
+    }).catch(() => {});
 
-    // Scroll to top of form to show the read-only summary card
-    window.scrollTo({ top: window.scrollY - 100, behavior: 'smooth' });
+    scrollFormTop();
   }
 
-  async function onStep2Submit(event: React.FormEvent<HTMLFormElement>) {
+  function onStep2Submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const fd = new FormData(event.currentTarget);
+    const next: PropertyInfo = {
+      property_address: String(fd.get('property_address') ?? '').trim(),
+      city: String(fd.get('city') ?? '').trim(),
+      state: String(fd.get('state') ?? 'NC').trim(),
+      zip: String(fd.get('zip') ?? '').trim(),
+      square_feet: String(fd.get('square_feet') ?? '').trim(),
+      year_built: String(fd.get('year_built') ?? '').trim(),
+      stories: String(fd.get('stories') ?? '').trim(),
+      bedrooms: String(fd.get('bedrooms') ?? '').trim(),
+      bathrooms: String(fd.get('bathrooms') ?? '').trim(),
+      property_type: String(fd.get('property_type') ?? 'single_family'),
+      occupancy_status: String(fd.get('occupancy_status') ?? 'vacant'),
+      investment_strategy: String(fd.get('investment_strategy') ?? 'flip'),
+      target_finish_level: String(fd.get('target_finish_level') ?? 'basic_flip'),
+    };
+    if (!next.property_address || !next.square_feet || Number(next.square_feet) <= 0) {
+      setError('Property address and a valid square footage are required.');
+      return;
+    }
+    setError('');
+    setProperty(next);
+    setStep(3);
+    scrollFormTop();
+  }
+
+  async function onStep3Submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setState('loading');
     setError('');
     setResult(null);
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(event.currentTarget);
 
-    // Inject the locked-in contact info from step 1
-    formData.set('first_name', contact.first_name);
-    formData.set('last_name', contact.last_name);
-    formData.set('email', contact.email);
-    formData.set('phone', contact.phone);
-    formData.set('company_name', contact.company_name);
-    formData.set('investor_type', contact.investor_type);
-
-    for (const key of SCOPE_CHECKS.map(([name]) => name)) {
-      if (!formData.has(key)) {
-        formData.set(key, 'false');
-      } else {
-        formData.set(key, 'true');
-      }
+    // Contact (from step 1)
+    Object.entries(contact).forEach(([k, v]) => formData.set(k, v));
+    // Property (from step 2)
+    Object.entries(property).forEach(([k, v]) => formData.set(k, v));
+    // Normalize every scope checkbox to explicit true/false
+    for (const name of SCOPE_CHECK_NAMES) {
+      formData.set(name, formData.has(name) ? 'true' : 'false');
     }
+    formData.set('honey', '');
 
     try {
-      const response = await fetch('/api/rehab-budget-snapshots', {
-        method: 'POST',
-        body: formData,
-      });
-
+      const response = await fetch('/api/rehab-budget-snapshots', { method: 'POST', body: formData });
       const body = await response.json().catch(() => ({}));
       if (!response.ok) {
         setState('error');
         setError(body.error || 'Submission failed. Please try again.');
         return;
       }
-
       setResult(body.result || null);
       setState('success');
-      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scrollFormTop();
     } catch {
       setState('error');
       setError('Network error. Please try again.');
     }
   }
 
+  const formCard =
+    'rounded-[28px] border border-white/10 bg-[#0a142b] p-6 shadow-[0_40px_100px_-50px_rgba(6,13,32,0.95)] sm:p-8';
+
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      {step === 1 ? (
-        <form onSubmit={onStep1Submit} className="space-y-7 rounded-[30px] border border-white/12 bg-navy-900/85 p-6 shadow-[0_35px_90px_-40px_rgba(6,13,32,0.95)] backdrop-blur md:p-8">
-          <input type="hidden" name="honey" value="" readOnly />
+    <div className="grid items-start gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+      {/* ============== LEFT: WIZARD ============== */}
+      <div className={formCard}>
+        <ProgressHeader step={step} />
 
-          <div className="flex items-center justify-between gap-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Step 1 of 2 · Contact</p>
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">Step 2 · Property details</p>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-extrabold text-white">Where should we send your snapshot?</h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-white/65">
-              Quick step. Then property + scope details on the next screen.
+        {step === 1 && (
+          <form onSubmit={onStep1Submit} className="space-y-6">
+            <div>
+              <h2 className="text-2xl font-extrabold text-white">Where should we send your snapshot?</h2>
+              <p className="mt-2 text-[14px] leading-relaxed text-white/60">
+                One quick step. Property and scope come next — the whole thing takes about two minutes.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <FieldLabel>First name *</FieldLabel>
+                <Input name="first_name" required placeholder="Darius" defaultValue={contact.first_name} />
+              </div>
+              <div>
+                <FieldLabel>Last name *</FieldLabel>
+                <Input name="last_name" required placeholder="Walton" defaultValue={contact.last_name} />
+              </div>
+              <div>
+                <FieldLabel>Email *</FieldLabel>
+                <Input name="email" required type="email" placeholder="you@example.com" defaultValue={contact.email} />
+              </div>
+              <div>
+                <FieldLabel>Phone</FieldLabel>
+                <Input name="phone" type="tel" placeholder="(704) 555-1212" defaultValue={contact.phone} />
+              </div>
+              <div>
+                <FieldLabel>Company</FieldLabel>
+                <Input name="company_name" placeholder="Optional" defaultValue={contact.company_name} />
+              </div>
+              <div>
+                <FieldLabel>Investor type *</FieldLabel>
+                <Select name="investor_type" required defaultValue={contact.investor_type}>
+                  {INVESTOR_TYPES.map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+            </div>
+            {error && <p className="text-sm text-rose-300">{error}</p>}
+            <button type="submit" className={primaryBtn}>
+              Continue → Property
+            </button>
+            <p className="text-xs text-white/40">
+              Fields marked <span className="font-bold text-orange">*</span> are required. The snapshot is free.
             </p>
-          </div>
+          </form>
+        )}
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <FieldLabel>First name *</FieldLabel>
-              <Input name="first_name" required placeholder="Darius" defaultValue={contact.first_name} />
-            </div>
-            <div>
-              <FieldLabel>Last name *</FieldLabel>
-              <Input name="last_name" required placeholder="Walton" defaultValue={contact.last_name} />
-            </div>
-            <div>
-              <FieldLabel>Email *</FieldLabel>
-              <Input name="email" required type="email" placeholder="you@example.com" defaultValue={contact.email} />
-            </div>
-            <div>
-              <FieldLabel>Phone</FieldLabel>
-              <Input name="phone" type="tel" placeholder="(704) 555-1212" defaultValue={contact.phone} />
-            </div>
-            <div>
-              <FieldLabel>Company</FieldLabel>
-              <Input name="company_name" placeholder="Southern Cities" defaultValue={contact.company_name} />
-            </div>
-            <div>
-              <FieldLabel>Investor type *</FieldLabel>
-              <Select name="investor_type" required defaultValue={contact.investor_type}>
-                {INVESTOR_TYPES.map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </Select>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="inline-flex min-h-[58px] w-full items-center justify-center rounded-full bg-orange px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_18px_45px_-18px_rgba(250,140,65,0.8)] transition hover:-translate-y-0.5 hover:bg-orange-500"
-          >
-            Continue → Property Details
-          </button>
-
-          {error ? <p className="text-sm text-rose-300">{error}</p> : null}
-
-          <p className="text-xs leading-relaxed text-white/48">
-            Only fields marked with <span className="font-bold text-orange">*</span> are required. The snapshot is free.
-          </p>
-        </form>
-      ) : (
-        <form onSubmit={onStep2Submit} className="space-y-8 rounded-[30px] border border-white/12 bg-navy-900/85 p-6 shadow-[0_35px_90px_-40px_rgba(6,13,32,0.95)] backdrop-blur md:p-8">
-          <input type="hidden" name="honey" value="" readOnly />
-
-          <div className="flex items-center justify-between gap-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/45">Step 1 · Contact ✓</p>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Step 2 of 2 · Property details</p>
-          </div>
-
-          {/* Read-only contact summary */}
-          <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/[0.06] p-5">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center justify-center rounded-md bg-emerald-400/20 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-black tracking-[0.18em] text-emerald-300">
-                  CONFIRMED
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">
-                  Your contact info
-                </span>
+        {step === 2 && (
+          <form onSubmit={onStep2Submit} className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-extrabold text-white">The property</h2>
+                <p className="mt-2 text-[14px] leading-relaxed text-white/60">
+                  ZIP sets the regional cost tier. Square footage drives the per-SF range.
+                </p>
               </div>
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange hover:text-orange-400 transition-colors"
-              >
-                ← Edit
+              <button type="button" onClick={() => setStep(1)} className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange hover:text-orange-400">
+                ← Back
               </button>
-            </div>
-            <div className="mt-4 grid gap-2 text-[14px] text-white/90 sm:grid-cols-2">
-              <div>
-                <span className="text-white/45">Name:</span> {contact.first_name} {contact.last_name}
-              </div>
-              <div>
-                <span className="text-white/45">Email:</span> {contact.email}
-              </div>
-              {contact.phone ? (
-                <div>
-                  <span className="text-white/45">Phone:</span> {contact.phone}
-                </div>
-              ) : null}
-              {contact.company_name ? (
-                <div>
-                  <span className="text-white/45">Company:</span> {contact.company_name}
-                </div>
-              ) : null}
-              <div>
-                <span className="text-white/45">Investor:</span> {investorTypeLabel(contact.investor_type)}
-              </div>
-            </div>
-          </div>
-
-          <section>
-            <div className="mb-4">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Property profile</p>
-              <h3 className="mt-2 text-2xl font-extrabold text-white">Set the underwriting frame</h3>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <FieldLabel>Property address *</FieldLabel>
-                <Input name="property_address" required placeholder="123 Main St" />
+                <Input name="property_address" required placeholder="123 Main St" defaultValue={property.property_address} />
               </div>
               <div>
                 <FieldLabel>City</FieldLabel>
-                <Input name="city" placeholder="Charlotte" />
+                <Input name="city" placeholder="Charlotte" defaultValue={property.city} />
               </div>
-              <div>
-                <FieldLabel>State</FieldLabel>
-                <Input name="state" defaultValue="NC" />
-              </div>
-              <div>
-                <FieldLabel>ZIP</FieldLabel>
-                <Input name="zip" placeholder="28205" />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <FieldLabel>State</FieldLabel>
+                  <Input name="state" defaultValue={property.state} />
+                </div>
+                <div>
+                  <FieldLabel>ZIP</FieldLabel>
+                  <Input name="zip" placeholder="28205" defaultValue={property.zip} inputMode="numeric" />
+                </div>
               </div>
               <div>
                 <FieldLabel>Square feet *</FieldLabel>
-                <Input name="square_feet" required type="number" min={400} placeholder="1650" />
+                <Input name="square_feet" required type="number" min={300} placeholder="1650" defaultValue={property.square_feet} />
               </div>
               <div>
                 <FieldLabel>Year built</FieldLabel>
-                <Input name="year_built" type="number" placeholder="1968" />
+                <Input name="year_built" type="number" placeholder="1968" defaultValue={property.year_built} />
               </div>
-              <div>
-                <FieldLabel>Stories</FieldLabel>
-                <Input name="stories" type="number" placeholder="1" />
-              </div>
-              <div>
-                <FieldLabel>Bedrooms</FieldLabel>
-                <Input name="bedrooms" type="number" placeholder="3" />
-              </div>
-              <div>
-                <FieldLabel>Bathrooms</FieldLabel>
-                <Input name="bathrooms" type="number" step="0.5" placeholder="2" />
+              <div className="grid grid-cols-3 gap-3 sm:col-span-2">
+                <div>
+                  <FieldLabel>Stories</FieldLabel>
+                  <Input name="stories" type="number" placeholder="1" defaultValue={property.stories} />
+                </div>
+                <div>
+                  <FieldLabel>Beds</FieldLabel>
+                  <Input name="bedrooms" type="number" placeholder="3" defaultValue={property.bedrooms} />
+                </div>
+                <div>
+                  <FieldLabel>Baths</FieldLabel>
+                  <Input name="bathrooms" type="number" step="0.5" placeholder="2" defaultValue={property.bathrooms} />
+                </div>
               </div>
               <div>
                 <FieldLabel>Property type *</FieldLabel>
-                <Select name="property_type" required defaultValue="single_family">
+                <Select name="property_type" required defaultValue={property.property_type}>
                   {PROPERTY_TYPES.map(([value, label]) => (
                     <option key={value} value={value}>{label}</option>
                   ))}
@@ -403,7 +496,7 @@ export default function RehabRiskSnapshotForm() {
               </div>
               <div>
                 <FieldLabel>Occupancy</FieldLabel>
-                <Select name="occupancy_status" defaultValue="vacant">
+                <Select name="occupancy_status" defaultValue={property.occupancy_status}>
                   {OCCUPANCY.map(([value, label]) => (
                     <option key={value} value={value}>{label}</option>
                   ))}
@@ -411,7 +504,7 @@ export default function RehabRiskSnapshotForm() {
               </div>
               <div>
                 <FieldLabel>Strategy *</FieldLabel>
-                <Select name="investment_strategy" required defaultValue="flip">
+                <Select name="investment_strategy" required defaultValue={property.investment_strategy}>
                   {STRATEGIES.map(([value, label]) => (
                     <option key={value} value={value}>{label}</option>
                   ))}
@@ -419,183 +512,276 @@ export default function RehabRiskSnapshotForm() {
               </div>
               <div>
                 <FieldLabel>Finish target *</FieldLabel>
-                <Select name="target_finish_level" required defaultValue="basic_flip">
+                <Select name="target_finish_level" required defaultValue={property.target_finish_level}>
                   {FINISH_LEVELS.map(([value, label]) => (
                     <option key={value} value={value}>{label}</option>
                   ))}
                 </Select>
               </div>
             </div>
-          </section>
-
-          <section>
-            <div className="mb-4">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Scope signals</p>
-              <h3 className="mt-2 text-2xl font-extrabold text-white">Mark what is likely in play</h3>
+            {error && <p className="text-sm text-rose-300">{error}</p>}
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button type="button" onClick={() => setStep(1)} className={`${ghostBtn} sm:w-auto`}>
+                ← Back
+              </button>
+              <button type="submit" className={primaryBtn}>
+                Continue → Scope
+              </button>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {SCOPE_CHECKS.map(([name, label]) => (
-                <label key={name} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/88">
-                  <input type="checkbox" name={name} value="true" className="h-4 w-4 rounded border-white/20 bg-transparent text-orange focus:ring-orange" />
-                  <span>{label}</span>
-                </label>
-              ))}
+          </form>
+        )}
+
+        {step === 3 && (
+          <form onSubmit={onStep3Submit} className="space-y-7">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-extrabold text-white">Mark the scope</h2>
+                <p className="mt-2 text-[14px] leading-relaxed text-white/60">
+                  Check what&apos;s likely in play. More detail tightens the range and raises confidence.
+                </p>
+              </div>
+              <button type="button" onClick={() => setStep(2)} className="text-[11px] font-bold uppercase tracking-[0.14em] text-orange hover:text-orange-400">
+                ← Back
+              </button>
             </div>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div>
-                <FieldLabel>Bathroom refresh count</FieldLabel>
-                <Input name="bathroom_refresh_count" type="number" min={0} defaultValue={0} />
-              </div>
-              <div>
-                <FieldLabel>Bathroom full count</FieldLabel>
-                <Input name="bathroom_full_count" type="number" min={0} defaultValue={0} />
-              </div>
-            </div>
-          </section>
 
-          <section>
-            <div className="mb-4">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Context that moves the number</p>
-              <h3 className="mt-2 text-2xl font-extrabold text-white">Upload context and explain what you know</h3>
-            </div>
-            <div className="grid gap-4">
-              <div>
-                <FieldLabel>Project photos</FieldLabel>
-                <Input name="project_photos" type="file" accept="image/*,.pdf" multiple className="file:mr-4 file:rounded-full file:border-0 file:bg-orange file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-orange-500" />
-              </div>
-              <div>
-                <FieldLabel>Existing budget / inspection / scope file</FieldLabel>
-                <Input name="existing_budget_file" type="file" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx,image/*" className="file:mr-4 file:rounded-full file:border-0 file:bg-white/15 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-white/20" />
-              </div>
-              <div>
-                <FieldLabel>Notes</FieldLabel>
-                <textarea
-                  name="notes"
-                  rows={5}
-                  placeholder="Tell us what you think is going on. Example: 1960s brick ranch, likely full kitchen, two baths, older panel, possible roof soon, water stains in rear bedroom, aiming for mid-grade flip."
-                  className="w-full rounded-2xl border border-white/15 bg-[#0d1830] px-4 py-3 text-[15px] text-white placeholder:text-white/35 transition-colors focus:border-orange/60 focus:outline-none focus:ring-2 focus:ring-orange/20"
-                />
-              </div>
-            </div>
-          </section>
-
-          <button
-            type="submit"
-            disabled={state === 'loading'}
-            className="inline-flex min-h-[58px] w-full items-center justify-center rounded-full bg-orange px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_18px_45px_-18px_rgba(250,140,65,0.8)] transition hover:-translate-y-0.5 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-65"
-          >
-            {state === 'loading' ? 'Building Snapshot...' : 'Get My Rehab Snapshot'}
-          </button>
-
-          {state === 'error' ? <p className="text-sm text-rose-300">{error}</p> : null}
-
-          <p className="text-xs leading-relaxed text-white/48">
-            This is a preliminary feasibility estimate. It is not a quote, bid, proposal, or guaranteed price. Final pricing requires scope validation, site conditions review, contractor/vendor pricing, and formal agreement.
-          </p>
-        </form>
-      )}
-
-      <div className="space-y-6">
-        <div className="rounded-[30px] border border-[#eadfd1] bg-white p-6 shadow-[0_30px_80px_-45px_rgba(19,36,82,0.55)] md:p-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">What you get</p>
-          <h3 className="mt-2 text-3xl font-extrabold text-navy-900">A fast underwriting read before execution eats the deal</h3>
-          <div className="mt-6 space-y-4 text-[15px] leading-7 text-stone-600">
-            <p>Most deals do not fail at purchase. They fail during execution. Budget uncertainty wrecks MAO, financing, timeline, holding cost, profit, and exit strategy.</p>
-            <p>This tool does not pretend to be a contractor quote. It classifies the job into the right execution cost bucket, surfaces the risks that can move the number, and gives you a realistic next step.</p>
-          </div>
-          <div className="mt-6 grid gap-3">
-            {[
-              'Preliminary budget range for early-stage underwriting',
-              'Confidence level based on intake completeness and hidden-condition exposure',
-              'Likely project category and execution timeline range',
-              'Risk flags that can blow up budget, scope, or schedule',
-              'Branded PDF and email delivery for your file and team',
-            ].map((item) => (
-              <div key={item} className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-medium text-stone-700">{item}</div>
-            ))}
-          </div>
-        </div>
-
-        <div className="rounded-[30px] border border-white/10 bg-[#08111d] p-6 text-white shadow-[0_28px_70px_-40px_rgba(6,13,32,0.95)] md:p-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Snapshot result</p>
-          {result ? (
-            <div className="mt-4 space-y-5">
-              <div className="rounded-3xl bg-white/[0.04] p-5">
-                <p className="text-sm text-white/60">Budget range</p>
-                <p className="mt-2 text-4xl font-extrabold text-white">{currency(result.budgetRange.low)} - {currency(result.budgetRange.high)}</p>
-                <p className="mt-2 text-sm text-white/60">Likely category: {result.projectCategory}</p>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">Confidence</p>
-                  <p className="mt-2 text-2xl font-extrabold">{result.confidenceLevel.toUpperCase()} ({result.confidenceScore}/100)</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">Timeline</p>
-                  <p className="mt-2 text-2xl font-extrabold">{result.timelineRange.lowWeeks}-{result.timelineRange.highWeeks} weeks</p>
-                </div>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">High-risk scenario</p>
-                  <p className="mt-2 text-2xl font-extrabold">{currency(result.highRiskBudget)}</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">Execution / permit</p>
-                  <p className="mt-2 text-lg font-extrabold">{result.executionDifficulty} / {result.permitComplexity}</p>
-                </div>
-              </div>
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">Execution read</p>
-                <p className="mt-2 text-sm leading-7 text-white/78">{result.executionSummary}</p>
-              </div>
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">Risk flags</p>
-                <div className="mt-3 space-y-2">
-                  {result.riskFlags.length ? (
-                    result.riskFlags.map((flag) => (
-                      <div key={flag} className="rounded-2xl border border-orange/20 bg-orange/[0.08] px-4 py-3 text-sm leading-6 text-white/86">{flag}</div>
-                    ))
-                  ) : (
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-white/78">
-                      No major execution flags were surfaced beyond normal rehab variance from the current intake.
-                    </div>
+            {SCOPE_GROUPS.map((group) => (
+              <fieldset key={group.title} className="rounded-2xl border border-white/8 bg-white/[0.02] p-4">
+                <legend className="px-1 text-[11px] font-bold uppercase tracking-[0.16em] text-orange">{group.title}</legend>
+                <div className="mt-2 grid gap-2.5 sm:grid-cols-2">
+                  {group.items.map(([name, label]) => (
+                    <label key={name} className="flex cursor-pointer items-center gap-3 rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2.5 text-sm text-white/85 transition-colors hover:border-orange/30 hover:bg-orange/[0.04]">
+                      <input type="checkbox" name={name} value="true" className="h-4 w-4 rounded border-white/25 bg-transparent text-orange focus:ring-orange focus:ring-offset-0" />
+                      <span>{label}</span>
+                    </label>
+                  ))}
+                  {group.title === 'Kitchen & bath' && (
+                    <>
+                      <div className="rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2">
+                        <FieldLabel>Bathroom refreshes</FieldLabel>
+                        <Input name="bathroom_refresh_count" type="number" min={0} defaultValue={0} className="py-2" />
+                      </div>
+                      <div className="rounded-xl border border-white/8 bg-white/[0.03] px-3.5 py-2">
+                        <FieldLabel>Full bathrooms</FieldLabel>
+                        <Input name="bathroom_full_count" type="number" min={0} defaultValue={0} className="py-2" />
+                      </div>
+                    </>
                   )}
                 </div>
-              </div>
-              <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.08] p-4">
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-200">Recommended next step</p>
-                <p className="mt-2 text-sm leading-7 text-white/84">{result.recommendedNextStep}</p>
-              </div>
+              </fieldset>
+            ))}
+
+            <div className="space-y-4">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">Assumptions used</p>
-                <div className="mt-3 space-y-2">
-                  {result.assumptions.map((item) => (
-                    <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-white/78">{item}</div>
-                  ))}
+                <FieldLabel>Notes (what you already know)</FieldLabel>
+                <textarea
+                  name="notes"
+                  rows={4}
+                  placeholder="e.g. 1960s brick ranch, full kitchen, two baths, older panel, possible roof soon, water stains in rear bedroom, aiming for mid-grade flip."
+                  className={inputClass}
+                />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <FieldLabel>Project photos</FieldLabel>
+                  <Input name="project_photos" type="file" accept="image/*,.pdf" multiple className="file:mr-3 file:rounded-full file:border-0 file:bg-orange file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-white" />
+                </div>
+                <div>
+                  <FieldLabel>Inspection / budget file</FieldLabel>
+                  <Input name="existing_budget_file" type="file" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx,image/*" className="file:mr-3 file:rounded-full file:border-0 file:bg-white/15 file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-white" />
                 </div>
               </div>
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">What could change this number</p>
-                <div className="mt-3 space-y-2">
-                  {result.whatCouldChangeThisNumber.map((item) => (
-                    <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-white/78">{item}</div>
-                  ))}
-                </div>
-              </div>
-              <p className="text-xs text-white/48">
-                {result.emailStatus === 'sent'
-                  ? 'A branded PDF copy has been emailed to you.'
-                  : 'The snapshot was saved internally. Email delivery depends on live provider configuration.'}
-              </p>
             </div>
-          ) : (
-            <div className="mt-4 rounded-3xl border border-dashed border-white/12 bg-white/[0.03] p-6">
-              <p className="text-sm leading-7 text-white/68">Submit the intake to generate a directional budget range, confidence level, risk flags, likely category, timeline range, and recommended next step.</p>
+
+            {error && <p className="text-sm text-rose-300">{error}</p>}
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button type="button" onClick={() => setStep(2)} className={`${ghostBtn} sm:w-auto`}>
+                ← Back
+              </button>
+              <button type="submit" disabled={state === 'loading'} className={primaryBtn}>
+                {state === 'loading' ? 'Building your snapshot…' : 'Get my rehab snapshot →'}
+              </button>
             </div>
-          )}
-        </div>
+            <p className="text-xs leading-relaxed text-white/40">
+              Preliminary feasibility estimate — not a quote, bid, or guaranteed price. Final pricing requires scope validation and a formal agreement.
+            </p>
+          </form>
+        )}
+      </div>
+
+      {/* ============== RIGHT: RESULT / VALUE ============== */}
+      <div className="lg:sticky lg:top-6">
+        {result ? (
+          <ResultPanel result={result} />
+        ) : (
+          <ValuePanel contact={contact} property={property} step={step} />
+        )}
       </div>
     </div>
   );
+}
+
+function ValuePanel({ contact, property, step }: { contact: ContactInfo; property: PropertyInfo; step: WizardStep }) {
+  return (
+    <div className="space-y-5">
+      <div className="rounded-[28px] border border-[#e8ddcd] bg-white p-6 shadow-[0_30px_80px_-50px_rgba(19,36,82,0.5)] sm:p-7">
+        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">What you get</p>
+        <h3 className="mt-2 text-2xl font-extrabold text-navy-900">An underwriting read before execution eats the deal</h3>
+        <div className="mt-5 grid gap-2.5">
+          {[
+            'Market-adjusted budget range + cost per square foot',
+            'Confidence score based on intake completeness',
+            'Likely project category + execution timeline',
+            'Execution risk flags that move budget and schedule',
+            'A clear recommended next step',
+          ].map((item) => (
+            <div key={item} className="flex items-start gap-3 rounded-xl border border-stone-200 bg-stone-50 px-4 py-2.5 text-sm font-medium text-stone-700">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange/15 text-[12px] font-black text-orange">✓</span>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {(step > 1 || contact.first_name) && (
+        <div className="rounded-[28px] border border-white/10 bg-[#0a142b] p-6 text-white sm:p-7">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">In progress</p>
+          <div className="mt-3 space-y-1.5 text-sm text-white/80">
+            {contact.first_name && (
+              <p><span className="text-white/45">For:</span> {contact.first_name} {contact.last_name} · {investorTypeLabel(contact.investor_type)}</p>
+            )}
+            {property.property_address && (
+              <p><span className="text-white/45">Property:</span> {property.property_address}{property.city ? `, ${property.city}` : ''} {property.state}</p>
+            )}
+            {property.square_feet && (
+              <p><span className="text-white/45">Size:</span> {Number(property.square_feet).toLocaleString()} sq ft</p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ResultPanel({ result }: { result: ResultState }) {
+  const confidence = Math.max(0, Math.min(100, result.confidenceScore));
+  const confidenceColor =
+    confidence >= 80 ? 'bg-emerald-400' : confidence >= 55 ? 'bg-amber-400' : 'bg-rose-400';
+
+  return (
+    <div className="space-y-5">
+      <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#0a142b] text-white shadow-[0_40px_100px_-50px_rgba(6,13,32,0.95)]">
+        {/* Hero budget */}
+        <div className="border-b border-white/10 bg-gradient-to-br from-orange/[0.14] to-transparent p-6 sm:p-7">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange">Preliminary budget range</p>
+            {result.marketTier && (
+              <span className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/70">
+                {result.marketTier.label}{result.marketTier.tier?.length === 1 ? ` · Tier ${result.marketTier.tier}` : ''}
+              </span>
+            )}
+          </div>
+          <p className="mt-3 text-[2.1rem] font-black leading-none tracking-tight sm:text-[2.6rem]">
+            {currency(result.budgetRange.low)} – {currency(result.budgetRange.high)}
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-white/65">
+            {result.costPerSf && result.costPerSf.high > 0 && (
+              <span>{currency(result.costPerSf.low)}–{currency(result.costPerSf.high)} / sq ft</span>
+            )}
+            <span>Likely: {result.projectCategory}</span>
+          </div>
+        </div>
+
+        {/* Metrics */}
+        <div className="space-y-5 p-6 sm:p-7">
+          <div>
+            <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
+              <span>Confidence</span>
+              <span className="text-white/80">{result.confidenceLevel.toUpperCase()} · {confidence}/100</span>
+            </div>
+            <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
+              <div className={`h-full rounded-full ${confidenceColor}`} style={{ width: `${confidence}%` }} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Metric label="Timeline" value={`${result.timelineRange.lowWeeks}–${result.timelineRange.highWeeks} wks`} />
+            <Metric label="High-risk scenario" value={currency(result.highRiskBudget)} />
+            <Metric label="Execution" value={cap(result.executionDifficulty)} />
+            <Metric label="Permit" value={cap(result.permitComplexity)} />
+          </div>
+
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Execution read</p>
+            <p className="mt-2 text-sm leading-7 text-white/78">{result.executionSummary}</p>
+          </div>
+
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Risk flags</p>
+            <div className="mt-2.5 space-y-2">
+              {result.riskFlags.length ? (
+                result.riskFlags.map((flag) => (
+                  <div key={flag} className="rounded-xl border border-orange/20 bg-orange/[0.07] px-4 py-2.5 text-[13px] leading-6 text-white/85">
+                    {flag}
+                  </div>
+                ))
+              ) : (
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-[13px] leading-6 text-white/70">
+                  No major execution flags surfaced beyond normal rehab variance from this intake.
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.07] p-4">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-200">Recommended next step</p>
+            <p className="mt-2 text-[13.5px] leading-7 text-white/85">{result.recommendedNextStep}</p>
+            <Link
+              href="/book"
+              className="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-orange px-6 py-3 text-[13px] font-black uppercase tracking-[0.06em] text-white transition hover:-translate-y-0.5 hover:bg-orange-500"
+            >
+              Book an execution review →
+            </Link>
+          </div>
+
+          <p className="text-[11.5px] leading-relaxed text-white/40">
+            {result.emailStatus === 'sent'
+              ? 'A branded PDF copy has been emailed to you.'
+              : 'Your snapshot was saved. A team member will follow up; email delivery depends on provider configuration.'}
+          </p>
+        </div>
+      </div>
+
+      <details className="rounded-[24px] border border-stone-200 bg-white p-5 text-sm text-stone-600 shadow-[0_24px_60px_-45px_rgba(19,36,82,0.45)]">
+        <summary className="cursor-pointer text-[12px] font-bold uppercase tracking-[0.16em] text-orange">Assumptions & what could change the number</summary>
+        <div className="mt-4 space-y-3">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-stone-400">Assumptions used</p>
+            <ul className="mt-2 space-y-1.5 text-[13.5px] leading-6">
+              {result.assumptions.map((a) => <li key={a} className="flex gap-2"><span className="text-orange">·</span>{a}</li>)}
+            </ul>
+          </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-stone-400">What could change this number</p>
+            <ul className="mt-2 space-y-1.5 text-[13.5px] leading-6">
+              {result.whatCouldChangeThisNumber.map((a) => <li key={a} className="flex gap-2"><span className="text-orange">·</span>{a}</li>)}
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
+      <p className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-white/45">{label}</p>
+      <p className="mt-1.5 text-lg font-extrabold text-white">{value}</p>
+    </div>
+  );
+}
+
+function cap(value: string) {
+  return value ? value.charAt(0).toUpperCase() + value.slice(1) : value;
 }
