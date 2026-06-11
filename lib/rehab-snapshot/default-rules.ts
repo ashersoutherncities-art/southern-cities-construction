@@ -1,14 +1,21 @@
-import { EstimateRuleRecord } from '@/lib/rehab-snapshot/types';
+import { EstimateRuleRecord, MarketTierRecord } from '@/lib/rehab-snapshot/types';
 
 export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
-  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 25, high_value: 45, unit: 'per_sf', active: true },
-  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 20, high_value: 55, unit: 'per_sf', active: true },
-  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 45, high_value: 90, unit: 'per_sf', active: true },
-  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 90, high_value: 175, unit: 'per_sf', active: true },
-  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 140, high_value: 250, unit: 'per_sf', active: true },
-  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 175, high_value: 300, unit: 'per_sf', active: true },
-  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 175, high_value: 350, unit: 'per_sf', active: true },
-  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 55, high_value: 120, unit: 'per_sf', active: true },
+  // ----------------------------------------------------------------------
+  // Base per-SF cost by project category — STATEWIDE NC BASELINE.
+  // These are deliberately set to a mid-state baseline; the market-tier
+  // multiplier (see DEFAULT_MARKET_TIERS) then scales them up for metro
+  // markets (Charlotte/Raleigh/Asheville) and down for rural NC. Do not
+  // bake metro pricing into these — that's the tier's job.
+  // ----------------------------------------------------------------------
+  { rule_name: 'base-cosmetic', category: 'base_cost', condition_json: { project_category: 'cosmetic' }, low_value: 20, high_value: 40, unit: 'per_sf', active: true },
+  { rule_name: 'base-rental-turn', category: 'base_cost', condition_json: { project_category: 'rental_turn' }, low_value: 18, high_value: 45, unit: 'per_sf', active: true },
+  { rule_name: 'base-moderate-rehab', category: 'base_cost', condition_json: { project_category: 'moderate_rehab' }, low_value: 42, high_value: 85, unit: 'per_sf', active: true },
+  { rule_name: 'base-heavy-rehab', category: 'base_cost', condition_json: { project_category: 'heavy_rehab' }, low_value: 85, high_value: 160, unit: 'per_sf', active: true },
+  { rule_name: 'base-full-gut', category: 'base_cost', condition_json: { project_category: 'full_gut' }, low_value: 130, high_value: 230, unit: 'per_sf', active: true },
+  { rule_name: 'base-structural-heavy', category: 'base_cost', condition_json: { project_category: 'structural_heavy' }, low_value: 160, high_value: 280, unit: 'per_sf', active: true },
+  { rule_name: 'base-addition', category: 'base_cost', condition_json: { project_category: 'addition' }, low_value: 165, high_value: 325, unit: 'per_sf', active: true },
+  { rule_name: 'base-unknown', category: 'base_cost', condition_json: { project_category: 'unknown' }, low_value: 48, high_value: 110, unit: 'per_sf', active: true },
 
   { rule_name: 'finish-rental-grade', category: 'finish_multiplier', condition_json: { target_finish_level: 'rental_grade' }, low_value: 0.9, high_value: 0.9, unit: 'multiplier', active: true },
   { rule_name: 'finish-basic-flip', category: 'finish_multiplier', condition_json: { target_finish_level: 'basic_flip' }, low_value: 1, high_value: 1, unit: 'multiplier', active: true },
@@ -48,3 +55,51 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   { rule_name: 'timeline-damage', category: 'timeline_risk', condition_json: { any_fields: ['fire_damage', 'water_damage'], label: 'Fire or water damage' }, low_value: 3, high_value: 10, unit: 'weeks', active: true },
   { rule_name: 'timeline-systems', category: 'timeline_risk', condition_json: { any_fields: ['electrical_full', 'plumbing_full', 'hvac'], label: 'Full systems replacement' }, low_value: 2, high_value: 8, unit: 'weeks', active: true },
 ];
+
+/**
+ * Statewide-default market tier table (fallback when the Supabase
+ * `market_tiers` table is unavailable). Maps NC 3-digit ZIP prefixes to a
+ * regional cost tier + base-cost multiplier.
+ *
+ *   Tier A — high-cost metros (Charlotte, Triangle, Asheville/mountains)
+ *   Tier B — mid-cost (Triad, Wilmington, Hickory)
+ *   Tier C — lower-cost rural / eastern NC
+ *
+ * Multipliers scale the per-SF BASE cost only.
+ */
+export const DEFAULT_MARKET_TIERS: MarketTierRecord[] = [
+  // Tier A — high-cost metros
+  { zip_prefix: '275', tier: 'A', label: 'Raleigh', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
+  { zip_prefix: '276', tier: 'A', label: 'Raleigh–Durham', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
+  { zip_prefix: '277', tier: 'A', label: 'Durham', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
+  { zip_prefix: '280', tier: 'A', label: 'Charlotte Metro (Gastonia)', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
+  { zip_prefix: '281', tier: 'A', label: 'Charlotte Metro', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
+  { zip_prefix: '282', tier: 'A', label: 'Charlotte', cost_multiplier_low: 1.12, cost_multiplier_high: 1.20, active: true },
+  { zip_prefix: '287', tier: 'A', label: 'Asheville Area', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
+  { zip_prefix: '288', tier: 'A', label: 'Asheville', cost_multiplier_low: 1.10, cost_multiplier_high: 1.18, active: true },
+  { zip_prefix: '289', tier: 'A', label: 'Western NC Mountains', cost_multiplier_low: 1.08, cost_multiplier_high: 1.16, active: true },
+  // Tier B — mid-cost
+  { zip_prefix: '270', tier: 'B', label: 'Greensboro', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
+  { zip_prefix: '271', tier: 'B', label: 'Winston-Salem', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
+  { zip_prefix: '272', tier: 'B', label: 'Greensboro', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
+  { zip_prefix: '273', tier: 'B', label: 'Triad', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
+  { zip_prefix: '274', tier: 'B', label: 'High Point', cost_multiplier_low: 1.00, cost_multiplier_high: 1.05, active: true },
+  { zip_prefix: '284', tier: 'B', label: 'Wilmington', cost_multiplier_low: 1.02, cost_multiplier_high: 1.08, active: true },
+  { zip_prefix: '286', tier: 'B', label: 'Hickory', cost_multiplier_low: 0.98, cost_multiplier_high: 1.04, active: true },
+  // Tier C — lower-cost rural / eastern NC
+  { zip_prefix: '278', tier: 'C', label: 'Rocky Mount', cost_multiplier_low: 0.90, cost_multiplier_high: 0.96, active: true },
+  { zip_prefix: '279', tier: 'C', label: 'Elizabeth City', cost_multiplier_low: 0.90, cost_multiplier_high: 0.96, active: true },
+  { zip_prefix: '283', tier: 'C', label: 'Fayetteville', cost_multiplier_low: 0.92, cost_multiplier_high: 0.98, active: true },
+  { zip_prefix: '285', tier: 'C', label: 'Kinston / Goldsboro', cost_multiplier_low: 0.90, cost_multiplier_high: 0.96, active: true },
+];
+
+/**
+ * Applied when the ZIP doesn't match a known NC prefix (or is out of state).
+ * Slight high-side buffer to stay conservative on unknown markets.
+ */
+export const DEFAULT_REGION_FALLBACK = {
+  tier: 'NC',
+  label: 'Statewide NC (default)',
+  cost_multiplier_low: 1.0,
+  cost_multiplier_high: 1.05,
+};

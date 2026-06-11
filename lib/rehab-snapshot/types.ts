@@ -147,6 +147,29 @@ export type EstimateRuleRecord = {
   active?: boolean;
 };
 
+/**
+ * Regional cost tier. The same scope of work costs materially different
+ * amounts in Charlotte/Raleigh metro vs rural eastern NC. We map the
+ * project's 3-digit ZIP prefix to a tier and apply a base-cost multiplier.
+ */
+export type MarketTierRecord = {
+  id?: string;
+  zip_prefix: string; // 3-digit ZIP prefix, e.g. "282"
+  tier: 'A' | 'B' | 'C' | string;
+  label: string; // human label, e.g. "Charlotte Metro"
+  cost_multiplier_low: number;
+  cost_multiplier_high: number;
+  active?: boolean;
+};
+
+export type ResolvedMarketTier = {
+  tier: string;
+  label: string;
+  multiplierLow: number;
+  multiplierHigh: number;
+  matched: boolean; // false when we fell back to the statewide default
+};
+
 export type EstimateBreakdownRow = {
   label: string;
   low: number;
@@ -159,6 +182,9 @@ export type EstimateComputation = {
   estimatedLow: number;
   estimatedHigh: number;
   highRiskEstimate: number;
+  costPerSfLow: number;
+  costPerSfHigh: number;
+  marketTier: ResolvedMarketTier | null;
   timelineLowWeeks: number;
   timelineHighWeeks: number;
   confidenceLevel: ConfidenceLevel;

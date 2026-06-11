@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
-import { computeEstimate, formatProjectCategoryLabel, loadEstimateRules } from '@/lib/rehab-snapshot/engine';
+import { computeEstimate, formatProjectCategoryLabel, loadEstimateRules, loadMarketTiers } from '@/lib/rehab-snapshot/engine';
 import { renderSnapshotPdf } from '@/lib/rehab-snapshot/pdf';
 import { saveSnapshot, attachDeliveryArtifacts, updateLeadStatus } from '@/lib/rehab-snapshot/repository';
 import { sendSnapshotEmail } from '@/lib/rehab-snapshot/email';
@@ -212,7 +212,7 @@ export async function POST(req: NextRequest) {
       ],
     });
 
-    const rules = await loadEstimateRules();
+    const [rules, marketTiers] = await Promise.all([loadEstimateRules(), loadMarketTiers()]);
     const estimate = computeEstimate(
       {
         project,
@@ -220,7 +220,8 @@ export async function POST(req: NextRequest) {
         hasPhotos: photoFiles.length > 0,
         hasWalkthroughVideo: false,
       },
-      rules
+      rules,
+      marketTiers
     );
     const persisted = await saveSnapshot(
       supabase,
@@ -314,6 +315,17 @@ export async function POST(req: NextRequest) {
           low: estimate.estimatedLow,
           high: estimate.estimatedHigh,
         },
+        costPerSf: {
+          low: estimate.costPerSfLow,
+          high: estimate.costPerSfHigh,
+        },
+        marketTier: estimate.marketTier
+          ? {
+              tier: estimate.marketTier.tier,
+              label: estimate.marketTier.label,
+              matched: estimate.marketTier.matched,
+            }
+          : null,
         highRiskBudget: estimate.highRiskEstimate,
         confidenceLevel: estimate.confidenceLevel,
         confidenceScore: estimate.confidenceScore,

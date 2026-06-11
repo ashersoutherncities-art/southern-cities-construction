@@ -1,15 +1,21 @@
 import { tryGetServiceClient } from '@/lib/supabase';
-import { DEFAULT_ESTIMATE_RULES } from '@/lib/rehab-snapshot/default-rules';
+import {
+  DEFAULT_ESTIMATE_RULES,
+  DEFAULT_MARKET_TIERS,
+  DEFAULT_REGION_FALLBACK,
+} from '@/lib/rehab-snapshot/default-rules';
 import {
   ConfidenceLevel,
   EstimateBreakdownRow,
   EstimateComputation,
   EstimateRuleRecord,
   ExecutionDifficulty,
+  MarketTierRecord,
   PermitComplexity,
   ProjectCategory,
   RehabSnapshotProjectInput,
   RehabSnapshotScopeInput,
+  ResolvedMarketTier,
   TargetFinishLevel,
 } from '@/lib/rehab-snapshot/types';
 
@@ -81,6 +87,56 @@ export async function loadEstimateRules(): Promise<EstimateRuleRecord[]> {
   } catch {
     return DEFAULT_ESTIMATE_RULES;
   }
+}
+
+export async function loadMarketTiers(): Promise<MarketTierRecord[]> {
+  const supabase = tryGetServiceClient();
+  if (!supabase) return DEFAULT_MARKET_TIERS;
+
+  try {
+    const { data, error } = await supabase
+      .from('market_tiers')
+      .select('zip_prefix, tier, label, cost_multiplier_low, cost_multiplier_high, active')
+      .eq('active', true);
+
+    if (error || !data || data.length === 0) {
+      return DEFAULT_MARKET_TIERS;
+    }
+
+    return data as MarketTierRecord[];
+  } catch {
+    return DEFAULT_MARKET_TIERS;
+  }
+}
+
+/**
+ * Resolve a project ZIP to a regional cost tier. Matches on the 3-digit
+ * ZIP prefix; falls back to the statewide default when nothing matches.
+ */
+export function resolveMarketTier(
+  zip: string | null | undefined,
+  tiers: MarketTierRecord[]
+): ResolvedMarketTier {
+  const prefix = String(zip || '').replace(/[^0-9]/g, '').slice(0, 3);
+  if (prefix.length === 3) {
+    const match = tiers.find((tier) => tier.zip_prefix === prefix && tier.active !== false);
+    if (match) {
+      return {
+        tier: match.tier,
+        label: match.label,
+        multiplierLow: match.cost_multiplier_low,
+        multiplierHigh: match.cost_multiplier_high,
+        matched: true,
+      };
+    }
+  }
+  return {
+    tier: DEFAULT_REGION_FALLBACK.tier,
+    label: DEFAULT_REGION_FALLBACK.label,
+    multiplierLow: DEFAULT_REGION_FALLBACK.cost_multiplier_low,
+    multiplierHigh: DEFAULT_REGION_FALLBACK.cost_multiplier_high,
+    matched: false,
+  };
 }
 
 export function classifyProjectCategory(
@@ -426,26 +482,36 @@ export function formatProjectCategoryLabel(projectCategory: ProjectCategory | st
 
 export function computeEstimate(
   input: EngineInput,
-  rules: EstimateRuleRecord[]
+  rules: EstimateRuleRecord[],
+  marketTiers: MarketTierRecord[] = DEFAULT_MARKET_TIERS
 ): EstimateComputation {
   const projectCategory = classifyProjectCategory(input.project, input.scope);
   const baseCostRule = getBaseCostRule(rules, projectCategory);
   const finishMultiplier = getFinishMultiplier(rules, input.project.target_finish_level);
   const ageMultiplier = getAgeMultiplier(rules, input.project.year_built);
+  const marketTier = resolveMarketTier(input.project.zip, marketTiers);
   const permitComplexity = inferPermitComplexity(projectCategory, input.scope);
   const executionDifficulty = inferExecutionDifficulty(projectCategory, input.scope);
 
   const baseLow =
-    input.project.square_feet * baseCostRule.low_value * finishMultiplier.low_value * ageMultiplier.low_value;
+    input.project.square_feet *
+    baseCostRule.low_value *
+    finishMultiplier.low_value *
+    ageMultiplier.low_value *
+    marketTier.multiplierLow;
   const baseHigh =
-    input.project.square_feet * baseCostRule.high_value * finishMultiplier.high_value * ageMultiplier.high_value;
+    input.project.square_feet *
+    baseCostRule.high_value *
+    finishMultiplier.high_value *
+    ageMultiplier.high_value *
+    marketTier.multiplierHigh;
 
   const breakdown: EstimateBreakdownRow[] = [
     {
       label: 'Base category pricing',
       low: baseLow,
       high: baseHigh,
-      notes: `${formatProjectCategoryLabel(projectCategory)} at ${input.project.target_finish_level.replace(/_/g, ' ')} finish level`,
+      notes: `${formatProjectCategoryLabel(projectCategory)} at ${input.project.target_finish_level.replace(/_/g, ' ')} finish level · ${marketTier.label} market`,
     },
   ];
 
@@ -493,11 +559,18 @@ export function computeEstimate(
             : 1.06)
   );
 
+  const finalLow = roundCurrency(subtotalLow);
+  const finalHigh = roundCurrency(subtotalHigh);
+  const sf = input.project.square_feet || 0;
+
   return {
     projectCategory,
-    estimatedLow: roundCurrency(subtotalLow),
-    estimatedHigh: roundCurrency(subtotalHigh),
+    estimatedLow: finalLow,
+    estimatedHigh: finalHigh,
     highRiskEstimate,
+    costPerSfLow: sf > 0 ? Math.round(finalLow / sf) : 0,
+    costPerSfHigh: sf > 0 ? Math.round(finalHigh / sf) : 0,
+    marketTier,
     timelineLowWeeks: timeline.low,
     timelineHighWeeks: timeline.high,
     confidenceLevel,
