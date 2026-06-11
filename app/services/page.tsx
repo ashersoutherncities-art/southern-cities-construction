@@ -623,7 +623,7 @@ export default function ServicesOverviewPage() {
                           <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
                             {currentIndex === steps.length - 1
                               ? lane.destination
-                              : 'Hover over each circle to see where this kind of project usually needs help next.'}
+                              : 'Tap each step to see where this kind of project usually needs help next.'}
                           </p>
                         </div>
                         <div className="lg:min-w-[220px] lg:max-w-[260px]">
