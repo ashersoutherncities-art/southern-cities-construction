@@ -39,20 +39,28 @@ const CATEGORY_LABELS: Record<ProjectCategory, string> = {
   unknown: 'Unknown',
 };
 
-// Hard backstop: maximum sane effective $/SF per category. No combination of
-// finish/age/market/risk multipliers should ever exceed these — they sit
-// comfortably above the legitimate worst-case mid/high-grade ranges and exist
-// purely to stop pathological inputs (every scope box checked) from producing
-// absurd numbers. Anchor: NC contractor-grade new build is ~$125/SF.
+// GC fee applied to the raw construction cost to produce the ALL-IN price an
+// investor would pay (raw trade cost + contractor overhead & profit). The
+// rules in estimate_rules hold RAW cost; this is the only place margin is
+// added. Set per SCC: 25%. (Reference: openclaw costs.db markup_factors lists
+// 18% OH&P + 12% sub markup; 25% is SCC's blended all-in fee.)
+const GC_FEE_RATE = 0.25;
+
+// Hard backstop: maximum sane ALL-IN $/SF per category (raw + GC fee +
+// contingency). No combination of finish/age/market/risk multipliers should
+// exceed these. Anchored to real SCC jobs + the ~$125/SF NC new-build figure:
+// a finished addition tops out ~$130/SF all-in; a full gut ~$200; nothing
+// residential realistically exceeds these. Stops pathological inputs (every
+// box checked) from producing absurd numbers.
 const PER_SF_CEILING: Record<ProjectCategory, number> = {
-  cosmetic: 60,
-  rental_turn: 55,
-  moderate_rehab: 130,
-  heavy_rehab: 165,
-  full_gut: 215,
-  structural_heavy: 255,
-  addition: 295,
-  unknown: 150,
+  cosmetic: 55,
+  rental_turn: 50,
+  moderate_rehab: 110,
+  heavy_rehab: 150,
+  full_gut: 200,
+  structural_heavy: 240,
+  addition: 270,
+  unknown: 135,
 };
 
 function clamp(value: number, min: number, max: number) {
@@ -463,6 +471,7 @@ function buildAssumptions(
 ) {
   const assumptions = [
     'This is a preliminary feasibility estimate for early-stage underwriting, not a bid, proposal, or guaranteed contractor price.',
+    'Figures are all-in: raw trade cost (materials + labor) plus a contingency buffer and a general-contractor fee — i.e. the price an owner would pay a GC, not bare subcontractor cost.',
     'Base pricing assumes standard investor-market procurement rather than emergency pricing or premium owner-occupant selections unless the finish level indicates otherwise.',
     'Carrying costs, financing costs, utilities, taxes, insurance, and sales costs are excluded.',
     'Hidden conditions behind walls, under floors, in crawlspaces, attics, and buried systems are not fully knowable from intake alone.',
@@ -595,7 +604,20 @@ export function computeEstimate(
   subtotalLow += contingencyLow;
   subtotalHigh += contingencyHigh;
 
-  // Hard backstop: clamp effective $/SF to a sane per-category ceiling so no
+  // Apply GC fee — converts raw construction cost into the all-in price an
+  // investor would pay SCC. This is the last cost addition before the ceiling.
+  const gcFeeLow = subtotalLow * GC_FEE_RATE;
+  const gcFeeHigh = subtotalHigh * GC_FEE_RATE;
+  breakdown.push({
+    label: `GC fee (${Math.round(GC_FEE_RATE * 100)}%)`,
+    low: gcFeeLow,
+    high: gcFeeHigh,
+    notes: 'Contractor overhead & profit — produces the all-in price',
+  });
+  subtotalLow += gcFeeLow;
+  subtotalHigh += gcFeeHigh;
+
+  // Hard backstop: clamp all-in $/SF to a sane per-category ceiling so no
   // multiplier combination can yield an absurd number.
   const sf = input.project.square_feet || 0;
   if (sf > 0) {
