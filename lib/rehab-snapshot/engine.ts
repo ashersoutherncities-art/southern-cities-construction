@@ -168,7 +168,10 @@ export function classifyProjectCategory(
     Number(scope.siding) +
     Number(scope.exterior_work);
 
-  if (heavySignals >= 4) return 'heavy_rehab';
+  // Heavy rehab implies a gut-adjacent scope. A kitchen + a couple baths +
+  // HVAC is a substantial MODERATE rehab, not "heavy" — require 5+ heavy
+  // signals (or a genuinely heavy item, handled above) before escalating.
+  if (heavySignals >= 5) return 'heavy_rehab';
   if (heavySignals >= 1) return 'moderate_rehab';
   if (project.investment_strategy === 'rental' || project.target_finish_level === 'rental_grade') {
     return cosmeticSignals >= 2 ? 'rental_turn' : 'moderate_rehab';
