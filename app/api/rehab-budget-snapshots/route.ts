@@ -287,8 +287,11 @@ export async function POST(req: NextRequest) {
     estimate.estimatedHigh = v2High;
     estimate.costPerSfLow = project.square_feet > 0 ? Math.round(v2Low / project.square_feet) : 0;
     estimate.costPerSfHigh = project.square_feet > 0 ? Math.round(v2High / project.square_feet) : 0;
-    estimate.timelineLowWeeks = v2.calendarWeeks;
-    estimate.timelineHighWeeks = v2.calendarWeeks;
+    // estimates.timeline_*_weeks are INTEGER columns — persist whole weeks
+    // (the precise decimal calendarWeeks is returned in the result payload for
+    // display). Floor low / ceil high so the rounded band still brackets it.
+    estimate.timelineLowWeeks = Math.floor(v2.calendarWeeks);
+    estimate.timelineHighWeeks = Math.ceil(v2.calendarWeeks);
     const v2FlagLabels = v2.lenderKillerFlags.map(
       (f) => `${f.label} (${f.vintageWindow}, ${f.severity}) — ${f.whyLendersCare}`
     );
