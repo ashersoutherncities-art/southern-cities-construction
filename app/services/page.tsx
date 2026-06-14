@@ -46,10 +46,10 @@ const roleMeta: Record<
   },
   investors: {
     title: 'Investor',
-    href: '/services/investors',
+    href: '/platform',
     pain: 'The deal, rehab, or turn has too much uncertainty around budget, hiring, timeline, or execution.',
     outcome: 'You get better numbers, fewer surprises, and less delay before the deal loses momentum.',
-    topServices: ['Investor Execution Review', 'Rehab Budget Review', 'Rent-Ready Turn'],
+    topServices: ['Free Budget Snapshot', 'Execution Review — $499', 'Owner-Controlled Build'],
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   realtors: {
@@ -95,7 +95,7 @@ const roadmapLanes: RoadmapLane[] = [
   {
     avatar: 'Investors',
     roleKey: 'investors',
-    href: '/services/investors',
+    href: '/platform',
     start: 'Need a better read on the deal before spending more money',
     stops: [
       { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Execution Review', 'Rehab Budget Review'], tone: 'start' },

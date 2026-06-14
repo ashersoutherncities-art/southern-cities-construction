@@ -249,7 +249,7 @@ export default function PlatformHubPage() {
                 >
                   {isFlagship && (
                     <span className="absolute -top-3 left-7 inline-flex items-center rounded-full bg-orange px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white shadow-[0_8px_18px_-6px_rgba(245,130,32,0.6)]">
-                      ★ Flagship · Owner-Controlled Build
+                      ★ Flagship
                     </span>
                   )}
                   <div className="flex items-center justify-between gap-4">

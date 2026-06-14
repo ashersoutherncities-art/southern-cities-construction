@@ -192,7 +192,7 @@ const CO1: PlatformStage = {
   isAutomated: false,
   isPaid: true,
   pricing: '$499',
-  pricingDetail: '$499 flat fee · 2 business day turnaround · refundable as credit on Project Setup, Active Oversight, GC-Supported Build, or Full GC Service',
+  pricingDetail: '$499 flat fee · 2 business day turnaround · refundable as credit on Project Setup, Active Oversight, Owner-Controlled Build, or Full GC Service',
   turnaround: '2 business days',
   ghlTag: 'platform-co1-purchased',
   questionAnswered: 'Can this project realistically be executed within the assumptions required for the deal to work?',
@@ -244,7 +244,7 @@ const CO1: PlatformStage = {
   noBrainerMath: [
     'Pay $499 → find at least $5,000 of execution risk on your deal OR confirm the deal is clean. Both answers are worth $499.',
     'Typical findings: $5,000+ of execution risk you would have walked into blind without the review.',
-    '$499 credits forward against any deeper engagement (Project Setup, Active Oversight, GC-Supported Build, Full GC Service) — so if you continue with Southern Cities at any deeper level, it is $0 net.',
+    '$499 credits forward against any deeper engagement (Project Setup, Active Oversight, Owner-Controlled Build, Full GC Service) — so if you continue with Southern Cities at any deeper level, it is $0 net.',
     'The only buyers who pay $499 net are those who run the review AND walk away from the deal — in which case the review just saved them from a $5K+ mistake.',
   ],
   bonusStack: [
@@ -344,7 +344,7 @@ const CO3: PlatformStage = {
   audienceTag: 'INVESTORS · ACTIVE CONSTRUCTION',
   oneLiner: 'We become your project manager. You keep the permits, the funding, and the upside — a licensed NC GC runs the execution layer so the job moves without you managing it.',
   purpose:
-    'On Active Oversight, Southern Cities effectively becomes your project manager and execution layer during construction. You provide the funding and — where permits are required — remain the GC of record holding the permits and the liability that comes with them. We run execution: we coordinate the subs and materials you have in place, track budget and schedule against baseline, flag slippage early, manage draw releases, and run weekly site oversight. We do not pull permits (that is GC-Supported Build) and base scope does not include sourcing your crews (sourcing is an add-on, priced per trade, or step up to Project Setup).',
+    'On Active Oversight, Southern Cities effectively becomes your project manager and execution layer during construction. You provide the funding and — where permits are required — remain the GC of record holding the permits and the liability that comes with them. We run execution: we coordinate the subs and materials you have in place, track budget and schedule against baseline, flag slippage early, manage draw releases, and run weekly site oversight. We do not pull permits (that is Owner-Controlled Build) and base scope does not include sourcing your crews (sourcing is an add-on, priced per trade, or step up to Project Setup).',
   idealFor: [
     { label: 'Active flippers with crews', detail: 'You have your subs but you are running too many projects to project-manage each one yourself.' },
     { label: 'BRRRR operators scaling', detail: 'You have outgrown what you can personally oversee and need a pro running each active build.' },
@@ -354,7 +354,7 @@ const CO3: PlatformStage = {
     { label: 'Owner-builders of record', detail: 'You can legally pull the permits and want a licensed GC operating the job within that frame.' },
   ],
   scopeNote:
-    'You hold the permits (where required) and the GC-of-record liability that comes with them; we run the execution layer. Base scope coordinates the labor and materials YOU provide. Need us to source or recommend crews? That is an add-on, priced per trade — or step up to Project Setup. Permit-pulling under our license is GC-Supported Build.',
+    'You hold the permits (where required) and the GC-of-record liability that comes with them; we run the execution layer. Base scope coordinates the labor and materials YOU provide. Need us to source or recommend crews? That is an add-on, priced per trade — or step up to Project Setup. Permit-pulling under our license is Owner-Controlled Build.',
   isAutomated: false,
   isPaid: true,
   pricing: 'From $6,500 — scoped per project',
@@ -379,7 +379,7 @@ const CO3: PlatformStage = {
     'Issue escalation + owner decision cadence',
   ],
   notThisIs: [
-    'Permit pulling (that is GC-Supported Build — you remain GC of record here)',
+    'Permit pulling (that is Owner-Controlled Build — you remain GC of record here)',
     'Sourcing your crews from scratch (add-on: $400 per trade, or Project Setup)',
     'Full GC execution / risk transfer (handled by Full GC Service)',
     'Simple admin work',
@@ -428,8 +428,8 @@ const CO4: PlatformStage = {
   },
   stageNumber: 5,
   shortCode: 'CO4',
-  name: 'GC-Supported Owner Build',
-  marketingShortName: 'GC-Supported Build',
+  name: 'Owner-Controlled Build',
+  marketingShortName: 'Owner-Controlled Build',
   internalName: 'Licensed GC structure + oversight, owner manages daily ops',
   audienceTag: 'INVESTORS · OWNER-CONTROLLED',
   oneLiner: 'Stop running your project on a permit and compliance prayer. Southern Cities pulls permits + owns compliance — you keep daily control.',
@@ -471,7 +471,7 @@ const CO4: PlatformStage = {
   heroSubheadline:
     'You or your PM run daily ops. Southern Cities pulls permits under our license, owns compliance, coordinates inspections, and provides the licensed-GC scaffolding that makes the project legally executable. For experienced operators who want structure without giving up control. Performance guarantee: full refund if we cannot perform the scaffolding at our standard. NC GC #107724.',
   ctaLabel: 'Eliminate Permit Risk — Discuss',
-  ctaLabelMid: 'See How GC-Supported Build Works',
+  ctaLabelMid: 'See How Owner-Controlled Build Works',
   ctaLabelFinal: 'Eliminate Permit + Compliance Risk',
   nextStage: 'co5',
   bucket: 'Delivery',
@@ -481,8 +481,8 @@ const CO4: PlatformStage = {
   refundMechanic:
     'Performance guarantee: full refund of engagement fee if after planning we determine we cannot deliver GC scaffolding for your project (permit path, compliance scope, or risk profile outside what we can underwrite). The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
-    'Without the GC-Supported Build: investor cannot legally pull permits, sub work runs unlicensed, compliance risk sits on the investor.',
-    'With the GC-Supported Build: project is legally executable under licensed GC, AHJ inspections coordinated, compliance risk transferred to Southern Cities.',
+    'Without the Owner-Controlled Build: investor cannot legally pull permits, sub work runs unlicensed, compliance risk sits on the investor.',
+    'With the Owner-Controlled Build: project is legally executable under licensed GC, AHJ inspections coordinated, compliance risk transferred to Southern Cities.',
     'Engagement fee from $5,000 + 4% of project budget retainer = pricing scales with project, not flat.',
     'Binary value: this is what makes the project legally possible at all.',
   ],
@@ -534,7 +534,7 @@ const CO5: PlatformStage = {
     'Turnover + warranty coordination',
   ],
   notThisIs: [
-    'Owner-controlled (handled by GC-Supported Build)',
+    'Owner-controlled (handled by Owner-Controlled Build)',
     'Cost-plus only — depends on engagement structure',
   ],
   thisIs: [

@@ -27,9 +27,10 @@ export default function SiteFooter() {
           <div>
             <h4 className="mb-5 text-sm font-semibold tracking-wide text-white">Company</h4>
             <ul className="space-y-3">
-              <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">Pricing Overview</Link></li>
+              <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">Services Overview</Link></li>
               <li><Link href="/services/homeowners" className="text-sm text-white/50 transition-colors hover:text-orange">For Homeowners</Link></li>
-              <li><Link href="/services/investors" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors</Link></li>
+              <li><Link href="/platform" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors — Execution Platform</Link></li>
+              <li><Link href="/deal-pack" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Pack — Wholesalers</Link></li>
               <li><Link href="/services/realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
               <li><Link href="/services/contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
               <li><Link href="/gallery" className="text-sm text-white/50 transition-colors hover:text-orange">Project Gallery</Link></li>

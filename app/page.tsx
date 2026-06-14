@@ -535,7 +535,7 @@ export default function Home() {
                 </div>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link
-                    href="/services/investors/owner-controlled-build"
+                    href="/platform/co4"
                     className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] hover:-translate-y-0.5 hover:bg-[#ffa463] transition-all"
                   >
                     See If It Fits <span aria-hidden="true">→</span>
@@ -575,6 +575,12 @@ export default function Home() {
                       <p className="mt-2 text-sm text-white/65">We run it. You step back.</p>
                     </div>
                   </div>
+                  <Link
+                    href="/platform"
+                    className="mt-5 inline-flex items-center gap-2 text-[12px] font-black uppercase tracking-[0.08em] text-[#fa8c41] transition-all hover:gap-3"
+                  >
+                    See all three on the Investor Execution Platform <span aria-hidden="true">→</span>
+                  </Link>
                 </div>
               </div>
             </div>

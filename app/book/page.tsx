@@ -36,7 +36,7 @@ const PATHS: BookingPath[] = [
   {
     role: 'Investor',
     description: 'Deal review, execution oversight, draws, and full contracting across your portfolio.',
-    href: '/services/investors',
+    href: '/platform',
     whoFor: 'You buy residential property to rent, flip, or hold — and want construction made buyable.',
   },
   {

@@ -60,7 +60,7 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
       'Marcus\'s 9-month transformation timeline (Discovery → Decision → Execution → Sale)',
       'Full disclosed P&L on the $104K flip — sale price, financing, rehab, fees, net',
       'The honest math — capital required ($25K–$60K), credit profile (650+), time commitment (~20 hrs)',
-      'How Southern Cities runs the execution side — the Execution Review, Active Oversight, and GC-Supported Build explained, with license-level risk allocation',
+      'How Southern Cities runs the execution side — the Execution Review, Active Oversight, and Owner-Controlled Build explained, with license-level risk allocation',
       '5-rule decision framework for which deals to keep vs. assign (spread × 3, a clean Execution Review, capital ready, etc.)',
       'Three ways to work with us: the $499 Execution Review, a Build Desk membership, or a 30-minute founder call',
     ],

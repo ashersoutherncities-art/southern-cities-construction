@@ -176,7 +176,7 @@ const PRO_TIER: Tier = {
     '25% off any Build-Ready Deal Pack upgrade ($499 savings each)',
     'Priority 2-day turnaround on every request (faster than one-off Build-Ready)',
     '"GC-Verified by Southern Cities #107724" co-marketing badge',
-    'Member-rate priority routing for your buyers into Active Oversight + GC-Supported Build',
+    'Member-rate priority routing for your buyers into Active Oversight + Owner-Controlled Build',
     'Cancel anytime — no minimum term',
   ],
   cta: 'Subscribe to Pro · $897/mo →',

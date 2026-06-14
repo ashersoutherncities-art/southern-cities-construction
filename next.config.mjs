@@ -65,6 +65,12 @@ const nextConfig = {
       { source: '/services/investors/due-diligence-package-3-deals-month', destination: '/services/investors/due-diligence-package', permanent: true },
       { source: '/services/investors/construction-planning-package-3-deals-month', destination: '/services/investors/construction-planning-package', permanent: true },
 
+      // Investor catalog hub retired in favor of the Investor Execution
+      // Platform. Legacy /services/investors/* detail pages still resolve by
+      // direct URL; only the hub entry point moves to /platform. Temporary
+      // (307) while the investor migration settles — flip to permanent later.
+      { source: '/services/investors', destination: '/platform', permanent: false },
+
       // Realtors — legacy URL alias
       { source: '/services/realtors/pre-listing-work', destination: '/services/realtors/pre-listing-budget-prep-review', permanent: true },
 
@@ -85,7 +91,7 @@ const nextConfig = {
 
       // Memorable short URL aliases for audience hubs
       { source: '/for-realtors', destination: '/services/realtors', permanent: false },
-      { source: '/for-investors', destination: '/services/investors', permanent: false },
+      { source: '/for-investors', destination: '/platform', permanent: false },
       { source: '/investor-tools/rehab-budget-snapshot', destination: '/lp/rehab-budget-range-execution-risk-snapshot', permanent: false },
       { source: '/for-homeowners', destination: '/services/homeowners', permanent: false },
       { source: '/for-contractors', destination: '/services/contractors', permanent: false },
