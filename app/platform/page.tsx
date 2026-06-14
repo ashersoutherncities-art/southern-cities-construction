@@ -12,12 +12,45 @@ export const metadata = {
     url: '/platform',
     title: 'Investor Execution Platform — Construction Intelligence for NC Investors',
     description:
-      'Layered construction execution intelligence and operational support — across due diligence, planning, funding, execution, and scale.',
+      'Start free, then choose how much of the build you keep and how much you hand to a licensed NC GC — from a $499 validation to full execution.',
     siteName: 'Southern Cities Construction',
   },
 };
 
+// Page-level presentation map: the keep / hand-off split for each level of
+// involvement. This is what makes the menu legible — it shows that the levels
+// are different SPLITS of responsibility, not rungs on a ladder. Derived from
+// each stage's positioning in lib/investor-platform.ts.
+const HANDOFF: Record<string, { youKeep: string; weCarry: string }> = {
+  co2: {
+    youKeep: 'You run the build, hold the permit, manage the crew',
+    weCarry: 'The plan, scope, budget structure & contractor coordination — set up before a shovel moves',
+  },
+  co4: {
+    youKeep: 'Daily control of the build — your crew, your pace, your calls',
+    weCarry: 'Permits, code compliance & licensed GC backing',
+  },
+  co3: {
+    youKeep: 'The permits, the funding, and all the upside',
+    weCarry: 'Day-to-day execution — a licensed NC GC runs the job so it moves without you managing it',
+  },
+  co5: {
+    youKeep: 'The capital and the deal',
+    weCarry: 'Everything — execution, budget risk, schedule risk, permits, delivery',
+  },
+};
+
 export default function PlatformHubPage() {
+  // The on-ramp is genuinely sequential: free snapshot → $499 validation that
+  // credits forward. Everything after it is a menu, not a climb.
+  const onRamp = PLATFORM_STAGES.filter((s) => s.slug === 'lm1' || s.slug === 'co1');
+  // The "dial" — ordered by how hands-on the OWNER stays, left (you keep most)
+  // to right (we carry all). Deliberately NOT in SKU order: co4 sits beside co3
+  // so the inversion is visible — in one you keep daily control and hand us the
+  // license; in the other we run the day-to-day and you keep the permits.
+  const levelOrder = ['co2', 'co4', 'co3', 'co5'] as const;
+  const levels = levelOrder.map((slug) => PLATFORM_STAGES.find((s) => s.slug === slug)!);
+
   return (
     <div className="min-h-screen bg-[#08111d] text-white">
       {/* Minimal nav — distinct from Southern Cities main site nav */}
@@ -53,7 +86,10 @@ export default function PlatformHubPage() {
               <span className="text-orange">They fail during execution.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-[1.55] text-white/80 sm:text-xl">
-              Southern Cities Construction is a layered construction execution intelligence and operational support platform for real estate investors. Six modular stages — buy clarity only, validation, setup, oversight, GC support, or full execution. Sized to where you actually are in the project.
+              Southern Cities Construction is a layered construction execution intelligence and operational
+              support platform for real estate investors. Start free with a licensed NC GC budget snapshot — then
+              choose how much of the build you keep and how much you hand off. From a $499 validation to full
+              execution. You pick the level; the standard never changes.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
@@ -63,10 +99,10 @@ export default function PlatformHubPage() {
                 Start with the Free Budget Snapshot →
               </Link>
               <a
-                href="#stages"
+                href="#start"
                 className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white transition hover:bg-white/10"
               >
-                See the 6-stage system ↓
+                See how it works ↓
               </a>
             </div>
           </div>
@@ -118,107 +154,141 @@ export default function PlatformHubPage() {
               The platform is built to reduce: <span className="text-white">execution uncertainty · budget drift · operational chaos · informational asymmetry · contractor coordination failures · timeline slippage · hidden execution risk.</span>
             </p>
             <p>
-              Investors progressively move from assumptions and rough numbers into validated, organized, monitored, controlled execution.
+              You move from assumptions and rough numbers into validated, organized execution — keeping as much or as little control as you want at every step.
             </p>
           </div>
         </div>
       </section>
 
-      {/* THE 6-STAGE SYSTEM */}
-      <section id="stages" className="bg-[#08111d] py-16 sm:py-20 border-t border-white/8">
+      {/* THE ON-RAMP — genuinely sequential */}
+      <section id="start" className="bg-[#08111d] py-16 sm:py-20 border-t border-white/8">
         <div className="container-pro">
           <div className="max-w-3xl">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Start here</p>
             <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
-              Two ways to start with the platform.<br />
-              Most investors begin with the free Budget Snapshot and advance from there.
+              Everyone starts the same way.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/70 sm:text-lg">
-              The platform has 6 progressive stages. The entry points below are where everyone starts. The deeper stages (project setup → active oversight → GC-supported build → full GC) unlock as your deal moves forward.
+              Two steps, in order. A free budget snapshot you can underwrite from — then a licensed NC GC
+              validates the deal for $499 that credits forward against anything you do next. After that, you
+              choose your level.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
-            {PLATFORM_STAGES.slice(0, 2).map((stage) => (
-              <Link
-                key={stage.slug}
-                href={`/platform/${stage.slug}`}
-                className="group flex flex-col rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0d1a30] via-[#0a1428] to-[#0d1a30] p-7 transition-all hover:border-orange/50 hover:shadow-[0_24px_48px_-16px_rgba(245,130,32,0.25)]"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
-                    Stage {stage.stageNumber} · {stage.marketingShortName}
-                  </span>
-                  <span className="text-[14px] font-bold text-orange">
-                    {stage.pricing}
-                  </span>
-                </div>
-                <h3 className="mt-5 text-2xl font-extrabold tracking-tight text-white">
-                  {stage.name}
-                </h3>
-                <p className="mt-3 text-[14.5px] leading-[1.6] text-white/75">
-                  {stage.oneLiner}
-                </p>
-                <div className="mt-5 rounded-xl border border-white/8 bg-white/[0.025] p-4">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-orange/85">Answers</p>
-                  <p className="mt-1.5 text-[13.5px] leading-[1.5] text-white/85">
-                    {stage.questionAnswered}
-                  </p>
-                </div>
-                <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.08em] text-orange group-hover:gap-3 transition-all">
-                  See the {stage.marketingShortName} →
-                </span>
-              </Link>
-            ))}
-          </div>
-
-          {/* DEEPER STAGES — COLLAPSIBLE */}
-          <details className="mt-10 group">
-            <summary className="cursor-pointer list-none flex items-center justify-center gap-3 rounded-full border border-white/15 bg-white/[0.03] px-6 py-4 text-[12px] font-black uppercase tracking-[0.16em] text-white/85 hover:bg-white/[0.06] hover:border-orange/40 hover:text-orange transition-all">
-              <span>Show the full 6-stage system</span>
-              <svg className="h-4 w-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="m19 9-7 7-7-7" />
-              </svg>
-            </summary>
-            <div className="mt-8 grid gap-5 lg:grid-cols-2">
-              {PLATFORM_STAGES.slice(2).map((stage) => (
+          <div className="mt-12 grid items-stretch gap-5 lg:grid-cols-[1fr_auto_1fr]">
+            {onRamp.map((stage, i) => (
+              <div key={stage.slug} className="contents">
                 <Link
-                  key={stage.slug}
                   href={`/platform/${stage.slug}`}
-                  className="group/card flex flex-col rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0d1a30] via-[#0a1428] to-[#0d1a30] p-7 transition-all hover:border-orange/50 hover:shadow-[0_24px_48px_-16px_rgba(245,130,32,0.25)]"
+                  className="group flex flex-col rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0d1a30] via-[#0a1428] to-[#0d1a30] p-7 transition-all hover:border-orange/50 hover:shadow-[0_24px_48px_-16px_rgba(245,130,32,0.25)]"
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
-                      Stage {stage.stageNumber} · {stage.marketingShortName}
+                    <span className="inline-flex items-center rounded-full border border-orange/40 bg-orange/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.18em] text-orange">
+                      Step {i + 1} · {stage.marketingShortName}
                     </span>
-                    <span className="text-[14px] font-bold text-orange">
-                      {stage.pricing}
-                    </span>
+                    <span className="text-[14px] font-bold text-orange">{stage.pricing}</span>
                   </div>
-                  <h3 className="mt-5 text-2xl font-extrabold tracking-tight text-white">
-                    {stage.name}
-                  </h3>
-                  <p className="mt-3 text-[14.5px] leading-[1.6] text-white/75">
-                    {stage.oneLiner}
-                  </p>
+                  <h3 className="mt-5 text-2xl font-extrabold tracking-tight text-white">{stage.name}</h3>
+                  <p className="mt-3 text-[14.5px] leading-[1.6] text-white/75">{stage.oneLiner}</p>
                   <div className="mt-5 rounded-xl border border-white/8 bg-white/[0.025] p-4">
                     <p className="text-[10px] font-black uppercase tracking-[0.18em] text-orange/85">Answers</p>
-                    <p className="mt-1.5 text-[13.5px] leading-[1.5] text-white/85">
-                      {stage.questionAnswered}
-                    </p>
+                    <p className="mt-1.5 text-[13.5px] leading-[1.5] text-white/85">{stage.questionAnswered}</p>
                   </div>
-                  <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.08em] text-orange group-hover/card:gap-3 transition-all">
+                  <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.08em] text-orange group-hover:gap-3 transition-all">
                     See the {stage.marketingShortName} →
                   </span>
                 </Link>
-              ))}
+                {i === 0 && (
+                  <div className="hidden items-center justify-center lg:flex" aria-hidden="true">
+                    <span className="text-2xl font-black text-orange/60">→</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CHOOSE YOUR LEVEL — the menu / dial, NOT a climb */}
+      <section id="options" className="bg-[#0a1428] py-16 sm:py-20 border-t border-white/8">
+        <div className="container-pro">
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Choose your level</p>
+            <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
+              Then decide how much you hand off.
+            </h2>
+            <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/70 sm:text-lg">
+              These aren&apos;t steps you climb — they&apos;re a menu. Every one is backed by the same licensed NC
+              GC and held to the same standard. The only question is how much of the build you keep and how much
+              we carry.
+            </p>
+          </div>
+
+          {/* The control dial */}
+          <div className="mt-12 hidden sm:block">
+            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.18em]">
+              <span className="text-white/80">◂ You keep control</span>
+              <span className="text-white/80">We carry everything ▸</span>
             </div>
-          </details>
+            <div className="mt-2 h-1.5 w-full rounded-full bg-gradient-to-r from-orange/70 via-orange/40 to-white/25" />
+          </div>
+
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            {levels.map((stage) => {
+              const split = HANDOFF[stage.slug];
+              const isFlagship = stage.slug === 'co4';
+              return (
+                <Link
+                  key={stage.slug}
+                  href={`/platform/${stage.slug}`}
+                  className={`group/card relative flex flex-col rounded-[24px] border p-7 transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-16px_rgba(245,130,32,0.25)] ${
+                    isFlagship
+                      ? 'border-orange/60 bg-gradient-to-br from-orange/[0.12] via-[#0d1a30] to-[#0d1a30] shadow-[0_18px_40px_-18px_rgba(245,130,32,0.35)]'
+                      : 'border-white/10 bg-gradient-to-br from-[#0d1a30] via-[#0a1428] to-[#0d1a30] hover:border-orange/50'
+                  }`}
+                >
+                  {isFlagship && (
+                    <span className="absolute -top-3 left-7 inline-flex items-center rounded-full bg-orange px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white shadow-[0_8px_18px_-6px_rgba(245,130,32,0.6)]">
+                      ★ Flagship · Owner-Controlled Build
+                    </span>
+                  )}
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-[12px] font-black uppercase tracking-[0.14em] text-white">
+                      {stage.marketingShortName}
+                    </span>
+                    <span className="text-[14px] font-bold text-orange">{stage.pricing}</span>
+                  </div>
+                  <p className="mt-3 text-[14.5px] leading-[1.6] text-white/75">{stage.oneLiner}</p>
+
+                  <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div className="rounded-xl border border-orange/25 bg-orange/[0.06] p-3.5">
+                      <p className="text-[10px] font-black uppercase tracking-[0.16em] text-orange/90">You keep</p>
+                      <p className="mt-1.5 text-[13px] leading-[1.5] text-white/85">{split.youKeep}</p>
+                    </div>
+                    <div className="rounded-xl border border-white/10 bg-white/[0.025] p-3.5">
+                      <p className="text-[10px] font-black uppercase tracking-[0.16em] text-white/55">We carry</p>
+                      <p className="mt-1.5 text-[13px] leading-[1.5] text-white/85">{split.weCarry}</p>
+                    </div>
+                  </div>
+
+                  <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.08em] text-orange group-hover/card:gap-3 transition-all">
+                    See {stage.marketingShortName} →
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+
+          <p className="mt-8 max-w-2xl text-[14px] leading-[1.6] text-white/60">
+            Not sure which fits? Start with the <span className="text-white">$499 Execution Review</span> — a
+            licensed NC GC tells you which level your project actually needs, and the fee credits forward against
+            whatever you choose.
+          </p>
         </div>
       </section>
 
       {/* THE GUARANTEE LINE */}
-      <section className="bg-[#0a1428] py-16 sm:py-20 border-t border-white/8">
+      <section className="bg-[#08111d] py-16 sm:py-20 border-t border-white/8">
         <div className="container-pro max-w-4xl">
           <div className="rounded-[24px] border-2 border-orange/50 bg-gradient-to-br from-orange/[0.10] via-orange/[0.05] to-transparent p-7 sm:p-9 shadow-[0_24px_48px_-16px_rgba(245,130,32,0.20)]">
             <div className="flex flex-wrap items-center gap-3">
@@ -226,14 +296,14 @@ export default function PlatformHubPage() {
                 PERFORMANCE GUARANTEE
               </span>
               <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">
-                Every paid stage · NC GC #107724
+                Every paid level · NC GC #107724
               </span>
             </div>
             <h2 className="mt-5 text-2xl font-black tracking-[-0.02em] text-white sm:text-3xl lg:text-[2.25rem] leading-tight">
               If we cannot perform what we promised, full refund. NC GC #107724.
             </h2>
             <p className="mt-5 text-[15.5px] leading-[1.65] text-white/80 sm:text-[16.5px]">
-              Every paid stage on this platform carries the same guarantee: we evaluate your project before we accept it. If we determine we cannot deliver at our standard, full refund — no questions, no negotiation. Once we accept the engagement, we deliver. You are paying for our <span className="text-white font-semibold">commitment to deliver</span>, not gambling on outcomes.
+              Every paid level on this platform carries the same guarantee: we evaluate your project before we accept it. If we determine we cannot deliver at our standard, full refund — no questions, no negotiation. Once we accept the engagement, we deliver. You are paying for our <span className="text-white font-semibold">commitment to deliver</span>, not gambling on outcomes.
             </p>
             <p className="mt-4 text-[14px] text-white/60">
               And the Execution Review&apos;s $499 fee credits forward against any deeper engagement — making the first paid step effectively free for anyone who continues.
@@ -247,10 +317,12 @@ export default function PlatformHubPage() {
         <div className="container-pro max-w-3xl text-center">
           <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Guiding principle</p>
           <h2 className="mt-4 text-2xl font-black tracking-[-0.02em] text-white sm:text-3xl lg:text-[2.25rem] leading-tight">
-            Every stage reduces uncertainty, ambiguity, and execution chaos — while increasing confidence, control, and visibility.
+            Every level does the same job — it reduces uncertainty and chaos while increasing your confidence,
+            control, and visibility.
           </h2>
           <p className="mt-6 text-[15px] leading-[1.6] text-white/65">
-            Each stage progressively moves you from assumptions into organized execution reality. Southern Cities Construction isn&apos;t just a contractor &mdash; it&apos;s the execution intelligence layer behind your deals.
+            You choose how much you hand off. The standard doesn&apos;t change. Southern Cities Construction
+            isn&apos;t just a contractor &mdash; it&apos;s the execution intelligence layer behind your deals.
           </p>
         </div>
       </section>

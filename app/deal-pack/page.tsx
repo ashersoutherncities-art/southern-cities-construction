@@ -379,6 +379,37 @@ export default function DealPackPage() {
         </div>
       </section>
 
+      {/* INVESTOR PATH — EXECUTION PLATFORM CROSS-LINK (reciprocal of the wholesaler callout on /platform) */}
+      <section className="bg-[#08111d] py-12 sm:py-14 border-t border-white/8">
+        <div className="container-pro">
+          <div className="rounded-[24px] border border-white/15 bg-white/[0.03] p-7 sm:p-9">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="lg:max-w-2xl">
+                <span className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-white/80">
+                  Running your own rehab?
+                </span>
+                <h2 className="mt-4 text-2xl font-black tracking-[-0.025em] text-white sm:text-3xl">
+                  Investors don&apos;t buy Deal Packs — they run the{' '}
+                  <span className="text-orange">Execution Platform</span>.
+                </h2>
+                <p className="mt-3 text-[15px] leading-[1.6] text-white/75 sm:text-base">
+                  The Deal Pack is built for wholesalers and agents packaging a deal to{' '}
+                  <span className="text-white">sell</span>. If you own the property and you&apos;re executing the
+                  rehab yourself, you want validation, setup, oversight, or full GC — sized to where your project
+                  actually is.
+                </p>
+              </div>
+              <Link
+                href="/platform"
+                className="shrink-0 inline-flex min-h-[56px] items-center justify-center rounded-full border border-orange/50 bg-orange/15 px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-orange transition hover:bg-orange/25 hover:-translate-y-0.5"
+              >
+                See the Execution Platform →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TIERS */}
       <section id="tiers" className="py-20 sm:py-24 border-t border-white/8">
         <div className="container-pro">
