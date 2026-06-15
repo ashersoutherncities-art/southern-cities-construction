@@ -354,7 +354,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Site Scan + As-Built',
     price: 49900,
     priceLabel: '$499 add-on or standalone',
-    description: 'NC field agent dispatched to the property with LIDAR scanner. Full 3D scan uploaded and converted into a Chief Architect as-built floorplan by our designer. Required if no existing plans or dimensions are available AND you want a high-accuracy Deal Pack instead of a SF-based ballpark. 5 business day turnaround.',
+    description: 'NC field agent dispatched to the property for a full 3D site scan, converted into a Chief Architect as-built floorplan by our designer. Required when there are no existing plans or dimensions AND you want a high-accuracy Deal Pack rather than an SF-based estimate. 5 business day turnaround.',
     checkoutAmount: '499',
   },
   'deal-pack-pro-subscription': {
