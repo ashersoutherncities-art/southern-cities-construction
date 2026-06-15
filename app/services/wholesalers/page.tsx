@@ -34,10 +34,10 @@ const PRODUCTS: FeaturedProduct[] = [
     name: 'Deal Pack Series',
     tagline: 'Per-deal · Branded packages for your assignments',
     description:
-      'GC-Verified Deal Packs you attach to wholesale assignments. Four tiers: free SF-based ballpark, Bid-Ready (budget + scope + risks), Build-Ready (plans + designs + sub quotes + closing sweep — and we commit to do the work at the price we write, 3–4 day turnaround), and the Site Scan + As-Built add-on for properties without existing plans. Branded with NC GC License #107724.',
+      'GC-Verified Deal Packs you attach to wholesale assignments. Two tiers — Bid-Ready (budget + scope + risks) and Build-Ready (plans + designs + sub quotes + closing sweep — and we commit to do the work at the price we write, 3–4 day turnaround). No existing plans? Add the Site Scan + As-Built. Branded with NC GC License #107724.',
     href: '/deal-pack',
     primaryCta: 'See the Deal Pack tiers →',
-    priceLine: 'From free · Bid-Ready · Build-Ready · Site Scan add-on',
+    priceLine: 'Bid-Ready · Build-Ready · Site Scan add-on',
     highlighted: true,
   },
   {
@@ -136,7 +136,7 @@ export default function WholesalersHubPage() {
             </div>
             <div className="text-center">
               <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">$0</div>
-              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-navy sm:text-[11px]">to start (free SF ballpark)</div>
+              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-navy sm:text-[11px]">free rehab estimate</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">#107724</div>

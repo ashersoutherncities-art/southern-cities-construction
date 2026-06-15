@@ -542,30 +542,41 @@ export default function DealPackPage() {
         <div className="container-pro max-w-5xl">
           <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">How it works</p>
           <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
-            Three input paths. Same fast turnaround.
+            What we need to build it.
           </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/70">
+            To produce your Deal Pack we need the property&rsquo;s plans. Already have them? Upload at checkout. Don&rsquo;t? We&rsquo;ll capture them for you.
+          </p>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-6">
-              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Path A · You have plans</p>
-              <h3 className="mt-3 text-lg font-black tracking-tight text-white">Upload + checkout</h3>
+              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">If you have plans</p>
+              <h3 className="mt-3 text-lg font-black tracking-tight text-white">Upload at checkout</h3>
               <p className="mt-3 text-[14px] leading-[1.6] text-white/70">
-                Existing architectural plans, measurements, or appraiser sketch. Upload at checkout, we go straight to Deal Pack production.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-6">
-              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Path B · SF-based default</p>
-              <h3 className="mt-3 text-lg font-black tracking-tight text-white">Free ballpark estimate</h3>
-              <p className="mt-3 text-[14px] leading-[1.6] text-white/70">
-                No plans, no As-Built. We deliver a square-footage-based rehab range using NC vintage cost data. Less accurate but $0 extra.
+                Architectural plans, measurements, or an appraiser sketch &mdash; upload them at checkout and we go straight into Deal Pack production.
               </p>
             </div>
             <div className="rounded-2xl border border-orange/40 bg-orange/[0.04] p-6">
-              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Path C · Site Scan</p>
-              <h3 className="mt-3 text-lg font-black tracking-tight text-white">+ $499 Add-On</h3>
+              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">No plans? Add the scan</p>
+              <h3 className="mt-3 text-lg font-black tracking-tight text-white">As-Built Site Scan &middot; +$499</h3>
               <p className="mt-3 text-[14px] leading-[1.6] text-white/70">
-                No plans + want high accuracy. NC field agent dispatched with LIDAR scanner. Designer builds the as-built. Required for accurate Bid-Ready / Build-Ready on no-plan properties.
+                We send an NC field agent to capture the property, and our designer builds the floor plan and as-built. Required for an accurate Bid-Ready or Build-Ready when there are no existing plans.
               </p>
             </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-white/12 bg-white/[0.02] p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Free tool</p>
+              <p className="mt-1.5 text-[15px] leading-relaxed text-white/80">
+                Just sizing up a deal? Get a <span className="font-semibold text-white">free rehab estimate</span> &mdash; a square-footage rehab range from NC cost data, no plans needed.
+              </p>
+            </div>
+            <Link
+              href="/lp/rehab-budget-range-execution-risk-snapshot"
+              className="shrink-0 inline-flex min-h-[48px] items-center justify-center rounded-full border border-orange/50 bg-orange/15 px-6 py-3 text-sm font-black uppercase tracking-[0.08em] text-orange transition hover:bg-orange/25"
+            >
+              Get the free estimate &rarr;
+            </Link>
           </div>
         </div>
       </section>
