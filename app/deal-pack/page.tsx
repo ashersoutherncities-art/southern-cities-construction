@@ -29,7 +29,7 @@ const DEAL_PACK_PRODUCTS = [
   {
     name: 'Site Scan + As-Built',
     description:
-      'NC field-agent LIDAR scan converted into a Chief Architect as-built floorplan. Required input for high-accuracy Bid-Ready or Build-Ready Deal Packs when measurements or plans are missing.',
+      'NC field-agent 3D site scan converted into a Chief Architect as-built floorplan. Required input for high-accuracy Bid-Ready or Build-Ready Deal Packs when measurements or plans are missing.',
     url: '/deal-pack',
     priceUsd: 499,
     category: 'Deal Pack',
@@ -149,10 +149,10 @@ const TIERS: Tier[] = [
     price: '$499',
     priceNote: 'Add-on or standalone · 5-day turnaround',
     promise:
-      'No plans? No measurements? We send an NC field agent with a LIDAR scanner. The 3D scan gets converted by our designer into a Chief Architect as-built floorplan — required input for a high-accuracy Bid-Ready or Build-Ready Deal Pack.',
+      'No plans? No measurements? We send an NC field agent to capture a full 3D scan of the property. Our designer converts it into a Chief Architect as-built floorplan — required input for a high-accuracy Bid-Ready or Build-Ready Deal Pack.',
     includes: [
       'NC field agent dispatch (scheduled with your seller-access)',
-      'Full LIDAR property scan',
+      'Full 3D property scan',
       'Designer-built as-built floorplan in Chief Architect',
       'PDF + native file delivered',
       'Refund if we cannot deliver the scan + plan on time',
