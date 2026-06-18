@@ -60,6 +60,38 @@ type HistoryItem = {
 const money = (n: number) => `$${Math.round(n).toLocaleString()}`;
 const inputStyle: React.CSSProperties = { border: '1px solid #d1d5db', borderRadius: 8, padding: '10px 12px', fontSize: 14, width: '100%' };
 
+// --- Google Places address verification (optional; off until a key is set) ---
+type GooglePlaceComponent = { long_name: string; short_name: string; types: string[] };
+type GooglePlace = { formatted_address?: string; address_components?: GooglePlaceComponent[] };
+type GoogleAutocomplete = { addListener: (e: string, cb: () => void) => void; getPlace: () => GooglePlace };
+type GoogleNS = { maps?: { places?: { Autocomplete?: new (i: HTMLInputElement, o?: unknown) => GoogleAutocomplete } } };
+
+function loadGoogleMaps(key: string): Promise<GoogleNS | null> {
+  return new Promise((resolve) => {
+    const w = window as unknown as { google?: GoogleNS };
+    if (w.google?.maps?.places) return resolve(w.google);
+    const done = () => resolve((window as unknown as { google?: GoogleNS }).google ?? null);
+    const existing = document.getElementById('gmaps-places') as HTMLScriptElement | null;
+    if (existing) {
+      existing.addEventListener('load', done);
+      existing.addEventListener('error', () => resolve(null));
+      return;
+    }
+    const s = document.createElement('script');
+    s.id = 'gmaps-places';
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places`;
+    s.async = true;
+    s.onload = done;
+    s.onerror = () => resolve(null);
+    document.head.appendChild(s);
+  });
+}
+
+function placeComponent(place: GooglePlace, type: string, short = false): string | undefined {
+  const c = place.address_components?.find((x) => x.types.includes(type));
+  return c ? (short ? c.short_name : c.long_name) : undefined;
+}
+
 export default function DealDeskApp() {
   const [token, setToken] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -71,7 +103,11 @@ export default function DealDeskApp() {
   const [cmaLoading, setCmaLoading] = useState(false);
   const [cmaMsg, setCmaMsg] = useState<string | null>(null);
   const [cmaOrdered, setCmaOrdered] = useState(false);
+  const [googleOn, setGoogleOn] = useState(false);
+  const [addressValidated, setAddressValidated] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const addressInputRef = useRef<HTMLInputElement>(null);
+  const googleInitedRef = useRef(false);
 
   const loadHistory = useCallback(async (t: string) => {
     try {
@@ -94,6 +130,39 @@ export default function DealDeskApp() {
     setToken(t);
     if (t) loadHistory(t);
   }, [loadHistory]);
+
+  // Google Places address verification — only activates if a key is configured.
+  useEffect(() => {
+    if (token === null || googleInitedRef.current) return;
+    const key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    if (!key || !addressInputRef.current) return;
+    googleInitedRef.current = true;
+    loadGoogleMaps(key).then((g) => {
+      const Ctor = g?.maps?.places?.Autocomplete;
+      const input = addressInputRef.current;
+      if (!Ctor || !input) return;
+      const ac = new Ctor(input, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' },
+        fields: ['formatted_address', 'address_components'],
+      });
+      setGoogleOn(true);
+      ac.addListener('place_changed', () => {
+        const place = ac.getPlace();
+        if (!place.formatted_address) return;
+        const street = [placeComponent(place, 'street_number'), placeComponent(place, 'route')]
+          .filter(Boolean)
+          .join(' ');
+        setField('property_address', street || place.formatted_address);
+        setField('city', placeComponent(place, 'locality') || placeComponent(place, 'sublocality') || '');
+        setField('zip', placeComponent(place, 'postal_code') || '');
+        setField('state', placeComponent(place, 'administrative_area_level_1', true) || 'NC');
+        setAddressValidated(true);
+      });
+    });
+    // setField is a stable hoisted helper; intentionally not a dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   function setField(name: string, value: string | number | undefined) {
     if (value === undefined || value === null || value === '') return;
@@ -266,17 +335,33 @@ export default function DealDeskApp() {
 
           <form ref={formRef} onSubmit={onSubmit} style={{ background: '#fff', border: '1px solid #e8dfd4', borderRadius: 16, padding: 22 }}>
             {/* Address + look-up */}
-            <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
-              <input name="property_address" placeholder="Property address" required style={{ ...inputStyle, flex: 1 }} />
+            <div style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
+              <input
+                ref={addressInputRef}
+                name="property_address"
+                placeholder={googleOn ? 'Start typing the address, then pick it from the list' : 'Property address'}
+                required
+                autoComplete="off"
+                onChange={() => setAddressValidated(false)}
+                style={{ ...inputStyle, flex: 1 }}
+              />
               <button
                 type="button"
                 onClick={onLookup}
-                disabled={lookupLoading}
-                style={{ whiteSpace: 'nowrap', background: NAVY, color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0 16px', cursor: 'pointer' }}
+                disabled={lookupLoading || (googleOn && !addressValidated)}
+                title={googleOn && !addressValidated ? 'Pick your address from the dropdown first' : undefined}
+                style={{ whiteSpace: 'nowrap', background: NAVY, color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0 16px', cursor: lookupLoading || (googleOn && !addressValidated) ? 'default' : 'pointer', opacity: googleOn && !addressValidated ? 0.5 : 1 }}
               >
                 {lookupLoading ? 'Looking…' : 'Look up'}
               </button>
             </div>
+            {googleOn ? (
+              <p style={{ margin: '0 0 10px', fontSize: 12, color: addressValidated ? '#1a7f37' : '#6b7280' }}>
+                {addressValidated
+                  ? '✓ Address verified — click Look up to auto-fill the property details.'
+                  : 'Pick your address from the Google suggestions to verify it before we pull property data.'}
+              </p>
+            ) : null}
             {lookupMsg ? <p style={{ margin: '0 0 10px', fontSize: 12.5, color: '#6b7280' }}>{lookupMsg}</p> : null}
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
