@@ -66,3 +66,52 @@ export async function getRentCastValue(
     raw: json,
   };
 }
+
+export type PropertyLookupResult = {
+  formattedAddress?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  squareFeet?: number;
+  yearBuilt?: number;
+  propertyType?: string;
+};
+
+// Property-record lookup (beds/baths/sqft/year/type) to auto-fill the member form.
+export async function getRentCastProperty(address: string): Promise<PropertyLookupResult | null> {
+  const apiKey = process.env.RENTCAST_API_KEY;
+  if (!apiKey) return null;
+
+  let json: unknown;
+  try {
+    const res = await fetch(`${RENTCAST_BASE}/properties?${new URLSearchParams({ address })}`, {
+      headers: { 'X-Api-Key': apiKey, Accept: 'application/json' },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+    json = await res.json();
+  } catch {
+    return null;
+  }
+
+  const rec = (Array.isArray(json) ? json[0] : json) as Record<string, unknown> | undefined;
+  if (!rec) return null;
+  const num = (v: unknown) => {
+    const x = Number(v);
+    return Number.isFinite(x) ? x : undefined;
+  };
+  const s = (v: unknown) => (typeof v === 'string' ? v : undefined);
+  return {
+    formattedAddress: s(rec.formattedAddress),
+    city: s(rec.city),
+    state: s(rec.state),
+    zip: s(rec.zipCode),
+    bedrooms: num(rec.bedrooms),
+    bathrooms: num(rec.bathrooms),
+    squareFeet: num(rec.squareFootage),
+    yearBuilt: num(rec.yearBuilt),
+    propertyType: s(rec.propertyType),
+  };
+}

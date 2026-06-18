@@ -165,12 +165,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Meter it (counts against the monthly limit) + audit row.
+  // Meter it (counts against the monthly limit) + store the full payload for
+  // the history sidebar / PDF re-download.
   await consumeSnapshot(supabase, activeMember, {
     propertyAddress: project.property_address,
     mao: mao.mao,
     verdict: mao.verdict,
     recommendCma: mao.recommendCma,
+    leadFirst: str(body.first_name, 'Member'),
+    leadLast: str(body.last_name),
+    project,
+    scope,
+    estimate,
+    maoPayload: mao,
   });
 
   // Deliver the MAO-bearing PDF by email (best-effort).

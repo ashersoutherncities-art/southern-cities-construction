@@ -19,6 +19,7 @@ export type DealDeskMember = {
   snapshot_limit: number | null;
   snapshots_used: number;
   usage_period_start: string;
+  cma_credits_used: number;
 };
 
 export async function getMemberByEmail(
@@ -80,7 +81,7 @@ export async function upsertMemberFromSubscription(
     snapshot_limit: input.tier.snapshotLimit,
     updated_at: new Date().toISOString(),
     ...(periodAdvanced
-      ? { snapshots_used: 0, usage_period_start: new Date().toISOString() }
+      ? { snapshots_used: 0, cma_credits_used: 0, usage_period_start: new Date().toISOString() }
       : {}),
   };
 
@@ -118,11 +119,23 @@ export function checkEligibility(member: DealDeskMember | null): EligibilityResu
   return { ok: true, member };
 }
 
-// Record one consumed snapshot: increment the meter + write an audit row.
+// Record one consumed snapshot: increment the meter + store the full payload so
+// the run can be listed in history and its PDF regenerated on demand.
 export async function consumeSnapshot(
   supabase: SupabaseClient,
   member: DealDeskMember,
-  meta: { propertyAddress?: string; mao?: number; verdict?: string; recommendCma?: boolean }
+  meta: {
+    propertyAddress?: string;
+    mao?: number;
+    verdict?: string;
+    recommendCma?: boolean;
+    leadFirst?: string;
+    leadLast?: string;
+    project?: unknown;
+    scope?: unknown;
+    estimate?: unknown;
+    maoPayload?: unknown;
+  }
 ): Promise<void> {
   await supabase
     .from('deal_desk_members')
@@ -135,5 +148,67 @@ export async function consumeSnapshot(
     mao: meta.mao ?? null,
     verdict: meta.verdict ?? null,
     recommend_cma: meta.recommendCma ?? null,
+    lead_first: meta.leadFirst ?? null,
+    lead_last: meta.leadLast ?? null,
+    project: meta.project ?? null,
+    scope: meta.scope ?? null,
+    estimate: meta.estimate ?? null,
+    mao_payload: meta.maoPayload ?? null,
   });
+}
+
+export type SnapshotHistoryItem = {
+  id: string;
+  property_address: string | null;
+  mao: number | null;
+  verdict: string | null;
+  recommend_cma: boolean | null;
+  created_at: string;
+};
+
+// The member's past runs, newest first (for the history sidebar).
+export async function getMemberSnapshots(
+  supabase: SupabaseClient,
+  memberId: string
+): Promise<SnapshotHistoryItem[]> {
+  const { data } = await supabase
+    .from('deal_desk_snapshot_usage')
+    .select('id, property_address, mao, verdict, recommend_cma, created_at')
+    .eq('member_id', memberId)
+    .order('created_at', { ascending: false })
+    .limit(100);
+  return (data as SnapshotHistoryItem[] | null) ?? [];
+}
+
+export type StoredSnapshot = {
+  property_address: string | null;
+  lead_first: string | null;
+  lead_last: string | null;
+  project: unknown;
+  scope: unknown;
+  estimate: unknown;
+  mao_payload: unknown;
+};
+
+// One stored run (scoped to the member) — used to regenerate its PDF.
+export async function getSnapshotForMember(
+  supabase: SupabaseClient,
+  memberId: string,
+  snapshotId: string
+): Promise<StoredSnapshot | null> {
+  const { data } = await supabase
+    .from('deal_desk_snapshot_usage')
+    .select('property_address, lead_first, lead_last, project, scope, estimate, mao_payload')
+    .eq('member_id', memberId)
+    .eq('id', snapshotId)
+    .maybeSingle();
+  return (data as StoredSnapshot | null) ?? null;
+}
+
+// Consume one Pro CMA credit for the cycle.
+export async function consumeCmaCredit(supabase: SupabaseClient, member: DealDeskMember): Promise<void> {
+  await supabase
+    .from('deal_desk_members')
+    .update({ cma_credits_used: member.cma_credits_used + 1, updated_at: new Date().toISOString() })
+    .eq('id', member.id);
 }

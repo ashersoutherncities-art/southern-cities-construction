@@ -11,6 +11,7 @@ import {
 } from '@/lib/deal-desk/members';
 import { signAccessToken } from '@/lib/deal-desk/token';
 import { sendMagicLinkEmail } from '@/lib/deal-desk/email';
+import { notifyTeam } from '@/lib/deal-desk/notify';
 
 type SupabaseService = NonNullable<ReturnType<typeof tryGetServiceClient>>;
 
@@ -139,6 +140,27 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
+        // Broker CMA one-time purchase.
+        if (session.mode === 'payment' && session.metadata?.deal_desk_cma === '1') {
+          const cmaEmail = session.metadata?.cma_email || session.customer_details?.email || '';
+          const cmaAddress = session.metadata?.cma_address || '';
+          let memberId: string | null = null;
+          if (cmaEmail) {
+            const m = await getMemberByEmail(supabase, cmaEmail);
+            memberId = m?.id ?? null;
+          }
+          await supabase.from('deal_desk_cma_orders').insert({
+            member_id: memberId,
+            email: cmaEmail,
+            property_address: cmaAddress,
+            amount_cents: session.amount_total ?? 0,
+            was_credit: false,
+            status: 'paid',
+            stripe_session_id: session.id,
+          });
+          await notifyTeam(`CMA order PAID ($${((session.amount_total ?? 0) / 100).toFixed(0)}) — ${cmaEmail} — ${cmaAddress}`);
+          break;
+        }
         if (session.mode !== 'subscription' || !session.subscription) break;
         const subId =
           typeof session.subscription === 'string'
