@@ -113,7 +113,7 @@ export default function DealDeskApp() {
           inactive: 'Your membership is not active.',
           not_found: 'No active membership found for your link.',
           invalid_or_expired_link: 'This link is invalid or expired. Request a fresh one from the Deal Desk page.',
-          valuation_unavailable: 'No automated value came back for that address. Try the ARV override or order a CMA.',
+          valuation_unavailable: "We couldn't pull a market value for that address. Try the ARV override or order a CMA.",
         };
         setError(map[data.reason] || map[data.error] || data.detail || 'Something went wrong.');
       } else {
@@ -228,7 +228,7 @@ export default function DealDeskApp() {
             ))}
             {result.mao.recommendCma ? (
               <p style={{ marginTop: 12, color: '#c0392b', fontSize: 13 }}>
-                Automated values diverged or were low-confidence — order a Southern Cities Realty CMA to finalize the ARV before offering.
+                Our valuation came back uncertain on this one — order a Southern Cities Realty CMA to finalize the ARV before offering.
               </p>
             ) : null}
             <p style={{ marginTop: 12, fontSize: 13, color: '#6b7280' }}>

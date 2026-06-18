@@ -160,7 +160,7 @@ export async function POST(req: NextRequest) {
 
   if (!mao) {
     return NextResponse.json(
-      { error: 'valuation_unavailable', detail: 'No AVM returned a value. Order an SC Realty CMA.' },
+      { error: 'valuation_unavailable', detail: 'No market value available. Order an SC Realty CMA.' },
       { status: 422 }
     );
   }

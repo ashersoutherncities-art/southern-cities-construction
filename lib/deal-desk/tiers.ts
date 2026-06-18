@@ -10,7 +10,7 @@ export type DealDeskTier = {
   priceUsd: number; // monthly, display only
   priceEnvVar: string; // env var holding the Stripe Price ID
   snapshotLimit: number | null; // null = unlimited
-  usePremiumAvm: boolean; // HouseCanary cross-check included on this tier?
+  usePremiumAvm: boolean; // premium second-source valuation cross-check included on this tier?
   cmaCreditsPerMonth: number; // included SC Realty CMA credits
   blurb: string;
 };
@@ -24,7 +24,7 @@ export const DEAL_DESK_TIERS: Record<DealDeskTierKey, DealDeskTier> = {
     snapshotLimit: 5,
     usePremiumAvm: false,
     cmaCreditsPerMonth: 0,
-    blurb: '5 GC-verified rehab + Max Allowable Offer snapshots/mo, RentCast-screened.',
+    blurb: '5 GC-verified rehab + Max Allowable Offer snapshots/mo, screened against live market comps.',
   },
   active: {
     key: 'active',
@@ -34,7 +34,7 @@ export const DEAL_DESK_TIERS: Record<DealDeskTierKey, DealDeskTier> = {
     snapshotLimit: 15,
     usePremiumAvm: true,
     cmaCreditsPerMonth: 0,
-    blurb: '15 snapshots/mo + HouseCanary cross-check + monthly deal review.',
+    blurb: '15 snapshots/mo + a second independent valuation cross-check + monthly deal review.',
   },
   pro: {
     key: 'pro',

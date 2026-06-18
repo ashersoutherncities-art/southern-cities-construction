@@ -184,12 +184,12 @@ function MaoSection({ mao }: { mao: MaoResult }) {
 
       {mao.recommendCma ? (
         <Text style={[styles.bullet, { marginTop: 8, color: '#c0392b' }]}>
-          Automated valuations diverged or were low-confidence. Order a Southern Cities Realty CMA to finalize the ARV before making this offer.
+          Our valuation came back uncertain on this property. Order a Southern Cities Realty CMA to finalize the ARV before making this offer.
         </Text>
       ) : null}
 
       <Text style={[styles.footerNote, { marginTop: 8 }]}>
-        The Max Allowable Offer is derived from automated valuation models (AVMs) and your rehab estimate. It is an underwriting guide — not an appraisal or a guaranteed value. The ARV is finalized by a Southern Cities Realty Comparative Market Analysis (CMA) under our NC real estate brokerage license.
+        The Max Allowable Offer is derived from current market valuation data and your rehab estimate. It is an underwriting guide — not an appraisal or a guaranteed value. The ARV is finalized by a Southern Cities Realty Comparative Market Analysis (CMA) under our NC real estate brokerage license.
       </Text>
     </View>
   );

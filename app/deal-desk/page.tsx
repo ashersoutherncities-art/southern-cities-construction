@@ -91,7 +91,7 @@ export default function DealDeskPage() {
                 <p style={{ fontSize: 14, lineHeight: 1.55, color: '#374151', minHeight: 66 }}>{tier.blurb}</p>
                 <ul style={{ fontSize: 13, lineHeight: 1.7, paddingLeft: 18, margin: '4px 0 18px' }}>
                   <li>{tier.snapshotLimit == null ? 'Unlimited' : tier.snapshotLimit} snapshots / month</li>
-                  <li>{tier.usePremiumAvm ? 'Dual-AVM cross-check' : 'RentCast screening AVM'}</li>
+                  <li>{tier.usePremiumAvm ? 'Dual independent valuation cross-check' : 'Market-comp valuation screen'}</li>
                   <li>{tier.cmaCreditsPerMonth > 0 ? `${tier.cmaCreditsPerMonth} SC Realty CMA credit / mo` : 'CMA available as add-on'}</li>
                 </ul>
                 <button
