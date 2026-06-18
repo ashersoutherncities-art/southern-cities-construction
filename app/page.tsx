@@ -9,12 +9,11 @@ import FaqItem from '@/components/landing/FaqItem';
 import LpLeadForm from '@/components/LpLeadForm';
 import FaqJsonLd from '@/components/seo/FaqJsonLd';
 
-// All generic "Book a Project Call" / "Talk Through Your Project" CTAs on
-// the homepage route to /book — a role-routing page that lets the user
-// pick the right consultation path (homeowner / investor / wholesaler /
-// realtor). Previously this pointed to the homeowner-specific consultation
-// page, which sent investor and wholesaler intent into the wrong funnel.
-const CONSULTATION_CTA_HREF = '/book';
+// All generic homepage consultation CTAs ("Talk Through Your Project",
+// "Get Started", etc.) route to /start — the universal intake form that
+// routes the lead by audience + intent. Replaced the old /book role-router
+// when the booking funnel was consolidated into one "Get Started" front door.
+const CONSULTATION_CTA_HREF = '/start';
 
 const galleryPreview = [
   { title: 'Standard builder-grade home exterior refresh', image: '/gallery/white-house-after.jpg' },

@@ -98,7 +98,7 @@ const TIERS: Tier[] = [
       'A clear upgrade path to a full Bid-Ready Deal Pack',
     ],
     cta: 'Talk through your deal →',
-    ctaHref: '/book',
+    ctaHref: '/start',
   },
   {
     badge: 'TIER 1',

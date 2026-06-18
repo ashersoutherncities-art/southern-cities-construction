@@ -31,6 +31,7 @@ export default function SiteFooter() {
               <li><Link href="/services/homeowners" className="text-sm text-white/50 transition-colors hover:text-orange">For Homeowners</Link></li>
               <li><Link href="/platform" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors — Execution Platform</Link></li>
               <li><Link href="/deal-pack" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Pack — Wholesalers</Link></li>
+              <li><Link href="/deal-desk" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Desk Membership</Link></li>
               <li><Link href="/services/realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
               <li><Link href="/services/contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
               <li><Link href="/gallery" className="text-sm text-white/50 transition-colors hover:text-orange">Project Gallery</Link></li>
@@ -47,7 +48,7 @@ export default function SiteFooter() {
               <li><Link href="/partners" className="text-sm text-white/50 transition-colors hover:text-orange">Partner With Us</Link></li>
               <li><a href={SITE_CONFIG.portalUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 transition-colors hover:text-orange">Client Portal</a></li>
               <li><Link href="/cart" className="text-sm text-white/50 transition-colors hover:text-orange">Cart</Link></li>
-              <li><Link href="/book" className="text-sm text-white/50 transition-colors hover:text-orange">Book a Project Call</Link></li>
+              <li><Link href="/start" className="text-sm text-white/50 transition-colors hover:text-orange">Get Started</Link></li>
             </ul>
           </div>
 

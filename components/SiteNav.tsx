@@ -26,6 +26,7 @@ const SERVICES_GROUP: NavGroup = {
 
 const PRIMARY_LINKS: NavLink[] = [
   { href: '/deal-pack', label: 'Deal Pack' },
+  { href: '/deal-desk', label: 'Deal Desk' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contracting', label: 'Contracting' },
   { href: '/recurring-support', label: 'Support Plans' },
@@ -163,8 +164,11 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
               </a>
-              <Link href="/book" className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-orange px-4 xl:px-5 py-2 text-[12.5px] xl:text-[13px] font-bold text-white shadow-glow-orange transition-all duration-200 whitespace-nowrap hover:bg-orange-500">
-                Book a Project Call
+              <Link href="/start" className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-orange px-4 xl:px-5 py-2 text-[12.5px] xl:text-[13px] font-bold text-white shadow-glow-orange transition-all duration-200 whitespace-nowrap hover:bg-orange-500">
+                Get Started
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
               </Link>
             </div>
 
@@ -225,8 +229,8 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
               <a href={SITE_CONFIG.portalUrl} target="_blank" rel="noopener noreferrer" className="block rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:text-orange">
                 Portal
               </a>
-              <Link href="/book" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-full bg-orange px-5 py-3 text-center text-sm font-bold text-white shadow-glow-orange transition-all hover:bg-orange-500">
-                Book a Project Call
+              <Link href="/start" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-full bg-orange px-5 py-3 text-center text-sm font-bold text-white shadow-glow-orange transition-all hover:bg-orange-500">
+                Get Started
               </Link>
             </div>
           </div>

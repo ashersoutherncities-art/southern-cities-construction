@@ -911,7 +911,7 @@ function ResultPanel({ result }: { result: ResultState }) {
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-200">Recommended next step</p>
             <p className="mt-2 text-[13.5px] leading-7 text-white/85">{result.recommendedNextStep}</p>
             <Link
-              href="/book"
+              href="/start"
               className="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-orange px-6 py-3 text-[13px] font-black uppercase tracking-[0.06em] text-white transition hover:-translate-y-0.5 hover:bg-orange-500"
             >
               Have the GC verify this budget →

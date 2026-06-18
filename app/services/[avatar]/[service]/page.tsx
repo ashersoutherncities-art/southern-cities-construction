@@ -28,7 +28,7 @@ function consultationHrefForAvatar(avatar: string): string {
     case 'developers-landowners':
     case 'industry-partners':
     default:
-      return '/book';
+      return '/start';
   }
 }
 
@@ -175,7 +175,7 @@ const DECISION_PAGE_OVERRIDES: Record<string, DecisionPageOverride> = {
 
 // Map of avatar slug → human label + audience-context CTAs
 const AVATAR_META: Record<string, { label: string; nextStep: string; backToCatalog: string }> = {
-  homeowners: { label: 'For Homeowners', nextStep: 'Book a Project Call', backToCatalog: '/services/homeowners' },
+  homeowners: { label: 'For Homeowners', nextStep: 'Get Started', backToCatalog: '/services/homeowners' },
   investors: { label: 'For Investors', nextStep: 'Talk Through Your Project', backToCatalog: '/services/investors' },
   contractors: { label: 'For Contractors', nextStep: 'Talk Through Your Project', backToCatalog: '/services/contractors' },
   realtors: { label: 'For Realtors', nextStep: 'Talk Through Your Listing', backToCatalog: '/services/realtors' },
@@ -321,7 +321,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
   if (!service || !avatar) notFound();
 
   const override = DECISION_PAGE_OVERRIDES[`${params.avatar}:${params.service}`];
-  const meta = AVATAR_META[params.avatar] || { label: avatar.shortLabel, nextStep: 'Book a Project Call', backToCatalog: `/services/${params.avatar}` };
+  const meta = AVATAR_META[params.avatar] || { label: avatar.shortLabel, nextStep: 'Get Started', backToCatalog: `/services/${params.avatar}` };
 
   const headline = override?.headline || service.title;
   const subheadline = override?.subheadline || service.summary;

@@ -42,6 +42,10 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Booking funnel consolidated into the universal /start intake form.
+      // Every "Get Started" CTA points to /start; keep old /book links working.
+      { source: '/book', destination: '/start', permanent: false },
+
       // Investors — legacy URL aliases to canonical services
       { source: '/services/investors/contractor-match-bid-coordination', destination: '/services/investors/bid-coordination-contractor-match', permanent: true },
       { source: '/services/investors/full-due-diligence-package', destination: '/platform/co1', permanent: true },

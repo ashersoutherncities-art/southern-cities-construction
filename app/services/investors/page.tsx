@@ -40,8 +40,8 @@ const investorStages: Stage[] = [
         name: 'Rehab Budget Range & Execution Risk Snapshot',
         price: 'Free',
         description: 'Fast preliminary feasibility estimate for early-stage underwriting. Get a budget range, confidence level, risk flags, likely project category, timeline range, and next-step recommendation before execution surprises blow up the deal.',
-        href: '/book',
-        secondaryHref: '/book',
+        href: '/start',
+        secondaryHref: '/start',
         primaryCta: 'View Details',
         highlighted: true,
       },
@@ -470,7 +470,7 @@ export default function InvestorsPage() {
                     View Details
                   </Link>
                   <Link
-                    href="/book"
+                    href="/start"
                     className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/28 bg-transparent px-6 py-3 text-[14px] font-semibold text-white transition hover:border-white/50 hover:bg-white/[0.04]"
                   >
                     Talk Through Your Project
@@ -608,8 +608,8 @@ export default function InvestorsPage() {
               Talk through your project and get direction on what to do next.
             </p>
             <div className="mt-8 flex items-center justify-center">
-              <Link href="/book" className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
-                Book a Project Call
+              <Link href="/start" className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-8 py-4 text-[15px] font-semibold text-white transition-all hover:bg-orange-500">
+                Get Started
               </Link>
             </div>
           </div>

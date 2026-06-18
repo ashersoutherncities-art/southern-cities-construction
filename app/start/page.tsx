@@ -70,6 +70,31 @@ export default function StartPage() {
         </p>
       </section>
 
+      {/* Free consult booking — GHL "Schedule an Appointment" calendar */}
+      <section className="container-pro pb-20 lg:pb-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-stone-200" />
+            <span className="text-[12px] font-bold uppercase tracking-[0.18em] text-stone-400">or</span>
+            <div className="h-px flex-1 bg-stone-200" />
+          </div>
+          <p className="eyebrow mt-8">Book a free consult</p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Grab a time directly.</h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-stone-600">
+            Prefer to talk it through? Pick a free consult with a licensed NC GC — straight onto the calendar.
+          </p>
+        </div>
+        <div className="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-elev-1">
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/booking/5rHsWSpZrV7SjTfwp99I"
+            title="Book a free consult — Southern Cities Construction"
+            style={{ width: '100%', minHeight: '700px', border: 'none', overflow: 'hidden' }}
+            scrolling="no"
+            id="5rHsWSpZrV7SjTfwp99I_start"
+          />
+        </div>
+      </section>
+
       <SiteFooter />
 
       <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="afterInteractive" />
