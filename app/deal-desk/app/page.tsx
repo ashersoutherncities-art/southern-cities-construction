@@ -314,13 +314,19 @@ export default function DealDeskApp() {
               ))}
             </div>
 
-            <h3 style={{ fontSize: 14, fontWeight: 800, margin: '18px 0 4px' }}>Bathrooms</h3>
-            <p style={{ margin: '0 0 8px', fontSize: 12.5, color: '#6b7280' }}>
-              <strong>Refresh</strong> = cosmetic only (new vanity, fixtures, paint, re-glaze tub). <strong>Full gut</strong> = down to the studs, all-new plumbing &amp; tile.
+            <h3 style={{ fontSize: 14, fontWeight: 800, margin: '18px 0 4px' }}>Bathrooms — how many get each level?</h3>
+            <p style={{ margin: '0 0 10px', fontSize: 12.5, color: '#6b7280', lineHeight: 1.5 }}>
+              Each bathroom counts once — it&apos;s either a refresh <em>or</em> a gut, not both. <strong>Refresh</strong> = cosmetic, plumbing stays (vanity, faucet, toilet, light, paint, re-glaze tub) ≈ $3–7k. <strong>Full gut</strong> = down to the studs, all-new plumbing, tile &amp; tub ≈ $12–20k+. <em>Example: a 2-bath house where you fully redo the master and just freshen the guest bath → 1 gut, 1 refresh.</em>
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <input name="bathroom_refresh_count" type="number" min={0} placeholder="# bathrooms — cosmetic refresh" style={inputStyle} />
-              <input name="bathroom_full_count" type="number" min={0} placeholder="# bathrooms — full gut" style={inputStyle} />
+              <label style={{ fontSize: 12.5, fontWeight: 600, color: NAVY }}>
+                Bathrooms getting a cosmetic refresh
+                <input name="bathroom_refresh_count" type="number" min={0} defaultValue={0} style={{ ...inputStyle, marginTop: 4 }} />
+              </label>
+              <label style={{ fontSize: 12.5, fontWeight: 600, color: NAVY }}>
+                Bathrooms getting a full gut
+                <input name="bathroom_full_count" type="number" min={0} defaultValue={0} style={{ ...inputStyle, marginTop: 4 }} />
+              </label>
             </div>
             <textarea name="notes" placeholder="Notes (optional)" style={{ ...inputStyle, marginTop: 12, minHeight: 60 }} />
 
