@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import SiteNav from '@/components/SiteNav';
+import SiteFooter from '@/components/SiteFooter';
 import { DEAL_DESK_TIERS, DealDeskTierKey } from '@/lib/deal-desk/tiers';
 
 const NAVY = '#132452';
@@ -49,7 +51,9 @@ export default function DealDeskPage() {
   }
 
   return (
-    <main style={{ background: CREAM, color: NAVY, minHeight: '100vh', padding: '48px 20px' }}>
+    <>
+      <SiteNav variant="solid" />
+      <main style={{ background: CREAM, color: NAVY, minHeight: '100vh', padding: '120px 20px 56px' }}>
       <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <p style={{ color: ORANGE, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', fontSize: 12 }}>
           Southern Cities Construction · Deal Desk
@@ -161,6 +165,8 @@ export default function DealDeskPage() {
           finalized valuation.
         </p>
       </div>
-    </main>
+      </main>
+      <SiteFooter />
+    </>
   );
 }
