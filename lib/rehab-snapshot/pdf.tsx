@@ -6,6 +6,7 @@ import {
   RehabSnapshotLeadInput,
   RehabSnapshotProjectInput,
 } from '@/lib/rehab-snapshot/types';
+import type { MaoResult } from '@/lib/avm';
 
 const styles = StyleSheet.create({
   page: {
@@ -125,14 +126,85 @@ function currency(value: number) {
   }).format(value);
 }
 
+const VERDICT_META: Record<MaoResult['verdict'], { label: string; color: string }> = {
+  strong: { label: 'STRONG — healthy spread', color: '#1a7f37' },
+  thin: { label: 'THIN — tight margin', color: '#b7791f' },
+  pass: { label: 'PASS — no room at this ARV', color: '#c0392b' },
+};
+
+// Deal Desk only. Renders the Max Allowable Offer + verdict. Never shows the
+// individual AVM provider numbers (MaoResult has none) — ARV here is the
+// reconciled, derived figure. Omitted entirely on the free snapshot.
+function MaoSection({ mao }: { mao: MaoResult }) {
+  const verdict = VERDICT_META[mao.verdict];
+  return (
+    <View style={[styles.section, { borderWidth: 1, borderColor: '#e8dfd4', borderRadius: 8, padding: 12 }]}>
+      <Text style={styles.sectionTitle}>Deal Verdict & Max Allowable Offer</Text>
+      <Text style={[styles.metricValue, { color: verdict.color, marginBottom: 6 }]}>{verdict.label}</Text>
+
+      <View style={styles.metricRow}>
+        <View style={styles.metricCard}>
+          <Text style={styles.metricLabel}>Max Allowable Offer</Text>
+          <Text style={styles.metricValue}>{currency(mao.mao)}</Text>
+        </View>
+        <View style={styles.metricCard}>
+          <Text style={styles.metricLabel}>Rule-of-thumb cross-check</Text>
+          <Text style={styles.metricValue}>{currency(mao.maoRuleOfThumb)}</Text>
+        </View>
+        <View style={styles.metricCard}>
+          <Text style={styles.metricLabel}>Valuation confidence</Text>
+          <Text style={styles.metricValue}>{mao.confidence.toUpperCase()}</Text>
+        </View>
+      </View>
+
+      <View style={[styles.row, { marginTop: 6 }]}>
+        <Text style={styles.rowLabel}>After-Repair Value (ARV)</Text>
+        <Text style={styles.rowValue}>{currency(mao.arv)}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.rowLabel}>Less: estimated rehab (all-in)</Text>
+        <Text style={styles.rowValue}>- {currency(mao.rehab)}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.rowLabel}>Less: buyer profit</Text>
+        <Text style={styles.rowValue}>- {currency(mao.buyerProfit)}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.rowLabel}>Less: holding + closing</Text>
+        <Text style={styles.rowValue}>- {currency(mao.holdingClosing)}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.rowLabel}>Less: assignment fee</Text>
+        <Text style={styles.rowValue}>- {currency(mao.assignmentFee)}</Text>
+      </View>
+      <View style={[styles.row, { borderTopWidth: 1, borderTopColor: '#132452', marginTop: 2 }]}>
+        <Text style={[styles.rowLabel, { fontFamily: 'Helvetica-Bold' }]}>Max Allowable Offer</Text>
+        <Text style={[styles.rowValue, { fontFamily: 'Helvetica-Bold' }]}>{currency(mao.mao)}</Text>
+      </View>
+
+      {mao.recommendCma ? (
+        <Text style={[styles.bullet, { marginTop: 8, color: '#c0392b' }]}>
+          Automated valuations diverged or were low-confidence. Order a Southern Cities Realty CMA to finalize the ARV before making this offer.
+        </Text>
+      ) : null}
+
+      <Text style={[styles.footerNote, { marginTop: 8 }]}>
+        The Max Allowable Offer is derived from automated valuation models (AVMs) and your rehab estimate. It is an underwriting guide — not an appraisal or a guaranteed value. The ARV is finalized by a Southern Cities Realty Comparative Market Analysis (CMA) under our NC real estate brokerage license.
+      </Text>
+    </View>
+  );
+}
+
 function SnapshotPdf({
   lead,
   project,
   estimate,
+  mao,
 }: {
   lead: RehabSnapshotLeadInput;
   project: RehabSnapshotProjectInput;
   estimate: EstimateComputation;
+  mao?: MaoResult | null;
 }) {
   return (
     <Document title="Preliminary Rehab Budget Range & Execution Risk Snapshot">
@@ -144,6 +216,8 @@ function SnapshotPdf({
             Preliminary feasibility estimate for {project.property_address}, {project.city}, {project.state}. This is an underwriting tool designed to bucket execution cost and likely risk, not a contractor quote or guaranteed price.
           </Text>
         </View>
+
+        {mao ? <MaoSection mao={mao} /> : null}
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>1. Project Summary</Text>
@@ -244,6 +318,7 @@ export async function renderSnapshotPdf(args: {
   lead: RehabSnapshotLeadInput;
   project: RehabSnapshotProjectInput;
   estimate: EstimateComputation;
+  mao?: MaoResult | null;
 }) {
   return renderToBuffer(<SnapshotPdf {...args} />);
 }
