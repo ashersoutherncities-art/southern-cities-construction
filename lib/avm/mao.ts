@@ -87,13 +87,15 @@ export function computeMao(
   const mao = Math.round(arv - rehab - buyerProfit - holdingClosing - config.assignmentFee);
   const maoRuleOfThumb = Math.round(arv * config.ruleOfThumbPct - rehab - config.assignmentFee);
 
-  // Verdict from the MAO as a fraction of ARV — how much room the deal leaves.
-  // <0 means there is no room at all.
-  const headroom = mao / arv;
+  // The MAO already bakes in the target profit + selling costs, so any MAO above
+  // $0 is a viable, profitable offer. PASS only when rehab exceeds the spread
+  // (no profitable price exists). THIN flags rehab-heavy deals (more execution
+  // risk), STRONG is a clean spread.
+  const rehabRatio = arv > 0 ? rehab / arv : 1;
   let verdict: MaoResult['verdict'];
-  if (mao <= 0 || headroom < 0.45) verdict = 'pass'; // 🔴 no/very thin spread
-  else if (headroom < 0.6) verdict = 'thin'; // 🟡
-  else verdict = 'strong'; // 🟢
+  if (mao <= 0) verdict = 'pass'; // 🔴 rehab exceeds the spread — no profitable offer
+  else if (rehabRatio > 0.5) verdict = 'thin'; // 🟡 rehab-heavy — execution risk
+  else verdict = 'strong'; // 🟢 clean spread
 
   return {
     arv,
