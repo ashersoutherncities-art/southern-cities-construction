@@ -60,11 +60,25 @@ type HistoryItem = {
 const money = (n: number) => `$${Math.round(n).toLocaleString()}`;
 const inputStyle: React.CSSProperties = { border: '1px solid #d1d5db', borderRadius: 8, padding: '10px 12px', fontSize: 14, width: '100%' };
 
-// --- Google Places address verification (optional; off until a key is set) ---
-type GooglePlaceComponent = { long_name: string; short_name: string; types: string[] };
-type GooglePlace = { formatted_address?: string; address_components?: GooglePlaceComponent[] };
-type GoogleAutocomplete = { addListener: (e: string, cb: () => void) => void; getPlace: () => GooglePlace };
-type GoogleNS = { maps?: { places?: { Autocomplete?: new (i: HTMLInputElement, o?: unknown) => GoogleAutocomplete } } };
+// --- Google Places address verification (new Places API; off until a key is set) ---
+type NewAddressComponent = { longText: string; shortText: string; types: string[] };
+type NewPlace = {
+  formattedAddress?: string;
+  addressComponents?: NewAddressComponent[];
+  fetchFields: (opts: { fields: string[] }) => Promise<unknown>;
+};
+type NewSuggestion = { placePrediction: { text: { text: string }; toPlace: () => NewPlace } };
+type PlacesNS = {
+  AutocompleteSuggestion?: {
+    fetchAutocompleteSuggestions: (req: {
+      input: string;
+      includedRegionCodes?: string[];
+      sessionToken?: unknown;
+    }) => Promise<{ suggestions: NewSuggestion[] }>;
+  };
+  AutocompleteSessionToken?: new () => unknown;
+};
+type GoogleNS = { maps?: { places?: PlacesNS } };
 
 function loadGoogleMaps(key: string): Promise<GoogleNS | null> {
   return new Promise((resolve) => {
@@ -79,7 +93,7 @@ function loadGoogleMaps(key: string): Promise<GoogleNS | null> {
     }
     const s = document.createElement('script');
     s.id = 'gmaps-places';
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places`;
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places&v=weekly`;
     s.async = true;
     s.onload = done;
     s.onerror = () => resolve(null);
@@ -87,9 +101,9 @@ function loadGoogleMaps(key: string): Promise<GoogleNS | null> {
   });
 }
 
-function placeComponent(place: GooglePlace, type: string, short = false): string | undefined {
-  const c = place.address_components?.find((x) => x.types.includes(type));
-  return c ? (short ? c.short_name : c.long_name) : undefined;
+function addrPart(place: NewPlace, type: string, short = false): string | undefined {
+  const c = place.addressComponents?.find((x) => x.types.includes(type));
+  return c ? (short ? c.shortText : c.longText) : undefined;
 }
 
 export default function DealDeskApp() {
@@ -105,9 +119,13 @@ export default function DealDeskApp() {
   const [cmaOrdered, setCmaOrdered] = useState(false);
   const [googleOn, setGoogleOn] = useState(false);
   const [addressValidated, setAddressValidated] = useState(false);
+  const [suggestions, setSuggestions] = useState<NewSuggestion[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const addressInputRef = useRef<HTMLInputElement>(null);
   const googleInitedRef = useRef(false);
+  const placesNsRef = useRef<PlacesNS | null>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sessionTokenRef = useRef<unknown>(null);
 
   const loadHistory = useCallback(async (t: string) => {
     try {
@@ -131,38 +149,63 @@ export default function DealDeskApp() {
     if (t) loadHistory(t);
   }, [loadHistory]);
 
-  // Google Places address verification — only activates if a key is configured.
+  // Load the new Google Places API — only activates if a key is configured.
   useEffect(() => {
     if (token === null || googleInitedRef.current) return;
     const key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-    if (!key || !addressInputRef.current) return;
+    if (!key) return;
     googleInitedRef.current = true;
     loadGoogleMaps(key).then((g) => {
-      const Ctor = g?.maps?.places?.Autocomplete;
-      const input = addressInputRef.current;
-      if (!Ctor || !input) return;
-      const ac = new Ctor(input, {
-        types: ['address'],
-        componentRestrictions: { country: 'us' },
-        fields: ['formatted_address', 'address_components'],
-      });
-      setGoogleOn(true);
-      ac.addListener('place_changed', () => {
-        const place = ac.getPlace();
-        if (!place.formatted_address) return;
-        const street = [placeComponent(place, 'street_number'), placeComponent(place, 'route')]
-          .filter(Boolean)
-          .join(' ');
-        setField('property_address', street || place.formatted_address);
-        setField('city', placeComponent(place, 'locality') || placeComponent(place, 'sublocality') || '');
-        setField('zip', placeComponent(place, 'postal_code') || '');
-        setField('state', placeComponent(place, 'administrative_area_level_1', true) || 'NC');
-        setAddressValidated(true);
-      });
+      if (g?.maps?.places?.AutocompleteSuggestion) {
+        placesNsRef.current = g.maps.places;
+        setGoogleOn(true);
+      }
     });
-    // setField is a stable hoisted helper; intentionally not a dependency.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  // Debounced address-suggestion fetch (new Places API).
+  function onAddressChange(value: string) {
+    setAddressValidated(false);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    const ns = placesNsRef.current;
+    if (!ns?.AutocompleteSuggestion || value.trim().length < 3) {
+      setSuggestions([]);
+      return;
+    }
+    debounceRef.current = setTimeout(async () => {
+      try {
+        if (!sessionTokenRef.current && ns.AutocompleteSessionToken) {
+          sessionTokenRef.current = new ns.AutocompleteSessionToken();
+        }
+        const res = await ns.AutocompleteSuggestion!.fetchAutocompleteSuggestions({
+          input: value.trim(),
+          includedRegionCodes: ['us'],
+          sessionToken: sessionTokenRef.current,
+        });
+        setSuggestions((res.suggestions || []).slice(0, 5));
+      } catch {
+        setSuggestions([]);
+      }
+    }, 300);
+  }
+
+  // Member picked a suggestion → fill the form + mark verified.
+  async function onSelectSuggestion(s: NewSuggestion) {
+    setSuggestions([]);
+    try {
+      const place = s.placePrediction.toPlace();
+      await place.fetchFields({ fields: ['formattedAddress', 'addressComponents'] });
+      const street = [addrPart(place, 'street_number'), addrPart(place, 'route')].filter(Boolean).join(' ');
+      setField('property_address', street || place.formattedAddress || s.placePrediction.text.text);
+      setField('city', addrPart(place, 'locality') || addrPart(place, 'sublocality') || '');
+      setField('zip', addrPart(place, 'postal_code') || '');
+      setField('state', addrPart(place, 'administrative_area_level_1', true) || 'NC');
+    } catch {
+      setField('property_address', s.placePrediction.text.text);
+    }
+    setAddressValidated(true);
+    sessionTokenRef.current = null;
+  }
 
   function setField(name: string, value: string | number | undefined) {
     if (value === undefined || value === null || value === '') return;
@@ -335,31 +378,46 @@ export default function DealDeskApp() {
 
           <form ref={formRef} onSubmit={onSubmit} style={{ background: '#fff', border: '1px solid #e8dfd4', borderRadius: 16, padding: 22 }}>
             {/* Address + look-up */}
-            <div style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-              <input
-                ref={addressInputRef}
-                name="property_address"
-                placeholder={googleOn ? 'Start typing the address, then pick it from the list' : 'Property address'}
-                required
-                autoComplete="off"
-                onChange={() => setAddressValidated(false)}
-                style={{ ...inputStyle, flex: 1 }}
-              />
-              <button
-                type="button"
-                onClick={onLookup}
-                disabled={lookupLoading || (googleOn && !addressValidated)}
-                title={googleOn && !addressValidated ? 'Pick your address from the dropdown first' : undefined}
-                style={{ whiteSpace: 'nowrap', background: NAVY, color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0 16px', cursor: lookupLoading || (googleOn && !addressValidated) ? 'default' : 'pointer', opacity: googleOn && !addressValidated ? 0.5 : 1 }}
-              >
-                {lookupLoading ? 'Looking…' : 'Look up'}
-              </button>
+            <div style={{ position: 'relative', marginBottom: 6 }}>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <input
+                  ref={addressInputRef}
+                  name="property_address"
+                  placeholder={googleOn ? 'Start typing the address…' : 'Property address'}
+                  required
+                  autoComplete="off"
+                  onChange={(e) => onAddressChange(e.target.value)}
+                  style={{ ...inputStyle, flex: 1 }}
+                />
+                <button
+                  type="button"
+                  onClick={onLookup}
+                  disabled={lookupLoading || (googleOn && !addressValidated)}
+                  title={googleOn && !addressValidated ? 'Pick your address from the dropdown first' : undefined}
+                  style={{ whiteSpace: 'nowrap', background: NAVY, color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0 16px', cursor: lookupLoading || (googleOn && !addressValidated) ? 'default' : 'pointer', opacity: googleOn && !addressValidated ? 0.5 : 1 }}
+                >
+                  {lookupLoading ? 'Looking…' : 'Look up'}
+                </button>
+              </div>
+              {suggestions.length > 0 ? (
+                <div style={{ position: 'absolute', top: '100%', left: 0, right: 90, zIndex: 50, background: '#fff', border: '1px solid #e8dfd4', borderRadius: 8, marginTop: 4, boxShadow: '0 10px 28px rgba(19,36,82,0.14)', overflow: 'hidden' }}>
+                  {suggestions.map((s, i) => (
+                    <div
+                      key={i}
+                      onMouseDown={(e) => { e.preventDefault(); onSelectSuggestion(s); }}
+                      style={{ padding: '10px 12px', fontSize: 14, cursor: 'pointer', borderBottom: i < suggestions.length - 1 ? '1px solid #f1ece4' : 'none' }}
+                    >
+                      {s.placePrediction.text.text}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
             {googleOn ? (
               <p style={{ margin: '0 0 10px', fontSize: 12, color: addressValidated ? '#1a7f37' : '#6b7280' }}>
                 {addressValidated
                   ? '✓ Address verified — click Look up to auto-fill the property details.'
-                  : 'Pick your address from the Google suggestions to verify it before we pull property data.'}
+                  : 'Start typing and pick your address from the suggestions to verify it.'}
               </p>
             ) : null}
             {lookupMsg ? <p style={{ margin: '0 0 10px', fontSize: 12.5, color: '#6b7280' }}>{lookupMsg}</p> : null}
