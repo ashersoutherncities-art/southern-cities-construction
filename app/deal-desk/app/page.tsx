@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import DealAnalyzer from './DealAnalyzer';
 
 const NAVY = '#132452';
 const ORANGE = '#fa8c41';
@@ -109,7 +110,7 @@ function addrPart(place: NewPlace, type: string, short = false): string | undefi
 export default function DealDeskApp() {
   const [token, setToken] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<{ mao: MaoResult; remaining: number | null; delivered: boolean; address: string } | null>(null);
+  const [result, setResult] = useState<{ mao: MaoResult; remaining: number | null; delivered: boolean; address: string; squareFeet: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [lookupMsg, setLookupMsg] = useState<string | null>(null);
@@ -335,7 +336,7 @@ export default function DealDeskApp() {
         };
         setError(map[data.reason] || map[data.error] || data.detail || 'Something went wrong.');
       } else {
-        setResult({ ...data, address: project.property_address });
+        setResult({ ...data, address: project.property_address, squareFeet: project.square_feet });
         loadHistory(token);
       }
     } catch {
@@ -541,6 +542,10 @@ export default function DealDeskApp() {
                 Underwriting guide, not an appraisal. ARV is a derived estimate; an SC Realty CMA provides the finalized value. NC GC License #107724.
               </p>
             </div>
+          ) : null}
+
+          {result ? (
+            <DealAnalyzer arv={result.mao.arv} rehab={result.mao.rehab} squareFeet={result.squareFeet} />
           ) : null}
         </div>
 
