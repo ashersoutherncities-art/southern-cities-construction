@@ -544,9 +544,12 @@ export default function DealDeskApp() {
             </div>
           ) : null}
 
-          {result ? (
-            <DealAnalyzer arv={result.mao.arv} rehab={result.mao.rehab} squareFeet={result.squareFeet} />
-          ) : null}
+          <DealAnalyzer
+            key={result ? `${result.address}-${Math.round(result.mao.arv)}` : 'blank'}
+            arv={result?.mao.arv ?? 0}
+            rehab={result?.mao.rehab ?? 0}
+            squareFeet={result?.squareFeet ?? 0}
+          />
         </div>
 
         {/* History sidebar */}

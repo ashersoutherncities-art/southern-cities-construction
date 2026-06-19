@@ -55,7 +55,7 @@ export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; 
     <div style={{ marginTop: 18, background: '#fff', border: '1px solid #e8dfd4', borderRadius: 16, padding: 22 }}>
       <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 900 }}>Full deal analysis</h3>
       <p style={{ margin: '0 0 14px', fontSize: 12.5, color: '#6b7280' }}>
-        Pre-filled from your snapshot. Adjust any number and the metrics update live.
+        Enter your numbers — or run a snapshot above to auto-fill ARV + rehab. Flip the toggle to <strong>New Build</strong> for ground-up deals. Everything recalculates live.
       </p>
 
       {/* Mode toggle */}
