@@ -84,6 +84,23 @@ const homeownerServices: AvatarPageData = {
     'Cleaner permit handling and less confusion.',
     'Stronger support once the work is underway.',
   ],
+  stageGroups: [
+    {
+      title: 'Before you spend',
+      intro: 'Use these when you just need a clearer, GC-backed read before more money goes into the project.',
+      serviceSlugs: ['home-assessment', 'owner-consultation', 'permit-path-review'],
+    },
+    {
+      title: 'Before you build',
+      intro: 'Use these when the project is real and you want the budget and permit path tightened before work starts.',
+      serviceSlugs: ['home-project-budget-review', 'permit-administration'],
+    },
+    {
+      title: 'While the work is happening',
+      intro: 'Use this when the job is underway and you want a licensed NC GC keeping it on scope, on budget, and accountable.',
+      serviceSlugs: ['construction-oversight'],
+    },
+  ],
   fixed: [
     {
       slug: 'home-assessment',
