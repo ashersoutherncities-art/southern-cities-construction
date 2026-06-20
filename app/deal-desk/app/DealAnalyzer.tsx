@@ -29,19 +29,24 @@ export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; 
   function up<K extends keyof DealInputs>(key: K, value: DealInputs[K]) {
     setInputs((p) => ({ ...p, [key]: value }));
   }
-  // number field bound to inputs[key]; `scale` 100 shows a fraction as a percent.
-  function Num({ label, k, scale = 1, step }: { label: string; k: NumericKey; scale?: number; step?: number }) {
+  // Free-text numeric field (no spinner arrows; type a full number). Shows empty
+  // when the value is 0 so you don't have to clear a leading "0". `scale` of 100
+  // displays a stored fraction (e.g. 0.15) as a percent (15).
+  function Num({ label, k, scale = 1 }: { label: string; k: NumericKey; scale?: number }) {
     const raw = inputs[k];
+    const display = raw === 0 ? '' : String(Math.round(raw * scale * 100) / 100);
     return (
       <label style={{ display: 'block' }}>
         <span style={labelStyle}>{label}</span>
         <input
-          type="number"
-          step={step}
-          value={Number.isFinite(raw) ? Math.round(raw * scale * 100) / 100 : 0}
+          type="text"
+          inputMode="decimal"
+          value={display}
+          placeholder="0"
           onChange={(e) => {
-            const v = (Number(e.target.value) || 0) / scale;
-            setInputs((p) => ({ ...p, [k]: v }));
+            const cleaned = e.target.value.replace(/[^0-9.]/g, '');
+            const num = cleaned === '' ? 0 : Number(cleaned);
+            setInputs((p) => ({ ...p, [k]: (Number.isFinite(num) ? num : 0) / scale }));
           }}
           style={inputStyle}
         />
