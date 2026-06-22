@@ -852,6 +852,28 @@ const realtorServices: AvatarPageData = {
     'Stronger client confidence.',
     'Better transaction and listing momentum.',
   ],
+  stageGroups: [
+    {
+      title: 'When you are taking a listing',
+      intro: 'Use these before the listing goes live, when a GC-backed read on condition, repairs, and budget helps you price it right and win the client.',
+      serviceSlugs: ['pre-listing-construction-valuation', 'pre-listing-budget-prep-review', 'year-one-repair-plan', 'construction-confidence-sheet', 'listing-transaction-package'],
+    },
+    {
+      title: 'When you are under contract',
+      intro: 'Use these when an inspection, an offer, or a buyer decision needs a fast, credible construction answer so the deal keeps moving.',
+      serviceSlugs: ['inspection-response', 'realtor-inspection-review', 'gc-grade-property-inspection', 'negotiation-strategy-read', 'multi-offer-construction-read', 'buyer-transaction-package'],
+    },
+    {
+      title: 'When repairs or credits are on the table',
+      intro: 'Use these when the repair scope, the credit number, or the appraisal response needs to be written down clearly enough to hold up in negotiation.',
+      serviceSlugs: ['repair-credit-letter', 'appraisal-response-letter', 'repair-scope-letter', 'repair-verification-visit'],
+    },
+    {
+      title: 'When the repairs actually have to get done',
+      intro: 'Use these when work genuinely has to happen before closing and you want a licensed GC managing the prep, not your client chasing trades.',
+      serviceSlugs: ['listing-prep-project-management', 'listing-prep-coordination'],
+    },
+  ],
   fixed: [
     {
       slug: 'inspection-response',
@@ -1304,6 +1326,18 @@ const contractorServices: AvatarPageData = {
     'More office support without full-time payroll.',
     'Better coordination when active jobs start feeling stretched.',
   ],
+  stageGroups: [
+    {
+      title: 'When permits and inspections are the bottleneck',
+      intro: 'Use these when filings, corrections, and inspection scheduling keep pulling you off the field — hand the paperwork to a licensed GC office.',
+      serviceSlugs: ['permit-administration', 'inspection-scheduling-support'],
+    },
+    {
+      title: 'When active jobs need back-office and oversight help',
+      intro: 'Use these when the job load is heavier than your office can carry and you want admin and coordination support without adding payroll.',
+      serviceSlugs: ['admin-support-for-active-jobs', 'construction-oversight-support'],
+    },
+  ],
   priced: [
     {
       slug: 'permit-administration',
@@ -1477,6 +1511,18 @@ const developerServices: AvatarPageData = {
     'More realistic scope and budget thinking.',
     'Better coordination and steadier follow-through.',
     'Cleaner follow-through on active residential work.',
+  ],
+  stageGroups: [
+    {
+      title: 'Before you commit capital',
+      intro: 'Use these when scope, permits, and budget still feel loose and a GC-grade read should pressure-test the project before the money moves.',
+      serviceSlugs: ['project-review', 'budget-scope-review'],
+    },
+    {
+      title: 'Once the project is moving',
+      intro: 'Use this when active residential work needs tighter permit handling and steadier construction oversight than it has now.',
+      serviceSlugs: ['permit-administration-construction-oversight'],
+    },
   ],
   review: [
     {

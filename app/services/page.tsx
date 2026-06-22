@@ -288,6 +288,9 @@ export default function ServicesOverviewPage() {
               <a href="/recurring-support" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
                 See Support Plans
               </a>
+              <a href="/services/all" className="inline-flex min-h-[56px] items-center justify-center gap-2 text-sm font-bold text-white/80 underline-offset-4 transition-colors hover:text-[#fa8c41] hover:underline">
+                See all services &amp; pricing <span aria-hidden="true">→</span>
+              </a>
             </div>
           </div>
         </div>
