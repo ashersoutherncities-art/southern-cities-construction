@@ -16,7 +16,7 @@ type FounderStoryProps = {
 };
 
 /**
- * Canonical "anti-guru / $100K origin / Most GCs won't" founder story.
+ * Canonical license-backed "Most GCs won't" trust story (company voice).
  * Single source of truth — replaces the block that was copy-pasted across
  * /deal-pack, /services/wholesalers, /services/realtors, /services/investors.
  * NC GC License #107724 is included here to satisfy the every-piece rule.
@@ -27,7 +27,7 @@ export default function FounderStory({
   wedge = 'review a deal you don’t own yet',
   cta,
   eyebrow = 'Why trust this',
-  heading = 'Anti-guru. License-backed. Across NC.',
+  heading = 'License-backed. Built across North Carolina.',
 }: FounderStoryProps) {
   const dark = theme === 'dark';
   const bodyColor = dark ? 'text-white/80' : 'text-stone-700';
@@ -39,18 +39,18 @@ export default function FounderStory({
       <h2 className={`mt-4 text-3xl font-black tracking-[-0.025em] sm:text-4xl ${strongColor}`}>{heading}</h2>
       <div className={`mt-8 space-y-5 text-[16px] leading-[1.65] ${bodyColor}`}>
         <p>
-          I&rsquo;m not a real estate guru. I&rsquo;m Darius T. Walton &mdash; a licensed North Carolina General
-          Contractor (License #107724) and the founder of Southern Cities Construction.
+          Southern Cities Construction is a licensed North Carolina General Contractor &mdash; License #107724 &mdash;
+          not a coaching brand or a course. Every number is backed by an active license and real jobsites across North
+          Carolina.
         </p>
         <p>
-          I built {productName} because I lost over $100K on my own real estate investing deals when I first got into
-          the industry 8 years ago &mdash; bad budget assumptions, the wrong sub network, missed permit timelines. The
-          execution mistakes I made are exactly the mistakes I now help NC wholesalers, realtors, and investors avoid.
+          We built {productName} out of hard-won execution experience: the budget assumptions, sub-network gaps, and
+          permit timelines that quietly sink real estate deals. Those are exactly the execution mistakes we now help NC
+          wholesalers, realtors, and investors avoid.
         </p>
         <p>
           <strong className={strongColor}>Most GCs won&rsquo;t {wedge}.</strong> We will. That&rsquo;s the wedge &mdash;
-          and it&rsquo;s why a licensed GC&rsquo;s verification opens buyer pools and outcomes that an unverified deal
-          can&rsquo;t reach.
+          a licensed GC&rsquo;s verification opens buyer pools and outcomes that an unverified deal can&rsquo;t reach.
         </p>
       </div>
       {cta && (
