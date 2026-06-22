@@ -77,6 +77,22 @@ export const DEFAULT_ESTIMATE_RULES: EstimateRuleRecord[] = [
   { rule_name: 'allowance-structural', category: 'scope_line', condition_json: { field: 'structural', label: 'Structural work allowance' }, low_value: 8000, high_value: 28000, unit: 'flat', active: true },
   { rule_name: 'allowance-siding', category: 'scope_line', condition_json: { field: 'siding', label: 'Siding' }, low_value: 8000, high_value: 22000, unit: 'flat', active: true },
 
+  // Line-item allowances for the lighter trades. These are summed directly for
+  // light scopes (cosmetic / rental_turn / moderate) instead of a whole-house
+  // per-SF base — so selecting a few items prices those items, not the house.
+  // per_sf values are multiplied by square footage in the engine.
+  { rule_name: 'allowance-flooring', category: 'scope_line', condition_json: { field: 'flooring', label: 'Flooring' }, low_value: 3, high_value: 5.5, unit: 'per_sf', active: true },
+  { rule_name: 'allowance-paint', category: 'scope_line', condition_json: { field: 'cosmetic_paint', label: 'Interior paint' }, low_value: 1.5, high_value: 3, unit: 'per_sf', active: true },
+  { rule_name: 'allowance-drywall', category: 'scope_line', condition_json: { field: 'drywall', label: 'Drywall repair' }, low_value: 2000, high_value: 8000, unit: 'flat', active: true },
+  { rule_name: 'allowance-kitchen-refresh', category: 'scope_line', condition_json: { field: 'kitchen_refresh', label: 'Kitchen refresh' }, low_value: 3500, high_value: 9000, unit: 'flat', active: true },
+  { rule_name: 'allowance-bathroom-refresh', category: 'scope_line', condition_json: { field: 'bathroom_refresh_count', label: 'Bathroom refresh' }, low_value: 3000, high_value: 6500, unit: 'per_item', active: true },
+  { rule_name: 'allowance-plumbing-partial', category: 'scope_line', condition_json: { field: 'plumbing_partial', label: 'Partial plumbing' }, low_value: 2500, high_value: 7000, unit: 'flat', active: true },
+  { rule_name: 'allowance-electrical-partial', category: 'scope_line', condition_json: { field: 'electrical_partial', label: 'Partial electrical' }, low_value: 2500, high_value: 7000, unit: 'flat', active: true },
+  { rule_name: 'allowance-layout-changes', category: 'scope_line', condition_json: { field: 'layout_changes', label: 'Layout changes (non-structural)' }, low_value: 5000, high_value: 15000, unit: 'flat', active: true },
+  { rule_name: 'allowance-exterior', category: 'scope_line', condition_json: { field: 'exterior_work', label: 'Exterior work' }, low_value: 3000, high_value: 12000, unit: 'flat', active: true },
+  { rule_name: 'allowance-landscaping', category: 'scope_line', condition_json: { field: 'landscaping', label: 'Landscaping' }, low_value: 1500, high_value: 6000, unit: 'flat', active: true },
+  { rule_name: 'allowance-driveway', category: 'scope_line', condition_json: { field: 'driveway', label: 'Driveway' }, low_value: 3000, high_value: 9000, unit: 'flat', active: true },
+
   { rule_name: 'timeline-permit-high', category: 'timeline_risk', condition_json: { permit_complexity: 'high', label: 'Permit complexity high' }, low_value: 4, high_value: 12, unit: 'weeks', active: true },
   { rule_name: 'timeline-structural', category: 'timeline_risk', condition_json: { any_fields: ['framing', 'structural', 'foundation'], label: 'Framing, structural, or foundation work' }, low_value: 4, high_value: 16, unit: 'weeks', active: true },
   { rule_name: 'timeline-damage', category: 'timeline_risk', condition_json: { any_fields: ['fire_damage', 'water_damage'], label: 'Fire or water damage' }, low_value: 3, high_value: 10, unit: 'weeks', active: true },

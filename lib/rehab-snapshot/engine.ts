@@ -301,6 +301,7 @@ const STRUCTURAL_FLAT_FIELDS = new Set(['framing', 'foundation', 'structural']);
 function buildScopeLineItems(
   rules: EstimateRuleRecord[],
   scope: RehabSnapshotScopeInput,
+  squareFeet: number,
   suppressSystemFlats = false
 ) {
   const rows: EstimateBreakdownRow[] = [];
@@ -315,6 +316,16 @@ function buildScopeLineItems(
     if (suppressSystemFlats && !STRUCTURAL_FLAT_FIELDS.has(field)) continue;
 
     const rawValue = scope[field as keyof RehabSnapshotScopeInput];
+
+    if (rule.unit === 'per_sf' && rawValue === true && squareFeet > 0) {
+      rows.push({
+        label: String(condition.label || rule.rule_name),
+        low: rule.low_value * squareFeet,
+        high: rule.high_value * squareFeet,
+        notes: `${squareFeet.toLocaleString()} sf`,
+      });
+    }
+
     if (rule.unit === 'flat' && rawValue === true) {
       rows.push({
         label: String(condition.label || rule.rule_name),
@@ -552,44 +563,49 @@ export function computeEstimate(
   const permitComplexity = inferPermitComplexity(projectCategory, input.scope);
   const executionDifficulty = inferExecutionDifficulty(projectCategory, input.scope);
 
-  const baseLow =
-    input.project.square_feet *
-    baseCostRule.low_value *
-    finishMultiplier.low_value *
-    ageMultiplier.low_value *
-    marketTier.multiplierLow;
-  const baseHigh =
-    input.project.square_feet *
-    baseCostRule.high_value *
-    finishMultiplier.high_value *
-    ageMultiplier.high_value *
-    marketTier.multiplierHigh;
+  const sfForCalc = input.project.square_feet || 0;
+  const mLow = finishMultiplier.low_value * ageMultiplier.low_value * marketTier.multiplierLow;
+  const mHigh = finishMultiplier.high_value * ageMultiplier.high_value * marketTier.multiplierHigh;
 
-  const breakdown: EstimateBreakdownRow[] = [
-    {
-      label: 'Base category pricing',
-      low: baseLow,
-      high: baseHigh,
-      notes: `${formatProjectCategoryLabel(projectCategory)} at ${input.project.target_finish_level.replace(/_/g, ' ')} finish level · ${marketTier.label} market`,
-    },
-  ];
-
-  // Avoid double-counting: heavy / gut / structural / addition per-SF bases
-  // already embed major systems (kitchen, baths, roof, HVAC, electrical,
-  // plumbing). Adding the flat scope allowances on top of those bases — and
-  // then multiplying by finish/age/region — produced implausibly high tops.
-  // Only add discrete flat allowances for the lighter categories where the
-  // per-SF base does NOT already include that work.
+  // Heavy / gut / structural / addition = a comprehensive reno of the whole
+  // house, so a per-SF base (anchored to real SCC jobs) is the right model.
+  // Light scopes are summed line-by-line so a few items don't get priced like
+  // a whole-house renovation.
   const baseEmbedsSystems =
     projectCategory === 'heavy_rehab' ||
     projectCategory === 'full_gut' ||
     projectCategory === 'structural_heavy' ||
     projectCategory === 'addition';
-  // For heavy+ categories, suppress SYSTEM flats (embedded in base) but STILL
-  // add structural-shell flats (framing/foundation/structural) — those are
-  // genuine lump-sum add-ons the per-SF base does not cover.
-  const scopeRows = buildScopeLineItems(rules, input.scope, baseEmbedsSystems);
-  breakdown.push(...scopeRows);
+
+  const breakdown: EstimateBreakdownRow[] = [];
+
+  if (baseEmbedsSystems) {
+    // Whole-house per-SF base + structural-shell flats (framing/foundation/
+    // structural) which the base does not cover. System flats are suppressed
+    // (embedded in the base) to avoid double-counting.
+    breakdown.push({
+      label: 'Base category pricing',
+      low: sfForCalc * baseCostRule.low_value * mLow,
+      high: sfForCalc * baseCostRule.high_value * mHigh,
+      notes: `${formatProjectCategoryLabel(projectCategory)} at ${input.project.target_finish_level.replace(/_/g, ' ')} finish level · ${marketTier.label} market`,
+    });
+    breakdown.push(...buildScopeLineItems(rules, input.scope, sfForCalc, true));
+  } else {
+    // LIGHT (cosmetic / rental_turn / moderate / unknown): sum the actual
+    // selected items — NO whole-house base. A small general-conditions
+    // allowance covers mobilization, cleanup, doors/trim/hardware, and PM.
+    const GEN_LOW_PER_SF = 2;
+    const GEN_HIGH_PER_SF = 4;
+    breakdown.push({
+      label: 'General conditions',
+      low: sfForCalc * GEN_LOW_PER_SF * mLow,
+      high: sfForCalc * GEN_HIGH_PER_SF * mHigh,
+      notes: 'Mobilization, cleanup, doors/trim/hardware, project management',
+    });
+    for (const row of buildScopeLineItems(rules, input.scope, sfForCalc, false)) {
+      breakdown.push({ ...row, low: row.low * mLow, high: row.high * mHigh });
+    }
+  }
 
   let subtotalLow = breakdown.reduce((sum, row) => sum + row.low, 0);
   let subtotalHigh = breakdown.reduce((sum, row) => sum + row.high, 0);
@@ -614,7 +630,7 @@ export function computeEstimate(
     input.scope.addition;
 
   const contingencyLow = subtotalLow * 0.05;
-  const contingencyHigh = subtotalHigh * 0.12;
+  const contingencyHigh = subtotalHigh * (baseEmbedsSystems ? 0.12 : 0.08);
   breakdown.push({
     label: 'Execution contingency',
     low: contingencyLow,
