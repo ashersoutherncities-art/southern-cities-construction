@@ -74,6 +74,7 @@ type PlacesNS = {
     fetchAutocompleteSuggestions: (req: {
       input: string;
       includedRegionCodes?: string[];
+      locationBias?: unknown;
       sessionToken?: unknown;
     }) => Promise<{ suggestions: NewSuggestion[] }>;
   };
@@ -181,6 +182,9 @@ export default function DealDeskApp() {
         const res = await ns.AutocompleteSuggestion!.fetchAutocompleteSuggestions({
           input: value.trim(),
           includedRegionCodes: ['us'],
+          // Bias to North Carolina so small-town NC addresses (e.g. Elizabeth
+          // City) rank above more prominent same-named streets elsewhere.
+          locationBias: { north: 36.59, south: 33.75, east: -75.4, west: -84.4 },
           sessionToken: sessionTokenRef.current,
         });
         setSuggestions((res.suggestions || []).slice(0, 5));
@@ -393,9 +397,8 @@ export default function DealDeskApp() {
                 <button
                   type="button"
                   onClick={onLookup}
-                  disabled={lookupLoading || (googleOn && !addressValidated)}
-                  title={googleOn && !addressValidated ? 'Pick your address from the dropdown first' : undefined}
-                  style={{ whiteSpace: 'nowrap', background: NAVY, color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0 16px', cursor: lookupLoading || (googleOn && !addressValidated) ? 'default' : 'pointer', opacity: googleOn && !addressValidated ? 0.5 : 1 }}
+                  disabled={lookupLoading}
+                  style={{ whiteSpace: 'nowrap', background: NAVY, color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '0 16px', cursor: lookupLoading ? 'default' : 'pointer' }}
                 >
                   {lookupLoading ? 'Looking…' : 'Look up'}
                 </button>
@@ -417,8 +420,8 @@ export default function DealDeskApp() {
             {googleOn ? (
               <p style={{ margin: '0 0 10px', fontSize: 12, color: addressValidated ? '#1a7f37' : '#6b7280' }}>
                 {addressValidated
-                  ? '✓ Address verified — click Look up to auto-fill the property details.'
-                  : 'Start typing and pick your address from the suggestions to verify it.'}
+                  ? '✓ Address verified — Look up to auto-fill property details.'
+                  : 'Pick a Google suggestion to verify — or just type the full address and hit Look up.'}
               </p>
             ) : null}
             {lookupMsg ? <p style={{ margin: '0 0 10px', fontSize: 12.5, color: '#6b7280' }}>{lookupMsg}</p> : null}
