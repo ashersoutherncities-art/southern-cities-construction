@@ -74,7 +74,7 @@ type PlacesNS = {
     fetchAutocompleteSuggestions: (req: {
       input: string;
       includedRegionCodes?: string[];
-      locationBias?: unknown;
+      locationRestriction?: unknown;
       sessionToken?: unknown;
     }) => Promise<{ suggestions: NewSuggestion[] }>;
   };
@@ -182,9 +182,10 @@ export default function DealDeskApp() {
         const res = await ns.AutocompleteSuggestion!.fetchAutocompleteSuggestions({
           input: value.trim(),
           includedRegionCodes: ['us'],
-          // Bias to North Carolina so small-town NC addresses (e.g. Elizabeth
-          // City) rank above more prominent same-named streets elsewhere.
-          locationBias: { north: 36.59, south: 33.75, east: -75.4, west: -84.4 },
+          // HARD-restrict to the North Carolina bounding box so out-of-state
+          // matches (e.g. "7 Tanglewood Dr" in Yarmouth, MA) can't appear at
+          // all — only NC addresses are suggested.
+          locationRestriction: { north: 36.59, south: 33.75, east: -75.4, west: -84.4 },
           sessionToken: sessionTokenRef.current,
         });
         setSuggestions((res.suggestions || []).slice(0, 5));
