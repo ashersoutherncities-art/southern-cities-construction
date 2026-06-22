@@ -20,6 +20,7 @@ export default function TermsPage() {
             <p>Information on this website is provided for general business and service information. Submission of a form, application, or purchase request does not by itself create a contractor-client relationship for a full project scope.</p>
             <p>Project scopes, pricing, timelines, and contract obligations are finalized only through direct review, written approval, and executed project documents where required.</p>
             <p>Digital resources, consultations, and paid services sold through this website are subject to the specific scope and delivery terms attached to that service.</p>
+            <p>By opting in through a website form, you agree that Southern Cities Construction may contact you by phone or SMS about your inquiry, scheduling, service updates, and related project communication. Message and data rates may apply. Message frequency varies. Reply STOP to opt out. Reply HELP for help. Consent is not a condition of purchase.</p>
             <p>Southern Cities Construction may update website content, pricing, offerings, and availability without notice.</p>
           </div>
         </div>

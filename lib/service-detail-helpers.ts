@@ -41,7 +41,7 @@ export function getServiceNextStepCopy(service: ServiceCardData) {
 
 export function getServiceRequestIntro(service: ServiceCardData) {
   if (service.purchaseType === 'priced') {
-    return 'Share a few project details so Southern Cities can price this the honest way.';
+    return 'Share a few project details so Southern Cities can give you a real, honest price for the work.';
   }
 
   if (service.purchaseType === 'review') {

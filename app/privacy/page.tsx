@@ -20,6 +20,8 @@ export default function PrivacyPage() {
             <p>Southern Cities Construction collects contact and project information you submit through this website so we can respond to inquiries, review projects, process purchases, and manage client onboarding.</p>
             <p>We may store your name, email, phone number, project details, billing details, and related submission data in our internal systems and service providers.</p>
             <p>We do not sell your personal information. We may share information with service providers involved in payments, hosting, CRM, portal delivery, and project communication when needed to operate the business.</p>
+            <p>If you opt in to receive text messages from Southern Cities Construction, we may use your phone number to send conversational and service-related SMS messages about your inquiry, scheduling, project updates, and support requests. Message and data rates may apply. Message frequency varies. Reply STOP to opt out. Reply HELP for help.</p>
+            <p>SMS consent is not shared with third parties or affiliates for their marketing purposes.</p>
             <p>If you need to update or request deletion of your information, contact us through the website or email the business directly.</p>
           </div>
         </div>
