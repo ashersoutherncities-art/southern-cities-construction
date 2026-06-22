@@ -19,12 +19,6 @@ type RoadmapLane = {
   destination: string;
 };
 
-type ProcessStep = {
-  label: string;
-  services: string[];
-  tone: 'start' | 'info' | 'build' | 'control' | 'finish';
-};
-
 const roleMeta: Record<
   RoleKey,
   {
@@ -146,39 +140,6 @@ const roadmapLanes: RoadmapLane[] = [
   },
 ];
 
-const roadmapToneStyles = {
-  start: {
-    dot: 'bg-[#ff6b6b]',
-    ring: 'ring-[#ff6b6b]/20',
-    panel: 'border-[#ff6b6b]/18 bg-[#fff6f6]',
-    chip: 'border-[#ff6b6b]/18',
-  },
-  info: {
-    dot: 'bg-[#4aa3ff]',
-    ring: 'ring-[#4aa3ff]/20',
-    panel: 'border-[#4aa3ff]/18 bg-[#f5faff]',
-    chip: 'border-[#4aa3ff]/18',
-  },
-  build: {
-    dot: 'bg-[#41c96b]',
-    ring: 'ring-[#41c96b]/20',
-    panel: 'border-[#41c96b]/18 bg-[#f4fff7]',
-    chip: 'border-[#41c96b]/18',
-  },
-  control: {
-    dot: 'bg-[#8b6df2]',
-    ring: 'ring-[#8b6df2]/20',
-    panel: 'border-[#8b6df2]/18 bg-[#f8f6ff]',
-    chip: 'border-[#8b6df2]/18',
-  },
-  finish: {
-    dot: 'bg-[#d9a441]',
-    ring: 'ring-[#d9a441]/20',
-    panel: 'border-[#d9a441]/18 bg-[#fffaf0]',
-    chip: 'border-[#d9a441]/18',
-  },
-};
-
 const guidedProblems: Record<ProblemKey, { label: string; roles: RoleKey[]; buying: BuyingKey[]; note: string }> = {
   permits: {
     label: 'Permit problems',
@@ -222,13 +183,6 @@ export default function ServicesOverviewPage() {
   const [activeRole, setActiveRole] = useState<RoleKey>('homeowners');
   const [activeBuying, setActiveBuying] = useState<BuyingKey>('pricing');
   const [activeProblem, setActiveProblem] = useState<ProblemKey>('permits');
-  const [activeProcessStep, setActiveProcessStep] = useState<Record<RoleKey, number>>({
-    homeowners: 0,
-    investors: 0,
-    realtors: 0,
-    contractors: 0,
-    developers: 0,
-  });
   const activeRoleCard = roleMeta[activeRole];
   const filteredCards = useMemo(() => {
     return avatarOverviewCards.filter((card) => {
@@ -530,121 +484,38 @@ export default function ServicesOverviewPage() {
           </div>
 
           <div className="mt-10 space-y-6">
-            {roadmapLanes.map((lane) => {
-              const steps: ProcessStep[] = [
-                ...lane.stops,
-                { label: 'What you get', services: [lane.destination], tone: 'finish' },
-              ];
-              const currentIndex = activeProcessStep[lane.roleKey] ?? 0;
-              const currentStep = steps[currentIndex];
-              const currentTone = roadmapToneStyles[currentStep.tone];
-
-              return (
-                <div key={lane.avatar} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:border-orange/30 hover:shadow-[0_28px_80px_rgba(15,23,42,0.10)] sm:p-8">
-                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                    <div className="max-w-xl text-left">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{lane.avatar}</p>
-                      <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-navy">{lane.start}</h3>
-                    </div>
-                    <Link href={lane.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
-                      See {lane.avatar} Services
-                    </Link>
+            {roadmapLanes.map((lane) => (
+              <div key={lane.avatar} className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:border-orange/30 sm:p-8">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="max-w-xl text-left">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{lane.avatar}</p>
+                    <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-navy">{lane.start}</h3>
                   </div>
-
-                  <div className="mt-8 rounded-[28px] border border-stone-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 sm:p-7">
-                    <div className="pb-2 sm:pb-4">
-                      <div className="hidden min-w-[760px] lg:min-w-0 sm:block">
-                        <div className="flex items-center justify-between gap-0 px-2">
-                          {steps.map((step, index) => {
-                            const tone = roadmapToneStyles[step.tone];
-                            const active = currentIndex === index;
-                            const complete = index < currentIndex;
-                            return (
-                              <div key={step.label} className="flex flex-1 items-center last:flex-none">
-                                <button
-                                  type="button"
-                                  onMouseEnter={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
-                                  onFocus={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
-                                  onClick={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
-                                  className="group relative flex flex-col items-center text-center"
-                                >
-                                  <span className={`flex h-14 w-14 items-center justify-center rounded-full border-4 border-white text-base font-extrabold text-white shadow-[0_14px_30px_rgba(15,23,42,0.14)] ring-8 transition-all duration-300 ${tone.dot} ${active ? `${tone.ring} scale-110` : 'ring-transparent'} ${complete ? 'opacity-100' : ''}`}>
-                                    {index === steps.length - 1 ? '✓' : index + 1}
-                                  </span>
-                                  <span className={`mt-3 max-w-[132px] text-[13px] font-semibold leading-tight transition-colors ${active ? 'text-navy' : 'text-stone-600 group-hover:text-navy'}`}>
-                                    {step.label}
-                                  </span>
-                                </button>
-                                {index < steps.length - 1 && (
-                                  <div className="mx-3 h-[2px] flex-1 min-w-[42px] bg-[linear-gradient(90deg,rgba(15,23,42,0.22),rgba(15,23,42,0.08))]" />
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 grid gap-3 sm:hidden">
-                      {steps.map((step, index) => {
-                        const tone = roadmapToneStyles[step.tone];
-                        const active = currentIndex === index;
-                        return (
-                          <button
-                            key={step.label}
-                            type="button"
-                            onClick={() => setActiveProcessStep((prev) => ({ ...prev, [lane.roleKey]: index }))}
-                            className={`rounded-[20px] border px-4 py-4 text-left transition-all ${tone.panel} ${active ? 'shadow-[0_18px_45px_rgba(15,23,42,0.08)] ring-2 ring-orange/20' : 'bg-white'}`}
-                          >
-                            <div className="flex items-start gap-3">
-                              <span className={`mt-0.5 flex h-8 w-8 items-center justify-center rounded-full text-sm font-extrabold text-white ${tone.dot}`}>
-                                {index === steps.length - 1 ? '✓' : index + 1}
-                              </span>
-                              <div>
-                                <p className="text-sm font-extrabold text-navy">{step.label}</p>
-                                <div className="mt-2 flex flex-wrap gap-2">
-                                  {step.services.map((service) => (
-                                    <span key={service} className={`inline-flex rounded-full border bg-white px-2.5 py-1 text-[11px] font-semibold text-navy ${tone.chip}`}>
-                                      {service}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    <div className={`mt-6 rounded-[26px] border p-5 sm:p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] transition-all duration-300 ${currentTone.panel}`}>
-                      <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-                        <div className="max-w-2xl">
-                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">
-                            {currentIndex === steps.length - 1 ? 'Result' : `Step ${currentIndex + 1}`}
-                          </p>
-                          <h4 className="mt-2 text-2xl font-extrabold tracking-tight text-navy">{currentStep.label}</h4>
-                          <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
-                            {currentIndex === steps.length - 1
-                              ? lane.destination
-                              : 'Tap each step to see where this kind of project usually needs help next.'}
-                          </p>
-                        </div>
-                        <div className="lg:min-w-[220px] lg:max-w-[260px]">
-                          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-stone-500">Services that fit here</p>
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            {currentStep.services.map((service) => (
-                              <span key={service} className={`inline-flex rounded-full border bg-white px-3 py-1 text-[12px] font-semibold text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)] ${currentTone.chip}`}>
-                                {service}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Link href={lane.href} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+                    See {lane.avatar} Services
+                  </Link>
                 </div>
-              );
-            })}
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {lane.stops.map((stop) => (
+                    <div key={stop.label} className="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+                      <p className="text-sm font-bold leading-snug text-navy">{stop.label}</p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {stop.services.map((service) => (
+                          <span key={service} className="inline-flex rounded-full border border-stone-200 bg-white px-2.5 py-1 text-[12px] font-semibold text-navy">
+                            {service}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-2xl border border-orange/20 bg-orange/[0.05] px-4 py-3">
+                  <p className="text-[15px] leading-relaxed text-stone-700">
+                    <span className="font-bold text-navy">What you get:</span> {lane.destination}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

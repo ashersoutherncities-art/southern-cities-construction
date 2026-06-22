@@ -6,68 +6,6 @@ import SiteFooter from '@/components/SiteFooter';
 import { ServiceBucket } from '@/components/services/ServiceBucket';
 import { AvatarPageData, ServiceCardData } from '@/lib/services-data';
 
-type RoadmapStep = {
-  label: string;
-  bucket: 'fixed' | 'priced' | 'review' | 'recurring';
-  tone: 'start' | 'info' | 'build' | 'finish';
-};
-
-const roadmapBySlug: Record<string, RoadmapStep[]> = {
-  homeowners: [
-    { label: 'Buy a clear first step', bucket: 'fixed', tone: 'start' },
-    { label: 'Get pricing direction before spending', bucket: 'priced', tone: 'info' },
-    { label: 'Request permit or job review when scope is bigger', bucket: 'review', tone: 'build' },
-  ],
-  investors: [
-    { label: 'Buy a cleaner decision first', bucket: 'fixed', tone: 'start' },
-    { label: 'Price the deal or turn from real inputs', bucket: 'priced', tone: 'info' },
-    { label: 'Request review for lender, bid, or oversight work', bucket: 'review', tone: 'build' },
-    { label: 'Use recurring support across repeat files', bucket: 'recurring', tone: 'finish' },
-  ],
-  realtors: [
-    { label: 'Buy a fast inspection read', bucket: 'fixed', tone: 'start' },
-    { label: 'Get prep pricing direction before listing', bucket: 'priced', tone: 'info' },
-    { label: 'Request review for broader listing coordination', bucket: 'review', tone: 'build' },
-    { label: 'Use recurring support across deals and listings', bucket: 'recurring', tone: 'finish' },
-  ],
-  contractors: [
-    { label: 'Price permit and inspection support', bucket: 'priced', tone: 'start' },
-    { label: 'Request review for admin or oversight support', bucket: 'review', tone: 'build' },
-    { label: 'Use recurring office support when the same burden keeps repeating', bucket: 'recurring', tone: 'finish' },
-  ],
-  'developers-landowners': [
-    { label: 'Request early project review before bigger money moves', bucket: 'review', tone: 'start' },
-    { label: 'Request permit and oversight review for active work', bucket: 'review', tone: 'build' },
-    { label: 'Use recurring project-control support across repeat files', bucket: 'recurring', tone: 'finish' },
-  ],
-};
-
-const bucketTone: Record<RoadmapStep['bucket'], string> = {
-  fixed: 'Buy now',
-  priced: 'Get pricing',
-  review: 'Request review',
-  recurring: 'Monthly support',
-};
-
-const roadmapToneStyles = {
-  start: {
-    dot: 'bg-[#ff6b6b]',
-    pin: 'border-t-[#ff6b6b]',
-  },
-  info: {
-    dot: 'bg-[#4aa3ff]',
-    pin: 'border-t-[#4aa3ff]',
-  },
-  build: {
-    dot: 'bg-[#41c96b]',
-    pin: 'border-t-[#41c96b]',
-  },
-  finish: {
-    dot: 'bg-[#8b6df2]',
-    pin: 'border-t-[#8b6df2]',
-  },
-};
-
 export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -127,7 +65,6 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
     }
   };
 
-  const roadmap = roadmapBySlug[data.slug] || [];
   const firstFixed = data.fixed?.[0];
   const firstPriced = data.priced?.[0];
   const firstReview = data.review?.[0];
@@ -222,59 +159,6 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
           </div>
         </div>
       </section>
-
-      {roadmap.length ? (
-        <section className="border-b border-stone-200 bg-stone-50 py-16 sm:py-20">
-          <div className="container-pro">
-            <div className="max-w-4xl">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">How to buy from this page</p>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-                Most clients move through the offers in this order.
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-stone-700 sm:text-lg">
-                Start with the smallest step that fits the decision you need to make. Move into pricing, review, or monthly support only when the work really calls for it.
-              </p>
-            </div>
-            <div className="mt-8 overflow-hidden rounded-[28px] border border-stone-200 bg-[radial-gradient(circle_at_15%_20%,rgba(255,179,71,0.08),transparent_18%),radial-gradient(circle_at_70%_30%,rgba(74,163,255,0.08),transparent_16%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
-              <div className="relative overflow-x-auto pb-4">
-                <div className="relative w-full min-w-[1100px] px-6 py-6 lg:min-w-0">
-                  <svg className="pointer-events-none absolute left-0 top-10 h-[220px] w-full" viewBox="0 0 1200 220" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 34 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#111111" strokeWidth="34" strokeLinecap="round" />
-                    <path d="M0 110C75 110 75 34 150 34C225 34 225 186 300 186C375 186 375 34 450 34C525 34 525 186 600 186C675 186 675 34 750 34C825 34 825 186 900 186C975 186 975 34 1050 34C1125 34 1125 110 1200 110" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.95" />
-                  </svg>
-
-                  <div className={`relative grid items-start gap-6 2xl:gap-8 ${roadmap.length === 3 ? 'grid-cols-3' : 'grid-cols-4'}`}>
-                    {roadmap.map((step, index) => {
-                      const tone = roadmapToneStyles[step.tone];
-                      const topClass = index % 2 === 0 ? 'pt-[108px]' : 'pt-0';
-                      const pinOffset = index % 2 === 0 ? 'top-[76px]' : 'top-0';
-                      return (
-                        <div key={step.label} className={`relative ${topClass}`}>
-                          <div className={`absolute left-1/2 ${pinOffset} z-10 -translate-x-1/2 transition-transform duration-500 hover:scale-110`}>
-                            <div className="relative h-[98px] w-[74px]">
-                              <div className={`absolute left-1/2 top-0 flex h-[60px] w-[60px] -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white ${tone.dot} text-xl font-extrabold text-white shadow-[0_16px_30px_rgba(15,23,42,0.18)]`}>
-                                {index + 1}
-                              </div>
-                              <div className={`absolute left-1/2 top-[44px] h-0 w-0 -translate-x-1/2 border-l-[18px] border-r-[18px] border-t-[36px] border-l-transparent border-r-transparent ${tone.pin}`} />
-                            </div>
-                          </div>
-
-                          <div className="mt-[118px] rounded-[24px] border border-white/80 bg-white/94 px-4 py-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
-                            <span className="inline-flex rounded-full border border-stone-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-navy shadow-[0_6px_20px_rgba(15,23,42,0.06)]">
-                              {bucketTone[step.bucket]}
-                            </span>
-                            <h3 className="mt-3 text-[22px] font-extrabold leading-tight tracking-tight text-navy">{step.label}</h3>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null}
 
       {data.stageGroups?.length ? (
         <section id="services" className="bg-white py-20 sm:py-24">
