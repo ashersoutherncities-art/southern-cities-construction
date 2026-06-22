@@ -1655,7 +1655,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     deliverable: [
       { heading: 'Itemized repair costs', items: ['Foundation crack investigation + repair: $4,800', 'HVAC replacement (2010 unit): $11,200', 'Roof: 18+ years, replace not repair: $18,500', 'Knob-and-tube remnants update: $4,200'] },
       { heading: 'Recommended total credit', items: ['Total: $38,700', 'Recommended ask range: $34,000–38,000', 'Walk-away threshold: below $28,000'] },
-      { heading: 'GC sign-off', items: ['Reviewed and signed by Darius T. Walton, NC GC License #107724'] },
+      { heading: 'GC sign-off', items: ['Reviewed and signed by a licensed NC General Contractor — NC GC License #107724'] },
     ],
     processSteps: [
       { title: 'Send the inspection report', detail: 'Email the PDF + property address + which side you\'re representing.' },
@@ -1731,7 +1731,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     deliverable: [
       { heading: 'Item 1: HVAC replacement', items: ['Scope: Replace 2010 York 3-ton condensing unit + matching coil', 'Standard: 16-SEER min, licensed HVAC contractor, NC inspection', 'Estimated cost: $11,200', 'Permit required: Yes — mechanical permit'] },
       { heading: 'Item 2: Knob-and-tube remnants', items: ['Scope: Remove all remaining knob-and-tube wiring in attic + replace with modern Romex', 'Standard: Licensed electrician, NC electrical inspection', 'Estimated cost: $4,200', 'Permit required: Yes — electrical permit'] },
-      { heading: 'GC sign-off', items: ['Reviewed and signed by Darius T. Walton, NC GC License #107724'] },
+      { heading: 'GC sign-off', items: ['Reviewed and signed by a licensed NC General Contractor — NC GC License #107724'] },
     ],
     processSteps: [
       { title: 'Send the inspection report', detail: 'Email the PDF + property address. Highlight which items you want included in the repair request.' },
@@ -1885,7 +1885,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     deliverable: [
       { heading: 'Concern 1: Roof visible wear', items: ['Appraiser noted "visible wear, repair or replace required"', 'Site inspection confirms: shingles 12 years old, 15-year warranty', 'No active leaks, no missing tabs, no flashing failures', 'Recommendation: no repair required, appraiser to remove condition'] },
       { heading: 'Concern 2: Peeling paint, exterior', items: ['Appraiser noted "peeling paint south elevation — FHA repair required"', 'Confirmed: minor peel under 4 sq ft, no lead concern (post-1978 construction)', 'Scope: scrape, prime, paint — $400–600 cost', 'Recommendation: seller to complete prior to closing, GC verification available'] },
-      { heading: 'GC sign-off', items: ['Reviewed and signed by Darius T. Walton, NC GC License #107724'] },
+      { heading: 'GC sign-off', items: ['Reviewed and signed by a licensed NC General Contractor — NC GC License #107724'] },
     ],
     processSteps: [
       { title: 'Send the appraisal + property address', detail: 'Email the appraisal PDF + any photos you have. We schedule a same-week site visit if needed.' },
@@ -2186,7 +2186,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     deliverable: [
       { heading: 'Property strengths', items: ['Roof: 2019 architectural shingle, 25-year warranty', 'HVAC: 2021 16-SEER, transferable warranty', 'Electrical: 2018 panel upgrade, GFCI throughout', 'Plumbing: PEX repipe completed 2017'] },
       { heading: 'Known items (proactive disclosure)', items: ['Original windows (1985) — original to construction, functional', 'Crawlspace moisture barrier — original, replacement recommended in 0–3 years', 'Driveway sealcoat — last applied 2020, due 2025'] },
-      { heading: 'Verified by', items: ['Darius T. Walton, NC GC License #107724'] },
+      { heading: 'Verified by', items: ['A licensed NC General Contractor — NC GC License #107724'] },
     ],
     processSteps: [
       { title: 'Order with Pre-Listing Valuation (free)', detail: 'Auto-generated from your valuation data — no extra step.' },

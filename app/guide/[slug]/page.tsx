@@ -41,8 +41,8 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     bestFor:
       'NC wholesalers averaging $5K–$20K assignment fees who want to break the $10K ceiling by attracting real end-investors (not other wholesalers) to their assignments.',
     credibilityLines: [
-      'I\'m not a real estate guru. I\'m a licensed NC General Contractor (#107724) running actual jobsites across NC — my name is on the license, so if the work\'s wrong, NC can pull it. Coaches don\'t have that downside.',
-      'I built the Deal Pack because I lost over $100K on my own real estate investing deals 8 years ago — bad budget assumptions, the wrong sub network, missed permit timelines. The framework in this PDF is tuition I paid that you don\'t have to.',
+      'Southern Cities Construction is a licensed NC General Contractor (#107724) running actual jobsites across NC — not a coaching brand or a course. The license is on the line, so the work has to be right.',
+      'The Deal Pack was built from hard-won execution experience — the budget assumptions, sub-network gaps, and permit timelines that quietly cost real estate investors money. The framework in this PDF is the shortcut past those mistakes.',
       'Most GCs won\'t review a deal you don\'t own yet. We will, because the wholesale-deal-pre-LOI walk is the most defensible thing a licensed NC GC can do for the investor market.',
     ],
     submitLabel: 'Get the $25–40K Assignment Playbook — Free',
@@ -67,8 +67,8 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     bestFor:
       'NC wholesalers averaging $25K+ assignment fees who feel they\'ve outgrown wholesaling and want to evolve into flippers without taking on the construction risk themselves.',
     credibilityLines: [
-      'I\'m Darius T. Walton — licensed NC General Contractor #107724 — and I built this entire platform because I tried to do exactly what Marcus did, 8 years ago, without a GC license or a sub network. I lost over $100K before I figured out the actual playbook.',
-      'The Execution Review and Active Oversight are the products I wish I\'d had when I was making those mistakes. They\'re the reason a wholesaler-to-flipper transition now takes 9 months with Southern Cities instead of 3 years on your own.',
+      'Southern Cities Construction is a licensed NC General Contractor (#107724) that built this platform after seeing how a wholesaler-to-flipper transition goes sideways without a GC license or a sub network — the same execution gaps that cost investors six figures.',
+      'The Execution Review and Active Oversight exist to close exactly those execution gaps. They\'re the reason a wholesaler-to-flipper transition now takes 9 months with Southern Cities instead of 3 years on your own.',
       'Most GCs won\'t co-pilot a wholesaler\'s first flip. We will. That\'s the wedge — and the reason this 9-month path is reproducible across NC.',
     ],
     submitLabel: 'Get the $104K Case Study — Free',
@@ -93,8 +93,8 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     bestFor:
       'NC real estate investors actively underwriting deals — flippers, BRRRR operators, small portfolio builders — who want to know which execution risks are hiding in the property before earnest money goes hard.',
     credibilityLines: [
-      "I'm not a real estate guru. I'm a licensed NC General Contractor (#107724) running actual jobsites across NC — my name is on the license, so if the work's wrong, NC can pull it. Coaches don't have that downside.",
-      "I built this because I lost over $100K on my own investing deals when I first got into real estate 8 years ago — bad budget assumptions, wrong labor multipliers, missed permit timelines. The 9 risks in this PDF are tuition I paid that you don't have to.",
+      "Southern Cities Construction is a licensed NC General Contractor (#107724) running actual jobsites across NC — not a coaching brand or a course. The license is on the line, so the read has to be right.",
+      "This was built from real execution experience — the budget assumptions, labor multipliers, and permit timelines that quietly cost investors money. The 9 risks in this PDF are the shortcut past those mistakes.",
       "Most GCs won't review a deal you don't own yet. We will, because we know exactly what costs investors money.",
     ],
     submitLabel: 'Get the 9-Risk PDF — Free',

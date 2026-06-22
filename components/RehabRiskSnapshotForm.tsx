@@ -440,11 +440,11 @@ export default function RehabRiskSnapshotForm() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <FieldLabel>First name *</FieldLabel>
-                <Input name="first_name" required placeholder="Darius" defaultValue={contact.first_name} />
+                <Input name="first_name" required placeholder="First name" defaultValue={contact.first_name} />
               </div>
               <div>
                 <FieldLabel>Last name *</FieldLabel>
-                <Input name="last_name" required placeholder="Walton" defaultValue={contact.last_name} />
+                <Input name="last_name" required placeholder="Last name" defaultValue={contact.last_name} />
               </div>
               <div>
                 <FieldLabel>Email *</FieldLabel>
