@@ -505,9 +505,8 @@ export default function DealDeskApp() {
               {[
                 ['After-Repair Value (ARV)', money(result.mao.arv)],
                 ['Less: estimated rehab', `- ${money(result.mao.rehab)}`],
-                ['Less: buyer profit', `- ${money(result.mao.buyerProfit)}`],
-                ['Less: holding + closing', `- ${money(result.mao.holdingClosing)}`],
-                ['Less: assignment fee', `- ${money(result.mao.assignmentFee)}`],
+                [`Less: target profit (${Math.round((result.mao.buyerProfit / (result.mao.arv || 1)) * 100)}% of ARV)`, `- ${money(result.mao.buyerProfit)}`],
+                ['Less: selling costs (6% + closing)', `- ${money(result.mao.holdingClosing)}`],
               ].map(([l, v]) => (
                 <div key={l} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, padding: '4px 0', borderBottom: '1px solid #f1ece4' }}>
                   <span>{l}</span>

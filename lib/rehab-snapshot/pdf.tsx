@@ -166,11 +166,11 @@ function MaoSection({ mao }: { mao: MaoResult }) {
         <Text style={styles.rowValue}>- {currency(mao.rehab)}</Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.rowLabel}>Less: buyer profit</Text>
+        <Text style={styles.rowLabel}>Less: target profit</Text>
         <Text style={styles.rowValue}>- {currency(mao.buyerProfit)}</Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.rowLabel}>Less: holding + closing</Text>
+        <Text style={styles.rowLabel}>Less: selling costs (6% + closing)</Text>
         <Text style={styles.rowValue}>- {currency(mao.holdingClosing)}</Text>
       </View>
       <View style={styles.row}>

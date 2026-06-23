@@ -4,6 +4,7 @@ import {
   MaoResult,
   ReconciledValuation,
 } from '@/lib/avm/types';
+import { targetProfitPctForArv } from '@/lib/deal-desk/dealmath';
 
 // ──────────────────────────────────────────────────────────────────────────
 // MAO business assumptions — TUNE THESE to SCC's actual buyer network.
@@ -13,8 +14,8 @@ import {
 // ──────────────────────────────────────────────────────────────────────────
 export const DEFAULT_MAO_CONFIG: MaoConfig = {
   buyerProfitPct: Number(process.env.MAO_BUYER_PROFIT_PCT ?? 0.15), // buyer's net profit, % of ARV
-  holdingClosingPct: Number(process.env.MAO_HOLDING_CLOSING_PCT ?? 0.1), // closing+holding+finance, % of ARV
-  assignmentFee: Number(process.env.MAO_ASSIGNMENT_FEE ?? 10000), // wholesaler's flat cut
+  holdingClosingPct: Number(process.env.MAO_HOLDING_CLOSING_PCT ?? 0.07), // selling costs (6% brokerage + ~1% closing), % of ARV
+  assignmentFee: Number(process.env.MAO_ASSIGNMENT_FEE ?? 0), // assignment handled explicitly in the deal analyzer
   ruleOfThumbPct: Number(process.env.MAO_RULE_OF_THUMB_PCT ?? 0.7), // classic "70% rule" cross-check
 };
 
@@ -82,7 +83,7 @@ export function computeMao(
 ): MaoResult {
   const { arv, confidence, recommendCma, notes } = valuation;
 
-  const buyerProfit = Math.round(arv * config.buyerProfitPct);
+  const buyerProfit = Math.round(arv * targetProfitPctForArv(arv));
   const holdingClosing = Math.round(arv * config.holdingClosingPct);
   const mao = Math.round(arv - rehab - buyerProfit - holdingClosing - config.assignmentFee);
   const maoRuleOfThumb = Math.round(arv * config.ruleOfThumbPct - rehab - config.assignmentFee);

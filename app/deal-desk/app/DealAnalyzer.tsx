@@ -101,8 +101,9 @@ export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; 
         <Num label="Buy-side closing" k="buyClosing" />
         <Num label="Sell closing %" k="sellClosingPct" />
         <Num label="Brokerage %" k="brokeragePct" />
-        <Num label="Target profit % of ARV" k="targetProfitPct" scale={100} />
-        <Num label="Target profit floor $" k="targetProfitMin" />
+        <div style={{ gridColumn: '1 / -1', fontSize: 12, color: '#6b7280', alignSelf: 'center' }}>
+          Target profit auto-set by ARV tier: <strong>15%</strong> under $200k · <strong>10%</strong> $200–300k · <strong>5%</strong> above $300k.
+        </div>
       </div>
 
       {/* Financing */}

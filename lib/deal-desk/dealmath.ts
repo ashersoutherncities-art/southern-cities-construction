@@ -80,6 +80,7 @@ export type DealMetrics = {
 
   // max offer for the target profit
   targetProfit: number;
+  targetProfitPct: number;
   mao: number;
 
   // new build extras
@@ -90,6 +91,15 @@ export type DealMetrics = {
 };
 
 const pct = (n: number, d: number) => (d > 0 ? n / d : 0);
+
+// Target net profit as a % of ARV, tiered by ARV band. Cheaper homes need a
+// fatter % (thin $ otherwise); pricier homes can accept a thinner % since the
+// dollar profit is still large.
+export function targetProfitPctForArv(arv: number): number {
+  if (arv < 200000) return 0.15;
+  if (arv < 300000) return 0.1;
+  return 0.05;
+}
 
 export function computeDeal(i: DealInputs): DealMetrics {
   const construction =
@@ -135,8 +145,10 @@ export function computeDeal(i: DealInputs): DealMetrics {
   const breakevenSalePrice = sellPct < 1 ? fixedCosts / (1 - sellPct) : fixedCosts;
   const marginOfSafetyPct = pct(i.arv - breakevenSalePrice, i.arv);
 
-  // Max Allowable Offer: highest acquisition price that still nets the target profit.
-  const targetProfit = Math.max(i.arv * i.targetProfitPct, i.targetProfitMin);
+  // Max Allowable Offer: highest acquisition price that still nets the ARV-tiered
+  // target profit.
+  const targetProfitPct = targetProfitPctForArv(i.arv);
+  const targetProfit = i.arv * targetProfitPct;
   const mao =
     i.arv * (1 - sellPct) -
     (construction + holdingCarry + financingInterest + points + i.buyClosing + assignment + builderRisk) -
@@ -145,9 +157,11 @@ export function computeDeal(i: DealInputs): DealMetrics {
   const buildPerSf = pct(construction, i.squareFeet);
   const arvPerSf = pct(i.arv, i.squareFeet);
 
+  // Verdict is relative to the ARV-tiered target: meets/beats it = STRONG,
+  // profitable but under = THIN, loses money = PASS.
   const netMarginPct = pct(netProfit, i.arv);
   const verdict: DealMetrics['verdict'] =
-    netProfit <= 0 || netMarginPct < 0.06 ? 'pass' : netMarginPct < 0.12 ? 'thin' : 'strong';
+    netProfit <= 0 ? 'pass' : netMarginPct >= targetProfitPct ? 'strong' : 'thin';
 
   return {
     acquisition: i.acquisition,
@@ -178,6 +192,7 @@ export function computeDeal(i: DealInputs): DealMetrics {
     breakevenSalePrice,
     marginOfSafetyPct,
     targetProfit,
+    targetProfitPct,
     mao,
     buildPerSf,
     arvPerSf,
