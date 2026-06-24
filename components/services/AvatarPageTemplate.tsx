@@ -152,9 +152,8 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
           <div className="rounded-[24px] border border-stone-200 bg-stone-50 px-5 py-5 shadow-elev-1">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What this page is for</p>
             <div className="mt-4 space-y-4 text-sm leading-[1.6] text-stone-700">
-              <p>This page is for people with a real project, deal, file, permit issue, listing problem, or active job question.</p>
-              <p>Use the smallest next step that fits the decision in front of you, then move into bigger support only when the work calls for it.</p>
-              <p>If the file is active or timing matters, use the review path and say that clearly.</p>
+              <p>For people with a real project, deal, permit question, or active job &mdash; not just browsing prices.</p>
+              <p>Start with the smallest step that fits the decision in front of you, and move into fuller support only when the work calls for it. If the job is already active or time-sensitive, just tell us and we&rsquo;ll point you to the right help.</p>
             </div>
           </div>
         </div>
@@ -189,7 +188,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                   : null;
 
                 return (
-                  <section key={group.title} className="rounded-[28px] border border-stone-200 bg-stone-50 p-6 sm:p-8">
+                  <section key={group.title} className="border-t border-stone-200 pt-10 first:border-t-0 first:pt-0">
                     <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">{group.title}</p>
                     <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-stone-700">{group.intro}</p>
                     <div className={isInvestorPreBuyLayout ? 'mt-6 grid gap-5 lg:grid-cols-2 lg:grid-rows-2 lg:items-stretch' : 'mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3'}>
