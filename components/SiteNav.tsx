@@ -15,21 +15,16 @@ const SERVICES_GROUP: NavGroup = {
   href: '/services',
   children: [
     { href: '/services', label: 'Services Overview' },
-    { href: '/services/homeowners', label: 'For Homeowners' },
-    { href: '/platform', label: 'For Investors — Execution Platform' },
-    { href: '/services/wholesalers', label: 'For Wholesalers' },
-    { href: '/services/realtors', label: 'For Realtors' },
-    { href: '/services/contractors', label: 'For Contractors' },
-    { href: '/services/developers-landowners', label: 'For Developers' },
+    { href: '/services/all', label: 'All Services & Pricing' },
+    { href: '/platform', label: 'Investor Execution Platform' },
   ],
 };
 
 const PRIMARY_LINKS: NavLink[] = [
   { href: '/deal-pack', label: 'Deal Pack' },
   { href: '/deal-desk', label: 'Deal Desk' },
+  { href: '/contracting', label: 'Full GC' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/contracting', label: 'Contracting' },
-  { href: '/recurring-support', label: 'Support Plans' },
   { href: '/resources', label: 'Resources' },
   { href: '/blog', label: 'Blog' },
 ];

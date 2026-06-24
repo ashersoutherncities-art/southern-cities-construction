@@ -37,6 +37,41 @@ const credentials = [
 ];
 const duplicatedCredentials = [...credentials, ...credentials];
 
+const ladderRungs = [
+  {
+    title: 'Free Rehab Snapshot',
+    badge: 'Free',
+    badgeClass: 'bg-emerald-50 text-emerald-700',
+    detail: 'A GC-calibrated rehab range and execution-risk read on any NC property — in minutes, no commitment.',
+    cta: 'Get the snapshot',
+    href: '/lp/rehab-budget-range-execution-risk-snapshot',
+  },
+  {
+    title: 'Deal Pack',
+    badge: 'From $599',
+    badgeClass: 'bg-orange-50 text-orange-700',
+    detail: 'A licensed GC walks the property and delivers a bid-ready rehab budget plus as-builts your buyers and lenders trust.',
+    cta: 'See Deal Pack',
+    href: '/deal-pack',
+  },
+  {
+    title: 'Deal Desk',
+    badge: 'Membership',
+    badgeClass: 'bg-sky-50 text-sky-700',
+    detail: 'GC-verified rehab numbers and your Max Allowable Offer on every NC deal you run — all month long.',
+    cta: 'See Deal Desk',
+    href: '/deal-desk',
+  },
+  {
+    title: 'Full GC · Owner-Controlled Build',
+    badge: 'Full service',
+    badgeClass: 'bg-stone-100 text-[#08111d]',
+    detail: 'When the deal is yours, a licensed NC GC runs the build end to end — and you keep ownership and control.',
+    cta: 'Explore full GC',
+    href: '/contracting',
+  },
+];
+
 type ProofIconType = 'review' | 'budget' | 'permit' | 'support' | 'licensed' | 'compass';
 
 const proofCards: { label: string; detail: string; tone: 'red' | 'amber' | 'rose' | 'orange' | 'navy' | 'emerald'; icon: ProofIconType }[] = [
@@ -345,6 +380,41 @@ export default function Home() {
                 >
                   {item}
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PRODUCT LADDER — how to work with us */}
+        <section id="how-to-start" className="border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">How to work with us</p>
+              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
+                Start small. Scale into a full build.
+              </h2>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-stone-600">
+                One path, four steps — from a free GC-backed read on a deal to a licensed NC GC running the whole build.
+                Start wherever your deal is, and move up when it makes sense.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {ladderRungs.map((rung, i) => (
+                <Link
+                  key={rung.title}
+                  href={rung.href}
+                  className="group flex flex-col rounded-2xl border border-stone-200 bg-white p-7 shadow-[0_8px_24px_-12px_rgba(8,17,29,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-[#fa8c41]/50 hover:shadow-[0_20px_40px_-16px_rgba(8,17,29,0.15)]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-black uppercase tracking-[0.16em] text-stone-400">Step {i + 1}</span>
+                    <span className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${rung.badgeClass}`}>{rung.badge}</span>
+                  </div>
+                  <h3 className="mt-4 text-xl font-extrabold leading-tight tracking-tight text-[#08111d]">{rung.title}</h3>
+                  <p className="mt-2 flex-1 text-[14.5px] leading-relaxed text-stone-600">{rung.detail}</p>
+                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-[#fa8c41]">
+                    {rung.cta} <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
