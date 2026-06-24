@@ -242,7 +242,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                               ) : (
                                 <h3 className="mt-4 text-xl font-extrabold tracking-tight text-navy">{card.title}</h3>
                               )}
-                              <p className="mt-5 text-[15px] leading-[1.6] text-stone-700">{card.summary}</p>
+                              <p className="mt-4 flex-1 text-[15px] leading-[1.6] text-stone-600">{card.summary}</p>
                               {(visiblePrice || card.monthlyLimit || card.turnaround) ? (
                                 priceFormatClass === 'divider' ? (
                                   <div className="mt-6 border-t border-stone-200 pt-5 space-y-2">
@@ -267,43 +267,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
                                   </div>
                                 )
                               ) : null}
-                              {card.purchaseType === 'review' && card.details?.length ? (
-                                <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-5">
-                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What this includes</p>
-                                  <ul className="mt-3 space-y-2.5 text-sm leading-[1.6] text-navy">
-                                    {card.details.map((item) => (
-                                      <li key={item}>• {item}</li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ) : null}
-                              {card.inputsNeeded?.length ? (
-                                <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-5">
-                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What we need from you</p>
-                                  <ul className="mt-3 space-y-2.5 text-sm leading-[1.6] text-navy">
-                                    {card.inputsNeeded.map((item) => (
-                                      <li key={item}>• {item}</li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ) : null}
-                              {card.pricingLogic?.length ? (
-                                <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-5">
-                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">How this service is priced</p>
-                                  <ul className="mt-3 space-y-2.5 text-sm leading-[1.6] text-navy">
-                                    {card.pricingLogic.map((item) => (
-                                      <li key={item}>• {item}</li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ) : null}
-                              {card.nextStep ? (
-                                <div className="mt-6 rounded-2xl border border-orange/20 bg-orange/5 px-4 py-5">
-                                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">What happens next</p>
-                                  <p className="mt-3 text-sm font-semibold leading-[1.6] text-navy">{card.nextStep}</p>
-                                </div>
-                              ) : null}
-                              <div className="mt-10 pt-1">
+                              <div className="mt-7 pt-1">
                                 <a href={card.purchaseType === 'fixed' ? card.detailHref : (card.ctaHref || card.detailHref)} className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                                   {card.cta}
                                 </a>
