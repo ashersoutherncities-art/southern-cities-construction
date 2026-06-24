@@ -294,7 +294,7 @@ export default function RealtorsPage() {
         <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[#fa8c41]/[0.08] blur-[120px]" />
         <div className="container-pro relative z-10">
           <div className="mx-auto max-w-4xl">
-            <div className="rounded-[28px] border border-[#fa8c41]/40 bg-gradient-to-br from-[#0a1428] via-[#0e1f3e] to-[#0a1428] p-8 sm:p-12 shadow-[0_30px_80px_-20px_rgba(245,130,32,0.35)]">
+            <div className="rounded-[28px] border border-[#fa8c41]/40 bg-gradient-to-br from-[#0a1428] via-[#0e1f3e] to-[#0a1428] p-8 sm:p-12 shadow-[0_14px_34px_-18px_rgba(8,17,29,0.4)]">
               <span className="inline-flex rounded-full bg-[#fa8c41] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white">Flagship Product</span>
               <h2 className="mt-5 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl">
                 GC-Grade Property Inspection<br />+ Budget Report
@@ -336,7 +336,7 @@ export default function RealtorsPage() {
       {/* DEAL PACK FOR LISTINGS */}
       <section className="bg-gradient-to-br from-[#0a1428] via-[#0d1a30] to-[#0a1428] py-14 sm:py-18 border-t border-white/8">
         <div className="container-pro">
-          <div className="mx-auto max-w-5xl rounded-[28px] border-2 border-[#fa8c41]/40 bg-gradient-to-br from-[#fa8c41]/[0.08] via-[#fa8c41]/[0.02] to-transparent p-8 sm:p-12 shadow-[0_24px_60px_-16px_rgba(245,130,32,0.25)]">
+          <div className="mx-auto max-w-5xl rounded-[28px] border-2 border-[#fa8c41]/40 bg-gradient-to-br from-[#fa8c41]/[0.08] via-[#fa8c41]/[0.02] to-transparent p-8 sm:p-12 shadow-[0_14px_34px_-18px_rgba(8,17,29,0.4)]">
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex rounded-full bg-[#fa8c41] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">NEW · FOR LISTING AGENTS</span>
               <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/55">Rehab-needed listings · investor-buyer pools</span>
@@ -467,7 +467,7 @@ export default function RealtorsPage() {
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {supportTiers.map((tier) => (
-              <div key={tier.title} className={`rounded-3xl border p-7 sm:p-8 ${tier.highlighted ? 'border-[#fa8c41]/60 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] shadow-[0_30px_60px_-20px_rgba(245,130,32,0.25)]' : 'border-white/10 bg-white/[0.03]'}`}>
+              <div key={tier.title} className={`rounded-3xl border p-7 sm:p-8 ${tier.highlighted ? 'border-[#fa8c41]/60 bg-gradient-to-br from-[#0e1c30] via-[#142840] to-[#0e1c30] shadow-[0_14px_34px_-18px_rgba(8,17,29,0.4)]' : 'border-white/10 bg-white/[0.03]'}`}>
                 {tier.badge ? (
                   <p className="inline-flex rounded-full bg-[#fa8c41] px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white">{tier.badge}</p>
                 ) : null}
