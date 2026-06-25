@@ -66,8 +66,6 @@ export const SITE_CONFIG = {
       '5 years in business · Charlotte, NC · Statewide NC coverage',
     /** Years in business (for JSON-LD foundingDate computation) */
     yearsInBusiness: 5,
-    /** Average client rating (for trust badges) */
-    avgRating: '4.9',
     /** Average review turnaround */
     reviewTurnaround: '2-day',
     /** Service area */

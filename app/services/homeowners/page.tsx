@@ -32,7 +32,7 @@ const gallery = [
   { title: 'Historic waterfront district home transformation', image: '/gallery/red-house-after.jpg' },
 ];
 
-const trust = ['Licensed NC GC #107724', 'Fully insured', 'Charlotte HQ · statewide NC', '5 years in business', '120+ projects', '4.9★ client rating'];
+const trust = ['Licensed NC GC #107724', 'Fully insured', 'Charlotte HQ · statewide NC', '5 years in business', '120+ projects'];
 
 type HomeService = {
   slug: string;

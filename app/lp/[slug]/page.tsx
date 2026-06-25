@@ -88,7 +88,7 @@ type LandingPageConfig = {
 
 const SHARED_TRUST_STATS = [
   { value: '120+', label: 'Investors served' },
-  { value: '4.9★', label: 'Avg client rating' },
+  { value: '5 yrs', label: 'In business' },
   { value: '2-day', label: 'Avg turnaround' },
   { value: 'NC GC', label: 'Licensed in NC' },
 ];

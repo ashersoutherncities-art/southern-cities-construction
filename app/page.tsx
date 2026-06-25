@@ -23,7 +23,7 @@ const galleryPreview = [
 
 const trustStats = [
   { value: '120+', label: 'Investors & owners served' },
-  { value: '4.9★', label: 'Avg client rating' },
+  { value: '5 yrs', label: 'In business' },
   { value: '2-day', label: 'Avg review turnaround' },
   { value: 'NC GC', label: 'Licensed in NC' },
 ];

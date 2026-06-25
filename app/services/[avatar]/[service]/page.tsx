@@ -412,8 +412,8 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-stone-500">Investors served</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">4.9★</p>
-              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-stone-500">Avg client rating</p>
+              <p className="text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">5 yrs</p>
+              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-stone-500">In business</p>
             </div>
             <div className="text-center">
               <p className="text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">2-day</p>
