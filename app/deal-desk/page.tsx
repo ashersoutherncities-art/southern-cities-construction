@@ -95,6 +95,7 @@ export default function DealDeskPage() {
                 <p style={{ fontSize: 14, lineHeight: 1.55, color: '#374151', minHeight: 66 }}>{tier.blurb}</p>
                 <ul style={{ fontSize: 13, lineHeight: 1.7, paddingLeft: 18, margin: '4px 0 18px' }}>
                   <li>{tier.snapshotLimit == null ? 'Unlimited' : tier.snapshotLimit} snapshots / month</li>
+                  {tier.overagePriceUsd ? <li>then ${tier.overagePriceUsd} per extra snapshot — charged to your card, no upgrade</li> : null}
                   <li>{tier.usePremiumAvm ? 'Dual independent valuation cross-check' : 'Market-comp valuation screen'}</li>
                   <li>{tier.cmaCreditsPerMonth > 0 ? `${tier.cmaCreditsPerMonth} SC Realty CMA credit / mo` : 'CMA available as add-on'}</li>
                 </ul>
@@ -127,7 +128,10 @@ export default function DealDeskPage() {
             <div><strong style={{ color: NAVY }}>2. Click your link</strong><br />The link <em>is</em> your login — no password to set or remember. Bookmark the page it opens.</div>
             <div><strong style={{ color: NAVY }}>3. It renews itself</strong><br />Every billing cycle we email you a fresh link automatically, with your snapshots reset for the new month.</div>
           </div>
-          <p style={{ margin: '14px 0 0', fontSize: 13, color: '#6b7280' }}>
+          <p style={{ margin: '16px 0 0', fontSize: 13.5, color: NAVY, fontWeight: 600, lineHeight: 1.55 }}>
+            Out of snapshots before your cycle resets? Keep going — additional snapshots are billed per snapshot at your plan&apos;s rate (Starter $20, Active $12) to the card on file, no upgrade required. Pro is unlimited.
+          </p>
+          <p style={{ margin: '10px 0 0', fontSize: 13, color: '#6b7280' }}>
             Your link is private to your membership and tied to your snapshot allowance — don&apos;t share it. Need a fresh one anytime? Enter your email below.
           </p>
         </div>
