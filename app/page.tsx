@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import RealDeals from '@/components/RealDeals';
 import FaqItem from '@/components/landing/FaqItem';
 import LpLeadForm from '@/components/LpLeadForm';
 import FaqJsonLd from '@/components/seo/FaqJsonLd';
@@ -419,6 +420,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* REAL DEALS — real NC case studies (proof) */}
+        <RealDeals />
 
         {/* PROOF CARDS — LP problem-card style with gradient icons */}
         <section className="bg-stone-50">
