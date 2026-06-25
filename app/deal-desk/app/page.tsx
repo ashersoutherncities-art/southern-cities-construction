@@ -113,6 +113,8 @@ export default function DealDeskApp() {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ mao: MaoResult; remaining: number | null; delivered: boolean; address: string; squareFeet: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [overage, setOverage] = useState<{ priceUsd: number } | null>(null);
+  const [lastPayload, setLastPayload] = useState<Record<string, unknown> | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [lookupMsg, setLookupMsg] = useState<string | null>(null);
   const [lookupLoading, setLookupLoading] = useState(false);
@@ -286,13 +288,54 @@ export default function DealDeskApp() {
     }
   }
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function submitSnapshot(payload: Record<string, unknown>, acceptOverage: boolean) {
     if (!token) return;
     setSubmitting(true);
     setError(null);
-    setResult(null);
+    if (!acceptOverage) {
+      setResult(null);
+      setOverage(null);
+    }
+    try {
+      const res = await fetch('/api/deal-desk/snapshot', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...payload, accept_overage: acceptOverage }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        if (res.status === 402 && data.error === 'overage_required') {
+          setOverage({ priceUsd: Number(data.overage_price_usd) || 0 });
+          return;
+        }
+        const map: Record<string, string> = {
+          limit_reached: "You've used all your snapshots for this billing period. Upgrade or wait for your next renewal.",
+          card_declined: 'The card on file was declined. Update your payment method in Stripe and try again.',
+          no_payment_method: 'No card on file for your subscription. Update your payment method and try again.',
+          expired: 'Your membership period has lapsed. Please check your billing.',
+          inactive: 'Your membership is not active.',
+          not_found: 'No active membership found for your link.',
+          invalid_or_expired_link: 'This link is invalid or expired. Request a fresh one from the Deal Desk page.',
+          valuation_unavailable: "We couldn't pull a market value for that address. Try the ARV override or order a CMA.",
+        };
+        setError(map[data.reason] || map[data.error] || data.detail || 'Something went wrong.');
+        setOverage(null);
+      } else {
+        setOverage(null);
+        const proj = (payload.project ?? {}) as { property_address?: string; square_feet?: number };
+        setResult({ ...data, address: proj.property_address ?? '', squareFeet: Number(proj.square_feet ?? 0) });
+        loadHistory(token);
+      }
+    } catch {
+      setError('Network error — please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!token) return;
     const fd = new FormData(e.currentTarget);
     const get = (k: string) => String(fd.get(k) ?? '');
     const project = {
@@ -315,40 +358,16 @@ export default function DealDeskApp() {
     scope.bathroom_full_count = Number(get('bathroom_full_count') || 0);
     scope.notes = get('notes');
     const arvRaw = get('arv');
-
-    try {
-      const res = await fetch('/api/deal-desk/snapshot', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          token,
-          first_name: get('first_name'),
-          last_name: get('last_name'),
-          project,
-          scope,
-          arv: arvRaw ? Number(arvRaw) : undefined,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        const map: Record<string, string> = {
-          limit_reached: "You've used all your snapshots for this billing period. Upgrade or wait for your next renewal.",
-          expired: 'Your membership period has lapsed. Please check your billing.',
-          inactive: 'Your membership is not active.',
-          not_found: 'No active membership found for your link.',
-          invalid_or_expired_link: 'This link is invalid or expired. Request a fresh one from the Deal Desk page.',
-          valuation_unavailable: "We couldn't pull a market value for that address. Try the ARV override or order a CMA.",
-        };
-        setError(map[data.reason] || map[data.error] || data.detail || 'Something went wrong.');
-      } else {
-        setResult({ ...data, address: project.property_address, squareFeet: project.square_feet });
-        loadHistory(token);
-      }
-    } catch {
-      setError('Network error — please try again.');
-    } finally {
-      setSubmitting(false);
-    }
+    const payload = {
+      token,
+      first_name: get('first_name'),
+      last_name: get('last_name'),
+      project,
+      scope,
+      arv: arvRaw ? Number(arvRaw) : undefined,
+    };
+    setLastPayload(payload);
+    await submitSnapshot(payload, false);
   }
 
   if (token === null) {
@@ -490,6 +509,36 @@ export default function DealDeskApp() {
           {error ? (
             <div style={{ marginTop: 18, background: '#fde8e8', border: '1px solid #f5b5b5', borderRadius: 12, padding: 16, color: '#c0392b', fontSize: 14 }}>
               {error}
+            </div>
+          ) : null}
+
+          {overage ? (
+            <div style={{ marginTop: 18, background: '#fff6ee', border: '1px solid #f6c89a', borderRadius: 12, padding: 16 }}>
+              <div style={{ fontWeight: 800, color: '#b25a18', fontSize: 15, marginBottom: 6 }}>
+                You&apos;re out of included snapshots this period
+              </div>
+              <div style={{ color: '#7a4a1d', fontSize: 13.5, lineHeight: 1.5, marginBottom: 12 }}>
+                Keep going — additional snapshots are ${overage.priceUsd} each, charged to the card on file (the same card as
+                your subscription). Your plan doesn&apos;t change.
+              </div>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => lastPayload && submitSnapshot(lastPayload, true)}
+                  disabled={submitting}
+                  style={{ background: '#fa8c41', color: '#fff', fontWeight: 800, border: 'none', borderRadius: 10, padding: '11px 18px', cursor: submitting ? 'default' : 'pointer', opacity: submitting ? 0.6 : 1 }}
+                >
+                  {submitting ? 'Charging…' : `Get another snapshot — $${overage.priceUsd}`}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOverage(null)}
+                  disabled={submitting}
+                  style={{ background: 'transparent', color: '#7a4a1d', fontWeight: 700, border: '1px solid #e8c9a8', borderRadius: 10, padding: '11px 18px', cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           ) : null}
 

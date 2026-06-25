@@ -5,8 +5,9 @@ import { renderSnapshotPdf } from '@/lib/rehab-snapshot/pdf';
 import { sendSnapshotEmail } from '@/lib/rehab-snapshot/email';
 import { resolveMao, maoFromArv } from '@/lib/avm';
 import { verifyAccessToken } from '@/lib/deal-desk/token';
-import { getMemberByEmail, checkEligibility, consumeSnapshot } from '@/lib/deal-desk/members';
+import { getMemberByEmail, checkEligibility, consumeSnapshot, type DealDeskMember } from '@/lib/deal-desk/members';
 import { DEAL_DESK_TIERS } from '@/lib/deal-desk/tiers';
+import { overagePriceCents, overagePriceUsd, chargeSnapshotOverage } from '@/lib/deal-desk/overage';
 import type {
   RehabSnapshotProjectInput,
   RehabSnapshotScopeInput,
@@ -49,6 +50,7 @@ export async function POST(req: NextRequest) {
     scope?: Record<string, unknown>;
     arv?: number;
     arvSource?: 'member' | 'cma';
+    accept_overage?: boolean;
   };
   try {
     body = await req.json();
@@ -68,10 +70,29 @@ export async function POST(req: NextRequest) {
 
   const member = await getMemberByEmail(supabase, verified.email);
   const eligibility = checkEligibility(member);
-  if (!eligibility.ok) {
+
+  let overageCharged = false;
+  let activeMember: DealDeskMember;
+  if (eligibility.ok) {
+    activeMember = eligibility.member;
+  } else if (eligibility.reason === 'limit_reached' && member && overagePriceCents() != null) {
+    // Out of included snapshots, but per-snapshot overage billing is on. Charge the
+    // card the member subscribed with (off-session) and let them keep going.
+    if (!bool(body.accept_overage)) {
+      return NextResponse.json({ error: 'overage_required', overage_price_usd: overagePriceUsd() }, { status: 402 });
+    }
+    const charge = await chargeSnapshotOverage(member);
+    if (!charge.ok) {
+      return NextResponse.json(
+        { error: charge.reason === 'no_payment_method' ? 'no_payment_method' : 'card_declined' },
+        { status: 402 }
+      );
+    }
+    overageCharged = true;
+    activeMember = member;
+  } else {
     return NextResponse.json({ error: 'not_eligible', reason: eligibility.reason }, { status: 403 });
   }
-  const activeMember = eligibility.member;
   const tier = DEAL_DESK_TIERS[activeMember.tier];
 
   // Build the typed project + scope from the request.
@@ -204,5 +225,5 @@ export async function POST(req: NextRequest) {
       ? null
       : Math.max(0, tier.snapshotLimit - (activeMember.snapshots_used + 1));
 
-  return NextResponse.json({ mao, remaining, delivered });
+  return NextResponse.json({ mao, remaining, delivered, overage_charged: overageCharged });
 }
