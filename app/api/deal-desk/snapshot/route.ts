@@ -75,11 +75,11 @@ export async function POST(req: NextRequest) {
   let activeMember: DealDeskMember;
   if (eligibility.ok) {
     activeMember = eligibility.member;
-  } else if (eligibility.reason === 'limit_reached' && member && overagePriceCents() != null) {
-    // Out of included snapshots, but per-snapshot overage billing is on. Charge the
-    // card the member subscribed with (off-session) and let them keep going.
+  } else if (eligibility.reason === 'limit_reached' && member && overagePriceCents(member.tier) != null) {
+    // Out of included snapshots, but per-snapshot overage billing is on for this tier.
+    // Charge the card the member subscribed with (off-session) and let them keep going.
     if (!bool(body.accept_overage)) {
-      return NextResponse.json({ error: 'overage_required', overage_price_usd: overagePriceUsd() }, { status: 402 });
+      return NextResponse.json({ error: 'overage_required', overage_price_usd: overagePriceUsd(member.tier) }, { status: 402 });
     }
     const charge = await chargeSnapshotOverage(member);
     if (!charge.ok) {

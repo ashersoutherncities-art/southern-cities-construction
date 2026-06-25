@@ -1,23 +1,27 @@
 import Stripe from 'stripe';
 import type { DealDeskMember } from './members';
+import { DEAL_DESK_TIERS, type DealDeskTierKey } from './tiers';
 
 // Per-snapshot overage billing for Deal Desk. Lets a Starter/Active member keep
 // pulling snapshots past their monthly cap without upgrading — each extra one is
 // charged to the SAME card they pay their subscription with, off-session.
 //
-// DORMANT until DEAL_DESK_OVERAGE_PRICE_USD is set (e.g. "15"). Unset = the old
-// hard cap (members are blocked at their limit), so deploying this changes nothing.
+// Per-tier price, env-gated: DEAL_DESK_OVERAGE_PRICE_STARTER / DEAL_DESK_OVERAGE_PRICE_ACTIVE
+// (USD, e.g. "20" / "12"). Unset for a tier = the old hard cap for that tier. Pro is
+// unlimited so overage never applies. The env var name lives on each tier in tiers.ts.
 
-export function overagePriceCents(): number | null {
-  const raw = process.env.DEAL_DESK_OVERAGE_PRICE_USD;
+export function overagePriceCents(tier: DealDeskTierKey): number | null {
+  const envVar = DEAL_DESK_TIERS[tier]?.overagePriceEnvVar;
+  if (!envVar) return null;
+  const raw = process.env[envVar];
   if (!raw) return null;
   const usd = Number(raw);
   if (!Number.isFinite(usd) || usd <= 0) return null;
   return Math.round(usd * 100);
 }
 
-export function overagePriceUsd(): number | null {
-  const cents = overagePriceCents();
+export function overagePriceUsd(tier: DealDeskTierKey): number | null {
+  const cents = overagePriceCents(tier);
   return cents == null ? null : cents / 100;
 }
 
@@ -27,7 +31,7 @@ export type OverageChargeResult =
 
 // Charge the member's saved subscription card, off-session, for one extra snapshot.
 export async function chargeSnapshotOverage(member: DealDeskMember): Promise<OverageChargeResult> {
-  const amount = overagePriceCents();
+  const amount = overagePriceCents(member.tier);
   if (amount == null) return { ok: false, reason: 'disabled' };
   if (!member.stripe_customer_id) return { ok: false, reason: 'no_payment_method' };
 

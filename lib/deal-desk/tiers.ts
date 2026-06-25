@@ -10,6 +10,7 @@ export type DealDeskTier = {
   priceUsd: number; // monthly, display only
   priceEnvVar: string; // env var holding the Stripe Price ID
   snapshotLimit: number | null; // null = unlimited
+  overagePriceEnvVar?: string; // env var holding per-snapshot overage price (USD); unset = overage off for this tier
   usePremiumAvm: boolean; // premium second-source valuation cross-check included on this tier?
   cmaCreditsPerMonth: number; // included SC Realty CMA credits
   blurb: string;
@@ -22,6 +23,7 @@ export const DEAL_DESK_TIERS: Record<DealDeskTierKey, DealDeskTier> = {
     priceUsd: 79,
     priceEnvVar: 'DEAL_DESK_PRICE_STARTER',
     snapshotLimit: 5,
+    overagePriceEnvVar: 'DEAL_DESK_OVERAGE_PRICE_STARTER',
     usePremiumAvm: false,
     cmaCreditsPerMonth: 0,
     blurb: '5 GC-verified rehab + Max Allowable Offer snapshots/mo, screened against live market comps.',
@@ -32,6 +34,7 @@ export const DEAL_DESK_TIERS: Record<DealDeskTierKey, DealDeskTier> = {
     priceUsd: 199,
     priceEnvVar: 'DEAL_DESK_PRICE_ACTIVE',
     snapshotLimit: 15,
+    overagePriceEnvVar: 'DEAL_DESK_OVERAGE_PRICE_ACTIVE',
     usePremiumAvm: true,
     cmaCreditsPerMonth: 0,
     blurb: '15 snapshots/mo + a second independent valuation cross-check + monthly deal review.',
