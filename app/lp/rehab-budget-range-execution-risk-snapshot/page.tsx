@@ -44,9 +44,9 @@ const HOW_IT_WORKS = [
 ];
 
 const DISCLAIMERS = [
-  'This is a preliminary feasibility estimate, not a quote, bid, proposal, or guaranteed construction price.',
-  'Final pricing requires scope validation, site-conditions review, contractor/vendor pricing, and a formal agreement.',
-  'Hidden conditions, permitting, market labor conditions, finish selections, and scope changes can materially affect cost.',
+  'A preliminary, GC-calibrated feasibility estimate — not a site inspection, contractor bid, proposal, or guaranteed price.',
+  'Use it to screen and underwrite a deal, not to set a final budget.',
+  'Actual cost depends on a scope walk, hidden conditions, finish selections, permitting, and current trade-labor and material pricing. A firm, GC-committed number comes from a Southern Cities Deal Pack.',
 ];
 
 function LpHeader() {

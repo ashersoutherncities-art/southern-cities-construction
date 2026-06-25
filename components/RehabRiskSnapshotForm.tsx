@@ -682,7 +682,7 @@ export default function RehabRiskSnapshotForm() {
               </button>
             </div>
             <p className="text-xs leading-relaxed text-white/40">
-              Preliminary feasibility estimate — not a quote, bid, or guaranteed price. Final pricing requires scope validation and a formal agreement.
+              A preliminary, GC-calibrated feasibility estimate — not a site inspection, bid, or guaranteed price. Use it to screen a deal, not set a final budget. A firm, GC-committed number comes from a Deal Pack.
             </p>
           </form>
         )}
