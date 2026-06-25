@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const GOOGLE_REVIEWS_URL = 'https://maps.app.goo.gl/uQ6gFGMpbZng3QL98';
+const GOOGLE_REVIEWS_URL = 'https://share.google/veMNoYTwMniCKYDD4';
 
 type Deal = {
   location: string;
