@@ -57,8 +57,9 @@ function buildHtml(args: {
           <ul style="padding-left:18px;margin:0 0 20px;color:#324155;font-size:15px;line-height:1.6;">${riskItems || '<li>Ordinary rehab variance only based on the current intake.</li>'}</ul>
           <h2 style="font-size:18px;color:#08111d;margin:22px 0 12px;">Important limitations</h2>
           <ul style="padding-left:18px;margin:0 0 20px;color:#324155;font-size:15px;line-height:1.6;">${assumptionItems}</ul>
-          <div style="border-top:1px solid #eee2d8;padding-top:16px;color:#6b7280;font-size:13px;line-height:1.6;">
-            This is a preliminary feasibility estimate. It is not a quote, bid, proposal, or guaranteed construction price. Final pricing requires scope validation, site conditions review, contractor/vendor pricing, and formal agreement. Hidden conditions, permitting, market labor conditions, finish selections, and scope changes can materially affect cost.
+          <div style="border-top:1px solid #eee2d8;padding-top:16px;color:#6b7280;font-size:12.5px;line-height:1.6;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#8a93a6;font-weight:700;margin-bottom:6px;">About this estimate</div>
+            This Rehab Budget &amp; Execution-Risk Snapshot is a preliminary, GC-calibrated feasibility estimate based only on the property details you provided. It is not a site inspection, a contractor bid, a proposal, or a guaranteed price. Actual cost depends on a physical scope review, site and hidden conditions, finish selections, permitting and jurisdiction requirements, and current trade-labor and material pricing — any of which can materially change the figures shown. Use it to screen and underwrite a deal, not to set a final budget. A firm, GC-committed number comes from a Southern Cities Deal Pack or a full scope review. Southern Cities Construction · NC GC License #107724.
           </div>
         </div>
       </div>
