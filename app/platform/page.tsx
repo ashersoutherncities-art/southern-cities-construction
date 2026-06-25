@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import RealDeals from '@/components/RealDeals';
 import { PLATFORM_STAGES } from '@/lib/investor-platform';
 
 export const metadata = {
@@ -326,6 +327,8 @@ export default function PlatformHubPage() {
           </p>
         </div>
       </section>
+
+      <RealDeals theme="dark" />
 
       {/* CTA */}
       <section className="bg-[#08111d] py-20 sm:py-24 border-t border-white/8">
