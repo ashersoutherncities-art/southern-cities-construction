@@ -40,11 +40,11 @@ const deals: Deal[] = [
     type: 'Farmhouse',
     stats: [
       { label: 'Under contract', value: '$50k' },
-      { label: 'Sold to a GC', value: '$90k' },
+      { label: 'Wholesale assignment', value: '$90k' },
       { label: 'GC rehab budget', value: '$100k' },
       { label: 'ARV', value: '$380k' },
     ],
-    result: 'Bought at $50k and assigned to a GC buyer at $90k against a $380k ARV.',
+    result: 'Under contract at $50k and assigned to a GC buyer at $90k against a $380k ARV.',
   },
 ];
 
