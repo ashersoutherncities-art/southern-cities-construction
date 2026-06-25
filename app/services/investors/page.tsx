@@ -3,6 +3,7 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import LpLeadForm from '@/components/LpLeadForm';
+import RealDeals from '@/components/RealDeals';
 
 type Product = {
   name: string;
@@ -582,6 +583,8 @@ export default function InvestorsPage() {
           </p>
         </div>
       </section>
+
+      <RealDeals />
 
       <TestimonialsCarousel testimonials={investorTestimonials} />
 

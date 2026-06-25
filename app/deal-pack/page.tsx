@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import FounderStory from '@/components/FounderStory';
+import RealDeals from '@/components/RealDeals';
 import ProductJsonLd from '@/components/seo/ProductJsonLd';
 
 // Product schema for the 4 Deal Pack tiers. Prices must match the page copy
@@ -648,6 +649,8 @@ export default function DealPackPage() {
           </div>
         </div>
       </section>
+
+      <RealDeals />
 
       {/* TRUST */}
       <section className="bg-[#0a1428] py-20 sm:py-24 border-t border-white/8">
