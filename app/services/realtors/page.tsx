@@ -79,6 +79,7 @@ const supportTiers = [
     title: 'Realtor Solo',
     price: '$299/mo',
     includes: [
+      'GC Support Specialist on call for quick questions',
       '2 inspection or listing reviews / mo',
       '1 pricing-direction question / mo',
       '24-hour response SLA',
@@ -93,6 +94,7 @@ const supportTiers = [
     title: 'Realtor Team',
     price: '$649/mo',
     includes: [
+      'GC Support Specialist on call',
       '4 inspection / listing reviews / mo',
       '2 pricing-direction questions / mo',
       'Same-day triage on urgent items',
@@ -110,7 +112,7 @@ const supportTiers = [
     price: '$2,499/mo',
     includes: [
       'Unlimited reviews + pricing direction',
-      'Dedicated Southern Cities contact',
+      'Your own dedicated GC Support Specialist',
       '4-hour urgent SLA',
       'Quarterly business review',
       'White-label client briefings',
@@ -300,7 +302,7 @@ export default function RealtorsPage() {
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Monthly support · seat ladder</p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-white sm:text-4xl">Realtor Subscription Plans</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-white/80 sm:text-lg">
-              When the same construction questions keep coming up across your active deals, a monthly plan gives you defined review capacity at a predictable cost — sized to whether you are a solo agent, a team, or a full brokerage.
+              When the same construction questions keep coming up across your active deals, a monthly plan puts a <span className="font-semibold text-white">GC Support Specialist</span> on call — your go-to for quick contracting and pricing questions, backed by a licensed NC GC who stands behind the numbers — plus defined monthly review capacity, sized to whether you are a solo agent, a team, or a full brokerage.
             </p>
           </div>
 
