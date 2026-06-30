@@ -312,7 +312,7 @@ export default function RecurringSupportPage() {
               Ongoing construction support for <span className="text-[#fa8c41]">repeat needs.</span>
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
-              These plans give repeat clients ongoing access to specific support capacity for permits, inspections, listing prep, budgeting, project coordination, and active-job decisions without starting from scratch each time.
+              Every plan puts a GC Support Specialist on call — your go-to for quick questions, backed by a licensed NC GC who stands behind the numbers — plus ongoing access to defined support capacity for permits, inspections, listing prep, budgeting, project coordination, and active-job decisions, without starting from scratch each time.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
               <Link href="/services" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
@@ -377,7 +377,7 @@ export default function RecurringSupportPage() {
             </p>
           </div>
           <div className="rounded-[28px] border border-white/12 bg-white/[0.05] p-7">
-            <div className="space-y-4 text-sm leading-relaxed text-white/82">
+            <div className="space-y-4 text-sm leading-relaxed text-white/80">
               <p><strong className="text-white">Good fit:</strong> repeat permit questions, repeat inspection follow-up, repeat project decisions, repeat admin burden, repeat support tasks.</p>
               <p><strong className="text-white">Bad fit:</strong> one custom project, undefined labor, open-ended field execution, or one-time scoping with no repeat need.</p>
             </div>
