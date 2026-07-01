@@ -29,11 +29,14 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
   }
+  const address = (body.address || '').trim();
+  const zip = (body.zip || '').trim();
+  if (!address || !zip) return NextResponse.json({ error: 'missing_address_or_zip' }, { status: 400 });
   const query: PropertyValueQuery = {
-    address: body.address,
+    address,
     city: body.city,
     state: body.state,
-    zipcode: body.zip,
+    zipcode: zip,
     propertyType: body.propertyType,
     bedrooms: body.bedrooms,
     bathrooms: body.bathrooms,
