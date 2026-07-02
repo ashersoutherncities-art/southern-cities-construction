@@ -5,6 +5,7 @@ import SiteFooter from '@/components/SiteFooter';
 import FounderStory from '@/components/FounderStory';
 import RealDeals from '@/components/RealDeals';
 import ProductJsonLd from '@/components/seo/ProductJsonLd';
+import DealPackProActions from '@/components/DealPackProActions';
 
 // Product schema for the 4 Deal Pack tiers. Prices must match the page copy
 // exactly (and the Stripe products). When tiers/prices change, update both.
@@ -39,7 +40,7 @@ const DEAL_PACK_PRODUCTS = [
   {
     name: 'Deal Pack Pro',
     description:
-      'Recurring subscription for active NC wholesalers — 2 Bid-Ready credits per month, 25% off Build-Ready upgrades, priority 2-day turnaround, and a "GC-Verified by Southern Cities #107724" co-marketing badge for every listing.',
+      'Recurring subscription for active NC wholesalers — 2 Bid-Ready credits per month, additional Bid-Readys at the $399 member rate (verified-member reorder) after that, 25% off Build-Ready upgrades, priority 2-day turnaround, and a "GC-Verified by Southern Cities #107724" co-marketing badge for every listing.',
     url: '/deal-pack',
     priceUsd: 897,
     recurrence: 'monthly' as const,
@@ -171,9 +172,10 @@ const PRO_TIER: Tier = {
   price: '$897/mo',
   priceNote: 'For wholesalers doing 2+ deals/mo',
   promise:
-    'Recurring subscription for active NC wholesalers. Includes 2 Bid-Ready credits per month + 25% off Build-Ready upgrades + priority 2-day turnaround on every request + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
+    'Recurring subscription for active NC wholesalers. Includes 2 Bid-Ready credits per month, with every additional Bid-Ready at the $399 member rate (reorder anytime as a verified member) + 25% off Build-Ready upgrades + priority 2-day turnaround on every request + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
   includes: [
     '2 Bid-Ready Deal Pack credits per month (worth $1,198)',
+    'Every additional Bid-Ready at the member rate — $399 each (verified-member reorder, below)',
     '25% off any Build-Ready Deal Pack upgrade ($499 savings each)',
     'Priority 2-day turnaround on every request (faster than one-off Build-Ready)',
     '"GC-Verified by Southern Cities #107724" co-marketing badge',
@@ -181,7 +183,9 @@ const PRO_TIER: Tier = {
     'Cancel anytime — no minimum term',
   ],
   cta: 'Subscribe to Pro · $897/mo →',
-  ctaHref: '/cart?cart=deal-pack-pro-subscription',
+  // Pro now checks out as a real subscription via <DealPackProActions />, not
+  // the cart. This href is retained only to satisfy the shared Tier type.
+  ctaHref: '#pro',
 };
 
 
@@ -504,7 +508,7 @@ export default function DealPackPage() {
           </div>
 
           {/* Pro subscription — full-width below */}
-          <div className="mt-6 rounded-2xl border border-orange/40 bg-gradient-to-br from-orange/[0.08] to-transparent p-7">
+          <div id="pro" className="mt-6 scroll-mt-24 rounded-2xl border border-orange/40 bg-gradient-to-br from-orange/[0.08] to-transparent p-7">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
               <div className="lg:max-w-2xl">
                 <span className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] ${badgeClass(PRO_TIER.badgeColor)}`}>
@@ -526,12 +530,9 @@ export default function DealPackPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href={PRO_TIER.ctaHref}
-                  className="mt-6 inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
-                >
-                  {PRO_TIER.cta}
-                </Link>
+                <div className="mt-6">
+                  <DealPackProActions />
+                </div>
               </div>
             </div>
           </div>

@@ -97,6 +97,8 @@ const nextConfig = {
       { source: '/for-realtors', destination: '/services/realtors', permanent: false },
       { source: '/for-investors', destination: '/platform', permanent: false },
       { source: '/investor-tools/rehab-budget-snapshot', destination: '/lp/rehab-budget-range-execution-risk-snapshot', permanent: false },
+      // Speakable vanity for realtor voicemail/cold-call outreach -> free Rehab Budget Snapshot tool
+      { source: '/agents', destination: '/lp/rehab-budget-range-execution-risk-snapshot', permanent: false },
       { source: '/for-homeowners', destination: '/services/homeowners', permanent: false },
       { source: '/for-contractors', destination: '/services/contractors', permanent: false },
       { source: '/for-developers', destination: '/services/developers-landowners', permanent: false },

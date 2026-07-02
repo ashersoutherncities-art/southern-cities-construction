@@ -459,7 +459,7 @@ export default function RehabRiskSnapshotForm() {
                 <Input name="company_name" placeholder="Optional" defaultValue={contact.company_name} />
               </div>
               <div>
-                <FieldLabel>Investor type *</FieldLabel>
+                <FieldLabel>What best describes you? *</FieldLabel>
                 <Select name="investor_type" required defaultValue={contact.investor_type}>
                   {INVESTOR_TYPES.map(([value, label]) => (
                     <option key={value} value={value}>
@@ -854,7 +854,7 @@ function ResultPanel({ result }: { result: ResultState }) {
 
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/45">Execution read</p>
-            <p className="mt-2 text-sm leading-7 text-white/78">{result.executionSummary}</p>
+            <p className="mt-2 text-sm leading-7 text-white/80">{result.executionSummary}</p>
           </div>
 
           <div>

@@ -5,7 +5,7 @@ import { SITE_CONFIG } from '@/lib/site-config';
 export const metadata = {
   title: 'Rehab Budget Range & Execution Risk Snapshot | Southern Cities Construction',
   description:
-    'Free per-square-foot rehab budget range for NC investors. Enter the property and scope, get a directional construction budget, market-adjusted cost/SF, execution risk flags, timeline, and next step — instantly.',
+    'Free per-square-foot rehab budget range for any North Carolina property. Enter the property and scope, get a directional construction budget, market-adjusted cost/SF, execution risk flags, timeline, and next step — instantly.',
   alternates: { canonical: '/lp/rehab-budget-range-execution-risk-snapshot' },
   // Standalone paid-ad landing page — keep it out of the main nav/footer
   // and let it be reached by direct/ad URL. Still indexable (canonical self).
@@ -14,7 +14,7 @@ export const metadata = {
     url: '/lp/rehab-budget-range-execution-risk-snapshot',
     title: 'Rehab Budget Range & Execution Risk Snapshot',
     description:
-      'Per-SF rehab budget range for NC investors — market-adjusted, with execution risk flags and timeline. Free.',
+      'Per-SF rehab budget range for any NC property — market-adjusted, with execution risk flags and timeline. Free.',
     siteName: 'Southern Cities Construction',
   },
 };
@@ -29,7 +29,7 @@ const HOW_IT_WORKS = [
   {
     n: '01',
     title: 'Tell us the property',
-    body: 'Address, square footage, year built, and the strategy you are underwriting. ZIP sets the regional cost tier.',
+    body: 'Address, square footage, year built, and the work you are planning. ZIP sets the regional cost tier.',
   },
   {
     n: '02',
@@ -137,13 +137,13 @@ export default function RehabBudgetRangeExecutionRiskSnapshotPage() {
           <div className="max-w-3xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-orange/30 bg-orange/[0.08] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-orange">
               <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-              Free tool · NC investors
+              Free tool · North Carolina
             </p>
             <h1 className="mt-5 text-4xl font-black leading-[1.03] tracking-tight sm:text-5xl lg:text-[3.4rem]">
               Know the rehab number{' '}
               <span className="text-orange">before</span> execution eats the deal.
             </h1>
-            <p className="mt-5 max-w-2xl text-[17px] leading-8 text-white/72">
+            <p className="mt-5 max-w-2xl text-[17px] leading-8 text-white/70">
               Most deals don&apos;t fail at purchase — they fail during execution. Get a fast,
               per-square-foot construction budget range built on a North Carolina market-tiered cost
               model, plus the execution risks that move the number. Built and stood behind by a

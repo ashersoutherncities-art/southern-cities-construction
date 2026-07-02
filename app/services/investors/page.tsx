@@ -604,7 +604,7 @@ export default function InvestorsPage() {
         <div className="container-pro">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Not sure where you are?</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-white/82 sm:text-lg">
+            <p className="mt-4 text-[15px] leading-relaxed text-white/80 sm:text-lg">
               Talk through your project and get direction on what to do next.
             </p>
             <div className="mt-8 flex items-center justify-center">

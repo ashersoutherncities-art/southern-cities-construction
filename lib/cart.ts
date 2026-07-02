@@ -317,9 +317,18 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     name: 'GC-Grade Property Inspection + Budget Report',
     shortName: 'GC-Grade Inspection',
     price: 89900,
-    priceLabel: '$899 standard',
-    description: 'A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier estimate: MANDATORY items (code violations + loan-killers, 5–7 day fix guarantee), HIGH-ROI items (2× return cosmetics), and DISCLOSE & SKIP (formatted as a quote for the seller to credit the buyer). The deliverable that closes deals instead of opening fights. 3–5 business day turnaround, statewide NC.',
+    priceLabel: '$899 · the GC commits to do the work at this number',
+    description: 'A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier estimate: MANDATORY items (code violations + loan-killers, 5–7 day fix guarantee), HIGH-ROI items (2× return cosmetics), and DISCLOSE & SKIP (formatted as a quote for the seller to credit the buyer). The deliverable that closes deals instead of opening fights. 3–5 business day turnaround, statewide NC. The same licensed NC GC commits to do the work at the budget we write — and your $899 Report fee credits toward the job if we do it.',
     checkoutAmount: '899',
+  },
+  'realtor-quick-read': {
+    key: 'realtor-quick-read',
+    name: 'GC Quick Read',
+    shortName: 'GC Quick Read',
+    price: 29900,
+    priceLabel: '$299 · credits toward the Full Report',
+    description: 'A licensed NC GC reads the property or the inspection report and gives you a fast, plain-English construction read: what is real, what is cosmetic, what could kill the loan, and a rough order-of-magnitude on the work. Turnaround in 1–2 business days, statewide NC. The fast screen before you commit to a full on-site GC-Grade Inspection — and your $299 credits toward that Full Report.',
+    checkoutAmount: '299',
   },
   'gc-grade-property-inspection-rush': {
     key: 'gc-grade-property-inspection-rush',
@@ -357,15 +366,10 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'NC field agent dispatched to the property for a full 3D site scan, converted into a Chief Architect as-built floorplan by our designer. Required when there are no existing plans or dimensions AND you want a high-accuracy Deal Pack rather than an SF-based estimate. 5 business day turnaround.',
     checkoutAmount: '499',
   },
-  'deal-pack-pro-subscription': {
-    key: 'deal-pack-pro-subscription',
-    name: 'Deal Pack Pro Subscription',
-    shortName: 'Deal Pack Pro',
-    price: 89700,
-    priceLabel: '$897/mo recurring',
-    description: 'For NC wholesalers doing 2+ deals/month. Includes 2 Bid-Ready Deal Pack credits per month + 25% off any Build-Ready upgrades + priority 2-day turnaround on every request + "GC-Verified by Southern Cities #107724" co-marketing badge for every assignment listing. Cancel anytime.',
-    checkoutAmount: '897',
-  },
+  // Deal Pack Pro is a TRUE recurring subscription, sold via
+  // /api/deal-pack/pro-checkout (mode: subscription) — NOT a one-time cart
+  // item. The old `deal-pack-pro-subscription` one-time SKU was removed so a
+  // stray /cart link can't mis-charge $897 as a single payment.
 };
 
 function normalizeAmount(value: string | undefined): number | undefined {

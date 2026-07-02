@@ -549,7 +549,7 @@ export default function ServicesOverviewPage() {
         <div className="container-pro max-w-3xl">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Contact</p>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Need help choosing?</h2>
-          <p className="mt-4 text-base leading-relaxed text-white/88 sm:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-white/90 sm:text-lg">
             If you are not sure which page or pricing path fits, start here and Southern Cities can point you to the right next step.
           </p>
           <div className="mt-6">

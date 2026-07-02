@@ -337,7 +337,7 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-orange">Contact</p>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Need us to review the project first?</h2>
-            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/88">
+            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/90">
               <p><strong className="text-white">Buy Now</strong> when the deliverable is already clear and contained.</p>
               <p><strong className="text-white">Get Pricing</strong> when a few project details affect price, but the work does not need full custom scoping.</p>
               <p><strong className="text-white">Use this form</strong> when the project is larger, more active, or important enough that it needs real review before anyone should quote it responsibly.</p>
