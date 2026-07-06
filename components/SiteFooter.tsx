@@ -16,9 +16,9 @@ export default function SiteFooter() {
             <Image src={SITE_CONFIG.logoReversed} alt={SITE_CONFIG.name} width={260} height={101} className="mb-5 h-12 w-auto" />
             <div className="space-y-3 text-sm leading-relaxed text-white/65 max-w-sm">
               <p>{SITE_CONFIG.name}</p>
-              <p>Residential construction made easier in North Carolina. Two clear ways to work with us: focused project support on a specific piece, or full licensed contracting when one company should run the whole project.</p>
-              <p>Project support: planning · permits · budgets · contractor fit · coordination · oversight · support plans</p>
-              <p>Full contracting: renovations · rehabs · additions · new builds</p>
+              <p>A construction platform, backed by a licensed North Carolina general contractor. Buy packaged construction expertise for any stage of a residential project — or a full build — all from one accountable licensed builder.</p>
+              <p>By the stage: deal evaluation · budgets · scopes of work · permits · oversight · owner representation · on-call expertise</p>
+              <p>Full build: renovations · rehabs · additions · new builds</p>
               <p>Licensed NC General Contractor · {SITE_CONFIG.license.formatted}</p>
               <p>{SITE_CONFIG.stats.footerLine}</p>
             </div>

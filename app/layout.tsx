@@ -26,9 +26,8 @@ export const metadata: Metadata = {
   // Per-page titles already include "| Southern Cities Construction" — NO
   // title.template here, otherwise the brand suffix double-stamps. This is
   // the default that applies ONLY when a page doesn't export its own title.
-  title: `${SITE_CONFIG.name} | Project Support and Full Contracting — Charlotte, NC`,
-  description:
-    "Southern Cities makes residential construction easier in North Carolina. Buy clear project support for permits, budgets, contractor fit, and oversight, or bring in our licensed general contracting team when one company should run the whole project.",
+  title: `${SITE_CONFIG.name} | A Construction Platform, Backed by a Licensed GC — Charlotte, NC`,
+  description: SITE_CONFIG.positioning.metaDescription,
   alternates: {
     canonical: '/',
   },
@@ -37,9 +36,8 @@ export const metadata: Metadata = {
     url: '/',
     siteName: SITE_CONFIG.name,
     locale: "en_US",
-    title: `${SITE_CONFIG.name} | Project Support and Full Contracting — Charlotte, NC`,
-    description:
-      "Residential construction support and full general contracting across North Carolina — permits, budgets, contractor fit, oversight, renovations, rehabs, additions, new builds.",
+    title: `${SITE_CONFIG.name} | A Construction Platform, Backed by a Licensed GC — Charlotte, NC`,
+    description: SITE_CONFIG.positioning.metaDescription,
   },
   twitter: {
     card: "summary_large_image",

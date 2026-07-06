@@ -16,8 +16,35 @@ export const SITE_CONFIG = {
   /** Footer legal line — keep this verbatim in the footer */
   legalLine:
     'Southern Cities Construction LLC · A Division of Southern Cities Enterprises',
-  /** Short tagline used in og:description fallbacks */
+  /** Short tagline used in og:description fallbacks (The Standard — belief underneath) */
   tagline: 'Built to a standard. Priced for real life.',
+
+  // ---------- Positioning (canonical — pull from here, don't hardcode) ----------
+  /**
+   * Brand spine, decided 2026-07: "a construction platform, backed by a
+   * licensed GC." The differentiator is the UNBUNDLING (we sell every stage of
+   * a GC, not just the whole build) — NOT "we price it and build it," which is
+   * table stakes for any contractor. Keep the license loud (trust + compliance).
+   */
+  positioning: {
+    /** One-line identity — use as the top-level descriptor */
+    identity: 'A construction platform, backed by a licensed general contractor.',
+    /** The differentiator / loud claim — lead with this */
+    differentiator: 'We unbundled the general contractor.',
+    /** Philosophy line */
+    philosophy:
+      'Not every project needs a general contractor. Every project needs the right construction expertise at the right time.',
+    /** The organizing question */
+    coreQuestion: 'Where are you in the process?',
+    /** Business model descriptor */
+    model: 'Packaged construction solutions for every stage of a residential project.',
+    /** Hero subhead (working) */
+    heroSubhead:
+      'Not every project needs a GC — every project needs the right construction expertise at the right time. Start with the package that fits where you are, and carry the same licensed builder all the way through.',
+    /** SEO meta description */
+    metaDescription:
+      'Southern Cities is a construction platform backed by a licensed North Carolina general contractor. Buy packaged construction solutions for any stage — deal evaluation, budgets, scopes, oversight — or a full build. The right construction expertise at the right time.',
+  },
 
   // ---------- Contact ----------
   /** Primary phone — must exactly match the Google Business Profile listing */

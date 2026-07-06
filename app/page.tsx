@@ -310,13 +310,13 @@ export default function Home() {
             <div className="max-w-4xl">
               <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
                 <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
-                Licensed NC General Contractor · Investor-focused
+                A construction platform · Backed by a licensed NC GC
               </p>
               <h1 className="mt-6 text-[3rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[4.5rem] lg:text-[5.5rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
-                Plan it right. <span className="text-[#fa8c41]">Run it better.</span>
+                The right construction expertise, <span className="text-[#fa8c41]">at the right time.</span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-[1.55] text-white/85 sm:text-2xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
-                Due diligence, planning, and execution support for residential projects.
+                Not every project needs a GC. Buy the package that fits where you are — a deal review, a real budget, a scope, oversight — and carry the same licensed builder all the way through the build.
               </p>
 
               <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 max-w-2xl motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
