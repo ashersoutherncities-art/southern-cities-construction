@@ -17,6 +17,7 @@ const SERVICES_GROUP: NavGroup = {
     { href: '/services', label: 'Services Overview' },
     { href: '/services/all', label: 'All Services & Pricing' },
     { href: '/platform', label: 'Investor Execution Platform' },
+    { href: '/partners', label: 'Subcontractor Partners — Apply' },
   ],
 };
 

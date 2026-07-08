@@ -46,7 +46,7 @@ export default function SiteFooter() {
             <ul className="space-y-3">
               <li><Link href="/blog" className="text-sm text-white/50 transition-colors hover:text-orange">NC Construction Blog</Link></li>
               <li><Link href="/resources" className="text-sm text-white/50 transition-colors hover:text-orange">Resources & Playbooks</Link></li>
-              <li><Link href="/partners" className="text-sm text-white/50 transition-colors hover:text-orange">Partner With Us</Link></li>
+              <li><Link href="/partners" className="text-sm text-white/50 transition-colors hover:text-orange">Become a Subcontractor Partner</Link></li>
               <li><a href={SITE_CONFIG.portalUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 transition-colors hover:text-orange">Client Portal</a></li>
               <li><Link href="/cart" className="text-sm text-white/50 transition-colors hover:text-orange">Cart</Link></li>
               <li><Link href="/start" className="text-sm text-white/50 transition-colors hover:text-orange">Get Started</Link></li>
