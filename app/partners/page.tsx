@@ -169,13 +169,13 @@ export default function PartnersPage() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/70 mb-7">
                 <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
-                Recommended Partner Application
+                Join Our Statewide Trade Network
               </div>
               <h1 className="mb-6 text-4xl sm:text-5xl lg:text-[64px] font-extrabold tracking-tight text-white leading-[1.05]">
-                Apply to become a recommended subcontractor partner.
+                Join our statewide network of NC trade partners.
               </h1>
               <p className="max-w-2xl text-lg leading-relaxed text-white/65">
-                Southern Cities is a Charlotte-headquartered NC general contractor (License #107724) running investor rehabs, homeowner renovations, and permit-administration work statewide. We hire a small bench of licensed, insured NC trades for repeat residential work — most rehabs run on a 1 to 3 month schedule. Apply below; our team reviews every application personally.
+                Southern Cities is a licensed NC general contractor (#107724) running investor rehabs, renovations, and new builds across the state. We&apos;re building a statewide network of licensed, insured trades for steady, repeat residential work — and we&apos;re actively adding partners in every North Carolina region. If you&apos;re licensed and insured, apply below.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-3.5">
                 <button
@@ -227,13 +227,13 @@ export default function PartnersPage() {
             <div>
               <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-orange mb-4">
                 <span className="w-6 h-px bg-orange/50" />
-                Why we are selective
+                Steady work, statewide
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-navy tracking-tight leading-[1.08]">
-                We run residential projects on a documented workflow. Our subcontractors do too.
+                We run residential projects on a documented workflow. Our trade partners do too.
               </h2>
               <p className="mt-5 text-stone-600 leading-relaxed">
-                We are not trying to build a directory. We maintain a small working bench of trades who can match our pace, our documentation, and our quality bar on active residential jobs across the Charlotte metro and greater North Carolina.
+                We&apos;re building a statewide network of reliable trades across North Carolina — from the Charlotte metro to the Triangle, the Triad, and Eastern NC. When we take on an investor project in your area, we call the licensed, insured partners we trust. The more coverage we build, the more work flows to you.
               </p>
               <p className="mt-4 text-stone-500 leading-relaxed">
                 If you run a licensed, insured trade business and want a repeat general contractor relationship instead of chasing new leads every week, the application below is the first step.

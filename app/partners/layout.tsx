@@ -3,14 +3,14 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Subcontractor Partners | Apply to Join the Network — Southern Cities Construction',
   description:
-    'Apply to become a recommended subcontractor partner with Southern Cities Construction. Licensed, insured NC trades who want repeat residential work on a documented, structured workflow.',
+    'Join Southern Cities Construction’s statewide network of NC trade partners. We’re actively adding licensed, insured subcontractors across North Carolina for steady, repeat residential work on investor rehabs, renovations, and new builds.',
   alternates: { canonical: 'https://southerncitiesconstruction.com/partners' },
   openGraph: {
     type: 'website',
     url: 'https://southerncitiesconstruction.com/partners',
-    title: 'Subcontractor Partner Application | Southern Cities Construction',
+    title: 'Join Our Statewide NC Trade Network | Southern Cities Construction',
     description:
-      'A selective application for licensed, insured North Carolina subcontractors who want repeat residential work on a documented, structured coordination workflow.',
+      'A licensed NC general contractor building a statewide network of licensed, insured trade partners for steady, repeat residential work across North Carolina.',
   },
 };
 
