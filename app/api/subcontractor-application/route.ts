@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
 
+export const runtime = 'nodejs';
+
+const DOC_SLOTS: { field: string; label: string }[] = [
+  { field: 'license_doc', label: 'Contractor license' },
+  { field: 'coi_doc', label: 'Certificate of insurance' },
+  { field: 'w9_doc', label: 'W-9' },
+];
+const MAX_BYTES = 15 * 1024 * 1024; // 15MB per file
+const OK_TYPES = /pdf|jpe?g|png|heic|webp/i;
+const safe = (s: string) => s.replace(/[^a-z0-9.\-_]+/gi, '_').slice(0, 80);
+
 export async function POST(req: NextRequest) {
   try {
     let supabase;
@@ -12,79 +23,77 @@ export async function POST(req: NextRequest) {
       }
       throw err;
     }
-    const body = await req.json();
 
-    const {
-      company_name,
-      contact_name,
-      email,
-      phone,
-      website,
-      trade,
-      years_in_business,
-      service_area,
-      crew_size,
-      license_type,
-      license_number,
-      license_state,
-      insurance_carrier,
-      insurance_limits,
-      workers_comp,
-      referral_source,
-      project_samples,
-      project_types,
-      rate_notes,
-      references_text,
-      availability,
-      notes,
-      agreed_to_standards,
-    } = body;
-
-    if (!company_name || !contact_name || !email || !trade) {
-      return NextResponse.json(
-        { error: 'Company, contact name, email, and trade are required.' },
-        { status: 400 }
-      );
+    // Accept multipart (fields JSON in `payload` + optional files) OR legacy JSON.
+    let body: Record<string, unknown> = {};
+    const files: { field: string; label: string; file: File }[] = [];
+    const ctype = req.headers.get('content-type') || '';
+    if (ctype.includes('multipart/form-data')) {
+      const form = await req.formData();
+      const payload = form.get('payload');
+      body = payload ? JSON.parse(String(payload)) : {};
+      for (const slot of DOC_SLOTS) {
+        const f = form.get(slot.field);
+        if (f && f instanceof File && f.size > 0) files.push({ ...slot, file: f });
+      }
+    } else {
+      body = await req.json();
     }
 
+    const {
+      company_name, contact_name, email, phone, website, trade, years_in_business,
+      service_area, crew_size, license_type, license_number, license_state,
+      insurance_carrier, insurance_limits, workers_comp, referral_source,
+      project_samples, project_types, rate_notes, references_text, availability,
+      notes, agreed_to_standards,
+    } = body as Record<string, unknown>;
+
+    if (!company_name || !contact_name || !email || !trade) {
+      return NextResponse.json({ error: 'Company, contact name, email, and trade are required.' }, { status: 400 });
+    }
     if (!agreed_to_standards) {
-      return NextResponse.json(
-        { error: 'Partner standards acknowledgement is required.' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Partner standards acknowledgement is required.' }, { status: 400 });
     }
 
     const projectTypesValue = Array.isArray(project_types) ? project_types : null;
 
-    const { error: dbError } = await supabase.from('subcontractor_applications').insert({
-      company_name,
-      contact_name,
-      email,
-      phone: phone || null,
-      website: website || null,
-      trade,
-      years_in_business: years_in_business || null,
-      service_area: service_area || null,
-      crew_size: crew_size || null,
-      license_type: license_type || null,
-      license_number: license_number || null,
-      license_state: license_state || null,
-      insurance_carrier: insurance_carrier || null,
-      insurance_limits: insurance_limits || null,
-      workers_comp: workers_comp || null,
-      referral_source: referral_source || null,
-      project_samples: project_samples || null,
-      project_types: projectTypesValue,
-      rate_notes: rate_notes || null,
-      references_text: references_text || null,
-      availability: availability || null,
-      notes: notes || null,
-      status: 'new',
-    });
+    const { data: inserted, error: dbError } = await supabase
+      .from('subcontractor_applications')
+      .insert({
+        company_name, contact_name, email,
+        phone: phone || null, website: website || null, trade,
+        years_in_business: years_in_business || null, service_area: service_area || null,
+        crew_size: crew_size || null, license_type: license_type || null,
+        license_number: license_number || null, license_state: license_state || null,
+        insurance_carrier: insurance_carrier || null, insurance_limits: insurance_limits || null,
+        workers_comp: workers_comp || null, referral_source: referral_source || null,
+        project_samples: project_samples || null, project_types: projectTypesValue,
+        rate_notes: rate_notes || null, references_text: references_text || null,
+        availability: availability || null, notes: notes || null, status: 'new',
+      })
+      .select('id')
+      .single();
 
-    if (dbError) {
+    if (dbError || !inserted) {
       console.error('Supabase insert error:', dbError);
       return NextResponse.json({ error: 'Failed to save application' }, { status: 500 });
+    }
+    const id = inserted.id as number;
+
+    // Upload any documents into the private bucket under this application's id.
+    const documents: { label: string; path: string; name: string; type: string }[] = [];
+    for (const { file, label } of files) {
+      if (file.size > MAX_BYTES || !OK_TYPES.test(file.type || file.name)) continue;
+      const path = `${id}/${safe(label)}-${safe(file.name)}`;
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const { error: upErr } = await supabase.storage
+        .from('subcontractor-docs')
+        .upload(path, bytes, { contentType: file.type || 'application/octet-stream', upsert: true });
+      if (!upErr) documents.push({ label, path, name: file.name, type: file.type || '' });
+      else console.error('Doc upload failed:', label, upErr.message);
+    }
+    if (documents.length) {
+      await supabase.from('subcontractor_applications').update({ documents }).eq('id', id);
     }
 
     try {
@@ -92,31 +101,13 @@ export async function POST(req: NextRequest) {
       const chatId = process.env.TELEGRAM_CHAT_ID;
       if (botToken && chatId) {
         let text = `🔨 *New Subcontractor Partner Application*\n\n`;
-        text += `*Company:* ${company_name}\n`;
-        text += `*Contact:* ${contact_name}\n`;
-        text += `*Trade:* ${trade}\n`;
-        text += `*Email:* ${email}\n`;
+        text += `*Company:* ${company_name}\n*Contact:* ${contact_name}\n*Trade:* ${trade}\n*Email:* ${email}\n`;
         if (phone) text += `*Phone:* ${phone}\n`;
-        if (website) text += `*Website:* ${website}\n`;
         if (service_area) text += `*Service Area:* ${service_area}\n`;
-        if (years_in_business) text += `*Years in Business:* ${years_in_business}\n`;
-        if (crew_size) text += `*Crew Size:* ${crew_size}\n`;
-        if (license_type || license_number) {
-          text += `*License:* ${license_type || ''} ${license_number || ''} ${license_state ? `(${license_state})` : ''}\n`;
-        }
-        if (insurance_carrier) text += `*Insurance:* ${insurance_carrier}`;
-        if (insurance_limits) text += ` — ${insurance_limits}`;
-        if (insurance_carrier || insurance_limits) text += '\n';
-        if (workers_comp) text += `*Workers Comp:* ${workers_comp}\n`;
-        if (projectTypesValue?.length) text += `*Project Types:* ${projectTypesValue.join(', ')}\n`;
-        if (availability) text += `*Availability:* ${availability}\n`;
-        if (rate_notes) text += `*Rate Notes:* ${rate_notes}\n`;
-        if (references_text) text += `*References:*\n${references_text}\n`;
-        if (project_samples) text += `*Project Samples:* ${project_samples}\n`;
-        if (referral_source) text += `*Referred By:* ${referral_source}\n`;
-        if (notes) text += `\n*Notes:* ${notes}\n`;
-        text += `\n_Reply to:_ ${email}`;
-
+        if (license_type || license_number) text += `*License:* ${license_type || ''} ${license_number || ''} ${license_state ? `(${license_state})` : ''}\n`;
+        if (insurance_carrier) text += `*Insurance:* ${insurance_carrier}${insurance_limits ? ` — ${insurance_limits}` : ''}\n`;
+        text += `*Documents:* ${documents.length ? documents.map((d) => d.label).join(', ') : 'none uploaded'}\n`;
+        text += `\nReview in the platform → Vendor Partners.\n_Reply to:_ ${email}`;
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

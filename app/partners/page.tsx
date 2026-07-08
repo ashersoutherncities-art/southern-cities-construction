@@ -100,6 +100,9 @@ export default function PartnersPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [docs, setDocs] = useState<{ license_doc: File | null; coi_doc: File | null; w9_doc: File | null }>({
+    license_doc: null, coi_doc: null, w9_doc: null,
+  });
   const formRef = useRef<HTMLDivElement>(null);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) =>
@@ -122,17 +125,19 @@ export default function PartnersPage() {
     setSubmitting(true);
     setError('');
     try {
-      const res = await fetch('/api/subcontractor-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+      const fd = new FormData();
+      fd.append('payload', JSON.stringify(form));
+      if (docs.license_doc) fd.append('license_doc', docs.license_doc);
+      if (docs.coi_doc) fd.append('coi_doc', docs.coi_doc);
+      if (docs.w9_doc) fd.append('w9_doc', docs.w9_doc);
+      const res = await fetch('/api/subcontractor-application', { method: 'POST', body: fd });
       if (!res.ok) {
         const d = await res.json().catch(() => ({}));
         throw new Error(d.error || 'Unable to submit application.');
       }
       setSubmitted(true);
       setForm(initial);
+      setDocs({ license_doc: null, coi_doc: null, w9_doc: null });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to submit application.');
     } finally {
@@ -546,6 +551,26 @@ export default function PartnersPage() {
                 <div>
                   <label className={labelCls}>Anything else we should know</label>
                   <textarea rows={3} value={form.notes} onChange={(e) => update('notes', e.target.value)} className={`${inputCls} resize-none`} placeholder="Specialty work, capacity notes, restrictions, or what you are looking for in a GC relationship." />
+                </div>
+              </fieldset>
+
+              {/* Documents */}
+              <fieldset className="space-y-4">
+                <h3 className="text-lg font-bold text-navy">Documents <span className="text-sm font-normal text-stone-400">(optional — speeds up your review)</span></h3>
+                <p className="text-sm text-stone-500">Upload your license, certificate of insurance (COI), and W-9 if you have them handy — PDF or a clear photo. You can also send them after we reach out.</p>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {([['license_doc', 'Contractor license'], ['coi_doc', 'Certificate of insurance'], ['w9_doc', 'W-9']] as const).map(([field, label]) => (
+                    <div key={field}>
+                      <label className={labelCls}>{label}</label>
+                      <input
+                        type="file"
+                        accept=".pdf,image/*"
+                        onChange={(e) => setDocs((d) => ({ ...d, [field]: e.target.files?.[0] || null }))}
+                        className="block w-full text-sm text-stone-600 file:mr-3 file:rounded-lg file:border-0 file:bg-navy file:px-3 file:py-2 file:font-semibold file:text-white hover:file:bg-navy/90"
+                      />
+                      {docs[field] && <p className="mt-1 text-xs font-semibold text-emerald-600">✓ {docs[field]!.name}</p>}
+                    </div>
+                  ))}
                 </div>
               </fieldset>
 
