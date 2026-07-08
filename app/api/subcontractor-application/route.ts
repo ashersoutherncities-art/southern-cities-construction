@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
         if (license_type || license_number) text += `*License:* ${license_type || ''} ${license_number || ''} ${license_state ? `(${license_state})` : ''}\n`;
         if (insurance_carrier) text += `*Insurance:* ${insurance_carrier}${insurance_limits ? ` — ${insurance_limits}` : ''}\n`;
         text += `*Documents:* ${documents.length ? documents.map((d) => d.label).join(', ') : 'none uploaded'}\n`;
-        text += `\nReview in the platform → Vendor Partners.\n_Reply to:_ ${email}`;
+        text += `\n👉 Review: https://platform.southerncitiesconstruction.com/vendors/${id}\n_Reply to:_ ${email}`;
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
