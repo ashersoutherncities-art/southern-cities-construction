@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     const {
       company_name, contact_name, email, phone, website, trade, years_in_business,
-      service_area, crew_size, license_type, license_number, license_state,
+      service_area, regions, crew_size, license_type, license_number, license_state,
       insurance_carrier, insurance_limits, workers_comp, referral_source,
       project_samples, project_types, rate_notes, references_text, availability,
       notes, agreed_to_standards,
@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
         company_name, contact_name, email,
         phone: phone || null, website: website || null, trade,
         years_in_business: years_in_business || null, service_area: service_area || null,
+        regions: Array.isArray(regions) ? regions : [],
         crew_size: crew_size || null, license_type: license_type || null,
         license_number: license_number || null, license_state: license_state || null,
         insurance_carrier: insurance_carrier || null, insurance_limits: insurance_limits || null,

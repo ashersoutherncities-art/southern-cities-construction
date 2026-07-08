@@ -41,6 +41,16 @@ const inputCls =
 
 const labelCls = 'mb-1.5 block text-[11px] font-bold uppercase tracking-[0.16em] text-navy/60';
 
+const NC_REGIONS = [
+  'Charlotte Metro',
+  'Triangle (Raleigh–Durham)',
+  'Triad (Greensboro–Winston-Salem)',
+  'Fayetteville / Sandhills',
+  'Wilmington / Coastal',
+  'Eastern NC',
+  'Western NC (Asheville)',
+] as const;
+
 type FormState = {
   company_name: string;
   contact_name: string;
@@ -51,6 +61,7 @@ type FormState = {
   trade: string;
   years_in_business: string;
   service_area: string;
+  regions: string[];
   crew_size: string;
   license_type: string;
   license_number: string;
@@ -78,6 +89,7 @@ const initial: FormState = {
   trade: '',
   years_in_business: '',
   service_area: '',
+  regions: [],
   crew_size: '',
   license_type: '',
   license_number: '',
@@ -114,6 +126,14 @@ export default function PartnersPage() {
       project_types: prev.project_types.includes(item)
         ? prev.project_types.filter((x) => x !== item)
         : [...prev.project_types, item],
+    }));
+
+  const toggleRegion = (item: string) =>
+    setForm((prev) => ({
+      ...prev,
+      regions: prev.regions.includes(item)
+        ? prev.regions.filter((x) => x !== item)
+        : [...prev.regions, item],
     }));
 
   const scrollToForm = () => {
@@ -437,6 +457,33 @@ export default function PartnersPage() {
                       <option value="7-10">7–10</option>
                       <option value="10+">10+</option>
                     </select>
+                  </div>
+                </div>
+                <div>
+                  <label className={labelCls}>NC regions you serve <span className="font-normal text-stone-400">— check all that apply</span></label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {NC_REGIONS.map((region) => {
+                      const active = form.regions.includes(region);
+                      return (
+                        <button
+                          key={region}
+                          type="button"
+                          onClick={() => toggleRegion(region)}
+                          className={`flex items-center gap-2.5 rounded-xl border px-3.5 py-3 text-left text-[13.5px] transition-all ${
+                            active ? 'border-orange bg-orange/[0.08] text-navy' : 'border-stone-200 bg-white text-stone-600 hover:border-navy/20'
+                          }`}
+                        >
+                          <span className={`w-4 h-4 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${active ? 'border-orange bg-orange' : 'border-navy/25 bg-white'}`}>
+                            {active && (
+                              <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </span>
+                          {region}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
                 <div>
