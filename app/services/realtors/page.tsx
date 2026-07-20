@@ -82,9 +82,8 @@ const supportTiers = [
     planKey: 'solo' as const,
     price: '$299/mo',
     includes: [
-      'GC Support Specialist on call for quick questions',
+      'GC Support Specialist on call for quick contracting & pricing questions',
       '2 inspection or listing reviews / mo',
-      '1 pricing-direction question / mo',
       '24-hour response SLA',
       'Unused reviews bank up to 2',
     ],
@@ -98,9 +97,8 @@ const supportTiers = [
     planKey: 'team' as const,
     price: '$649/mo',
     includes: [
-      'GC Support Specialist on call',
+      'GC Support Specialist on call for quick contracting & pricing questions',
       '4 inspection / listing reviews / mo',
-      '2 pricing-direction questions / mo',
       'Same-day triage on urgent items',
       'Written deal-support summaries',
       'Shared team access (3–10 agents)',
@@ -116,8 +114,8 @@ const supportTiers = [
     planKey: 'brokerage' as const,
     price: '$2,499/mo',
     includes: [
-      'Unlimited reviews + pricing direction',
-      'Your own dedicated GC Support Specialist',
+      'Unlimited reviews',
+      'Your own dedicated GC Support Specialist (contracting + pricing questions anytime)',
       '4-hour urgent SLA',
       'Quarterly business review',
       'White-label client briefings',
@@ -327,7 +325,7 @@ export default function RealtorsPage() {
             </div>
           </div>
           <p className="mt-4 max-w-3xl text-[13.5px] leading-relaxed text-white/55">
-            A review is a desk read — you send the report or listing details, a licensed NC GC reads it back within your plan&apos;s SLA; nobody is dispatched to the property. (When you want a licensed inspector physically on-site, that is the Full Report above.) A <span className="text-white/75">pricing-direction question</span> is the lighter unit — a quick one-off &ldquo;what would this cost / how should I price this?&rdquo; that doesn&apos;t need a full review.
+            A review is a desk read — you send the report or listing details, a licensed NC GC reads it back within your plan&apos;s SLA; nobody is dispatched to the property. (When you want a licensed inspector physically on-site, that is the Full Report above.) Quick one-off &ldquo;what would this cost / how should I price this?&rdquo; questions don&apos;t count against your reviews — they go straight to your on-call <span className="text-white/75">GC Support Specialist</span>.
           </p>
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
