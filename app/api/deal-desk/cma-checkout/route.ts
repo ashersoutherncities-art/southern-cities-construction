@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       customer_email: email,
-      automatic_tax: { enabled: true },
+      automatic_tax: { enabled: false },
       metadata: { deal_desk_cma: '1', cma_address: address.slice(0, 480), cma_email: email || '' },
       success_url: `${baseUrl}/deal-desk/app?cma=ordered${body.token ? `&token=${encodeURIComponent(body.token)}` : ''}`,
       cancel_url: `${baseUrl}/deal-desk/app${body.token ? `?token=${encodeURIComponent(body.token)}` : ''}`,

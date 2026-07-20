@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
           quantity,
         },
       ],
-      automatic_tax: { enabled: true },
+      automatic_tax: { enabled: false },
       billing_address_collection: 'required',
       metadata: { flow: 'deal-pack-pro-reorder', member_email: email, quantity: String(quantity) },
       success_url: `${baseUrl}/portal?checkout=success&session_id={CHECKOUT_SESSION_ID}`,

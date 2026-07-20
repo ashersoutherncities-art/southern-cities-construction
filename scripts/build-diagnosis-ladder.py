@@ -23,7 +23,7 @@ class DiagLadder(Flowable):
         c = self.canv
         rungs = [
             ("1", "HYPOTHESIS", "GC Quick Read · $299", "GC reads your report / photos — flags + rough ranges.", "Opinion, not verified."),
-            ("2", "DOCUMENTED", "Inspection + GC Read · ~$599", "Licensed inspector on-site — symptoms documented + GC's read.", "Visual only — symptoms, not causes."),
+            ("2", "DOCUMENTED", "Inspected GC Read · $649", "Licensed inspector on-site — symptoms documented + GC's read.", "Visual only — symptoms, not causes."),
             ("3", "DIAGNOSED", "Diagnosis · scoped", "Targeted diagnostics find the true source on the big-swing items.", "Sewer scope · moisture/thermal · engineer eval · inspection port."),
             ("4", "FIRM & FIXED", "Inspection + GC Budget Report · $899  →  we fix it", "Root-cause scope + a firm number, then we do the work.", "Held by allowances + concealed-condition terms."),
         ]

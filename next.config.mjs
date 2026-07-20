@@ -46,6 +46,15 @@ const nextConfig = {
       // Every "Get Started" CTA points to /start; keep old /book links working.
       { source: '/book', destination: '/start', permanent: false },
 
+      // Retired products — removed from discovery, redirected to their live
+      // replacement. cart.ts keys stay resolvable so /cart?cart=<key> still
+      // transacts for any old direct/ad links. 307 while the catalogue settles.
+      { source: '/services/investors/contractor-grade-budget', destination: '/deal-pack', permanent: false },
+      { source: '/lp/due-diligence-bundle', destination: '/deal-pack', permanent: false },
+      { source: '/services/realtors/realtor-inspection-review', destination: '/services/realtors', permanent: false },
+      { source: '/services/realtors/multi-offer-construction-read', destination: '/services/realtors', permanent: false },
+      { source: '/services/realtors/inspection-response', destination: '/services/realtors', permanent: false },
+
       // Investors — legacy URL aliases to canonical services
       { source: '/services/investors/contractor-match-bid-coordination', destination: '/services/investors/bid-coordination-contractor-match', permanent: true },
       { source: '/services/investors/full-due-diligence-package', destination: '/platform/co1', permanent: true },

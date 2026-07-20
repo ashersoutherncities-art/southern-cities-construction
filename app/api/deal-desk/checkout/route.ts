@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
       customer_email: body.email?.trim() || undefined,
       allow_promotion_codes: true,
       billing_address_collection: 'required',
-      automatic_tax: { enabled: true },
+      automatic_tax: { enabled: false },
       subscription_data: { metadata: { deal_desk_tier: tierKey } },
       metadata: { deal_desk_tier: tierKey },
       success_url: `${baseUrl}/deal-desk/welcome?session_id={CHECKOUT_SESSION_ID}`,

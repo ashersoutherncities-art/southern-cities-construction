@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
         },
         quantity: line.quantity,
       })),
-      automatic_tax: { enabled: true },
+      automatic_tax: { enabled: false },
       billing_address_collection: 'required',
       phone_number_collection: { enabled: true },
       success_url: `${baseUrl}/portal?checkout=success&session_id={CHECKOUT_SESSION_ID}`,

@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: email,
       billing_address_collection: 'required',
-      automatic_tax: { enabled: true },
+      automatic_tax: { enabled: false },
       subscription_data: { metadata: { deal_pack_pro: 'true' } },
       metadata: { product: 'deal-pack-pro' },
       success_url: `${baseUrl}/deal-pack?pro=welcome&session_id={CHECKOUT_SESSION_ID}#pro`,
