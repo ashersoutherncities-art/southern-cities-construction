@@ -5,19 +5,23 @@ import LpLeadForm from '@/components/LpLeadForm';
 import RealtorPlanCTA from '@/components/RealtorPlanCTA';
 
 // ---------------------------------------------------------------------------
-// GC Inspection & Budget Report (buy-now, two tiers)
-// The Report is the priced, self-serve product. Quick Read credits toward the
-// Full Report; the Full Report includes the GC's commitment to do the work at
-// the budget we write (NOT a separate package — folded into the Report).
+// The read / report 2×2 grid (buy-now). Two axes:
+//   READ (a GC opinion) vs REPORT (a committed 3-tier budget)
+//   DESK (on what you already have) vs ON-SITE (a licensed inspection)
+// Cells: Quick Read $299 (desk read) · GC Budget $599 (report on your
+// inspection) · Inspected GC Read $649 (on-site read) · Inspection + GC Budget
+// Report $899 (on-site report). Matches scripts/build-realtor-catalogue.py.
+// Every Report includes the GC's commitment to do the work at the number.
 // ---------------------------------------------------------------------------
 const reportTiers = [
   {
+    axis: 'Desk · Read',
     name: 'GC Quick Read',
     price: '$299',
     sub: '1–2 business days · same-day rush available',
     tagline: 'The fast screen — buyer or seller — before you pay for a full on-site inspection.',
     description:
-      'A licensed NC GC reads the property or your existing inspection report and tells you, in plain English: what is real, what is cosmetic, what could kill the loan, and a rough order-of-magnitude on the work — with item-by-item severity, paste-ready repair-request language, and a client-shareable PDF. Works buyer-side or seller-side.',
+      'A licensed NC GC reads your existing inspection report or the property details and tells you, in plain English: what is real, what is cosmetic, what could kill the loan, and a rough order-of-magnitude on the work — with item-by-item severity, paste-ready repair-request language, and a client-shareable PDF. Desk read — no inspector dispatched. Works buyer-side or seller-side.',
     bullets: [
       'Critical-vs-cosmetic triage + loan-killer flags',
       'Item-by-item severity on your inspection report',
@@ -31,6 +35,44 @@ const reportTiers = [
     highlighted: false,
   },
   {
+    axis: 'Desk · Report',
+    name: 'GC Budget (on your inspection)',
+    price: '$599',
+    sub: '2 business days · uses the inspection you already have',
+    tagline: 'The GC budget on the inspection you already have — no new inspection.',
+    description:
+      'A licensed NC GC turns the inspection you already have into a full 3-tier budget — MANDATORY (code + loan-killers), HIGH-ROI (2× return cosmetics), and DISCLOSE & SKIP — with paste-ready repair-request language. And the same GC commits to do the work at the budget we write.',
+    bullets: [
+      '3-tier budget on your existing inspection',
+      'Mandatory / High-ROI / Disclose & Skip',
+      'Paste-ready repair-request language',
+      'We commit to do the work at the budget we write',
+    ],
+    credit: 'Quick Read credits in · add our inspection (+$400) to make it the full $899 Report.',
+    cartKey: 'realtor-gc-budget',
+    cta: 'Get the GC Budget · $599',
+    highlighted: false,
+  },
+  {
+    axis: 'On-site · Read',
+    name: 'Inspected GC Read',
+    price: '$649',
+    sub: 'Licensed inspection + GC read · when there is no inspection yet',
+    tagline: 'A licensed inspector on-site, plus a GC read on the findings — the bridge into the budget.',
+    description:
+      'For when there is no inspection yet: a licensed third-party inspector goes on-site and produces a full standard inspection report, then a licensed NC GC layers a GC Quick Read on the findings — real-vs-cosmetic, loan-killers, rough cost, and a clear GC call.',
+    bullets: [
+      'Licensed third-party inspector on-site → full report',
+      'GC Quick Read layered on the findings',
+      'Real-vs-cosmetic · loan-killers · rough cost · GC call',
+    ],
+    credit: 'Relevant fees credit forward — the $299 GC-read value credits toward the budget (the inspection is a pass-through cost).',
+    cartKey: 'realtor-inspected-gc-read',
+    cta: 'Get an Inspected Read · $649',
+    highlighted: false,
+  },
+  {
+    axis: 'On-site · Report',
     name: 'Inspection + GC Budget Report',
     price: '$899',
     sub: '3–5 business days · rush $1,199 (24–48 hrs)',
@@ -49,6 +91,31 @@ const reportTiers = [
     cta: 'Order the Full Report · $899',
     highlighted: true,
     badge: 'Flagship',
+  },
+];
+
+// Two more ways a GC helps on the deal — the diagnosis rung (find the true
+// cause on big-swing items) and the fulfillment rung (we do the repairs).
+const dealAddOns = [
+  {
+    name: 'Diagnosis',
+    price: 'from $199',
+    sub: '+ test cost · GC coordinates the right test',
+    description:
+      'A symptom — a ceiling stain, a musty smell, a sloping floor — can have several causes and several repair bills. A licensed NC GC scopes which test the symptom needs, coordinates the vetted specialist or sub (inspection port + borescope, sewer scope, moisture/thermal, or a licensed PE structural eval), and translates the finding into your budget. You pay for GC judgment; the third-party test cost is billed separately and does not credit.',
+    cta: 'Start a Diagnosis · from $199',
+    href: '/cart?cart=realtor-diagnosis',
+    isCart: true,
+  },
+  {
+    name: 'Repair Execution — we do the repairs',
+    price: 'Scoped from the Report',
+    sub: 'Mandatory fixes first · licensed crew + vetted subs',
+    description:
+      'The GC actually does the work — at the number we wrote. SCC’s licensed crew and vetted subs execute the repair list, Mandatory fixes prioritized (5–7 day speed guarantee), permits pulled where required, with repair-verification + photo documentation and a ready-to-list / ready-to-close handoff. Your Quick Read / Report fees credit toward the work.',
+    cta: 'Scope the repairs →',
+    href: '#realtor-inquiry',
+    isCart: false,
   },
 ];
 
@@ -177,10 +244,16 @@ export default function RealtorsPage() {
         <div className="container-pro">
           <div className="max-w-3xl">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Buy now · no quote, no call</p>
-            <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">Inspection + GC Budget Report</h2>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">The read / report grid</h2>
             <p className="mt-4 text-[16px] leading-relaxed text-stone-700 sm:text-lg">
-              Know the real construction number on any property — from a licensed NC GC, not a generic repair chatbot. Start with a fast screen or go straight to the full on-site report, where the same GC commits to do the work at the budget we write. Pick a tier and check out.
+              Two questions decide which one you need. Do you want a <span className="font-semibold text-[#08111d]">READ</span> (a licensed GC opinion) or a <span className="font-semibold text-[#08111d]">REPORT</span> (a committed 3-tier budget)? And should it work off what you already have — a <span className="font-semibold text-[#08111d]">DESK</span> read — or include a licensed <span className="font-semibold text-[#08111d]">ON-SITE</span> inspection? Pick the cell that fits, and check out. Every Report includes the same GC&rsquo;s commitment to do the work at the number.
             </p>
+            <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-bold uppercase tracking-[0.14em]">
+              <span className="inline-flex items-center rounded-full border border-stone-300 bg-white px-3 py-1 text-stone-600">Desk · Read → $299</span>
+              <span className="inline-flex items-center rounded-full border border-stone-300 bg-white px-3 py-1 text-stone-600">Desk · Report → $599</span>
+              <span className="inline-flex items-center rounded-full border border-stone-300 bg-white px-3 py-1 text-stone-600">On-site · Read → $649</span>
+              <span className="inline-flex items-center rounded-full border border-[#fa8c41]/50 bg-[#fa8c41]/10 px-3 py-1 text-[#08111d]">On-site · Report → $899</span>
+            </div>
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -189,7 +262,8 @@ export default function RealtorsPage() {
                 key={tier.name}
                 className={`flex h-full flex-col rounded-[28px] border p-7 sm:p-8 shadow-elev-1 ${tier.highlighted ? 'border-[#fa8c41]/60 bg-white ring-1 ring-[#fa8c41]/20' : 'border-stone-200 bg-white'}`}
               >
-                <div className="flex items-center gap-3">
+                <span className="inline-flex w-fit items-center rounded-full border border-stone-300 bg-stone-50 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.16em] text-stone-500">{tier.axis}</span>
+                <div className="mt-3 flex items-center gap-3">
                   <h3 className="text-2xl font-extrabold tracking-tight text-[#08111d]">{tier.name}</h3>
                   {tier.badge ? (
                     <span className="inline-flex rounded-full bg-[#fa8c41] px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-white">{tier.badge}</span>
@@ -218,6 +292,30 @@ export default function RealtorsPage() {
                     className={`inline-flex min-h-[52px] w-full items-center justify-center rounded-full px-6 py-3 text-sm font-bold uppercase tracking-[0.06em] transition hover:-translate-y-0.5 ${tier.highlighted ? 'bg-[#fa8c41] text-white shadow-[0_12px_28px_-8px_rgba(245,130,32,0.55)] hover:bg-[#ffa463]' : 'border border-stone-300 bg-white text-[#08111d] hover:border-[#fa8c41] hover:text-[#fa8c41]'}`}
                   >
                     {tier.cta}
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* DIAGNOSIS + REPAIR EXECUTION — the cause-finding rung and the do-the-work rung */}
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            {dealAddOns.map((addon) => (
+              <div key={addon.name} className="flex h-full flex-col rounded-[28px] border border-stone-200 bg-white p-7 sm:p-8 shadow-elev-1">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="text-2xl font-extrabold tracking-tight text-[#08111d]">{addon.name}</h3>
+                </div>
+                <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <p className="text-2xl font-black tracking-[-0.02em] text-[#fa8c41]">{addon.price}</p>
+                  <p className="text-[13px] font-semibold text-stone-500">{addon.sub}</p>
+                </div>
+                <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{addon.description}</p>
+                <div className="mt-auto pt-6">
+                  <Link
+                    href={addon.href}
+                    className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-bold uppercase tracking-[0.06em] text-[#08111d] transition hover:-translate-y-0.5 hover:border-[#fa8c41] hover:text-[#fa8c41]"
+                  >
+                    {addon.cta}
                   </Link>
                 </div>
               </div>

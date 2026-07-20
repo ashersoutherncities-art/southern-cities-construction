@@ -47,6 +47,62 @@ const DEAL_PACK_PRODUCTS = [
     category: 'Deal Pack',
     sku: 'deal-pack-pro',
   },
+  {
+    name: 'As-Built Plans',
+    description:
+      'Measured existing-condition floor plan of the property, delivered as a PDF plus an editable file. Includes 1 revision. NC GC License #107724.',
+    url: '/deal-pack',
+    priceUsd: 349,
+    category: 'Plans & Visuals',
+    sku: 'plans-as-built',
+  },
+  {
+    name: 'Future-State Plans',
+    description:
+      'Proposed-design (future-state) floor plan showing the renovated layout, delivered as a PDF plus an editable file. Includes 2 revisions. NC GC License #107724.',
+    url: '/deal-pack',
+    priceUsd: 699,
+    category: 'Plans & Visuals',
+    sku: 'plans-future-state',
+  },
+  {
+    name: 'Renderings (photoreal)',
+    description:
+      'Photoreal 3D renderings of the proposed design. $199 each, or three for $499, with 1 revision included per rendering. NC GC License #107724.',
+    url: '/deal-pack',
+    priceUsd: 199,
+    category: 'Plans & Visuals',
+    sku: 'renderings',
+  },
+];
+
+// À la carte plans & visuals — inputs to a Deal Pack when plans are missing,
+// or standalone deliverables. Prices must match lib/cart.ts exactly.
+const PLANS_ADDONS = [
+  {
+    name: 'As-Built Plans',
+    price: '$349',
+    priceNote: 'Measured existing-condition floor plan · 1 revision',
+    blurb: 'A measured existing-condition floor plan of the property — PDF + editable file. The base layer when you have no usable plans.',
+    href: '/cart?cart=plans-as-built',
+    cta: 'Add As-Built · $349 →',
+  },
+  {
+    name: 'Future-State Plans',
+    price: '$699',
+    priceNote: 'Proposed-design floor plan · 2 revisions',
+    blurb: 'A proposed-design floor plan showing the renovated layout — PDF + editable file. What the property becomes.',
+    href: '/cart?cart=plans-future-state',
+    cta: 'Add Future-State · $699 →',
+  },
+  {
+    name: 'Renderings (photoreal)',
+    price: '$199',
+    priceNote: '3 for $499 · 1 revision each',
+    blurb: 'Photoreal 3D renderings of the proposed design — $199 each, or three for $499. What sells the finished look.',
+    href: '/cart?cart=renderings',
+    cta: 'Add Renderings · $199 →',
+  },
 ];
 
 export const metadata = {
@@ -538,6 +594,39 @@ export default function DealPackPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PLANS & VISUALS — à la carte add-ons */}
+      <section id="plans" className="py-16 sm:py-20 border-t border-white/8">
+        <div className="container-pro">
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Plans &amp; visuals · à la carte</p>
+            <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
+              Add the plans and renderings your deal needs.
+            </h2>
+            <p className="mt-5 text-[16px] leading-[1.65] text-white/75">
+              Buy them standalone, or add them when a Deal Pack needs plans it doesn&apos;t have yet. As-built for what exists, future-state for what it becomes, photoreal renderings to sell the finished look. Branded with NC GC License #107724.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {PLANS_ADDONS.map((addon) => (
+              <div key={addon.name} className="flex flex-col rounded-2xl border border-white/12 bg-white/[0.03] p-7 transition-all hover:border-white/25 hover:bg-white/[0.05]">
+                <h3 className="text-xl font-black tracking-tight text-white">{addon.name}</h3>
+                <div className="mt-3 flex items-baseline gap-3">
+                  <span className="text-3xl font-black text-orange">{addon.price}</span>
+                </div>
+                <p className="mt-1 text-[12px] uppercase tracking-[0.12em] text-white/55">{addon.priceNote}</p>
+                <p className="mt-4 text-[14.5px] leading-[1.6] text-white/80">{addon.blurb}</p>
+                <Link
+                  href={addon.href}
+                  className="mt-auto pt-6 inline-flex items-center gap-1 font-black uppercase tracking-[0.08em] text-white/90 transition hover:gap-2 hover:text-orange"
+                >
+                  {addon.cta}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
