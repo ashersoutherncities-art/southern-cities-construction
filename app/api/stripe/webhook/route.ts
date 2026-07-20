@@ -10,6 +10,7 @@ import {
   updateOrder,
 } from '@/lib/orders';
 import { tryGetServiceClient } from '@/lib/supabase';
+import { mirrorOrderToHub } from '@/lib/hub-orders';
 
 export const runtime = 'nodejs';
 
@@ -83,6 +84,18 @@ export async function POST(req: NextRequest) {
               },
               supabase
             );
+
+            // Mirror the paid order into the Client Hub's orders table so it
+            // shows in the client's Orders tab. Non-fatal, idempotent.
+            if (session.payment_status === 'paid') {
+              await mirrorOrderToHub({
+                buyer_email: order.buyer_email,
+                product_name: order.product_name,
+                amount_total_cents: typeof session.amount_total === 'number' ? session.amount_total : order.amount_total_cents,
+                stripe_session_id: session.id,
+                order_id: order.id,
+              });
+            }
           }
         }
 
