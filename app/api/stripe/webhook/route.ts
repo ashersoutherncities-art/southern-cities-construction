@@ -10,7 +10,7 @@ import {
   updateOrder,
 } from '@/lib/orders';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { mirrorOrderToHub } from '@/lib/hub-orders';
+import { mirrorOrderToHub, mirrorRealtorReviewToHub, reviewTypeForProduct } from '@/lib/hub-orders';
 
 export const runtime = 'nodejs';
 
@@ -167,6 +167,20 @@ export async function POST(req: NextRequest) {
             for (const productKey of productKeys) {
               const product = CART_PRODUCTS[productKey] ?? null;
               const lineAmountCents = product?.price ?? 0;
+
+              // If this is a realtor "review" product, log an inspection review
+              // in the buyer's hub. Non-fatal, idempotent.
+              const reviewType = reviewTypeForProduct(productKey);
+              if (reviewType) {
+                await mirrorRealtorReviewToHub({
+                  buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
+                  buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
+                  review_type: reviewType,
+                  property_address: session.metadata?.project_address || session.metadata?.property_address || null,
+                  stripe_session_id: session.id,
+                });
+              }
+
               const ghlResult = await sendOrderToGhl({
                 buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
                 buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',

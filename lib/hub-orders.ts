@@ -24,6 +24,55 @@ function getHubClient(): SupabaseClient | null {
   return hubClient;
 }
 
+// Realtor "review" products (cart keys) → the hub's realtor_reviews.review_type.
+// When a realtor buys one of these, we log an inspection review in their hub.
+const REVIEW_PRODUCT_MAP: Record<string, string> = {
+  'realtor-quick-read': 'quick_read',
+  'realtor-gc-budget': 'gc_budget',
+  'realtor-inspected-gc-read': 'full_report',
+  'gc-grade-property-inspection': 'full_report',
+  'gc-grade-property-inspection-rush': 'full_report',
+  'pre-listing-construction-valuation': 'pre_listing_audit',
+};
+
+export function reviewTypeForProduct(productKey: string): string | null {
+  return REVIEW_PRODUCT_MAP[productKey] ?? null;
+}
+
+// Log a realtor inspection review in the hub when a review product is purchased.
+// Idempotent per (stripe_session_id, review_type); non-fatal.
+export async function mirrorRealtorReviewToHub(input: {
+  buyer_email: string;
+  buyer_name?: string;
+  review_type: string;
+  property_address?: string | null;
+  stripe_session_id: string;
+}): Promise<void> {
+  const client = getHubClient();
+  const email = input.buyer_email?.trim().toLowerCase();
+  if (!client || !email) return;
+  try {
+    const { data: existing } = await client
+      .from('realtor_reviews')
+      .select('id')
+      .eq('stripe_session_id', input.stripe_session_id)
+      .eq('review_type', input.review_type)
+      .maybeSingle();
+    if (existing) return;
+    await client.from('realtor_reviews').insert({
+      client_email: email,
+      property_address: input.property_address ?? null,
+      review_type: input.review_type,
+      status: 'submitted',
+      submitted_by_name: input.buyer_name ?? null,
+      submitted_by_email: email,
+      stripe_session_id: input.stripe_session_id,
+    });
+  } catch (err) {
+    console.error('mirrorRealtorReviewToHub failed (non-fatal):', err);
+  }
+}
+
 export async function mirrorOrderToHub(input: MirrorInput): Promise<void> {
   const client = getHubClient();
   const email = input.buyer_email?.trim().toLowerCase();
