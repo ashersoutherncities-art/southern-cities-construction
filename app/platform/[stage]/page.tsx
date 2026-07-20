@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
 import RehabRiskSnapshotForm from '@/components/RehabRiskSnapshotForm';
+import ProjectSetupCTA from '@/components/ProjectSetupCTA';
 import { PLATFORM_STAGES, getPlatformStage } from '@/lib/investor-platform';
 
 type Params = { stage: string };
@@ -123,7 +124,9 @@ export default function PlatformStagePage({ params }: { params: Params }) {
             ) : null}
 
             <div className="mt-9 flex flex-wrap gap-4">
-              {stage.toolUrl ? (
+              {stage.slug === 'co2' ? (
+                <ProjectSetupCTA />
+              ) : stage.toolUrl ? (
                 <Link
                   href={stage.toolUrl}
                   className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
@@ -138,6 +141,13 @@ export default function PlatformStagePage({ params }: { params: Params }) {
                   mode="direct-lp"
                   lpSlug={`platform-${stage.slug}`}
                 />
+              ) : stage.isPaid ? (
+                <a
+                  href="/start"
+                  className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
+                >
+                  {stage.ctaLabel} →
+                </a>
               ) : (
                 <a
                   href="#cta"
@@ -499,8 +509,10 @@ export default function PlatformStagePage({ params }: { params: Params }) {
           <p className="mt-5 text-[16px] leading-relaxed text-white/75 sm:text-lg">
             {stage.heroSubheadline}
           </p>
-          <div className="mt-9">
-            {stage.toolUrl ? (
+          <div className="mt-9 flex flex-wrap justify-center gap-4">
+            {stage.slug === 'co2' ? (
+              <ProjectSetupCTA label={`${stage.ctaLabelFinal ?? stage.ctaLabel} — $3,500/mo →`} />
+            ) : stage.toolUrl ? (
               <Link
                 href={stage.toolUrl}
                 className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-9 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
@@ -517,7 +529,7 @@ export default function PlatformStagePage({ params }: { params: Params }) {
               />
             ) : stage.isPaid ? (
               <a
-                href="#contact"
+                href="/start"
                 className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-9 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
               >
                 {stage.ctaLabelFinal ?? stage.ctaLabel} → (request quote)

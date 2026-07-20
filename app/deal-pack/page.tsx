@@ -631,6 +631,33 @@ export default function DealPackPage() {
         </div>
       </section>
 
+      {/* SC REALTY CMA CROSS-SELL — the value side of the deal math */}
+      <section className="py-12 sm:py-14 border-t border-white/8">
+        <div className="container-pro">
+          <div className="rounded-[24px] border border-white/15 bg-white/[0.03] p-7 sm:p-9">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="lg:max-w-2xl">
+                <span className="inline-flex items-center rounded-full border border-orange/50 bg-orange/15 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-orange">
+                  Add the value side · SC Realty CMA
+                </span>
+                <h2 className="mt-4 text-2xl font-black tracking-[-0.025em] text-white sm:text-3xl">
+                  A Deal Pack prices the cost. A <span className="text-orange">CMA</span> prices the value.
+                </h2>
+                <p className="mt-3 text-[15px] leading-[1.6] text-white/80 sm:text-base">
+                  Your ARV ladder runs RentCast → HouseCanary → a licensed <span className="text-white">SC Realty CMA</span> — a broker&apos;s opinion of value (not an appraisal) to anchor the value side of your deal math. Add it to any budget product or run it standalone: <span className="text-white font-semibold">$99 for Deal Desk members, $149 non-members</span>. NC GC License #107724.
+                </p>
+              </div>
+              <Link
+                href="/deal-desk"
+                className="shrink-0 inline-flex min-h-[56px] items-center justify-center rounded-full border border-orange/50 bg-orange/15 px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-orange transition hover:bg-orange/25 hover:-translate-y-0.5"
+              >
+                Get an SC Realty CMA →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section className="bg-[#0a1428] py-20 sm:py-24 border-t border-white/8">
         <div className="container-pro max-w-5xl">

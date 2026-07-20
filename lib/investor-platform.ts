@@ -267,18 +267,18 @@ const CO2: PlatformStage = {
   },
   stageNumber: 3,
   shortCode: 'CO2',
-  name: 'Project Setup & Contractor Coordination',
+  name: 'Project Setup & Pre-Construction Management',
   marketingShortName: 'Project Setup',
-  internalName: 'Pre-construction operational setup',
+  internalName: 'Pre-construction operational setup + management retainer',
   audienceTag: 'INVESTORS · PRE-CONSTRUCTION',
-  oneLiner: 'Eliminate the chaos that costs investors $10K+ mid-build. We structure your project end-to-end before the cracks split the deal.',
+  oneLiner: 'Eliminate the chaos that costs investors $10K+ mid-build. We structure and manage your project end-to-end before the cracks split the deal — $3,500/mo, then it rolls into Active Oversight for the build.',
   purpose:
-    'This is pre-construction setup infrastructure. The goal is to remove ambiguity and chaos before any subcontractor touches the property.',
+    'This is pre-construction setup + management infrastructure. The goal is to remove ambiguity and chaos before any subcontractor touches the property, then hand a launched project to Active Oversight.',
   isAutomated: false,
   isPaid: true,
-  pricing: 'Starting at $2,500',
-  pricingDetail: 'Scoped per project · typical $2,500–$5,000 depending on scope complexity · Plans Development available as add-on',
-  turnaround: '1–3 weeks depending on scope',
+  pricing: '$3,500 / mo',
+  pricingDetail: 'Pre-construction management retainer · minimum commitment scales with project budget: under $40k = 1 month · $40–65k = 2 months · over $65k = 3 months · then rolls into Active Oversight for the build',
+  turnaround: 'Monthly retainer · 1–3 month minimum by project budget',
   ghlTag: 'platform-co2-purchased',
   questionAnswered: 'How do I properly organize and structure this project before construction begins?',
   revealedProblem:
@@ -303,6 +303,8 @@ const CO2: PlatformStage = {
     'Operational organization',
     'Coordination layer',
   ],
+  scopeNote:
+    'Billed as a $3,500/mo pre-construction management retainer. Minimum commitment scales with project budget: under $40k = 1 month, $40–65k = 2 months, over $65k = 3 months. It gets the project ready and launched, then rolls into Active Oversight for the build.',
   heroHeadlinePre: 'Stop letting bad pre-construction cost you',
   heroHeadlineHighlight: '$10,000+',
   heroHeadlinePost: ' in execution corrections.',
@@ -319,7 +321,7 @@ const CO2: PlatformStage = {
   refundMechanic:
     'Performance guarantee: full refund if after our 5-day intake we determine we cannot deliver project setup at our standard for your scope. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
-    'Scoped per project — and your Bid-Ready Deal Pack fee credits forward, lowering the net.',
+    '$3,500/mo retainer with a minimum that scales with your budget (1–3 months) — and your Bid-Ready Deal Pack fee credits forward, lowering the net.',
     'Skip 40–60 hours of contractor sourcing, bid normalization, scope writing, and schedule building yourself.',
     'A botched pre-construction setup typically costs $10K+ in execution corrections downstream.',
     'First-prevented setup miss ROI: 4x–12x.',
@@ -357,7 +359,7 @@ const CO3: PlatformStage = {
     { label: 'Owner-builders of record', detail: 'You can legally pull the permits and want a licensed GC operating the job within that frame.' },
   ],
   scopeNote:
-    'You hold the permits (where required) and the GC-of-record liability that comes with them; we run the execution layer. Base scope coordinates the labor and materials YOU provide. Need us to source or recommend crews? That is an add-on, priced per trade — or step up to Project Setup. Permit-pulling under our license is Owner-Controlled Build.',
+    'You hold the permits (where required) and the GC-of-record liability that comes with them; we run the execution layer. This is project management — we coordinate labor, materials, inspections, and draws — NOT a quality-assurance layer (QA/QC sign-off is Owner-Controlled Build / Full GC Service). Base scope coordinates the labor and materials YOU provide. Need us to source or recommend crews? That is an add-on, priced per trade — or step up to Project Setup. Permit-pulling under our license is Owner-Controlled Build.',
   isAutomated: false,
   isPaid: true,
   pricing: 'From $6,500 — scoped per project',
@@ -385,6 +387,7 @@ const CO3: PlatformStage = {
     'Permit pulling (that is Owner-Controlled Build — you remain GC of record here)',
     'Sourcing your crews from scratch (add-on: $400 per trade, or Project Setup)',
     'Full GC execution / risk transfer (handled by Full GC Service)',
+    'Quality assurance / QC sign-off — this is a project-management tier, not a QA layer (that is Owner-Controlled Build / Full GC Service)',
     'Simple admin work',
   ],
   thisIs: [
