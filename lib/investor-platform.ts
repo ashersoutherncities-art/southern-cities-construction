@@ -22,7 +22,7 @@ export type PlatformStage = {
   stageNumber: number;
   shortCode: string; // INTERNAL ONLY — "LM1", "CO1", etc. Never used in customer-facing copy.
   name: string; // marketing-facing full name
-  marketingShortName: string; // marketing-facing short name (e.g., "Execution Review"). Use this anywhere a short label is needed customer-side.
+  marketingShortName: string; // marketing-facing short name (e.g., "Deal Pack"). Use this anywhere a short label is needed customer-side.
   internalName: string; // back-office descriptor
   audienceTag: string; // pill text in hero
   oneLiner: string; // 1-sentence positioning
@@ -118,7 +118,7 @@ const LM1: PlatformStage = {
   audienceTag: 'INVESTORS · UNDERWRITING',
   oneLiner: '$0 to keep $10K+ in your pocket. A licensed NC GC delivers a decision-grade rehab budget range you can underwrite from. Free.',
   purpose:
-    'Rules-based automated tool that gives investors a decision-grade rehab budget range, timeline, project category, and risk flags for early-stage underwriting. Built to be ~80% directionally useful so investors can make a confident go/no-go call on the deal — or build deeper analysis from. Designed to surface the need for deeper validation (the Execution Review) when the stakes get serious.',
+    'Rules-based automated tool that gives investors a decision-grade rehab budget range, timeline, project category, and risk flags for early-stage underwriting. Built to be ~80% directionally useful so investors can make a confident go/no-go call on the deal — or build deeper analysis from. Designed to surface the need for a GC-verified number (the Bid-Ready Deal Pack) when the stakes get serious.',
   isAutomated: true,
   isPaid: false,
   pricing: 'Free',
@@ -127,7 +127,7 @@ const LM1: PlatformStage = {
   ghlTag: 'platform-lm1-captured',
   questionAnswered: 'What is this project LIKELY to cost to execute?',
   revealedProblem:
-    'The range gives you a number — but it cannot tell you whether the project is realistically executable within those assumptions. That is what the Investor Execution Review answers.',
+    'The range gives you a number — but not a GC-verified budget and scope you can offer and build from. That is what the Bid-Ready Deal Pack delivers.',
   deliverables: [
     'Preliminary budget range based on classification + multipliers',
     'Timeline range estimate',
@@ -178,80 +178,83 @@ const LM1: PlatformStage = {
   ],
 };
 
+// NOTE: CO1 was formerly the retired "Investor Execution Review" ($499). Per
+// the catalogue (scripts/build-investor-catalogue.py — Execution Review is
+// RETIRED because it duplicated the Deal Pack), the first paid validation step
+// is now the existing Bid-Ready Deal Pack ($599). The `/platform/co1` route is
+// redirected to `/deal-pack` in next.config.mjs so there is a single Deal Pack
+// surface; this stage object still feeds the LM1 "next step" card and the
+// on-ramp label, so it is kept consistent with the Deal Pack. The retired
+// `platform-co1-execution-review` cart key stays resolvable in lib/cart.ts for
+// old ad/email links (de-feature, don't delete).
 const CO1: PlatformStage = {
   slug: 'co1',
   stageNumber: 2,
   shortCode: 'CO1',
-  name: 'Investor Execution Review',
-  marketingShortName: 'Execution Review',
-  internalName: 'Human-reviewed execution feasibility validation',
+  name: 'Bid-Ready Deal Pack',
+  marketingShortName: 'Deal Pack',
+  internalName: 'GC-verified rehab budget + deal validation (Bid-Ready Deal Pack)',
   audienceTag: 'INVESTORS · PRE-LOI / PRE-OFFER',
-  oneLiner: 'Stop losing $5K+ to execution mistakes. A licensed NC GC eliminates the hidden risk on your next deal in 48 hours — or refund.',
+  oneLiner: 'A licensed NC GC pressure-tests your deal and hands back a GC-verified rehab budget + dollarized scope you can underwrite, offer, and assign from — $599, credits forward.',
   purpose:
-    'This is where actual expertise enters. A licensed NC GC validates whether the project realistically works, whether the assumptions are executable, and whether the budget is pressure-tested.',
+    'This is where actual expertise enters. A licensed NC GC validates whether the project realistically works and turns it into a GC-certified rehab budget range, a dollarized line-item scope of work, and an execution-risk report — the number you can offer and build from.',
   isAutomated: false,
   isPaid: true,
-  pricing: '$499',
-  pricingDetail: '$499 flat fee · 2 business day turnaround · refundable as credit on Project Setup, Active Oversight, Owner-Controlled Build, or Full GC Service',
-  turnaround: '2 business days',
+  pricing: '$599',
+  pricingDetail: '$599 per deal · 2–3 business day turnaround · fee credits forward against Project Setup, Active Oversight, Owner-Controlled Build, or Full GC Service',
+  turnaround: '2–3 business days',
   ghlTag: 'platform-co1-purchased',
-  questionAnswered: 'Can this project realistically be executed within the assumptions required for the deal to work?',
+  questionAnswered: 'What will this rehab really cost — and is the deal worth doing at my number?',
   revealedProblem:
-    'Now you know the deal works. The next question is how to properly organize and structure the project before construction begins.',
+    'Now you have a GC-verified number and scope. The next question is how to properly organize and structure the project before construction begins.',
   deliverables: [
-    'Refined budget range pressure-tested against current NC market labor + materials',
-    'Execution feasibility analysis',
-    'Labor market observations specific to the project location',
-    'Permit path review',
-    'Timeline analysis with sequencing observations',
-    'Risk identification + contingency guidance',
-    'Execution recommendations',
+    'GC-certified 3-tier rehab budget range',
+    'Dollarized line-item scope of work',
+    'Top execution risks with cost-to-cure',
+    'Loan-killer flags',
+    'Branded NC GC #107724 PDF you can attach to your offer or assignment',
   ],
   notThisIs: [
     'Full project management',
     'Active oversight',
     'GC execution',
-    'A construction quote',
+    'A guaranteed final construction bid',
   ],
   thisIs: [
-    'Execution intelligence',
-    'Feasibility validation',
-    'Risk analysis',
+    'A GC-verified rehab budget you can underwrite from',
+    'A dollarized scope of work',
+    'Execution-risk clarity',
     'Reduced decision error',
     'Investment clarity',
   ],
-  heroHeadlinePre: 'Stop losing',
-  heroHeadlineHighlight: '$5,000+',
-  heroHeadlinePost: ' to execution mistakes you didn’t see coming.',
+  heroHeadlinePre: 'Know what the rehab really costs',
+  heroHeadlineHighlight: 'before you offer',
+  heroHeadlinePost: '.',
   heroSubheadline:
-    'A licensed NC GC pressure-tests your deal in 48 hours and eliminates every hidden execution risk — labor market spikes, permit reality, sequencing gaps, category-shifters. $499 flat. Performance guarantee: full refund if we cannot perform the review at our standard. NC GC #107724.',
-  ctaLabel: 'Stop My Losses — $499',
-  ctaLabelMid: 'See a Sample Review',
-  ctaLabelFinal: 'Stop My Losses — $499 (refunded if continued)',
+    'A licensed NC GC pressure-tests your deal in 2–3 business days and hands back a GC-certified rehab budget range, a dollarized line-item scope, and an execution-risk report — the number you can offer, underwrite, and assign from. $599 flat, and it credits forward against anything you do next. NC GC #107724.',
+  ctaLabel: 'Get My Bid-Ready Deal Pack — $599',
+  ctaLabelMid: 'See a Sample Deal Pack',
+  ctaLabelFinal: 'Get My Bid-Ready Deal Pack — $599 (credits forward)',
   nextStage: 'co2',
-  cartProductKey: 'platform-co1-execution-review',
-  sampleDeliverable: {
-    pdfUrl: '/resources/samples/investor-execution-review-sample.pdf',
-    coverUrl: '/product-mockups/investor-execution-review-sample-cover.jpg',
-    pages: 11,
-  },
+  cartProductKey: 'deal-pack-bid-ready',
+  toolUrl: '/deal-pack',
   bucket: 'Diagnosis',
   verb: 'FIND',
   promise:
-    'Eliminate $5,000+ of execution risk on your next deal — or confirm the deal is clean. Either way, you stop walking blind — before one missed risk becomes ten.',
+    'Get a GC-verified rehab budget and dollarized scope you can offer and build from — before one missed number turns into ten.',
   refundMechanic:
-    'Performance guarantee: $499 fully refunded if we cannot perform the Execution Review at Southern Cities standard. Southern Cities evaluates your deal in 24 hours — if we determine we cannot deliver a complete review (deal is too unusual, data too thin, or otherwise outside what we underwrite), refund. Once we accept the engagement, we deliver. The refund trigger is Southern Cities’ call, not the buyer’s.',
+    'Performance guarantee: your $599 is fully refunded if we cannot perform the Bid-Ready Deal Pack at Southern Cities standard. Southern Cities evaluates your deal first — if we determine we cannot deliver a complete Deal Pack (deal is too unusual, data too thin, or otherwise outside what we underwrite), refund. Once we accept the engagement, we deliver. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
-    'Pay $499 → find at least $5,000 of execution risk on your deal OR confirm the deal is clean. Both answers are worth $499.',
-    'Typical findings: $5,000+ of execution risk you would have walked into blind without the review.',
-    '$499 credits forward against any deeper engagement (Project Setup, Active Oversight, Owner-Controlled Build, Full GC Service) — so if you continue with Southern Cities at any deeper level, it is $0 net.',
-    'The only buyers who pay $499 net are those who run the review AND walk away from the deal — in which case the review just saved them from a $5K+ mistake.',
+    'Pay $599 → get a GC-verified rehab budget + dollarized scope you can actually offer and build from, instead of a spreadsheet guess.',
+    'Typical avoided mistake: $5,000+ of execution risk you would have walked into blind.',
+    '$599 credits forward against any deeper engagement (Project Setup, Active Oversight, Owner-Controlled Build, Full GC Service) — so if you continue with Southern Cities at any deeper level, it is $0 net.',
+    'The only buyers who pay $599 net are those who run the Deal Pack AND walk away from the deal — in which case it just saved them from a bad number.',
   ],
   bonusStack: [
-    { label: '48-hour turnaround on the full written review', value: '$0 — included' },
-    { label: 'Permit-jurisdiction timeline check for your AHJ', value: '$150 value' },
-    { label: 'Vendor-lineup intro list for your submarket', value: '$300 value' },
-    { label: '$499 credits forward to any deeper Southern Cities engagement', value: '$499 value' },
+    { label: '2–3 business day turnaround on the full Deal Pack', value: '$0 — included' },
+    { label: 'Loan-killer flag review for your buyer’s lender', value: 'included' },
+    { label: 'Branded NC GC #107724 PDF for your offer or assignment', value: 'included' },
+    { label: '$599 credits forward to any deeper Southern Cities engagement', value: '$599 value' },
   ],
 };
 
@@ -316,7 +319,7 @@ const CO2: PlatformStage = {
   refundMechanic:
     'Performance guarantee: full refund if after our 5-day intake we determine we cannot deliver project setup at our standard for your scope. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
-    '$2,500 starting fee ($2,001 net after the Execution Review credit applies).',
+    'Scoped per project — and your Bid-Ready Deal Pack fee credits forward, lowering the net.',
     'Skip 40–60 hours of contractor sourcing, bid normalization, scope writing, and schedule building yourself.',
     'A botched pre-construction setup typically costs $10K+ in execution corrections downstream.',
     'First-prevented setup miss ROI: 4x–12x.',
@@ -325,7 +328,7 @@ const CO2: PlatformStage = {
     { label: 'Full vendor lineup with negotiated rate cards', value: 'irreplaceable' },
     { label: 'Permit submission package — Southern Cities drafts, you submit' },
     { label: 'Draw sequencing logic written for your lender' },
-    { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
+    { label: 'Your Bid-Ready Deal Pack fee credited automatically', value: '$599 value' },
   ],
 };
 
@@ -358,7 +361,7 @@ const CO3: PlatformStage = {
   isAutomated: false,
   isPaid: true,
   pricing: 'From $6,500 — scoped per project',
-  pricingDetail: 'Flat fee per project (not monthly) · Light $6,500 / Standard $12,500 / Heavy $19,500 / Complex $28,500 · tier confirmed during the Execution Review based on project type and duration',
+  pricingDetail: 'Flat fee per project (not monthly) · Light $6,500 / Standard $12,500 / Heavy $19,500 / Complex $28,500 · tier confirmed during the Bid-Ready Deal Pack based on project type and duration',
   turnaround: 'Engagement spans active construction (typical 6 weeks–12 months by tier)',
   ghlTag: 'platform-co3-purchased',
   questionAnswered: 'How do I keep execution from drifting once construction actually starts?',
@@ -404,18 +407,18 @@ const CO3: PlatformStage = {
   promise:
     'Kill execution drift before it kills your margin. A licensed NC GC tracks progress, monitors budget, flags slippage, escalates issues, and coordinates contractors — every week, for the full duration of your project.',
   refundMechanic:
-    'Performance guarantee: full refund if after the Execution Review we determine we cannot deliver oversight at our standard for your project tier. The refund trigger is Southern Cities’ call, not the buyer’s.',
+    'Performance guarantee: full refund if after the Bid-Ready Deal Pack we determine we cannot deliver oversight at our standard for your project tier. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
     'Light $6,500 / Standard $12,500 / Heavy $19,500 / Complex $28,500 — scoped flat fee, NOT monthly. You know your total upfront.',
     'Typical execution surprise on a rehab: $5K+. Active Oversight prevents 1+ surprise on nearly every project.',
     '100+ hours of your time saved chasing contractors, draws, and slippage.',
-    "The Execution Review's $499 credits forward — net cost is even lower if you came through the funnel.",
+    'Your Bid-Ready Deal Pack fee credits forward — net cost is even lower if you validated the deal with us first.',
   ],
   bonusStack: [
     { label: 'Weekly written reports for the duration of the project' },
     { label: 'Direct cell access to your assigned Southern Cities PM during business hours' },
     { label: 'Vendor-level escalation handling — Southern Cities fights subs on your behalf' },
-    { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
+    { label: 'Your Bid-Ready Deal Pack fee credited automatically', value: '$599 value' },
   ],
 };
 
@@ -490,7 +493,7 @@ const CO4: PlatformStage = {
     { label: 'Permit pulls included (no markup on permit fees)' },
     { label: 'AHJ inspection coordination across your jurisdiction' },
     { label: 'Contract structure templates for your subs' },
-    { label: "The Execution Review's $499 credited automatically", value: '$499 value' },
+    { label: 'Your Bid-Ready Deal Pack fee credited automatically', value: '$599 value' },
   ],
 };
 
@@ -564,7 +567,7 @@ const CO5: PlatformStage = {
   ],
   bonusStack: [
     { label: 'First 90 days of Active Oversight equivalent included', value: '$6.5K–$12.5K value' },
-    { label: 'Execution Review free on your next deal', value: '$499 value' },
+    { label: 'Bid-Ready Deal Pack free on your next deal', value: '$599 value' },
     { label: 'All permit costs pass-through, zero markup' },
     { label: 'All prior platform credits applied across the ladder' },
   ],

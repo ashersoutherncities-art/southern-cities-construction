@@ -13,7 +13,7 @@ export const metadata = {
     url: '/platform',
     title: 'Investor Execution Platform — Construction Intelligence for NC Investors',
     description:
-      'Start free, then choose how much of the build you keep and how much you hand to a licensed NC GC — from a $499 validation to full execution.',
+      'Start free, then choose how much of the build you keep and how much you hand to a licensed NC GC — from a $599 Bid-Ready Deal Pack to full execution.',
     siteName: 'Southern Cities Construction',
   },
 };
@@ -42,8 +42,10 @@ const HANDOFF: Record<string, { youKeep: string; weCarry: string }> = {
 };
 
 export default function PlatformHubPage() {
-  // The on-ramp is genuinely sequential: free snapshot → $499 validation that
-  // credits forward. Everything after it is a menu, not a climb.
+  // The on-ramp is genuinely sequential: free snapshot → $599 Bid-Ready Deal
+  // Pack (GC-verified rehab budget + deal validation) that credits forward.
+  // Everything after it is a menu, not a climb. CO1 is now the Bid-Ready Deal
+  // Pack (Execution Review retired) and its card links straight to /deal-pack.
   const onRamp = PLATFORM_STAGES.filter((s) => s.slug === 'lm1' || s.slug === 'co1');
   // The "dial" — ordered by how hands-on the OWNER stays, left (you keep most)
   // to right (we carry all). Deliberately NOT in SKU order: co4 sits beside co3
@@ -89,8 +91,8 @@ export default function PlatformHubPage() {
             <p className="mt-6 max-w-2xl text-lg leading-[1.55] text-white/80 sm:text-xl">
               Southern Cities Construction is a layered construction execution intelligence and operational
               support platform for real estate investors. Start free with a licensed NC GC budget snapshot — then
-              choose how much of the build you keep and how much you hand off. From a $499 validation to full
-              execution. You pick the level; the standard never changes.
+              choose how much of the build you keep and how much you hand off. From a $599 Bid-Ready Deal Pack to
+              full execution. You pick the level; the standard never changes.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
@@ -170,9 +172,9 @@ export default function PlatformHubPage() {
               Everyone starts the same way.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/70 sm:text-lg">
-              Two steps, in order. A free budget snapshot you can underwrite from — then a licensed NC GC
-              validates the deal for $499 that credits forward against anything you do next. After that, you
-              choose your level.
+              Two steps, in order. A free budget snapshot you can underwrite from — then a licensed NC GC delivers
+              a GC-verified Bid-Ready Deal Pack for $599 (rehab budget + dollarized scope + execution-risk report)
+              that credits forward against anything you do next. After that, you choose your level.
             </p>
           </div>
 
@@ -180,7 +182,7 @@ export default function PlatformHubPage() {
             {onRamp.map((stage, i) => (
               <div key={stage.slug} className="contents">
                 <Link
-                  href={`/platform/${stage.slug}`}
+                  href={stage.slug === 'co1' ? '/deal-pack' : `/platform/${stage.slug}`}
                   className="group flex flex-col rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0d1a30] via-[#0a1428] to-[#0d1a30] p-7 transition-all hover:border-orange/50 hover:shadow-[0_24px_48px_-16px_rgba(245,130,32,0.25)]"
                 >
                   <div className="flex items-center justify-between gap-4">
@@ -281,9 +283,9 @@ export default function PlatformHubPage() {
           </div>
 
           <p className="mt-8 max-w-2xl text-[14px] leading-[1.6] text-white/60">
-            Not sure which fits? Start with the <span className="text-white">$499 Execution Review</span> — a
-            licensed NC GC tells you which level your project actually needs, and the fee credits forward against
-            whatever you choose.
+            Not sure which fits? Start with the <span className="text-white">$599 Bid-Ready Deal Pack</span> — a
+            licensed NC GC verifies your rehab budget and scope, tells you which level your project actually needs,
+            and the fee credits forward against whatever you choose.
           </p>
         </div>
       </section>
@@ -307,7 +309,7 @@ export default function PlatformHubPage() {
               Every paid level on this platform carries the same guarantee: we evaluate your project before we accept it. If we determine we cannot deliver at our standard, full refund — no questions, no negotiation. Once we accept the engagement, we deliver. You are paying for our <span className="text-white font-semibold">commitment to deliver</span>, not gambling on outcomes.
             </p>
             <p className="mt-4 text-[14px] text-white/60">
-              And the Execution Review&apos;s $499 fee credits forward against any deeper engagement — making the first paid step effectively free for anyone who continues.
+              And the Bid-Ready Deal Pack&apos;s $599 fee credits forward against any deeper engagement — making the first paid step effectively free for anyone who continues.
             </p>
           </div>
         </div>
@@ -337,7 +339,7 @@ export default function PlatformHubPage() {
             Start where you actually are.
           </h2>
           <p className="mt-5 text-[16px] leading-relaxed text-white/75 sm:text-lg">
-            If you&apos;re underwriting a deal — start with the free Budget Snapshot. If you already own the property — start with the Execution Review or Project Setup. If construction has started — start with Active Oversight.
+            If you&apos;re underwriting a deal — start with the free Budget Snapshot. If you&apos;re ready to lock the number — start with the Bid-Ready Deal Pack or Project Setup. If construction has started — start with Active Oversight.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <Link
@@ -347,10 +349,10 @@ export default function PlatformHubPage() {
               Free Budget Snapshot →
             </Link>
             <Link
-              href="/platform/co1"
+              href="/deal-pack"
               className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white transition hover:bg-white/10"
             >
-              Execution Review — $499
+              Bid-Ready Deal Pack — $599
             </Link>
             <Link
               href="/cart?cart=execution-consultation"

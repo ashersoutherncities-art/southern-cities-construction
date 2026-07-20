@@ -229,10 +229,6 @@ const investorTestimonials = [
 ];
 
 const supportRows = [
-  'Deal reviewed',
-  'Budget checked',
-  'Permit path mapped',
-  'Contractor fit reviewed',
   'Scope prepared',
   'Timeline built',
   'Permit prep',
@@ -244,16 +240,11 @@ const supportRows = [
   'Full contracting available',
 ];
 
+// NOTE: the "Due Diligence Bundle" was removed from this table — that product
+// is retired (see scripts/build-investor-catalogue.py). The `due-diligence-bundle`
+// cart key + its /lp page stay resolvable for old links (de-feature, don't
+// delete); it is only pulled from this comparison table.
 const supportBundles = [
-  {
-    label: 'Before You Commit',
-    title: 'Due Diligence Bundle',
-    price: '$1,499 flat',
-    includes: ['Deal reviewed', 'Budget checked', 'Permit path mapped', 'Contractor fit reviewed'],
-    cta: 'View Details',
-    href: '/lp/due-diligence-bundle',
-    highlighted: false,
-  },
   {
     label: 'Before You Start',
     title: 'Project Setup Bundle',
@@ -496,7 +487,7 @@ export default function InvestorsPage() {
           </div>
 
           <div className="mt-10 overflow-hidden rounded-[24px] border border-white/15 bg-[linear-gradient(135deg,#071b3d_0%,#0b2146_50%,#081730_100%)] shadow-[0_18px_40px_rgba(4,15,34,0.32)]">
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
                 <div key={bundle.title} className={`px-4 py-4 text-center sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>
@@ -506,7 +497,7 @@ export default function InvestorsPage() {
               ))}
             </div>
 
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr] border-b border-white/10">
               <div className="px-4 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/85 sm:px-5">Pricing</div>
               {supportBundles.map((bundle) => (
                 <div key={`${bundle.title}-price`} className={`px-4 py-3 text-center text-sm font-bold text-[#fa8c41] sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.06]' : ''}`}>
@@ -516,7 +507,7 @@ export default function InvestorsPage() {
             </div>
 
             {supportRows.map((row) => (
-              <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
+              <div key={row} className="grid grid-cols-[0.95fr_1fr_1fr] border-b border-white/10 last:border-b-0">
                 <div className="px-4 py-2.5 text-sm font-semibold text-white sm:px-5">{row}</div>
                 {supportBundles.map((bundle) => {
                   const included = bundle.includes.includes(row);
@@ -529,7 +520,7 @@ export default function InvestorsPage() {
               </div>
             ))}
 
-            <div className="grid grid-cols-[0.95fr_1fr_1fr_1fr]">
+            <div className="grid grid-cols-[0.95fr_1fr_1fr]">
               <div className="px-4 py-4 sm:px-5" />
               {supportBundles.map((bundle) => (
                 <div key={`${bundle.title}-cta`} className={`px-4 py-4 sm:px-5 ${bundle.highlighted ? 'border-x border-[#fa8c41]/40 bg-[#fa8c41]/[0.08]' : ''}`}>

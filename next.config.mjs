@@ -75,6 +75,15 @@ const nextConfig = {
       // (307) while the investor migration settles — flip to permanent later.
       { source: '/services/investors', destination: '/platform', permanent: false },
 
+      // Investor Execution Review ($499, platform stage CO1) retired — the
+      // catalogue consolidated the first paid validation step onto the existing
+      // Bid-Ready Deal Pack ($599). Route the old CO1 detail page (and every
+      // legacy link that redirects into it) to the single Deal Pack surface.
+      // Temporary (307) while the consolidation settles. The retired
+      // `platform-co1-execution-review` cart key stays live in lib/cart.ts so
+      // old /cart links still transact.
+      { source: '/platform/co1', destination: '/deal-pack', permanent: false },
+
       // Realtors — legacy URL alias
       { source: '/services/realtors/pre-listing-work', destination: '/services/realtors/pre-listing-budget-prep-review', permanent: true },
 
