@@ -150,7 +150,7 @@ const supportTiers = [
     price: '$299/mo',
     includes: [
       'GC Support Specialist on call for quick contracting & pricing questions',
-      '2 inspection or listing reviews / mo',
+      '3 inspection or listing reviews / mo',
       '24-hour response SLA',
       'Unused reviews bank up to 2',
     ],
@@ -165,7 +165,7 @@ const supportTiers = [
     price: '$649/mo',
     includes: [
       'GC Support Specialist on call for quick contracting & pricing questions',
-      '4 inspection / listing reviews / mo',
+      '10 inspection / listing reviews / mo',
       'Same-day triage on urgent items',
       'Written deal-support summaries',
       'Shared team access (3–10 agents)',
