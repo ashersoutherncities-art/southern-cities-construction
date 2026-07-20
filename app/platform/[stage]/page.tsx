@@ -511,7 +511,7 @@ export default function PlatformStagePage({ params }: { params: Params }) {
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-4">
             {stage.slug === 'co2' ? (
-              <ProjectSetupCTA label={`${stage.ctaLabelFinal ?? stage.ctaLabel} — $3,500/mo →`} />
+              <ProjectSetupCTA label={`${stage.ctaLabelFinal ?? stage.ctaLabel} — $3,500 →`} />
             ) : stage.toolUrl ? (
               <Link
                 href={stage.toolUrl}

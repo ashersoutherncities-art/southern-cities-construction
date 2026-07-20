@@ -367,6 +367,16 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     checkoutAmount: '699',
   },
   // ---- Stage B: Realtor read/report ladder additions ----
+  'project-setup': {
+    key: 'project-setup',
+    name: 'Project Setup & Pre-Construction Management',
+    shortName: 'Project Setup',
+    price: 350000,
+    priceLabel: '$3,500 · one-time · gets your project shovel-ready',
+    description:
+      'A one-time pre-construction setup engagement: a licensed NC GC structures your entire project before any sub touches the property — subcontractor fit analysis, contractor sourcing from our vetted NC network, bid coordination + scope alignment (so every contractor prices identical assumptions), permit coordination, schedule setup, and lender draw planning. You get a launched, shovel-ready project — then step into Active Oversight for the build. Your Bid-Ready Deal Pack fee credits forward. NC GC License #107724.',
+    checkoutAmount: '3500',
+  },
   'realtor-gc-budget': {
     key: 'realtor-gc-budget',
     name: 'GC Budget (on your inspection)',

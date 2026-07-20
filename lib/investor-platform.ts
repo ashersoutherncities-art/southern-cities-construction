@@ -271,14 +271,15 @@ const CO2: PlatformStage = {
   marketingShortName: 'Project Setup',
   internalName: 'Pre-construction operational setup + management retainer',
   audienceTag: 'INVESTORS · PRE-CONSTRUCTION',
-  oneLiner: 'Eliminate the chaos that costs investors $10K+ mid-build. We structure and manage your project end-to-end before the cracks split the deal — $3,500/mo, then it rolls into Active Oversight for the build.',
+  oneLiner: 'Eliminate the chaos that costs investors $10K+ mid-build. We structure your project end-to-end before the cracks split the deal — a one-time $3,500 setup, then step into Active Oversight for the build.',
   purpose:
     'This is pre-construction setup + management infrastructure. The goal is to remove ambiguity and chaos before any subcontractor touches the property, then hand a launched project to Active Oversight.',
   isAutomated: false,
   isPaid: true,
-  pricing: '$3,500 / mo',
-  pricingDetail: 'Pre-construction management retainer · minimum commitment scales with project budget: under $40k = 1 month · $40–65k = 2 months · over $65k = 3 months · then rolls into Active Oversight for the build',
-  turnaround: 'Monthly retainer · 1–3 month minimum by project budget',
+  pricing: '$3,500 one-time',
+  pricingDetail: 'One-time pre-construction setup engagement · gets your project shovel-ready, then step into Active Oversight for the build · your Bid-Ready Deal Pack fee credits forward',
+  turnaround: 'One-time engagement · ~5-day intake, then your project is launched into Active Oversight',
+  cartProductKey: 'project-setup',
   ghlTag: 'platform-co2-purchased',
   questionAnswered: 'How do I properly organize and structure this project before construction begins?',
   revealedProblem:
@@ -304,7 +305,7 @@ const CO2: PlatformStage = {
     'Coordination layer',
   ],
   scopeNote:
-    'Billed as a $3,500/mo pre-construction management retainer. Minimum commitment scales with project budget: under $40k = 1 month, $40–65k = 2 months, over $65k = 3 months. It gets the project ready and launched, then rolls into Active Oversight for the build.',
+    'Billed as a one-time $3,500 pre-construction setup fee. It gets the project fully organized, ready, and launched — then rolls into Active Oversight for the build.',
   heroHeadlinePre: 'Stop letting bad pre-construction cost you',
   heroHeadlineHighlight: '$10,000+',
   heroHeadlinePost: ' in execution corrections.',
@@ -321,7 +322,7 @@ const CO2: PlatformStage = {
   refundMechanic:
     'Performance guarantee: full refund if after our 5-day intake we determine we cannot deliver project setup at our standard for your scope. The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
-    '$3,500/mo retainer with a minimum that scales with your budget (1–3 months) — and your Bid-Ready Deal Pack fee credits forward, lowering the net.',
+    'A one-time $3,500 to get the entire project organized and launched — and your Bid-Ready Deal Pack fee credits forward, lowering the net.',
     'Skip 40–60 hours of contractor sourcing, bid normalization, scope writing, and schedule building yourself.',
     'A botched pre-construction setup typically costs $10K+ in execution corrections downstream.',
     'First-prevented setup miss ROI: 4x–12x.',
