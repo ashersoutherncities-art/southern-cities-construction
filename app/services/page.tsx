@@ -92,9 +92,9 @@ const roadmapLanes: RoadmapLane[] = [
     href: '/platform',
     start: 'Need a better read on the deal before spending more money',
     stops: [
-      { label: 'Need a read on the deal, rehab, or turn', services: ['Investor Execution Review', 'Rehab Budget Review'], tone: 'start' },
+      { label: 'Need a read on the deal, rehab, or turn', services: ['Budget & Scope Review', 'Rehab Budget Review'], tone: 'start' },
       { label: 'Need help hiring the right contractor and setting the job up right', services: ['Contractor Fit Consultation', 'Bid Coordination & Contractor Match', 'Materials Logistics Setup'], tone: 'info' },
-      { label: 'Need help with lender scope, bids, or draws', services: ['Lender Scope & Bid Package', 'Draw Review Support'], tone: 'build' },
+      { label: 'Need help with lender scope, bids, or draws', services: ['Lender Scope & Bid Package', 'Draw Management'], tone: 'build' },
       { label: 'Need tighter follow-through on an active job', services: ['Rent-Ready Turn', 'Construction Oversight'], tone: 'control' },
       { label: 'Need repeat help across multiple properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
     ],

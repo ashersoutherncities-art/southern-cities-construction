@@ -49,9 +49,9 @@ const fitList = [
 
 const engagementModels = [
   {
-    name: 'Cost-Plus',
-    tag: 'Transparency & flexibility',
-    how: 'You pay the actual cost of labor, materials, and subs — plus one agreed, transparent fee. Fully open-book the whole way through.',
+    name: 'Cost-Plus a Fixed Fee',
+    tag: 'Transparency & flexibility · our preferred model',
+    how: 'You pay the actual cost of labor, materials, and subs — plus one agreed, fixed fee (a set dollar amount, not a percentage). Fully open-book the whole way through. This is our preferred way to build.',
     bestWhen: [
       'Scope is still evolving or likely to change',
       'Renovations and rehabs where conditions are unknown until walls open',
@@ -114,8 +114,8 @@ export default function ContractingPage() {
               <Link href="/#contact" className="inline-flex min-h-[56px] min-w-[240px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
                 Request Full Contracting Review <span aria-hidden="true">→</span>
               </Link>
-              <Link href="/services" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
-                Start with Project Support
+              <Link href="/cart?cart=execution-consultation" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
+                Book a $99 Consultation
               </Link>
             </div>
           </div>

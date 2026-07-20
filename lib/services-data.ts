@@ -253,12 +253,12 @@ const investorServices: AvatarPageData = {
     {
       title: 'Before you buy',
       intro: 'Use these when you need a cleaner read before approving a deal, a rehab number, or a contractor decision.',
-      serviceSlugs: ['investor-review', 'budget-review', 'permit-local-compliance-review', 'contractor-fit-consultation'],
+      serviceSlugs: ['budget-review', 'permit-local-compliance-review', 'contractor-fit-consultation'],
     },
     {
       title: 'Before you start',
       intro: 'Use these when the project is real, but startup decisions still need to be tightened before work or money moves too far.',
-      serviceSlugs: ['contractor-grade-budget', 'regional-investor-setup-consultation', 'contractor-scope-mapping', 'bid-coordination-contractor-match', 'scope-timeline-setup', 'permit-administration', 'materials-logistics-setup'],
+      serviceSlugs: ['regional-investor-setup-consultation', 'contractor-scope-mapping', 'bid-coordination-contractor-match', 'scope-timeline-setup', 'permit-administration', 'materials-logistics-setup'],
     },
     {
       title: 'During lender and draw setup',
@@ -407,24 +407,24 @@ const investorServices: AvatarPageData = {
     },
     {
       slug: 'draw-review-support',
-      title: 'Draw Review Support',
-      summary: 'A fixed-price review service for investors who need a cleaner read on draw support before funding friction gets worse.',
-      pain: 'You need a stronger read on scope, progress, and support material before a draw conversation goes sideways.',
-      outcome: 'Get a structured review of what needs to be cleaned up before submission.',
-      details: ['Draw support review', 'Scope and support check', 'Gap notes', 'Recommended next step'],
-      included: ['Draw-support review', 'Gap notes', 'Recommendation'],
-      notIncluded: ['Guaranteed lender approval', 'Unlimited revisions'],
-      fit: 'Best when draw support needs to be tightened before it creates more delay.',
+      title: 'Draw Management',
+      summary: 'We manage every draw for your project, start to finish — one flat fee covers all draws, not a single review.',
+      pain: 'Running draws yourself means chasing receipts, capturing inspection photos, and filing submissions on the lender\'s schedule while the job is moving.',
+      outcome: 'Hand off the whole draw process: we run every draw, submit them for you, and collect the receipts and proof of payment.',
+      details: ['We run every draw for the project', 'We submit draws for you (we can take your logins, or you forward/upload)', 'Inspection photos captured as required (separate fee)', 'We collect all receipts and proof of payment from you'],
+      included: ['Management of ALL draws for one project', 'Draw submission on your behalf', 'Receipt + proof-of-payment collection', 'Inspection photos as required (separate fee)'],
+      notIncluded: ['Guaranteed lender approval', 'Inspection-photo truck-time fee (billed separately)', 'Project management or oversight'],
+      fit: 'Best when you want the entire draw process off your plate for the life of the project.',
       purchaseType: 'fixed',
       primaryAction: 'buy',
       cta: 'Buy Now',
       detailHref: detailHref('investors', 'draw-review-support'),
       itemKey: 'draw-review-support',
-      monthlyPrice: '$399',
-      turnaround: 'Typical turnaround: 1 business day',
-      proofTitle: 'Useful before draw issues slow funding',
-      proofBody: 'This stays honest as a contained per-draw review with one clear deliverable.',
-      why: 'Single draw review is a bounded service and can support real checkout behavior.',
+      monthlyPrice: '$599',
+      turnaround: 'Runs for the life of the project',
+      proofTitle: 'Useful when you want draws handled end-to-end',
+      proofBody: 'One flat $599 covers every draw on the project — we file them, you stop chasing paperwork.',
+      why: 'Managing all draws for a project is a bounded, flat-fee service that supports real checkout behavior.',
     },
   ],
   review: [
@@ -900,7 +900,7 @@ const realtorServices: AvatarPageData = {
     },
     {
       slug: 'gc-grade-property-inspection',
-      title: 'GC-Grade Property Inspection + Budget Report',
+      title: 'Inspection + GC Budget Report',
       summary: 'The flagship realtor product. A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier estimate: Mandatory (code/loan-killers, 5–7 day fix guarantee), High-ROI (2× return cosmetics), and Disclose & Skip (formatted as a quote so the seller can credit the buyer exactly). The deliverable that closes deals instead of opening fights.',
       pain: 'Your buyer or seller needs more than a generic home inspection report. Inspectors legally cannot give cost ranges or repair quotes. Without those, the buyer panics, the negotiation tilts wrong, and the deal cracks during escrow.',
       outcome: 'Get the full inspection + a GC-grade 3-tier estimate: which items MUST be fixed (with a 5–7 day completion guarantee), which fixes have positive ROI, and which items to disclose with an exact credit quote. Built for closing deals, not opening fights.',
@@ -1069,10 +1069,10 @@ const realtorServices: AvatarPageData = {
     {
       slug: 'listing-transaction-package',
       title: 'Listing Transaction Package',
-      summary: 'The full listing-side construction co-pilot. GC-Grade Property Inspection + Pre-Listing Valuation + Construction Confidence Sheet + Prep PM coordination call + Inspection Review + Repair Credit Letter + Repair Verification Visit.',
+      summary: 'The full listing-side construction co-pilot. Inspection + GC Budget Report + Pre-Listing Valuation + Construction Confidence Sheet + Prep PM coordination call + Inspection Review + Repair Credit Letter + Repair Verification Visit.',
       pain: 'You want construction support throughout the entire listing — including a real on-site inspection AND the pricing, prep, inspection-response, credit negotiation, and walkthrough that come after — but you don\'t want to buy products one at a time.',
-      outcome: 'One fixed price covers the full listing-side construction co-pilot — including the flagship on-site GC-Grade Property Inspection. Predictable cost, full coverage.',
-      details: ['GC-Grade Property Inspection (on-site, dual-layer)', 'Pre-Listing Construction Valuation', 'Construction Confidence Sheet (bundled free)', 'Listing Prep PM coordination call', 'Realtor Inspection Review', 'Repair Credit Calculation Letter', 'Repair Verification Visit'],
+      outcome: 'One fixed price covers the full listing-side construction co-pilot — including the flagship on-site Inspection + GC Budget Report. Predictable cost, full coverage.',
+      details: ['Inspection + GC Budget Report (on-site, dual-layer)', 'Pre-Listing Construction Valuation', 'Construction Confidence Sheet (bundled free)', 'Listing Prep PM coordination call', 'Realtor Inspection Review', 'Repair Credit Calculation Letter', 'Repair Verification Visit'],
       included: ['All seven products listed above', 'Sequenced across the listing lifecycle', 'Single point of contact for the listing', 'Priority response time within the package window'],
       notIncluded: ['Actual prep work (Listing Prep PM is separately scoped because dollar figure varies)', 'Buyer-side products — see Buyer Transaction Package', 'Multi-listing discounts (see subscription tiers for that)'],
       fit: 'Best for listing agents who want construction support sequenced across the entire deal at a predictable price — with a real GC-grade inspection at the core.',
@@ -1084,16 +1084,16 @@ const realtorServices: AvatarPageData = {
       monthlyPrice: '$2,299 flat per listing',
       turnaround: 'Sequenced — each component runs at its own turnaround',
       proofTitle: 'Useful when you want construction support sequenced across the whole listing',
-      proofBody: 'Includes the flagship $899 GC-Grade Property Inspection plus 6 other products. Predictable cost, full coverage.',
+      proofBody: 'Includes the flagship $899 Inspection + GC Budget Report plus 6 other products. Predictable cost, full coverage.',
       why: 'For agents who want Southern Cities as a constant on the listing, not a per-product transaction.',
     },
     {
       slug: 'buyer-transaction-package',
       title: 'Buyer Transaction Package',
-      summary: 'The full buyer-side construction co-pilot. GC-Grade Property Inspection + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan.',
+      summary: 'The full buyer-side construction co-pilot. Inspection + GC Budget Report + Negotiation Strategy Read + Inspection Review + Repair Scope Letter + Repair Verification Visit + Year-1 Priority Repair Plan.',
       pain: 'You want construction support across the entire buying process — including a real on-site inspection AND the negotiation, repair-request, walkthrough, and post-close handoff that come after — but à la carte is fragmented.',
-      outcome: 'One fixed price covers the full buyer-side construction co-pilot — anchored by the flagship on-site GC-Grade Property Inspection.',
-      details: ['GC-Grade Property Inspection (on-site, dual-layer)', 'Negotiation Strategy Read', 'Realtor Inspection Review', 'Repair Scope Letter', 'Repair Verification Visit', 'Year-1 Priority Repair Plan'],
+      outcome: 'One fixed price covers the full buyer-side construction co-pilot — anchored by the flagship on-site Inspection + GC Budget Report.',
+      details: ['Inspection + GC Budget Report (on-site, dual-layer)', 'Negotiation Strategy Read', 'Realtor Inspection Review', 'Repair Scope Letter', 'Repair Verification Visit', 'Year-1 Priority Repair Plan'],
       included: ['All six products listed above', 'Sequenced across the deal lifecycle', 'Single point of contact', 'Priority response time within the package window'],
       notIncluded: ['Listing-side products — see Listing Transaction Package', 'Property purchase / closing services', 'Multi-deal discounts (see subscription tiers for that)'],
       fit: 'Best for buyer agents who want construction support sequenced across the entire deal at a predictable price — with a real GC-grade inspection at the core.',
@@ -1105,7 +1105,7 @@ const realtorServices: AvatarPageData = {
       monthlyPrice: '$1,999 flat per deal',
       turnaround: 'Sequenced — each component runs at its own turnaround',
       proofTitle: 'Useful when you want construction support across the whole deal',
-      proofBody: 'Includes the flagship $899 GC-Grade Property Inspection plus 5 other products. Predictable cost, full coverage.',
+      proofBody: 'Includes the flagship $899 Inspection + GC Budget Report plus 5 other products. Predictable cost, full coverage.',
       why: 'For agents who want Southern Cities as a constant on the deal, not a per-product transaction.',
     },
     {
@@ -1131,24 +1131,24 @@ const realtorServices: AvatarPageData = {
     },
     {
       slug: 'pre-listing-construction-valuation',
-      title: 'Pre-Listing Quick Audit',
-      summary: 'A licensed NC GC audits the property pre-listing — fix-vs-skip-vs-disclose tables, condition-adjusted price band, repair-spend ROI per item. $299 fee is fully credited back if Southern Cities handles any of the repair work afterward. Filter cost for serious sellers, refunded for committed ones.',
-      pain: 'You\'re pricing a listing and don\'t know what to fix vs skip vs disclose. Without a GC read, prep spend goes to the wrong places and the list price drops with it.',
-      outcome: 'Get a written audit: fix-vs-skip-vs-disclose tables on every flagged item, condition-adjusted price band, top value-drag items with cost-to-fix vs cost-to-leave math. $299 credited back against any repair work Southern Cities handles afterward.',
-      details: ['Licensed NC GC pre-listing audit', 'Fix / Skip / Disclose decision per item', 'Condition-adjusted price band recommendation', 'Top value-drag items with ROI math', '$299 audit fee credited back against repair work over $1,000'],
-      included: ['Property audit from photos + listing data', 'Item-by-item fix-vs-skip-vs-disclose calls', 'Condition-adjusted price band', 'Top value-drag items with cost-to-fix vs cost-to-leave', 'Pricing strategy recommendation', 'Refundable fee guarantee'],
-      notIncluded: ['Formal appraisal (not BPO or AVM)', 'On-site walkthrough (photos + listing data — upgrade to GC-Grade Property Inspection for on-site)', 'Market comp analysis (this focuses on construction-side value)'],
-      fit: 'Best when an agent or seller wants a licensed GC read pre-listing without committing to the full on-site GC-Grade Inspection. The refundable fee makes it low-friction for committed sellers.',
+      title: 'Pre-Listing Audit',
+      summary: 'A licensed inspector visits the property AND a licensed NC GC turns the findings into a seller-side pre-listing analysis — fix-vs-skip-vs-disclose per item, condition-adjusted price band, top value-drag items. The GC portion ($249) is credited back if Southern Cities handles the repair work over $1,000.',
+      pain: 'You\'re pricing a listing and don\'t know what to fix vs skip vs disclose. Without a licensed read grounded in real condition, prep spend goes to the wrong places and the list price drops with it.',
+      outcome: 'Get an on-site read: fix-vs-skip-vs-disclose calls on every item, a condition-adjusted price band, and top value-drag items with cost-to-fix vs cost-to-leave math. The $249 GC portion credits back against any repair work Southern Cities handles over $1,000.',
+      details: ['Licensed inspector on-site — advice grounded in real condition, not photos', 'Fix / Skip / Disclose decision per item', 'Condition-adjusted price band recommendation', 'Top value-drag items with ROI math', 'GC portion ($249) credited against repair work over $1,000'],
+      included: ['Licensed third-party inspection ($400)', 'GC seller analysis ($249)', 'Item-by-item fix-vs-skip-vs-disclose calls', 'Condition-adjusted price band', 'Top value-drag items with cost-to-fix vs cost-to-leave', 'Pricing strategy recommendation'],
+      notIncluded: ['Formal appraisal (not BPO or AVM)', 'Market comp analysis (this focuses on construction-side value)', 'The 3-tier build budget — see Inspection + GC Budget Report'],
+      fit: 'The seller-side sibling of the Inspected GC Read: a licensed inspection ($400) plus a GC seller analysis ($249). Best when a seller wants advice grounded in real condition before they list.',
       purchaseType: 'fixed',
       primaryAction: 'buy',
       cta: 'Buy Now',
       detailHref: detailHref('realtors', 'pre-listing-construction-valuation'),
       itemKey: 'pre-listing-construction-valuation',
-      monthlyPrice: '$299 · credited back on repair work',
-      turnaround: 'Typical turnaround: 1 business day',
-      proofTitle: 'Useful pre-listing — refunded if you hire us for the repairs',
-      proofBody: 'A low, fully refundable fee gets you a licensed-GC read before you list — credited back in full if you have us handle the work afterward.',
-      why: 'It is the cheapest way to get a licensed-GC read before you list — real prep-spend numbers instead of guesses — and the fee is credited back if you hire us for the work.',
+      monthlyPrice: '$649 · licensed inspection + GC analysis',
+      turnaround: 'Typical turnaround: licensed inspection + GC read',
+      proofTitle: 'Useful pre-listing — the GC portion is refunded if you hire us for the repairs',
+      proofBody: 'A licensed inspector on-site plus a GC seller analysis before you list — and the $249 GC portion credits back in full if you have us handle repairs over $1,000.',
+      why: 'It is the seller-side read grounded in real condition — a licensed inspection plus GC analysis — with the GC portion credited if you hire us for the work.',
     },
   ],
   priced: [
@@ -1637,13 +1637,28 @@ export function getAvatarPage(slug: string) {
   return avatarPages.find((page) => page.slug === slug);
 }
 
+// De-featured (retired) services. Their card records are kept so the
+// per-service detail pages (/services/<avatar>/<slug>) and any existing
+// ad/email/bookmark links still resolve — they are simply removed from the
+// browse catalog (/services/all) and stage listings so they are no longer
+// discoverable. Their lib/cart.ts entries remain live for direct /cart links.
+export const RETIRED_SERVICE_KEYS = new Set<string>([
+  'investors:investor-review',
+  'investors:contractor-grade-budget',
+  'realtors:multi-offer-construction-read',
+  'realtors:realtor-inspection-review',
+  'realtors:inspection-response',
+]);
+
 export function getAllServices() {
-  return avatarPages.flatMap((page) => [
-    ...(page.fixed || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
-    ...(page.priced || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
-    ...(page.review || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
-    ...(page.recurring || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
-  ]);
+  return avatarPages
+    .flatMap((page) => [
+      ...(page.fixed || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
+      ...(page.priced || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
+      ...(page.review || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
+      ...(page.recurring || []).map((service) => ({ ...service, avatar: page.slug, avatarLabel: page.eyebrow })),
+    ])
+    .filter((service) => !RETIRED_SERVICE_KEYS.has(`${service.avatar}:${service.slug}`));
 }
 
 export function getServiceBySlug(avatarSlug: string, serviceSlug: string) {

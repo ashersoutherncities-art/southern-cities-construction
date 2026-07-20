@@ -29,11 +29,11 @@ const DEAL_PACK_PRODUCTS = [
     sku: 'deal-pack-build-ready',
   },
   {
-    name: 'Site Scan + As-Built',
+    name: 'Site Scan + As-Built + Inspection',
     description:
-      'NC field-agent 3D site scan converted into a Chief Architect as-built floorplan. Required input for high-accuracy Bid-Ready or Build-Ready Deal Packs when measurements or plans are missing.',
+      'NC field-agent 3D site scan converted into a Chief Architect as-built floorplan, PLUS a licensed third-party inspector service. Required input for high-accuracy Bid-Ready or Build-Ready Deal Packs when measurements or plans are missing.',
     url: '/deal-pack',
-    priceUsd: 499,
+    priceUsd: 699,
     category: 'Deal Pack',
     sku: 'deal-pack-site-scan',
   },
@@ -129,7 +129,7 @@ const TIERS: Tier[] = [
     price: '$1,997',
     priceNote: 'Per deal · 3–4 day turnaround',
     promise:
-      'Shovel-ready package end-investors actually pay top-of-market for — and we commit to do the work at the price we write. Floor plans, design renderings, full scope, vetted sub-trade quotes, draw schedule, pre-closing open-permit sweep. The premium tier.',
+      'Shovel-ready package end-investors actually pay top-of-market for — and we commit to do the work at the price we write. Floor plans, design renderings, full scope, vetted sub-trade quotes, draw schedule, pre-closing open-permit sweep, a permit path, and a finance-partner intro. The premium tier.',
     includes: [
       'Everything in Bid-Ready PLUS',
       'We commit to do the work at the price we write — buyer can argue with the GC who’s going to swing the hammer, or sign',
@@ -138,6 +138,8 @@ const TIERS: Tier[] = [
       '3 vetted NC sub-trade quotes per major trade',
       'Draw schedule template ready for lender submission',
       'Pre-closing open permit + lien sweep report',
+      'Permit path — every permit your project will require, identified up front',
+      'Finance-partner referral — an intro to a lending partner to fund the build',
       'License-stamped front + back covers for marketing',
     ],
     cta: 'Order Build-Ready · $1,997 →',
@@ -147,19 +149,20 @@ const TIERS: Tier[] = [
   {
     badge: 'ADD-ON',
     badgeColor: 'navy',
-    name: 'Site Scan + As-Built',
-    price: '$499',
+    name: 'Site Scan + As-Built + Inspection',
+    price: '$699',
     priceNote: 'Add-on or standalone · 5-day turnaround',
     promise:
-      'No plans? No measurements? We send an NC field agent to capture a full 3D scan of the property. Our designer converts it into a Chief Architect as-built floorplan — required input for a high-accuracy Bid-Ready or Build-Ready Deal Pack.',
+      'No plans? No measurements? We send an NC field agent to capture a full 3D scan of the property. Our designer converts it into a Chief Architect as-built floorplan — plus a licensed third-party inspector service — required input for a high-accuracy Bid-Ready or Build-Ready Deal Pack.',
     includes: [
       'NC field agent dispatch (scheduled with your seller-access)',
       'Full 3D property scan',
       'Designer-built as-built floorplan in Chief Architect',
+      'Licensed third-party inspector service included',
       'PDF + native file delivered',
       'Refund if we cannot deliver the scan + plan on time',
     ],
-    cta: 'Add Site Scan · $499 →',
+    cta: 'Add Site Scan · $699 →',
     ctaHref: '/cart?cart=deal-pack-site-scan',
     sample: { pdfUrl: '/resources/samples/site-scan-as-built-sample.pdf', pages: 8 },
   },
@@ -559,9 +562,9 @@ export default function DealPackPage() {
             </div>
             <div className="rounded-2xl border border-orange/40 bg-orange/[0.04] p-6">
               <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">No plans? Add the scan</p>
-              <h3 className="mt-3 text-lg font-black tracking-tight text-white">As-Built Site Scan &middot; +$499</h3>
+              <h3 className="mt-3 text-lg font-black tracking-tight text-white">As-Built Site Scan + Inspection &middot; +$699</h3>
               <p className="mt-3 text-[14px] leading-[1.6] text-white/70">
-                We send an NC field agent to capture the property, and our designer builds the floor plan and as-built. Required for an accurate Bid-Ready or Build-Ready when there are no existing plans.
+                We send an NC field agent to capture the property, our designer builds the floor plan and as-built, and a licensed third-party inspector service is included. Required for an accurate Bid-Ready or Build-Ready when there are no existing plans.
               </p>
             </div>
           </div>

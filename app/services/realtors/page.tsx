@@ -2,6 +2,7 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import LpLeadForm from '@/components/LpLeadForm';
+import RealtorPlanCTA from '@/components/RealtorPlanCTA';
 
 // ---------------------------------------------------------------------------
 // GC Inspection & Budget Report (buy-now, two tiers)
@@ -13,26 +14,27 @@ const reportTiers = [
   {
     name: 'GC Quick Read',
     price: '$299',
-    sub: '1–2 business days',
-    tagline: 'The fast screen — before you pay for a full on-site inspection.',
+    sub: '1–2 business days · same-day rush available',
+    tagline: 'The fast screen — buyer or seller — before you pay for a full on-site inspection.',
     description:
-      'A licensed NC GC reads the property or your existing inspection report and tells you, in plain English: what is real, what is cosmetic, what could kill the loan, and a rough order-of-magnitude on the work.',
+      'A licensed NC GC reads the property or your existing inspection report and tells you, in plain English: what is real, what is cosmetic, what could kill the loan, and a rough order-of-magnitude on the work — with item-by-item severity, paste-ready repair-request language, and a client-shareable PDF. Works buyer-side or seller-side.',
     bullets: [
-      'Critical-vs-cosmetic triage',
-      'Loan-killer flags',
-      'Rough order-of-magnitude cost',
-      'Plain-English GC opinion',
+      'Critical-vs-cosmetic triage + loan-killer flags',
+      'Item-by-item severity on your inspection report',
+      'Paste-ready repair-request language',
+      'Client-shareable PDF · buyer or seller',
+      'Rough order-of-magnitude cost + plain-English GC verdict',
     ],
-    credit: 'Your $299 credits toward the Full Report.',
+    credit: 'Your $299 credits toward the GC Budget or the full Report.',
     cartKey: 'realtor-quick-read',
     cta: 'Get a Quick Read · $299',
     highlighted: false,
   },
   {
-    name: 'GC-Grade Inspection + Budget Report',
+    name: 'Inspection + GC Budget Report',
     price: '$899',
     sub: '3–5 business days · rush $1,199 (24–48 hrs)',
-    tagline: 'The flagship — a licensed inspector on-site, a GC budget an inspector legally cannot give you, and a GC who commits to do the work at that number.',
+    tagline: 'The flagship — a licensed inspector inspects, the GC prices it, and the same GC commits to do the work at that number.',
     description:
       'A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier budget — MANDATORY (code + loan-killers, 5–7 day fix guarantee), HIGH-ROI (2× return cosmetics), and DISCLOSE & SKIP — with paste-ready repair-request language and a negotiation framing memo. And the same GC commits to do the work at the budget we write.',
     bullets: [
@@ -77,6 +79,7 @@ const supportTiers = [
   {
     label: 'For solo agents',
     title: 'Realtor Solo',
+    planKey: 'solo' as const,
     price: '$299/mo',
     includes: [
       'GC Support Specialist on call for quick questions',
@@ -92,6 +95,7 @@ const supportTiers = [
   {
     label: 'For small teams · Most common',
     title: 'Realtor Team',
+    planKey: 'team' as const,
     price: '$649/mo',
     includes: [
       'GC Support Specialist on call',
@@ -109,6 +113,7 @@ const supportTiers = [
   {
     label: 'For brokerages (10+ agents)',
     title: 'Brokerage Pro',
+    planKey: 'brokerage' as const,
     price: '$2,499/mo',
     includes: [
       'Unlimited reviews + pricing direction',
@@ -127,14 +132,14 @@ const supportTiers = [
 export const metadata = {
   title: 'For Realtors | Southern Cities Construction',
   description:
-    'Put a licensed NC GC on your deal: a GC Inspection & Budget Report (buy now) — and the same GC commits to do the work at the number — plus monthly support plans for solo agents, teams, and brokerages.',
+    'Put a licensed NC GC on your deal: an Inspection + GC Budget Report (buy now) — a licensed inspector inspects, the GC prices it, and the same GC commits to do the work at the number — plus monthly support plans for solo agents, teams, and brokerages.',
   alternates: { canonical: '/services/realtors' },
   openGraph: {
     type: 'website',
     url: '/services/realtors',
     title: 'Construction Help for NC Realtors',
     description:
-      'A GC Inspection & Budget Report (buy now), with the same GC committing to do the work at the number — plus monthly support plans for solo agents, teams, and brokerages.',
+      'An Inspection + GC Budget Report (buy now) — a licensed inspector inspects, the GC prices it — with the same GC committing to do the work at the number, plus monthly support plans for solo agents, teams, and brokerages.',
     siteName: 'Southern Cities Construction',
   },
 };
@@ -155,7 +160,7 @@ export default function RealtorsPage() {
               Put a licensed NC GC on your deal.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
-              Get the real construction number with a GC Inspection &amp; Budget Report — and the same GC <strong className="text-white">commits to do the work at that number.</strong> Buy the Report now; if we do the job, your Report fee credits in. When the same questions keep coming up, add a monthly plan.
+              Get the real construction number with an Inspection + GC Budget Report — a licensed inspector inspects, the GC prices it, and the same GC <strong className="text-white">commits to do the work at that number.</strong> Buy the Report now; if we do the job, your Report fee credits in. When the same questions keep coming up, add a monthly plan.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a href="#report" className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-7 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-8px_rgba(245,130,32,0.5)] transition hover:bg-orange-500">
@@ -174,7 +179,7 @@ export default function RealtorsPage() {
         <div className="container-pro">
           <div className="max-w-3xl">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Buy now · no quote, no call</p>
-            <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">GC Inspection &amp; Budget Report</h2>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.03em] text-[#08111d] sm:text-4xl">Inspection + GC Budget Report</h2>
             <p className="mt-4 text-[16px] leading-relaxed text-stone-700 sm:text-lg">
               Know the real construction number on any property — from a licensed NC GC, not a generic repair chatbot. Start with a fast screen or go straight to the full on-site report, where the same GC commits to do the work at the budget we write. Pick a tier and check out.
             </p>
@@ -234,7 +239,7 @@ export default function RealtorsPage() {
               We commit to do the work at the number we write.
             </h2>
             <p className="mt-5 max-w-3xl text-lg leading-relaxed text-white/85">
-              Most inspections hand your client a problem. A GC-Grade Report hands them a price — and because the same licensed NC GC stands behind it, we&rsquo;ll do the work at that price. No second estimate, no drift. The work is the budget already in your Report, and the $899 Report fee credits toward the job.
+              Most inspections hand your client a problem. An Inspection + GC Budget Report hands them a price — a licensed inspector inspects, the GC prices it, and because the same licensed NC GC stands behind it, we&rsquo;ll do the work at that price. No second estimate, no drift. The work is the budget already in your Report, and the $899 Report fee credits toward the job.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {commitmentPoints.map((point) => (
@@ -336,6 +341,7 @@ export default function RealtorsPage() {
                 <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#fa8c41]">{tier.label}</p>
                 <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-white">{tier.title}</h3>
                 <p className="mt-3 text-3xl font-black tracking-[-0.02em] text-white">{tier.price}</p>
+                <p className="mt-1 text-xs font-semibold text-white/50">+ $75 one-time setup</p>
                 <ul className="mt-6 space-y-2.5 text-[14px] leading-relaxed text-white/85">
                   {tier.includes.map((item) => (
                     <li key={item} className="flex items-start gap-2">
@@ -345,9 +351,7 @@ export default function RealtorsPage() {
                   ))}
                 </ul>
                 <div className="mt-auto pt-7">
-                  <Link href={tier.href} className={`inline-flex min-h-[48px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-bold uppercase tracking-wider transition ${tier.highlighted ? 'bg-[#fa8c41] text-white hover:bg-[#ffa463] shadow-[0_10px_24px_-8px_rgba(245,130,32,0.5)]' : 'border border-white/25 text-white hover:bg-white/5'}`}>
-                    {tier.cta}
-                  </Link>
+                  <RealtorPlanCTA planKey={tier.planKey} label="Get started" highlighted={tier.highlighted} />
                 </div>
               </div>
             ))}

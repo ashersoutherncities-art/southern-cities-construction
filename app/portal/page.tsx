@@ -51,10 +51,6 @@ export default function PortalPage() {
           amount: amount || '1499',
           scope_notes: 'Permit administration service selected from cart.',
         },
-        'sub-network-access': {
-          amount: amount || '349',
-          scope_notes: 'Sub network access selected from cart.',
-        },
         'pre-listing-renovation': {
           amount: amount || '5000',
           scope_notes: 'Pre-listing renovation selected from cart.',
@@ -84,8 +80,8 @@ export default function PortalPage() {
           scope_notes: 'Budget & scope review selected from cart.',
         },
         'draw-review-support': {
-          amount: amount || '399',
-          scope_notes: 'Draw review support selected from cart.',
+          amount: amount || '599',
+          scope_notes: 'Draw management selected from cart.',
         },
         'owner-consultation': {
           amount: amount || '349',
@@ -250,7 +246,7 @@ export default function PortalPage() {
                   'permit-local-compliance-review': 'Permit & Local Compliance Review',
                   'budget-review': 'Budget & Scope Review',
                   'contractor-fit-consultation': 'Contractor Fit Consultation',
-                  'draw-review-support': 'Draw Review Support',
+                  'draw-review-support': 'Draw Management',
                 } as Record<string, string>)[form.item] || 'Project Checkout'}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-ink/60">

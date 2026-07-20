@@ -17,7 +17,6 @@ const SERVICES_GROUP: NavGroup = {
     { href: '/services', label: 'Services Overview' },
     { href: '/services/all', label: 'All Services & Pricing' },
     { href: '/platform', label: 'Investor Execution Platform' },
-    { href: '/partners', label: 'Subcontractor Partners — Apply' },
   ],
 };
 
@@ -25,6 +24,7 @@ const PRIMARY_LINKS: NavLink[] = [
   { href: '/deal-pack', label: 'Deal Pack' },
   { href: '/deal-desk', label: 'Deal Desk' },
   { href: '/contracting', label: 'Full GC' },
+  { href: '/services/realtors', label: 'Realtors' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/resources', label: 'Resources' },
   { href: '/blog', label: 'Blog' },

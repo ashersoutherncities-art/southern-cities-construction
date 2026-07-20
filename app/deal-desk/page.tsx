@@ -92,6 +92,7 @@ export default function DealDeskPage() {
                   ${tier.priceUsd}
                   <span style={{ fontSize: 15, fontWeight: 600, color: '#6b7280' }}>/mo</span>
                 </div>
+                <div style={{ fontSize: 12.5, fontWeight: 600, color: '#6b7280', marginTop: -4, marginBottom: 4 }}>+ $99 one-time setup</div>
                 <p style={{ fontSize: 14, lineHeight: 1.55, color: '#374151', minHeight: 66 }}>{tier.blurb}</p>
                 <ul style={{ fontSize: 13, lineHeight: 1.7, paddingLeft: 18, margin: '4px 0 18px' }}>
                   <li>{tier.snapshotLimit == null ? 'Unlimited' : tier.snapshotLimit} snapshots / month</li>

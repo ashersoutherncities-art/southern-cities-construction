@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
@@ -107,6 +107,29 @@ const initial: FormState = {
   agreed_to_standards: false,
 };
 
+// Shrink a phone photo in the browser so the upload stays under Vercel's 4.5MB
+// serverless request limit. Non-images (PDFs) and already-small files pass through.
+async function compressImage(file: File, maxDim = 1600, quality = 0.72): Promise<File> {
+  if (!file.type.startsWith('image/') || file.size <= 900 * 1024) return file;
+  try {
+    const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+    const w = Math.round(bitmap.width * scale);
+    const h = Math.round(bitmap.height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, 'image/jpeg', quality));
+    if (!blob || blob.size >= file.size) return file;
+    return new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' });
+  } catch {
+    return file; // couldn't decode (e.g. HEIC on some browsers) — send original; the size guard catches it
+  }
+}
+
 export default function PartnersPage() {
   const [form, setForm] = useState<FormState>(initial);
   const [submitting, setSubmitting] = useState(false);
@@ -116,6 +139,25 @@ export default function PartnersPage() {
     license_doc: null, coi_doc: null, w9_doc: null,
   });
   const formRef = useRef<HTMLDivElement>(null);
+
+  // Meta/social in-app browsers (opened from a Facebook/Instagram ad) break fetch()
+  // form submits with "Failed to fetch". Detect them and prompt the user to open in
+  // a real browser.
+  const [inApp, setInApp] = useState(false);
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+    setInApp(/FBAN|FBAV|FB_IAB|Instagram|Line\/|Twitter|Snapchat|TikTok|musical_ly|Pinterest/i.test(ua));
+  }, []);
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      /* clipboard is blocked in some in-app webviews — the instruction still stands */
+    }
+  };
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) =>
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -145,12 +187,25 @@ export default function PartnersPage() {
     setSubmitting(true);
     setError('');
     try {
+      // Shrink photos client-side so the upload stays under Vercel's 4.5MB request limit.
+      const [license, coi, w9] = await Promise.all([
+        docs.license_doc ? compressImage(docs.license_doc) : Promise.resolve(null),
+        docs.coi_doc ? compressImage(docs.coi_doc) : Promise.resolve(null),
+        docs.w9_doc ? compressImage(docs.w9_doc) : Promise.resolve(null),
+      ]);
       const fd = new FormData();
       fd.append('payload', JSON.stringify(form));
-      if (docs.license_doc) fd.append('license_doc', docs.license_doc);
-      if (docs.coi_doc) fd.append('coi_doc', docs.coi_doc);
-      if (docs.w9_doc) fd.append('w9_doc', docs.w9_doc);
+      if (license) fd.append('license_doc', license);
+      if (coi) fd.append('coi_doc', coi);
+      if (w9) fd.append('w9_doc', w9);
+
+      // Guard: if a file still can't fit (e.g. a large non-image PDF), stop with a clear message
+      // rather than a cryptic network failure.
+      const totalBytes = [license, coi, w9].reduce((n, f) => n + (f ? f.size : 0), 0);
+      if (totalBytes > 4 * 1024 * 1024) throw new Error('FILES_TOO_LARGE');
+
       const res = await fetch('/api/subcontractor-application', { method: 'POST', body: fd });
+      if (res.status === 413) throw new Error('FILES_TOO_LARGE');
       if (!res.ok) {
         const d = await res.json().catch(() => ({}));
         throw new Error(d.error || 'Unable to submit application.');
@@ -159,7 +214,14 @@ export default function PartnersPage() {
       setForm(initial);
       setDocs({ license_doc: null, coi_doc: null, w9_doc: null });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to submit application.');
+      const msg = err instanceof Error ? err.message : '';
+      if (msg === 'FILES_TOO_LARGE') {
+        setError('One or more of your uploaded files is too large. Please use smaller photos (a standard phone photo works best) or upload fewer documents. You can also remove the document photos and submit now — we\'ll request them later — then try again.');
+      } else if (!msg || /failed to fetch|networkerror|load failed|network request failed/i.test(msg)) {
+        setError("We couldn't submit your application. Please check your connection and try again. If you attached document photos, try smaller files or remove them. If you opened this from the Facebook or Instagram app, open it in Safari or Chrome first.");
+      } else {
+        setError(msg || 'Unable to submit application.');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -168,6 +230,27 @@ export default function PartnersPage() {
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       <SiteNav />
+
+      {/* In-app browser warning (Facebook/Instagram ad clicks open a webview that blocks form submits) */}
+      {inApp && (
+        <div className="sticky top-0 z-50 bg-[#fa8c41] text-white shadow-md">
+          <div className="mx-auto max-w-4xl px-4 py-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 text-sm">
+            <span className="font-bold shrink-0">⚠️ Open in your browser to apply</span>
+            <span className="text-white/95 leading-snug">
+              You&apos;re viewing this inside the Facebook/Instagram app, which can block the form. Tap the{' '}
+              <b>•••</b> menu (top corner) → <b>Open in Safari / Chrome</b> — or copy the link:
+            </span>
+            <button
+              type="button"
+              onClick={copyLink}
+              className="shrink-0 self-start sm:self-auto rounded-lg bg-white px-3 py-1.5 text-xs font-black text-navy-900"
+              style={{ color: '#132452' }}
+            >
+              {copied ? 'Link copied ✓' : 'Copy link'}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy-900 pt-32 pb-20 sm:pt-40 sm:pb-24">

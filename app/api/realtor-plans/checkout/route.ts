@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { isDealDeskTierKey, getTier, priceIdForTier } from '@/lib/deal-desk/tiers';
+import {
+  isRealtorPlanKey,
+  getRealtorPlan,
+  realtorPlanPriceId,
+  REALTOR_PLAN_SETUP_FEE_CENTS,
+} from '@/lib/realtor-plans/tiers';
 
 export const runtime = 'nodejs';
 
 /**
- * Starts a Stripe subscription Checkout for a Deal Desk tier. Returns the
- * Stripe-hosted checkout URL. The dedicated Deal Desk webhook records the
- * membership once payment completes.
+ * Starts a Stripe subscription Checkout for a Realtor Support Plan, with a
+ * one-time $75 setup fee added to the first invoice. Returns the Stripe-hosted
+ * checkout URL. Requires REALTOR_PLAN_PRICE_{SOLO,TEAM,BROKERAGE} to be set to
+ * recurring Stripe Price IDs — until then the plan returns 503 (not live).
  */
 export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
@@ -16,22 +22,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Stripe is not configured' }, { status: 500 });
   }
 
-  let body: { tier?: string; email?: string };
+  let body: { plan?: string; email?: string };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
 
-  const tierKey = String(body.tier || '');
-  if (!isDealDeskTierKey(tierKey)) {
-    return NextResponse.json({ error: 'Unknown tier' }, { status: 400 });
+  const planKey = String(body.plan || '');
+  if (!isRealtorPlanKey(planKey)) {
+    return NextResponse.json({ error: 'Unknown plan' }, { status: 400 });
   }
-  const tier = getTier(tierKey);
-  const priceId = priceIdForTier(tierKey);
+  const plan = getRealtorPlan(planKey);
+  const priceId = realtorPlanPriceId(planKey);
   if (!priceId) {
     return NextResponse.json(
-      { error: 'tier_not_available', detail: `Set ${tier.priceEnvVar} to the Stripe Price ID.` },
+      { error: 'plan_not_available', detail: `Set ${plan.priceEnvVar} to the Stripe Price ID.` },
       { status: 503 }
     );
   }
@@ -43,12 +49,12 @@ export async function POST(req: NextRequest) {
       mode: 'subscription',
       line_items: [
         { price: priceId, quantity: 1 },
-        // One-time $99 Deal Desk setup fee — added to the first invoice only.
+        // One-time $75 Realtor Support Plan setup fee — first invoice only.
         {
           price_data: {
             currency: 'usd',
-            product_data: { name: 'Deal Desk — one-time setup fee' },
-            unit_amount: 9900,
+            product_data: { name: 'Realtor Support Plan — one-time setup fee' },
+            unit_amount: REALTOR_PLAN_SETUP_FEE_CENTS,
             tax_behavior: 'exclusive',
           },
           quantity: 1,
@@ -58,10 +64,10 @@ export async function POST(req: NextRequest) {
       allow_promotion_codes: true,
       billing_address_collection: 'required',
       automatic_tax: { enabled: true },
-      subscription_data: { metadata: { deal_desk_tier: tierKey } },
-      metadata: { deal_desk_tier: tierKey },
-      success_url: `${baseUrl}/deal-desk/welcome?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/deal-desk?canceled=1`,
+      subscription_data: { metadata: { realtor_plan: planKey } },
+      metadata: { realtor_plan: planKey },
+      success_url: `${baseUrl}/services/realtors?subscribed=1&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/services/realtors?canceled=1`,
     });
 
     return NextResponse.json({ url: session.url });

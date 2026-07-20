@@ -46,14 +46,6 @@ const investorStages: Stage[] = [
         highlighted: true,
       },
       {
-        name: 'Investor Execution Review',
-        price: '$499',
-        description: 'You bring the deal, we build the numbers. A pre-acquisition underwriting opinion: scope feasibility, a rough budget range with confidence levels, construction risk callouts, and the walk-away trigger — no spreadsheet input needed. Refundable if we cannot perform, and the fee credits forward if you continue. Decision-grade, not bid-grade.',
-        href: '/platform/co1',
-        secondaryHref: '/platform/co1',
-        primaryCta: 'View Details',
-      },
-      {
         name: 'Budget & Scope Review',
         price: '$399',
         description: 'You bring the numbers, we pressure-test them. A line-item audit of an existing budget — yours, an investor pro-forma, or a contractor bid — against current market costs. Works pre-purchase (vetting a deal) or post-purchase (before bids and draws lock in).',
@@ -91,15 +83,6 @@ const investorStages: Stage[] = [
     cta: 'Plan This Project',
     compact: true,
     products: [
-      {
-        name: 'Contractor-Grade Budget',
-        price: '$1,799',
-        description: 'No real budget yet? We BUILD one from scratch — full takeoffs, real trade-network unit costs, bid-ready spreadsheet. The budget a GC would put together, without hiring one.',
-        href: '/services/investors/contractor-grade-budget',
-        secondaryHref: '/services/investors/contractor-grade-budget',
-        primaryCta: 'View Details',
-        itemKey: 'contractor-grade-budget',
-      },
       {
         name: 'Contractor Match & Bid Coordination',
         price: '$1,499',

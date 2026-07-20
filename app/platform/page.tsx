@@ -352,7 +352,16 @@ export default function PlatformHubPage() {
             >
               Execution Review — $499
             </Link>
+            <Link
+              href="/cart?cart=execution-consultation"
+              className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white transition hover:bg-white/10"
+            >
+              $99 Execution Consultation →
+            </Link>
           </div>
+          <p className="mt-5 text-[13px] text-white/50">
+            Every execution engagement starts with a $99 consultation to scope the work — credited toward your project if you proceed.
+          </p>
         </div>
       </section>
 
