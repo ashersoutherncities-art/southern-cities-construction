@@ -31,6 +31,8 @@ const CUSTOM_FIELD_IDS: Record<string, string> = {
   'LM1 Risk Flags': 'ko4oWgoloAX4BquV1ENz',
   'LM1 Confidence Level': '4aEC2tAz7EHzikLuvM8L',
   'LM1 Submitted At': 'M08FcP08sX403ofqifM5',
+  // Audience routing — the Onboarding workflow reads this field to set the aud- tag.
+  Audience: 'QhU70KrKAxK5BtbbF34q',
 };
 
 export type GhlOrderPayload = {
@@ -60,6 +62,39 @@ function splitName(fullName: string) {
   const parts = trimmed.split(/\s+/);
   if (parts.length === 1) return { firstName: parts[0], lastName: '' };
   return { firstName: parts[0], lastName: parts.slice(1).join(' ') };
+}
+
+// Tag added by every website LEAD form on submit. The Onboarding workflow
+// triggers on "Contact Tag Added: src-web-start" — this is the website's
+// equivalent of a form-submitted event (GHL never sees the external form).
+const WEB_LEAD_TAG = 'src-web-start';
+
+/**
+ * Normalize any raw audience signal (the "I'm a..." answer, an investor_type,
+ * or a resource role) into one of the three canonical labels the Onboarding
+ * workflow reads from the "Audience" field. Returns '' when unknown — the
+ * workflow then tags the contact aud-unknown for manual classification.
+ */
+function normalizeAudience(raw?: string | null): string {
+  const v = (raw || '').toLowerCase();
+  if (!v) return '';
+  if (v.includes('wholesal')) return 'Wholesaler';
+  if (v.includes('agent') || v.includes('realtor') || v.includes('broker')) return 'Realtor';
+  if (
+    v.includes('flip') || v.includes('investor') || v.includes('brrrr') ||
+    v.includes('buy') || v.includes('hold') || v.includes('landlord')
+  ) {
+    return 'Investor';
+  }
+  return '';
+}
+
+/** Build the Audience custom-field entry, or null when audience is unknown. */
+function audienceField(raw?: string | null): { id: string; field_value: string } | null {
+  const label = normalizeAudience(raw);
+  const id = CUSTOM_FIELD_IDS.Audience;
+  if (!label || !id) return null;
+  return { id, field_value: label };
 }
 
 async function ghlFetch(path: string, init: RequestInit, token: string) {
@@ -215,6 +250,8 @@ export type GhlInquiryPayload = {
   message?: string;
   company?: string;
   source?: string;
+  /** The "I'm a..." answer from the form — routed to the Audience field. */
+  audience_type?: string;
 };
 
 /**
@@ -251,9 +288,10 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
   const isNonProductInquiry =
     payload.service_slug.endsWith('-hub-inquiry') ||
     payload.service_slug.endsWith('-general-inquiry');
-  const tags = isNonProductInquiry
+  const tags = (isNonProductInquiry
     ? [inquiryTag, 'lead-inquiry']
-    : [inquiryTag, 'product-inquiry'];
+    : [inquiryTag, 'product-inquiry']
+  ).concat(WEB_LEAD_TAG);
 
   // Populate custom fields so the GHL contact carries the full inquiry context
   // (message body + which product they asked about + price). The workflow's
@@ -276,6 +314,8 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
       field_value: servicesRequestedValue,
     },
   ].filter((field) => Boolean(field.id) && field.field_value);
+  const inquiryAudience = audienceField(payload.audience_type);
+  if (inquiryAudience) customFields.push(inquiryAudience);
 
   const upsertBody = {
     locationId: creds.locationId,
@@ -316,6 +356,62 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
     contactId,
     tag: inquiryTag,
   };
+}
+
+export type GhlRealtorInquiryPayload = {
+  realtor_name: string;
+  email: string;
+  phone?: string;
+  service_type?: string;
+  message?: string;
+};
+
+/**
+ * Forward a Realtor Inquiry form submission to GHL. This form has no "I'm a..."
+ * question — the submitter is by definition a realtor — so we hardcode the
+ * Audience field to "Realtor". Adds src-web-start to trigger Onboarding.
+ * (Previously this endpoint only saved to Supabase + Telegram, so realtor
+ * leads never reached GHL at all.)
+ */
+export async function sendRealtorInquiryToGhl(payload: GhlRealtorInquiryPayload) {
+  const creds = getCreds();
+  if (!creds) {
+    return { ok: false, reason: 'GHL credentials not configured' as const };
+  }
+
+  const { firstName, lastName } = splitName(payload.realtor_name);
+  const phone = (payload.phone || '').trim() || undefined;
+
+  const customFields = [
+    { id: CUSTOM_FIELD_IDS.Audience, field_value: 'Realtor' },
+    { id: CUSTOM_FIELD_IDS['Services Requested'], field_value: payload.service_type || 'Realtor Inquiry' },
+    { id: CUSTOM_FIELD_IDS['Your Message'], field_value: payload.message || '' },
+  ].filter((field) => Boolean(field.id) && field.field_value);
+
+  const upsertBody = {
+    locationId: creds.locationId,
+    firstName,
+    lastName,
+    name: payload.realtor_name,
+    email: payload.email,
+    phone,
+    source: 'Southern Cities — Realtor Inquiry',
+    customFields,
+    tags: ['realtor-interested', WEB_LEAD_TAG],
+  };
+
+  const upsertResult = await ghlFetch(
+    '/contacts/upsert',
+    { method: 'POST', body: JSON.stringify(upsertBody) },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  return { ok: upsertResult.ok && !!contactId, status: upsertResult.status, contactId };
 }
 
 export type GhlLeadMagnetPayload = {
@@ -372,7 +468,9 @@ export async function sendLm1Step1ToGhl(payload: GhlLm1Step1Payload) {
     'lead-inquiry',
     `investor-type-${payload.investor_type}`,
   ].map((item) => item.toLowerCase());
+  tags.push(WEB_LEAD_TAG);
 
+  const lm1Audience = audienceField(payload.investor_type);
   const upsertBody = {
     locationId: creds.locationId,
     firstName: payload.first_name,
@@ -382,6 +480,7 @@ export async function sendLm1Step1ToGhl(payload: GhlLm1Step1Payload) {
     phone,
     source: 'Southern Cities — LM1 Step 1 (Partial)',
     tags,
+    ...(lm1Audience ? { customFields: [lm1Audience] } : {}),
   };
 
   const upsertResult = await ghlFetch(
@@ -446,12 +545,14 @@ export async function sendLeadMagnetToGhl(payload: GhlLeadMagnetPayload) {
   const { firstName, lastName } = splitName(payload.buyer_name);
   const phone = (payload.buyer_phone || '').trim() || undefined;
   const magnetTag = `lead-magnet-${payload.resource_slug}`.toLowerCase();
-  const tags = [magnetTag, 'lead-inquiry'];
+  const tags = [magnetTag, 'lead-inquiry', WEB_LEAD_TAG];
 
   const servicesRequestedValue = payload.resource_title || payload.resource_slug;
   const customFields = [
     { id: CUSTOM_FIELD_IDS['Services Requested'], field_value: servicesRequestedValue },
   ].filter((field) => Boolean(field.id) && field.field_value);
+  const magnetAudience = audienceField(payload.role);
+  if (magnetAudience) customFields.push(magnetAudience);
 
   const upsertBody = {
     locationId: creds.locationId,
@@ -504,6 +605,7 @@ export async function sendRehabSnapshotToGhl(payload: GhlRehabSnapshotPayload) {
     `snapshot-confidence-${payload.confidence_level}`,
     `snapshot-category-${payload.project_category}`,
   ].map((item) => item.toLowerCase());
+  tags.push(WEB_LEAD_TAG);
 
   // Format the estimated budget range as a human-readable string for use in
   // email templates (e.g., "$45,000–$72,000")
@@ -543,6 +645,8 @@ export async function sendRehabSnapshotToGhl(payload: GhlRehabSnapshotPayload) {
       field_value: new Date().toISOString(),
     },
   ].filter((field) => Boolean(field.id) && field.field_value);
+  const snapshotAudience = audienceField(payload.investor_type);
+  if (snapshotAudience) customFields.push(snapshotAudience);
 
   const upsertBody = {
     locationId: creds.locationId,

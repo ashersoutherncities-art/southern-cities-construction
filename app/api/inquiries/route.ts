@@ -99,6 +99,7 @@ export async function POST(req: NextRequest) {
           message: message || undefined,
           company: company || undefined,
           source: source || 'inquiry-form',
+          audience_type: normalizedAudienceType || undefined,
         });
         if (!ghlResult.ok) {
           console.error('GHL inquiry forward non-ok:', ghlResult.status, ghlResult.body);

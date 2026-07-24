@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
+import { sendRealtorInquiryToGhl } from '@/lib/ghl';
 
 export async function POST(req: NextRequest) {
   try {
@@ -57,6 +58,23 @@ export async function POST(req: NextRequest) {
     if (dbError) {
       console.error('Supabase insert error:', dbError);
       return NextResponse.json({ error: 'Failed to save inquiry' }, { status: 500 });
+    }
+
+    // Forward to GHL (fire-and-forget) — creates the contact, sets Audience=Realtor,
+    // and adds src-web-start which triggers the Onboarding workflow.
+    try {
+      const ghlResult = await sendRealtorInquiryToGhl({
+        realtor_name,
+        email,
+        phone: phone || undefined,
+        service_type,
+        message: notes || undefined,
+      });
+      if (!ghlResult.ok) {
+        console.error('GHL realtor-inquiry forward non-ok:', ghlResult);
+      }
+    } catch (ghlErr) {
+      console.error('GHL realtor-inquiry forward threw (non-fatal):', ghlErr);
     }
 
     // Send Telegram notification
