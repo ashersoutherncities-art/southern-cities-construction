@@ -696,5 +696,74 @@ export async function sendRehabSnapshotToGhl(payload: GhlRehabSnapshotPayload) {
   };
 }
 
+/**
+ * Tag a subscription / membership purchase in GHL (Deal Desk, realtor seats).
+ * Upserts the Contact and ROTATES the `purchased-<productKey>` tag so the
+ * "tag added" event fires — the 08b mapper workflow then converts it to the
+ * canonical `own-` tag. Deliberately does NOT add `stripe-paid` (subscriptions
+ * have their own magic-link access; `stripe-paid` is reserved for one-time
+ * order fulfillment so it doesn't wrongly trigger the purchase-fulfillment flow).
+ * Returns ok/failure without throwing; caller logs.
+ */
+export async function tagMembershipInGhl(payload: {
+  email: string;
+  name?: string;
+  phone?: string;
+  productKey: string;
+  productName?: string;
+}) {
+  const creds = getCreds();
+  if (!creds) return { ok: false, reason: 'GHL credentials not configured' as const };
+  if (!payload.email) return { ok: false, reason: 'no email' as const };
+
+  const { firstName, lastName } = splitName(payload.name || '');
+  const phone = (payload.phone || '').trim() || undefined;
+  const tag = `purchased-${payload.productKey}`.toLowerCase();
+
+  const customFields =
+    payload.productName && CUSTOM_FIELD_IDS['Last Product']
+      ? [{ id: CUSTOM_FIELD_IDS['Last Product'], field_value: payload.productName }]
+      : undefined;
+
+  const upsert = await ghlFetch(
+    '/contacts/upsert',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        locationId: creds.locationId,
+        firstName,
+        lastName,
+        name: payload.name || undefined,
+        email: payload.email,
+        phone,
+        source: 'Southern Cities — Membership',
+        ...(customFields ? { customFields } : {}),
+      }),
+    },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsert.body === 'object' && upsert.body !== null && 'contact' in upsert.body
+      ? (upsert.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  if (!upsert.ok || !contactId) {
+    return { ok: false, status: upsert.status, body: upsert.body, contactId, tag };
+  }
+
+  try {
+    await removeContactTags(contactId, [tag], creds.token);
+    const add = await ghlFetch(
+      `/contacts/${contactId}/tags`,
+      { method: 'POST', body: JSON.stringify({ tags: [tag] }) },
+      creds.token
+    );
+    return { ok: add.ok, status: add.status, contactId, tag };
+  } catch (err) {
+    return { ok: false, status: 500, body: `tag-rotate failed: ${(err as Error).message}`, contactId, tag };
+  }
+}
+
 // Re-export for callers that want to manage tags directly
 export { addContactTags, removeContactTags };

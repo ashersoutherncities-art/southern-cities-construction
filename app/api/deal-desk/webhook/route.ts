@@ -12,6 +12,7 @@ import {
 import { signAccessToken } from '@/lib/deal-desk/token';
 import { sendMagicLinkEmail } from '@/lib/deal-desk/email';
 import { notifyTeam } from '@/lib/deal-desk/notify';
+import { tagMembershipInGhl } from '@/lib/ghl';
 
 type SupabaseService = NonNullable<ReturnType<typeof tryGetServiceClient>>;
 
@@ -98,14 +99,30 @@ async function syncSubscription(
   }
   if (!email) return; // can't key a member without an email
 
+  const status = mapStatus(sub.status);
   await upsertMemberFromSubscription(supabase, {
     email,
     tier,
-    status: mapStatus(sub.status),
+    status,
     stripeCustomerId: typeof sub.customer === 'string' ? sub.customer : sub.customer.id,
     stripeSubscriptionId: sub.id,
     currentPeriodEnd: getPeriodEnd(sub),
   });
+
+  // Tag the Deal Desk membership in GHL (best-effort) so it enters the funnel's
+  // owned-product segmentation. The 08b mapper turns purchased-deal-desk into
+  // own-deal-desk. Only when active/trialing.
+  if (status === 'active' || status === 'trialing') {
+    try {
+      await tagMembershipInGhl({
+        email,
+        productKey: 'deal-desk',
+        productName: `Deal Desk (${String(tier)})`,
+      });
+    } catch (err) {
+      console.error('GHL deal-desk tag failed (non-fatal):', err);
+    }
+  }
 }
 
 export async function POST(req: NextRequest) {

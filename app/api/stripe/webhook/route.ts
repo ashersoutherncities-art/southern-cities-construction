@@ -2,7 +2,7 @@ import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { CART_PRODUCTS } from '@/lib/cart';
-import { sendOrderToGhl } from '@/lib/ghl';
+import { sendOrderToGhl, tagMembershipInGhl } from '@/lib/ghl';
 import {
   findOrderByStripeSession,
   hasProcessedStripeEvent,
@@ -141,6 +141,22 @@ export async function POST(req: NextRequest) {
           if (!orderRes.ok) {
             const text = await orderRes.text();
             throw new Error(`Order finalization failed: ${text}`);
+          }
+        }
+
+        // Realtor Support Plan subscription — tag the membership in GHL so it
+        // enters owned-product segmentation (08b maps purchased-realtor-<tier>
+        // -> own-sub-<tier>). Fire-and-forget.
+        if (session.metadata?.realtor_plan) {
+          try {
+            await tagMembershipInGhl({
+              email: session.customer_details?.email || '',
+              name: session.customer_details?.name || '',
+              productKey: `realtor-${session.metadata.realtor_plan}`,
+              productName: `Realtor Support Plan — ${session.metadata.realtor_plan}`,
+            });
+          } catch (err) {
+            console.error('GHL realtor-plan tag failed (non-fatal):', err);
           }
         }
 
