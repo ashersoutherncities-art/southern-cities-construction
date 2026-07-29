@@ -54,7 +54,9 @@ const nextConfig = {
       { source: '/services/investors/turn-support-plan', destination: '/recurring-support', permanent: false },
       { source: '/lp/due-diligence-bundle', destination: '/deal-pack', permanent: false },
       { source: '/services/realtors/realtor-inspection-review', destination: '/services/realtors', permanent: false },
+      { source: '/lp/realtor-inspection-review', destination: '/services/realtors', permanent: false },
       { source: '/services/realtors/multi-offer-construction-read', destination: '/services/realtors', permanent: false },
+      { source: '/lp/multi-offer-construction-read', destination: '/services/realtors', permanent: false },
       { source: '/services/realtors/inspection-response', destination: '/services/realtors', permanent: false },
 
       // Investors — legacy URL aliases to canonical services
