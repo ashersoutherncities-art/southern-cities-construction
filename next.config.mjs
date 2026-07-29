@@ -50,6 +50,7 @@ const nextConfig = {
       // replacement. cart.ts keys stay resolvable so /cart?cart=<key> still
       // transacts for any old direct/ad links. 307 while the catalogue settles.
       { source: '/services/investors/contractor-grade-budget', destination: '/deal-pack', permanent: false },
+      { source: '/lp/contractor-grade-budget', destination: '/deal-pack', permanent: false },
       { source: '/services/investors/turn-support-plan', destination: '/recurring-support', permanent: false },
       { source: '/lp/due-diligence-bundle', destination: '/deal-pack', permanent: false },
       { source: '/services/realtors/realtor-inspection-review', destination: '/services/realtors', permanent: false },

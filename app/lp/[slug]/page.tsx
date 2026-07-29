@@ -440,7 +440,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ],
     notIncluded: [
       'Not a pre-purchase go/no-go opinion — see the Bid-Ready Deal Pack',
-      'Not a budget built from scratch — see Contractor-Grade Budget',
+      'Not a budget built from scratch — see the Build-Ready Deal Pack',
       'Not a contractor bid from us',
       'Not a guaranteed price',
       'Not permit submission',
@@ -2250,7 +2250,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { title: 'Decision fatigue at every step', body: 'Pre-listing? Confidence sheet? Inspection? Credit letter? Walkthrough? Too many micro-decisions.', tone: 'red' },
       { title: 'Skipping the cheap-but-valuable steps', body: '"I\'ll skip the Confidence Sheet this time" — and the inspection request comes back harder.', tone: 'amber' },
       { title: 'No sequencing across the lifecycle', body: 'You order what you need when you remember. Some products lose value when ordered late.', tone: 'rose' },
-      { title: 'Total cost adds up unpredictably', body: '$2,000+ in à la carte purchases vs $1,799 fixed. Easier to budget once.', tone: 'orange' },
+      { title: 'Total cost adds up unpredictably', body: '~$2,545 in à la carte purchases vs $2,299 fixed. Easier to budget once.', tone: 'orange' },
     ],
     getHeadline: 'What\'s included in the package',
     getBullets: [

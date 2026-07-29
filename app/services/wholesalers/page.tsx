@@ -70,10 +70,10 @@ const FREE_PLAYBOOKS = [
 
 const COMING_SOON = [
   {
-    name: 'Build Desk for Wholesalers',
-    timing: 'Q3 2026',
+    name: 'Deal Desk for Wholesalers',
+    timing: 'Open today',
     description:
-      'A licensed NC GC on retainer for your wholesale portfolio. Monthly project intelligence on every active deal, on-demand reviews of scopes / sub-quotes / change-orders / pre-closing sweeps. Subscription model.',
+      'A GC-verified rehab number and Max Allowable Offer on every deal you screen — self-serve in seconds, backed by a licensed NC GC (#107724). Membership: Starter $79 / Active $199 / Pro $399 a month.',
   },
   {
     name: 'Wholesaler-to-Flipper Path',
