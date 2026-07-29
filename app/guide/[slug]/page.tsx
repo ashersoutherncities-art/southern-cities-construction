@@ -54,21 +54,21 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
     heroHeadlineHighlight: '$10K assignments to $104K flips',
     heroHeadlinePost: ' in 9 months — without learning construction.',
     heroSubheadline:
-      'Real 9-month case study with full disclosed P&L. He didn\'t pick up a hammer. He didn\'t learn construction. He underwrote the deal, approved milestones, signed the checks — Southern Cities ran the build using the Execution Review + Active Oversight services. Total hours across 9 months: ~20. Net profit on the flip: $104,761. Plus the 5-rule framework for which deals to keep vs. assign, and the honest math on capital, credit, and risk.',
+      'Real 9-month case study with full disclosed P&L. He didn\'t pick up a hammer. He didn\'t learn construction. He underwrote the deal, approved milestones, signed the checks — Southern Cities ran the build using the Bid-Ready Deal Pack + Active Oversight services. Total hours across 9 months: ~20. Net profit on the flip: $104,761. Plus the 5-rule framework for which deals to keep vs. assign, and the honest math on capital, credit, and risk.',
     insideBullets: [
       'The wholesaler ceiling — why even $40K assignments still cap your business',
       'Marcus\'s 9-month transformation timeline (Discovery → Decision → Execution → Sale)',
       'Full disclosed P&L on the $104K flip — sale price, financing, rehab, fees, net',
       'The honest math — capital required ($25K–$60K), credit profile (650+), time commitment (~20 hrs)',
-      'How Southern Cities runs the execution side — the Execution Review, Active Oversight, and Owner-Controlled Build explained, with license-level risk allocation',
-      '5-rule decision framework for which deals to keep vs. assign (spread × 3, a clean Execution Review, capital ready, etc.)',
-      'Three ways to work with us: the $499 Execution Review, a Build Desk membership, or a 30-minute founder call',
+      'How Southern Cities runs the execution side — the Bid-Ready Deal Pack, Active Oversight, and Owner-Controlled Build explained, with license-level risk allocation',
+      '5-rule decision framework for which deals to keep vs. assign (spread × 3, a clean Bid-Ready Deal Pack, capital ready, etc.)',
+      'Three ways to work with us: the $599 Bid-Ready Deal Pack, a Deal Desk membership, or a 30-minute founder call',
     ],
     bestFor:
       'NC wholesalers averaging $25K+ assignment fees who feel they\'ve outgrown wholesaling and want to evolve into flippers without taking on the construction risk themselves.',
     credibilityLines: [
       'Southern Cities Construction is a licensed NC General Contractor (#107724) that built this platform after seeing how a wholesaler-to-flipper transition goes sideways without a GC license or a sub network — the same execution gaps that cost investors six figures.',
-      'The Execution Review and Active Oversight exist to close exactly those execution gaps. They\'re the reason a wholesaler-to-flipper transition now takes 9 months with Southern Cities instead of 3 years on your own.',
+      'The Bid-Ready Deal Pack and Active Oversight exist to close exactly those execution gaps. They\'re the reason a wholesaler-to-flipper transition now takes 9 months with Southern Cities instead of 3 years on your own.',
       'Most GCs won\'t co-pilot a wholesaler\'s first flip. We will. That\'s the wedge — and the reason this 9-month path is reproducible across NC.',
     ],
     submitLabel: 'Get the $104K Case Study — Free',
@@ -88,7 +88,7 @@ const LEAD_MAGNET_LPS: LeadMagnetLpConfig[] = [
       'Roof-life misjudgment and clay-sewer-line collapse — $6K–$18K impacts',
       'HVAC sequencing trap that costs $3K–$8K in rework',
       'Total cost-impact summary table for all 9 risks',
-      'When and how to escalate to a licensed-GC Execution Review',
+      'When and how to escalate to a licensed-GC Bid-Ready Deal Pack',
     ],
     bestFor:
       'NC real estate investors actively underwriting deals — flippers, BRRRR operators, small portfolio builders — who want to know which execution risks are hiding in the property before earnest money goes hard.',

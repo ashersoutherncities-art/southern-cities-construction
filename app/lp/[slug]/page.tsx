@@ -439,7 +439,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       },
     ],
     notIncluded: [
-      'Not a pre-purchase go/no-go opinion — see Investor Execution Review',
+      'Not a pre-purchase go/no-go opinion — see the Bid-Ready Deal Pack',
       'Not a budget built from scratch — see Contractor-Grade Budget',
       'Not a contractor bid from us',
       'Not a guaranteed price',
@@ -558,7 +558,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     finalHeadline: 'Stop handing contractors a vibes-grade spreadsheet.',
     finalSubhead: 'One licensed-GC line-item build, 5 business days, $1,799. The budget a GC would write — without paying the GC retainer.',
     faqs: [
-      { q: 'Should I buy this before or after closing?', a: 'After. This is a pre-construction product — built for owners (and post-purchase investors) who need a real number to take to contractors and lenders. If you are still deciding whether to buy a deal, use the Investor Execution Review ($499) instead — it gives you a rough budget range fast enough to fit inside an offer window.' },
+      { q: 'Should I buy this before or after closing?', a: 'After. This is a pre-construction product — built for owners (and post-purchase investors) who need a real number to take to contractors and lenders. If you are still deciding whether to buy a deal, use the Bid-Ready Deal Pack ($599) instead — a GC-certified budget and scope on the specific deal, fast enough to take to an offer.' },
       { q: 'How is this different from Budget & Scope Review?', a: 'Budget & Scope Review ($399) AUDITS a budget you already have — corrects line items, flags gaps. Contractor-Grade Budget BUILDS one from scratch with full takeoffs and trade-network pricing. Different starting point, different deliverable, different price.' },
       { q: 'What do you need from me?', a: 'Plans (if you have them), photos, written scope notes, and the property address.' },
       { q: 'How long does it take?', a: 'Typical turnaround is 5 business days from submission.' },
@@ -895,7 +895,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ],
     getHeadline: 'Every review, on the same deal, in one engagement',
     getBullets: [
-      { title: 'Investor Execution Review ($499)', detail: 'Scope feasibility, rough budget range with confidence, risk callouts, and walk-away trigger.' },
+      { title: 'Bid-Ready Deal Pack ($599)', detail: 'GC-certified budget and scope on the specific deal — cost drivers, contingency, lender flags, and your MAO at a 25% ROI target.' },
       { title: 'Budget & Scope Review ($399)', detail: 'Line-item audit of any budget or pro-forma you have, against current market costs.' },
       { title: 'Permit & Local Compliance Review ($399)', detail: 'Likely permit path, compliance risk, and approval timeline for the jurisdiction.' },
       { title: 'Contractor Fit Consultation ($349)', detail: 'What kinds of contractors this project actually needs, and why.' },

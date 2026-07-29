@@ -43,7 +43,7 @@ const roleMeta: Record<
     href: '/platform',
     pain: 'The deal, rehab, or turn has too much uncertainty around budget, hiring, timeline, or execution.',
     outcome: 'You get better numbers, fewer surprises, and less delay before the deal loses momentum.',
-    topServices: ['Free Budget Snapshot', 'Execution Review — $499', 'Owner-Controlled Build'],
+    topServices: ['Free Budget Snapshot', 'Bid-Ready Deal Pack — $599', 'Owner-Controlled Build'],
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   realtors: {
@@ -96,7 +96,7 @@ const roadmapLanes: RoadmapLane[] = [
       { label: 'Need help hiring the right contractor and setting the job up right', services: ['Contractor Fit Consultation', 'Bid Coordination & Contractor Match', 'Materials Logistics Setup'], tone: 'info' },
       { label: 'Need help with lender scope, bids, or draws', services: ['Lender Scope & Bid Package', 'Draw Management'], tone: 'build' },
       { label: 'Need tighter follow-through on an active job', services: ['Rent-Ready Turn', 'Construction Oversight'], tone: 'control' },
-      { label: 'Need repeat help across multiple properties', services: ['Turn Support Plan', 'Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
+      { label: 'Need repeat help across multiple properties', services: ['Operator Support Plan', 'Project Support Retainer'], tone: 'finish' },
     ],
     destination: 'Fewer surprises, faster starts, and tighter coordination on the work',
   },

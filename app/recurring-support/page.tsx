@@ -48,21 +48,8 @@ const recurringSections: RecurringSection[] = [
       'Simple monthly support for repeat investor work.',
     cards: [
       {
-        name: 'Turn Support Plan',
-        tag: 'Entry plan',
-        price: '$749/mo',
-        who: 'Small rental owners and operators with recurring turns.',
-        problem: 'Best when repeat project questions keep slowing things down.',
-        creditSummary: 'Includes up to 2 reviews each month.',
-        creditUses: ['deal reviews', 'budget reviews', 'permit questions', 'turn scope questions'],
-        simpleFlow: 'Send it, we review it, you get clear next steps.',
-        turnaround: '1 business day response target.',
-        cta: 'Review Turn Support Plan',
-        href: '/services/investors/turn-support-plan',
-      },
-      {
         name: 'Operator Support Plan',
-        tag: 'Most practical',
+        tag: 'Entry plan',
         price: '$1,499/mo',
         who: 'Active investors with repeat job decisions and draw-related help.',
         problem: 'Best when active jobs need more ongoing review support.',

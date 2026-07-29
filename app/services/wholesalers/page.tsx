@@ -79,7 +79,7 @@ const COMING_SOON = [
     name: 'Wholesaler-to-Flipper Path',
     timing: 'Open today',
     description:
-      'For wholesalers ready to keep their best deals: an Execution Review before you buy, and Active Oversight during the build. Southern Cities owns construction execution while you own the deal. See the 9-month transformation case study.',
+      'For wholesalers ready to keep their best deals: a Bid-Ready Deal Pack before you buy, and Active Oversight during the build. Southern Cities owns construction execution while you own the deal. See the 9-month transformation case study.',
   },
 ];
 

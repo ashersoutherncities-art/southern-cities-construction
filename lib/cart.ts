@@ -138,7 +138,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Permit Compliance Review',
     price: 39900,
     priceLabel: '$399 review',
-    description: 'Early permit and local compliance review before closing so rehab path, approval risk, and code exposure are clearer.',
+    description: 'The permits your scope needs in that jurisdiction — from our command of NC building code plus the city and county codes and what the local planning desk says — with the permitting-office points of contact, compliance notes, approval-risk flags, and your next step to file.',
     checkoutAmount: '399',
   },
   'budget-review': {
@@ -147,7 +147,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Budget & Scope Review',
     price: 39900,
     priceLabel: '$399 review',
-    description: 'You bring the numbers — we pressure-test them. A line-by-line audit of an existing budget and scope against current market costs. Works pre-purchase (vetting an investor pro-forma) or post-purchase (before contractors price it or the lender locks in the draw). Bring a budget; we audit it.',
+    description: 'You bring the numbers — a licensed GC gives you an experienced opinion on each line: what is in the ballpark, what is high, what is low, and where to look. Works pre-purchase (vetting a pro-forma) or post-purchase (before contractors price it or the lender locks the draw). An experienced opinion that points you in the right direction, not a formal bid.',
     checkoutAmount: '399',
   },
   'contractor-grade-budget': {
@@ -165,7 +165,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Contractor Match',
     price: 149900,
     priceLabel: '$1,499 starting price',
-    description: 'We source vetted contractors that fit your scope, collect bids on a structured intake, level them against each other, and present the cleanest comparison so the award decision is easier.',
+    description: 'We source vetted contractors that fit your scope, collect bids on a structured intake, level them against each other, flag the risks and scope gaps, and give you a written recommendation on who to hire — so you choose from real, comparable numbers instead of cold-calling contractors.',
     checkoutAmount: '1499',
   },
   'due-diligence-bundle': {
@@ -318,7 +318,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Inspection + GC Budget',
     price: 89900,
     priceLabel: '$899 · the GC commits to do the work at this number',
-    description: 'A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier estimate: MANDATORY items (code violations + loan-killers, 5–7 day fix guarantee), HIGH-ROI items (2× return cosmetics), and DISCLOSE & SKIP (formatted as a quote for the seller to credit the buyer). The deliverable that closes deals instead of opening fights. 3–5 business day turnaround, statewide NC. The same licensed NC GC commits to do the work at the budget we write — and your $899 Report fee credits toward the job if we do it.',
+    description: 'A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier estimate: MANDATORY items (code violations + loan-killers, 5–7 day fix guarantee), HIGH-ROI items (2× return cosmetics), and DISCLOSE & SKIP (formatted as a quote for the seller to credit the buyer). The deliverable that closes deals instead of opening fights. 3–5 business day turnaround, statewide NC. The same licensed NC GC commits to do the work at the budget we write — and your $899 Report fee credits toward the job if we do it. It gives buyers certainty on what they are buying and leverage to negotiate, and almost always pays for itself.',
     checkoutAmount: '899',
   },
   'realtor-quick-read': {
@@ -411,7 +411,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'As-Built Plans',
     price: 34900,
     priceLabel: '$349 · measured existing-condition floor plan · 1 revision',
-    description: 'A measured existing-condition floor plan of the property, delivered as a PDF plus an editable file. Includes 1 revision. NC GC License #107724.',
+    description: 'We visit the property and produce an estimate-grade as-built floor plan of it as it stands — fairly accurate — delivered as a PDF plus an editable file. Includes 1 revision. NC GC License #107724.',
     checkoutAmount: '349',
   },
   'plans-future-state': {
