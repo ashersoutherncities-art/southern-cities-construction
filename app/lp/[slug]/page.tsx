@@ -755,7 +755,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
       { q: 'What do I get back?', a: 'A contractor-mix recommendation (what kinds of contractors fit) plus the reasoning behind each role and the wrong-fit types to avoid.' },
       { q: 'Is this comparing specific contractors?', a: 'No. This tells you what KINDS of contractors fit — GC, subs, specialists, generalists, license level — not which named candidates are best. Comparing bids is a separate engagement (see Contractor Match & Bid Coordination, or bundle the two together below).' },
       { q: 'Is this contractor sourcing?', a: 'No — but you can bundle this with our Contractor Match & Bid Coordination service for $300 off.' },
-      { q: 'Can you run the project after?', a: 'Yes. Our Owner-Controlled Build and Full Execution options pick up from here.' },
+      { q: 'Can you run the project after?', a: 'Yes. Our Investor-Led Build and Full Execution options pick up from here.' },
     ],
     addOnBundle: {
       eyebrow: 'Bundle and save $348',

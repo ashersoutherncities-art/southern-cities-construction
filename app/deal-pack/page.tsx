@@ -22,7 +22,7 @@ const DEAL_PACK_PRODUCTS = [
   {
     name: 'Build-Ready Deal Pack',
     description:
-      'Full GC-verified Deal Pack: as-built floorplans + elevations, itemized rehab budget, and the GC commitment to do the work at that price. Sell your wholesale deal as a finished pre-construction product.',
+      'Full GC-verified Deal Pack: as-built floorplans + elevations, itemized rehab budget, 3D renderings, a design mood board, a materials & furniture report, a local market report, sub-trade quotes, a local vendor list, and the GC commitment to do the work at that price. Sell your wholesale deal as a finished pre-construction product.',
     url: '/deal-pack',
     priceUsd: 1997,
     category: 'Deal Pack',
@@ -185,13 +185,17 @@ const TIERS: Tier[] = [
     price: '$1,997',
     priceNote: 'Per deal · 3–4 day turnaround',
     promise:
-      'Shovel-ready package end-investors actually pay top-of-market for — and we commit to do the work at the price we write. Floor plans, design renderings, full scope, vetted sub-trade quotes, draw schedule, pre-closing open-permit sweep, a permit path, and a finance-partner intro. The premium tier.',
+      'Shovel-ready package end-investors actually pay top-of-market for — and we commit to do the work at the price we write. Floor plans, design renderings, a mood board, a materials & furniture report, a local market report, full scope, vetted sub-trade quotes, a local vendor list, draw schedule, pre-closing open-permit sweep, a permit path, and a finance-partner intro. The premium tier.',
     includes: [
       'Everything in Bid-Ready PLUS',
       'We commit to do the work at the price we write — buyer can argue with the GC who’s going to swing the hammer, or sign',
       'Floor plans + 2–3 design renderings',
+      'Design mood board',
+      'Materials & furniture report',
+      'Local market report — target ARV + finished-product direction (Southern Cities Realty + MLS data)',
       'Full written scope of work (room-by-room)',
       '3 vetted NC sub-trade quotes per major trade',
+      'Brief list of local vendors with contact info',
       'Draw schedule template ready for lender submission',
       'Pre-closing open permit + lien sweep report',
       'Permit path — every permit your project will require, identified up front',
@@ -238,7 +242,7 @@ const PRO_TIER: Tier = {
     '25% off any Build-Ready Deal Pack upgrade ($499 savings each)',
     'Priority 2-day turnaround on every request (faster than one-off Build-Ready)',
     '"GC-Verified by Southern Cities #107724" co-marketing badge',
-    'Member-rate priority routing for your buyers into Active Oversight + Owner-Controlled Build',
+    'Member-rate priority routing for your buyers into Active Oversight + Investor-Led Build',
     'Cancel anytime — no minimum term',
   ],
   cta: 'Subscribe to Pro · $897/mo →',

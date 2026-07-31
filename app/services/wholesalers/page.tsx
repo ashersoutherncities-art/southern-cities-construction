@@ -34,7 +34,7 @@ const PRODUCTS: FeaturedProduct[] = [
     name: 'Deal Pack Series',
     tagline: 'Per-deal · Branded packages for your assignments',
     description:
-      'GC-Verified Deal Packs you attach to wholesale assignments. Two tiers — Bid-Ready (budget + scope + risks) and Build-Ready (plans + designs + sub quotes + closing sweep — and we commit to do the work at the price we write, 3–4 day turnaround). No existing plans? Add the Site Scan + As-Built. Branded with NC GC License #107724.',
+      'GC-Verified Deal Packs you attach to wholesale assignments. Two tiers — Bid-Ready (budget + scope + risks) and Build-Ready (plans + designs + a mood board + a materials & furniture report + a local market report + sub quotes + a local vendor list + closing sweep — and we commit to do the work at the price we write, 3–4 day turnaround). No existing plans? Add the Site Scan + As-Built. Branded with NC GC License #107724.',
     href: '/deal-pack',
     primaryCta: 'See the Deal Pack tiers →',
     priceLine: 'Bid-Ready · Build-Ready · Site Scan add-on',

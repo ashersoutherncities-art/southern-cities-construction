@@ -30,7 +30,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Execution Consult',
     price: 9900,
     priceLabel: '$99 · credits toward your project',
-    description: 'A paid consultation to scope your build and map the right execution path — Project Setup, Active Oversight, Owner-Controlled Build, or Full-Service GC. Credited toward your engagement if you proceed. NC GC License #107724.',
+    description: 'A paid consultation to scope your build and map the right execution path — Project Setup, Active Oversight, Investor-Led Build, or Full-Service GC. Credited toward your engagement if you proceed. NC GC License #107724.',
     checkoutAmount: '99',
   },
   'flagship-permit-oversight': {
@@ -300,7 +300,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Execution Review',
     price: 49900,
     priceLabel: '$499 → stop losing $5K+ to execution mistakes · 48-hour turnaround · refund if we cannot perform · credits forward',
-    description: 'Stop losing $5,000+ to execution mistakes you didn’t see coming. A licensed NC GC pressure-tests your deal in 48 hours and eliminates every hidden execution risk — labor market spikes, permit reality, sequencing gaps, category-shifters — or confirms the deal is clean. Performance guarantee: $499 fully refunded if we cannot perform the review at our standard. The refund trigger is Southern Cities’ call, not the buyer’s — you are paying for our commitment to deliver. $499 credits forward against Project Setup, Active Oversight ($6.5K–$28.5K tiered), Owner-Controlled Build, or Full GC Service — so if you continue, it is $0 net. Bonuses included: 48-hour turnaround, permit-jurisdiction timeline check ($150 value), vendor-lineup intro list for your submarket ($300 value), $499 credit forward. NC GC License #107724.',
+    description: 'Stop losing $5,000+ to execution mistakes you didn’t see coming. A licensed NC GC pressure-tests your deal in 48 hours and eliminates every hidden execution risk — labor market spikes, permit reality, sequencing gaps, category-shifters — or confirms the deal is clean. Performance guarantee: $499 fully refunded if we cannot perform the review at our standard. The refund trigger is Southern Cities’ call, not the buyer’s — you are paying for our commitment to deliver. $499 credits forward against Project Setup, Active Oversight ($6.5K–$28.5K tiered), Investor-Led Build, or Full GC Service — so if you continue, it is $0 net. Bonuses included: 48-hour turnaround, permit-jurisdiction timeline check ($150 value), vendor-lineup intro list for your submarket ($300 value), $499 credit forward. NC GC License #107724.',
     checkoutAmount: '499',
   },
   'per-deal-copilot': {
@@ -354,7 +354,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Build-Ready Deal Pack',
     price: 199700,
     priceLabel: '$1,997 per deal',
-    description: 'Everything in Bid-Ready PLUS floor plans + design renderings + 3 vetted sub-trade quotes per major trade + draw schedule template + pre-closing open-permit sweep + a permit path (every permit identified up front) + a finance-partner referral. The shovel-ready package end-investors expect for $40K+ assignment fees — and we commit to do the work at the price we write. 3–4 business day turnaround. NC GC License #107724.',
+    description: 'Everything in Bid-Ready PLUS floor plans + design renderings + a design mood board + a materials & furniture report + a local market report (target ARV + finished-product direction) + 3 vetted sub-trade quotes per major trade + a local vendor list with contacts + draw schedule template + pre-closing open-permit sweep + a permit path (every permit identified up front) + a finance-partner referral. The shovel-ready package end-investors expect for $40K+ assignment fees — and we commit to do the work at the price we write. 3–4 business day turnaround. NC GC License #107724.',
     checkoutAmount: '1997',
   },
   'deal-pack-site-scan': {

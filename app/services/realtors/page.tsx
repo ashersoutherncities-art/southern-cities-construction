@@ -376,7 +376,7 @@ export default function RealtorsPage() {
               <span className="text-[#fa8c41]">Attract the investor-buyers who actually pay top of market.</span>
             </h2>
             <p className="mt-5 text-lg leading-[1.55] text-white/85">
-              For rehab-needed or investor-grade listings: a licensed NC GC delivers a branded Deal Pack — verified rehab budget, scope, and risk callouts (Bid-Ready) or full plans + designs + sub quotes + closing sweep (Build-Ready, and we commit to do the work at the price we write). Attach it to your MLS marketing and disclosure packet. Investor-buyers stop passing on un-scoped properties because they no longer have to bring their own GC.
+              For rehab-needed or investor-grade listings: a licensed NC GC delivers a branded Deal Pack — verified rehab budget, scope, and risk callouts (Bid-Ready) or full plans + designs + a mood board + a materials &amp; furniture report + a local market report + sub quotes + a local vendor list + closing sweep (Build-Ready, and we commit to do the work at the price we write). Attach it to your MLS marketing and disclosure packet. Investor-buyers stop passing on un-scoped properties because they no longer have to bring their own GC.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link

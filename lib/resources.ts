@@ -58,7 +58,7 @@ export const RESOURCES: Resource[] = [
    'The 9-month transformation timeline (Discovery → Decision → Execution → Sale)',
    'Full disclosed P&L on the $104K flip (sale price, financing, rehab, fees, net)',
    'The honest math — capital required, credit profile, time commitment, real risks',
-   'How Southern Cities runs the execution side (the Bid-Ready Deal Pack, Active Oversight, and Owner-Controlled Build explained)',
+   'How Southern Cities runs the execution side (the Bid-Ready Deal Pack, Active Oversight, and Investor-Led Build explained)',
    '5-rule decision framework for which deals to keep vs. assign',
    'Three ways to work with us: the Bid-Ready Deal Pack, a Deal Desk membership, or a founder strategy call',
   ],

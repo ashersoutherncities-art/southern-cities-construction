@@ -657,7 +657,7 @@ const investorServices: AvatarPageData = {
     },
     {
       slug: 'owner-controlled-build',
-      title: 'Owner-Controlled Build (GC-Led)',
+      title: 'Investor-Led Build (GC-Led)',
       tag: 'Flagship',
       summary: 'Our flagship hybrid execution model — you stay the owner and PM; Southern Cities provides the GC structure, permit pulling, and execution controls.',
       pain: 'You want the upside of self-managing without giving up the legal and operational structure of a licensed GC.',

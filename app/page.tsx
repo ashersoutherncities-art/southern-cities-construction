@@ -64,7 +64,7 @@ const ladderRungs = [
     href: '/deal-desk',
   },
   {
-    title: 'Full GC · Owner-Controlled Build',
+    title: 'Full GC · Investor-Led Build',
     badge: 'Full service',
     badgeClass: 'bg-stone-100 text-[#08111d]',
     detail: 'When the deal is yours, a licensed NC GC runs the build end to end — and you keep ownership and control.',
@@ -562,7 +562,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* OWNER-CONTROLLED BUILD FLAGSHIP */}
+        {/* INVESTOR-LED BUILD FLAGSHIP */}
         <section id="owner-controlled-build" className="relative overflow-hidden bg-[#08111d] text-white">
           <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
           <div
@@ -583,7 +583,7 @@ export default function Home() {
                   Our flagship build model
                 </p>
                 <h2 className="mt-5 text-4xl font-black leading-[1.0] tracking-[-0.03em] text-white sm:text-6xl">
-                  Owner-Controlled <span className="text-[#fa8c41]">Build.</span>
+                  Investor-Led <span className="text-[#fa8c41]">Build.</span>
                 </h2>
                 <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
                   You stay the owner. We provide the GC structure, pull the permits, and run the execution controls. A hybrid model — most of the upside of self-managing, none of the chaos.
@@ -635,7 +635,7 @@ export default function Home() {
                     <div className="relative rounded-xl border-2 border-[#fa8c41]/60 bg-[#fa8c41]/[0.12] p-5">
                       <span className="absolute -top-2.5 left-4 rounded-full bg-[#fa8c41] px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-white">Flagship</span>
                       <div className="flex items-center justify-between gap-3">
-                        <p className="font-bold text-white">Owner-Controlled Build</p>
+                        <p className="font-bold text-white">Investor-Led Build</p>
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#fa8c41]">Hybrid</span>
                       </div>
                       <p className="mt-2 text-sm text-white/80">We carry the license. You PM the build.</p>

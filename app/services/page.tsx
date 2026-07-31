@@ -43,7 +43,7 @@ const roleMeta: Record<
     href: '/platform',
     pain: 'The deal, rehab, or turn has too much uncertainty around budget, hiring, timeline, or execution.',
     outcome: 'You get better numbers, fewer surprises, and less delay before the deal loses momentum.',
-    topServices: ['Free Budget Snapshot', 'Bid-Ready Deal Pack — $599', 'Owner-Controlled Build'],
+    topServices: ['Free Budget Snapshot', 'Bid-Ready Deal Pack — $599', 'Investor-Led Build'],
     bestBuying: ['pricing', 'quote', 'buy'],
   },
   realtors: {
