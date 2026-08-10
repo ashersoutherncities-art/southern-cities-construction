@@ -16,9 +16,9 @@ import RealtorPlanCTA from '@/components/RealtorPlanCTA';
 const reportTiers = [
   {
     axis: 'Desk · Read',
-    name: 'GC Quick Read',
+    name: 'Realtor Inspection Review',
     price: '$299',
-    sub: '1–2 business days · same-day rush available',
+    sub: '1 business day · buyer or seller',
     tagline: 'The fast screen — buyer or seller — before you pay for a full on-site inspection.',
     description:
       'A licensed NC GC reads your existing inspection report or the property details and tells you, in plain English: what is real, what is cosmetic, what could kill the loan, and a rough order-of-magnitude on the work — with item-by-item severity, paste-ready repair-request language, and a client-shareable PDF. Desk read — no inspector dispatched. Works buyer-side or seller-side.',
@@ -30,8 +30,8 @@ const reportTiers = [
       'Rough order-of-magnitude cost + plain-English GC verdict',
     ],
     credit: 'Your $299 credits toward the GC Budget or the full Report.',
-    cartKey: 'realtor-quick-read',
-    cta: 'Get a Quick Read · $299',
+    cartKey: 'realtor-inspection-review',
+    cta: 'Get the Inspection Review · $299',
     highlighted: false,
   },
   {
@@ -60,10 +60,10 @@ const reportTiers = [
     sub: 'Licensed inspection + GC read · when there is no inspection yet',
     tagline: 'A licensed inspector on-site, plus a GC read on the findings — the bridge into the budget.',
     description:
-      'For when there is no inspection yet: a licensed third-party inspector goes on-site and produces a full standard inspection report, then a licensed NC GC layers a GC Quick Read on the findings — real-vs-cosmetic, loan-killers, rough cost, and a clear GC call.',
+      'For when there is no inspection yet: a licensed third-party inspector goes on-site and produces a full standard inspection report, then a licensed NC GC layers a GC read on the findings — real-vs-cosmetic, loan-killers, rough cost, and a clear GC call.',
     bullets: [
       'Licensed third-party inspector on-site → full report',
-      'GC Quick Read layered on the findings',
+      'GC read layered on the findings',
       'Real-vs-cosmetic · loan-killers · rough cost · GC call',
     ],
     credit: 'Relevant fees credit forward — the $299 GC-read value credits toward the budget (the inspection is a pass-through cost).',

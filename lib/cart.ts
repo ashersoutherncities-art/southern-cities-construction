@@ -93,7 +93,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Inspection Review',
     price: 29900,
     priceLabel: '$299 review',
-    description: 'Comprehensive 1-day inspection-report read by a licensed NC GC — item-by-item severity, repair-scope notes, cost ranges, a client-shareable PDF deliverable, AND a ready-to-send Repair Request Language section the agent can paste directly into an email to the other side.',
+    description: 'Comprehensive 1-day inspection-report read by a licensed NC GC — critical-vs-cosmetic triage, loan-killer flags, item-by-item severity, repair-scope notes, cost ranges, a client-shareable PDF deliverable, AND a ready-to-send Repair Request Language section the agent can paste directly into an email to the other side. Works buyer-side or seller-side. Your $299 credits toward the GC Budget or the full Inspection + GC Budget Report.',
     checkoutAmount: '299',
   },
   'buyer-side-property-read': {
@@ -321,15 +321,10 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     description: 'A licensed inspector visits the property AND a licensed NC GC turns the findings into a 3-tier estimate: MANDATORY items (code violations + loan-killers, 5–7 day fix guarantee), HIGH-ROI items (2× return cosmetics), and DISCLOSE & SKIP (formatted as a quote for the seller to credit the buyer). The deliverable that closes deals instead of opening fights. 3–5 business day turnaround, statewide NC. The same licensed NC GC commits to do the work at the budget we write — and your $899 Report fee credits toward the job if we do it. It gives buyers certainty on what they are buying and leverage to negotiate, and almost always pays for itself.',
     checkoutAmount: '899',
   },
-  'realtor-quick-read': {
-    key: 'realtor-quick-read',
-    name: 'GC Quick Read',
-    shortName: 'GC Quick Read',
-    price: 29900,
-    priceLabel: '$299 · same-day rush available · buyer or seller',
-    description: 'A licensed NC GC reads your inspection report (or property details) and gives you: critical-vs-cosmetic triage, loan-killer flags, a rough order-of-magnitude cost, item-by-item severity with repair-scope notes, paste-ready repair-request language, and a client-shareable PDF. Works buyer-side or seller-side. 1–2 business days (same-day rush available), statewide NC. Desk read — no inspector dispatched. Your $299 credits toward the GC Budget or the full Report.',
-    checkoutAmount: '299',
-  },
+  // 'realtor-quick-read' (GC Quick Read $299) REMOVED 2026-08-04 — folded into
+  // 'realtor-inspection-review' ($299) to kill the "Quick Read" name collision
+  // (Same-Day Quick Read $199 keeps the name). Stale /cart?cart=realtor-quick-read
+  // links degrade to an empty cart (unknown keys are filtered in getCartLineItems).
   'gc-grade-property-inspection-rush': {
     key: 'gc-grade-property-inspection-rush',
     name: 'Inspection + GC Budget Report — RUSH',
@@ -383,7 +378,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'GC Budget',
     price: 59900,
     priceLabel: '$599 · GC budget on the inspection you already have',
-    description: 'The GC budget built on the inspection you already have — no new inspection. A licensed NC GC turns your existing inspection into a full 3-tier budget (Mandatory / High-ROI / Disclose & Skip), with paste-ready repair-request language, and the same GC commits to do the work at the budget we write. Priced like an investor Bid-Ready ($599) — the GC budget, consistent across audiences. A GC Quick Read credits in; add our licensed inspection (+$400) to make it the full $899 Inspection + GC Budget Report. NC GC License #107724.',
+    description: 'The GC budget built on the inspection you already have — no new inspection. A licensed NC GC turns your existing inspection into a full 3-tier budget (Mandatory / High-ROI / Disclose & Skip), with paste-ready repair-request language, and the same GC commits to do the work at the budget we write. Priced like an investor Bid-Ready ($599) — the GC budget, consistent across audiences. A GC read credits in; add our licensed inspection (+$400) to make it the full $899 Inspection + GC Budget Report. NC GC License #107724.',
     checkoutAmount: '599',
   },
   'realtor-inspected-gc-read': {
@@ -392,7 +387,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Inspected GC Read',
     price: 64900,
     priceLabel: '$649 · licensed inspection + GC read',
-    description: 'For when there is no inspection yet: a licensed third-party inspector goes on-site and produces a full standard inspection report, then a licensed NC GC layers a GC Quick Read on the findings — real-vs-cosmetic, loan-killer flags, rough cost, and a clear GC call. The bridge into the budget. Relevant fees credit forward: the $299 GC-read value credits toward the budget — the inspection is a third-party pass-through cost, so only our own service value rolls forward. NC GC License #107724.',
+    description: 'For when there is no inspection yet: a licensed third-party inspector goes on-site and produces a full standard inspection report, then a licensed NC GC layers a GC read on the findings — real-vs-cosmetic, loan-killer flags, rough cost, and a clear GC call. The bridge into the budget. Relevant fees credit forward: the $299 GC-read value credits toward the budget — the inspection is a third-party pass-through cost, so only our own service value rolls forward. NC GC License #107724.',
     checkoutAmount: '649',
   },
   'realtor-diagnosis': {
