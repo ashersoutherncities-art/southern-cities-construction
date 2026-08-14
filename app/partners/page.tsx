@@ -48,6 +48,7 @@ const NC_REGIONS = [
   'Fayetteville / Sandhills',
   'Wilmington / Coastal',
   'Eastern NC',
+  'Northeastern NC',
   'Western NC (Asheville)',
 ] as const;
 
