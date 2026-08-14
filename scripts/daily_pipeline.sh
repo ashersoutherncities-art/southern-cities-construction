@@ -12,4 +12,5 @@ PY="/opt/homebrew/bin/python3"
 "$PY" "$DIR/farm_subs.py"
 "$PY" "$DIR/verify_trade_licenses.py" --recent
 "$PY" "$DIR/verify_gc_licenses.py" --recent
+"$PY" "$DIR/enrich_contacts.py" --recent
 "$PY" "$DIR/coi_expiry_check.py"
