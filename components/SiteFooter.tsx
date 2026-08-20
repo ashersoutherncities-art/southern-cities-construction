@@ -66,6 +66,11 @@ export default function SiteFooter() {
 
         <div className="mt-12 border-t border-white/5 pt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs tracking-wide text-white/30">© {YEAR} {SITE_CONFIG.legalLine}</p>
+          <p className="text-xs tracking-wide text-white/30">
+            <Link href="/privacy" className="transition-colors hover:text-orange">Privacy Policy</Link>
+            <span className="mx-2 text-white/15">·</span>
+            <Link href="/terms" className="transition-colors hover:text-orange">Terms</Link>
+          </p>
         </div>
       </div>
     </footer>
