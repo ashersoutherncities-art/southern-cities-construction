@@ -252,6 +252,12 @@ export type GhlInquiryPayload = {
   source?: string;
   /** The "I'm a..." answer from the form — routed to the Audience field. */
   audience_type?: string;
+  /**
+   * A2P 10DLC opt-in. GHL is what actually sends the texts, so the consent
+   * state has to travel with the contact — a workflow must never text a
+   * contact tagged sms-consent-no.
+   */
+  sms_consent?: boolean;
 };
 
 /**
@@ -291,7 +297,7 @@ export async function sendInquiryToGhl(payload: GhlInquiryPayload) {
   const tags = (isNonProductInquiry
     ? [inquiryTag, 'lead-inquiry']
     : [inquiryTag, 'product-inquiry']
-  ).concat(WEB_LEAD_TAG);
+  ).concat(WEB_LEAD_TAG, payload.sms_consent === true ? 'sms-consent-yes' : 'sms-consent-no');
 
   // Populate custom fields so the GHL contact carries the full inquiry context
   // (message body + which product they asked about + price). The workflow's
@@ -424,6 +430,9 @@ export type GhlLeadMagnetPayload = {
   company?: string;
   role?: string;
   source?: string;
+  /** A2P 10DLC opt-in — travels with the contact so workflows never text a
+   *  contact tagged sms-consent-no. */
+  sms_consent?: boolean;
 };
 
 export type GhlLm1Step1Payload = {
@@ -545,7 +554,8 @@ export async function sendLeadMagnetToGhl(payload: GhlLeadMagnetPayload) {
   const { firstName, lastName } = splitName(payload.buyer_name);
   const phone = (payload.buyer_phone || '').trim() || undefined;
   const magnetTag = `lead-magnet-${payload.resource_slug}`.toLowerCase();
-  const tags = [magnetTag, 'lead-inquiry', WEB_LEAD_TAG];
+  const tags = [magnetTag, 'lead-inquiry', WEB_LEAD_TAG,
+    payload.sms_consent === true ? 'sms-consent-yes' : 'sms-consent-no'];
 
   const servicesRequestedValue = payload.resource_title || payload.resource_slug;
   const customFields = [

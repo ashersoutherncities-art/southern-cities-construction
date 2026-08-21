@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
 
+import { smsConsentRecord } from '@/lib/sms-consent';
+
 export const runtime = 'nodejs';
 
 const DOC_SLOTS: { field: string; label: string }[] = [
@@ -45,8 +47,13 @@ export async function POST(req: NextRequest) {
       service_area, regions, crew_size, license_type, license_number, license_state,
       insurance_carrier, insurance_limits, workers_comp, referral_source,
       project_samples, project_types, rate_notes, references_text, availability,
-      notes, agreed_to_standards,
+      notes, agreed_to_standards, sms_consent,
     } = body as Record<string, unknown>;
+
+    // The partner form shows an A2P 10DLC opt-in. Storing the wording and the
+    // timestamp alongside the flag is the actual proof-of-consent a carrier asks
+    // for; the flag on its own is not.
+    const consent = smsConsentRecord(sms_consent, phone, 'partner-application-form', 'partner');
 
     if (!company_name || !contact_name || !email || !trade) {
       return NextResponse.json({ error: 'Company, contact name, email, and trade are required.' }, { status: 400 });
@@ -71,6 +78,10 @@ export async function POST(req: NextRequest) {
         project_samples: project_samples || null, project_types: projectTypesValue,
         rate_notes: rate_notes || null, references_text: references_text || null,
         availability: availability || null, notes: notes || null, status: 'new',
+        sms_consent: consent.granted,
+        sms_consent_at: consent.granted_at,
+        sms_consent_version: consent.version,
+        sms_consent_language: consent.language,
       })
       .select('id')
       .single();
@@ -107,6 +118,7 @@ export async function POST(req: NextRequest) {
         if (service_area) text += `*Service Area:* ${service_area}\n`;
         if (license_type || license_number) text += `*License:* ${license_type || ''} ${license_number || ''} ${license_state ? `(${license_state})` : ''}\n`;
         if (insurance_carrier) text += `*Insurance:* ${insurance_carrier}${insurance_limits ? ` — ${insurance_limits}` : ''}\n`;
+        text += `*Texts OK:* ${consent.granted ? 'yes' : 'no'}\n`;
         text += `*Documents:* ${documents.length ? documents.map((d) => d.label).join(', ') : 'none uploaded'}\n`;
         text += `\n👉 Review: https://platform.southerncitiesconstruction.com/vendors/${id}\n_Reply to:_ ${email}`;
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {

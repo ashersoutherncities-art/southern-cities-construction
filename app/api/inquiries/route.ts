@@ -37,6 +37,10 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { name, email, phone, audience_type, service, service_price, message, company, website, source, honey } = body;
+    // Accept either spelling: site forms have shipped with both. A mismatch here is
+    // invisible (the value just reads undefined) and silently tags a contact who DID
+    // opt in as sms-consent-no, so never narrow this to a single key.
+    const smsConsent = body.smsConsent === true || body.sms_consent === true;
 
     const normalizedAudienceType = audience_type || null;
     const normalizedService = service || null;
@@ -100,6 +104,7 @@ export async function POST(req: NextRequest) {
           company: company || undefined,
           source: source || 'inquiry-form',
           audience_type: normalizedAudienceType || undefined,
+          sms_consent: smsConsent === true,
         });
         if (!ghlResult.ok) {
           console.error('GHL inquiry forward non-ok:', ghlResult.status, ghlResult.body);

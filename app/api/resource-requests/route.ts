@@ -38,6 +38,8 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { resource_slug, name, email, phone, company, role, message, honey } = body;
+    // Accept either spelling — see the note in app/api/inquiries/route.ts.
+    const smsConsent = body.smsConsent === true || body.sms_consent === true;
 
     if (honey) {
       return NextResponse.json({ success: true });
@@ -85,6 +87,7 @@ export async function POST(req: NextRequest) {
           buyer_name: name,
           buyer_email: email,
           buyer_phone: phone,
+          sms_consent: smsConsent === true,
           resource_slug: resource.slug,
           resource_title: resource.title,
           company: company || undefined,

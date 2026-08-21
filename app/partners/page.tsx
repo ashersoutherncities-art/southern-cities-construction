@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
+import SmsConsent from '@/components/SmsConsent';
 
 const TRADES = [
   'General / Framing',
@@ -734,21 +735,12 @@ export default function PartnersPage() {
               </div>
 
               {/* SMS consent */}
-              <label className="flex items-start gap-3 cursor-pointer px-1">
-                <input
-                  type="checkbox"
-                  checked={form.sms_consent}
-                  onChange={(e) => update('sms_consent', e.target.checked)}
-                  className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-orange focus:ring-orange"
-                />
-                <span className="text-[12.5px] text-stone-600 leading-relaxed">
-                  I agree to receive calls and texts from Southern Cities Construction about my application and partner
-                  coordination. Msg &amp; data rates may apply. Message frequency varies. Reply STOP to opt out, HELP for help.
-                  Consent is not a condition of approval. See our{' '}
-                  <a href="/terms" className="underline hover:text-orange">Terms</a> and{' '}
-                  <a href="/privacy" className="underline hover:text-orange">Privacy Policy</a>.
-                </span>
-              </label>
+              <SmsConsent
+                purpose="partner"
+                tone="light"
+                checked={form.sms_consent}
+                onChange={(next) => update('sms_consent', next)}
+              />
 
               {error && (
                 <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-red-700 text-sm">

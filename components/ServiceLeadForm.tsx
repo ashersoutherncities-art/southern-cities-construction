@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ServiceCardData } from '@/lib/services-data';
 import { getServiceRequestIntro, getServiceSubmitLabel } from '@/lib/service-detail-helpers';
+import SmsConsent from '@/components/SmsConsent';
 
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -57,7 +58,7 @@ export default function ServiceLeadForm({ service }: Props) {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          sms_consent: smsConsent,
+          smsConsent,
           company: formData.company,
           audience_type: service.avatarLabel,
           service: service.title,
@@ -114,21 +115,9 @@ export default function ServiceLeadForm({ service }: Props) {
         <input name="propertyAddress" value={formData.propertyAddress} onChange={handleChange} className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-700 sm:col-span-2" placeholder="Property or project address" />
         <textarea name="details" value={formData.details} onChange={handleChange} required className="min-h-[180px] w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-700 sm:col-span-2" placeholder="What is happening right now, what has already been done, and what you need help pricing or reviewing next." />
         <input name="honey" value={formData.honey} onChange={handleChange} tabIndex={-1} autoComplete="off" className="hidden" />
-        <label className="sm:col-span-2 flex items-start gap-3 text-[12.5px] leading-[1.5] text-stone-600">
-          <input
-            type="checkbox"
-            checked={smsConsent}
-            onChange={(e) => setSmsConsent(e.target.checked)}
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-orange focus:ring-orange"
-          />
-          <span>
-            I agree to receive calls and texts from Southern Cities Construction about my inquiry, scheduling, and project
-            updates. Msg &amp; data rates may apply. Message frequency varies. Reply STOP to opt out, HELP for help. Consent
-            is not a condition of purchase. See our{' '}
-            <a href="/terms" className="underline hover:text-orange">Terms</a> and{' '}
-            <a href="/privacy" className="underline hover:text-orange">Privacy Policy</a>.
-          </span>
-        </label>
+        <div className="sm:col-span-2">
+          <SmsConsent checked={smsConsent} onChange={setSmsConsent} tone="light" />
+        </div>
         <div className="mt-8 sm:col-span-2 flex flex-wrap gap-3">
           <button type="submit" disabled={state === 'loading'} className="inline-flex items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-70">
             {state === 'loading' ? 'Sending...' : submitLabel}

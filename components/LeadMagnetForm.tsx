@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import SmsConsent from '@/components/SmsConsent';
 
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -25,6 +26,7 @@ export default function LeadMagnetForm({
   submitLabel = 'Get the Checklist',
 }: Props) {
   const [form, setForm] = useState({ name: '', email: '', phone: '', honey: '' });
+  const [smsConsent, setSmsConsent] = useState(false);
   const [state, setState] = useState<SubmissionState>('idle');
   const [error, setError] = useState('');
 
@@ -42,6 +44,7 @@ export default function LeadMagnetForm({
           name: form.name,
           email: form.email,
           phone: form.phone || undefined,
+          smsConsent,
           honey: form.honey,
         }),
       });
@@ -135,6 +138,7 @@ export default function LeadMagnetForm({
           placeholder="(555) 555-5555"
         />
       </div>
+      <SmsConsent checked={smsConsent} onChange={setSmsConsent} tone="dark" />
       <button
         type="submit"
         disabled={state === 'loading'}

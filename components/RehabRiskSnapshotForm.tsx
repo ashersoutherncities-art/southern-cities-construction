@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import SmsConsent from '@/components/SmsConsent';
 
 type MarketTier = { tier: string; label: string; matched: boolean };
 
@@ -51,6 +52,7 @@ type ContactInfo = {
   last_name: string;
   email: string;
   phone: string;
+  sms_consent: boolean;
   company_name: string;
   investor_type: string;
 };
@@ -297,6 +299,7 @@ export default function RehabRiskSnapshotForm() {
     last_name: '',
     email: '',
     phone: '',
+    sms_consent: false,
     company_name: '',
     investor_type: 'flipper',
   });
@@ -334,6 +337,7 @@ export default function RehabRiskSnapshotForm() {
       last_name: String(fd.get('last_name') ?? '').trim(),
       email: String(fd.get('email') ?? '').trim(),
       phone: String(fd.get('phone') ?? '').trim(),
+      sms_consent: fd.get('smsConsent') === 'true',
       company_name: String(fd.get('company_name') ?? '').trim(),
       investor_type: String(fd.get('investor_type') ?? 'flipper'),
     };
@@ -394,7 +398,7 @@ export default function RehabRiskSnapshotForm() {
     const formData = new FormData(event.currentTarget);
 
     // Contact (from step 1)
-    Object.entries(contact).forEach(([k, v]) => formData.set(k, v));
+    Object.entries(contact).forEach(([k, v]) => formData.set(k, String(v)));
     // Property (from step 2)
     Object.entries(property).forEach(([k, v]) => formData.set(k, v));
     // Normalize every scope checkbox to explicit true/false
@@ -469,6 +473,7 @@ export default function RehabRiskSnapshotForm() {
                 </Select>
               </div>
             </div>
+            <SmsConsent name="smsConsent" tone="dark" />
             {error && <p className="text-sm text-rose-300">{error}</p>}
             <button type="submit" className={primaryBtn}>
               Continue → Property

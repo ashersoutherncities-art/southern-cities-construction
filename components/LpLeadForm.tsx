@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import SmsConsent from '@/components/SmsConsent';
 
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -38,6 +39,7 @@ export default function LpLeadForm({
   id,
   variant = 'dark',
 }: Props) {
+  const [smsConsent, setSmsConsent] = useState(false);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -66,6 +68,7 @@ export default function LpLeadForm({
           name: form.name,
           email: form.email,
           phone: form.phone,
+          smsConsent,
           company: form.company,
           message: form.message || `Inquiry about ${serviceName}.`,
           service: serviceSlug,
@@ -197,6 +200,10 @@ export default function LpLeadForm({
             placeholder="Tell us about the property, scope, timeline, and any context we should know."
           />
         </label>
+
+        <div className="sm:col-span-2">
+          <SmsConsent checked={smsConsent} onChange={setSmsConsent} tone={isDark ? 'dark' : 'light'} />
+        </div>
 
         <div className="sm:col-span-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className={`text-xs ${isDark ? 'text-white/50' : 'text-navy/50'}`}>
