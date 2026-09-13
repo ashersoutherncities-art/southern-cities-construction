@@ -132,7 +132,7 @@ const COMPARISON_ROWS_PROJECT_SETUP_BUNDLE: ComparisonRow[] = [
   { label: 'DIY project setup', cost: 'Free', time: 'Months', bias: 'High risk — your assumptions', licensed: false, highlight: false },
   { label: 'GC planning retainer', cost: '$3,000–5,000+', time: '2–4 weeks', bias: 'Mixed (they want the build)', licensed: true, highlight: false },
   { label: 'Architect + PM', cost: '$5,000–15,000+', time: '4–8 weeks', bias: 'Low', licensed: true, highlight: false },
-  { label: 'Southern Cities — Project Setup Bundle', cost: 'Starting at $2,500', time: '2–4 weeks for full setup', bias: 'None — fixed scope', licensed: true, highlight: true },
+  { label: 'Southern Cities — Project Setup Bundle', cost: 'Custom quote', time: '2–4 weeks for full setup', bias: 'None — fixed scope', licensed: true, highlight: true },
 ];
 
 const COMPARISON_ROWS_EXECUTION_SUPPORT_BUNDLE: ComparisonRow[] = [
@@ -951,7 +951,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     ctaLabel: 'Request Custom Quote',
     ctaLabelMid: 'See What Setup Includes',
     ctaLabelFinal: 'Get My Setup Quote',
-    price: 'Starting at $2,500',
+    price: 'Custom quote',
     priceAnchor: 'Most-bought bundle — sets up an investor project to win',
     priceLabel: 'Project Setup Bundle',
     turnaround: '7–14 business days',
@@ -962,7 +962,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     heroHeadlineHighlight: 'win',
     heroHeadlinePost: ' before construction starts.',
     heroSubheadline:
-      'What does this actually cost to build? What\'s the real timeline? Who\'s filing the permits? Who\'s going to build it? When does money move and from where? Everything answered before the first hammer swings — so the project starts where it should, not where you\'d be six weeks in trying to fix it. Starting at $2,500.',
+      'What does this actually cost to build? What\'s the real timeline? Who\'s filing the permits? Who\'s going to build it? When does money move and from where? Everything answered before the first hammer swings — so the project starts where it should, not where you\'d be six weeks in trying to fix it. Custom quote by project scope.',
     problemHeadline: 'The first 30 days decides the next 90',
     problemIntro: 'Projects that get into trouble usually started in trouble. Weak scope, vague timeline, unprepared permits, random bids, and no draw schedule create execution drag that compounds month over month.',
     problemCards: [
@@ -1011,17 +1011,17 @@ const LANDING_PAGES: LandingPageConfig[] = [
       'Vetted contractor candidates + leveled bids',
       'Cashflow schedule aligned to lender + milestones',
       'One licensed NC GC owns the engagement',
-      'Custom quote based on project scale — starts at $2,500',
+      'Custom quote based on project scale',
     ],
     finalHeadline: 'Walk into construction with the work already done.',
-    finalSubhead: 'Five planning deliverables, bundled. Starting at $2,500 — request a custom quote based on your project.',
+    finalSubhead: 'Five planning deliverables, bundled. Request a custom quote based on your project.',
     faqs: [
-      { q: 'Why is this not flat-priced?', a: 'Project scale matters — a single-family rehab gets the $2,500 floor; a multi-unit or new-build pushes into custom pricing. Most residential investor projects stay at or near the floor.' },
+      { q: 'Why is this not flat-priced?', a: 'Project scale matters — a single-family rehab sits at the base floor; a multi-unit or new-build pushes into higher custom pricing. Most residential investor projects stay at or near the floor.' },
       { q: 'Can I buy just one piece?', a: 'Yes. Each component is purchasable individually at the prices listed. The bundle is for investors who want the entire first-30-day setup handled.' },
       { q: 'How long until we kick off construction?', a: 'Typical timeline is 2–4 weeks from kickoff to "ready to swing hammers" — depends on permit jurisdiction and bid response time.' },
       { q: 'What do you need from me?', a: 'Property address, plans (if available), photos, stated scope, lender contact, and your timeline expectations.' },
       { q: 'Can you also run the project after?', a: 'Yes — Execution Support Bundle picks up from here. Most investors who buy Project Setup move into Execution Support.' },
-      { q: 'Do you do new construction?', a: 'Yes, but new construction usually pushes into custom pricing above the $2,500 floor.' },
+      { q: 'Do you do new construction?', a: 'Yes, but new construction usually pushes into custom pricing above the base floor.' },
     ],
     comparisonRows: COMPARISON_ROWS_PROJECT_SETUP_BUNDLE,
   },
@@ -1393,7 +1393,7 @@ const LANDING_PAGES: LandingPageConfig[] = [
     deliverable: [
       { heading: 'Licensed inspector report (standard format)', items: ['Full home inspection PDF', 'Item-by-item findings + photo documentation', 'All major systems covered (structural, electrical, HVAC, plumbing, roof, exterior)'] },
       { heading: 'TIER 1 — MANDATORY (fix within 5–7 days when Southern Cities handles)', items: ['Double-tapped breakers in panel — $400, electrical permit required', 'Active leak under kitchen sink — $250, day-of fix', 'Missing GFCI outlets in kitchen + bath — $600, code requirement', 'Peeling exterior paint (north elevation) — $1,200, FHA/VA flag if left'] },
-      { heading: 'TIER 2 — HIGH-ROI (positive value-lift math)', items: ['Fresh trim paint throughout — $1,500 cost, $4–6K value lift = net gain', 'Replace dated cabinet hardware — $300 cost, $1,500–2,500 value lift', 'Refresh landscaping + mulch — $600 cost, $2–3K value lift'] },
+      { heading: 'TIER 2 — HIGH-ROI (positive value-lift math)', items: ['Fresh trim paint throughout — $1,500 cost, $4–6K value lift = net gain', 'Replace dated cabinet hardware — $300 cost, $1.5–2.3K value lift', 'Refresh landscaping + mulch — $600 cost, $2–3K value lift'] },
       { heading: 'TIER 3 — DISCLOSE & SKIP (formatted as credit quote)', items: ['Roof: 18 years old, 5–8 years remaining. Replacement quote: $18,500. Recommended seller credit: $14,000.', 'HVAC: 2008 unit at end of life. Replacement quote: $11,200. Recommended seller credit: $9,000.', 'Original single-pane windows (efficiency, not safety). Replacement quote: $15,000. Recommended seller credit: $4,000.'] },
       { heading: 'Paste-ready Repair Request Language (or Credit Counter)', items: ['"We are requesting the seller complete the Mandatory tier items prior to closing — total scope $2,450 — AND credit the buyer $27,000 against the Disclose & Skip tier items as documented in the attached Inspection + GC Budget Report report (Tier 3, Southern Cities Construction, NC GC #107724)."'] },
       { heading: 'Mandatory-tier speed guarantee', items: ['When the seller hires Southern Cities for the Tier 1 repairs, we commit to a 5–7 business day completion window so the listing date / closing date isn\'t at risk.'] },

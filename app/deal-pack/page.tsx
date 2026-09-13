@@ -22,9 +22,9 @@ const DEAL_PACK_PRODUCTS = [
   {
     name: 'Build-Ready Deal Pack',
     description:
-      'Full GC-verified Deal Pack: as-built floorplans + elevations, itemized rehab budget, 3D renderings, a design mood board, a materials & furniture report, a local market report, sub-trade quotes, a local vendor list, and the GC commitment to do the work at that price. Sell your wholesale deal as a finished pre-construction product.',
+      'A licensed NC GC puts a committed rehab price on your deal in writing, sealed with the license and transferable once to your end buyer. Ships with as-built + future-state plans, three photoreal renderings, a local market study, an initial materials list, a vendor list with drive time, a permit memo, and an execution risk report.',
     url: '/deal-pack',
-    priceUsd: 1997,
+    priceUsd: 1900,
     category: 'Deal Pack',
     sku: 'deal-pack-build-ready',
   },
@@ -106,23 +106,23 @@ const PLANS_ADDONS = [
 ];
 
 export const metadata = {
-  title: 'Deal Pack — Licensed GC Verification for NC Wholesalers + Realtors | Southern Cities Construction',
+  title: 'Deal Pack — A Committed NC GC Rehab Price on Your Deal | Southern Cities Construction',
   description:
-    "Real investors won't pay top dollar for unverified deals. Attach a licensed NC General Contractor's verification to your next assignment or listing — and attract the buyer pool that actually pays for it. NC GC License #107724.",
+    "Most GCs won't review a deal you don't own yet. We will. A licensed NC GC (#107724) puts a committed rehab price on your deal, sealed with the license and transferable to your end buyer. Build-Ready Deal Pack $1,900.",
   alternates: { canonical: '/deal-pack' },
   openGraph: {
     type: 'website',
     url: '/deal-pack',
-    title: 'Deal Pack — Licensed GC Verification for NC Wholesalers + Realtors',
+    title: 'Deal Pack — A Committed NC GC Rehab Price on Your Deal',
     description:
-      "Attach a licensed NC GC's verification to your next assignment or listing — attract the buyer pool that actually pays for it.",
+      "A licensed NC GC puts a committed rehab price on your deal, sealed with the license and transferable once to your end buyer.",
     siteName: 'Southern Cities Construction',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Deal Pack — Licensed GC Verification',
+    title: 'Deal Pack — Committed NC GC Rehab Price',
     description:
-      "Attach a licensed NC GC's verification to your next assignment or listing — attract the buyers who pay top dollar.",
+      "A licensed NC GC's committed rehab price on your deal — before you buy it.",
   },
 };
 
@@ -142,69 +142,63 @@ type Tier = {
 
 const TIERS: Tier[] = [
   {
-    badge: 'TIER 0 · FREE',
-    badgeColor: 'white',
-    name: 'SF-Based Ballpark Estimate',
-    price: 'Free',
-    priceNote: 'Default when no plans + no As-Built',
+    badge: 'FLAGSHIP',
+    badgeColor: 'orange',
+    name: 'Build-Ready Deal Pack',
+    price: '$1,900',
+    priceNote: 'Per deal · 3–4 day turnaround',
     promise:
-      'Get a rough rehab budget range for your deal based on square footage + vintage. No commitment, 24-hour turnaround. Use it to decide if the deal is worth a Bid-Ready upgrade.',
+      'A licensed NC GC puts your rehab price in writing, sealed with the license and transferable once to your end buyer. The full pack: everything a serious buyer or lender needs to underwrite the deal.',
     includes: [
-      'Square-footage + vintage cost ranges',
-      'Project category tier (Cosmetic / Light Major / Full Gut)',
-      'Top 3 likely lender-killer flags by vintage',
-      'A clear upgrade path to a full Bid-Ready Deal Pack',
+      'Committed rehab price in writing, sealed with the NC GC license (Commitment Certificate — see below)',
+      'Trade-by-trade dollarized scope of work',
+      'As-built floor plan + future-state renovation plan (PDF + editable)',
+      '3 photoreal renderings of the finished home',
+      'Market study report — finishes and fixtures in demand in that market (6 months of sold comps)',
+      'Initial materials list with quantities (spreadsheet)',
+      'Vendor list with proximity / drive time to the project',
+      'Permit memo — which permits, which jurisdiction, expected timeline',
+      'Execution risk report',
     ],
-    cta: 'Talk through your deal →',
-    ctaHref: '/start',
+    cta: 'Order Build-Ready · $1,900 →',
+    ctaHref: '/cart?cart=deal-pack-build-ready',
+    highlight: true,
+    sample: { pdfUrl: '/resources/samples/build-ready-deal-pack-sample.pdf', pages: 9 },
   },
   {
-    badge: 'TIER 1',
-    badgeColor: 'orange',
+    badge: 'DOWNSELL',
+    badgeColor: 'white',
     name: 'Bid-Ready Deal Pack',
     price: '$599',
-    priceNote: 'Per deal · 2–3 day turnaround',
+    priceNote: 'Per deal · 2–3 day turnaround · when you only need the number',
     promise:
-      'GC-Certified rehab budget, dollarized scope of work, execution risk callouts, lender-killer flags. Branded PDF you attach to your assignment marketing — designed for real-investor buyers, not other wholesalers.',
+      'The lighter version. GC-verified rehab budget range and dollarized scope, without the plans and renderings. When you just need the number to underwrite or offer.',
     includes: [
-      'GC-Certified Budget Range (Lender-Pass / Market-Standard / Premium tiers)',
+      'GC-verified rehab budget range',
       'Dollarized line-item scope of work',
       'Top execution risks with cost-to-cure',
       'Lender-killer flags (open permits, polybutylene, electrical, etc.)',
       'Branded PDF with NC GC License #107724 stamp',
-      'Refund if we cannot deliver the report on time',
     ],
     cta: 'Order Bid-Ready · $599 →',
     ctaHref: '/cart?cart=deal-pack-bid-ready',
-    highlight: true,
   },
   {
-    badge: 'TIER 2',
-    badgeColor: 'orange',
-    name: 'Build-Ready Deal Pack',
-    price: '$1,997',
-    priceNote: 'Per deal · 3–4 day turnaround',
+    badge: 'FREE',
+    badgeColor: 'white',
+    name: 'SF-Based Ballpark Estimate',
+    price: 'Free',
+    priceNote: 'Default when there are no plans on the deal',
     promise:
-      'Shovel-ready package end-investors actually pay top-of-market for — and we commit to do the work at the price we write. Floor plans, design renderings, a mood board, a materials & furniture report, a local market report, full scope, vetted sub-trade quotes, a local vendor list, draw schedule, pre-closing open-permit sweep, a permit path, and a finance-partner intro. The premium tier.',
+      'A rough rehab budget range based on square footage + vintage. No commitment, 24-hour turnaround. Use it to decide whether to pull the trigger on Bid-Ready or Build-Ready.',
     includes: [
-      'Everything in Bid-Ready PLUS',
-      'We commit to do the work at the price we write — buyer can argue with the GC who’s going to swing the hammer, or sign',
-      'Floor plans + 2–3 design renderings',
-      'Design mood board',
-      'Materials & furniture report',
-      'Local market report — target ARV + finished-product direction (Southern Cities Realty + MLS data)',
-      'Full written scope of work (room-by-room)',
-      '3 vetted NC sub-trade quotes per major trade',
-      'Brief list of local vendors with contact info',
-      'Draw schedule template ready for lender submission',
-      'Pre-closing open permit + lien sweep report',
-      'Permit path — every permit your project will require, identified up front',
-      'Finance-partner referral — an intro to a lending partner to fund the build',
-      'License-stamped front + back covers for marketing',
+      'Square-footage + vintage cost ranges',
+      'Project category tier (Cosmetic / Light Major / Full Gut)',
+      'Top 3 likely lender-killer flags by vintage',
+      'Clear upgrade path to a full Deal Pack',
     ],
-    cta: 'Order Build-Ready · $1,997 →',
-    ctaHref: '/cart?cart=deal-pack-build-ready',
-    sample: { pdfUrl: '/resources/samples/build-ready-deal-pack-sample.pdf', pages: 9 },
+    cta: 'Talk through your deal →',
+    ctaHref: '/start',
   },
   {
     badge: 'ADD-ON',
@@ -213,14 +207,13 @@ const TIERS: Tier[] = [
     price: '$699',
     priceNote: 'Add-on or standalone · 5-day turnaround',
     promise:
-      'No plans? No measurements? We send an NC field agent to capture a full 3D scan of the property. Our designer converts it into a Chief Architect as-built floorplan — plus a licensed third-party inspector service — required input for a high-accuracy Bid-Ready or Build-Ready Deal Pack.',
+      'No plans? No measurements? We send an NC field agent to capture a full 3D scan of the property. Our designer converts it into a Chief Architect as-built floorplan — plus a licensed third-party inspector service — the input needed for a high-accuracy Build-Ready Deal Pack.',
     includes: [
       'NC field agent dispatch (scheduled with your seller-access)',
       'Full 3D property scan',
       'Designer-built as-built floorplan in Chief Architect',
       'Licensed third-party inspector service included',
       'PDF + native file delivered',
-      'Refund if we cannot deliver the scan + plan on time',
     ],
     cta: 'Add Site Scan · $699 →',
     ctaHref: '/cart?cart=deal-pack-site-scan',
@@ -268,8 +261,17 @@ export default function DealPackPage() {
       <div className="border-b border-white/8 pt-20 lg:pt-[84px]">
         <div className="container-pro py-3 text-center sm:text-right">
           <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
-            Deal Pack · For NC Wholesalers + Realtors · NC GC #107724
+            Deal Pack · For NC Wholesalers, Investors + Realtors · NC GC #107724
           </span>
+        </div>
+      </div>
+
+      {/* WEDGE — the top-of-page positioning line, per brief */}
+      <div className="border-b border-white/8 bg-gradient-to-r from-orange/[0.06] via-orange/[0.14] to-orange/[0.06]">
+        <div className="container-pro py-4 text-center">
+          <p className="text-[15px] font-black tracking-[-0.01em] text-white sm:text-[17px]">
+            Most GCs won&apos;t review a deal you don&apos;t own yet. <span className="text-orange">We will.</span>
+          </p>
         </div>
       </div>
 
@@ -284,27 +286,29 @@ export default function DealPackPage() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-orange/50 bg-orange/15 px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.18em] text-orange">
                 <span className="h-1.5 w-1.5 rounded-full bg-orange animate-pulse" />
-                FOR NC WHOLESALERS + REALTORS · 2026
+                FOR NC WHOLESALERS, INVESTORS + REALTORS
               </span>
               <h1 className="mt-6 text-3xl font-black leading-[1.04] tracking-[-0.035em] text-white sm:text-4xl lg:text-[3.25rem]">
-                Real investors won&apos;t pay top dollar for unverified deals.<br />
-                <span className="text-orange">Add a licensed GC&apos;s verification to yours.</span>
+                A licensed NC GC&apos;s <span className="text-orange">committed rehab price</span> on your deal &mdash; sealed with the license, before you buy it.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-[1.6] text-white/80 sm:text-lg">
-                Whether you&apos;re a wholesaler with an assignment or a realtor with a rehab-needed listing, the buyer pool that actually pays top of market won&apos;t touch a property without GC-verified scope, budget, and risk documentation. Attach a Deal Pack to your marketing — same property, different buyer pool, 2–4× the fee.
+                The <span className="text-white font-semibold">Build-Ready Deal Pack ($1,900)</span> is a full pre-construction
+                package: committed rehab price sealed with license #107724 and transferable once to your end buyer, plus
+                plans, renderings, a market study, a materials list, a vendor list, a permit memo, and an execution risk
+                report. Everything a serious buyer or lender needs.
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
                 <a
                   href="#tiers"
                   className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
                 >
-                  See the Deal Pack tiers ↓
+                  See the Deal Pack tiers &darr;
                 </a>
                 <Link
                   href="/guide/consistent-assignment-wholesaler"
                   className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white transition hover:bg-white/10"
                 >
-                  Free playbook PDF →
+                  Free playbook PDF &rarr;
                 </Link>
               </div>
             </div>
@@ -343,25 +347,79 @@ export default function DealPackPage() {
         </div>
       </section>
 
-      {/* STATS STRIP */}
+      {/* STATS STRIP — substantive claims only */}
       <section className="border-y border-orange/20 bg-gradient-to-r from-orange/[0.04] via-orange/[0.08] to-orange/[0.04]">
         <div className="container-pro py-10 sm:py-12">
           <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4">
             <div className="text-center">
-              <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">2–4×</div>
-              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">typical fee uplift</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">5–9</div>
-              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">days to close (vs. 14–21)</div>
+              <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">$1,900</div>
+              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">Build-Ready Deal Pack · flagship</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">$0</div>
-              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">to start (free SF ballpark)</div>
+              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">Wholesaler upfront &middot; pay at closing</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">30-day</div>
+              <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">Committed-price validity</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">#107724</div>
               <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">NC GC license stamp</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* COMMITMENT CERTIFICATE + WHOLESALER TERMS — the two anchor blocks */}
+      <section className="bg-[#0a1428] py-16 sm:py-20 border-t border-white/8">
+        <div className="container-pro">
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Commitment Certificate */}
+            <div className="rounded-2xl border-2 border-orange/50 bg-gradient-to-br from-orange/[0.10] via-orange/[0.03] to-transparent p-7 shadow-[0_18px_40px_-18px_rgba(245,130,32,0.28)]">
+              <span className="inline-flex items-center rounded-full border border-orange/60 bg-orange/15 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-orange">
+                Commitment Certificate
+              </span>
+              <h3 className="mt-4 text-2xl font-black tracking-[-0.02em] text-white sm:text-[1.7rem]">
+                Rehab price in writing. Sealed with the license.
+              </h3>
+              <p className="mt-3 text-[15px] leading-[1.65] text-white/80">
+                Southern Cities puts the rehab price in writing, seals it with NC GC license
+                <span className="text-white font-semibold"> #107724</span>, and commits to perform the defined scope
+                for that price.
+              </p>
+              <ul className="mt-4 space-y-2 text-[14.5px] leading-[1.55] text-white/80">
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span><span className="text-white font-semibold">Transferable once</span> &mdash; from you to your end buyer</span></li>
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span><span className="text-white font-semibold">30-day expiry</span> from issue</span></li>
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span>Change orders apply only to concealed or hidden conditions discovered during work</span></li>
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span>Committed bid for the defined scope &mdash; not a guarantee against every possible condition</span></li>
+              </ul>
+            </div>
+
+            {/* Wholesaler Terms */}
+            <div className="rounded-2xl border-2 border-orange/50 bg-gradient-to-br from-orange/[0.10] via-orange/[0.03] to-transparent p-7 shadow-[0_18px_40px_-18px_rgba(245,130,32,0.28)]">
+              <span className="inline-flex items-center rounded-full border border-orange/60 bg-orange/15 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-orange">
+                Wholesaler terms
+              </span>
+              <h3 className="mt-4 text-2xl font-black tracking-[-0.02em] text-white sm:text-[1.7rem]">
+                $0 upfront. Pay at closing. No close, no pay.
+              </h3>
+              <p className="mt-3 text-[15px] leading-[1.65] text-white/80">
+                Wholesalers put nothing down. We put a licensed NC GC&apos;s committed rehab price on your deal, and
+                the fee comes out of your assignment proceeds when it closes. Nothing closes, nothing owed.
+              </p>
+              <ul className="mt-4 space-y-2 text-[14.5px] leading-[1.55] text-white/80">
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span><span className="text-white font-semibold">$0 upfront</span> &mdash; nothing due when we produce the pack</span></li>
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span><span className="text-white font-semibold">Paid at closing</span> from your assignment proceeds</span></li>
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span><span className="text-white font-semibold">No close, no pay</span> &mdash; if it doesn&apos;t close, nothing owed</span></li>
+                <li className="flex gap-2"><span className="text-orange mt-0.5">▸</span><span>Fee confirmed on a short scoping call</span></li>
+              </ul>
+              <Link
+                href="/lp/wholesaler-deal-pack"
+                className="mt-6 inline-flex items-center gap-2 text-[13px] font-black uppercase tracking-[0.08em] text-orange hover:gap-3 transition-all"
+              >
+                Wholesaler landing page &rarr;
+              </Link>
             </div>
           </div>
         </div>
@@ -418,7 +476,7 @@ export default function DealPackPage() {
               <ul className="mt-5 space-y-3 text-[14.5px] leading-[1.6] text-white/80">
                 <li className="flex gap-2"><span className="text-orange flex-shrink-0 mt-0.5">▸</span><span>Attract end-investors instead of other wholesalers</span></li>
                 <li className="flex gap-2"><span className="text-orange flex-shrink-0 mt-0.5">▸</span><span>Lender-friendly package = buyer&apos;s financing approves faster</span></li>
-                <li className="flex gap-2"><span className="text-orange flex-shrink-0 mt-0.5">▸</span><span>Close 2× faster at 2–4× your typical assignment fee</span></li>
+                <li className="flex gap-2"><span className="text-orange flex-shrink-0 mt-0.5">▸</span><span>A committed rehab price your end buyer can inherit at closing</span></li>
                 <li className="flex gap-2"><span className="text-orange flex-shrink-0 mt-0.5">▸</span><span>License stamp differentiates you from every other wholesaler in NC</span></li>
               </ul>
             </div>

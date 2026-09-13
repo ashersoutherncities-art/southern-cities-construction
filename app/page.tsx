@@ -40,36 +40,28 @@ const duplicatedCredentials = [...credentials, ...credentials];
 
 const ladderRungs = [
   {
-    title: 'Free Rehab Snapshot',
-    badge: 'Free',
-    badgeClass: 'bg-emerald-50 text-emerald-700',
-    detail: 'A GC-calibrated rehab range and execution-risk read on any NC property — in minutes, no commitment.',
-    cta: 'Get the snapshot',
-    href: '/lp/rehab-budget-range-execution-risk-snapshot',
-  },
-  {
-    title: 'Deal Pack',
-    badge: 'From $599',
+    title: 'Build-Ready Deal Pack',
+    badge: '$1,900 · Flagship',
     badgeClass: 'bg-orange-50 text-orange-700',
-    detail: 'A licensed GC walks the property and delivers a bid-ready rehab budget plus as-builts your buyers and lenders trust.',
-    cta: 'See Deal Pack',
+    detail: 'Committed rehab price in writing, sealed with the NC GC license. Ships with plans, renderings, market study, materials list, vendor list, permit memo, and risk report.',
+    cta: 'See Build-Ready',
     href: '/deal-pack',
   },
   {
-    title: 'Deal Desk',
-    badge: 'Membership',
+    title: 'Bid-Ready Deal Pack',
+    badge: '$599 · Downsell',
     badgeClass: 'bg-sky-50 text-sky-700',
-    detail: 'GC-verified rehab numbers and your Max Allowable Offer on every NC deal you run — all month long.',
-    cta: 'See Deal Desk',
-    href: '/deal-desk',
+    detail: 'The lighter version — GC-verified rehab budget range and scope, without the plans and renderings. When you just need the number.',
+    cta: 'See Bid-Ready',
+    href: '/deal-pack',
   },
   {
-    title: 'Full GC · Investor-Led Build',
-    badge: 'Full service',
-    badgeClass: 'bg-stone-100 text-[#08111d]',
-    detail: 'When the deal is yours, a licensed NC GC runs the build end to end — and you keep ownership and control.',
-    cta: 'Explore full GC',
-    href: '/contracting',
+    title: 'Free Rehab Snapshot',
+    badge: 'Free',
+    badgeClass: 'bg-emerald-50 text-emerald-700',
+    detail: 'A GC-calibrated rehab range and risk read on any NC property — in minutes, no commitment.',
+    cta: 'Get the snapshot',
+    href: '/lp/rehab-budget-range-execution-risk-snapshot',
   },
 ];
 
@@ -90,13 +82,6 @@ const standardBelief = {
   body: 'Not a half-finished flip thrown back on the market. Not overpriced “luxury” nobody can afford. The standard isn’t fancy — it’s process, planning, execution, and management, done right. We hold ourselves and every investor and flipper we work with to it. Big fund or first flip, it doesn’t change.',
   tagline: 'Built to a standard. Priced for real life.',
 };
-
-const standardPillars = [
-  { title: 'Held to a standard', detail: 'Every real estate professional — flippers included — accountable to real process, planning, and management.' },
-  { title: 'Homes, not units', detail: 'A place where someone lives their life. We make it great, every time, to the best of our ability.' },
-  { title: 'Quality, fairly priced', detail: 'Not janky half-fixes. Not unaffordable “luxury.” Places people can actually live in for a reasonable price.' },
-  { title: 'Do right and do well', detail: 'Build it right and make money. It isn’t either/or — it’s both.' },
-];
 
 const stages = [
   {
@@ -171,12 +156,12 @@ const processSteps = [
 ];
 
 const faqs = [
-  { question: 'What types of projects do you help with?', answer: 'We support residential rehabs, rental turns, owner projects, investor projects, permit-heavy work, and jobs that need better planning before construction starts.' },
-  { question: 'Do you only work on full construction jobs?', answer: 'No. Some clients need a deal review, budget review, permit help, or oversight support without hiring full contracting right away.' },
-  { question: 'What happens on the free project call?', answer: 'We talk through the property, the scope, the current roadblocks, and what next step makes the most sense for the job.' },
-  { question: 'Do you work with investors and homeowners?', answer: 'Yes. We work with investors, homeowners, developers, landowners, and operators who need real project guidance and execution support.' },
-  { question: 'Can you help before permits or contractor selection?', answer: 'Yes. That is one of the biggest reasons clients come to us. We help clarify scope, budget, permits, and the path forward before the job gets more expensive.' },
-  { question: 'How do I know which service to choose?', answer: 'Start with the free project call. We can point you toward the right review, planning service, or execution support based on where the project stands.' },
+  { question: 'What is the Build-Ready Deal Pack?', answer: 'A licensed NC GC delivers a committed rehab price in writing, sealed with license #107724 and transferable once to your end buyer. Ships with as-built plans, future-state renovation plan, three photoreal renderings, a market study, an initial materials list, a vendor list, a permit memo, and an execution risk report.' },
+  { question: 'How does the wholesaler payment work?', answer: '$0 upfront. The fee is paid from your assignment proceeds at closing. No close, no pay. The specific fee is confirmed on a short scoping call.' },
+  { question: 'Is the committed price a guarantee?', answer: 'It is a committed bid for the defined scope, sealed with the NC GC license. Not a guarantee against every possible condition — change orders apply to concealed or hidden conditions discovered during work.' },
+  { question: 'How long is the committed price good for?', answer: '30 days from issue. Enough runway to underwrite, market, and close an assignment or investor buy.' },
+  { question: 'Can the committed price be transferred to my buyer?', answer: 'Yes, once. The Commitment Certificate transfers from the wholesaler to their end buyer at closing so the buyer inherits the licensed GC and the price on paper.' },
+  { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
 ];
 
 // Disciplined navy↔orange identity — alternating warm/cool tints instead of a
@@ -310,33 +295,39 @@ export default function Home() {
             <div className="max-w-4xl">
               <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41] motion-safe:animate-[heroRise_900ms_ease-out]">
                 <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
-                A construction platform · Backed by a licensed NC GC
+                A construction platform · Backed by a licensed NC GC · #107724
               </p>
-              <h1 className="mt-6 text-[3rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[4.5rem] lg:text-[5.5rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
-                The right construction expertise, <span className="text-[#fa8c41]">at the right time.</span>
+              <h1 className="mt-6 text-[2.6rem] font-black leading-[1.02] tracking-[-0.04em] text-white sm:text-[4rem] lg:text-[4.75rem] motion-safe:animate-[heroRise_1000ms_ease-out_0.1s_both]">
+                A licensed NC GC&rsquo;s <span className="text-[#fa8c41]">committed rehab price</span> on your deal &mdash; before you buy it.
               </h1>
-              <p className="mt-7 max-w-2xl text-lg leading-[1.55] text-white/85 sm:text-2xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
-                Not every project needs a GC. Buy the package that fits where you are — a deal review, a real budget, a scope, oversight — and carry the same licensed builder all the way through the build.
+              <p className="mt-7 max-w-2xl text-lg leading-[1.55] text-white/85 sm:text-xl motion-safe:animate-[heroRise_1100ms_ease-out_0.2s_both]">
+                Most GCs won&rsquo;t review a deal you don&rsquo;t own yet. <span className="text-white font-semibold">We will.</span> Pick your door below.
               </p>
 
-              <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 max-w-2xl motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
+              <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 max-w-3xl motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
                 <Link
-                  href="#due-diligence"
-                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  href="/deal-pack"
+                  className="group flex flex-col justify-between rounded-xl border border-white/15 bg-white/[0.06] p-5 text-left transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
-                  Project Due Diligence
+                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Wholesalers &amp; investors</span>
+                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Committed rehab prices on deals under contract.</span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#fa8c41] group-hover:gap-2 transition-all">Enter <span aria-hidden="true">&rarr;</span></span>
                 </Link>
                 <Link
-                  href="#planning"
-                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  href="/lp/realtor-deal-pack"
+                  className="group flex flex-col justify-between rounded-xl border border-white/15 bg-white/[0.06] p-5 text-left transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
-                  Project Planning
+                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Realtors</span>
+                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Numbers and visuals to move listings that need work.</span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#fa8c41] group-hover:gap-2 transition-all">Enter <span aria-hidden="true">&rarr;</span></span>
                 </Link>
                 <Link
-                  href="#execution"
-                  className="flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-4 py-4 text-center text-sm font-bold text-white transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                  href="/contracting"
+                  className="group flex flex-col justify-between rounded-xl border border-white/15 bg-white/[0.06] p-5 text-left transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
-                  Project Execution
+                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Homeowners</span>
+                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Licensed NC GC services for your home.</span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#fa8c41] group-hover:gap-2 transition-all">Enter <span aria-hidden="true">&rarr;</span></span>
                 </Link>
               </div>
 
@@ -392,14 +383,15 @@ export default function Home() {
             <div className="max-w-3xl">
               <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">How to work with us</p>
               <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
-                Start small. Scale into a full build.
+                Start with the flagship. Downsize if it doesn&rsquo;t fit.
               </h2>
               <p className="mt-4 max-w-2xl text-lg leading-relaxed text-stone-600">
-                One path, four steps — from a free GC-backed read on a deal to a licensed NC GC running the whole build.
-                Start wherever your deal is, and move up when it makes sense.
+                Lead with the <span className="font-bold text-[#08111d]">Build-Ready Deal Pack ($1,900)</span> &mdash;
+                a licensed NC GC&rsquo;s committed rehab price sealed with the license, plus everything a buyer or
+                lender needs. Not sure yet? Start free.
               </p>
             </div>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {ladderRungs.map((rung, i) => (
                 <Link
                   key={rung.title}
@@ -523,8 +515,8 @@ export default function Home() {
                 </h2>
                 <p className="mt-6 max-w-xl text-lg leading-[1.6] text-stone-700">
                   Real investors won&rsquo;t pay top dollar for an unverified deal. Attach a licensed NC GC&rsquo;s
-                  rehab budget, scope, and risk report to your assignment or listing &mdash; and attract the buyer pool
-                  that actually pays for it. Same property, different buyer pool, 2&ndash;4&times; the fee.
+                  committed rehab price, scope, and risk report to your assignment or listing &mdash; and attract the
+                  buyer pool that actually pays for it. Same property, different buyer pool.
                 </p>
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Link
@@ -541,8 +533,8 @@ export default function Home() {
                   </Link>
                 </div>
                 <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] font-bold uppercase tracking-[0.08em] text-stone-500">
-                  <span><span className="text-[#fa8c41]">2&ndash;4&times;</span> fee uplift</span>
-                  <span><span className="text-[#fa8c41]">5&ndash;9</span> days to close</span>
+                  <span><span className="text-[#fa8c41]">Committed price</span> in writing</span>
+                  <span><span className="text-[#fa8c41]">$0 upfront</span> for wholesalers &middot; pay at closing</span>
                   <span><span className="text-[#fa8c41]">NC GC</span> #107724 stamp</span>
                 </div>
               </div>
@@ -732,40 +724,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* OUR STANDARD — brand belief */}
+        {/* OUR STANDARD — trimmed to two lines per brief */}
         <section className="relative overflow-hidden bg-[#08111d]">
-          <div
-            className="absolute inset-0 opacity-[0.07]"
-            style={{
-              backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-              backgroundSize: '56px 56px',
-              maskImage: 'radial-gradient(ellipse at top left, black 30%, transparent 75%)',
-              WebkitMaskImage: 'radial-gradient(ellipse at top left, black 30%, transparent 75%)',
-            }}
-            aria-hidden="true"
-          />
-          <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{standardBelief.eyebrow}</p>
-              <h2 className="mt-3 text-4xl font-black leading-[1.08] tracking-[-0.03em] text-white sm:text-5xl">
-                {standardBelief.heading}
-              </h2>
-              <p className="mt-6 text-lg leading-relaxed text-white/75">{standardBelief.body}</p>
-            </div>
-
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {standardPillars.map((pillar) => (
-                <div
-                  key={pillar.title}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-7 transition-all hover:-translate-y-0.5 hover:border-[#fa8c41]/40"
-                >
-                  <p className="text-lg font-extrabold tracking-tight text-white">{pillar.title}</p>
-                  <p className="mt-3 text-[15px] leading-relaxed text-white/65">{pillar.detail}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 flex flex-col items-start gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="relative mx-auto max-w-7xl px-6 py-14 sm:px-8 sm:py-16">
+            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-2xl font-black tracking-tight text-[#fa8c41] sm:text-3xl">{standardBelief.tagline}</p>
               <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-white/50">NC General Contractor · License #107724</p>
             </div>

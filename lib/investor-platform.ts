@@ -7,12 +7,12 @@
  * This is INTENTIONALLY SEPARATE from `lib/services-data.ts` (legacy
  * investor catalog). The two systems run in parallel.
  *
- * Positioning: Southern Cities is a layered construction execution intelligence +
- * operational support platform for real estate investors — NOT a
- * traditional contractor company.
+ * Positioning: Southern Cities is a construction platform, backed by a
+ * licensed NC General Contractor (#107724), that helps investors before
+ * and during a project — not a traditional contractor company.
  *
- * Master frame: "Most real estate projects do not fail at acquisition.
- * They fail during execution."
+ * Master frame: put a licensed NC GC's committed rehab price on the deal
+ * before the investor commits, then help run the build if they hire us.
  */
 
 export type PlatformStageSlug = 'lm1' | 'co1' | 'co2' | 'co3' | 'co4' | 'co5';
@@ -441,7 +441,7 @@ const CO4: PlatformStage = {
   audienceTag: 'INVESTORS · INVESTOR-LED',
   oneLiner: 'Stop running your project on a permit and compliance prayer. Southern Cities pulls permits + owns compliance — you keep daily control.',
   purpose:
-    'Provide licensed GC structure and oversight while the owner or owner-side PM manages daily operations. Best for experienced operators who want the legal + compliance scaffolding without giving up daily control.',
+    'Provide licensed GC structure and oversight while the owner or owner-side PM manages daily operations. Best for experienced operators who want the legal + compliance GC backing without giving up daily control.',
   isAutomated: false,
   isPaid: true,
   pricing: 'From $5,000 + 4% of project budget',
@@ -454,7 +454,7 @@ const CO4: PlatformStage = {
   deliverables: [
     'Permit pulls under Southern Cities license',
     'GC oversight + authority structure',
-    'Inspection coordination with AHJs',
+    'Inspection coordination with local permit office and inspectors',
     'Compliance oversight',
     'QA overlay — quality sign-off at each phase',
     'Execution control systems',
@@ -469,7 +469,7 @@ const CO4: PlatformStage = {
     'Labor coordination',
   ],
   thisIs: [
-    'Permit + compliance scaffolding',
+    'Permit + compliance GC backing',
     'Investor-led execution under licensed GC infrastructure',
     'Risk + authority layer without daily ops',
   ],
@@ -477,7 +477,7 @@ const CO4: PlatformStage = {
   heroHeadlineHighlight: 'permit and compliance prayer',
   heroHeadlinePost: '. Keep daily control.',
   heroSubheadline:
-    'You or your PM run daily ops. Southern Cities pulls permits under our license, owns compliance, coordinates inspections, and provides the licensed-GC scaffolding that makes the project legally executable. For experienced operators who want structure without giving up control. Performance guarantee: full refund if we cannot perform the scaffolding at our standard. NC GC #107724.',
+    'You or your PM run daily ops. Southern Cities pulls permits under our license, owns compliance, coordinates inspections, and provides the licensed-GC GC backing that makes the project legally executable. For experienced operators who want structure without giving up control. Performance guarantee: full refund if we cannot perform the GC backing at our standard. NC GC #107724.',
   ctaLabel: 'Eliminate Permit Risk — Discuss',
   ctaLabelMid: 'See How Investor-Led Build Works',
   ctaLabelFinal: 'Eliminate Permit + Compliance Risk',
@@ -485,18 +485,18 @@ const CO4: PlatformStage = {
   bucket: 'Delivery',
   verb: 'DELIVER',
   promise:
-    'Eliminate permit and compliance risk on your build. Southern Cities pulls permits under licensed authority, owns compliance, coordinates AHJ inspections, and provides the GC scaffolding that makes the project legally executable — while you run daily ops.',
+    'Eliminate permit and compliance risk on your build. Southern Cities pulls permits under licensed authority, owns compliance, coordinates local permit office and inspector visits, and provides the GC backing that makes the project legally executable — while you run daily ops.',
   refundMechanic:
-    'Performance guarantee: full refund of engagement fee if after planning we determine we cannot deliver GC scaffolding for your project (permit path, compliance scope, or risk profile outside what we can underwrite). The refund trigger is Southern Cities’ call, not the buyer’s.',
+    'Performance guarantee: full refund of engagement fee if after planning we determine we cannot deliver GC GC backing for your project (permit path, compliance scope, or risk profile outside what we can underwrite). The refund trigger is Southern Cities’ call, not the buyer’s.',
   noBrainerMath: [
     'Without the Investor-Led Build: investor cannot legally pull permits, sub work runs unlicensed, compliance risk sits on the investor.',
-    'With the Investor-Led Build: project is legally executable under licensed GC, AHJ inspections coordinated, compliance risk transferred to Southern Cities.',
+    'With the Investor-Led Build: project is legally executable under licensed GC, local permit office and inspector visits coordinated, compliance risk transferred to Southern Cities.',
     'Engagement fee from $5,000 + 4% of project budget retainer = pricing scales with project, not flat.',
     'Binary value: this is what makes the project legally possible at all.',
   ],
   bonusStack: [
     { label: 'Permit pulls included (no markup on permit fees)' },
-    { label: 'AHJ inspection coordination across your jurisdiction' },
+    { label: 'Local permit office and inspection coordination across your jurisdiction' },
     { label: 'Contract structure templates for your subs' },
     { label: 'Your Bid-Ready Deal Pack fee credited automatically', value: '$599 value' },
   ],
