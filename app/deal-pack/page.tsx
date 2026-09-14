@@ -418,7 +418,7 @@ export default function DealPackPage() {
                 href="/lp/wholesaler-deal-pack"
                 className="mt-6 inline-flex items-center gap-2 text-[13px] font-black uppercase tracking-[0.08em] text-orange hover:gap-3 transition-all"
               >
-                Wholesaler landing page &rarr;
+                Wholesaler details &rarr;
               </Link>
             </div>
           </div>
