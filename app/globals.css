@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+  /* Legacy navy palette — retained so unchanged pages keep working while
+     the industrial refresh rolls out. New surfaces should use the
+     industrial tokens (--paper, --ink-hi, --line-1, etc.) below. */
   --navy: #132452;
   --navy-900: #0a1530;
   --navy-950: #060d20;
@@ -15,6 +18,22 @@
   --soft: #fafaf8;
   --sc-brand-orange: #ea6827;
   --sc-brand-orange-dark: #c9531a;
+
+  /* Industrial-modern palette — deep charcoal + hi-visibility orange.
+     Monochrome ink stack, single accent, sharp corners. */
+  --paper: #f5f2ea;           /* warm off-white ground */
+  --paper-2: #ece7db;         /* section band */
+  --ink-hi: #0e0f11;          /* headline ink */
+  --ink-mid: #2a2b2f;         /* body ink */
+  --ink-lo: #6b6d74;          /* muted */
+  --line-1: #1b1c1e;          /* hard rule */
+  --line-2: rgba(14, 15, 17, 0.12); /* soft rule */
+  --accent: #ea6827;          /* orange, industrial cut */
+  --accent-ink: #c9531a;      /* accent hover */
+  --shell: #0e0f11;           /* dark section ground */
+  --shell-2: #17181b;         /* dark section band */
+  --radius-sharp: 2px;        /* corners */
+  --radius-block: 4px;
 }
 
 /* GoHighLevel / LeadConnector chat widget brand override */
@@ -63,7 +82,7 @@ iframe[id^="chat-widget"] {
   background-color: transparent !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -357,3 +376,261 @@ input:focus, textarea:focus, select:focus {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   INDUSTRIAL-MODERN UTILITIES
+   Bold contractor energy: monochrome + orange, sharp corners, hard rules,
+   massive Inter Display headlines. Layered on top of the existing tokens so
+   the surfaces we opt in get the new look while the rest of the site keeps
+   its current design until we migrate.
+   ========================================================================== */
+
+.im-paper { background: var(--paper); color: var(--ink-mid); }
+.im-shell { background: var(--shell); color: #f2efe7; }
+.im-band  { background: var(--paper-2); color: var(--ink-mid); }
+
+.im-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 768px) {
+  .im-container { padding-left: 40px; padding-right: 40px; }
+}
+
+.im-eyebrow {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-lo);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.im-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: var(--accent);
+}
+.im-eyebrow--on-dark { color: rgba(242, 239, 231, 0.7); }
+.im-eyebrow--on-dark::before { background: var(--accent); }
+
+.im-display {
+  font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  color: var(--ink-hi);
+}
+.im-display--on-dark { color: #ffffff; }
+
+.im-h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink-hi);
+}
+.im-h2--on-dark { color: #ffffff; }
+
+.im-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--ink-mid);
+}
+.im-body--on-dark { color: rgba(242, 239, 231, 0.8); }
+
+.im-mono {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.im-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12.5px;
+  padding: 16px 28px;
+  border-radius: var(--radius-sharp);
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.im-btn:hover { transform: translateY(-1px); }
+
+.im-btn--primary {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+.im-btn--primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+
+.im-btn--ghost {
+  background: transparent;
+  color: var(--ink-hi);
+  border-color: var(--line-1);
+}
+.im-btn--ghost:hover { background: var(--ink-hi); color: #ffffff; }
+
+.im-btn--ghost-on-dark {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.im-btn--ghost-on-dark:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #ffffff;
+}
+
+.im-rule {
+  height: 1px;
+  background: var(--line-1);
+  border: 0;
+  margin: 0;
+}
+.im-rule--soft { background: var(--line-2); }
+.im-rule--on-dark { background: rgba(255, 255, 255, 0.12); }
+
+.im-card {
+  background: #ffffff;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-block);
+  padding: 28px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.im-card:hover { border-color: var(--ink-hi); }
+
+.im-card--on-dark {
+  background: var(--shell-2);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #f2efe7;
+}
+.im-card--on-dark:hover { border-color: var(--accent); }
+
+.im-card--flagship {
+  background: var(--ink-hi);
+  color: #ffffff;
+  border: 1px solid var(--ink-hi);
+}
+.im-card--flagship:hover { border-color: var(--accent); }
+
+.im-tick { color: var(--accent); font-weight: 700; }
+
+.im-cover-line {
+  border-top: 1px solid var(--line-1);
+  border-bottom: 1px solid var(--line-1);
+  padding: 14px 0;
+}
+.im-cover-line--on-dark {
+  border-top-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+.im-section { padding-top: 96px; padding-bottom: 96px; }
+@media (max-width: 640px) { .im-section { padding-top: 64px; padding-bottom: 64px; } }
+
+/* Grid used for the door router: three equal blocks, no rounded corners,
+   hard rule between blocks. */
+.im-doors {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius-block);
+  overflow: hidden;
+  background: #ffffff;
+}
+@media (min-width: 768px) {
+  .im-doors { grid-template-columns: repeat(3, 1fr); }
+}
+.im-doors--on-dark {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: transparent;
+}
+.im-door {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+  border-top: 1px solid var(--line-1);
+  transition: background 0.15s ease, color 0.15s ease;
+  min-height: 220px;
+}
+@media (min-width: 768px) {
+  .im-door {
+    border-top: 0;
+    border-left: 1px solid var(--line-1);
+  }
+  .im-door:first-child { border-left: 0; }
+}
+@media (max-width: 767px) {
+  .im-door:first-child { border-top: 0; }
+}
+.im-door:hover { background: var(--ink-hi); color: #ffffff; }
+.im-door:hover .im-door__title,
+.im-door:hover .im-door__label,
+.im-door:hover .im-door__cta { color: #ffffff; }
+.im-door:hover .im-door__cta::after { background: #ffffff; }
+
+.im-doors--on-dark .im-door {
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #f2efe7;
+}
+.im-doors--on-dark .im-door:hover { background: var(--accent); color: #ffffff; }
+
+.im-door__label {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.im-door__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink-hi);
+  margin-top: 14px;
+}
+.im-door__meta {
+  font-size: 13px;
+  color: var(--ink-lo);
+  margin-top: 8px;
+}
+.im-door__cta {
+  margin-top: 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-hi);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.im-door__cta::after {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--ink-hi);
+  transition: width 0.15s ease;
+}
+.im-door:hover .im-door__cta::after { width: 36px; }
+

@@ -82,30 +82,24 @@ function LpFooter() {
 
 export default function RealtorDealPackPage() {
   return (
-    <main className="min-h-screen bg-[#f6f2ec]">
+    <main className="min-h-screen" style={{ background: 'var(--paper)' }}>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#060d20] pb-16 pt-28 text-white sm:pb-20 sm:pt-32">
+      <section className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-32" style={{ background: 'var(--shell)', color: '#f2efe7' }}>
         <LpHeader />
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_-5%,rgba(250,140,65,0.28),transparent_38%),radial-gradient(circle_at_88%_8%,rgba(86,128,255,0.14),transparent_34%),linear-gradient(180deg,#060d20_0%,#0a1530_58%,#0d1a36_100%)]" />
-        </div>
-        <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="relative im-container">
           <div className="max-w-3xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-orange/40 bg-orange/[0.10] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-orange">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-              For NC Realtors
-            </p>
-            <h1 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
-              Move listings that <span className="text-orange">need work</span> with a committed price and renderings of the finished home.
+            <p className="im-eyebrow im-eyebrow--on-dark">For NC Realtors · #{SITE_CONFIG.license.number}</p>
+            <h1 className="im-display im-display--on-dark mt-6 text-[2.75rem] sm:text-[4rem] lg:text-[5rem]">
+              Move listings that <span style={{ color: 'var(--accent)' }}>need work.</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-[17px] leading-8 text-white/75">
-              Attach a licensed NC GC&rsquo;s <span className="text-white font-semibold">committed rehab price</span>
-              &nbsp;plus three photoreal renderings of the finished property to your listing. The buyer sees
-              what it becomes and what it costs to get there &mdash; sealed with NC GC license
+            <p className="im-body im-body--on-dark mt-8 max-w-2xl text-lg">
+              Attach a licensed NC GC&rsquo;s <span className="text-white font-semibold">committed rehab
+              price</span> plus three photoreal renderings of the finished property to your listing. The buyer
+              sees what it becomes and what it costs to get there &mdash; sealed with NC GC license
               #{SITE_CONFIG.license.number} and transferable once at closing.
             </p>
-            <div className="mt-8">
-              <a href="#form" className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5">
+            <div className="mt-10">
+              <a href="#form" className="im-btn im-btn--primary">
                 Pack a listing &mdash; $1,997 &rarr;
               </a>
             </div>
@@ -114,40 +108,44 @@ export default function RealtorDealPackPage() {
       </section>
 
       {/* BENEFITS */}
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-        <div className="grid gap-5 sm:grid-cols-3">
-          {REALTOR_BENEFITS.map((p) => (
-            <div key={p.title} className="rounded-3xl border border-stone-200 bg-white p-6">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">{p.title}</p>
-              <p className="mt-3 text-[15px] leading-[1.65] text-stone-700">{p.body}</p>
+      <section className="im-container py-16 sm:py-20">
+        <div className="grid gap-0 sm:grid-cols-3 border" style={{ borderColor: 'var(--line-1)' }}>
+          {REALTOR_BENEFITS.map((p, i) => (
+            <div
+              key={p.title}
+              className={`bg-white p-8 ${i > 0 ? 'border-t sm:border-t-0 sm:border-l' : ''}`}
+              style={{ borderColor: 'var(--line-1)' }}
+            >
+              <p className="im-eyebrow">{p.title}</p>
+              <p className="mt-4 text-[15px] leading-[1.65]" style={{ color: 'var(--ink-mid)' }}>{p.body}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* CONTENTS + FORM */}
-      <section id="form" className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
-        <div className="grid gap-8 rounded-3xl border border-stone-200 bg-white p-6 shadow-[0_24px_60px_-20px_rgba(8,17,29,0.15)] sm:p-10 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">What&rsquo;s inside · $1,997</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-navy-900 sm:text-4xl">
+      <section id="form" className="im-container pb-24">
+        <div className="grid gap-0 border lg:grid-cols-[1.1fr_1fr]" style={{ borderColor: 'var(--line-1)', background: '#ffffff' }}>
+          <div className="p-8 sm:p-10 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--line-1)' }}>
+            <p className="im-eyebrow">What&rsquo;s inside · $1,997</p>
+            <h2 className="im-h2 mt-3 text-[2rem] sm:text-[2.5rem]">
               Build-Ready Deal Pack for your listing
             </h2>
-            <p className="mt-4 text-[15.5px] leading-[1.65] text-stone-700">
+            <p className="mt-5 text-[15.5px] leading-[1.65]" style={{ color: 'var(--ink-mid)' }}>
               A licensed NC GC produces the full pre-construction package on the listing. Attach it to MLS,
               your buyer packet, or your open-house materials.
             </p>
-            <ul className="mt-6 space-y-2.5 text-[15px] leading-[1.55] text-stone-800">
+            <ul className="mt-6 space-y-3 text-[15px] leading-[1.55]" style={{ color: 'var(--ink-mid)' }}>
               {BUILD_READY_CONTENTS.map((c) => (
                 <li key={c} className="flex gap-3">
-                  <span className="mt-0.5 shrink-0 text-orange">▸</span>
+                  <span className="im-tick mt-0.5">/</span>
                   <span>{c}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-8 rounded-2xl border-2 border-orange/40 bg-orange/[0.06] p-5">
-              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Commitment Certificate</p>
-              <p className="mt-2 text-[14.5px] leading-[1.6] text-stone-800">
+            <div className="mt-8 border-l-4 p-5" style={{ borderColor: 'var(--accent)', background: 'var(--paper-2)' }}>
+              <p className="im-eyebrow">Commitment Certificate</p>
+              <p className="mt-2 text-[14.5px] leading-[1.6]" style={{ color: 'var(--ink-mid)' }}>
                 Rehab price is committed in writing, sealed with NC GC license #{SITE_CONFIG.license.number},
                 and transferable once from you to the buyer at closing. 30-day expiry from issue. Change
                 orders apply only to concealed or hidden conditions discovered during work.
@@ -155,7 +153,7 @@ export default function RealtorDealPackPage() {
             </div>
           </div>
 
-          <div>
+          <div className="p-8 sm:p-10">
             <LpLeadForm
               serviceSlug="realtor-deal-pack"
               serviceName="Realtor Deal Pack — $1,997"
