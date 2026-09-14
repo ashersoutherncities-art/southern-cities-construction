@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useCallback, MouseEvent as ReactMouseEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
@@ -38,17 +38,6 @@ const doors = [
   },
 ];
 
-const marqueeItems = [
-  'NC GC License #107724',
-  'Committed rehab prices',
-  'Sealed with the license',
-  'Transferable at closing',
-  '30-day validity',
-  '$0 upfront for wholesalers',
-  'Charlotte · Raleigh · Greensboro · Wilmington',
-  'Fully insured',
-];
-
 const stats = [
   { value: '120+', label: 'Investors & owners served' },
   { value: '2-day', label: 'Deal review turnaround' },
@@ -66,8 +55,6 @@ const testimonials = [
   { quote: 'They walked me through what was actually wrong before I sank more money into it. Saved me from a bad buy.', name: 'Madison M.', role: 'Broker / Investor · Charlotte' },
   { quote: 'Scope and budget were all over the place when we called. After they walked through it, the project actually felt doable again.', name: 'Justin R.', role: 'Developer · Raleigh' },
   { quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.', name: 'Jethro A.', role: 'Wholesaler · Greensboro' },
-  { quote: 'Permits and paperwork were eating up my week. They took it off my plate and the jobs stopped stalling.', name: 'Taquan P.', role: 'Wholesaler · Fayetteville' },
-  { quote: 'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.', name: 'Trisha W.', role: 'Investor · Wilmington' },
 ];
 
 const faqs = [
@@ -79,31 +66,66 @@ const faqs = [
   { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
 ];
 
+/** Update --mx / --my CSS vars on the element as percentages of its own box. */
+function trackMouse(el: HTMLElement, e: ReactMouseEvent) {
+  const rect = el.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  el.style.setProperty('--mx', `${x}%`);
+  el.style.setProperty('--my', `${y}%`);
+}
+
+/** Same, but sets --card-mx / --card-my (for door cards). */
+function trackCardMouse(el: HTMLElement, e: ReactMouseEvent) {
+  const rect = el.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  el.style.setProperty('--card-mx', `${x}%`);
+  el.style.setProperty('--card-my', `${y}%`);
+}
+
 export default function Home() {
   const [, setOpenFaqIndex] = useState(0);
   void setOpenFaqIndex;
+
+  const heroRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  const onHeroMove = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
+    if (heroRef.current) trackMouse(heroRef.current, e);
+  }, []);
+  const onCtaMove = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
+    if (ctaRef.current) trackMouse(ctaRef.current, e);
+  }, []);
+  const onDoorMove = useCallback((e: ReactMouseEvent<HTMLAnchorElement>) => {
+    trackCardMouse(e.currentTarget, e);
+  }, []);
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--paper)', color: 'var(--ink-mid)' }}>
       <SiteNav />
 
-      {/* HERO — deep navy shell with animated orange glow */}
-      <section className="p-hero">
+      {/* HERO — deep navy shell with cursor-following radial spotlight */}
+      <section
+        ref={heroRef}
+        className="p-hero"
+        onMouseMove={onHeroMove}
+      >
         <div className="p-hero-bg" aria-hidden="true" />
         <div className="p-hero-grid" aria-hidden="true" />
         <div className="im-container pt-32 sm:pt-40 pb-20 sm:pb-24 relative">
-          <span className="p-eyebrow-pill p-rise">
+          <span className="p-eyebrow-pill">
             <span className="p-eyebrow-dot" aria-hidden="true" />
             Committed rehab prices · NC statewide
           </span>
-          <h1 className="im-display im-display--on-dark mt-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] max-w-5xl p-rise p-rise-1">
+          <h1 className="im-display im-display--on-dark mt-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] max-w-5xl">
             A licensed NC GC&rsquo;s <span className="p-gradient-text">committed rehab price</span> on your deal &mdash; before you buy it.
           </h1>
-          <p className="im-body im-body--on-dark mt-6 max-w-2xl text-lg sm:text-xl p-rise p-rise-2">
+          <p className="im-body im-body--on-dark mt-6 max-w-2xl text-lg sm:text-xl">
             Most GCs won&rsquo;t review a deal you don&rsquo;t own yet.
             <span className="text-white font-semibold"> We will.</span> Sealed with license #107724 and transferable once at closing.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4 p-rise p-rise-3">
+          <div className="mt-10 flex flex-wrap gap-4">
             <Link href={CONSULTATION_CTA_HREF} className="im-btn im-btn--primary">
               Book a free project call &rarr;
             </Link>
@@ -111,7 +133,7 @@ export default function Home() {
               See what&rsquo;s inside
             </Link>
           </div>
-          <div className="p-trust-row mt-10 p-rise p-rise-4">
+          <div className="p-trust-row mt-10">
             <div className="p-trust">
               <span className="p-stars">★★★★★</span>
               <span className="p-trust-num">4.9</span>
@@ -133,17 +155,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MARQUEE — trust points scrolling continuously */}
-      <div className="p-marquee-band">
-        <p className="p-marquee-label">A licensed general contractor, backing every number</p>
-        <div className="p-marquee">
-          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span key={i} className="p-marquee-item">{item}</span>
-          ))}
-        </div>
-      </div>
-
-      {/* DOORS — three cards, hover lift + orange gradient reveal */}
+      {/* DOORS — three cards, each with its own cursor-following spotlight */}
       <section className="im-paper">
         <div className="im-container im-section">
           <p className="im-eyebrow">Pick your door</p>
@@ -155,7 +167,12 @@ export default function Home() {
           </p>
           <div className="im-doors mt-12">
             {doors.map((d) => (
-              <Link key={d.label} href={d.href} className="im-door">
+              <Link
+                key={d.label}
+                href={d.href}
+                className="im-door"
+                onMouseMove={onDoorMove}
+              >
                 <div>
                   <span className="im-door__label">{d.label}</span>
                   <p className="im-door__title">{d.title}</p>
@@ -188,26 +205,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* REAL DEALS — existing component */}
+      {/* REAL DEALS */}
       <RealDeals />
 
-      {/* TESTIMONIAL SLIDER — auto-scrolling */}
-      <section className="im-band overflow-hidden">
-        <div className="im-container pt-20 sm:pt-24">
+      {/* TESTIMONIAL GRID — 3 cards, hover lift */}
+      <section className="im-band">
+        <div className="im-container im-section">
           <p className="im-eyebrow">Reviews</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-2xl">
             What NC investors say.
           </h2>
-        </div>
-        <div className="p-testimonial-track pb-20 sm:pb-24">
-          {[...testimonials, ...testimonials].map((t, i) => (
-            <blockquote key={i} className="p-testimonial">
-              <div className="p-stars">★★★★★</div>
-              <p className="p-testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
-              <div className="p-testimonial-name">{t.name}</div>
-              <div className="p-testimonial-role">{t.role}</div>
-            </blockquote>
-          ))}
+          <div className="p-testimonial-grid">
+            {testimonials.map((t, i) => (
+              <blockquote key={i} className="p-testimonial">
+                <div className="p-stars">★★★★★</div>
+                <p className="p-testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
+                <div className="p-testimonial-name">{t.name}</div>
+                <div className="p-testimonial-role">{t.role}</div>
+              </blockquote>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -238,8 +255,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BIG CTA — animated orange radial on deep navy */}
-      <section className="p-cta-band">
+      {/* BIG CTA — cursor-following radial glow on deep navy */}
+      <section
+        ref={ctaRef}
+        className="p-cta-band"
+        onMouseMove={onCtaMove}
+      >
         <div className="im-container im-section text-center p-cta-inner">
           <h2 className="im-display im-display--on-dark text-[2.5rem] sm:text-[4rem] max-w-3xl mx-auto">
             Ready to move your project <span className="p-gradient-text">forward?</span>

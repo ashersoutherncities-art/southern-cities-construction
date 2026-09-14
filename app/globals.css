@@ -572,6 +572,9 @@ input:focus, textarea:focus, select:focus {
   .im-doors { grid-template-columns: repeat(3, 1fr); }
 }
 .im-door {
+  /* Per-card mouse position; onMouseMove in the tsx updates these. */
+  --card-mx: 50%;
+  --card-my: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -586,6 +589,7 @@ input:focus, textarea:focus, select:focus {
               border-color 0.25s ease, box-shadow 0.25s ease;
   box-shadow: 0 1px 2px rgba(19, 36, 82, 0.03);
 }
+/* Top gradient bar reveals on hover */
 .im-door::before {
   content: "";
   position: absolute;
@@ -594,13 +598,39 @@ input:focus, textarea:focus, select:focus {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.35s cubic-bezier(.2,.7,.1,1);
+  z-index: 1;
 }
+/* Cursor-following spotlight inside the card */
+.im-door::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    260px circle at var(--card-mx) var(--card-my),
+    rgba(250, 140, 65, 0.14),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 0;
+}
+.im-door > * { position: relative; z-index: 1; }
 .im-door:hover {
   transform: translateY(-4px);
   border-color: transparent;
   box-shadow: 0 24px 48px -20px rgba(19, 36, 82, 0.28);
 }
 .im-door:hover::before { transform: scaleX(1); }
+.im-door:hover::after  { opacity: 1; }
+
+.im-doors--on-dark .im-door::after {
+  background: radial-gradient(
+    260px circle at var(--card-mx) var(--card-my),
+    rgba(250, 140, 65, 0.22),
+    transparent 50%
+  );
+}
 
 .im-doors--on-dark .im-door {
   background: var(--shell-2);
@@ -672,10 +702,6 @@ input:focus, textarea:focus, select:focus {
    (declared globally further up).
    ========================================================================== */
 
-@keyframes p-hero-glow {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(-2%, -1%, 0) scale(1.06); }
-}
 @keyframes p-rise {
   from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
   to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
@@ -684,12 +710,13 @@ input:focus, textarea:focus, select:focus {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%      { opacity: 0.5; transform: scale(0.8); }
 }
-@keyframes p-marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
 
+/* Hero: cursor-following radial spotlight.
+   The .p-hero container tracks the mouse in JS and sets --mx / --my
+   as percentages of its own box; the gradient origin follows. */
 .p-hero {
+  --mx: 82%;
+  --my: 10%;
   background: var(--shell);
   color: #f2efe7;
   position: relative;
@@ -698,23 +725,33 @@ input:focus, textarea:focus, select:focus {
 }
 .p-hero-bg {
   position: absolute;
-  inset: -20%;
+  inset: 0;
   background:
-    radial-gradient(60% 45% at 82% 10%, rgba(250, 140, 65, 0.28), transparent 55%),
-    radial-gradient(50% 40% at 8% 80%, rgba(28, 50, 115, 0.7), transparent 60%),
-    radial-gradient(70% 55% at 50% 50%, rgba(19, 36, 82, 0.55), transparent 70%);
-  animation: p-hero-glow 24s ease-in-out infinite;
+    radial-gradient(
+      520px circle at var(--mx) var(--my),
+      rgba(250, 140, 65, 0.34),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px circle at calc(100% - var(--mx)) calc(100% - var(--my)),
+      rgba(28, 50, 115, 0.55),
+      transparent 65%
+    ),
+    radial-gradient(70% 55% at 50% 50%, rgba(19, 36, 82, 0.45), transparent 70%);
+  transition: background 200ms cubic-bezier(.2, .7, .1, 1);
   z-index: -1;
   pointer-events: none;
+  will-change: background;
 }
 .p-hero-grid {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(circle 300px at var(--mx) var(--my), black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle 300px at var(--mx) var(--my), black 30%, transparent 80%);
+  transition: mask-image 200ms cubic-bezier(.2, .7, .1, 1), -webkit-mask-image 200ms cubic-bezier(.2, .7, .1, 1);
   z-index: -1;
   pointer-events: none;
 }
@@ -763,35 +800,6 @@ input:focus, textarea:focus, select:focus {
 }
 .p-stars { color: var(--gold); letter-spacing: 1px; font-size: 13px; }
 
-.p-marquee-band {
-  background: #ffffff;
-  border-top: 1px solid var(--line-2);
-  border-bottom: 1px solid var(--line-2);
-  overflow: hidden;
-  padding: 22px 0;
-}
-.p-marquee-label {
-  text-align: center;
-  font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--ink-lo); font-weight: 700;
-  margin-bottom: 14px;
-}
-.p-marquee {
-  display: flex; gap: 48px; align-items: center;
-  animation: p-marquee 30s linear infinite;
-  width: max-content;
-}
-.p-marquee-item {
-  display: flex; align-items: center; gap: 10px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700; font-size: 13.5px; letter-spacing: 0.06em;
-  color: var(--ink-hi); white-space: nowrap;
-}
-.p-marquee-item::before {
-  content: ""; display: inline-block;
-  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-}
-
 .p-stats {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
 }
@@ -808,16 +816,26 @@ input:focus, textarea:focus, select:focus {
   color: var(--ink-lo); font-weight: 700; margin-top: 8px;
 }
 
-.p-testimonial-track {
-  display: flex; gap: 20px; margin-top: 32px;
-  animation: p-marquee 40s linear infinite;
-  width: max-content;
+.p-testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 32px;
 }
+@media (max-width: 900px) { .p-testimonial-grid { grid-template-columns: 1fr; } }
 .p-testimonial {
-  flex: 0 0 380px;
-  background: #ffffff; border: 1px solid var(--line-2);
-  border-radius: 14px; padding: 24px;
+  background: #ffffff;
+  border: 1px solid var(--line-2);
+  border-radius: 14px;
+  padding: 24px;
   box-shadow: 0 2px 8px -4px rgba(19, 36, 82, 0.06);
+  transition: transform 0.25s cubic-bezier(.2,.7,.1,1),
+              border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.p-testimonial:hover {
+  transform: translateY(-3px);
+  border-color: transparent;
+  box-shadow: 0 20px 40px -18px rgba(19, 36, 82, 0.25);
 }
 .p-testimonial-quote {
   color: var(--ink-hi); font-size: 15px; line-height: 1.55;
@@ -831,17 +849,25 @@ input:focus, textarea:focus, select:focus {
 .p-testimonial-role { color: var(--ink-lo); font-size: 12px; margin-top: 2px; }
 
 .p-cta-band {
+  --mx: 50%;
+  --my: 50%;
   background: var(--shell);
   color: #f2efe7;
-  position: relative; overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 .p-cta-band::before {
   content: "";
-  position: absolute; inset: -30%;
-  background: radial-gradient(50% 40% at 50% 50%, rgba(250, 140, 65, 0.22), transparent 60%);
-  animation: p-hero-glow 22s ease-in-out infinite;
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mx) var(--my),
+    rgba(250, 140, 65, 0.28),
+    transparent 55%
+  );
+  transition: background 200ms cubic-bezier(.2, .7, .1, 1);
   z-index: 0;
   pointer-events: none;
+  will-change: background;
 }
 .p-cta-inner { position: relative; z-index: 1; }
 
