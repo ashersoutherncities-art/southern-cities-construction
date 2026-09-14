@@ -7,7 +7,6 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import RealDeals from '@/components/RealDeals';
 import FaqItem from '@/components/landing/FaqItem';
-import LpLeadForm from '@/components/LpLeadForm';
 import FaqJsonLd from '@/components/seo/FaqJsonLd';
 
 // All generic homepage consultation CTAs ("Talk Through Your Project",
@@ -65,48 +64,9 @@ const ladderRungs = [
   },
 ];
 
-type ProofIconType = 'review' | 'budget' | 'permit' | 'support' | 'licensed' | 'compass';
-
-const proofCards: { label: string; detail: string; tone: 'red' | 'amber' | 'rose' | 'orange' | 'navy' | 'emerald'; icon: ProofIconType }[] = [
-  { label: 'Get Your Deal Reviewed', detail: 'Catch issues before you put more money in', tone: 'red', icon: 'review' },
-  { label: 'Know Your Real Budget', detail: 'Avoid underestimating scope and costs', tone: 'amber', icon: 'budget' },
-  { label: 'Map Your Permit Path', detail: 'Know what gets approved — and what does not', tone: 'rose', icon: 'permit' },
-  { label: 'Get Support During the Project', detail: 'Keep things moving without confusion', tone: 'orange', icon: 'support' },
-  { label: 'Work With a Licensed GC', detail: 'Execution when your project calls for it', tone: 'navy', icon: 'licensed' },
-  { label: 'Know What to Do Next', detail: 'Clear direction before moving forward', tone: 'emerald', icon: 'compass' },
-];
-
 const standardBelief = {
-  eyebrow: 'Our Standard',
-  heading: 'A home is where someone lives their life. That deserves a standard.',
-  body: 'Not a half-finished flip thrown back on the market. Not overpriced “luxury” nobody can afford. The standard isn’t fancy — it’s process, planning, execution, and management, done right. We hold ourselves and every investor and flipper we work with to it. Big fund or first flip, it doesn’t change.',
   tagline: 'Built to a standard. Priced for real life.',
 };
-
-const stages = [
-  {
-    id: 'due-diligence',
-    eyebrow: 'Project Due Diligence',
-    timing: 'Before you commit more time or money',
-    items: ['Review the deal', 'Check the budget', 'Map the permit path'],
-    cta: 'Review This Project',
-  },
-  {
-    id: 'planning',
-    eyebrow: 'Project Planning',
-    timing: 'Before construction',
-    items: ['Define the scope', 'Choose the contractor', 'Prepare permits'],
-    cta: 'Plan This Project',
-  },
-  {
-    id: 'execution',
-    eyebrow: 'Project Execution',
-    timing: 'During construction',
-    items: ['Monitor progress', 'Review draws', 'Execute the build'],
-    cta: 'Run This Project',
-  },
-];
-
 
 const homepageTestimonials = [
   {
@@ -141,20 +101,6 @@ const homepageTestimonials = [
   },
 ];
 
-const processHighlights = [
-  { title: 'Clear project direction', detail: 'Know what to do first, what to price next, and what can wait.' },
-  { title: 'Faster decision-making', detail: 'Move through scope, budget, and permit questions without getting stuck.' },
-  { title: 'Tailored project support', detail: 'Get the level of help that fits the job, from review to full execution.' },
-  { title: 'Real contractor insight', detail: 'Use licensed construction judgment instead of guessing through risk.' },
-];
-
-const processSteps = [
-  { number: '1', title: 'Book a free project call', detail: 'Start with a short conversation about the property, scope, timing, and where things feel unclear.' },
-  { number: '2', title: 'Get a project-specific recommendation', detail: 'We point you to the right next step, whether that is due diligence, planning support, or execution help.' },
-  { number: '3', title: 'Move forward with the right support', detail: 'Once the path is clear, we help you review, prepare, coordinate, or run the project.' },
-  { number: '4', title: 'Project completion', detail: 'Finish with a cleaner handoff, a better result, and a project that actually gets across the line.' },
-];
-
 const faqs = [
   { question: 'What is the Build-Ready Deal Pack?', answer: 'A licensed NC GC delivers a committed rehab price in writing, sealed with license #107724 and transferable once to your end buyer. Ships with as-built plans, future-state renovation plan, three photoreal renderings, a market study, an initial materials list, a vendor list, a permit memo, and an execution risk report.' },
   { question: 'How does the wholesaler payment work?', answer: '$0 upfront. The fee is paid from your assignment proceeds at closing. No close, no pay. The specific fee is confirmed on a short scoping call.' },
@@ -164,98 +110,10 @@ const faqs = [
   { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
 ];
 
-// Disciplined navy↔orange identity — alternating warm/cool tints instead of a
-// six-hue rainbow, so the proof grid reads as one brand system.
-const TONE_CLASSES: Record<string, string> = {
-  red: 'from-[#fa8c41] to-[#e87520]',
-  amber: 'from-[#1f376b] to-[#0a1530]',
-  rose: 'from-[#fa8c41] to-[#e87520]',
-  orange: 'from-[#1f376b] to-[#0a1530]',
-  navy: 'from-[#fa8c41] to-[#e87520]',
-  emerald: 'from-[#1f376b] to-[#0a1530]',
-};
-
 function StarIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </svg>
-  );
-}
-
-function CheckIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function ProofIcon({ type, size = 28 }: { type: ProofIconType; size?: number }) {
-  const props = {
-    width: size,
-    height: size,
-    viewBox: '0 0 24 24',
-    fill: 'none' as const,
-    'aria-hidden': true,
-  };
-  const s = { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
-
-  if (type === 'review') {
-    // Document with magnifying glass — "deal reviewed"
-    return (
-      <svg {...props}>
-        <path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z" {...s} />
-        <path d="M14 3v6h6" {...s} />
-        <circle cx="11" cy="14" r="2.4" {...s} />
-        <path d="M13 16l2 2" {...s} />
-      </svg>
-    );
-  }
-  if (type === 'budget') {
-    // Dollar sign in circle — "real budget"
-    return (
-      <svg {...props}>
-        <circle cx="12" cy="12" r="9" {...s} />
-        <path d="M15 9.5c-.8-.8-2-1.3-3.2-1.3-1.7 0-3 .9-3 2.2 0 3.2 6.4 1.8 6.4 4.8 0 1.4-1.4 2.4-3.2 2.4-1 0-2-.3-2.8-.8" {...s} />
-        <path d="M12 6.5v11" {...s} />
-      </svg>
-    );
-  }
-  if (type === 'permit') {
-    // Map with pin — "permit path"
-    return (
-      <svg {...props}>
-        <path d="M9 3L3 5v16l6-2 6 2 6-2V3l-6 2z" {...s} />
-        <path d="M9 3v16M15 5v16" {...s} />
-        <circle cx="12" cy="11" r="1.5" fill="currentColor" />
-      </svg>
-    );
-  }
-  if (type === 'support') {
-    // Hard hat — "support during project"
-    return (
-      <svg {...props}>
-        <path d="M4 17h16M5 17v-1a7 7 0 0114 0v1" {...s} />
-        <path d="M9 10V7a1 1 0 011-1h4a1 1 0 011 1v3" {...s} />
-        <path d="M3 20h18" {...s} />
-      </svg>
-    );
-  }
-  if (type === 'licensed') {
-    // Shield with check — "licensed GC"
-    return (
-      <svg {...props}>
-        <path d="M12 3l8 3v6c0 4.5-3.2 8.2-8 9-4.8-.8-8-4.5-8-9V6l8-3z" {...s} />
-        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-  // compass — "know what to do next"
-  return (
-    <svg {...props}>
-      <circle cx="12" cy="12" r="9" {...s} />
-      <path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -416,94 +274,6 @@ export default function Home() {
         {/* REAL DEALS — real NC case studies (proof) */}
         <RealDeals />
 
-        {/* PROOF CARDS — LP problem-card style with gradient icons */}
-        <section className="bg-stone-50">
-          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">What to handle before you move forward</p>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
-                Before You Move Forward, Handle These First
-              </h2>
-            </div>
-
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {proofCards.map((card) => (
-                <div
-                  key={card.label}
-                  className="rounded-2xl border border-stone-200 bg-white p-7 shadow-[0_8px_24px_-12px_rgba(8,17,29,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-16px_rgba(8,17,29,0.15)]"
-                >
-                  <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${TONE_CLASSES[card.tone]} text-white shadow-lg`}>
-                    <ProofIcon type={card.icon} size={28} />
-                  </div>
-                  <h3 className="mt-5 text-lg font-extrabold leading-tight tracking-tight text-[#08111d]">{card.label}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{card.detail}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 flex items-center justify-center">
-              <Link
-                href={CONSULTATION_CTA_HREF}
-                className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-8 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
-              >
-                Talk Through Your Project <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* 3 STAGE CARDS */}
-        <section className="bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Three places we step in</p>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">
-                Start at the stage you&rsquo;re actually in.
-              </h2>
-            </div>
-            <div className="mt-12 grid gap-5 lg:grid-cols-3">
-              {stages.map((stage, idx) => (
-                <div
-                  key={stage.id}
-                  id={stage.id}
-                  className="scroll-mt-24 flex h-full flex-col rounded-2xl border-2 border-stone-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#fa8c41]/40 hover:shadow-[0_24px_60px_-20px_rgba(8,17,29,0.18)] sm:p-10"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#08111d] text-xl font-black">
-                    <span className="text-[#fa8c41]">0{idx + 1}</span>
-                  </div>
-                  <p className="mt-6 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">{stage.timing}</p>
-                  <h3 className="mt-3 text-[1.75rem] font-black leading-tight tracking-[-0.02em] text-[#08111d]">
-                    {stage.eyebrow}
-                  </h3>
-                  <ul className="mt-7 flex flex-1 flex-col space-y-3">
-                    {stage.items.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-[15px] font-medium leading-relaxed text-[#08111d]">
-                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#fa8c41]">
-                          <CheckIcon size={14} />
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href={CONSULTATION_CTA_HREF}
-                    className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-6 py-3 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_10px_24px_-8px_rgba(245,130,32,0.4)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
-                  >
-                    {stage.cta} <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              ))}
-            </div>
-
-            <p className="mt-10 text-center text-sm font-medium text-stone-600">
-              Need full contracting?{' '}
-              <Link href="/contracting" className="font-bold text-[#08111d] underline underline-offset-4 hover:text-[#fa8c41]">
-                We handle that when your project calls for it.
-              </Link>
-            </p>
-          </div>
-        </section>
-
         {/* DEAL PACK BRIDGE — wholesalers + realtors flagship, on brand cream */}
         <section className="bg-[#F6F2EC]">
           <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
@@ -548,104 +318,6 @@ export default function Home() {
                     <Image src="/product-mockups/consistent-assignment-wholesaler-cover.jpg" alt="The $25–40K Assignment Playbook" width={240} height={310} className="rounded-[12px] border border-stone-300 shadow-[0_30px_60px_-18px_rgba(8,17,29,0.55)] ring-1 ring-[#fa8c41]/30" />
                     <div className="absolute -top-3 -right-3 rounded-full bg-[#fa8c41] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_8px_20px_-4px_rgba(250,140,65,0.6)]">Free playbooks</div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* INVESTOR-LED BUILD FLAGSHIP */}
-        <section id="owner-controlled-build" className="relative overflow-hidden bg-[#08111d] text-white">
-          <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.07]"
-            style={{
-              backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-              backgroundSize: '56px 56px',
-              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
-              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
-            }}
-            aria-hidden="true"
-          />
-          <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-12">
-              <div className="lg:col-span-7">
-                <p className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">
-                  <span className="block h-px w-10 bg-[#fa8c41]/80" aria-hidden="true" />
-                  Our flagship build model
-                </p>
-                <h2 className="mt-5 text-4xl font-black leading-[1.0] tracking-[-0.03em] text-white sm:text-6xl">
-                  Investor-Led <span className="text-[#fa8c41]">Build.</span>
-                </h2>
-                <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
-                  You stay the owner. We provide the GC structure, pull the permits, and run the execution controls. A hybrid model — most of the upside of self-managing, none of the chaos.
-                </p>
-                <div className="mt-9 grid gap-5 sm:grid-cols-2 max-w-xl">
-                  {[
-                    { title: 'GC authority on paper', detail: 'Permits pulled under our license.' },
-                    { title: 'Execution controls', detail: 'Scope, schedule, budget, draws.' },
-                    { title: 'You stay PM', detail: 'Own the calls. Keep the margin.' },
-                    { title: 'Real backup', detail: 'Estimator, permit admin, draw support.' },
-                  ].map((point) => (
-                    <div key={point.title} className="flex gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#fa8c41]/30 bg-[#fa8c41]/10 text-[#fa8c41]">
-                        <CheckIcon size={20} />
-                      </div>
-                      <div>
-                        <p className="font-bold text-white">{point.title}</p>
-                        <p className="mt-0.5 text-sm text-white/65">{point.detail}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-10 flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/platform/co4"
-                    className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-4 text-[15px] font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] hover:-translate-y-0.5 hover:bg-[#ffa463] transition-all"
-                  >
-                    See If It Fits <span aria-hidden="true">→</span>
-                  </Link>
-                  <Link
-                    href="/contracting"
-                    className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-4 text-[15px] font-bold text-white hover:bg-white/5"
-                  >
-                    Compare with full contracting
-                  </Link>
-                </div>
-              </div>
-              <div className="lg:col-span-5">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-7">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-white/55">The three execution options</p>
-                  <div className="mt-5 space-y-3">
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="font-bold text-white">Construction Oversight</p>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Advisory</span>
-                      </div>
-                      <p className="mt-2 text-sm text-white/65">We review. You run it.</p>
-                    </div>
-                    <div className="relative rounded-xl border-2 border-[#fa8c41]/60 bg-[#fa8c41]/[0.12] p-5">
-                      <span className="absolute -top-2.5 left-4 rounded-full bg-[#fa8c41] px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-white">Flagship</span>
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="font-bold text-white">Investor-Led Build</p>
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#fa8c41]">Hybrid</span>
-                      </div>
-                      <p className="mt-2 text-sm text-white/80">We carry the license. You PM the build.</p>
-                    </div>
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="font-bold text-white">Full Execution</p>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Full GC</span>
-                      </div>
-                      <p className="mt-2 text-sm text-white/65">We run it. You step back.</p>
-                    </div>
-                  </div>
-                  <Link
-                    href="/platform"
-                    className="mt-5 inline-flex items-center gap-2 text-[12px] font-black uppercase tracking-[0.08em] text-[#fa8c41] transition-all hover:gap-3"
-                  >
-                    See all three on the Investor Execution Platform <span aria-hidden="true">→</span>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -734,42 +406,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PROCESS */}
-        <section className="bg-stone-50">
-          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="text-center max-w-3xl mx-auto">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Our process</p>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">How projects move forward</h2>
-              <p className="mt-5 text-lg leading-relaxed text-stone-600">
-                A simple process to help you get clarity, choose the right next step, and keep the project moving.
-              </p>
-            </div>
-
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-              {processHighlights.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-stone-200 bg-white p-7 text-center transition-all hover:-translate-y-0.5 hover:shadow-lg">
-                  <p className="text-lg font-extrabold tracking-tight text-[#08111d]">{item.title}</p>
-                  <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="relative mt-16 grid gap-8 md:grid-cols-4">
-              <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-[#fa8c41]/30 to-transparent md:block" aria-hidden="true" />
-              {processSteps.map((step) => (
-                <div key={step.number} className="relative">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#08111d] text-xl font-black shadow-lg ring-8 ring-stone-50">
-                    <span className="text-[#fa8c41]">{step.number}</span>
-                  </div>
-                  <p className="mt-5 text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Step {step.number}</p>
-                  <h3 className="mt-2 text-xl font-extrabold tracking-tight text-[#08111d]">{step.title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-stone-600">{step.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* BIG CTA */}
         <section className="relative overflow-hidden bg-[#08111d]">
           <div
@@ -799,66 +435,6 @@ export default function Home() {
               <a href="tel:+19804737249" className="inline-flex items-center gap-2 text-sm font-bold text-white/75 hover:text-white">
                 Or call (980) 473-7249
               </a>
-            </div>
-          </div>
-        </section>
-
-        {/* CONTACT */}
-        <section id="contact" className="bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="text-center max-w-3xl mx-auto">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Get in touch</p>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-[#08111d] sm:text-5xl">Talk with us about your project</h2>
-              <p className="mt-5 text-lg leading-relaxed text-stone-600">
-                Have questions about the project, the budget, or the right next step? Contact us or book a free project call.
-              </p>
-            </div>
-
-            <div className="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-              <div className="space-y-4">
-                <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Call</p>
-                  <a href="tel:+19804737249" className="mt-3 block text-2xl font-black tracking-tight text-[#08111d] hover:text-[#fa8c41]">
-                    (980) 473-7249
-                  </a>
-                  <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Talk through the job, ask questions, and get help figuring out the next move.</p>
-                </div>
-                <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Email</p>
-                  <a href="mailto:info@southerncitiesconstruction.com" className="mt-3 block break-all text-lg font-black tracking-tight text-[#08111d] hover:text-[#fa8c41]">
-                    info@southerncitiesconstruction.com
-                  </a>
-                  <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Send over your project details, timeline, or questions and we can point you in the right direction.</p>
-                </div>
-                <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
-                  <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Service area</p>
-                  <p className="mt-3 text-xl font-black tracking-tight text-[#08111d]">North Carolina Statewide</p>
-                  <p className="mt-2 text-[15px] font-semibold leading-relaxed text-[#08111d]">525 N Tryon St, Charlotte, NC 28202</p>
-                  <p className="mt-2 text-[15px] leading-relaxed text-stone-600">Residential projects, investor work, planning support, permits, oversight, and full contracting when needed.</p>
-                </div>
-              </div>
-
-              <div>
-                <LpLeadForm
-                  id="homepage-contact-form"
-                  serviceSlug="homepage-general-inquiry"
-                  serviceName="Homepage — general project inquiry"
-                  source="homepage-contact"
-                  headline="Talk to us about your project"
-                  subhead="Tell us where the project is — scope, timeline, what you're trying to figure out — and a licensed NC GC will get back within 1 business day."
-                  submitLabel="Send Project Details"
-                  variant="light"
-                />
-                <div className="mt-6 rounded-2xl border-2 border-[#fa8c41]/20 bg-stone-50 p-5">
-                  <p className="text-sm font-bold text-[#08111d]">Prefer to talk live?</p>
-                  <Link
-                    href={CONSULTATION_CTA_HREF}
-                    className="mt-3 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-5 py-3 text-[13px] font-black uppercase tracking-[0.06em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]"
-                  >
-                    Schedule a Free Project Call <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
             </div>
           </div>
         </section>
