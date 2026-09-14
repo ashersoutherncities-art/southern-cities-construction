@@ -347,10 +347,10 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     key: 'deal-pack-build-ready',
     name: 'Build-Ready Deal Pack',
     shortName: 'Build-Ready Deal Pack',
-    price: 190000,
-    priceLabel: '$1,900 per deal',
+    price: 199700,
+    priceLabel: '$1,997 per deal',
     description: 'Committed rehab price in writing, sealed with NC GC license #107724 and transferable once to the end buyer. Ships with as-built + future-state plans, three photoreal renderings of the finished home, a market study, an initial materials list, a vendor list with drive time, a permit memo, and an execution risk report. 3–4 business day turnaround. NC GC License #107724.',
-    checkoutAmount: '1900',
+    checkoutAmount: '1997',
   },
   'deal-pack-site-scan': {
     key: 'deal-pack-site-scan',

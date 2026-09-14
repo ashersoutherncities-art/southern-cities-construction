@@ -24,7 +24,7 @@ const DEAL_PACK_PRODUCTS = [
     description:
       'A licensed NC GC puts a committed rehab price on your deal in writing, sealed with the license and transferable once to your end buyer. Ships with as-built + future-state plans, three photoreal renderings, a local market study, an initial materials list, a vendor list with drive time, a permit memo, and an execution risk report.',
     url: '/deal-pack',
-    priceUsd: 1900,
+    priceUsd: 1997,
     category: 'Deal Pack',
     sku: 'deal-pack-build-ready',
   },
@@ -108,7 +108,7 @@ const PLANS_ADDONS = [
 export const metadata = {
   title: 'Deal Pack — A Committed NC GC Rehab Price on Your Deal | Southern Cities Construction',
   description:
-    "Most GCs won't review a deal you don't own yet. We will. A licensed NC GC (#107724) puts a committed rehab price on your deal, sealed with the license and transferable to your end buyer. Build-Ready Deal Pack $1,900.",
+    "Most GCs won't review a deal you don't own yet. We will. A licensed NC GC (#107724) puts a committed rehab price on your deal, sealed with the license and transferable to your end buyer. Build-Ready Deal Pack $1,997.",
   alternates: { canonical: '/deal-pack' },
   openGraph: {
     type: 'website',
@@ -145,7 +145,7 @@ const TIERS: Tier[] = [
     badge: 'FLAGSHIP',
     badgeColor: 'orange',
     name: 'Build-Ready Deal Pack',
-    price: '$1,900',
+    price: '$1,997',
     priceNote: 'Per deal · 3–4 day turnaround',
     promise:
       'A licensed NC GC puts your rehab price in writing, sealed with the license and transferable once to your end buyer. The full pack: everything a serious buyer or lender needs to underwrite the deal.',
@@ -160,7 +160,7 @@ const TIERS: Tier[] = [
       'Permit memo — which permits, which jurisdiction, expected timeline',
       'Execution risk report',
     ],
-    cta: 'Order Build-Ready · $1,900 →',
+    cta: 'Order Build-Ready · $1,997 →',
     ctaHref: '/cart?cart=deal-pack-build-ready',
     highlight: true,
     sample: { pdfUrl: '/resources/samples/build-ready-deal-pack-sample.pdf', pages: 9 },
@@ -292,7 +292,7 @@ export default function DealPackPage() {
                 A licensed NC GC&apos;s <span className="text-orange">committed rehab price</span> on your deal &mdash; sealed with the license, before you buy it.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-[1.6] text-white/80 sm:text-lg">
-                The <span className="text-white font-semibold">Build-Ready Deal Pack ($1,900)</span> is a full pre-construction
+                The <span className="text-white font-semibold">Build-Ready Deal Pack ($1,997)</span> is a full pre-construction
                 package: committed rehab price sealed with license #107724 and transferable once to your end buyer, plus
                 plans, renderings, a market study, a materials list, a vendor list, a permit memo, and an execution risk
                 report. Everything a serious buyer or lender needs.
@@ -352,7 +352,7 @@ export default function DealPackPage() {
         <div className="container-pro py-10 sm:py-12">
           <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4">
             <div className="text-center">
-              <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">$1,900</div>
+              <div className="text-3xl font-black tracking-tight text-orange sm:text-4xl">$1,997</div>
               <div className="mt-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">Build-Ready Deal Pack · flagship</div>
             </div>
             <div className="text-center">

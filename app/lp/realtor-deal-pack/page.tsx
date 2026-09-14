@@ -106,7 +106,7 @@ export default function RealtorDealPackPage() {
             </p>
             <div className="mt-8">
               <a href="#form" className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5">
-                Pack a listing &mdash; $1,900 &rarr;
+                Pack a listing &mdash; $1,997 &rarr;
               </a>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function RealtorDealPackPage() {
       <section id="form" className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <div className="grid gap-8 rounded-3xl border border-stone-200 bg-white p-6 shadow-[0_24px_60px_-20px_rgba(8,17,29,0.15)] sm:p-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">What&rsquo;s inside · $1,900</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">What&rsquo;s inside · $1,997</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-navy-900 sm:text-4xl">
               Build-Ready Deal Pack for your listing
             </h2>
@@ -158,11 +158,11 @@ export default function RealtorDealPackPage() {
           <div>
             <LpLeadForm
               serviceSlug="realtor-deal-pack"
-              serviceName="Realtor Deal Pack — $1,900"
+              serviceName="Realtor Deal Pack — $1,997"
               source="lp-realtor-deal-pack"
               headline="Pack your listing."
               subhead="Send the property address and where the listing stands. A licensed NC GC will confirm scope and turnaround on a short call."
-              submitLabel="Order Build-Ready · $1,900"
+              submitLabel="Order Build-Ready · $1,997"
               variant="light"
             />
           </div>

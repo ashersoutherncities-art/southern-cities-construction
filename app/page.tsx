@@ -40,7 +40,7 @@ const duplicatedCredentials = [...credentials, ...credentials];
 const ladderRungs = [
   {
     title: 'Build-Ready Deal Pack',
-    badge: '$1,900 · Flagship',
+    badge: '$1,997 · Flagship',
     badgeClass: 'bg-orange-50 text-orange-700',
     detail: 'Committed rehab price in writing, sealed with the NC GC license. Ships with plans, renderings, market study, materials list, vendor list, permit memo, and risk report.',
     cta: 'See Build-Ready',
@@ -244,7 +244,7 @@ export default function Home() {
                 Start with the flagship. Downsize if it doesn&rsquo;t fit.
               </h2>
               <p className="mt-4 max-w-2xl text-lg leading-relaxed text-stone-600">
-                Lead with the <span className="font-bold text-[#08111d]">Build-Ready Deal Pack ($1,900)</span> &mdash;
+                Lead with the <span className="font-bold text-[#08111d]">Build-Ready Deal Pack ($1,997)</span> &mdash;
                 a licensed NC GC&rsquo;s committed rehab price sealed with the license, plus everything a buyer or
                 lender needs. Not sure yet? Start free.
               </p>

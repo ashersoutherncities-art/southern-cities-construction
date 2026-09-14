@@ -6,7 +6,7 @@ import { PLATFORM_STAGES } from '@/lib/investor-platform';
 export const metadata = {
   title: 'The Platform — Committed Rehab Prices & Execution | Southern Cities Construction',
   description:
-    'A licensed NC GC (#107724) puts a committed rehab price on your deal — before you buy it — and can run the build after. Start with the $1,900 Build-Ready Deal Pack.',
+    'A licensed NC GC (#107724) puts a committed rehab price on your deal — before you buy it — and can run the build after. Start with the $1,997 Build-Ready Deal Pack.',
   alternates: { canonical: '/platform' },
   openGraph: {
     type: 'website',
@@ -60,7 +60,7 @@ export default function PlatformHubPage() {
             <p className="mt-6 max-w-2xl text-lg leading-[1.55] text-white/80 sm:text-xl">
               Most GCs won&apos;t review a deal you don&apos;t own yet. We will. Put a licensed
               NC GC&apos;s committed rehab price on the deal &mdash; then hire us to run the build if it
-              makes sense. Starts at <span className="text-white font-semibold">$1,900</span>.
+              makes sense. Starts at <span className="text-white font-semibold">$1,997</span>.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
@@ -101,7 +101,7 @@ export default function PlatformHubPage() {
               </span>
               <div className="flex items-center justify-between gap-4">
                 <span className="text-[12px] font-black uppercase tracking-[0.14em] text-white">Build-Ready Deal Pack</span>
-                <span className="text-[14px] font-bold text-orange">$1,900</span>
+                <span className="text-[14px] font-bold text-orange">$1,997</span>
               </div>
               <p className="mt-4 text-[15.5px] leading-[1.6] text-white/85">
                 A licensed NC GC puts your rehab price in writing, sealed with the license and transferable

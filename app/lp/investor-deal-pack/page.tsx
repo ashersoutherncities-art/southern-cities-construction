@@ -3,16 +3,16 @@ import LpLeadForm from '@/components/LpLeadForm';
 import { SITE_CONFIG } from '@/lib/site-config';
 
 export const metadata = {
-  title: 'Know the Real Number Before You Buy — Build-Ready Deal Pack ($1,900) | Southern Cities Construction',
+  title: 'Know the Real Number Before You Buy — Build-Ready Deal Pack ($1,997) | Southern Cities Construction',
   description:
     'For NC investors: a licensed NC GC (#107724) puts a committed rehab price on your deal, sealed and transferable — before you buy it. Protect your capital.',
   alternates: { canonical: '/lp/investor-deal-pack' },
   openGraph: {
     type: 'website',
     url: '/lp/investor-deal-pack',
-    title: 'Know the Real Number Before You Buy — Build-Ready Deal Pack ($1,900)',
+    title: 'Know the Real Number Before You Buy — Build-Ready Deal Pack ($1,997)',
     description:
-      'A licensed NC GC puts a committed rehab price on your deal, sealed with the license, before you buy it. $1,900.',
+      'A licensed NC GC puts a committed rehab price on your deal, sealed with the license, before you buy it. $1,997.',
     siteName: 'Southern Cities Construction',
   },
 };
@@ -93,7 +93,7 @@ export default function InvestorDealPackPage() {
           <div className="max-w-3xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-orange/40 bg-orange/[0.10] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-orange">
               <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-              For NC Investors · $1,900
+              For NC Investors · $1,997
             </p>
             <h1 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
               Know the <span className="text-orange">real rehab number</span> before you buy the deal.
@@ -106,7 +106,7 @@ export default function InvestorDealPackPage() {
             </p>
             <div className="mt-8">
               <a href="#form" className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5">
-                Get my deal packed &mdash; $1,900 &rarr;
+                Get my deal packed &mdash; $1,997 &rarr;
               </a>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function InvestorDealPackPage() {
       <section id="form" className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <div className="grid gap-8 rounded-3xl border border-stone-200 bg-white p-6 shadow-[0_24px_60px_-20px_rgba(8,17,29,0.15)] sm:p-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">What&rsquo;s inside · $1,900</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">What&rsquo;s inside · $1,997</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-navy-900 sm:text-4xl">
               The Build-Ready Deal Pack
             </h2>
@@ -158,11 +158,11 @@ export default function InvestorDealPackPage() {
           <div>
             <LpLeadForm
               serviceSlug="investor-deal-pack"
-              serviceName="Investor Deal Pack — $1,900"
+              serviceName="Investor Deal Pack — $1,997"
               source="lp-investor-deal-pack"
               headline="Get the real number."
               subhead="Send the property address and what you know so far. A licensed NC GC will confirm scope and turnaround on a short call."
-              submitLabel="Order Build-Ready · $1,900"
+              submitLabel="Order Build-Ready · $1,997"
               variant="light"
             />
           </div>
