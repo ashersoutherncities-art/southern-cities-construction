@@ -15,28 +15,45 @@ const doors = [
   {
     label: 'Wholesalers',
     title: 'Committed rehab price on your deal.',
-    meta: '$0 upfront · paid at closing · no close, no pay',
+    meta: 'A licensed NC GC prices your assignment — sealed with the license, transferable to your end buyer at closing.',
+    price: '$0',
+    priceNote: 'upfront · paid at closing · no close, no pay',
     href: '/lp/wholesaler-deal-pack',
   },
   {
     label: 'Investors',
     title: 'Know the real number before you buy.',
-    meta: 'Build-Ready Deal Pack · $1,997',
+    meta: 'Full pre-construction package on your deal — plans, renderings, scope, permits, and a committed rehab price.',
+    price: '$1,997',
+    priceNote: 'Build-Ready Deal Pack · flagship',
     href: '/lp/investor-deal-pack',
   },
   {
     label: 'Realtors',
     title: 'Move listings that need work.',
-    meta: 'Committed price + renderings',
+    meta: 'Attach a committed rehab price and three photoreal renderings of the finished home to your listing.',
+    price: '$1,997',
+    priceNote: 'Per listing · MLS-ready package',
     href: '/lp/realtor-deal-pack',
   },
 ];
 
-const trustNumbers = [
+const marqueeItems = [
+  'NC GC License #107724',
+  'Committed rehab prices',
+  'Sealed with the license',
+  'Transferable at closing',
+  '30-day validity',
+  '$0 upfront for wholesalers',
+  'Charlotte · Raleigh · Greensboro · Wilmington',
+  'Fully insured',
+];
+
+const stats = [
   { value: '120+', label: 'Investors & owners served' },
-  { value: '5 yrs', label: 'In business, NC' },
   { value: '2-day', label: 'Deal review turnaround' },
-  { value: '#107724', label: 'NC GC license' },
+  { value: '100%', label: 'Sealed with #107724' },
+  { value: '5 yrs', label: 'NC operations' },
 ];
 
 const galleryPreview = [
@@ -45,10 +62,12 @@ const galleryPreview = [
   { title: 'Historic waterfront district home exterior transformation', image: '/gallery/red-house-after.jpg' },
 ];
 
-const homepageTestimonials = [
-  { quote: 'We were about to sink more money in before they walked us through what was actually wrong. Saved us from a bad call.', name: 'Madison M.', role: 'Broker / Investor' },
-  { quote: 'Scope and budget were all over the place when we called. After they walked through it, the project actually felt doable again.', name: 'Justin R.', role: 'Developer' },
-  { quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.', name: 'Jethro A.', role: 'Wholesaler' },
+const testimonials = [
+  { quote: 'They walked me through what was actually wrong before I sank more money into it. Saved me from a bad buy.', name: 'Madison M.', role: 'Broker / Investor · Charlotte' },
+  { quote: 'Scope and budget were all over the place when we called. After they walked through it, the project actually felt doable again.', name: 'Justin R.', role: 'Developer · Raleigh' },
+  { quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.', name: 'Jethro A.', role: 'Wholesaler · Greensboro' },
+  { quote: 'Permits and paperwork were eating up my week. They took it off my plate and the jobs stopped stalling.', name: 'Taquan P.', role: 'Wholesaler · Fayetteville' },
+  { quote: 'They did not try to sell us a huge scope we did not need. Just told us what to do next and why.', name: 'Trisha W.', role: 'Investor · Wilmington' },
 ];
 
 const faqs = [
@@ -60,14 +79,6 @@ const faqs = [
   { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
 ];
 
-function StarIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </svg>
-  );
-}
-
 export default function Home() {
   const [, setOpenFaqIndex] = useState(0);
   void setOpenFaqIndex;
@@ -76,122 +87,131 @@ export default function Home() {
     <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--paper)', color: 'var(--ink-mid)' }}>
       <SiteNav />
 
-      {/* HERO — full-bleed dark shell, huge display type, hard rules, 3 doors */}
-      <section className="relative overflow-hidden" style={{ background: 'var(--shell)', color: '#f2efe7' }}>
-        <div className="absolute inset-0 opacity-[0.20]">
-          <Image src="/lp-budget-hero-bg.jpg" alt="" fill className="object-cover object-right" priority />
-        </div>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, var(--shell) 0%, var(--shell) 42%, rgba(14,15,17,0.75) 72%, rgba(14,15,17,0.35) 100%)' }} />
-        <div className="relative im-container pt-32 sm:pt-40 pb-20 sm:pb-24">
-          <p className="im-eyebrow im-eyebrow--on-dark">A construction platform · NC GC #107724</p>
-          <h1 className="im-display im-display--on-dark mt-8 text-[3.2rem] sm:text-[5rem] lg:text-[6.5rem] max-w-5xl">
-            A licensed NC GC&rsquo;s <span style={{ color: 'var(--accent)' }}>committed rehab price</span> on your deal.
+      {/* HERO — deep navy shell with animated orange glow */}
+      <section className="p-hero">
+        <div className="p-hero-bg" aria-hidden="true" />
+        <div className="p-hero-grid" aria-hidden="true" />
+        <div className="im-container pt-32 sm:pt-40 pb-20 sm:pb-24 relative">
+          <span className="p-eyebrow-pill p-rise">
+            <span className="p-eyebrow-dot" aria-hidden="true" />
+            Committed rehab prices · NC statewide
+          </span>
+          <h1 className="im-display im-display--on-dark mt-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] max-w-5xl p-rise p-rise-1">
+            A licensed NC GC&rsquo;s <span className="p-gradient-text">committed rehab price</span> on your deal &mdash; before you buy it.
           </h1>
-          <p className="im-body im-body--on-dark mt-8 max-w-2xl text-lg sm:text-xl">
+          <p className="im-body im-body--on-dark mt-6 max-w-2xl text-lg sm:text-xl p-rise p-rise-2">
             Most GCs won&rsquo;t review a deal you don&rsquo;t own yet.
-            <span className="text-white font-semibold"> We will.</span> Pick your door.
+            <span className="text-white font-semibold"> We will.</span> Sealed with license #107724 and transferable once at closing.
           </p>
+          <div className="mt-10 flex flex-wrap gap-4 p-rise p-rise-3">
+            <Link href={CONSULTATION_CTA_HREF} className="im-btn im-btn--primary">
+              Book a free project call &rarr;
+            </Link>
+            <Link href="/deal-pack" className="im-btn im-btn--ghost-on-dark">
+              See what&rsquo;s inside
+            </Link>
+          </div>
+          <div className="p-trust-row mt-10 p-rise p-rise-4">
+            <div className="p-trust">
+              <span className="p-stars">★★★★★</span>
+              <span className="p-trust-num">4.9</span>
+              <span className="p-trust-label">Google reviews</span>
+            </div>
+            <div className="p-trust">
+              <span className="p-trust-num">120+</span>
+              <span className="p-trust-label">Deals reviewed</span>
+            </div>
+            <div className="p-trust">
+              <span className="p-trust-num">5 yrs</span>
+              <span className="p-trust-label">NC operations</span>
+            </div>
+            <div className="p-trust">
+              <span className="p-trust-num">#107724</span>
+              <span className="p-trust-label">Licensed &amp; insured</span>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Doors — full-width bar, sharp corners, hard rules */}
-        <div className="relative im-container pb-20 sm:pb-24">
-          <div className="im-doors im-doors--on-dark">
+      {/* MARQUEE — trust points scrolling continuously */}
+      <div className="p-marquee-band">
+        <p className="p-marquee-label">A licensed general contractor, backing every number</p>
+        <div className="p-marquee">
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
+            <span key={i} className="p-marquee-item">{item}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* DOORS — three cards, hover lift + orange gradient reveal */}
+      <section className="im-paper">
+        <div className="im-container im-section">
+          <p className="im-eyebrow">Pick your door</p>
+          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-2xl">
+            Three ways in. Each one goes straight to the offer.
+          </h2>
+          <p className="im-body mt-6 max-w-2xl text-lg">
+            Different audiences, different terms &mdash; same licensed GC on paper.
+          </p>
+          <div className="im-doors mt-12">
             {doors.map((d) => (
               <Link key={d.label} href={d.href} className="im-door">
                 <div>
                   <span className="im-door__label">{d.label}</span>
-                  <p className="im-door__title" style={{ color: '#ffffff' }}>{d.title}</p>
-                  <p className="im-door__meta" style={{ color: 'rgba(242,239,231,0.6)' }}>{d.meta}</p>
+                  <p className="im-door__title">{d.title}</p>
+                  <p className="im-door__meta">{d.meta}</p>
                 </div>
-                <span className="im-door__cta" style={{ color: '#ffffff' }}>Enter</span>
+                <div className="mt-4 pt-4 border-t border-dashed" style={{ borderColor: 'var(--line-2)' }}>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[1.75rem] font-black tracking-[-0.02em]" style={{ color: 'var(--ink-hi)' }}>{d.price}</span>
+                    <span className="im-mono text-[11px] uppercase tracking-[0.06em]" style={{ color: 'var(--ink-lo)' }}>{d.priceNote}</span>
+                  </div>
+                  <span className="im-door__cta mt-4">Enter &rarr;</span>
+                </div>
               </Link>
             ))}
-          </div>
-          <div className="mt-10 flex flex-wrap items-center gap-6">
-            <Link href={CONSULTATION_CTA_HREF} className="im-btn im-btn--primary">
-              Book a Free Project Call <span aria-hidden="true">&rarr;</span>
-            </Link>
-            <p className="text-sm text-white/60">
-              Homeowner?{' '}
-              <Link href="/contracting" className="text-white underline underline-offset-4 hover:text-orange">
-                See our full contracting page.
-              </Link>
-            </p>
           </div>
         </div>
       </section>
 
-      {/* TRUST BAR — four numbers, monolithic, sharp */}
-      <section className="border-y" style={{ borderColor: 'var(--line-1)', background: 'var(--paper)' }}>
-        <div className="im-container grid grid-cols-2 md:grid-cols-4">
-          {trustNumbers.map((n, i) => (
-            <div
-              key={n.label}
-              className={`px-6 py-10 md:py-14 ${i < trustNumbers.length - 1 ? 'md:border-r' : ''} ${i < 2 ? 'border-b md:border-b-0' : ''} ${i === 0 || i === 2 ? 'border-r' : ''}`}
-              style={{ borderColor: 'var(--line-1)' }}
-            >
-              <p className="font-black text-[2rem] md:text-[2.5rem] tracking-[-0.03em]" style={{ color: 'var(--ink-hi)' }}>{n.value}</p>
-              <p className="mt-2 im-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: 'var(--ink-lo)' }}>{n.label}</p>
-            </div>
+      {/* STATS BAR — four numbers with orange left-rules */}
+      <section className="border-y" style={{ borderColor: 'var(--line-2)', background: '#ffffff' }}>
+        <div className="im-container py-14">
+          <div className="p-stats">
+            {stats.map((s) => (
+              <div key={s.label} className="p-stat">
+                <div className="p-stat-num">{s.value}</div>
+                <div className="p-stat-label">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REAL DEALS — existing component */}
+      <RealDeals />
+
+      {/* TESTIMONIAL SLIDER — auto-scrolling */}
+      <section className="im-band overflow-hidden">
+        <div className="im-container pt-20 sm:pt-24">
+          <p className="im-eyebrow">Reviews</p>
+          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-2xl">
+            What NC investors say.
+          </h2>
+        </div>
+        <div className="p-testimonial-track pb-20 sm:pb-24">
+          {[...testimonials, ...testimonials].map((t, i) => (
+            <blockquote key={i} className="p-testimonial">
+              <div className="p-stars">★★★★★</div>
+              <p className="p-testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
+              <div className="p-testimonial-name">{t.name}</div>
+              <div className="p-testimonial-role">{t.role}</div>
+            </blockquote>
           ))}
         </div>
       </section>
 
-      {/* REAL DEALS — the existing component (already tightened) */}
-      <RealDeals />
-
-      {/* DEAL PACK PROOF LINE — single-message, dark band, huge type */}
-      <section className="im-shell relative overflow-hidden">
-        <div className="im-container im-section">
-          <p className="im-eyebrow im-eyebrow--on-dark">The offer</p>
-          <h2 className="im-display im-display--on-dark mt-6 text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] max-w-4xl">
-            The <span style={{ color: 'var(--accent)' }}>Build-Ready Deal Pack.</span>
-            <br />Everything a serious buyer or lender needs.
-          </h2>
-          <p className="im-body im-body--on-dark mt-8 max-w-2xl text-lg">
-            Committed rehab price in writing, sealed with the NC GC license and transferable once to your end buyer.
-            Plans, renderings, market study, materials list, vendor list, permit memo, execution risk report.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link href="/deal-pack" className="im-btn im-btn--primary">
-              See what&rsquo;s inside &rarr;
-            </Link>
-            <Link href="/lp/wholesaler-deal-pack" className="im-btn im-btn--ghost-on-dark">
-              Wholesaler terms
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS — three columns, sharp cards, no rounded */}
-      <section className="im-band">
-        <div className="im-container im-section">
-          <p className="im-eyebrow">Reviews</p>
-          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-2xl">
-            What clients say after working with Southern Cities.
-          </h2>
-          <div className="mt-12 grid gap-0 md:grid-cols-3 border" style={{ borderColor: 'var(--line-1)' }}>
-            {homepageTestimonials.map((t, i) => (
-              <blockquote
-                key={t.name}
-                className={`bg-white p-8 ${i > 0 ? 'border-t md:border-t-0 md:border-l' : ''}`}
-                style={{ borderColor: 'var(--line-1)' }}
-              >
-                <div className="flex items-center gap-1" style={{ color: 'var(--accent)' }}>
-                  {[1, 2, 3, 4, 5].map((s) => <StarIcon key={s} />)}
-                </div>
-                <p className="mt-5 text-[15px] leading-[1.55]" style={{ color: 'var(--ink-mid)' }}>&ldquo;{t.quote}&rdquo;</p>
-                <footer className="mt-6 pt-4 border-t" style={{ borderColor: 'var(--line-2)' }}>
-                  <p className="im-mono text-[13px] font-bold uppercase tracking-[0.1em]" style={{ color: 'var(--ink-hi)' }}>{t.name}</p>
-                  <p className="text-[12px] mt-1" style={{ color: 'var(--ink-lo)' }}>{t.role}</p>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* GALLERY — big photos, sharp corners, hard captions */}
+      {/* GALLERY */}
       <section className="im-paper">
         <div className="im-container im-section">
           <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
@@ -208,42 +228,28 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-3">
             {galleryPreview.map((item) => (
               <Link key={item.title} href="/gallery" className="group block">
-                <div className="relative aspect-[4/3] overflow-hidden" style={{ borderRadius: 'var(--radius-block)' }}>
-                  <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                  <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
                 </div>
-                <p className="mt-4 im-mono text-[13px] uppercase tracking-[0.08em]" style={{ color: 'var(--ink-hi)' }}>{item.title}</p>
+                <p className="mt-4 text-[13.5px] font-semibold" style={{ color: 'var(--ink-hi)' }}>{item.title}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* STANDARD TAGLINE — one line, big, dark */}
-      <section className="im-shell">
-        <div className="im-container py-16">
-          <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4">
-            <p className="im-display im-display--on-dark text-[1.75rem] sm:text-[2.5rem]" style={{ color: 'var(--accent)' }}>
-              Built to a standard. Priced for real life.
-            </p>
-            <p className="im-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: 'rgba(242,239,231,0.55)' }}>
-              NC General Contractor · License #107724
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* BIG CTA */}
-      <section className="im-shell border-t" style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
-        <div className="im-container im-section text-center">
+      {/* BIG CTA — animated orange radial on deep navy */}
+      <section className="p-cta-band">
+        <div className="im-container im-section text-center p-cta-inner">
           <h2 className="im-display im-display--on-dark text-[2.5rem] sm:text-[4rem] max-w-3xl mx-auto">
-            Ready to move your project <span style={{ color: 'var(--accent)' }}>forward?</span>
+            Ready to move your project <span className="p-gradient-text">forward?</span>
           </h2>
           <p className="im-body im-body--on-dark mx-auto mt-6 max-w-2xl text-lg">
-            Book a free project call to talk through the job, get clarity on the next step, and decide what support makes sense.
+            Book a free project call &mdash; a licensed NC GC will tell you which door to walk through.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link href={CONSULTATION_CTA_HREF} className="im-btn im-btn--primary">
-              Book a Free Project Call &rarr;
+              Book a free call &rarr;
             </Link>
             <a href="tel:+19804737249" className="im-btn im-btn--ghost-on-dark">
               Or call (980) 473-7249

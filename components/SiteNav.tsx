@@ -89,8 +89,8 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
       <nav
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           solid
-            ? 'bg-[#0e0f11] border-b border-white/12'
-            : 'bg-[#0e0f11]/85 backdrop-blur-md border-b border-white/12'
+            ? 'bg-[#08111d] border-b border-white/12'
+            : 'bg-[#08111d]/85 backdrop-blur-md border-b border-white/12'
         }`}
       >
         <div className="container-pro">
@@ -124,7 +124,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                 </div>
 
                 {servicesOpen && (
-                  <div className="absolute left-0 top-full mt-2 w-72 border border-white/12 bg-[#0e0f11] p-2" style={{ borderRadius: '2px' }}>
+                  <div className="absolute left-0 top-full mt-2 w-72 border border-white/12 bg-[#08111d] p-2" style={{ borderRadius: '2px' }}>
                     <p className="px-3 pb-2 pt-2 text-[10.5px] font-bold uppercase tracking-[0.22em] text-orange">Services</p>
                     <div className="space-y-0">
                       {SERVICES_GROUP.children.map((item) => {
@@ -182,7 +182,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
         </div>
 
         {mobileOpen && (
-          <div className="lg:hidden border-t border-white/12 bg-[#0e0f11]">
+          <div className="lg:hidden border-t border-white/12 bg-[#08111d]">
             <div className="container-pro space-y-1 py-5">
               <div className="border border-white/12 bg-white/[0.03]" style={{ borderRadius: '2px' }}>
                 <button
