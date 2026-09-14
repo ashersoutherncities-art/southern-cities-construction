@@ -164,11 +164,19 @@ export default function Home() {
 
               <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 max-w-3xl motion-safe:animate-[heroRise_1200ms_ease-out_0.3s_both]">
                 <Link
-                  href="/deal-pack"
+                  href="/lp/wholesaler-deal-pack"
                   className="group flex flex-col justify-between rounded-xl border border-white/15 bg-white/[0.06] p-5 text-left transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
-                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Wholesalers &amp; investors</span>
-                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Committed rehab prices on deals under contract.</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Wholesalers</span>
+                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Committed rehab price on your deal. $0 upfront, paid at closing.</span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#fa8c41] group-hover:gap-2 transition-all">Enter <span aria-hidden="true">&rarr;</span></span>
+                </Link>
+                <Link
+                  href="/lp/investor-deal-pack"
+                  className="group flex flex-col justify-between rounded-xl border border-white/15 bg-white/[0.06] p-5 text-left transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
+                >
+                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Investors</span>
+                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Know the real number before you buy the deal. $1,997.</span>
                   <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#fa8c41] group-hover:gap-2 transition-all">Enter <span aria-hidden="true">&rarr;</span></span>
                 </Link>
                 <Link
@@ -176,15 +184,7 @@ export default function Home() {
                   className="group flex flex-col justify-between rounded-xl border border-white/15 bg-white/[0.06] p-5 text-left transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
                 >
                   <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Realtors</span>
-                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Numbers and visuals to move listings that need work.</span>
-                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#fa8c41] group-hover:gap-2 transition-all">Enter <span aria-hidden="true">&rarr;</span></span>
-                </Link>
-                <Link
-                  href="/contracting"
-                  className="group flex flex-col justify-between rounded-xl border border-white/15 bg-white/[0.06] p-5 text-left transition-all hover:border-[#fa8c41]/60 hover:bg-white/[0.1] hover:-translate-y-0.5"
-                >
-                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#fa8c41]">Homeowners</span>
-                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Licensed NC GC services for your home.</span>
+                  <span className="mt-2 text-[15px] font-bold leading-snug text-white">Committed rehab price + renderings for listings that need work.</span>
                   <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-bold text-[#fa8c41] group-hover:gap-2 transition-all">Enter <span aria-hidden="true">&rarr;</span></span>
                 </Link>
               </div>
@@ -197,9 +197,9 @@ export default function Home() {
                   Book a Free Project Call <span aria-hidden="true">→</span>
                 </Link>
                 <p className="text-sm font-medium text-white/75">
-                  Not sure where to start?{' '}
-                  <Link href={CONSULTATION_CTA_HREF} className="text-white underline underline-offset-4 hover:text-[#fa8c41]">
-                    Talk through your project.
+                  Homeowner?{' '}
+                  <Link href="/contracting" className="text-white underline underline-offset-4 hover:text-[#fa8c41]">
+                    See our full contracting page.
                   </Link>
                 </p>
               </div>
