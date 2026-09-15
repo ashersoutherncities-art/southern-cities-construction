@@ -8,6 +8,7 @@ import SiteFooter from '@/components/SiteFooter';
 import RealDeals from '@/components/RealDeals';
 import FaqItem from '@/components/landing/FaqItem';
 import FaqJsonLd from '@/components/seo/FaqJsonLd';
+import { SplashCurtain } from '@/components/SplashCurtain';
 
 const CONSULTATION_CTA_HREF = '/start';
 
@@ -103,6 +104,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--paper)', color: 'var(--ink-mid)' }}>
+      <SplashCurtain />
       <SiteNav />
 
       {/* HERO — deep navy shell with cursor-following radial spotlight */}
