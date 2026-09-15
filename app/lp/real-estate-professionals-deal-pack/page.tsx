@@ -104,18 +104,21 @@ export default function RealEstateProfessionalsDealPackPage() {
               For NC Realtors · Lenders · Brokers · #{SITE_CONFIG.license.number}
             </p>
             <h1 className="im-display im-display--on-dark mt-6 text-[2.5rem] sm:text-[3.75rem] lg:text-[4.5rem]">
-              Attach a licensed <span style={{ color: 'var(--accent)' }}>GC&rsquo;s number</span> to your client&rsquo;s deal.
+              $0 upfront. A licensed <span style={{ color: 'var(--accent)' }}>GC&rsquo;s number</span> on your client&rsquo;s deal.
             </h1>
             <p className="im-body im-body--on-dark mt-8 max-w-2xl text-lg">
               Committed rehab price sealed with NC GC license #{SITE_CONFIG.license.number}, plus three photoreal
-              renderings of the finished home, plans, a permit memo, and a market study. The file that moves
-              rehab-needed inventory, underwrites cleaner, and lets a buyer see what it becomes and what it
-              costs to get there.
+              renderings of the finished home, plans, a permit memo, and a market study. The Build-Ready Deal
+              Pack is <span className="text-white font-semibold">$1,997 &mdash; paid at closing out of your
+              commission.</span> Nothing due when we produce the pack.
             </p>
-            <div className="mt-10">
+            <div className="mt-10 flex flex-wrap items-center gap-4">
               <a href="#form" className="im-btn im-btn--primary">
-                Pack a deal &mdash; $1,997 &rarr;
+                Pack a deal &mdash; $0 upfront &rarr;
               </a>
+              <span className="im-mono text-[11.5px] uppercase tracking-[0.14em]" style={{ color: 'rgba(242,239,231,0.6)' }}>
+                No close, no pay
+              </span>
             </div>
           </div>
         </div>
@@ -146,13 +149,13 @@ export default function RealEstateProfessionalsDealPackPage() {
       <section id="form" className="im-container pb-24">
         <div className="grid gap-0 border lg:grid-cols-[1.1fr_1fr]" style={{ borderColor: 'var(--line-1)', background: '#ffffff' }}>
           <div className="p-8 sm:p-10 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--line-1)' }}>
-            <p className="im-eyebrow">What&rsquo;s inside · $1,997</p>
+            <p className="im-eyebrow">What&rsquo;s inside · $1,997 at closing</p>
             <h2 className="im-h2 mt-3 text-[2rem] sm:text-[2.5rem]">
               The Build-Ready Deal Pack
             </h2>
             <p className="mt-5 text-[15.5px] leading-[1.65]" style={{ color: 'var(--ink-mid)' }}>
               A licensed NC GC produces the full pre-construction package on the deal. Attach it to MLS, a
-              buyer packet, a loan file, or an open-house handout.
+              buyer packet, a loan file, or an open-house handout. <span className="font-semibold" style={{ color: 'var(--ink-hi)' }}>$0 upfront &mdash; the $1,997 fee is paid at closing out of your commission.</span> No close, no pay.
             </p>
             <ul className="mt-6 space-y-3 text-[15px] leading-[1.55]" style={{ color: 'var(--ink-mid)' }}>
               {BUILD_READY_CONTENTS.map((c) => (
@@ -175,11 +178,11 @@ export default function RealEstateProfessionalsDealPackPage() {
           <div className="p-8 sm:p-10">
             <LpLeadForm
               serviceSlug="real-estate-professionals-deal-pack"
-              serviceName="Real Estate Professionals Deal Pack — $1,997"
+              serviceName="Real Estate Professionals Deal Pack — $0 upfront · $1,997 at closing"
               source="lp-real-estate-professionals-deal-pack"
               headline="Pack the deal."
-              subhead="Send the property address, your role (realtor / lender / broker), and where the deal is. A licensed NC GC will confirm scope and turnaround on a short call."
-              submitLabel="Order Build-Ready · $1,997"
+              subhead="Send the property address, your role (realtor / lender / broker), and where the deal is. A licensed NC GC will confirm scope + closing-payout terms on a short call — nothing due today."
+              submitLabel="Send my deal — $0 upfront"
               variant="light"
             />
           </div>

@@ -30,14 +30,14 @@ const doors = [
     meta:
       'Committed rehab price plus finished-home renderings and a permit memo — everything a serious buyer or lender needs to move faster with confidence.',
     price: '$1,997',
-    priceNote: 'Per deal · MLS + lender-ready',
+    priceNote: '$0 upfront for realtors · paid from commission at closing',
     href: '/lp/real-estate-professionals-deal-pack',
   },
 ];
 
 const subAudienceLinks = [
   { label: 'Wholesaler-specific terms ($0 upfront)', href: '/lp/wholesaler-deal-pack' },
-  { label: 'Realtor listing package', href: '/lp/realtor-deal-pack' },
+  { label: 'Realtor listing package ($0 upfront)', href: '/lp/realtor-deal-pack' },
 ];
 
 const stats = [
