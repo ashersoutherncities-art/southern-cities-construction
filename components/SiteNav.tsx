@@ -11,7 +11,7 @@ type NavLink = { href: string; label: string };
 type NavGroup = { label: string; href: string; children: NavLink[] };
 
 const SERVICES_GROUP: NavGroup = {
-  label: 'More',
+  label: 'Services',
   href: '/services',
   children: [
     { href: '/services', label: 'All services' },
@@ -96,12 +96,21 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
         }`}
       >
         <div className="container-pro">
-          <div className="flex h-20 lg:h-[84px] items-center justify-between gap-6">
+          <div className="flex h-20 lg:h-[84px] items-center gap-6">
             <Link href="/" className="flex items-center shrink-0" aria-label={SITE_CONFIG.name}>
               <Image src={SITE_CONFIG.logoReversed} alt={SITE_CONFIG.name} width={360} height={140} className="h-12 w-auto md:h-14 lg:h-[60px]" priority />
             </Link>
 
-            <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+            {/* Centered primary tabs */}
+            <div className="hidden lg:flex flex-1 items-center justify-center gap-3 xl:gap-5">
+              {PRIMARY_LINKS.map((link) => {
+                const active = pathname === link.href;
+                return (
+                  <Link key={link.href} href={link.href} className={linkClass(active)}>
+                    {link.label}
+                  </Link>
+                );
+              })}
               <div className="relative" onMouseEnter={openServicesMenu} onMouseLeave={closeServicesMenu}>
                 <div className={`flex items-center ${linkClass(servicesActive)}`}>
                   <Link href={SERVICES_GROUP.href} className="pr-1">
@@ -126,7 +135,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                 </div>
 
                 {servicesOpen && (
-                  <div className="absolute left-0 top-full mt-2 w-72 border border-white/12 bg-[#08111d] p-2" style={{ borderRadius: '2px' }}>
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 border border-white/12 bg-[#08111d] p-2" style={{ borderRadius: '2px' }}>
                     <p className="px-3 pb-2 pt-2 text-[10.5px] font-bold uppercase tracking-[0.22em] text-orange">Services</p>
                     <div className="space-y-0">
                       {SERVICES_GROUP.children.map((item) => {
@@ -141,21 +150,16 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   </div>
                 )}
               </div>
+            </div>
 
-              {PRIMARY_LINKS.map((link) => {
-                const active = pathname === link.href;
-                return (
-                  <Link key={link.href} href={link.href} className={linkClass(active)}>
-                    {link.label}
-                  </Link>
-                );
-              })}
+            {/* Right-aligned actions */}
+            <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
               <CartNavLink compact className="px-2.5 xl:px-3 py-2 text-[12px] uppercase tracking-[0.14em] text-white/70 hover:text-white transition-colors duration-200 whitespace-nowrap inline-flex" />
               <a
                 href={SITE_CONFIG.portalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 inline-flex items-center gap-1.5 border border-white/30 px-3.5 xl:px-4 py-2 text-[11.5px] xl:text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition-all duration-200 whitespace-nowrap hover:border-white hover:bg-white/5"
+                className="inline-flex items-center gap-1.5 border border-white/30 px-3.5 xl:px-4 py-2 text-[11.5px] xl:text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition-all duration-200 whitespace-nowrap hover:border-white hover:bg-white/5"
                 style={{ borderRadius: '2px' }}
               >
                 Portal
@@ -163,7 +167,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
               </a>
-              <Link href="/start" className="ml-2 inline-flex items-center gap-2 bg-orange px-5 xl:px-6 py-2.5 text-[11.5px] xl:text-[12px] font-bold uppercase tracking-[0.14em] text-white transition-all duration-200 whitespace-nowrap hover:bg-orange-500" style={{ borderRadius: '2px' }}>
+              <Link href="/start" className="inline-flex items-center gap-2 bg-orange px-5 xl:px-6 py-2.5 text-[11.5px] xl:text-[12px] font-bold uppercase tracking-[0.14em] text-white transition-all duration-200 whitespace-nowrap hover:bg-orange-500" style={{ borderRadius: '2px' }}>
                 Get Started
                 <span aria-hidden="true">&rarr;</span>
               </Link>
