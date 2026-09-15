@@ -738,7 +738,6 @@ input:focus, textarea:focus, select:focus {
       transparent 65%
     ),
     radial-gradient(70% 55% at 50% 50%, rgba(19, 36, 82, 0.45), transparent 70%);
-  transition: background 200ms cubic-bezier(.2, .7, .1, 1);
   z-index: -1;
   pointer-events: none;
   will-change: background;
@@ -751,7 +750,6 @@ input:focus, textarea:focus, select:focus {
   background-size: 64px 64px;
   mask-image: radial-gradient(circle 300px at var(--mx) var(--my), black 30%, transparent 80%);
   -webkit-mask-image: radial-gradient(circle 300px at var(--mx) var(--my), black 30%, transparent 80%);
-  transition: mask-image 200ms cubic-bezier(.2, .7, .1, 1), -webkit-mask-image 200ms cubic-bezier(.2, .7, .1, 1);
   z-index: -1;
   pointer-events: none;
 }
@@ -864,7 +862,6 @@ input:focus, textarea:focus, select:focus {
     rgba(250, 140, 65, 0.28),
     transparent 55%
   );
-  transition: background 200ms cubic-bezier(.2, .7, .1, 1);
   z-index: 0;
   pointer-events: none;
   will-change: background;

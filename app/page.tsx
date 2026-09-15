@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, MouseEvent as ReactMouseEvent } from 'react';
+import { useState, useRef, useCallback, useEffect, MouseEvent as ReactMouseEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
@@ -67,16 +67,89 @@ const faqs = [
   { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
 ];
 
-/** Update --mx / --my CSS vars on the element as percentages of its own box. */
-function trackMouse(el: HTMLElement, e: ReactMouseEvent) {
-  const rect = el.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  el.style.setProperty('--mx', `${x}%`);
-  el.style.setProperty('--my', `${y}%`);
+/**
+ * Ambient + reactive glow loop for hero-style sections.
+ *
+ * The spotlight (via CSS custom properties --mx / --my) drifts on its
+ * own with a slow Lissajous curve so the section feels alive even
+ * when the cursor is still. When the user moves the mouse over the
+ * section, the target biases toward the cursor; when the mouse goes
+ * idle, the bias decays back to ambient. All motion is skipped under
+ * prefers-reduced-motion.
+ */
+function attachAmbientGlow(el: HTMLElement, opts?: { xRange?: number; yRange?: number; period?: number; ease?: number }) {
+  const reduce =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return () => {};
+
+  const xRange = opts?.xRange ?? 30; // ± percentage points around center
+  const yRange = opts?.yRange ?? 22;
+  const period = opts?.period ?? 9500; // ms for one x-cycle; y is 1.38x this
+  const ease = opts?.ease ?? 0.05; // approach speed toward target (0..1)
+
+  let mouseX = 50;
+  let mouseY = 34;
+  let activity = 0; // 0 = pure ambient · 1 = pure mouse-tracking
+  let lastMouseAt = -Infinity;
+  let currentX = 50;
+  let currentY = 34;
+  const phase = Math.random() * Math.PI * 2;
+  const start = performance.now();
+  let raf = 0;
+  let disposed = false;
+
+  const onMove = (e: MouseEvent) => {
+    const r = el.getBoundingClientRect();
+    mouseX = ((e.clientX - r.left) / r.width) * 100;
+    mouseY = ((e.clientY - r.top) / r.height) * 100;
+    activity = 1;
+    lastMouseAt = performance.now();
+  };
+  const onLeave = () => {
+    // Let the ambient drift take back over gracefully.
+    lastMouseAt = -Infinity;
+  };
+
+  const tick = (t: number) => {
+    if (disposed) return;
+    const dt = t - start;
+
+    // Slow ambient drift — two out-of-phase sines, offset by a random
+    // starting phase so different sections don't move in lockstep.
+    const ambientX = 50 + Math.sin(dt / period + phase) * xRange;
+    const ambientY = 34 + Math.cos(dt / (period * 1.38) + phase * 0.7) * yRange;
+
+    // Decay activity ~2s after the last movement so we glide back to ambient.
+    if (t - lastMouseAt > 120) {
+      activity = Math.max(0, activity - 0.008);
+    }
+
+    const targetX = mouseX * activity + ambientX * (1 - activity);
+    const targetY = mouseY * activity + ambientY * (1 - activity);
+
+    currentX += (targetX - currentX) * ease;
+    currentY += (targetY - currentY) * ease;
+
+    el.style.setProperty('--mx', `${currentX.toFixed(2)}%`);
+    el.style.setProperty('--my', `${currentY.toFixed(2)}%`);
+
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+
+  el.addEventListener('mousemove', onMove);
+  el.addEventListener('mouseleave', onLeave);
+
+  return () => {
+    disposed = true;
+    cancelAnimationFrame(raf);
+    el.removeEventListener('mousemove', onMove);
+    el.removeEventListener('mouseleave', onLeave);
+  };
 }
 
-/** Same, but sets --card-mx / --card-my (for door cards). */
+/** Per-card cursor spotlight (unchanged — no ambient drift on cards). */
 function trackCardMouse(el: HTMLElement, e: ReactMouseEvent) {
   const rect = el.getBoundingClientRect();
   const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -92,12 +165,23 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
-  const onHeroMove = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
-    if (heroRef.current) trackMouse(heroRef.current, e);
+  useEffect(() => {
+    const disposers: Array<() => void> = [];
+    if (heroRef.current) {
+      disposers.push(
+        attachAmbientGlow(heroRef.current, { xRange: 32, yRange: 24, period: 9500 })
+      );
+    }
+    if (ctaRef.current) {
+      disposers.push(
+        // A little slower + smaller amplitude for the bottom CTA so the two
+        // sections don't feel synchronised.
+        attachAmbientGlow(ctaRef.current, { xRange: 22, yRange: 18, period: 12500 })
+      );
+    }
+    return () => disposers.forEach((d) => d());
   }, []);
-  const onCtaMove = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
-    if (ctaRef.current) trackMouse(ctaRef.current, e);
-  }, []);
+
   const onDoorMove = useCallback((e: ReactMouseEvent<HTMLAnchorElement>) => {
     trackCardMouse(e.currentTarget, e);
   }, []);
@@ -107,12 +191,9 @@ export default function Home() {
       <SplashCurtain />
       <SiteNav />
 
-      {/* HERO — deep navy shell with cursor-following radial spotlight */}
-      <section
-        ref={heroRef}
-        className="p-hero"
-        onMouseMove={onHeroMove}
-      >
+      {/* HERO — deep navy shell with ambient-drifting orange spotlight
+         that biases toward the cursor when the user moves */}
+      <section ref={heroRef} className="p-hero">
         <div className="p-hero-bg" aria-hidden="true" />
         <div className="p-hero-grid" aria-hidden="true" />
         <div className="im-container pt-32 sm:pt-40 pb-20 sm:pb-24 relative">
@@ -257,12 +338,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BIG CTA — cursor-following radial glow on deep navy */}
-      <section
-        ref={ctaRef}
-        className="p-cta-band"
-        onMouseMove={onCtaMove}
-      >
+      {/* BIG CTA — same ambient + cursor-reactive glow, slower cadence */}
+      <section ref={ctaRef} className="p-cta-band">
         <div className="im-container im-section text-center p-cta-inner">
           <h2 className="im-display im-display--on-dark text-[2.5rem] sm:text-[4rem] max-w-3xl mx-auto">
             Ready to move your project <span className="p-gradient-text">forward?</span>
