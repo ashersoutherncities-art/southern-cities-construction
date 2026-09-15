@@ -873,57 +873,54 @@ input:focus, textarea:focus, select:focus {
 
 /* ==========================================================================
    SPLASH CURTAIN — Brasfield & Gorrie-inspired branded intro
-   The component holds the curtain for ~950ms (entry), then flips
-   .splash-curtain-exit which triggers the upward-slide + fade + rule
-   sweep. Reduced motion users skip the whole thing (handled in JS).
    ========================================================================== */
 
-@keyframes splash-rise {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes splash-rule-in {
-  from { transform: scaleX(0); opacity: 0; }
-  to   { transform: scaleX(1); opacity: 1; }
-}
-
 .splash-curtain {
-  /* Slight overlay grain + soft radial for depth so it doesn't read flat */
-  background-image:
-    radial-gradient(60% 45% at 82% 12%, rgba(234, 104, 39, 0.22), transparent 55%),
-    radial-gradient(50% 40% at 8% 88%, rgba(28, 50, 115, 0.55), transparent 60%);
-  will-change: transform, opacity, clip-path;
-  transform-origin: center top;
-  transition:
-    transform 700ms cubic-bezier(.7, .0, .2, 1),
-    opacity 500ms ease 220ms,
-    clip-path 700ms cubic-bezier(.7, .0, .2, 1);
-  clip-path: inset(0 0 0 0);
+  transform: translateY(0);
+  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
+.splash-curtain-exit {
+  transform: translateY(-100%);
 }
 
 .splash-logo {
-  animation: splash-rise 620ms cubic-bezier(.2, .7, .1, 1) 60ms both;
+  animation: splash-flash 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform, filter;
 }
 
 .splash-rule {
-  transform-origin: left center;
-  animation: splash-rule-in 520ms cubic-bezier(.2, .7, .1, 1) 380ms both;
+  transform-origin: center;
+  animation: splash-rule-grow 900ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
 }
 
-/* Exit — pull the curtain up + fade the plate underneath */
-.splash-curtain-exit {
-  transform: translateY(-100%);
-  opacity: 0;
-  clip-path: inset(0 0 100% 0);
+@keyframes splash-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+    filter: brightness(1.6) saturate(0.4);
+  }
+  55% {
+    opacity: 1;
+    filter: brightness(1.45) saturate(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes splash-rule-grow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

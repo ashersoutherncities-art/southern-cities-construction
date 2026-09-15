@@ -1,6 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { SITE_CONFIG } from '@/lib/site-config';
 
 interface SplashProps {
   onReveal?: () => void;
@@ -46,17 +48,15 @@ export function SplashCurtain({ onReveal }: SplashProps) {
       }`}
     >
       <div className="splash-logo flex flex-col items-center px-6 text-center select-none">
-        {/* Brand Monogram Badge */}
-        <span className="grid size-16 place-items-center bg-[#EA6827] text-white font-bold text-2xl sm:size-20 sm:text-3xl tracking-tight">
-          SC
-        </span>
-
-        {/* Wordmark */}
-        <p className="mt-7 text-4xl font-extrabold uppercase leading-[0.9] sm:text-6xl tracking-tight">
-          Southern Cities
-          <br />
-          <span className="text-white/60 font-semibold">Construction</span>
-        </p>
+        {/* Official SCC wordmark — reversed variant for dark ground */}
+        <Image
+          src={SITE_CONFIG.logoReversed}
+          alt={SITE_CONFIG.name}
+          width={720}
+          height={280}
+          priority
+          className="h-auto w-[280px] sm:w-[420px] md:w-[500px]"
+        />
 
         {/* Architectural Divider */}
         <span className="splash-rule mt-8 block h-px w-40 bg-white/30" aria-hidden="true" />
