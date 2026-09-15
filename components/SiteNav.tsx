@@ -11,23 +11,25 @@ type NavLink = { href: string; label: string };
 type NavGroup = { label: string; href: string; children: NavLink[] };
 
 const SERVICES_GROUP: NavGroup = {
-  label: 'Services',
+  label: 'More',
   href: '/services',
   children: [
-    { href: '/services', label: 'Services Overview' },
-    { href: '/services/all', label: 'All Services & Pricing' },
-    { href: '/platform', label: 'Investor Execution Platform' },
+    { href: '/services', label: 'All services' },
+    { href: '/platform', label: 'Execution & full GC' },
+    { href: '/contracting', label: 'Full contracting' },
+    { href: '/services/realtors', label: 'For realtors' },
+    { href: '/deal-desk', label: 'Deal Desk' },
+    { href: '/resources', label: 'Resources' },
+    { href: '/blog', label: 'Blog' },
   ],
 };
 
+// Primary nav focused on the ONE flagship offer. Everything else lives
+// under "More" (dropdown) so the primary path reads as a single funnel:
+// Deal Pack → Gallery / Real deals → Get started.
 const PRIMARY_LINKS: NavLink[] = [
   { href: '/deal-pack', label: 'Deal Pack' },
-  { href: '/deal-desk', label: 'Deal Desk' },
-  { href: '/contracting', label: 'Full GC' },
-  { href: '/services/realtors', label: 'Realtors' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/resources', label: 'Resources' },
-  { href: '/blog', label: 'Blog' },
 ];
 
 export default function SiteNav({ variant = 'transparent' }: { variant?: 'transparent' | 'solid' }) {
