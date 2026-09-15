@@ -3,16 +3,16 @@ import LpLeadForm from '@/components/LpLeadForm';
 import { SITE_CONFIG } from '@/lib/site-config';
 
 export const metadata = {
-  title: 'Know the Real Number Before You Buy — Build-Ready Deal Pack ($1,997) | Southern Cities Construction',
+  title: 'For NC Realtors, Lenders + Brokers — Committed GC Rehab Price + Renderings | Southern Cities Construction',
   description:
-    'For NC investors: a licensed NC GC (#107724) puts a committed rehab price on your deal, sealed and transferable — before you buy it. Protect your capital.',
-  alternates: { canonical: '/lp/investor-deal-pack' },
+    'For real estate professionals: attach a licensed NC GC (#107724) committed rehab price and finished-home renderings to your client’s transaction. Realtors · Lenders · Brokers.',
+  alternates: { canonical: '/lp/real-estate-professionals-deal-pack' },
   openGraph: {
     type: 'website',
-    url: '/lp/investor-deal-pack',
-    title: 'Know the Real Number Before You Buy — Build-Ready Deal Pack ($1,997)',
+    url: '/lp/real-estate-professionals-deal-pack',
+    title: 'For NC Realtors, Lenders + Brokers — Committed GC Rehab Price + Renderings',
     description:
-      'A licensed NC GC puts a committed rehab price on your deal, sealed with the license, before you buy it. $1,997.',
+      'Attach a licensed NC GC committed rehab price and renderings of the finished home to any client transaction that involves rehab.',
     siteName: 'Southern Cities Construction',
   },
 };
@@ -29,10 +29,22 @@ const BUILD_READY_CONTENTS = [
   'Execution risk report',
 ];
 
-const CAPITAL_POINTS = [
-  { title: 'Protect the capital', body: 'A licensed GC signs off on the real number before you commit. No pro-forma rehab budgets that miss by 40%.' },
-  { title: 'A price you can inherit', body: 'The Commitment Certificate is transferable once — if you later sell to another investor, the GC and the price go with it.' },
-  { title: 'Concealed conditions only', body: 'Change orders apply only to concealed or hidden conditions found during work. Not renegotiation of the whole scope.' },
+const ROLE_ANGLES = [
+  {
+    role: 'Realtors',
+    title: 'Move listings that need work.',
+    body: 'Attach the committed price + renderings to your listing. Buyers see the finished product and what it costs to get there — before they walk.',
+  },
+  {
+    role: 'Lenders',
+    title: 'Underwrite the rehab, not a hope.',
+    body: 'A GC-sealed number for the construction line. Draw schedule template + permit memo + pre-closing sweep — the file arrives underwriteable.',
+  },
+  {
+    role: 'Brokers',
+    title: 'Close deals other brokers can’t.',
+    body: 'Rehab-needed inventory becomes sellable when there is a real construction number behind it. Attach the pack to your BOV, your buyer packet, or your CRE proposal.',
+  },
 ];
 
 function LpHeader() {
@@ -80,7 +92,7 @@ function LpFooter() {
   );
 }
 
-export default function InvestorDealPackPage() {
+export default function RealEstateProfessionalsDealPackPage() {
   return (
     <main className="min-h-screen" style={{ background: 'var(--paper)' }}>
       {/* HERO */}
@@ -89,41 +101,42 @@ export default function InvestorDealPackPage() {
         <div className="relative im-container">
           <div className="max-w-3xl">
             <p className="im-eyebrow im-eyebrow--on-dark">
-              For NC investors &mdash; fix-and-flip · buy-and-hold · wholesalers · #{SITE_CONFIG.license.number}
+              For NC Realtors · Lenders · Brokers · #{SITE_CONFIG.license.number}
             </p>
-            <h1 className="im-display im-display--on-dark mt-6 text-[2.75rem] sm:text-[4rem] lg:text-[5rem]">
-              Know the <span style={{ color: 'var(--accent)' }}>real rehab number</span> before you buy.
+            <h1 className="im-display im-display--on-dark mt-6 text-[2.5rem] sm:text-[3.75rem] lg:text-[4.5rem]">
+              Attach a licensed <span style={{ color: 'var(--accent)' }}>GC&rsquo;s number</span> to your client&rsquo;s deal.
             </h1>
             <p className="im-body im-body--on-dark mt-8 max-w-2xl text-lg">
-              Most GCs won&rsquo;t review a deal you don&rsquo;t own yet.
-              <span className="text-white font-semibold"> We will.</span> A licensed NC General Contractor puts
-              a <span style={{ color: 'var(--accent)' }}>committed rehab price</span> on the deal in writing,
-              sealed with the license, before you commit your capital &mdash; whether you&rsquo;re holding it,
-              flipping it, or assigning it as a wholesaler.
-            </p>
-            <p className="mt-4 im-mono text-[12px] uppercase tracking-[0.14em]" style={{ color: 'rgba(242,239,231,0.55)' }}>
-              Wholesaler? Same pack, <a href="/lp/wholesaler-deal-pack" className="underline underline-offset-4" style={{ color: 'var(--accent)' }}>$0-upfront terms &rarr;</a>
+              Committed rehab price sealed with NC GC license #{SITE_CONFIG.license.number}, plus three photoreal
+              renderings of the finished home, plans, a permit memo, and a market study. The file that moves
+              rehab-needed inventory, underwrites cleaner, and lets a buyer see what it becomes and what it
+              costs to get there.
             </p>
             <div className="mt-10">
               <a href="#form" className="im-btn im-btn--primary">
-                Get my deal packed &mdash; $1,997 &rarr;
+                Pack a deal &mdash; $1,997 &rarr;
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHY */}
+      {/* ROLE-BY-ROLE ANGLE */}
       <section className="im-container py-16 sm:py-20">
-        <div className="grid gap-0 sm:grid-cols-3 border" style={{ borderColor: 'var(--line-1)' }}>
-          {CAPITAL_POINTS.map((p, i) => (
+        <p className="im-eyebrow">One pack. Three ways in.</p>
+        <h2 className="im-h2 mt-4 text-[2rem] sm:text-[2.75rem] max-w-3xl">
+          Realtors, lenders, brokers &mdash; same pack, different attach point.
+        </h2>
+        <div className="grid gap-0 sm:grid-cols-3 border mt-10" style={{ borderColor: 'var(--line-1)' }}>
+          {ROLE_ANGLES.map((r, i) => (
             <div
-              key={p.title}
+              key={r.role}
               className={`bg-white p-8 ${i > 0 ? 'border-t sm:border-t-0 sm:border-l' : ''}`}
               style={{ borderColor: 'var(--line-1)' }}
             >
-              <p className="im-eyebrow">{p.title}</p>
-              <p className="mt-4 text-[15px] leading-[1.65]" style={{ color: 'var(--ink-mid)' }}>{p.body}</p>
+              <p className="im-eyebrow">{r.role}</p>
+              <p className="mt-3 font-black text-[1.15rem] leading-snug tracking-[-0.01em]" style={{ color: 'var(--ink-hi)' }}>{r.title}</p>
+              <p className="mt-3 text-[14.5px] leading-[1.65]" style={{ color: 'var(--ink-mid)' }}>{r.body}</p>
             </div>
           ))}
         </div>
@@ -138,8 +151,8 @@ export default function InvestorDealPackPage() {
               The Build-Ready Deal Pack
             </h2>
             <p className="mt-5 text-[15.5px] leading-[1.65]" style={{ color: 'var(--ink-mid)' }}>
-              A licensed NC GC produces the full pre-construction package on your deal. Everything you need
-              to underwrite it, price it, and know what the rehab will actually cost.
+              A licensed NC GC produces the full pre-construction package on the deal. Attach it to MLS, a
+              buyer packet, a loan file, or an open-house handout.
             </p>
             <ul className="mt-6 space-y-3 text-[15px] leading-[1.55]" style={{ color: 'var(--ink-mid)' }}>
               {BUILD_READY_CONTENTS.map((c) => (
@@ -153,19 +166,19 @@ export default function InvestorDealPackPage() {
               <p className="im-eyebrow">Commitment Certificate</p>
               <p className="mt-2 text-[14.5px] leading-[1.6]" style={{ color: 'var(--ink-mid)' }}>
                 Rehab price is committed in writing, sealed with NC GC license #{SITE_CONFIG.license.number},
-                and transferable once. 30-day expiry from issue. Change orders apply only to concealed or
-                hidden conditions discovered during work.
+                and transferable once from your client to the end buyer at closing. 30-day expiry from issue.
+                Change orders apply only to concealed or hidden conditions discovered during work.
               </p>
             </div>
           </div>
 
           <div className="p-8 sm:p-10">
             <LpLeadForm
-              serviceSlug="investor-deal-pack"
-              serviceName="Investor Deal Pack — $1,997"
-              source="lp-investor-deal-pack"
-              headline="Get the real number."
-              subhead="Send the property address and what you know so far. A licensed NC GC will confirm scope and turnaround on a short call."
+              serviceSlug="real-estate-professionals-deal-pack"
+              serviceName="Real Estate Professionals Deal Pack — $1,997"
+              source="lp-real-estate-professionals-deal-pack"
+              headline="Pack the deal."
+              subhead="Send the property address, your role (realtor / lender / broker), and where the deal is. A licensed NC GC will confirm scope and turnaround on a short call."
               submitLabel="Order Build-Ready · $1,997"
               variant="light"
             />

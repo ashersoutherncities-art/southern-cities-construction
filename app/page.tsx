@@ -14,29 +14,30 @@ const CONSULTATION_CTA_HREF = '/start';
 
 const doors = [
   {
-    label: 'Wholesalers',
-    title: 'Committed rehab price on your deal.',
-    meta: 'A licensed NC GC prices your assignment — sealed with the license, transferable to your end buyer at closing.',
-    price: '$0',
-    priceNote: 'upfront · paid at closing · no close, no pay',
-    href: '/lp/wholesaler-deal-pack',
-  },
-  {
-    label: 'Investors',
+    label: 'For investors',
+    sub: 'Fix-and-flip · buy-and-hold · wholesalers',
     title: 'Know the real number before you buy.',
-    meta: 'Full pre-construction package on your deal — plans, renderings, scope, permits, and a committed rehab price.',
+    meta:
+      'A committed rehab price sealed with the NC GC license — the number you can underwrite off, hand your lender, or transfer to your end buyer at closing.',
     price: '$1,997',
-    priceNote: 'Build-Ready Deal Pack · flagship',
+    priceNote: '$0 upfront for wholesalers · paid at closing',
     href: '/lp/investor-deal-pack',
   },
   {
-    label: 'Realtors',
-    title: 'Move listings that need work.',
-    meta: 'Attach a committed rehab price and three photoreal renderings of the finished home to your listing.',
+    label: 'For real estate professionals',
+    sub: 'Realtors · lenders · brokers',
+    title: 'Attach a licensed GC to your client’s deal.',
+    meta:
+      'Committed rehab price plus finished-home renderings and a permit memo — everything a serious buyer or lender needs to move faster with confidence.',
     price: '$1,997',
-    priceNote: 'Per listing · MLS-ready package',
-    href: '/lp/realtor-deal-pack',
+    priceNote: 'Per deal · MLS + lender-ready',
+    href: '/lp/real-estate-professionals-deal-pack',
   },
+];
+
+const subAudienceLinks = [
+  { label: 'Wholesaler-specific terms ($0 upfront)', href: '/lp/wholesaler-deal-pack' },
+  { label: 'Realtor listing package', href: '/lp/realtor-deal-pack' },
 ];
 
 const stats = [
@@ -199,7 +200,7 @@ export default function Home() {
         <div className="im-container pt-32 sm:pt-40 pb-20 sm:pb-24 relative">
           <span className="p-eyebrow-pill">
             <span className="p-eyebrow-dot" aria-hidden="true" />
-            Committed rehab prices · NC statewide
+            For NC investors + real estate professionals · #107724
           </span>
           <h1 className="im-display im-display--on-dark mt-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] max-w-5xl">
             A licensed NC GC&rsquo;s <span className="p-gradient-text">committed rehab price</span> on your deal &mdash; before you buy it.
@@ -238,17 +239,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DOORS — three cards, each with its own cursor-following spotlight */}
+      {/* DOORS — two-audience umbrella (Investors · RE Professionals) */}
       <section className="im-paper">
         <div className="im-container im-section">
-          <p className="im-eyebrow">Pick your door</p>
-          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-2xl">
-            Three ways in. Each one goes straight to the offer.
+          <p className="im-eyebrow">Who this is for</p>
+          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
+            Two audiences. One committed rehab price.
           </h2>
           <p className="im-body mt-6 max-w-2xl text-lg">
-            Different audiences, different terms &mdash; same licensed GC on paper.
+            Built for NC <b style={{ color: 'var(--ink-hi)' }}>investors</b> &mdash; including wholesalers assigning
+            contracts &mdash; and for the <b style={{ color: 'var(--ink-hi)' }}>real estate professionals</b> who
+            serve them: realtors, lenders, and brokers.
           </p>
-          <div className="im-doors mt-12">
+          <div className="im-doors mt-12" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
             {doors.map((d) => (
               <Link
                 key={d.label}
@@ -258,17 +261,29 @@ export default function Home() {
               >
                 <div>
                   <span className="im-door__label">{d.label}</span>
-                  <p className="im-door__title">{d.title}</p>
+                  <p className="im-mono text-[11px] mt-1" style={{ color: 'var(--ink-lo)', letterSpacing: '0.06em' }}>{d.sub}</p>
+                  <p className="im-door__title mt-3">{d.title}</p>
                   <p className="im-door__meta">{d.meta}</p>
                 </div>
                 <div className="mt-4 pt-4 border-t border-dashed" style={{ borderColor: 'var(--line-2)' }}>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 flex-wrap">
                     <span className="text-[1.75rem] font-black tracking-[-0.02em]" style={{ color: 'var(--ink-hi)' }}>{d.price}</span>
                     <span className="im-mono text-[11px] uppercase tracking-[0.06em]" style={{ color: 'var(--ink-lo)' }}>{d.priceNote}</span>
                   </div>
                   <span className="im-door__cta mt-4">Enter &rarr;</span>
                 </div>
               </Link>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13.5px]" style={{ color: 'var(--ink-lo)' }}>
+            <span className="im-mono text-[11px] uppercase tracking-[0.14em]">Direct paths</span>
+            {subAudienceLinks.map((l, i) => (
+              <span key={l.href} className="flex items-center gap-4">
+                {i > 0 && <span aria-hidden="true" style={{ color: 'var(--line-1)' }}>·</span>}
+                <Link href={l.href} className="underline underline-offset-4 hover:text-orange" style={{ color: 'var(--ink-mid)' }}>
+                  {l.label} &rarr;
+                </Link>
+              </span>
             ))}
           </div>
         </div>
