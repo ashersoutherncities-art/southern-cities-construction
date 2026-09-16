@@ -10,17 +10,19 @@ import { SITE_CONFIG } from '@/lib/site-config';
 type NavLink = { href: string; label: string };
 type NavGroup = { label: string; href: string; children: NavLink[] };
 
+// Dropdown organized by avatar (who is this for?) rather than by
+// service category. The /services page is the avatar-router hub.
 const SERVICES_GROUP: NavGroup = {
   label: 'Services',
   href: '/services',
   children: [
-    { href: '/services', label: 'All services' },
-    { href: '/platform', label: 'Execution & full GC' },
-    { href: '/contracting', label: 'Full contracting' },
-    { href: '/services/realtors', label: 'For realtors' },
-    { href: '/deal-desk', label: 'Deal Desk' },
-    { href: '/resources', label: 'Resources' },
-    { href: '/blog', label: 'Blog' },
+    { href: '/services', label: 'All roles overview' },
+    { href: '/lp/investor-deal-pack', label: 'For investors' },
+    { href: '/lp/wholesaler-deal-pack', label: 'For wholesalers' },
+    { href: '/lp/realtor-deal-pack', label: 'For realtors' },
+    { href: '/lp/real-estate-professionals-deal-pack', label: 'For lenders + brokers' },
+    { href: '/contracting', label: 'For homeowners' },
+    { href: '/lp/rehab-budget-range-execution-risk-snapshot', label: 'Free rehab tool' },
   ],
 };
 
