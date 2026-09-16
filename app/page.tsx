@@ -240,7 +240,7 @@ export default function Home() {
       </section>
 
       {/* DOORS — two-audience umbrella (Investors · RE Professionals) */}
-      <section className="im-paper">
+      <section className="im-paper p-reveal">
         <div className="im-container im-section">
           <p className="im-eyebrow">Who this is for</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
@@ -290,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* STATS BAR — four numbers with orange left-rules */}
-      <section className="border-y" style={{ borderColor: 'var(--line-2)', background: '#ffffff' }}>
+      <section className="border-y p-reveal" style={{ borderColor: 'var(--line-2)', background: '#ffffff' }}>
         <div className="im-container py-14">
           <div className="p-stats">
             {stats.map((s) => (
@@ -304,10 +304,10 @@ export default function Home() {
       </section>
 
       {/* REAL DEALS */}
-      <RealDeals />
+      <div className="p-reveal"><RealDeals /></div>
 
       {/* TESTIMONIAL GRID — 3 cards, hover lift */}
-      <section className="im-band">
+      <section className="im-band p-reveal">
         <div className="im-container im-section">
           <p className="im-eyebrow">Reviews</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-2xl">
@@ -327,7 +327,7 @@ export default function Home() {
       </section>
 
       {/* GALLERY */}
-      <section className="im-paper">
+      <section className="im-paper p-reveal">
         <div className="im-container im-section">
           <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
             <div>
@@ -374,7 +374,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="im-band">
+      <section className="im-band p-reveal">
         <FaqJsonLd items={faqs} />
         <div className="im-container im-section max-w-4xl">
           <p className="im-eyebrow">FAQ</p>

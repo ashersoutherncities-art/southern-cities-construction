@@ -869,6 +869,80 @@ input:focus, textarea:focus, select:focus {
 .p-cta-inner { position: relative; z-index: 1; }
 
 /* ==========================================================================
+   SEAMLESS PASS — scroll-reveal, section-blend gradients, softer edges
+   ========================================================================== */
+
+/* Scroll-triggered reveal — components/ClientReveal.tsx flips .is-in
+   when the element enters the viewport. Sections and cards ease into
+   place instead of appearing on hard breaks. */
+.p-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 800ms cubic-bezier(.2, .7, .1, 1),
+    transform 800ms cubic-bezier(.2, .7, .1, 1);
+  will-change: opacity, transform;
+}
+.p-reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .p-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none !important;
+  }
+}
+
+/* Section blends — soft fades where dark shell meets paper (and vice
+   versa) so the transitions feel like one continuous surface with
+   sunlight moving across it, not a stack of stacked panels. */
+.p-hero { position: relative; }
+.p-hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0; height: 96px;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 17, 29, 0) 0%,
+    rgba(246, 242, 236, 0) 55%,
+    var(--paper) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.p-cta-band { position: relative; }
+.p-cta-band::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0; height: 96px;
+  background: linear-gradient(
+    180deg,
+    var(--paper) 0%,
+    rgba(246, 242, 236, 0) 55%,
+    rgba(8, 17, 29, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+/* Same treatment on the bottom of the CTA band so it fades back into
+   whatever section follows (usually the FAQ on paper-2). */
+.p-cta-band .p-cta-inner { position: relative; z-index: 1; }
+.p-cta-band::before,
+.p-cta-band::after { z-index: 0; }
+
+/* Soft nav — the fixed nav no longer draws a hard 1px underline on
+   scroll; it uses a whisper-thin shadow instead so the hero bleeds up
+   into it. */
+nav.p-nav-soft {
+  border-bottom: 0 !important;
+  box-shadow: 0 12px 40px -24px rgba(8, 17, 29, 0.55),
+              0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+/* ==========================================================================
    SPLASH CURTAIN — Brasfield & Gorrie-inspired branded intro
    ========================================================================== */
 

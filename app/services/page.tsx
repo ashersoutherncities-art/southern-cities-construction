@@ -171,7 +171,7 @@ export default function ServicesOverviewPage() {
       </section>
 
       {/* AVATAR ROUTER */}
-      <section id="roles" className="im-paper">
+      <section id="roles" className="im-paper p-reveal">
         <div className="im-container im-section">
           <p className="im-eyebrow">By role</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
@@ -208,7 +208,7 @@ export default function ServicesOverviewPage() {
       </section>
 
       {/* SIMPLE TOOL — free rehab snapshot */}
-      <section className="im-band">
+      <section className="im-band p-reveal">
         <div className="im-container im-section max-w-5xl">
           <div className="grid gap-0 border lg:grid-cols-[1fr_auto]" style={{ borderColor: 'var(--line-1)', background: '#ffffff' }}>
             <div className="p-8 sm:p-10">

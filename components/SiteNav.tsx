@@ -93,8 +93,8 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
       <nav
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           solid
-            ? 'bg-[#08111d] border-b border-white/12'
-            : 'bg-[#08111d]/85 backdrop-blur-md border-b border-white/12'
+            ? 'bg-[#08111d] p-nav-soft'
+            : 'bg-[#08111d]/85 backdrop-blur-md p-nav-soft'
         }`}
       >
         <div className="container-pro">
