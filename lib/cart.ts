@@ -349,7 +349,7 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     shortName: 'Build-Ready Deal Pack',
     price: 199700,
     priceLabel: '$1,997 per deal',
-    description: 'Everything in Bid-Ready PLUS floor plans + design renderings + a design mood board + a materials & furniture report + a local market report (target ARV + finished-product direction) + 3 vetted sub-trade quotes per major trade + a local vendor list with contacts + draw schedule template + pre-closing open-permit sweep + a permit path (every permit identified up front) + a finance-partner referral. The shovel-ready package end-investors expect for $40K+ assignment fees — and we commit to do the work at the price we write. 3–4 business day turnaround. NC GC License #107724.',
+    description: 'Committed rehab price in writing, sealed with NC GC license #107724 and transferable once to the end buyer. Ships with as-built + future-state plans, three photoreal renderings of the finished home, a market study, an initial materials list, a vendor list with drive time, a permit memo, and an execution risk report. 3–4 business day turnaround. NC GC License #107724.',
     checkoutAmount: '1997',
   },
   'deal-pack-site-scan': {

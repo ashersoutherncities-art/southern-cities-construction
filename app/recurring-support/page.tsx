@@ -63,7 +63,7 @@ const recurringSections: RecurringSection[] = [
       {
         name: 'Project Support Retainer',
         tag: 'Higher-touch',
-        price: 'Starting at $2,500/mo',
+        price: 'Custom quote (monthly)',
         who: 'Higher-volume operators with several active jobs.',
         problem: 'Best when you need more ongoing review capacity every month.',
         creditSummary: 'Includes up to 6 reviews each month.',

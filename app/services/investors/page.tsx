@@ -248,7 +248,7 @@ const supportBundles = [
   {
     label: 'Before You Start',
     title: 'Project Setup Bundle',
-    price: 'Starting at $2,500',
+    price: 'Custom quote',
     includes: ['Scope prepared', 'Timeline built', 'Permit prep', 'Bid coordination', 'Cashflow schedule'],
     cta: 'View Details',
     href: '/lp/project-setup-bundle',

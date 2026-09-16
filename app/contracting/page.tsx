@@ -2,6 +2,17 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import TrustStrip from '@/components/TrustStrip';
+import FaqItem from '@/components/landing/FaqItem';
+import FaqJsonLd from '@/components/seo/FaqJsonLd';
+
+const homeownerFaqs = [
+  { question: 'What types of home projects do you handle?', answer: 'Full renovations, additions, ground-up residential builds, and permit-heavy remodels across North Carolina — plus investor rehabs and turn projects when a licensed GC needs to run the job.' },
+  { question: 'Do you only work on full construction jobs?', answer: 'No. Some homeowners start with a project review, budget review, or permit-path help before committing to full contracting. We can size the engagement to where the project actually is.' },
+  { question: 'What happens on the free project call?', answer: 'We talk through the property, the scope, the roadblocks, and what next step actually makes sense — full contracting, a smaller support engagement, or nothing at all.' },
+  { question: 'Do you work with homeowners, not just investors?', answer: 'Yes. Homeowners, investors, developers, and landowners. The engagement models (Cost-Plus a Fixed Fee, GMP) work for owner-occupied renovations the same way they work for investor rehabs.' },
+  { question: 'Can you help before permits or contractor selection?', answer: 'Yes — that is one of the biggest reasons homeowners call us. We help clarify scope, budget, permits, and the path forward before the job gets more expensive to fix.' },
+  { question: 'How do I know which engagement model is right for me?', answer: 'Cost-Plus a Fixed Fee suits evolving scopes and renovations where conditions are unknown until walls open. GMP suits ground-up builds and projects where a lender or fixed budget needs a hard ceiling. On the intake call we walk through both.' },
+];
 
 export const metadata = {
   title: 'Full Contracting — Licensed NC General Contractor | Southern Cities Construction',
@@ -263,6 +274,27 @@ export default function ContractingPage() {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ — homeowner questions moved off the homepage per the wholesaler/investor split */}
+      <section className="bg-stone-50 py-16 sm:py-20">
+        <FaqJsonLd items={homeownerFaqs} />
+        <div className="container-pro max-w-4xl">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">FAQ</p>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.025em] text-navy sm:text-4xl">
+              Homeowner questions, answered.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-stone-600">
+              Straight answers to what homeowners usually ask before starting a renovation, addition, or ground-up build.
+            </p>
+          </div>
+          <div className="mt-10 space-y-3">
+            {homeownerFaqs.map((faq, idx) => (
+              <FaqItem key={faq.question} faq={{ q: faq.question, a: faq.answer }} defaultOpen={idx === 0} />
+            ))}
           </div>
         </div>
       </section>

@@ -16,9 +16,9 @@ const deals: Deal[] = [
     type: 'Builder-grade home',
     featured: true,
     stats: [
-      { label: 'Under contract', value: '$130k' },
-      { label: 'Wholesale assignment', value: '$202k' },
-      { label: 'GC rehab budget', value: '$30k' },
+      { label: 'Contract price', value: '$130k' },
+      { label: 'Assignment (buyer) price', value: '$202k' },
+      { label: 'Rehab budget', value: '$30k' },
       { label: 'ARV', value: '$275k' },
     ],
     result:
@@ -28,20 +28,20 @@ const deals: Deal[] = [
     location: 'Havelock, NC',
     type: 'Brick home · 20 min from the beach',
     stats: [
-      { label: 'Under contract', value: '$125k' },
-      { label: 'Wholesale assignment', value: '$180k' },
-      { label: 'GC rehab budget', value: '$35k' },
+      { label: 'Contract price', value: '$125k' },
+      { label: 'Assignment (buyer) price', value: '$180k' },
+      { label: 'Rehab budget', value: '$35k' },
       { label: 'ARV', value: '$275k' },
     ],
-    result: 'Cosmetic rehab on GC-verified numbers backed a clean $55k wholesale spread.',
+    result: 'Cosmetic rehab on a committed rehab price backed a clean $55k wholesale spread.',
   },
   {
     location: 'Lenoir, NC',
     type: 'Farmhouse',
     stats: [
-      { label: 'Under contract', value: '$50k' },
-      { label: 'Wholesale assignment', value: '$90k' },
-      { label: 'GC rehab budget', value: '$100k' },
+      { label: 'Contract price', value: '$50k' },
+      { label: 'Assignment (buyer) price', value: '$90k' },
+      { label: 'Rehab budget', value: '$100k' },
       { label: 'ARV', value: '$380k' },
     ],
     result: 'Under contract at $50k and assigned to a GC buyer at $90k against a $380k ARV.',
@@ -71,11 +71,11 @@ export default function RealDeals({ theme = 'light' }: { theme?: 'light' | 'dark
         <div className="max-w-3xl">
           <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Real deals</p>
           <h2 className={`mt-3 text-4xl font-black tracking-[-0.03em] sm:text-5xl ${heading}`}>
-            Real NC deals. Real GC-verified numbers.
+            Real NC deals. Committed prices we stood behind.
           </h2>
           <p className={`mt-4 text-lg leading-relaxed ${intro}`}>
-            Actual properties we ran the numbers on and stood behind. Here&rsquo;s what each deal looked like — and what the
-            work actually cost.
+            Actual NC properties. Each deal shows contract price, assignment (buyer) price, rehab budget,
+            and ARV — the four numbers a buyer or lender needs to see the math.
           </p>
         </div>
 
@@ -84,11 +84,11 @@ export default function RealDeals({ theme = 'light' }: { theme?: 'light' | 'dark
             <article key={d.location} className={`flex flex-col rounded-2xl border ${cardBg} ${cardBorder(!!d.featured)} p-6`}>
               <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#fa8c41]">{d.location}</p>
               <h3 className={`mt-1 text-lg font-extrabold tracking-tight ${strong}`}>{d.type}</h3>
-              <dl className={`mt-5 grid grid-cols-2 gap-x-4 gap-y-4 border-t ${divider} pt-5`}>
+              <dl className={`mt-5 grid grid-cols-2 gap-x-4 gap-y-5 border-t ${divider} pt-5`}>
                 {d.stats.map((s) => (
-                  <div key={s.label}>
-                    <dt className={`text-[10.5px] font-semibold uppercase tracking-wide ${label}`}>{s.label}</dt>
-                    <dd className={`mt-0.5 text-xl font-black tracking-tight ${strong}`}>{s.value}</dd>
+                  <div key={s.label} className="min-w-0">
+                    <dt className={`text-[11px] font-bold uppercase tracking-[0.08em] leading-snug ${label}`}>{s.label}</dt>
+                    <dd className={`mt-1 text-[1.65rem] font-black tracking-tight leading-none ${strong}`}>{s.value}</dd>
                   </div>
                 ))}
               </dl>

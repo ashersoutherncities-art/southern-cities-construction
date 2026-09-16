@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+  /* Legacy navy palette — retained so unchanged pages keep working while
+     the industrial refresh rolls out. New surfaces should use the
+     industrial tokens (--paper, --ink-hi, --line-1, etc.) below. */
   --navy: #132452;
   --navy-900: #0a1530;
   --navy-950: #060d20;
@@ -15,6 +18,25 @@
   --soft: #fafaf8;
   --sc-brand-orange: #ea6827;
   --sc-brand-orange-dark: #c9531a;
+
+  /* Direction P — professional navy + orange, dynamic + warm.
+     Original SCC brand palette re-pointed onto the shared token names,
+     so every page already using im-* utilities inherits the new look. */
+  --paper: #F6F2EC;           /* SCC cream ground */
+  --paper-2: #ede8d7;         /* deeper cream band */
+  --ink-hi: #0e1a30;          /* navy ink for headlines */
+  --ink-mid: #4a5064;         /* body ink */
+  --ink-lo: #8a90a1;          /* muted */
+  --line-1: rgba(19, 36, 82, 0.18);   /* navy hairline, soft */
+  --line-2: rgba(19, 36, 82, 0.08);   /* even softer */
+  --accent: #fa8c41;          /* SCC orange */
+  --accent-ink: #ea6827;      /* orange deep (hover) */
+  --accent-hi: #ffa463;       /* orange light (highlight) */
+  --shell: #08111d;           /* deep navy hero */
+  --shell-2: #132452;         /* navy panel */
+  --gold: #d4a843;            /* SCC gold */
+  --radius-sharp: 8px;        /* soft corners */
+  --radius-block: 12px;       /* card corners */
 }
 
 /* GoHighLevel / LeadConnector chat widget brand override */
@@ -63,7 +85,7 @@ iframe[id^="chat-widget"] {
   background-color: transparent !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -357,3 +379,627 @@ input:focus, textarea:focus, select:focus {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   INDUSTRIAL-MODERN UTILITIES
+   Bold contractor energy: monochrome + orange, sharp corners, hard rules,
+   massive Inter Display headlines. Layered on top of the existing tokens so
+   the surfaces we opt in get the new look while the rest of the site keeps
+   its current design until we migrate.
+   ========================================================================== */
+
+.im-paper { background: var(--paper); color: var(--ink-mid); }
+.im-shell { background: var(--shell); color: #f2efe7; }
+.im-band  { background: var(--paper-2); color: var(--ink-mid); }
+
+.im-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 768px) {
+  .im-container { padding-left: 40px; padding-right: 40px; }
+}
+
+.im-eyebrow {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-lo);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.im-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: var(--accent);
+}
+.im-eyebrow--on-dark { color: rgba(242, 239, 231, 0.7); }
+.im-eyebrow--on-dark::before { background: var(--accent); }
+
+.im-display {
+  font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  color: var(--ink-hi);
+}
+.im-display--on-dark { color: #ffffff; }
+
+.im-h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink-hi);
+}
+.im-h2--on-dark { color: #ffffff; }
+
+.im-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--ink-mid);
+}
+.im-body--on-dark { color: rgba(242, 239, 231, 0.8); }
+
+.im-mono {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.im-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: 13.5px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  transition: transform 0.18s cubic-bezier(.2,.7,.1,1),
+              background 0.18s ease, color 0.18s ease,
+              border-color 0.18s ease, box-shadow 0.18s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.im-btn:hover { transform: translateY(-2px); }
+
+.im-btn--primary {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 14px 30px -10px rgba(250, 140, 65, 0.55);
+}
+.im-btn--primary:hover {
+  background: var(--accent-hi);
+  border-color: var(--accent-hi);
+  box-shadow: 0 18px 36px -8px rgba(250, 140, 65, 0.65);
+}
+
+.im-btn--ghost {
+  background: transparent;
+  color: var(--ink-hi);
+  border-color: var(--line-1);
+}
+.im-btn--ghost:hover {
+  background: var(--ink-hi);
+  color: #ffffff;
+  border-color: var(--ink-hi);
+}
+
+.im-btn--ghost-on-dark {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.32);
+}
+.im-btn--ghost-on-dark:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.im-rule {
+  height: 1px;
+  background: var(--line-1);
+  border: 0;
+  margin: 0;
+}
+.im-rule--soft { background: var(--line-2); }
+.im-rule--on-dark { background: rgba(255, 255, 255, 0.12); }
+
+.im-card {
+  background: #ffffff;
+  border: 1px solid var(--line-2);
+  border-radius: 14px;
+  padding: 28px;
+  transition: transform 0.25s cubic-bezier(.2,.7,.1,1),
+              border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 1px 2px rgba(19, 36, 82, 0.03);
+}
+.im-card:hover {
+  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: 0 24px 48px -20px rgba(19, 36, 82, 0.28);
+}
+
+.im-card--on-dark {
+  background: var(--shell-2);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #f2efe7;
+}
+.im-card--on-dark:hover { border-color: var(--accent); }
+
+.im-card--flagship {
+  background: var(--shell-2);
+  color: #ffffff;
+  border: 1px solid var(--shell-2);
+}
+.im-card--flagship:hover { border-color: var(--accent); }
+
+.im-tick { color: var(--accent); font-weight: 700; }
+
+.im-cover-line {
+  border-top: 1px solid var(--line-1);
+  border-bottom: 1px solid var(--line-1);
+  padding: 14px 0;
+}
+.im-cover-line--on-dark {
+  border-top-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+.im-section { padding-top: 96px; padding-bottom: 96px; }
+@media (max-width: 640px) { .im-section { padding-top: 64px; padding-bottom: 64px; } }
+
+/* Doors: three cards with real gap + subtle shadows.
+   Hover lifts, reveals an orange gradient bar at the top. */
+.im-doors {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+@media (min-width: 768px) {
+  .im-doors { grid-template-columns: repeat(3, 1fr); }
+}
+.im-door {
+  /* Per-card mouse position; onMouseMove in the tsx updates these. */
+  --card-mx: 50%;
+  --card-my: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px;
+  min-height: 220px;
+  background: #ffffff;
+  border: 1px solid var(--line-2);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(.2,.7,.1,1),
+              border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 1px 2px rgba(19, 36, 82, 0.03);
+}
+/* Top gradient bar reveals on hover */
+.im-door::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-ink) 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.2,.7,.1,1);
+  z-index: 1;
+}
+/* Cursor-following spotlight inside the card */
+.im-door::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    260px circle at var(--card-mx) var(--card-my),
+    rgba(250, 140, 65, 0.14),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 0;
+}
+.im-door > * { position: relative; z-index: 1; }
+.im-door:hover {
+  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: 0 24px 48px -20px rgba(19, 36, 82, 0.28);
+}
+.im-door:hover::before { transform: scaleX(1); }
+.im-door:hover::after  { opacity: 1; }
+
+.im-doors--on-dark .im-door::after {
+  background: radial-gradient(
+    260px circle at var(--card-mx) var(--card-my),
+    rgba(250, 140, 65, 0.22),
+    transparent 50%
+  );
+}
+
+.im-doors--on-dark .im-door {
+  background: var(--shell-2);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f2efe7;
+}
+.im-doors--on-dark .im-door:hover {
+  border-color: transparent;
+  background: linear-gradient(180deg, var(--shell-2) 0%, #1a2f5e 100%);
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.5);
+}
+
+.im-door__label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.im-door__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink-hi);
+  margin-top: 12px;
+}
+.im-doors--on-dark .im-door__title { color: #ffffff; }
+.im-door__meta {
+  font-size: 13.5px;
+  color: var(--ink-lo);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.im-doors--on-dark .im-door__meta { color: rgba(242,239,231,0.7); }
+.im-door__cta {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--ink-hi);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s ease, background 0.2s ease;
+  align-self: flex-start;
+}
+.im-door:hover .im-door__cta {
+  background: var(--accent);
+  transform: translateX(4px);
+}
+.im-doors--on-dark .im-door__cta {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+.im-doors--on-dark .im-door:hover .im-door__cta {
+  background: var(--accent);
+}
+
+/* ==========================================================================
+   DIRECTION P DYNAMIC BITS — hero glow, marquee, testimonial slider,
+   trust badges, animated stats. All motion respects prefers-reduced-motion
+   (declared globally further up).
+   ========================================================================== */
+
+@keyframes p-rise {
+  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+@keyframes p-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* Hero: cursor-following radial spotlight.
+   The .p-hero container tracks the mouse in JS and sets --mx / --my
+   as percentages of its own box; the gradient origin follows. */
+.p-hero {
+  --mx: 82%;
+  --my: 10%;
+  background: var(--shell);
+  color: #f2efe7;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.p-hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      520px circle at var(--mx) var(--my),
+      rgba(250, 140, 65, 0.34),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px circle at calc(100% - var(--mx)) calc(100% - var(--my)),
+      rgba(28, 50, 115, 0.55),
+      transparent 65%
+    ),
+    radial-gradient(70% 55% at 50% 50%, rgba(19, 36, 82, 0.45), transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+  will-change: background;
+}
+.p-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle 300px at var(--mx) var(--my), black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle 300px at var(--mx) var(--my), black 30%, transparent 80%);
+  z-index: -1;
+  pointer-events: none;
+}
+.p-rise { animation: p-rise 800ms cubic-bezier(.2, .7, .1, 1) both; }
+.p-rise-1 { animation-delay: 80ms; }
+.p-rise-2 { animation-delay: 160ms; }
+.p-rise-3 { animation-delay: 240ms; }
+.p-rise-4 { animation-delay: 320ms; }
+
+.p-eyebrow-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(250, 140, 65, 0.14);
+  border: 1px solid rgba(250, 140, 65, 0.32);
+  color: var(--accent);
+  padding: 7px 14px; border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700; font-size: 10.5px;
+  letter-spacing: 0.20em; text-transform: uppercase;
+}
+.p-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: p-pulse 1.6s ease-in-out infinite;
+}
+
+.p-gradient-text {
+  background: linear-gradient(180deg, var(--accent-hi) 0%, var(--accent) 60%, var(--accent-ink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.p-trust-row {
+  display: flex; flex-wrap: wrap; gap: 14px;
+}
+.p-trust {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+.p-trust-num { font-weight: 800; color: #fff; font-size: 15px; letter-spacing: -0.01em; }
+.p-trust-label {
+  font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase;
+  color: rgba(244, 241, 230, 0.65); font-weight: 600;
+}
+.p-stars { color: var(--gold); letter-spacing: 1px; font-size: 13px; }
+
+.p-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+@media (max-width: 900px) { .p-stats { grid-template-columns: repeat(2, 1fr); } }
+.p-stat { padding-left: 20px; border-left: 3px solid var(--accent); }
+.p-stat-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800; font-size: 42px; line-height: 1; letter-spacing: -0.03em;
+  color: var(--ink-hi);
+  font-variant-numeric: tabular-nums;
+}
+.p-stat-label {
+  font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-lo); font-weight: 700; margin-top: 8px;
+}
+
+.p-testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 32px;
+}
+@media (max-width: 900px) { .p-testimonial-grid { grid-template-columns: 1fr; } }
+.p-testimonial {
+  background: #ffffff;
+  border: 1px solid var(--line-2);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 2px 8px -4px rgba(19, 36, 82, 0.06);
+  transition: transform 0.25s cubic-bezier(.2,.7,.1,1),
+              border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.p-testimonial:hover {
+  transform: translateY(-3px);
+  border-color: transparent;
+  box-shadow: 0 20px 40px -18px rgba(19, 36, 82, 0.25);
+}
+.p-testimonial-quote {
+  color: var(--ink-hi); font-size: 15px; line-height: 1.55;
+  margin: 12px 0 0;
+}
+.p-testimonial-name {
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--line-2);
+  font-weight: 700; color: var(--ink-hi); font-size: 13px;
+}
+.p-testimonial-role { color: var(--ink-lo); font-size: 12px; margin-top: 2px; }
+
+.p-cta-band {
+  --mx: 50%;
+  --my: 50%;
+  background: var(--shell);
+  color: #f2efe7;
+  position: relative;
+  overflow: hidden;
+}
+.p-cta-band::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mx) var(--my),
+    rgba(250, 140, 65, 0.28),
+    transparent 55%
+  );
+  z-index: 0;
+  pointer-events: none;
+  will-change: background;
+}
+.p-cta-inner { position: relative; z-index: 1; }
+
+/* ==========================================================================
+   SEAMLESS PASS — scroll-reveal, section-blend gradients, softer edges
+   ========================================================================== */
+
+/* Scroll-triggered reveal — components/ClientReveal.tsx flips .is-in
+   when the element enters the viewport. Sections and cards ease into
+   place instead of appearing on hard breaks. */
+.p-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 800ms cubic-bezier(.2, .7, .1, 1),
+    transform 800ms cubic-bezier(.2, .7, .1, 1);
+  will-change: opacity, transform;
+}
+.p-reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .p-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none !important;
+  }
+}
+
+/* Section blends — soft fades where dark shell meets paper (and vice
+   versa) so the transitions feel like one continuous surface with
+   sunlight moving across it, not a stack of stacked panels. */
+.p-hero { position: relative; }
+.p-hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0; height: 96px;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 17, 29, 0) 0%,
+    rgba(246, 242, 236, 0) 55%,
+    var(--paper) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.p-cta-band { position: relative; }
+.p-cta-band::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0; height: 96px;
+  background: linear-gradient(
+    180deg,
+    var(--paper) 0%,
+    rgba(246, 242, 236, 0) 55%,
+    rgba(8, 17, 29, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+/* Same treatment on the bottom of the CTA band so it fades back into
+   whatever section follows (usually the FAQ on paper-2). */
+.p-cta-band .p-cta-inner { position: relative; z-index: 1; }
+.p-cta-band::before,
+.p-cta-band::after { z-index: 0; }
+
+/* Soft nav — the fixed nav no longer draws a hard 1px underline on
+   scroll; it uses a whisper-thin shadow instead so the hero bleeds up
+   into it. */
+nav.p-nav-soft {
+  border-bottom: 0 !important;
+  box-shadow: 0 12px 40px -24px rgba(8, 17, 29, 0.55),
+              0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+/* ==========================================================================
+   SPLASH CURTAIN — Brasfield & Gorrie-inspired branded intro
+   ========================================================================== */
+
+.splash-curtain {
+  transform: translateY(0);
+  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
+.splash-curtain-exit {
+  transform: translateY(-100%);
+}
+
+.splash-logo {
+  animation: splash-flash 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform, filter;
+}
+
+.splash-rule {
+  transform-origin: center;
+  animation: splash-rule-grow 900ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+}
+
+@keyframes splash-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+    filter: brightness(1.6) saturate(0.4);
+  }
+  55% {
+    opacity: 1;
+    filter: brightness(1.45) saturate(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes splash-rule-grow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-curtain,
+  .splash-logo,
+  .splash-rule {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
