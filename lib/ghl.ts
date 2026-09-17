@@ -128,8 +128,8 @@ async function removeContactTags(contactId: string, tags: string[], token: strin
 }
 
 async function addContactTags(contactId: string, tags: string[], token: string) {
-  if (!contactId || !tags.length) return;
-  await ghlFetch(
+  if (!contactId || !tags.length) return null;
+  return ghlFetch(
     `/contacts/${contactId}/tags`,
     { method: 'POST', body: JSON.stringify({ tags }) },
     token
@@ -217,15 +217,11 @@ export async function sendOrderToGhl(payload: GhlOrderPayload) {
   // This guarantees the "tag added" event fires even on same-product re-purchases.
   try {
     await removeContactTags(contactId, [productTag], creds.token);
-    const addResult = await ghlFetch(
-      `/contacts/${contactId}/tags`,
-      { method: 'POST', body: JSON.stringify({ tags: [productTag] }) },
-      creds.token
-    );
+    const addResult = await addContactTags(contactId, [productTag], creds.token);
     return {
-      ok: addResult.ok,
-      status: addResult.status,
-      body: addResult.body,
+      ok: addResult?.ok ?? false,
+      status: addResult?.status,
+      body: addResult?.body,
       contactId,
       tag: productTag,
     };
@@ -764,12 +760,8 @@ export async function tagMembershipInGhl(payload: {
 
   try {
     await removeContactTags(contactId, [tag], creds.token);
-    const add = await ghlFetch(
-      `/contacts/${contactId}/tags`,
-      { method: 'POST', body: JSON.stringify({ tags: [tag] }) },
-      creds.token
-    );
-    return { ok: add.ok, status: add.status, contactId, tag };
+    const add = await addContactTags(contactId, [tag], creds.token);
+    return { ok: add?.ok ?? false, status: add?.status, contactId, tag };
   } catch (err) {
     return { ok: false, status: 500, body: `tag-rotate failed: ${(err as Error).message}`, contactId, tag };
   }

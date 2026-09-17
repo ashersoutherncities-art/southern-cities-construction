@@ -1,5 +1,12 @@
 export const CART_COOKIE_KEY = 'scc_cart';
 
+// Fired after AddToCartButton updates the cart cookie — CartNavLink and
+// CartFloatingPill listen to refresh their count/href.
+export const CART_SYNC_EVENT = 'scc:cart-sync';
+// Fired after AddToCartButton adds an item — CartToast and CartFloatingPill
+// listen to show/refresh the confirmation UI.
+export const CART_ADDED_EVENT = 'scc:cart-added';
+
 function getCartCookieValue() {
   if (typeof document === 'undefined') return '';
   const match = document.cookie
