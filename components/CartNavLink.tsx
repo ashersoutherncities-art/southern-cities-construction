@@ -3,9 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { buildCartHref, parseCartParam } from '@/lib/cart';
-import { getCartParamFromCookie } from '@/lib/cart-client';
-
-const CART_SYNC_EVENT = 'scc:cart-sync';
+import { CART_SYNC_EVENT, getCartParamFromCookie } from '@/lib/cart-client';
 
 export default function CartNavLink({ className = '', compact = false }: { className?: string; compact?: boolean }) {
   const [count, setCount] = useState(0);

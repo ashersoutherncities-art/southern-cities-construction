@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-
-const CART_ADDED_EVENT = 'scc:cart-added';
+import { CART_ADDED_EVENT } from '@/lib/cart-client';
 
 type ToastDetail = {
   itemKey: string;
