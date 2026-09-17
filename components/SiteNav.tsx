@@ -174,7 +174,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
               </Link>
             </div>
 
-            <button onClick={() => setMobileOpen((v) => !v)} className="lg:hidden -mr-2 rounded-lg p-2 text-white hover:bg-white/5" aria-label={mobileOpen ? 'Close menu' : 'Open menu'}>
+            <button onClick={() => setMobileOpen((v) => !v)} className="lg:hidden ml-auto -mr-2 rounded-lg p-2 text-white hover:bg-white/5" aria-label={mobileOpen ? 'Close menu' : 'Open menu'}>
               {mobileOpen ? (
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
