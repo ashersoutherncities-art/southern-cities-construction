@@ -31,23 +31,14 @@ type FeaturedProduct = {
 
 const PRODUCTS: FeaturedProduct[] = [
   {
-    name: 'Deal Pack Series',
-    tagline: 'Per-deal · Branded packages for your assignments',
+    name: 'Build-Ready Deal Pack',
+    tagline: 'Per-deal · Attach a licensed GC’s verification to your assignment',
     description:
-      'GC-Verified Deal Packs you attach to wholesale assignments. Two tiers — Bid-Ready (budget + scope + risks) and Build-Ready (plans + designs + a mood board + a materials & furniture report + a local market report + sub quotes + a local vendor list + closing sweep — and we commit to do the work at the price we write, 3–4 day turnaround). No existing plans? Add the Site Scan + As-Built. Branded with NC GC License #107724.',
+      'A licensed NC GC (#107724) puts a committed rehab price on your deal, sealed with the license and transferable to your end buyer. Ships with plans, renderings, a local market report, a materials & furniture report, sub quotes, a vendor list, and a permit memo, 3–4 day turnaround. No existing plans? Add the Site Scan + As-Built.',
     href: '/deal-pack',
-    primaryCta: 'See the Deal Pack tiers →',
-    priceLine: 'Bid-Ready · Build-Ready · Site Scan add-on',
+    primaryCta: 'See the Deal Pack →',
+    priceLine: '$1,997',
     highlighted: true,
-  },
-  {
-    name: 'Deal Pack Pro (Subscription)',
-    tagline: 'Monthly · For wholesalers doing 2+ deals/month',
-    description:
-      '2 Bid-Ready Deal Pack credits per month, 25% off Build-Ready upgrades, priority 2-day turnaround on every request (faster than one-off Build-Ready), and a "GC-Verified by Southern Cities" co-marketing badge for every assignment listing. Cancel anytime.',
-    href: '/deal-pack#tiers',
-    primaryCta: 'See Pro details →',
-    priceLine: 'Monthly subscription',
   },
 ];
 
@@ -65,21 +56,6 @@ const FREE_PLAYBOOKS = [
     description:
       'Real 9-month case study of an NC wholesaler who kept his deal instead of assigning it. Full disclosed P&L on the $104K flip, the 5-rule decision framework for keep-vs-assign, and the honest math on capital, credit, and risk.',
     href: '/guide/wholesale-to-flip-9-month',
-  },
-];
-
-const COMING_SOON = [
-  {
-    name: 'Deal Desk for Wholesalers',
-    timing: 'Open today',
-    description:
-      'A GC-verified rehab number and Max Allowable Offer on every deal you screen — self-serve in seconds, backed by a licensed NC GC (#107724). Membership: Starter $79 / Active $199 / Pro $399 a month.',
-  },
-  {
-    name: 'Wholesaler-to-Flipper Path',
-    timing: 'Open today',
-    description:
-      'For wholesalers ready to keep their best deals: a Bid-Ready Deal Pack before you buy, and Active Oversight during the build. Southern Cities owns construction execution while you own the deal. See the 9-month transformation case study.',
   },
 ];
 
@@ -109,7 +85,7 @@ export default function WholesalersHubPage() {
                 href="/deal-pack"
                 className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
               >
-                See Deal Pack tiers →
+                See the Deal Pack →
               </Link>
               <Link
                 href="/guide/consistent-assignment-wholesaler"
@@ -178,14 +154,14 @@ export default function WholesalersHubPage() {
           <div className="max-w-3xl">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Available Now</p>
             <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-navy sm:text-4xl">
-              Products built for NC wholesalers.
+              The product built for NC wholesalers.
             </h2>
             <p className="mt-5 text-[15.5px] leading-[1.65] text-stone-700 sm:text-base">
-              Every product carries a licensed NC General Contractor&apos;s verification stamp. Same execution infrastructure whether you order per-deal or subscribe.
+              A licensed NC General Contractor&apos;s verification stamp, attached to your deal, per assignment.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <div className="mt-12 max-w-xl">
             {PRODUCTS.map((product) => (
               <Link
                 key={product.name}
@@ -257,32 +233,13 @@ export default function WholesalersHubPage() {
         </div>
       </section>
 
-      {/* COMING SOON / NEXT */}
-      <section className="bg-stone-50 py-16 sm:py-20 border-b border-stone-200">
-        <div className="container-pro max-w-5xl">
-          <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">What&apos;s Next</p>
-          <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-navy sm:text-4xl">
-            The full wholesaler stack we&apos;re building.
-          </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {COMING_SOON.map((item) => (
-              <div key={item.name} className="rounded-2xl border-2 border-stone-200 bg-white p-7">
-                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-stone-500">{item.timing}</p>
-                <h3 className="mt-3 text-xl font-black tracking-tight text-navy">{item.name}</h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-stone-700">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* TRUST */}
       <section className="bg-white py-16 sm:py-20 border-b border-stone-200">
         <div className="container-pro">
           <FounderStory
             theme="light"
-            productName="the Deal Pack series"
-            cta={{ label: 'See Deal Pack tiers →', href: '/deal-pack' }}
+            productName="the Deal Pack"
+            cta={{ label: 'See the Deal Pack →', href: '/deal-pack' }}
           />
         </div>
       </section>
