@@ -199,7 +199,7 @@ export default function LeadMagnetLandingPage({ params }: { params: Params }) {
   return (
     <div className="min-h-screen bg-[#08111d] text-white">
       {/* Focused header — brand logo + license, no nav links */}
-      <header className="border-b border-white/8 bg-[#08111d]/80 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-white/8 bg-[#08111d]/80 backdrop-blur">
         <div className="container-pro flex items-center justify-between py-4">
           <Link href="/" className="flex items-center" aria-label="Southern Cities Construction">
             <Image src="/sc-construction-logo-reversed.png" alt="Southern Cities Construction" width={280} height={109} className="h-9 w-auto sm:h-11" priority />
