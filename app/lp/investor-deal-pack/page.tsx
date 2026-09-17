@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import LpLeadForm from '@/components/LpLeadForm';
 import { SITE_CONFIG } from '@/lib/site-config';
 
@@ -37,11 +38,11 @@ const CAPITAL_POINTS = [
 
 function LpHeader() {
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
+    <header className="fixed inset-x-0 top-0 z-30">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3" aria-label={SITE_CONFIG.name}>
           <Image src={SITE_CONFIG.logoReversed} alt={SITE_CONFIG.name} width={220} height={56} className="h-9 w-auto sm:h-10" priority />
-        </div>
+        </Link>
         <div className="flex items-center gap-4">
           <span className="hidden rounded-full border border-white/20 bg-white/[0.06] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white/75 sm:inline-flex">
             NC GC #{SITE_CONFIG.license.number}
