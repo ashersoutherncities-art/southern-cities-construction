@@ -211,8 +211,9 @@ export const metadata = {
 
 export default function RealtorsPage() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white">
+    <>
       <SiteNav variant="solid" />
+      <div className="min-h-screen overflow-x-hidden bg-white">
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#08111d] pt-32 pb-20 sm:pt-36 sm:pb-24">
@@ -531,6 +532,7 @@ export default function RealtorsPage() {
       </section>
 
       <SiteFooter />
-    </div>
+      </div>
+    </>
   );
 }

@@ -37,8 +37,9 @@ export default function BlogPostPage({ params }: { params: Params }) {
   const others = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <>
       <SiteNav />
+      <main className="min-h-screen bg-white overflow-x-hidden">
 
       {/* Hero */}
       <article>
@@ -237,6 +238,7 @@ export default function BlogPostPage({ params }: { params: Params }) {
       </section>
 
       <SiteFooter />
-    </main>
+      </main>
+    </>
   );
 }

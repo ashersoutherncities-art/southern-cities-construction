@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import SiteNav from '@/components/SiteNav';
+import SiteFooter from '@/components/SiteFooter';
 import RealDeals from '@/components/RealDeals';
 import { PLATFORM_STAGES } from '@/lib/investor-platform';
 
@@ -24,28 +25,12 @@ export default function PlatformHubPage() {
   const executionOptions = EXECUTION_SLUGS.map((slug) => PLATFORM_STAGES.find((s) => s.slug === slug)!);
 
   return (
-    <div className="min-h-screen bg-[#08111d] text-white">
-      {/* Minimal nav */}
-      <header className="border-b border-white/8">
-        <div className="container-pro flex items-center justify-between py-5">
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/sc-construction-logo-reversed.png"
-              alt="Southern Cities Construction"
-              width={180}
-              height={48}
-              className="h-8 w-auto sm:h-10"
-              priority
-            />
-          </Link>
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
-            NC GC License #107724
-          </span>
-        </div>
-      </header>
+    <>
+      <SiteNav variant="solid" />
+      <div className="min-h-screen overflow-x-hidden bg-[#08111d] text-white">
 
       {/* HERO — plain language */}
-      <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
+      <section className="relative overflow-hidden pt-32 pb-20 sm:pt-36 sm:pb-24 lg:pb-28">
         <div className="absolute -top-32 -right-32 w-[560px] h-[560px] rounded-full bg-orange/[0.18] blur-[160px]" aria-hidden="true" />
         <div className="absolute -bottom-32 -left-32 w-[480px] h-[480px] rounded-full bg-orange/[0.08] blur-[140px]" aria-hidden="true" />
         <div className="relative z-10 container-pro">
@@ -253,21 +238,8 @@ export default function PlatformHubPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-white/8 bg-[#040810] py-10">
-        <div className="container-pro">
-          <p className="text-[12px] text-white/45">
-            © 2026 Southern Cities Construction · NC GC License #107724 · 525 N Tryon St, Charlotte, NC 28202
-          </p>
-          <p className="mt-2 text-[12px] text-white/45">
-            <Link href="/privacy" className="hover:text-orange">Privacy</Link>
-            <span className="mx-2 text-white/25">·</span>
-            <Link href="/terms" className="hover:text-orange">Terms</Link>
-            <span className="mx-2 text-white/25">·</span>
-            <Link href="/" className="hover:text-orange">Southern Cities Construction main site</Link>
-          </p>
-        </div>
-      </footer>
-    </div>
+      <SiteFooter />
+      </div>
+    </>
   );
 }

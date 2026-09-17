@@ -29,7 +29,6 @@ export default function SiteFooter() {
             <ul className="space-y-3">
               <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">Services Overview</Link></li>
               <li><Link href="/services/all" className="text-sm text-white/50 transition-colors hover:text-orange">All Services &amp; Pricing</Link></li>
-              <li><Link href="/services/homeowners" className="text-sm text-white/50 transition-colors hover:text-orange">For Homeowners</Link></li>
               <li><Link href="/platform" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors — Execution Platform</Link></li>
               <li><Link href="/deal-pack" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Pack — Wholesalers</Link></li>
               <li><Link href="/deal-desk" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Desk Membership</Link></li>

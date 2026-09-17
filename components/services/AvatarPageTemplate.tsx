@@ -76,8 +76,9 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
   ];
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white">
+    <>
       <SiteNav variant="solid" />
+      <div className="min-h-screen overflow-x-hidden bg-white">
 
       <section className="relative overflow-hidden bg-[#08111d] pt-32 pb-24 sm:pt-36 sm:pb-28">
         <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
@@ -369,7 +370,8 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
       </section>
 
       <SiteFooter />
-    </div>
+      </div>
+    </>
   );
 }
 

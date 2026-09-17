@@ -230,8 +230,9 @@ export default function PartnersPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <>
       <SiteNav />
+      <main className="min-h-screen bg-white overflow-x-hidden">
 
       {/* In-app browser warning (Facebook/Instagram ad clicks open a webview that blocks form submits) */}
       {inApp && (
@@ -764,6 +765,7 @@ export default function PartnersPage() {
       </section>
 
       <SiteFooter />
-    </main>
+      </main>
+    </>
   );
 }

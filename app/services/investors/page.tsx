@@ -350,9 +350,9 @@ export const metadata = {
 
 export default function InvestorsPage() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white">
+    <>
       <SiteNav variant="solid" />
-
+      <div className="min-h-screen overflow-x-hidden bg-white">
       <section className="relative overflow-hidden bg-[#08111d] pt-32 pb-24 sm:pt-36 sm:pb-28">
         <div className="absolute inset-0 motion-safe:animate-[heroFloat_22s_ease-in-out_infinite] bg-[linear-gradient(125deg,#163061_0%,#10254c_50%,#143367_100%)]" style={{ backgroundSize: '180% 180%' }} aria-hidden="true" />
         <div className="absolute inset-y-0 right-0 w-[55%] bg-[radial-gradient(circle_at_30%_35%,rgba(245,130,32,0.22),transparent_55%)]" />
@@ -591,6 +591,7 @@ export default function InvestorsPage() {
       </section>
 
       <SiteFooter />
-    </div>
+      </div>
+    </>
   );
 }

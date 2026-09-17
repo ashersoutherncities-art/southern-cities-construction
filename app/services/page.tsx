@@ -54,16 +54,6 @@ const AVATARS: Array<{
     priceNote: 'per deal · billed to the closing agent',
     href: '/lp/real-estate-professionals-deal-pack',
   },
-  {
-    key: 'homeowner',
-    label: 'For homeowners',
-    title: 'A licensed NC GC on your project.',
-    meta:
-      'Full residential contracting — renovations, additions, ground-up builds. Cost-Plus a Fixed Fee, or GMP with a hard ceiling.',
-    price: 'Custom',
-    priceNote: 'scoped after a project call',
-    href: '/contracting',
-  },
 ];
 
 /** Per-card cursor spotlight (matches the homepage door treatment). */
@@ -136,8 +126,9 @@ export default function ServicesOverviewPage() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--paper)', color: 'var(--ink-mid)' }}>
+    <>
       <SiteNav />
+      <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--paper)', color: 'var(--ink-mid)' }}>
 
       {/* HERO */}
       <section ref={heroRef} className="p-hero">
@@ -243,6 +234,7 @@ export default function ServicesOverviewPage() {
       </section>
 
       <SiteFooter />
-    </div>
+      </div>
+    </>
   );
 }

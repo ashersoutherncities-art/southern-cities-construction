@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import SiteNav from '@/components/SiteNav';
+import SiteFooter from '@/components/SiteFooter';
 import AddToCartButton from '@/components/AddToCartButton';
 import RehabRiskSnapshotForm from '@/components/RehabRiskSnapshotForm';
 import ProjectSetupCTA from '@/components/ProjectSetupCTA';
@@ -39,31 +41,12 @@ export default function PlatformStagePage({ params }: { params: Params }) {
   const nextStage = stage.nextStage ? getPlatformStage(stage.nextStage) : undefined;
 
   return (
-    <div className="min-h-screen bg-[#08111d] text-white">
-      {/* Minimal nav */}
-      <header className="border-b border-white/8">
-        <div className="container-pro flex items-center justify-between py-5">
-          <Link href="/platform" className="flex items-center gap-3">
-            <Image
-              src="/sc-construction-logo-reversed.png"
-              alt="Southern Cities Construction"
-              width={180}
-              height={48}
-              className="h-8 w-auto sm:h-10"
-              priority
-            />
-            <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.18em] text-white/55">
-              · Investor Execution Platform
-            </span>
-          </Link>
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
-            NC GC #107724
-          </span>
-        </div>
-      </header>
+    <>
+      <SiteNav variant="solid" />
+      <div className="min-h-screen overflow-x-hidden bg-[#08111d] text-white">
 
       {/* HERO */}
-      <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
+      <section className="relative overflow-hidden pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pb-24">
         <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-orange/[0.16] blur-[140px]" aria-hidden="true" />
         <div className="relative z-10 container-pro">
           <div className="max-w-4xl">
@@ -543,21 +526,8 @@ export default function PlatformStagePage({ params }: { params: Params }) {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-white/8 bg-[#040810] py-10">
-        <div className="container-pro">
-          <p className="text-[12px] text-white/45">
-            © 2026 Southern Cities Construction · NC GC License #107724 · Investor Execution Platform
-          </p>
-          <p className="mt-2 text-[12px] text-white/45">
-            <Link href="/platform" className="hover:text-orange">Platform overview</Link>
-            <span className="mx-2 text-white/25">·</span>
-            <Link href="/privacy" className="hover:text-orange">Privacy</Link>
-            <span className="mx-2 text-white/25">·</span>
-            <Link href="/terms" className="hover:text-orange">Terms</Link>
-          </p>
-        </div>
-      </footer>
-    </div>
+      <SiteFooter />
+      </div>
+    </>
   );
 }

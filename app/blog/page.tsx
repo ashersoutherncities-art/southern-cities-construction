@@ -33,8 +33,9 @@ export default function BlogIndexPage() {
   const rest = posts.slice(1);
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <>
       <SiteNav />
+      <main className="min-h-screen bg-white overflow-x-hidden">
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy-900 pt-32 pb-20 sm:pt-40 sm:pb-24">
@@ -202,6 +203,7 @@ export default function BlogIndexPage() {
       </section>
 
       <SiteFooter />
-    </main>
+      </main>
+    </>
   );
 }

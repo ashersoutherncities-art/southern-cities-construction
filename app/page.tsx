@@ -188,9 +188,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--paper)', color: 'var(--ink-mid)' }}>
+    <>
       <SplashCurtain />
       <SiteNav />
+      <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--paper)', color: 'var(--ink-mid)' }}>
 
       {/* HERO — deep navy shell with ambient-drifting orange spotlight
          that biases toward the cursor when the user moves */}
@@ -390,6 +391,7 @@ export default function Home() {
       </section>
 
       <SiteFooter />
-    </div>
+      </div>
+    </>
   );
 }

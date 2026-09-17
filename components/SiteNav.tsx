@@ -21,7 +21,6 @@ const SERVICES_GROUP: NavGroup = {
     { href: '/lp/wholesaler-deal-pack', label: 'For wholesalers' },
     { href: '/lp/realtor-deal-pack', label: 'For realtors' },
     { href: '/lp/real-estate-professionals-deal-pack', label: 'For lenders + brokers' },
-    { href: '/contracting', label: 'For homeowners' },
     { href: '/lp/rehab-budget-range-execution-risk-snapshot', label: 'Free rehab tool' },
   ],
 };
