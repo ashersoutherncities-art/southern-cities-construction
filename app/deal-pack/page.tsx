@@ -303,7 +303,6 @@ export default function DealPackPage() {
           <FounderStory
             theme="dark"
             productName="the Deal Pack"
-            cta={{ label: 'Order Bid-Ready · $599 →', href: '/cart?cart=deal-pack-bid-ready' }}
           />
         </div>
       </section>
