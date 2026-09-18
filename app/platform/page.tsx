@@ -19,7 +19,7 @@ export const metadata = {
   },
 };
 
-const EXECUTION_SLUGS = ['co2', 'co3', 'co4', 'co5'] as const;
+const EXECUTION_SLUGS = ['co5'] as const;
 
 export default function PlatformHubPage() {
   const executionOptions = EXECUTION_SLUGS.map((slug) => PLATFORM_STAGES.find((s) => s.slug === slug)!);
@@ -98,21 +98,21 @@ export default function PlatformHubPage() {
               </span>
             </Link>
 
-            {/* Door 2 — Execution help */}
+            {/* Door 2 — Full GC execution */}
             <Link
               href="#execution"
               className="group flex flex-col rounded-[24px] border border-white/12 bg-white/[0.03] p-7 transition-all hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.05]"
             >
               <div className="flex items-center justify-between gap-4">
-                <span className="text-[12px] font-black uppercase tracking-[0.14em] text-white">Execution help</span>
-                <span className="text-[14px] font-bold text-white/75">Custom</span>
+                <span className="text-[12px] font-black uppercase tracking-[0.14em] text-white">Full GC Execution</span>
+                <span className="text-[14px] font-bold text-white/75">Scoped per project</span>
               </div>
               <p className="mt-4 text-[15.5px] leading-[1.6] text-white/85">
-                Already own the deal? Pick how much of the build you keep and how much a licensed NC GC
-                carries &mdash; oversight, permits and license backing, day-to-day management, or full GC.
+                Already own the deal? Fixed-price, on-schedule execution &mdash; Southern Cities carries the
+                budget and schedule risk. You bring capital, we deliver keys.
               </p>
               <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.08em] text-white/85 group-hover:gap-3 group-hover:text-orange transition-all">
-                See the four options &darr;
+                See how it works &darr;
               </span>
             </Link>
 
@@ -166,46 +166,41 @@ export default function PlatformHubPage() {
         </div>
       </section>
 
-      {/* EXECUTION OPTIONS — the four, subordinate to the three doors above */}
+      {/* EXECUTION — single cleared option; Project Setup / Active Oversight / Investor-Led Build
+          stay HOLD per the strategic plan until their pilot gates pass. Do not re-add them here
+          without checking scc-strategic-plan-2026-09-17 first. */}
       <section id="execution" className="bg-[#0a1428] py-16 sm:py-20 border-t border-white/8">
         <div className="container-pro">
           <div className="max-w-3xl">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">If you own the deal · execution</p>
             <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">
-              Four ways to hand the build off.
+              Hand the build off, fixed-price.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/70 sm:text-lg">
-              These are execution options for owners who already control the property. Pick how much you
-              keep and how much a licensed NC GC carries.
+              For owners who already control the property and want a licensed NC GC to carry the
+              budget and schedule risk.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
-            {executionOptions.map((stage) => {
-              const isFlagship = stage.slug === 'co4';
-              return (
-                <Link
-                  key={stage.slug}
-                  href={`/platform/${stage.slug}`}
-                  className={`group flex flex-col rounded-[20px] border p-6 transition-all hover:-translate-y-0.5 ${
-                    isFlagship
-                      ? 'border-orange/60 bg-gradient-to-br from-orange/[0.10] via-[#0d1a30] to-[#0d1a30]'
-                      : 'border-white/12 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.05]'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-[11.5px] font-black uppercase tracking-[0.14em] text-white">
-                      {stage.marketingShortName}
-                    </span>
-                    <span className="text-[13px] font-bold text-orange">{stage.pricing}</span>
-                  </div>
-                  <p className="mt-3 text-[14.5px] leading-[1.6] text-white/80">{stage.oneLiner}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.08em] text-orange group-hover:gap-3 transition-all">
-                    See {stage.marketingShortName} &rarr;
+          <div className="mt-10 max-w-xl">
+            {executionOptions.map((stage) => (
+              <Link
+                key={stage.slug}
+                href={`/platform/${stage.slug}`}
+                className="group flex flex-col rounded-[20px] border border-orange/60 bg-gradient-to-br from-orange/[0.10] via-[#0d1a30] to-[#0d1a30] p-6 transition-all hover:-translate-y-0.5"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[11.5px] font-black uppercase tracking-[0.14em] text-white">
+                    {stage.marketingShortName}
                   </span>
-                </Link>
-              );
-            })}
+                  <span className="text-[13px] font-bold text-orange">{stage.pricing}</span>
+                </div>
+                <p className="mt-3 text-[14.5px] leading-[1.6] text-white/80">{stage.oneLiner}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.08em] text-orange group-hover:gap-3 transition-all">
+                  See {stage.marketingShortName} &rarr;
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

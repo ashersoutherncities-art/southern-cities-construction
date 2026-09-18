@@ -34,11 +34,18 @@ export function generateMetadata({ params }: { params: Params }) {
   };
 }
 
+// Only co5 (Full GC) is cleared to publicly upsell into per the strategic plan
+// (scc-strategic-plan-2026-09-17: co1 Bid-Ready $599 HOLD, co2 Project Setup
+// PRIVATE UPSELL, co3 Active Oversight PRIVATE PILOT, co4 Investor-Led Build
+// HOLD/SELECTIVE). Do not widen this without checking that doc's gates first.
+const CLEARED_UPSELL_TARGETS = new Set(['co5']);
+
 export default function PlatformStagePage({ params }: { params: Params }) {
   const stage = getPlatformStage(params.stage);
   if (!stage) notFound();
 
-  const nextStage = stage.nextStage ? getPlatformStage(stage.nextStage) : undefined;
+  const rawNextStage = stage.nextStage ? getPlatformStage(stage.nextStage) : undefined;
+  const nextStage = rawNextStage && CLEARED_UPSELL_TARGETS.has(rawNextStage.slug) ? rawNextStage : undefined;
 
   return (
     <>
