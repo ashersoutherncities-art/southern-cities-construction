@@ -61,14 +61,16 @@ const nextConfig = {
 
       // Investors — legacy URL aliases to canonical services
       { source: '/services/investors/contractor-match-bid-coordination', destination: '/services/investors/bid-coordination-contractor-match', permanent: true },
-      { source: '/services/investors/full-due-diligence-package', destination: '/platform/co1', permanent: true },
+      { source: '/services/investors/full-due-diligence-package', destination: '/deal-pack', permanent: true },
 
       // Investor Deal & Scope Review consolidated into the canonical
-      // Investor Execution Review (platform stage CO1). Retire the duplicate
-      // legacy catalog + LP surfaces by redirecting to the canonical product.
-      { source: '/services/investors/investor-review', destination: '/platform/co1', permanent: true },
-      { source: '/lp/investor-deal-review', destination: '/platform/co1', permanent: true },
-      { source: '/review/investor-review', destination: '/platform/co1', permanent: true },
+      // Investor Execution Review (formerly platform stage CO1, now retired
+      // in favor of the Deal Pack — see the /construction/co1 redirect below).
+      // Retire the duplicate legacy catalog + LP surfaces by redirecting
+      // straight to the canonical product (no intermediate redirect hop).
+      { source: '/services/investors/investor-review', destination: '/deal-pack', permanent: true },
+      { source: '/lp/investor-deal-review', destination: '/deal-pack', permanent: true },
+      { source: '/review/investor-review', destination: '/deal-pack', permanent: true },
       { source: '/services/investors/rehab-budget-review', destination: '/services/investors/budget-review', permanent: true },
       { source: '/services/investors/lender-ready-scope-bid-package', destination: '/services/investors/lender-scope-bid-package', permanent: true },
       { source: '/services/investors/project-timeline-schedule-preparation', destination: '/services/investors/regional-investor-setup-consultation', permanent: true },
@@ -82,20 +84,35 @@ const nextConfig = {
       { source: '/services/investors/due-diligence-package-3-deals-month', destination: '/services/investors/due-diligence-package', permanent: true },
       { source: '/services/investors/construction-planning-package-3-deals-month', destination: '/services/investors/construction-planning-package', permanent: true },
 
-      // Investor catalog hub retired in favor of the Investor Execution
-      // Platform. Legacy /services/investors/* detail pages still resolve by
-      // direct URL; only the hub entry point moves to /platform. Temporary
+      // Investor catalog hub retired in favor of the Construction hub.
+      // Legacy /services/investors/* detail pages still resolve by direct
+      // URL; only the hub entry point moves to /construction. Temporary
       // (307) while the investor migration settles — flip to permanent later.
-      { source: '/services/investors', destination: '/platform', permanent: false },
+      { source: '/services/investors', destination: '/construction', permanent: false },
 
-      // Investor Execution Review ($499, platform stage CO1) retired — the
-      // catalogue consolidated the first paid validation step onto the existing
-      // Bid-Ready Deal Pack ($599). Route the old CO1 detail page (and every
-      // legacy link that redirects into it) to the single Deal Pack surface.
-      // Temporary (307) while the consolidation settles. The retired
-      // `platform-co1-execution-review` cart key stays live in lib/cart.ts so
-      // old /cart links still transact.
+      // /platform folded into /construction per the founder's Construction
+      // Department repositioning (supersedes the investor-catalog
+      // consolidation redirect below it). CO1 (Investor Execution Review,
+      // $499) stays retired onto the Bid-Ready Deal Pack ($599) specifically
+      // — the retired `platform-co1-execution-review` cart key stays live in
+      // lib/cart.ts so old /cart links still transact. Every other stage
+      // moves 1:1 to its new /construction/[stage] URL.
       { source: '/platform/co1', destination: '/deal-pack', permanent: false },
+      { source: '/platform/lm1', destination: '/construction/lm1', permanent: false },
+      { source: '/platform/co2', destination: '/construction/co2', permanent: false },
+      { source: '/platform/co3', destination: '/construction/co3', permanent: false },
+      { source: '/platform/co4', destination: '/construction/co4', permanent: false },
+      { source: '/platform/co5', destination: '/construction/co5', permanent: false },
+      { source: '/platform', destination: '/construction', permanent: false },
+
+      // Deal Desk rebranded/absorbed into the Construction Department
+      // membership. Zero live subscribers at the time of this rename
+      // (confirmed via Supabase) — this is hygiene, not a live-customer
+      // migration. /api/deal-desk/* backend routes are intentionally left
+      // unchanged; only the customer-facing pages moved.
+      { source: '/deal-desk', destination: '/construction-department', permanent: true },
+      { source: '/deal-desk/app', destination: '/construction-department/app', permanent: true },
+      { source: '/deal-desk/welcome', destination: '/construction-department/welcome', permanent: true },
 
       // Realtors — legacy URL alias
       { source: '/services/realtors/pre-listing-work', destination: '/services/realtors/pre-listing-budget-prep-review', permanent: true },
@@ -117,7 +134,7 @@ const nextConfig = {
 
       // Memorable short URL aliases for audience hubs
       { source: '/for-realtors', destination: '/services/realtors', permanent: false },
-      { source: '/for-investors', destination: '/platform', permanent: false },
+      { source: '/for-investors', destination: '/construction', permanent: false },
       { source: '/investor-tools/rehab-budget-snapshot', destination: '/lp/rehab-budget-range-execution-risk-snapshot', permanent: false },
       // Speakable vanity for realtor voicemail/cold-call outreach -> free Rehab Budget Snapshot tool
       { source: '/agents', destination: '/lp/rehab-budget-range-execution-risk-snapshot', permanent: false },

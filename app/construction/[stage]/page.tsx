@@ -19,26 +19,26 @@ export const dynamicParams = false;
 export function generateMetadata({ params }: { params: Params }) {
   const stage = getPlatformStage(params.stage);
   if (!stage) return {};
-  const path = `/platform/${stage.slug}`;
+  const path = `/construction/${stage.slug}`;
   return {
-    title: `${stage.name} | Southern Cities Investor Execution Platform`,
+    title: `${stage.name} | Southern Cities Construction`,
     description: stage.heroSubheadline,
     alternates: { canonical: path },
     openGraph: {
       type: 'website',
       url: path,
-      title: `${stage.name} — Investor Execution Platform`,
+      title: `${stage.name} — Southern Cities Construction`,
       description: stage.heroSubheadline,
       siteName: 'Southern Cities Construction',
     },
   };
 }
 
-// Only co5 (Full GC) is cleared to publicly upsell into per the strategic plan
-// (scc-strategic-plan-2026-09-17: co1 Bid-Ready $599 HOLD, co2 Project Setup
-// PRIVATE UPSELL, co3 Active Oversight PRIVATE PILOT, co4 Investor-Led Build
-// HOLD/SELECTIVE). Do not widen this without checking that doc's gates first.
-const CLEARED_UPSELL_TARGETS = new Set(['co5']);
+// The 2026-09-17 strategic plan's narrow-launch hold on co1-co4 (Deal Pack
+// only, execution tiers gated to private pilots) was explicitly overridden
+// by the founder's Construction Department repositioning decision — every
+// paid execution stage is now a public, publicly upsellable cross-sell.
+const CLEARED_UPSELL_TARGETS = new Set(['co2', 'co3', 'co4', 'co5']);
 
 export default function PlatformStagePage({ params }: { params: Params }) {
   const stage = getPlatformStage(params.stage);
@@ -59,10 +59,10 @@ export default function PlatformStagePage({ params }: { params: Params }) {
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-3">
               <Link
-                href="/platform"
+                href="/construction"
                 className="text-[12px] font-bold uppercase tracking-[0.14em] text-white/55 hover:text-orange transition-colors"
               >
-                ← Platform
+                ← Construction
               </Link>
               <span className="inline-flex items-center rounded-full border border-orange/50 bg-orange/15 px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-orange">
                 For {stage.audienceTag}
@@ -480,7 +480,7 @@ export default function PlatformStagePage({ params }: { params: Params }) {
                 <span className="text-[13px] text-white/55">{nextStage.turnaround}</span>
               </div>
               <Link
-                href={`/platform/${nextStage.slug}`}
+                href={`/construction/${nextStage.slug}`}
                 className="mt-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.08em] text-orange hover:gap-3 transition-all"
               >
                 See the {nextStage.marketingShortName} →
@@ -526,7 +526,7 @@ export default function PlatformStagePage({ params }: { params: Params }) {
               </a>
             ) : (
               <p className="text-[14px] text-white/65">
-                The {stage.marketingShortName} is being finalized. <Link href="/platform" className="text-orange hover:underline">Back to platform overview</Link>.
+                The {stage.marketingShortName} is being finalized. <Link href="/construction" className="text-orange hover:underline">Back to Construction overview</Link>.
               </p>
             )}
           </div>

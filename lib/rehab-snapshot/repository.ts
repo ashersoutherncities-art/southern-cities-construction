@@ -29,6 +29,10 @@ export async function saveSnapshot(
       investor_type: lead.investor_type,
       source,
       status: 'new',
+      investor_state: lead.investor_state ?? null,
+      years_experience_band: lead.years_experience_band ?? null,
+      deals_per_year_band: lead.deals_per_year_band ?? null,
+      needs_construction_execution: lead.needs_construction_execution ?? null,
     })
     .select('id, ghl_contact_id')
     .single();
@@ -52,6 +56,11 @@ export async function saveSnapshot(
       occupancy_status: project.occupancy_status,
       investment_strategy: project.investment_strategy,
       target_finish_level: project.target_finish_level,
+      ownership_status: project.ownership_status ?? null,
+      expected_purchase_price: project.expected_purchase_price ?? null,
+      expected_arv: project.expected_arv ?? null,
+      financing_method: project.financing_method ?? null,
+      target_timeline_weeks: project.target_timeline_weeks ?? null,
     })
     .select('id')
     .single();

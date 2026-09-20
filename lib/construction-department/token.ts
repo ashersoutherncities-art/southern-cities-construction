@@ -1,14 +1,14 @@
 import { createHmac, timingSafeEqual } from 'crypto';
 
 // Stateless magic-link tokens: HMAC over `email|expiry`. No DB row needed; the
-// member area and the snapshot API both verify the signature + expiry. Signed
-// with DEAL_DESK_LINK_SECRET, falling back to INTERNAL_API_SECRET so no new
-// secret is required to ship.
+// member area and the metered API routes both verify the signature + expiry.
+// Signed with CD_LINK_SECRET, falling back to the old DEAL_DESK_LINK_SECRET
+// (so existing signed secrets don't need to change) then INTERNAL_API_SECRET.
 
 const TTL_MS = 1000 * 60 * 60 * 24 * 40; // 40 days — overlaps the monthly cycle so an auto-renewed link always arrives before the old one expires
 
 function linkSecret(): string {
-  return process.env.DEAL_DESK_LINK_SECRET || process.env.INTERNAL_API_SECRET || '';
+  return process.env.CD_LINK_SECRET || process.env.DEAL_DESK_LINK_SECRET || process.env.INTERNAL_API_SECRET || '';
 }
 
 export function signAccessToken(email: string, expiresAt?: number): string {

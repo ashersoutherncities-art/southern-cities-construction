@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { computeDeal, defaultDealInputs, DealInputs, DealMode } from '@/lib/deal-desk/dealmath';
+import { computeDeal, defaultDealInputs, DealInputs, DealMode } from '@/lib/construction-department/dealmath';
 
 type NumericKey = { [K in keyof DealInputs]: DealInputs[K] extends number ? K : never }[keyof DealInputs];
 

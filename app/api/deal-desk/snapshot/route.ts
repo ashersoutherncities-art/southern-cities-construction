@@ -4,10 +4,9 @@ import { computeEstimate, loadEstimateRules, loadMarketTiers } from '@/lib/rehab
 import { renderSnapshotPdf } from '@/lib/rehab-snapshot/pdf';
 import { sendSnapshotEmail } from '@/lib/rehab-snapshot/email';
 import { resolveMao, maoFromArv } from '@/lib/avm';
-import { verifyAccessToken } from '@/lib/deal-desk/token';
-import { getMemberByEmail, checkEligibility, consumeSnapshot, type DealDeskMember } from '@/lib/deal-desk/members';
-import { DEAL_DESK_TIERS } from '@/lib/deal-desk/tiers';
-import { overagePriceCents, overagePriceUsd, chargeSnapshotOverage } from '@/lib/deal-desk/overage';
+import { verifyAccessToken } from '@/lib/construction-department/token';
+import { getMemberByEmail, checkEligibility, consumeScreening } from '@/lib/construction-department/members';
+import { CD_TIERS } from '@/lib/construction-department/tiers';
 import type {
   RehabSnapshotProjectInput,
   RehabSnapshotScopeInput,
@@ -36,10 +35,13 @@ function bool(v: unknown): boolean {
 }
 
 /**
- * Metered Deal Desk snapshot. Token-gated (magic link). Enforces the member's
- * monthly limit, runs the rehab engine + MAO, records usage, and emails the
- * MAO-bearing PDF. HouseCanary is only called when the member's tier includes
- * the premium cross-check — and the raw AVM numbers are never returned.
+ * SCREEN-stage run for Construction Department members. Token-gated (magic
+ * link). Software is scalable — every tier's screeningLimit is null
+ * (unlimited) today, so checkEligibility only realistically rejects on
+ * account state (not found/inactive/expired), never on volume. Runs the
+ * rehab engine + MAO, records usage, and emails the MAO-bearing PDF.
+ * HouseCanary is only called when the member's tier includes the premium
+ * cross-check — the raw AVM numbers are never returned.
  */
 export async function POST(req: NextRequest) {
   let body: {
@@ -50,7 +52,6 @@ export async function POST(req: NextRequest) {
     scope?: Record<string, unknown>;
     arv?: number;
     arvSource?: 'member' | 'cma';
-    accept_overage?: boolean;
   };
   try {
     body = await req.json();
@@ -70,30 +71,11 @@ export async function POST(req: NextRequest) {
 
   const member = await getMemberByEmail(supabase, verified.email);
   const eligibility = checkEligibility(member);
-
-  let overageCharged = false;
-  let activeMember: DealDeskMember;
-  if (eligibility.ok) {
-    activeMember = eligibility.member;
-  } else if (eligibility.reason === 'limit_reached' && member && overagePriceCents(member.tier) != null) {
-    // Out of included snapshots, but per-snapshot overage billing is on for this tier.
-    // Charge the card the member subscribed with (off-session) and let them keep going.
-    if (!bool(body.accept_overage)) {
-      return NextResponse.json({ error: 'overage_required', overage_price_usd: overagePriceUsd(member.tier) }, { status: 402 });
-    }
-    const charge = await chargeSnapshotOverage(member);
-    if (!charge.ok) {
-      return NextResponse.json(
-        { error: charge.reason === 'no_payment_method' ? 'no_payment_method' : 'card_declined' },
-        { status: 402 }
-      );
-    }
-    overageCharged = true;
-    activeMember = member;
-  } else {
+  if (!eligibility.ok) {
     return NextResponse.json({ error: 'not_eligible', reason: eligibility.reason }, { status: 403 });
   }
-  const tier = DEAL_DESK_TIERS[activeMember.tier];
+  const activeMember = eligibility.member;
+  const tier = CD_TIERS[activeMember.tier];
 
   // Build the typed project + scope from the request.
   const p = body.project ?? {};
@@ -186,9 +168,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Meter it (counts against the monthly limit) + store the full payload for
-  // the history sidebar / PDF re-download.
-  await consumeSnapshot(supabase, activeMember, {
+  // Meter it (against screeningLimit, which is unlimited on every current
+  // tier — this only ever matters if a future tier configures a real cap) +
+  // store the full payload for the history sidebar / PDF re-download.
+  await consumeScreening(supabase, activeMember, {
     propertyAddress: project.property_address,
     mao: mao.mao,
     verdict: mao.verdict,
@@ -209,7 +192,7 @@ export async function POST(req: NextRequest) {
     phone: '',
     company_name: null,
     investor_type: 'wholesaler',
-    source: 'deal-desk',
+    source: 'construction-department',
   };
   let delivered = false;
   try {
@@ -221,9 +204,9 @@ export async function POST(req: NextRequest) {
   }
 
   const remaining =
-    tier.snapshotLimit == null
+    tier.screeningLimit == null
       ? null
-      : Math.max(0, tier.snapshotLimit - (activeMember.snapshots_used + 1));
+      : Math.max(0, tier.screeningLimit - (activeMember.screening_used + 1));
 
-  return NextResponse.json({ mao, remaining, delivered, overage_charged: overageCharged });
+  return NextResponse.json({ mao, remaining, delivered });
 }

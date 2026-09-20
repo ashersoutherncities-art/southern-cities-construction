@@ -2,16 +2,16 @@ import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { tierForPriceId, DEAL_DESK_TIERS } from '@/lib/deal-desk/tiers';
+import { tierForPriceId, CD_TIERS } from '@/lib/construction-department/tiers';
 import {
   upsertMemberFromSubscription,
   markSubscriptionCanceled,
   getMemberByEmail,
-  DealDeskMemberStatus,
-} from '@/lib/deal-desk/members';
-import { signAccessToken } from '@/lib/deal-desk/token';
-import { sendMagicLinkEmail } from '@/lib/deal-desk/email';
-import { notifyTeam } from '@/lib/deal-desk/notify';
+  CdMemberStatus,
+} from '@/lib/construction-department/members';
+import { signAccessToken } from '@/lib/construction-department/token';
+import { sendMagicLinkEmail } from '@/lib/construction-department/email';
+import { notifyTeam } from '@/lib/construction-department/notify';
 import { tagMembershipInGhl } from '@/lib/ghl';
 
 type SupabaseService = NonNullable<ReturnType<typeof tryGetServiceClient>>;
@@ -27,12 +27,12 @@ async function emailFreshLink(
   const member = await getMemberByEmail(supabase, email);
   if (!member || (member.status !== 'active' && member.status !== 'trialing')) return;
   const token = signAccessToken(member.email);
-  const link = `${baseUrl}/deal-desk/app?token=${encodeURIComponent(token)}`;
+  const link = `${baseUrl}/construction-department/app?token=${encodeURIComponent(token)}`;
   try {
     await sendMagicLinkEmail({
       email: member.email,
       link,
-      tierName: DEAL_DESK_TIERS[member.tier].name,
+      tierName: CD_TIERS[member.tier].name,
       context,
     });
   } catch {
@@ -43,7 +43,7 @@ async function emailFreshLink(
 export const runtime = 'nodejs';
 
 /**
- * DEDICATED Deal Desk subscription webhook — separate from the order webhook so
+ * DEDICATED Construction Department subscription webhook — separate from the order webhook so
  * the existing one-time-purchase flow is never touched. Configure a second
  * Stripe webhook endpoint pointing here, subscribed to:
  *   checkout.session.completed, invoice.paid,
@@ -65,7 +65,7 @@ function getPeriodEnd(sub: Stripe.Subscription): Date | null {
   return typeof ts === 'number' ? new Date(ts * 1000) : null;
 }
 
-function mapStatus(status: Stripe.Subscription.Status): DealDeskMemberStatus {
+function mapStatus(status: Stripe.Subscription.Status): CdMemberStatus {
   switch (status) {
     case 'active':
       return 'active';
@@ -90,7 +90,7 @@ async function syncSubscription(
 ): Promise<void> {
   const priceId = sub.items.data[0]?.price?.id;
   const tier = priceId ? tierForPriceId(priceId) : null;
-  if (!tier) return; // not a Deal Desk subscription — ignore
+  if (!tier) return; // not a Construction Department subscription — ignore
 
   let email = emailHint || null;
   if (!email && typeof sub.customer === 'string') {
@@ -109,18 +109,17 @@ async function syncSubscription(
     currentPeriodEnd: getPeriodEnd(sub),
   });
 
-  // Tag the Deal Desk membership in GHL (best-effort) so it enters the funnel's
-  // owned-product segmentation. The 08b mapper turns purchased-deal-desk into
-  // own-deal-desk. Only when active/trialing.
+  // Tag the Construction Department membership in GHL (best-effort) so it
+  // enters the funnel's owned-product segmentation. Only when active/trialing.
   if (status === 'active' || status === 'trialing') {
     try {
       await tagMembershipInGhl({
         email,
-        productKey: 'deal-desk',
-        productName: `Deal Desk (${String(tier)})`,
+        productKey: 'construction-department',
+        productName: `Construction Department (${String(tier)})`,
       });
     } catch (err) {
-      console.error('GHL deal-desk tag failed (non-fatal):', err);
+      console.error('GHL construction-department tag failed (non-fatal):', err);
     }
   }
 }
@@ -129,7 +128,7 @@ export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   const webhookSecret = process.env.DEAL_DESK_WEBHOOK_SECRET;
   if (!stripeSecretKey || !webhookSecret) {
-    return NextResponse.json({ error: 'Deal Desk webhook not configured' }, { status: 500 });
+    return NextResponse.json({ error: 'Construction Department webhook not configured' }, { status: 500 });
   }
 
   const stripe = new Stripe(stripeSecretKey, { apiVersion: '2026-03-25.dahlia' });
@@ -144,7 +143,7 @@ export async function POST(req: NextRequest) {
   try {
     event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err) {
-    console.error('Deal Desk webhook signature verification failed:', err);
+    console.error('Construction Department webhook signature verification failed:', err);
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
@@ -166,7 +165,7 @@ export async function POST(req: NextRequest) {
             const m = await getMemberByEmail(supabase, cmaEmail);
             memberId = m?.id ?? null;
           }
-          await supabase.from('deal_desk_cma_orders').insert({
+          await supabase.from('cd_cma_orders').insert({
             member_id: memberId,
             email: cmaEmail,
             property_address: cmaAddress,
@@ -208,7 +207,7 @@ export async function POST(req: NextRequest) {
         break;
     }
   } catch (err) {
-    console.error('Deal Desk webhook handler error:', err);
+    console.error('Construction Department webhook handler error:', err);
     return NextResponse.json({ error: 'handler_error' }, { status: 500 });
   }
 

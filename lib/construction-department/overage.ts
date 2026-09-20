@@ -1,17 +1,17 @@
 import Stripe from 'stripe';
-import type { DealDeskMember } from './members';
-import { DEAL_DESK_TIERS, type DealDeskTierKey } from './tiers';
+import type { CdMember } from './members';
+import { CD_TIERS, type CdTierKey } from './tiers';
 
-// Per-snapshot overage billing for Deal Desk. Lets a Starter/Active member keep
-// pulling snapshots past their monthly cap without upgrading — each extra one is
-// charged to the SAME card they pay their subscription with, off-session.
+// Overage billing for Construction Department allocations (Desk Reviews, GC
+// Procurement). Lets a member keep using a metered benefit past their
+// included allowance without upgrading — each extra one is charged to the
+// SAME card they pay their subscription with, off-session.
 //
-// Per-tier price, env-gated: DEAL_DESK_OVERAGE_PRICE_STARTER / DEAL_DESK_OVERAGE_PRICE_ACTIVE
-// (USD, e.g. "20" / "12"). Unset for a tier = the old hard cap for that tier. Pro is
-// unlimited so overage never applies. The env var name lives on each tier in tiers.ts.
+// Per-tier price, env-gated (see tiers.ts for the exact env var name per
+// tier/benefit). Unset for a tier = no overage available for that benefit —
+// the member is told to upgrade or wait for the next cycle instead.
 
-export function overagePriceCents(tier: DealDeskTierKey): number | null {
-  const envVar = DEAL_DESK_TIERS[tier]?.overagePriceEnvVar;
+export function overagePriceCents(envVar: string | undefined): number | null {
   if (!envVar) return null;
   const raw = process.env[envVar];
   if (!raw) return null;
@@ -20,8 +20,8 @@ export function overagePriceCents(tier: DealDeskTierKey): number | null {
   return Math.round(usd * 100);
 }
 
-export function overagePriceUsd(tier: DealDeskTierKey): number | null {
-  const cents = overagePriceCents(tier);
+export function overagePriceUsd(envVar: string | undefined): number | null {
+  const cents = overagePriceCents(envVar);
   return cents == null ? null : cents / 100;
 }
 
@@ -29,10 +29,13 @@ export type OverageChargeResult =
   | { ok: true; paymentIntentId: string }
   | { ok: false; reason: 'disabled' | 'no_payment_method' | 'card_declined' | 'error'; message?: string };
 
-// Charge the member's saved subscription card, off-session, for one extra snapshot.
-export async function chargeSnapshotOverage(member: DealDeskMember): Promise<OverageChargeResult> {
-  const amount = overagePriceCents(member.tier);
-  if (amount == null) return { ok: false, reason: 'disabled' };
+// Charge the member's saved subscription card, off-session, for one overage unit.
+export async function chargeMemberOverage(
+  member: CdMember,
+  amountCents: number,
+  description: string,
+  metadataKind: string
+): Promise<OverageChargeResult> {
   if (!member.stripe_customer_id) return { ok: false, reason: 'no_payment_method' };
 
   const secret = process.env.STRIPE_SECRET_KEY;
@@ -66,14 +69,14 @@ export async function chargeSnapshotOverage(member: DealDeskMember): Promise<Ove
 
   try {
     const pi = await stripe.paymentIntents.create({
-      amount,
+      amount: amountCents,
       currency: 'usd',
       customer: member.stripe_customer_id,
       payment_method: paymentMethod,
       off_session: true,
       confirm: true,
-      description: 'Deal Desk — additional rehab + MAO snapshot',
-      metadata: { kind: 'deal_desk_snapshot_overage', member_email: member.email },
+      description,
+      metadata: { kind: metadataKind, member_email: member.email },
     });
     if (pi.status === 'succeeded') return { ok: true, paymentIntentId: pi.id };
     return { ok: false, reason: 'card_declined', message: pi.status };
@@ -81,4 +84,28 @@ export async function chargeSnapshotOverage(member: DealDeskMember): Promise<Ove
     // Off-session declines / authentication_required surface as a thrown StripeError.
     return { ok: false, reason: 'card_declined', message: e instanceof Error ? e.message : 'charge_failed' };
   }
+}
+
+// ---- Desk Review overage ----
+
+export function deskReviewOveragePriceUsd(tier: CdTierKey): number | null {
+  return overagePriceUsd(CD_TIERS[tier]?.extraDeskReviewPriceEnvVar);
+}
+
+export async function chargeDeskReviewOverage(member: CdMember): Promise<OverageChargeResult> {
+  const cents = overagePriceCents(CD_TIERS[member.tier]?.extraDeskReviewPriceEnvVar);
+  if (cents == null) return { ok: false, reason: 'disabled' };
+  return chargeMemberOverage(member, cents, 'Construction Department — additional Construction Desk Review', 'cd_desk_review_overage');
+}
+
+// ---- GC Procurement overage ----
+
+export function gcProcurementOveragePriceUsd(tier: CdTierKey): number | null {
+  return overagePriceUsd(CD_TIERS[tier]?.extraGcProcurementPriceEnvVar);
+}
+
+export async function chargeGcProcurementOverage(member: CdMember): Promise<OverageChargeResult> {
+  const cents = overagePriceCents(CD_TIERS[member.tier]?.extraGcProcurementPriceEnvVar);
+  if (cents == null) return { ok: false, reason: 'disabled' };
+  return chargeMemberOverage(member, cents, 'Construction Department — additional GC procurement (Bid Package)', 'cd_gc_procurement_overage');
 }

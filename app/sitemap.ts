@@ -26,7 +26,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/contracting`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/recurring-support`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/gallery`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/platform`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/construction`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/construction-department`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/resources`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/partners`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
@@ -78,9 +80,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  // /platform/{stage}
+  // /construction/{stage}
   const platformRoutes: MetadataRoute.Sitemap = PLATFORM_STAGES.map((stage) => ({
-    url: `${baseUrl}/platform/${stage.slug}`,
+    url: `${baseUrl}/construction/${stage.slug}`,
     lastModified: now,
     changeFrequency: 'monthly',
     priority: 0.7,

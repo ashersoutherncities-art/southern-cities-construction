@@ -25,12 +25,17 @@ const SERVICES_GROUP: NavGroup = {
   ],
 };
 
-// Primary nav focused on the ONE flagship offer. Everything else lives
-// under "More" (dropdown) so the primary path reads as a single funnel:
-// Deal Pack → Gallery / Real deals → Get started.
+// Primary nav follows the SCREEN → ANALYZE → PLAN → PROCURE → BUILD
+// journey: How It Works (anchor) sets up the story, Construction
+// Department is the membership behind it, Deal Pack is the flagship
+// one-time product, Construction is the BUILD + PROCURE execution hub.
 const PRIMARY_LINKS: NavLink[] = [
+  { href: '/#how-it-works', label: 'How It Works' },
+  { href: '/construction-department', label: 'Construction Department' },
   { href: '/deal-pack', label: 'Deal Pack' },
-  { href: '/gallery', label: 'Gallery' },
+  { href: '/construction', label: 'Construction' },
+  { href: '/gallery', label: 'Projects' },
+  { href: '/about', label: 'About' },
 ];
 
 export default function SiteNav({ variant = 'transparent' }: { variant?: 'transparent' | 'solid' }) {
@@ -83,7 +88,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
   };
 
   const linkClass = (active: boolean) =>
-    `px-2.5 xl:px-3 py-2 text-[12px] xl:text-[12.5px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 whitespace-nowrap ${
+    `px-2 xl:px-2.5 py-2 text-[11px] xl:text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors duration-200 whitespace-nowrap ${
       active ? 'text-white' : 'text-white/70 hover:text-white'
     }`;
 
@@ -103,7 +108,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
             </Link>
 
             {/* Centered primary tabs */}
-            <div className="hidden lg:flex flex-1 items-center justify-center gap-3 xl:gap-5">
+            <div className="hidden lg:flex flex-1 items-center justify-center gap-1 xl:gap-2.5">
               {PRIMARY_LINKS.map((link) => {
                 const active = pathname === link.href;
                 return (
@@ -168,8 +173,8 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
               </a>
-              <Link href="/start" className="inline-flex items-center gap-2 bg-orange px-5 xl:px-6 py-2.5 text-[11.5px] xl:text-[12px] font-bold uppercase tracking-[0.14em] text-white transition-all duration-200 whitespace-nowrap hover:bg-orange-500" style={{ borderRadius: '2px' }}>
-                Get Started
+              <Link href="/lp/rehab-budget-range-execution-risk-snapshot" className="inline-flex items-center gap-2 bg-orange px-5 xl:px-6 py-2.5 text-[11.5px] xl:text-[12px] font-bold uppercase tracking-[0.14em] text-white transition-all duration-200 whitespace-nowrap hover:bg-orange-500" style={{ borderRadius: '2px' }}>
+                Analyze a Deal
                 <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
@@ -231,8 +236,8 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
               <a href={SITE_CONFIG.portalUrl} target="_blank" rel="noopener noreferrer" className="block rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:text-orange">
                 Portal
               </a>
-              <Link href="/start" onClick={() => setMobileOpen(false)} className="mt-3 block bg-orange px-5 py-3.5 text-center text-[13px] font-bold uppercase tracking-[0.14em] text-white transition-all hover:bg-orange-500" style={{ borderRadius: '2px' }}>
-                Get Started &rarr;
+              <Link href="/lp/rehab-budget-range-execution-risk-snapshot" onClick={() => setMobileOpen(false)} className="mt-3 block bg-orange px-5 py-3.5 text-center text-[13px] font-bold uppercase tracking-[0.14em] text-white transition-all hover:bg-orange-500" style={{ borderRadius: '2px' }}>
+                Analyze a Deal &rarr;
               </Link>
             </div>
           </div>

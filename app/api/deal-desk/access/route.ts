@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { getMemberByEmail } from '@/lib/deal-desk/members';
-import { signAccessToken } from '@/lib/deal-desk/token';
-import { sendMagicLinkEmail } from '@/lib/deal-desk/email';
-import { DEAL_DESK_TIERS } from '@/lib/deal-desk/tiers';
+import { getMemberByEmail } from '@/lib/construction-department/members';
+import { signAccessToken } from '@/lib/construction-department/token';
+import { sendMagicLinkEmail } from '@/lib/construction-department/email';
+import { CD_TIERS } from '@/lib/construction-department/tiers';
 
 export const runtime = 'nodejs';
 
@@ -29,9 +29,9 @@ export async function POST(req: NextRequest) {
     const member = await getMemberByEmail(supabase, email);
     if (member && (member.status === 'active' || member.status === 'trialing')) {
       const token = signAccessToken(member.email);
-      const link = `${baseUrl}/deal-desk/app?token=${encodeURIComponent(token)}`;
+      const link = `${baseUrl}/construction-department/app?token=${encodeURIComponent(token)}`;
       try {
-        await sendMagicLinkEmail({ email: member.email, link, tierName: DEAL_DESK_TIERS[member.tier].name });
+        await sendMagicLinkEmail({ email: member.email, link, tierName: CD_TIERS[member.tier].name });
       } catch {
         // swallow — never reveal send failures (or membership) to the caller
       }

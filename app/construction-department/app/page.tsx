@@ -108,7 +108,7 @@ function addrPart(place: NewPlace, type: string, short = false): string | undefi
   return c ? (short ? c.shortText : c.longText) : undefined;
 }
 
-export default function DealDeskApp() {
+export default function ConstructionDepartmentApp() {
   const [token, setToken] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ mao: MaoResult; remaining: number | null; delivered: boolean; address: string; squareFeet: number } | null>(null);
@@ -124,6 +124,10 @@ export default function DealDeskApp() {
   const [googleOn, setGoogleOn] = useState(false);
   const [addressValidated, setAddressValidated] = useState(false);
   const [suggestions, setSuggestions] = useState<NewSuggestion[]>([]);
+  const [deskReviewLoading, setDeskReviewLoading] = useState(false);
+  const [deskReviewMsg, setDeskReviewMsg] = useState<string | null>(null);
+  const [deskReviewOverage, setDeskReviewOverage] = useState<{ priceUsd: number } | null>(null);
+  const [deskReviewRequested, setDeskReviewRequested] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const addressInputRef = useRef<HTMLInputElement>(null);
   const googleInitedRef = useRef(false);
@@ -288,6 +292,33 @@ export default function DealDeskApp() {
     }
   }
 
+  async function onRequestDeskReview(acceptOverage: boolean) {
+    if (!token || !result) return;
+    setDeskReviewLoading(true);
+    setDeskReviewMsg(null);
+    try {
+      const res = await fetch('/api/construction-department/desk-review', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ token, property_address: result.address, accept_overage: acceptOverage }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setDeskReviewRequested(true);
+        setDeskReviewOverage(null);
+        setDeskReviewMsg('Requested. A licensed GC will follow up with your write-up.');
+      } else if (data.error === 'overage_required') {
+        setDeskReviewOverage({ priceUsd: data.overage_price_usd });
+      } else {
+        setDeskReviewMsg(data.detail || 'Could not request a Desk Review right now.');
+      }
+    } catch {
+      setDeskReviewMsg('Something went wrong requesting the Desk Review.');
+    } finally {
+      setDeskReviewLoading(false);
+    }
+  }
+
   async function submitSnapshot(payload: Record<string, unknown>, acceptOverage: boolean) {
     if (!token) return;
     setSubmitting(true);
@@ -315,7 +346,7 @@ export default function DealDeskApp() {
           expired: 'Your membership period has lapsed. Please check your billing.',
           inactive: 'Your membership is not active.',
           not_found: 'No active membership found for your link.',
-          invalid_or_expired_link: 'This link is invalid or expired. Request a fresh one from the Deal Desk page.',
+          invalid_or_expired_link: 'This link is invalid or expired. Request a fresh one from the Construction Department page.',
           valuation_unavailable: "We couldn't pull a market value for that address. Try the ARV override or order a CMA.",
         };
         setError(map[data.reason] || map[data.error] || data.detail || 'Something went wrong.');
@@ -324,6 +355,9 @@ export default function DealDeskApp() {
         setOverage(null);
         const proj = (payload.project ?? {}) as { property_address?: string; square_feet?: number };
         setResult({ ...data, address: proj.property_address ?? '', squareFeet: Number(proj.square_feet ?? 0) });
+        setDeskReviewRequested(false);
+        setDeskReviewOverage(null);
+        setDeskReviewMsg(null);
         loadHistory(token);
       }
     } catch {
@@ -376,9 +410,9 @@ export default function DealDeskApp() {
         <div style={{ maxWidth: 520, margin: '0 auto', background: '#fff', border: '1px solid #e8dfd4', borderRadius: 16, padding: 28 }}>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Open from your access link</h1>
           <p style={{ fontSize: 15, lineHeight: 1.6 }}>
-            This page needs your private link. Go to the Deal Desk page and enter your email to get one.
+            This page needs your private link. Go to the Construction Department page and enter your email to get one.
           </p>
-          <a href="/deal-desk#member" style={{ color: ORANGE, fontWeight: 700 }}>Get my link →</a>
+          <a href="/construction-department#member" style={{ color: ORANGE, fontWeight: 700 }}>Get my link →</a>
         </div>
       </main>
     );
@@ -389,7 +423,7 @@ export default function DealDeskApp() {
       <div style={{ maxWidth: 1080, margin: '0 auto', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 280px', gap: 22, alignItems: 'start' }}>
         {/* Main column */}
         <div>
-          <p style={{ color: ORANGE, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', fontSize: 12 }}>Deal Desk</p>
+          <p style={{ color: ORANGE, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', fontSize: 12 }}>Construction Department</p>
           <h1 style={{ fontSize: 28, fontWeight: 900, margin: '6px 0 6px' }}>Run a deal</h1>
           <p style={{ fontSize: 13, color: '#6b7280', margin: '0 0 16px' }}>
             You&apos;re signed in by your private link — no password needed. It refreshes automatically each billing cycle.
@@ -584,6 +618,53 @@ export default function DealDeskApp() {
                 </button>
                 <span style={{ marginLeft: 10, fontSize: 12.5, color: '#6b7280' }}>$99 for members · Pro includes 1/mo free</span>
                 {cmaMsg ? <p style={{ margin: '10px 0 0', fontSize: 13, color: NAVY }}>{cmaMsg}</p> : null}
+              </div>
+
+              {/* Construction Desk Review request — ANALYZE stage */}
+              <div style={{ marginTop: 14, padding: 14, borderRadius: 12, background: '#fdeee2', border: '1px solid #f3c89f' }}>
+                <p style={{ margin: '0 0 8px', fontSize: 13, color: '#374151' }}>
+                  Want a licensed GC to personally review the scope, risk flags, and finish level on this
+                  deal? Request a Construction Desk Review.
+                </p>
+                {deskReviewRequested ? (
+                  <p style={{ margin: 0, fontSize: 13.5, fontWeight: 700, color: '#1a7f37' }}>
+                    Requested — you&apos;ll get an email when it&apos;s ready.
+                  </p>
+                ) : deskReviewOverage ? (
+                  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+                    <span style={{ fontSize: 13, color: '#7a4a1d' }}>
+                      Your included Desk Reviews for this cycle are used. This one is ${deskReviewOverage.priceUsd}, billed to your card on file.
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => onRequestDeskReview(true)}
+                      disabled={deskReviewLoading}
+                      style={{ background: ORANGE, color: NAVY, fontWeight: 700, border: 'none', borderRadius: 10, padding: '11px 18px', fontSize: 14, cursor: 'pointer' }}
+                    >
+                      {deskReviewLoading ? 'Charging…' : `Request — $${deskReviewOverage.priceUsd}`}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setDeskReviewOverage(null)}
+                      disabled={deskReviewLoading}
+                      style={{ background: 'transparent', color: '#7a4a1d', fontWeight: 700, border: '1px solid #e8c9a8', borderRadius: 10, padding: '11px 18px', cursor: 'pointer' }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => onRequestDeskReview(false)}
+                    disabled={deskReviewLoading}
+                    style={{ background: NAVY, color: '#fff', fontWeight: 700, border: 'none', borderRadius: 10, padding: '11px 18px', fontSize: 14, cursor: 'pointer' }}
+                  >
+                    {deskReviewLoading ? 'Requesting…' : 'Request a Construction Desk Review'}
+                  </button>
+                )}
+                {deskReviewMsg && !deskReviewRequested && !deskReviewOverage ? (
+                  <p style={{ margin: '10px 0 0', fontSize: 13, color: NAVY }}>{deskReviewMsg}</p>
+                ) : null}
               </div>
 
               <p style={{ marginTop: 12, fontSize: 13, color: '#6b7280' }}>

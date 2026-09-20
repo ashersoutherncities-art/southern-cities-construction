@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { isDealDeskTierKey, getTier, priceIdForTier } from '@/lib/deal-desk/tiers';
+import { isCdTierKey, getTier, priceIdForTier } from '@/lib/construction-department/tiers';
 
 export const runtime = 'nodejs';
 
 /**
- * Starts a Stripe subscription Checkout for a Deal Desk tier. Returns the
- * Stripe-hosted checkout URL. The dedicated Deal Desk webhook records the
+ * Starts a Stripe subscription Checkout for a Construction Department tier.
+ * Returns the Stripe-hosted checkout URL. The dedicated webhook (still at its
+ * original /api/deal-desk/webhook path — see the plan for why) records the
  * membership once payment completes.
  */
 export async function POST(req: NextRequest) {
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
   }
 
   const tierKey = String(body.tier || '');
-  if (!isDealDeskTierKey(tierKey)) {
+  if (!isCdTierKey(tierKey)) {
     return NextResponse.json({ error: 'Unknown tier' }, { status: 400 });
   }
   const tier = getTier(tierKey);
@@ -43,11 +44,11 @@ export async function POST(req: NextRequest) {
       mode: 'subscription',
       line_items: [
         { price: priceId, quantity: 1 },
-        // One-time $99 Deal Desk setup fee — added to the first invoice only.
+        // One-time $99 Construction Department setup fee — added to the first invoice only.
         {
           price_data: {
             currency: 'usd',
-            product_data: { name: 'Deal Desk — one-time setup fee' },
+            product_data: { name: 'Construction Department — one-time setup fee' },
             unit_amount: 9900,
             tax_behavior: 'exclusive',
           },
@@ -58,10 +59,10 @@ export async function POST(req: NextRequest) {
       allow_promotion_codes: true,
       billing_address_collection: 'required',
       automatic_tax: { enabled: false },
-      subscription_data: { metadata: { deal_desk_tier: tierKey } },
-      metadata: { deal_desk_tier: tierKey },
-      success_url: `${baseUrl}/deal-desk/welcome?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/deal-desk?canceled=1`,
+      subscription_data: { metadata: { cd_tier: tierKey } },
+      metadata: { cd_tier: tierKey },
+      success_url: `${baseUrl}/construction-department/welcome?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/construction-department?canceled=1`,
     });
 
     return NextResponse.json({ url: session.url });

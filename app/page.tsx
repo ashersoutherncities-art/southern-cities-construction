@@ -35,6 +35,44 @@ const doors = [
   },
 ];
 
+const HOW_IT_WORKS = [
+  {
+    n: '01',
+    label: 'Screen',
+    body: 'Run any NC property through the free rehab budget range tool for an instant, market-adjusted read.',
+    cta: 'Screen a property',
+    href: '/lp/rehab-budget-range-execution-risk-snapshot',
+  },
+  {
+    n: '02',
+    label: 'Analyze',
+    body: 'A licensed GC personally reviews the deal — scope, risk flags, and finish-level recommendation — before you own it.',
+    cta: 'See the membership',
+    href: '/construction-department',
+  },
+  {
+    n: '03',
+    label: 'Plan',
+    body: 'The Build-Ready Deal Pack turns the analysis into a committed, sealed rehab price and a real scope of work.',
+    cta: 'See the Deal Pack',
+    href: '/deal-pack',
+  },
+  {
+    n: '04',
+    label: 'Procure',
+    body: 'That scope goes out to vetted local contractors as a real Bid Package — every proposal, including ours, compared side by side.',
+    cta: 'How procurement works',
+    href: '/construction',
+  },
+  {
+    n: '05',
+    label: 'Build',
+    body: 'Southern Cities executes the work, or you take the vetted, compared bids to the contractor you choose.',
+    cta: 'See build options',
+    href: '/construction',
+  },
+];
+
 const subAudienceLinks = [
   { label: 'Wholesaler-specific terms ($0 upfront)', href: '/lp/wholesaler-deal-pack' },
   { label: 'Realtor listing package ($0 upfront)', href: '/lp/realtor-deal-pack' },
@@ -201,21 +239,22 @@ export default function Home() {
         <div className="im-container pt-32 sm:pt-40 pb-20 sm:pb-24 relative">
           <span className="p-eyebrow-pill">
             <span className="p-eyebrow-dot" aria-hidden="true" />
-            For NC investors + real estate professionals · #107724
+            For NC investors, wholesalers &amp; realtors · #107724
           </span>
           <h1 className="im-display im-display--on-dark mt-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] max-w-5xl">
-            A licensed NC GC&rsquo;s <span className="p-gradient-text">committed rehab price</span> on your deal &mdash; before you buy it.
+            Your <span className="p-gradient-text">construction department</span> for real estate investing.
           </h1>
           <p className="im-body im-body--on-dark mt-6 max-w-2xl text-lg sm:text-xl">
-            Most GCs won&rsquo;t review a deal you don&rsquo;t own yet.
-            <span className="text-white font-semibold"> We will.</span> Sealed with license #107724 and transferable once at closing.
+            Screen the deal, get a licensed GC&rsquo;s read on it, price the rehab, put it out to bid,
+            and get it built &mdash; without hiring a construction team of your own.
+            <span className="text-white font-semibold"> Most GCs won&rsquo;t review a deal you don&rsquo;t own yet. We will.</span>
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Link href={CONSULTATION_CTA_HREF} className="im-btn im-btn--primary">
-              Book a free project call &rarr;
+            <Link href="/lp/rehab-budget-range-execution-risk-snapshot" className="im-btn im-btn--primary">
+              Analyze a deal &rarr;
             </Link>
-            <Link href="/deal-pack" className="im-btn im-btn--ghost-on-dark">
-              See what&rsquo;s inside
+            <Link href="/construction-department" className="im-btn im-btn--ghost-on-dark">
+              See the membership
             </Link>
           </div>
           <div className="p-trust-row mt-10">
@@ -236,6 +275,32 @@ export default function Home() {
               <span className="p-trust-num">#107724</span>
               <span className="p-trust-label">Licensed &amp; insured</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS — the 5-stage journey: SCREEN → ANALYZE → PLAN → PROCURE → BUILD */}
+      <section id="how-it-works" className="im-band p-reveal scroll-mt-24">
+        <div className="im-container im-section">
+          <p className="im-eyebrow">How it works</p>
+          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
+            Five stages. One licensed GC the whole way through.
+          </h2>
+          <p className="im-body mt-6 max-w-2xl text-lg">
+            Southern Cities plugs in wherever your deal is right now &mdash; from a property you
+            are still deciding on, to a rehab that is ready to go out to bid.
+          </p>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {HOW_IT_WORKS.map((step) => (
+              <div key={step.n} className="im-card">
+                <span className="im-mono text-[11px]" style={{ color: 'var(--accent)' }}>{step.n}</span>
+                <p className="mt-2 text-[13px] font-black uppercase tracking-[0.14em]" style={{ color: 'var(--ink-hi)' }}>{step.label}</p>
+                <p className="im-body mt-3 text-[14px] leading-[1.6]">{step.body}</p>
+                <Link href={step.href} className="im-door__cta mt-4 inline-block">
+                  {step.cta} &rarr;
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

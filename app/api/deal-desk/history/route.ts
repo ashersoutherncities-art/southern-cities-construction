@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { verifyAccessToken } from '@/lib/deal-desk/token';
-import { getMemberByEmail, getMemberSnapshots } from '@/lib/deal-desk/members';
+import { verifyAccessToken } from '@/lib/construction-department/token';
+import { getMemberByEmail, getMemberScreenings } from '@/lib/construction-department/members';
 
 export const runtime = 'nodejs';
 
@@ -22,6 +22,6 @@ export async function POST(req: NextRequest) {
   const member = await getMemberByEmail(supabase, verified.email);
   if (!member) return NextResponse.json({ snapshots: [] });
 
-  const snapshots = await getMemberSnapshots(supabase, member.id);
+  const snapshots = await getMemberScreenings(supabase, member.id);
   return NextResponse.json({ snapshots });
 }

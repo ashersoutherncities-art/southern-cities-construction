@@ -55,6 +55,10 @@ type ContactInfo = {
   sms_consent: boolean;
   company_name: string;
   investor_type: string;
+  investor_state: string;
+  years_experience_band: string;
+  deals_per_year_band: string;
+  needs_construction_execution: boolean;
 };
 
 type PropertyInfo = {
@@ -72,6 +76,11 @@ type PropertyInfo = {
   investment_strategy: string;
   target_finish_level: string;
   finish_tier: string;
+  ownership_status: string;
+  expected_purchase_price: string;
+  expected_arv: string;
+  financing_method: string;
+  target_timeline_weeks: string;
 };
 
 const INVESTOR_TYPES = [
@@ -302,6 +311,10 @@ export default function RehabRiskSnapshotForm() {
     sms_consent: false,
     company_name: '',
     investor_type: 'flipper',
+    investor_state: 'NC',
+    years_experience_band: '',
+    deals_per_year_band: '',
+    needs_construction_execution: false,
   });
   const [property, setProperty] = useState<PropertyInfo>({
     property_address: '',
@@ -318,6 +331,11 @@ export default function RehabRiskSnapshotForm() {
     investment_strategy: 'flip',
     target_finish_level: 'basic_flip',
     finish_tier: '2',
+    ownership_status: '',
+    expected_purchase_price: '',
+    expected_arv: '',
+    financing_method: '',
+    target_timeline_weeks: '',
   });
   const [state, setState] = useState<SubmissionState>('idle');
   const [error, setError] = useState('');
@@ -340,6 +358,10 @@ export default function RehabRiskSnapshotForm() {
       sms_consent: fd.get('smsConsent') === 'true',
       company_name: String(fd.get('company_name') ?? '').trim(),
       investor_type: String(fd.get('investor_type') ?? 'flipper'),
+      investor_state: String(fd.get('investor_state') ?? 'NC').trim(),
+      years_experience_band: String(fd.get('years_experience_band') ?? ''),
+      deals_per_year_band: String(fd.get('deals_per_year_band') ?? ''),
+      needs_construction_execution: fd.get('needs_construction_execution') === 'true',
     };
     if (!next.first_name || !next.last_name || !next.email) {
       setError('First name, last name, and email are required.');
@@ -378,6 +400,11 @@ export default function RehabRiskSnapshotForm() {
       investment_strategy: String(fd.get('investment_strategy') ?? 'flip'),
       target_finish_level: String(fd.get('target_finish_level') ?? 'basic_flip'),
       finish_tier: String(fd.get('finish_tier') ?? '2'),
+      ownership_status: String(fd.get('ownership_status') ?? ''),
+      expected_purchase_price: String(fd.get('expected_purchase_price') ?? '').trim(),
+      expected_arv: String(fd.get('expected_arv') ?? '').trim(),
+      financing_method: String(fd.get('financing_method') ?? ''),
+      target_timeline_weeks: String(fd.get('target_timeline_weeks') ?? '').trim(),
     };
     if (!next.property_address || !next.square_feet || Number(next.square_feet) <= 0) {
       setError('Property address and a valid square footage are required.');
@@ -473,6 +500,41 @@ export default function RehabRiskSnapshotForm() {
                 </Select>
               </div>
             </div>
+
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">A bit about you (optional)</p>
+              <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <FieldLabel>Your state (where you invest from)</FieldLabel>
+                  <Input name="investor_state" placeholder="NC" defaultValue={contact.investor_state} />
+                </div>
+                <div>
+                  <FieldLabel>Years of experience</FieldLabel>
+                  <Select name="years_experience_band" defaultValue={contact.years_experience_band}>
+                    <option value="">Prefer not to say</option>
+                    <option value="0-1">0-1 years</option>
+                    <option value="2-4">2-4 years</option>
+                    <option value="5-9">5-9 years</option>
+                    <option value="10+">10+ years</option>
+                  </Select>
+                </div>
+                <div>
+                  <FieldLabel>Deals per year</FieldLabel>
+                  <Select name="deals_per_year_band" defaultValue={contact.deals_per_year_band}>
+                    <option value="">Prefer not to say</option>
+                    <option value="0-1">0-1</option>
+                    <option value="2-5">2-5</option>
+                    <option value="6-10">6-10</option>
+                    <option value="10+">10+</option>
+                  </Select>
+                </div>
+                <label className="flex items-center gap-2.5 self-end pb-2 text-[13.5px] text-white/75">
+                  <input type="checkbox" name="needs_construction_execution" value="true" defaultChecked={contact.needs_construction_execution} className="h-4 w-4 rounded border-white/30 bg-transparent" />
+                  I&apos;ll need someone to actually build this, not just price it
+                </label>
+              </div>
+            </div>
+
             <SmsConsent name="smsConsent" tone="dark" />
             {error && <p className="text-sm text-rose-300">{error}</p>}
             <button type="submit" className={primaryBtn}>
@@ -579,6 +641,46 @@ export default function RehabRiskSnapshotForm() {
                 </Select>
               </div>
             </div>
+
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">This deal so far (optional)</p>
+              <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <FieldLabel>Where does this deal stand?</FieldLabel>
+                  <Select name="ownership_status" defaultValue={property.ownership_status}>
+                    <option value="">Prefer not to say</option>
+                    <option value="considering">Just considering it</option>
+                    <option value="under_contract">Under contract</option>
+                    <option value="owned">Already own it</option>
+                  </Select>
+                </div>
+                <div>
+                  <FieldLabel>How will you finance it?</FieldLabel>
+                  <Select name="financing_method" defaultValue={property.financing_method}>
+                    <option value="">Prefer not to say</option>
+                    <option value="cash">Cash</option>
+                    <option value="hard_money">Hard money</option>
+                    <option value="conventional">Conventional</option>
+                    <option value="private">Private money</option>
+                    <option value="heloc">HELOC</option>
+                    <option value="other">Other</option>
+                  </Select>
+                </div>
+                <div>
+                  <FieldLabel>Expected purchase price</FieldLabel>
+                  <Input name="expected_purchase_price" type="number" placeholder="185000" defaultValue={property.expected_purchase_price} />
+                </div>
+                <div>
+                  <FieldLabel>Expected ARV</FieldLabel>
+                  <Input name="expected_arv" type="number" placeholder="285000" defaultValue={property.expected_arv} />
+                </div>
+                <div>
+                  <FieldLabel>Target timeline (weeks)</FieldLabel>
+                  <Input name="target_timeline_weeks" type="number" placeholder="10" defaultValue={property.target_timeline_weeks} />
+                </div>
+              </div>
+            </div>
+
             {error && <p className="text-sm text-rose-300">{error}</p>}
             <div className="flex flex-col gap-3 sm:flex-row">
               <button type="button" onClick={() => setStep(1)} className={`${ghostBtn} sm:w-auto`}>

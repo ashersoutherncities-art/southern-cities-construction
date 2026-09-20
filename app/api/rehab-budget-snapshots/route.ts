@@ -12,6 +12,8 @@ import {
   OccupancyStatus,
   PropertyType,
   TargetFinishLevel,
+  OwnershipStatus,
+  FinancingMethod,
 } from '@/lib/rehab-snapshot/types';
 import { estimate as estimateV2 } from '@/lib/estimator/engine';
 import type { EstimateInput as V2Input, FinishTier } from '@/lib/estimator/engine';
@@ -112,6 +114,12 @@ export async function POST(req: NextRequest) {
       company_name: optionalString(formData, 'company_name'),
       investor_type: requiredString(formData, 'investor_type') as InvestorType,
       source: 'rehab-budget-range-execution-risk-snapshot',
+      investor_state: optionalString(formData, 'investor_state'),
+      years_experience_band: optionalString(formData, 'years_experience_band'),
+      deals_per_year_band: optionalString(formData, 'deals_per_year_band'),
+      needs_construction_execution: formData.has('needs_construction_execution')
+        ? boolField(formData, 'needs_construction_execution')
+        : null,
     };
 
     const project = {
@@ -131,6 +139,11 @@ export async function POST(req: NextRequest) {
       finish_tier: intField(formData, 'finish_tier', 2),
       addition_sf: intField(formData, 'addition_sf', 0),
       window_count: intField(formData, 'window_count', 0),
+      ownership_status: optionalString(formData, 'ownership_status') as OwnershipStatus | null,
+      expected_purchase_price: numberField(formData, 'expected_purchase_price'),
+      expected_arv: numberField(formData, 'expected_arv'),
+      financing_method: optionalString(formData, 'financing_method') as FinancingMethod | null,
+      target_timeline_weeks: numberField(formData, 'target_timeline_weeks'),
     };
 
     const scope = {

@@ -3,21 +3,21 @@
 import { useState } from 'react';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { DEAL_DESK_TIERS, DealDeskTierKey } from '@/lib/deal-desk/tiers';
+import { CD_TIERS, CdTierKey } from '@/lib/construction-department/tiers';
 
 const NAVY = '#132452';
 const ORANGE = '#fa8c41';
 const CREAM = '#f6f2ec';
 
-const ORDER: DealDeskTierKey[] = ['starter', 'active', 'pro'];
+const ORDER: CdTierKey[] = ['starter', 'investor', 'operator'];
 
-export default function DealDeskPage() {
-  const [loading, setLoading] = useState<DealDeskTierKey | null>(null);
+export default function ConstructionDepartmentPage() {
+  const [loading, setLoading] = useState<CdTierKey | null>(null);
   const [email, setEmail] = useState('');
   const [linkSent, setLinkSent] = useState(false);
   const [sending, setSending] = useState(false);
 
-  async function subscribe(tier: DealDeskTierKey) {
+  async function subscribe(tier: CdTierKey) {
     setLoading(tier);
     try {
       const res = await fetch('/api/deal-desk/checkout', {
@@ -56,20 +56,20 @@ export default function DealDeskPage() {
       <main style={{ background: CREAM, color: NAVY, minHeight: '100vh', padding: '120px 20px 56px' }}>
       <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <p style={{ color: ORANGE, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', fontSize: 12 }}>
-          Southern Cities Construction · Deal Desk
+          Southern Cities Construction · Construction Department
         </p>
         <h1 style={{ fontSize: 40, fontWeight: 900, lineHeight: 1.05, margin: '10px 0 8px' }}>
-          GC-verified rehab numbers + your Max Allowable Offer — on every deal.
+          Build your real estate business without building your own construction department.
         </h1>
         <p style={{ fontSize: 17, maxWidth: 680, lineHeight: 1.6 }}>
-          Stop guessing rehab. Run any NC property through a licensed GC&apos;s cost model and get an
-          execution-risk read plus a Max Allowable Offer you can act on — all month long.
+          Screen every deal for free. Get allocated access to a licensed GC&apos;s Construction Desk Review,
+          preferred Deal Pack pricing, and vetted GC quote procurement — all through one membership.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 18, marginTop: 32 }}>
           {ORDER.map((key) => {
-            const tier = DEAL_DESK_TIERS[key];
-            const popular = key === 'active';
+            const tier = CD_TIERS[key];
+            const popular = key === 'investor';
             return (
               <div
                 key={key}
@@ -95,10 +95,14 @@ export default function DealDeskPage() {
                 <div style={{ fontSize: 12.5, fontWeight: 600, color: '#6b7280', marginTop: -4, marginBottom: 4 }}>+ $99 one-time setup</div>
                 <p style={{ fontSize: 14, lineHeight: 1.55, color: '#374151', minHeight: 66 }}>{tier.blurb}</p>
                 <ul style={{ fontSize: 13, lineHeight: 1.7, paddingLeft: 18, margin: '4px 0 18px' }}>
-                  <li>{tier.snapshotLimit == null ? 'Unlimited' : tier.snapshotLimit} snapshots / month</li>
-                  {tier.overagePriceUsd ? <li>then ${tier.overagePriceUsd} per extra snapshot — charged to your card, no upgrade</li> : null}
-                  <li>{tier.usePremiumAvm ? 'Dual independent valuation cross-check' : 'Market-comp valuation screen'}</li>
-                  <li>{tier.cmaCreditsPerMonth > 0 ? `${tier.cmaCreditsPerMonth} SC Realty CMA credit / mo` : 'CMA available as add-on'}</li>
+                  <li>Unlimited SCREEN — construction intelligence on every property (software is scalable)</li>
+                  <li>{tier.deskReviewsPerMonth > 0 ? `${tier.deskReviewsPerMonth} Construction Desk Review${tier.deskReviewsPerMonth > 1 ? 's' : ''} / mo` : 'Construction Desk Reviews available as add-on'}</li>
+                  <li>{tier.dealPackDiscountPct ? `${tier.dealPackDiscountPct}% preferred Deal Pack pricing` : 'Standard Deal Pack pricing'}</li>
+                  <li>{tier.gcProcurementIncludedPerYear > 0 ? `${tier.gcProcurementIncludedPerYear} GC procurement${tier.gcProcurementIncludedPerYear > 1 ? 's' : ''} / yr` : 'GC procurement available as add-on'}</li>
+                  {tier.cmaCreditsPerMonth > 0 ? <li>{tier.cmaCreditsPerMonth} SC Realty CMA credit{tier.cmaCreditsPerMonth > 1 ? 's' : ''} / mo</li> : null}
+                  {tier.strategyCallsPerMonth > 0 ? <li>{tier.strategyCallsPerMonth} monthly strategy call</li> : null}
+                  {tier.siteVisitCreditsPerYear > 0 ? <li>{tier.siteVisitCreditsPerYear} site-visit credit / yr</li> : null}
+                  {tier.priorityQueue ? <li>Priority queue on every request</li> : null}
                 </ul>
                 <button
                   onClick={() => subscribe(key)}
@@ -125,15 +129,17 @@ export default function DealDeskPage() {
         <div style={{ marginTop: 40, background: '#fff', border: '1px solid #e8dfd4', borderRadius: 16, padding: 24, maxWidth: 760 }}>
           <h3 style={{ margin: '0 0 10px', fontSize: 18, fontWeight: 800 }}>How your access works — no passwords</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, fontSize: 14, lineHeight: 1.55, color: '#374151' }}>
-            <div><strong style={{ color: NAVY }}>1. Subscribe</strong><br />Pick a plan and check out. We instantly email you a private link to your Deal Desk.</div>
+            <div><strong style={{ color: NAVY }}>1. Subscribe</strong><br />Pick a plan and check out. We instantly email you a private link to your Construction Department.</div>
             <div><strong style={{ color: NAVY }}>2. Click your link</strong><br />The link <em>is</em> your login — no password to set or remember. Bookmark the page it opens.</div>
-            <div><strong style={{ color: NAVY }}>3. It renews itself</strong><br />Every billing cycle we email you a fresh link automatically, with your snapshots reset for the new month.</div>
+            <div><strong style={{ color: NAVY }}>3. It renews itself</strong><br />Every billing cycle we email you a fresh link automatically, with your allocations reset for the new month.</div>
           </div>
           <p style={{ margin: '16px 0 0', fontSize: 13.5, color: NAVY, fontWeight: 600, lineHeight: 1.55 }}>
-            Out of snapshots before your cycle resets? Keep going — additional snapshots are billed per snapshot at your plan&apos;s rate (Starter $20, Active $12) to the card on file, no upgrade required. Pro is unlimited.
+            Software (SCREEN) is unlimited on every plan. Human expertise (Construction Desk Reviews, GC procurement,
+            strategy calls, site visits) is allocated per tier — need more before your cycle resets? Extra Desk Reviews
+            and GC procurements are billed individually to the card on file, no upgrade required.
           </p>
           <p style={{ margin: '10px 0 0', fontSize: 13, color: '#6b7280' }}>
-            Your link is private to your membership and tied to your snapshot allowance — don&apos;t share it. Need a fresh one anytime? Enter your email below.
+            Your link is private to your membership and tied to your allocations — don&apos;t share it. Need a fresh one anytime? Enter your email below.
           </p>
         </div>
 
@@ -141,7 +147,7 @@ export default function DealDeskPage() {
           <h3 style={{ margin: '0 0 6px', fontSize: 18, fontWeight: 800 }}>Already a member? Get your link</h3>
           {linkSent ? (
             <p style={{ margin: 0, color: '#1a7f37', fontSize: 15 }}>
-              If that email has an active membership, your private Deal Desk link is on its way. Check your inbox.
+              If that email has an active membership, your private Construction Department link is on its way. Check your inbox.
             </p>
           ) : (
             <form onSubmit={requestLink} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -165,9 +171,11 @@ export default function DealDeskPage() {
         </div>
 
         <p style={{ marginTop: 28, fontSize: 12, color: '#6b7280' }}>
-          Southern Cities Construction · NC GC License #107724. Snapshots are underwriting tools, not appraisals or
-          guaranteed prices. Property values shown are derived estimates; a Southern Cities Realty CMA provides the
-          finalized valuation.
+          Southern Cities Construction · NC GC License #107724. SCREEN results are underwriting tools, not appraisals,
+          engineering opinions, or committed construction pricing. Property values shown are derived estimates; a
+          Southern Cities Realty CMA provides the finalized valuation. Committed construction pricing is only
+          represented as such once Southern Cities has completed the appropriate preconstruction process and actually
+          offered it.
         </p>
       </div>
       </main>

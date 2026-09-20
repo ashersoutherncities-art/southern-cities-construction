@@ -27,15 +27,15 @@ export default function SiteFooter() {
           <div>
             <h4 className="mb-5 text-sm font-semibold tracking-wide text-white">Company</h4>
             <ul className="space-y-3">
+              <li><Link href="/construction-department" className="text-sm text-white/50 transition-colors hover:text-orange">Construction Department Membership</Link></li>
+              <li><Link href="/deal-pack" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Pack — Wholesalers</Link></li>
+              <li><Link href="/construction" className="text-sm text-white/50 transition-colors hover:text-orange">Construction — Build &amp; Procure</Link></li>
               <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">Services Overview</Link></li>
               <li><Link href="/services/all" className="text-sm text-white/50 transition-colors hover:text-orange">All Services &amp; Pricing</Link></li>
-              <li><Link href="/platform" className="text-sm text-white/50 transition-colors hover:text-orange">For Investors — Execution Platform</Link></li>
-              <li><Link href="/deal-pack" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Pack — Wholesalers</Link></li>
-              <li><Link href="/deal-desk" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Desk Membership</Link></li>
               <li><Link href="/services/realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
               <li><Link href="/services/contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
               <li><Link href="/gallery" className="text-sm text-white/50 transition-colors hover:text-orange">Project Gallery</Link></li>
-              <li><Link href="/contracting" className="text-sm text-white/50 transition-colors hover:text-orange">Contracting</Link></li>
+              <li><Link href="/about" className="text-sm text-white/50 transition-colors hover:text-orange">About</Link></li>
               <li><Link href="/recurring-support" className="text-sm text-white/50 transition-colors hover:text-orange">Support Plans</Link></li>
             </ul>
           </div>

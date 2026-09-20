@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyAccessToken } from '@/lib/deal-desk/token';
+import { verifyAccessToken } from '@/lib/construction-department/token';
 import { getRentCastProperty } from '@/lib/avm/rentcast';
 
 export const runtime = 'nodejs';

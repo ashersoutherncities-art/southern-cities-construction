@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { verifyAccessToken } from '@/lib/deal-desk/token';
-import { getMemberByEmail, consumeCmaCredit } from '@/lib/deal-desk/members';
-import { DEAL_DESK_TIERS } from '@/lib/deal-desk/tiers';
-import { notifyTeam } from '@/lib/deal-desk/notify';
+import { verifyAccessToken } from '@/lib/construction-department/token';
+import { getMemberByEmail, consumeCmaCredit } from '@/lib/construction-department/members';
+import { CD_TIERS } from '@/lib/construction-department/tiers';
+import { notifyTeam } from '@/lib/construction-department/notify';
 
 export const runtime = 'nodejs';
 
@@ -32,12 +32,12 @@ export async function POST(req: NextRequest) {
   const member = verified && supabase ? await getMemberByEmail(supabase, verified.email) : null;
   const isActiveMember = !!member && (member.status === 'active' || member.status === 'trialing');
 
-  // Pro tier: apply the included CMA credit first (no charge).
-  if (supabase && isActiveMember && member && member.tier === 'pro') {
-    const pro = DEAL_DESK_TIERS.pro;
-    if (member.cma_credits_used < pro.cmaCreditsPerMonth) {
+  // Operator tier: apply the included CMA credit first (no charge).
+  if (supabase && isActiveMember && member && member.tier === 'operator') {
+    const operator = CD_TIERS.operator;
+    if (member.cma_credits_used < operator.cmaCreditsPerMonth) {
       await consumeCmaCredit(supabase, member);
-      await supabase.from('deal_desk_cma_orders').insert({
+      await supabase.from('cd_cma_orders').insert({
         member_id: member.id,
         email: member.email,
         property_address: address,
@@ -77,8 +77,8 @@ export async function POST(req: NextRequest) {
       customer_email: email,
       automatic_tax: { enabled: false },
       metadata: { deal_desk_cma: '1', cma_address: address.slice(0, 480), cma_email: email || '' },
-      success_url: `${baseUrl}/deal-desk/app?cma=ordered${body.token ? `&token=${encodeURIComponent(body.token)}` : ''}`,
-      cancel_url: `${baseUrl}/deal-desk/app${body.token ? `?token=${encodeURIComponent(body.token)}` : ''}`,
+      success_url: `${baseUrl}/construction-department/app?cma=ordered${body.token ? `&token=${encodeURIComponent(body.token)}` : ''}`,
+      cancel_url: `${baseUrl}/construction-department/app${body.token ? `?token=${encodeURIComponent(body.token)}` : ''}`,
     });
     return NextResponse.json({ url: session.url, amount });
   } catch (err) {

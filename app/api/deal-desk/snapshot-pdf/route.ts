@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { verifyAccessToken } from '@/lib/deal-desk/token';
-import { getMemberByEmail, getSnapshotForMember } from '@/lib/deal-desk/members';
+import { verifyAccessToken } from '@/lib/construction-department/token';
+import { getMemberByEmail, getScreeningForMember } from '@/lib/construction-department/members';
 import { renderSnapshotPdf } from '@/lib/rehab-snapshot/pdf';
 import type {
   RehabSnapshotLeadInput,
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
   const member = await getMemberByEmail(supabase, verified.email);
   if (!member) return NextResponse.json({ error: 'not_found' }, { status: 404 });
 
-  const snap = await getSnapshotForMember(supabase, member.id, id);
+  const snap = await getScreeningForMember(supabase, member.id, id);
   if (!snap || !snap.project || !snap.estimate) {
     return NextResponse.json({ error: 'not_found' }, { status: 404 });
   }
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
     phone: '',
     company_name: null,
     investor_type: 'wholesaler',
-    source: 'deal-desk',
+    source: 'construction-department',
   };
 
   const pdf = await renderSnapshotPdf({

@@ -775,5 +775,96 @@ export async function tagMembershipInGhl(payload: {
   }
 }
 
+export type GhlDeskReviewRequestPayload = {
+  email: string;
+  property_address: string;
+  tier: string;
+  used_credit: boolean;
+};
+
+// Tags a Construction Department member's contact when they request a
+// Construction Desk Review — fires whichever GHL workflow (staff Slack/email
+// ping) is wired to `cd-desk-review-requested`.
+export async function sendDeskReviewRequestToGhl(payload: GhlDeskReviewRequestPayload) {
+  const creds = getCreds();
+  if (!creds) {
+    return { ok: false, reason: 'GHL credentials not configured' as const };
+  }
+
+  const tags = [
+    'cd-desk-review-requested',
+    'cd-member',
+    `cd-tier-${payload.tier}`,
+    payload.used_credit ? 'cd-desk-review-credit' : 'cd-desk-review-overage',
+    WEB_LEAD_TAG,
+  ].map((item) => item.toLowerCase());
+
+  const upsertResult = await ghlFetch(
+    '/contacts/upsert',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        locationId: creds.locationId,
+        email: payload.email,
+        source: 'Southern Cities — Construction Department Desk Review',
+        tags,
+        customFields: [
+          { id: CUSTOM_FIELD_IDS['Project Address'], field_value: payload.property_address },
+        ].filter((field) => Boolean(field.id)),
+      }),
+    },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  return { ok: upsertResult.ok && !!contactId, status: upsertResult.status, contactId };
+}
+
+export type GhlBidComparisonReadyPayload = {
+  email: string;
+  property_address: string;
+  comparison_url: string;
+  proposal_count: number;
+};
+
+// Fires when a Bid Package moves to "comparing" — tags the investor's
+// contact so a GHL workflow can notify them their comparison link is ready.
+// The link itself is the stateless HMAC token from lib/gc-procurement-token.ts,
+// not stored anywhere GHL-side.
+export async function sendBidComparisonReadyToGhl(payload: GhlBidComparisonReadyPayload) {
+  const creds = getCreds();
+  if (!creds) {
+    return { ok: false, reason: 'GHL credentials not configured' as const };
+  }
+
+  const upsertResult = await ghlFetch(
+    '/contacts/upsert',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        locationId: creds.locationId,
+        email: payload.email,
+        source: 'Southern Cities — Bid Comparison Ready',
+        tags: ['cd-bid-comparison-ready', WEB_LEAD_TAG],
+        customFields: [
+          { id: CUSTOM_FIELD_IDS['Project Address'], field_value: payload.property_address },
+        ].filter((field) => Boolean(field.id)),
+      }),
+    },
+    creds.token
+  );
+
+  const contactId =
+    (typeof upsertResult.body === 'object' && upsertResult.body !== null && 'contact' in upsertResult.body
+      ? (upsertResult.body as { contact: { id?: string } }).contact?.id
+      : null) || null;
+
+  return { ok: upsertResult.ok && !!contactId, status: upsertResult.status, contactId };
+}
+
 // Re-export for callers that want to manage tags directly
 export { addContactTags, removeContactTags };

@@ -110,6 +110,9 @@ export type RehabSnapshotScopeInput = {
   notes: string;
 };
 
+export type OwnershipStatus = 'considering' | 'under_contract' | 'owned';
+export type FinancingMethod = 'cash' | 'hard_money' | 'conventional' | 'private' | 'heloc' | 'other';
+
 export type RehabSnapshotProjectInput = {
   property_address: string;
   city: string;
@@ -124,6 +127,13 @@ export type RehabSnapshotProjectInput = {
   occupancy_status: OccupancyStatus;
   investment_strategy: InvestmentStrategy;
   target_finish_level: TargetFinishLevel;
+  /** Deal-qualification fields (optional) — ANALYZE/PLAN-stage context on
+   *  where the deal stands and how it's financed. See supabase/construction_department.sql §6. */
+  ownership_status?: OwnershipStatus | null;
+  expected_purchase_price?: number | null;
+  expected_arv?: number | null;
+  financing_method?: FinancingMethod | null;
+  target_timeline_weeks?: number | null;
 };
 
 export type RehabSnapshotLeadInput = {
@@ -134,6 +144,13 @@ export type RehabSnapshotLeadInput = {
   company_name: string | null;
   investor_type: InvestorType;
   source: string;
+  /** Investor-qualification fields (optional) — the INVESTOR's own state
+   *  (distinct from project.state, the property's location), experience,
+   *  and whether they need construction execution help vs. just the number. */
+  investor_state?: string | null;
+  years_experience_band?: string | null;
+  deals_per_year_band?: string | null;
+  needs_construction_execution?: boolean | null;
 };
 
 export type EstimateRuleRecord = {

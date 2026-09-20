@@ -4,7 +4,7 @@ import {
   MaoResult,
   ReconciledValuation,
 } from '@/lib/avm/types';
-import { targetProfitPctForArv } from '@/lib/deal-desk/dealmath';
+import { targetProfitPctForArv } from '@/lib/construction-department/dealmath';
 
 // ──────────────────────────────────────────────────────────────────────────
 // MAO business assumptions — TUNE THESE to SCC's actual buyer network.
