@@ -61,7 +61,7 @@ export const CD_TIERS: Record<CdTierKey, CdTier> = {
     priorityQueue: false,
     strategyCallsPerMonth: 0,
     siteVisitCreditsPerYear: 0,
-    blurb: 'Unlimited Southern Cities Construction Intelligence screening on every property you’re evaluating.',
+    blurb: 'Unlimited property screening, so you can evaluate every deal that crosses your desk.',
   },
   investor: {
     key: 'investor',
@@ -81,7 +81,7 @@ export const CD_TIERS: Record<CdTierKey, CdTier> = {
     priorityQueue: false,
     strategyCallsPerMonth: 0,
     siteVisitCreditsPerYear: 0,
-    blurb: 'Screening + 2 Construction Desk Reviews/mo + preferred Deal Pack pricing + 1 GC procurement/yr.',
+    blurb: 'Everything in Starter, plus 2 Construction Desk Reviews a month, preferred Deal Pack pricing, and 1 GC procurement a year.',
   },
   operator: {
     key: 'operator',
@@ -102,7 +102,7 @@ export const CD_TIERS: Record<CdTierKey, CdTier> = {
     priorityQueue: true,
     strategyCallsPerMonth: 1,
     siteVisitCreditsPerYear: 1,
-    blurb: 'Everything in Investor, priority queue, 5 Desk Reviews/mo, 3 GC procurements/yr, monthly strategy call, 1 site-visit credit/yr.',
+    blurb: 'Everything in Investor, plus priority queue, 5 Desk Reviews a month, 3 GC procurements a year, a monthly strategy call, and 1 site-visit credit a year.',
   },
 };
 

@@ -95,7 +95,7 @@ export default function ConstructionDepartmentPage() {
                 <div style={{ fontSize: 12.5, fontWeight: 600, color: '#6b7280', marginTop: -4, marginBottom: 4 }}>+ $99 one-time setup</div>
                 <p style={{ fontSize: 14, lineHeight: 1.55, color: '#374151', minHeight: 66 }}>{tier.blurb}</p>
                 <ul style={{ fontSize: 13, lineHeight: 1.7, paddingLeft: 18, margin: '4px 0 18px' }}>
-                  <li>Unlimited SCREEN — construction intelligence on every property (software is scalable)</li>
+                  <li>Unlimited property screening — run as many deals as you want</li>
                   <li>{tier.deskReviewsPerMonth > 0 ? `${tier.deskReviewsPerMonth} Construction Desk Review${tier.deskReviewsPerMonth > 1 ? 's' : ''} / mo` : 'Construction Desk Reviews available as add-on'}</li>
                   <li>{tier.dealPackDiscountPct ? `${tier.dealPackDiscountPct}% preferred Deal Pack pricing` : 'Standard Deal Pack pricing'}</li>
                   <li>{tier.gcProcurementIncludedPerYear > 0 ? `${tier.gcProcurementIncludedPerYear} GC procurement${tier.gcProcurementIncludedPerYear > 1 ? 's' : ''} / yr` : 'GC procurement available as add-on'}</li>
@@ -134,9 +134,9 @@ export default function ConstructionDepartmentPage() {
             <div><strong style={{ color: NAVY }}>3. It renews itself</strong><br />Every billing cycle we email you a fresh link automatically, with your allocations reset for the new month.</div>
           </div>
           <p style={{ margin: '16px 0 0', fontSize: 13.5, color: NAVY, fontWeight: 600, lineHeight: 1.55 }}>
-            Software (SCREEN) is unlimited on every plan. Human expertise (Construction Desk Reviews, GC procurement,
-            strategy calls, site visits) is allocated per tier — need more before your cycle resets? Extra Desk Reviews
-            and GC procurements are billed individually to the card on file, no upgrade required.
+            Property screening is unlimited on every plan. Construction Desk Reviews, GC procurement, strategy calls,
+            and site visits are allocated per tier — need more before your cycle resets? Extra Desk Reviews and GC
+            procurements are billed individually to the card on file, no upgrade required.
           </p>
           <p style={{ margin: '10px 0 0', fontSize: 13, color: '#6b7280' }}>
             Your link is private to your membership and tied to your allocations — don&apos;t share it. Need a fresh one anytime? Enter your email below.
