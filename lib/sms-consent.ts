@@ -39,9 +39,6 @@ export function consentLanguage(purpose: ConsentPurpose = 'default'): string {
   return CONSENT_LANGUAGE_BY_PURPOSE[purpose] ?? CONSENT_LANGUAGE_BY_PURPOSE.default;
 }
 
-/** Back-compat alias for the customer-facing wording. */
-export const CONSENT_LANGUAGE = CONSENT_LANGUAGE_BY_PURPOSE.default;
-
 export type SmsConsentRecord = {
   granted: boolean;
   version: string;

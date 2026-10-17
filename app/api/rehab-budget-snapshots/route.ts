@@ -16,10 +16,9 @@ import {
 import { estimate as estimateV2 } from '@/lib/estimator/engine';
 import type { EstimateInput as V2Input, FinishTier } from '@/lib/estimator/engine';
 import type { ScopeKey } from '@/lib/estimator/data';
+import { createRateLimiter } from '@/lib/rate-limit';
 
-const requestLog = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_REQUESTS_PER_WINDOW = 4;
+const isRateLimited = createRateLimiter(4);
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 const ALLOWED_UPLOAD_EXTENSIONS = new Set([
   'jpg',
@@ -33,18 +32,6 @@ const ALLOWED_UPLOAD_EXTENSIONS = new Set([
   'doc',
   'docx',
 ]);
-
-function isRateLimited(ip: string) {
-  const now = Date.now();
-  const recent = (requestLog.get(ip) || []).filter((timestamp) => now - timestamp < WINDOW_MS);
-  if (recent.length >= MAX_REQUESTS_PER_WINDOW) {
-    requestLog.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  requestLog.set(ip, recent);
-  return false;
-}
 
 function requiredString(formData: FormData, key: string) {
   return String(formData.get(key) || '').trim();

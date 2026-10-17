@@ -2,22 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServiceClient, SupabaseConfigError } from '@/lib/supabase';
 import { getResourceBySlug } from '@/lib/resources';
 import { sendLeadMagnetToGhl } from '@/lib/ghl';
+import { createRateLimiter } from '@/lib/rate-limit';
 
-const requestLog = new Map<string, number[]>();
-const WINDOW_MS = 60_000;
-const MAX_REQUESTS_PER_WINDOW = 6;
-
-function isRateLimited(ip: string) {
-  const now = Date.now();
-  const recent = (requestLog.get(ip) || []).filter((timestamp) => now - timestamp < WINDOW_MS);
-  if (recent.length >= MAX_REQUESTS_PER_WINDOW) {
-    requestLog.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  requestLog.set(ip, recent);
-  return false;
-}
+const isRateLimited = createRateLimiter(6);
 
 export async function POST(req: NextRequest) {
   try {

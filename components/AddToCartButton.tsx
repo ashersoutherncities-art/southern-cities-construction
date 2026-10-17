@@ -2,10 +2,12 @@
 
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { buildCartHref, CART_PRODUCTS, parseCartParam } from '@/lib/cart';
-import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
-
-const CART_SYNC_EVENT = 'scc:cart-sync';
-const CART_ADDED_EVENT = 'scc:cart-added';
+import {
+  CART_ADDED_EVENT,
+  CART_SYNC_EVENT,
+  getCartParamFromCookie,
+  setCartParamCookie,
+} from '@/lib/cart-client';
 
 type AddToCartButtonProps = {
   itemKey: string;
@@ -71,13 +73,14 @@ export default function AddToCartButton({
         window.dispatchEvent(new CustomEvent(CART_SYNC_EVENT));
         // Tell the global CartToast to show a confirmation
         const product = CART_PRODUCTS[itemKey];
+        const mergedCount = parseCartParam(nextParam).reduce((sum, item) => sum + (item.quantity ?? 1), 0);
         window.dispatchEvent(
           new CustomEvent(CART_ADDED_EVENT, {
             detail: {
               itemKey,
               productName: product?.shortName || product?.name || 'Item',
               priceLabel: product?.priceLabel || '',
-              count: next.length,
+              count: mergedCount,
             },
           })
         );

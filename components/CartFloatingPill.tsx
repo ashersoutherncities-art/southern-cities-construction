@@ -3,10 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { buildCartHref, parseCartParam } from '@/lib/cart';
-import { getCartParamFromCookie } from '@/lib/cart-client';
-
-const CART_SYNC_EVENT = 'scc:cart-sync';
-const CART_ADDED_EVENT = 'scc:cart-added';
+import { CART_ADDED_EVENT, CART_SYNC_EVENT, getCartParamFromCookie } from '@/lib/cart-client';
 
 /**
  * Floating cart access pill for pages without a global nav (e.g. /lp/* landing pages).

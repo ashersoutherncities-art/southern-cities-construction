@@ -295,7 +295,6 @@ export const PHASES: Phase[] = [
     items: [], aggregation: 'MAX', baselineDays: 3 },
 ];
 
-export const P6_INSULATION_BUFFER_DAYS = 2; // deprecated — not in workbook; engine no longer uses it
 export const ADDITION_PATH_BUILD_DAYS = 45;
 export const CALENDAR_WEEK_BUFFER = 1.15;
 
