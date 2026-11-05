@@ -25,13 +25,13 @@ const SERVICES_GROUP: NavGroup = {
   ],
 };
 
-// Primary nav follows the SCREEN → ANALYZE → PLAN → PROCURE → BUILD
-// journey: How It Works (anchor) sets up the story, Construction
-// Department is the membership behind it, Deal Pack is the flagship
-// one-time product, Construction is the BUILD + PROCURE execution hub.
+// Primary nav: the two-offer path — Deal Pack (the committed price) into
+// Construction (the execution hub). Construction Department + the
+// investor recurring-support plans are archived (2026-11-05) — code and
+// routes still exist, reachable by direct URL, but are no longer linked
+// from nav, footer, or the homepage funnel.
 const PRIMARY_LINKS: NavLink[] = [
   { href: '/#how-it-works', label: 'How It Works' },
-  { href: '/construction-department', label: 'Construction Department' },
   { href: '/deal-pack', label: 'Deal Pack' },
   { href: '/construction', label: 'Construction' },
   { href: '/gallery', label: 'Projects' },

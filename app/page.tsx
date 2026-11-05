@@ -33,12 +33,14 @@ const doors = [
   },
 ];
 
+// Simplified to the 2-offer path (2026-11-05): Screen (free) -> Plan (Deal
+// Pack, the $1,997 flagship) -> Build (Construction execution/procurement).
+// Construction Department ("Analyze") is archived; Procure folded into
+// Build since they already shared the same destination.
 const HOW_IT_WORKS = [
   { n: '01', label: 'Screen', href: '/lp/rehab-budget-range-execution-risk-snapshot' },
-  { n: '02', label: 'Analyze', href: '/construction-department' },
-  { n: '03', label: 'Plan', href: '/deal-pack' },
-  { n: '04', label: 'Procure', href: '/construction' },
-  { n: '05', label: 'Build', href: '/construction' },
+  { n: '02', label: 'Plan', href: '/deal-pack' },
+  { n: '03', label: 'Build', href: '/construction' },
 ];
 
 const subAudienceLinks = [
@@ -216,8 +218,8 @@ export default function Home() {
             <Link href="/lp/rehab-budget-range-execution-risk-snapshot" className="im-btn im-btn--primary">
               Analyze a deal &rarr;
             </Link>
-            <Link href="/construction-department" className="im-btn im-btn--ghost-on-dark">
-              See the membership
+            <Link href="/deal-pack" className="im-btn im-btn--ghost-on-dark">
+              See the Deal Pack
             </Link>
           </div>
           <div className="p-trust-row mt-10">
@@ -247,7 +249,7 @@ export default function Home() {
         <div className="im-container im-section">
           <p className="im-eyebrow">How it works</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
-            Five stages. One licensed GC the whole way through.
+            Three stages. One licensed GC the whole way through.
           </h2>
           <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-4">
             {HOW_IT_WORKS.map((step, i) => (

@@ -185,16 +185,10 @@ export default function ConstructionHubPage() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
-              href="/construction-department"
+              href="/start"
               className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.5)] transition hover:bg-orange-500 hover:-translate-y-0.5"
             >
-              Included with Construction Department &rarr;
-            </Link>
-            <Link
-              href="/start"
-              className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.06em] text-white transition hover:bg-white/10"
-            >
-              Ask about a one-off bid package
+              Ask about a bid package &rarr;
             </Link>
           </div>
         </div>

@@ -39,42 +39,13 @@ type RecurringSection = {
   cards: RecurringCard[];
 };
 
+// Investor recurring plans (Operator Support Plan, Project Support
+// Retainer, Due Diligence Package, Construction Planning Package) archived
+// 2026-11-05 — the investor path is now just Deal Pack -> Construction
+// execution. Underlying services-data.ts entries + checkout routes are
+// untouched; this page and the investor services avatar just stop
+// surfacing them.
 const recurringSections: RecurringSection[] = [
-  {
-    id: 'investors',
-    eyebrow: 'Investors / Operators',
-    title: 'Ongoing construction support for investors with repeat project needs.',
-    intro:
-      'Simple monthly support for repeat investor work.',
-    cards: [
-      {
-        name: 'Operator Support Plan',
-        tag: 'Entry plan',
-        price: '$1,499/mo',
-        who: 'Active investors with repeat job decisions and draw-related help.',
-        problem: 'Best when active jobs need more ongoing review support.',
-        creditSummary: 'Includes up to 4 reviews each month.',
-        creditUses: ['deal reviews', 'budget reviews', 'permit questions', 'contractor decisions', 'draw reviews'],
-        simpleFlow: 'Send it, we review it, you get clear next steps.',
-        turnaround: 'Same-day acknowledgment, 1 business day standard response.',
-        cta: 'Review Operator Support Plan',
-        href: '/services/investors/operator-support-plan',
-      },
-      {
-        name: 'Project Support Retainer',
-        tag: 'Higher-touch',
-        price: 'Custom quote (monthly)',
-        who: 'Higher-volume operators with several active jobs.',
-        problem: 'Best when you need more ongoing review capacity every month.',
-        creditSummary: 'Includes up to 6 reviews each month.',
-        creditUses: ['project questions', 'budget reviews', 'change decisions', 'lender questions', 'draw reviews'],
-        simpleFlow: 'Send it, we review it, you get clear next steps.',
-        turnaround: 'Priority 24-hour response target.',
-        cta: 'Request Retainer Review',
-        href: '/services/investors/project-support-retainer',
-      },
-    ],
-  },
   {
     id: 'contractors',
     eyebrow: 'Contractors',
