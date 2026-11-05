@@ -35,6 +35,17 @@ const CUSTOM_FIELD_IDS: Record<string, string> = {
   Audience: 'QhU70KrKAxK5BtbbF34q',
 };
 
+// Pipeline + stage IDs for the Deal Pack purchase → pipeline-movement
+// automation. Built 2026-10-15 alongside the 3-pipeline restructure — see
+// scc-ghl-three-pipelines-live memory. Only Bid-Ready/Build-Ready purchases
+// move opportunities here; the rest of the product catalogue (consultations,
+// permit services, etc.) isn't part of this pipeline shape.
+const DEAL_PACK_PRODUCT_KEYS = new Set(['deal-pack-bid-ready', 'deal-pack-build-ready']);
+const DEAL_FLOW_PIPELINE_ID = 'HGUT15bXQcRP4DvVeVds';
+const DEAL_FLOW_PURCHASED_STAGE_ID = '42a71e67-b903-4258-98a0-7876bdc13162'; // "Deal Pack Purchased"
+const PRECONSTRUCTION_PIPELINE_ID = 'w4vxZv5wkq2Tjf0owbeF';
+const PRECONSTRUCTION_AWAITING_ONBOARDING_STAGE_ID = '26ca9e7d-f78a-40fd-9a03-21fb21d431f1'; // "Deal Pack Purchased — Awaiting Onboarding"
+
 export type GhlOrderPayload = {
   buyer_name: string;
   buyer_email: string;
@@ -137,6 +148,104 @@ async function addContactTags(contactId: string, tags: string[], token: string) 
 }
 
 /**
+ * On a Deal Pack purchase (Bid-Ready or Build-Ready only), move the
+ * contact's Deal Flow opportunity to "Deal Pack Purchased" (creating one
+ * if none is open yet) and create a linked opportunity in Preconstruction
+ * Fulfillment at "Deal Pack Purchased — Awaiting Onboarding" so the two
+ * pipelines stay connected via contactId. Failures here never throw —
+ * this runs after the tag-based fulfillment trigger, which must not be
+ * blocked by a pipeline-side hiccup.
+ */
+async function moveDealPackPipelines(
+  contactId: string,
+  productKey: string,
+  opportunityName: string,
+  amountPaid: number,
+  locationId: string,
+  token: string
+): Promise<{ ok: boolean; dealFlowOppId?: string; preconstructionOppId?: string; error?: string }> {
+  if (!DEAL_PACK_PRODUCT_KEYS.has(productKey.toLowerCase())) {
+    return { ok: true }; // not a Deal Pack — nothing to move
+  }
+
+  try {
+    // Deal Flow: find an existing open opportunity for this contact, or create one.
+    const searchRes = await ghlFetch(
+      `/opportunities/search?location_id=${locationId}&pipeline_id=${DEAL_FLOW_PIPELINE_ID}&contact_id=${contactId}&limit=10`,
+      { method: 'GET' },
+      token
+    );
+    const existing = (searchRes.body as { opportunities?: { id: string; status?: string }[] })?.opportunities || [];
+    const openExisting = existing.find((o) => String(o.status || '').toLowerCase() === 'open');
+
+    // A Deal Pack purchase is a closed sale the moment this runs — payment is
+    // already captured before the webhook fires — so the Deal Flow opportunity
+    // is marked won (with the real sale amount) here, not just moved to a stage.
+    // This is what GHL's own Attribution/Revenue reporting actually reads;
+    // stage alone doesn't count as revenue in GHL's model.
+    let dealFlowOppId: string | undefined;
+    if (openExisting) {
+      const moveRes = await ghlFetch(
+        `/opportunities/${openExisting.id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            pipelineStageId: DEAL_FLOW_PURCHASED_STAGE_ID,
+            status: 'won',
+            monetaryValue: amountPaid,
+          }),
+        },
+        token
+      );
+      if (moveRes.ok) dealFlowOppId = openExisting.id;
+    } else {
+      const createRes = await ghlFetch(
+        '/opportunities/',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            pipelineId: DEAL_FLOW_PIPELINE_ID,
+            locationId,
+            contactId,
+            name: opportunityName,
+            pipelineStageId: DEAL_FLOW_PURCHASED_STAGE_ID,
+            status: 'won',
+            monetaryValue: amountPaid,
+          }),
+        },
+        token
+      );
+      dealFlowOppId = (createRes.body as { opportunity?: { id?: string } })?.opportunity?.id;
+    }
+
+    // Preconstruction Fulfillment: create the linked intake opportunity.
+    // Always create fresh rather than search-and-reuse — each Deal Pack
+    // purchase is its own fulfillment job, including repeat purchases.
+    const precRes = await ghlFetch(
+      '/opportunities/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          pipelineId: PRECONSTRUCTION_PIPELINE_ID,
+          locationId,
+          contactId,
+          name: opportunityName,
+          pipelineStageId: PRECONSTRUCTION_AWAITING_ONBOARDING_STAGE_ID,
+          status: 'open',
+          monetaryValue: amountPaid,
+        }),
+      },
+      token
+    );
+    const preconstructionOppId = (precRes.body as { opportunity?: { id?: string } })?.opportunity?.id;
+
+    return { ok: Boolean(dealFlowOppId && preconstructionOppId), dealFlowOppId, preconstructionOppId };
+  } catch (err) {
+    return { ok: false, error: (err as Error).message };
+  }
+}
+
+/**
  * Upsert a contact in GHL with all order data set as custom fields and
  * tagged with the product-specific tag that triggers the workflow.
  *
@@ -215,6 +324,7 @@ export async function sendOrderToGhl(payload: GhlOrderPayload) {
 
   // Step 2: remove the firing tag (no-op if it doesn't exist), then re-add it.
   // This guarantees the "tag added" event fires even on same-product re-purchases.
+  let tagResult: { ok: boolean; status: number; body: unknown };
   try {
     await removeContactTags(contactId, [productTag], creds.token);
     const addResult = await ghlFetch(
@@ -222,22 +332,29 @@ export async function sendOrderToGhl(payload: GhlOrderPayload) {
       { method: 'POST', body: JSON.stringify({ tags: [productTag] }) },
       creds.token
     );
-    return {
-      ok: addResult.ok,
-      status: addResult.status,
-      body: addResult.body,
-      contactId,
-      tag: productTag,
-    };
+    tagResult = { ok: addResult.ok, status: addResult.status, body: addResult.body };
   } catch (err) {
-    return {
-      ok: false,
-      status: 500,
-      body: `tag-rotate failed: ${(err as Error).message}`,
-      contactId,
-      tag: productTag,
-    };
+    tagResult = { ok: false, status: 500, body: `tag-rotate failed: ${(err as Error).message}` };
   }
+
+  // Step 3: Deal Pack purchases also move opportunities through Deal Flow
+  // and Preconstruction Fulfillment. Runs after the tag step and never
+  // throws — a pipeline-side failure must not mask the fulfillment trigger.
+  const pipelineResult = await moveDealPackPipelines(
+    contactId,
+    payload.product_key,
+    `${payload.buyer_name} — ${payload.product_name}`,
+    payload.amount_paid || 0,
+    creds.locationId,
+    creds.token
+  );
+
+  return {
+    ...tagResult,
+    contactId,
+    tag: productTag,
+    pipeline: pipelineResult,
+  };
 }
 
 export type GhlInquiryPayload = {

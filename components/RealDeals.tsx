@@ -48,7 +48,20 @@ const deals: Deal[] = [
   },
 ];
 
-export default function RealDeals({ theme = 'light' }: { theme?: 'light' | 'dark' }) {
+type Props = {
+  theme?: 'light' | 'dark';
+  /**
+   * 'wholesaler' (default) shows the full contract-price → assignment-price
+   * spread, which is the number wholesalers actually underwrite deals on.
+   * 'buyer' is for buyer/owner-facing pages (e.g. /consultation) — wholesale
+   * assignment mechanics aren't relevant to that audience, so contract price
+   * is dropped and "Assignment (buyer) price" is relabeled "Purchase price"
+   * (same real number, framed as what the buyer paid, not drop any real data).
+   */
+  audience?: 'wholesaler' | 'buyer';
+};
+
+export default function RealDeals({ theme = 'light', audience = 'wholesaler' }: Props) {
   const dark = theme === 'dark';
   const section = dark ? 'border-y border-white/10 bg-[#0a1428]' : 'border-y border-stone-200 bg-stone-50';
   const heading = dark ? 'text-white' : 'text-[#08111d]';
@@ -80,12 +93,19 @@ export default function RealDeals({ theme = 'light' }: { theme?: 'light' | 'dark
         </div>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {deals.map((d) => (
+          {deals.map((d) => {
+            const stats =
+              audience === 'buyer'
+                ? d.stats
+                    .filter((s) => s.label !== 'Contract price')
+                    .map((s) => (s.label === 'Assignment (buyer) price' ? { ...s, label: 'Purchase price' } : s))
+                : d.stats;
+            return (
             <article key={d.location} className={`flex flex-col rounded-2xl border ${cardBg} ${cardBorder(!!d.featured)} p-6`}>
               <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#fa8c41]">{d.location}</p>
               <h3 className={`mt-1 text-lg font-extrabold tracking-tight ${strong}`}>{d.type}</h3>
               <dl className={`mt-5 grid grid-cols-2 gap-x-4 gap-y-5 border-t ${divider} pt-5`}>
-                {d.stats.map((s) => (
+                {stats.map((s) => (
                   <div key={s.label} className="min-w-0">
                     <dt className={`text-[11px] font-bold uppercase tracking-[0.08em] leading-snug ${label}`}>{s.label}</dt>
                     <dd className={`mt-1 text-[1.65rem] font-black tracking-tight leading-none ${strong}`}>{s.value}</dd>
@@ -94,7 +114,8 @@ export default function RealDeals({ theme = 'light' }: { theme?: 'light' | 'dark
               </dl>
               <p className={`mt-5 flex-1 text-[14px] leading-relaxed ${result}`}>{d.result}</p>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3">

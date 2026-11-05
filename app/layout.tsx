@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Suspense } from "react";
 import "./globals.css";
+import ConsentBanner from "@/components/analytics/ConsentBanner";
+import PostHogProvider from "@/components/analytics/PostHogProvider";
 import CartToast from "@/components/CartToast";
 import ClientReveal from "@/components/ClientReveal";
+import PixelRouteTracker from "@/components/PixelRouteTracker";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import { SITE_CONFIG } from "@/lib/site-config";
 
@@ -68,8 +72,15 @@ export default function RootLayout({
       <body>
         <LocalBusinessJsonLd />
         <ClientReveal />
+        <Suspense fallback={null}>
+          <PixelRouteTracker />
+        </Suspense>
+        <Suspense fallback={null}>
+          <PostHogProvider />
+        </Suspense>
         {children}
         <CartToast />
+        <ConsentBanner />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18126177237"
           strategy="afterInteractive"
@@ -96,15 +107,14 @@ export default function RootLayout({
             fbq('track', 'PageView');
           `}
         </Script>
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=1119548200742403&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
+        {/* No-JS Meta Pixel fallback removed 2026-10-19 — this is a JS-required
+            site (booking, forms, cart all need JS), so a no-JS visitor can't
+            convert anyway. DOM inspection confirmed this tag's <img> was never
+            actually loaded (correctly inert per HTML spec when JS is enabled),
+            but it was ruled out as unnecessary regardless — the real suspect
+            for the duplicate PageView is fbevents.js's own internal behavior,
+            not this markup. See scc-meta-pixel-audit memory for the full
+            investigation. */}
         <Script
           id="ghl-chat-widget"
           src="https://widgets.leadconnectorhq.com/loader.js"
