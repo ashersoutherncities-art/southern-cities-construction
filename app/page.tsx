@@ -204,11 +204,7 @@ export default function Home() {
         <div className="p-hero-bg" aria-hidden="true" />
         <div className="p-hero-grid" aria-hidden="true" />
         <div className="im-container pt-32 sm:pt-40 pb-20 sm:pb-24 relative">
-          <span className="p-eyebrow-pill">
-            <span className="p-eyebrow-dot" aria-hidden="true" />
-            For NC investors, wholesalers &amp; realtors · #107724
-          </span>
-          <h1 className="im-display im-display--on-dark mt-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] max-w-5xl">
+          <h1 className="im-display im-display--on-dark text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] max-w-5xl">
             Your <span className="p-gradient-text">construction department</span> for real estate investing.
           </h1>
           <p className="im-body im-body--on-dark mt-6 max-w-2xl text-lg sm:text-xl">
