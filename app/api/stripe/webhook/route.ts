@@ -4,10 +4,12 @@ import Stripe from 'stripe';
 import { CART_PRODUCTS } from '@/lib/cart';
 import { sendOrderToGhl, tagMembershipInGhl } from '@/lib/ghl';
 import {
+  createOrder,
   findOrderByStripeSession,
   hasProcessedStripeEvent,
   recordOrderEvent,
   updateOrder,
+  type OrderRow,
 } from '@/lib/orders';
 import { tryGetServiceClient } from '@/lib/supabase';
 import { mirrorOrderToHub, mirrorRealtorReviewToHub, reviewTypeForProduct } from '@/lib/hub-orders';
@@ -56,9 +58,60 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
+        let order: OrderRow | null = null;
 
         if (supabase) {
-          const order = await findOrderByStripeSession(session.id, supabase);
+          order = await findOrderByStripeSession(session.id, supabase);
+
+          // The multi-item cart checkout (/api/cart-checkout) never pre-creates
+          // an order row the way permit-oversight-checkout does -- it has no
+          // pre-payment identity form, so there's nothing to create until
+          // Stripe hands back customer_details here. Create it now from the
+          // session itself so Hub Orders, GHL, and order history all get a
+          // real row instead of silently no-op'ing (this was the gap: Deal
+          // Pack / Bid-Ready purchases never showed up in the Hub Orders tab).
+          if (!order && session.metadata?.cart_keys) {
+            const cartKeys = (session.metadata.cart_keys || '').split(',').map((s) => s.trim()).filter(Boolean);
+            const firstKey = cartKeys[0] ?? '';
+            const firstProduct = CART_PRODUCTS[firstKey] ?? null;
+            const productNames = cartKeys.map((k) => CART_PRODUCTS[k]?.name).filter(Boolean).join(' + ');
+            const billing = session.customer_details?.address;
+            const billingAddress = billing
+              ? [billing.line1, billing.line2, billing.city, billing.state, billing.postal_code].filter(Boolean).join(', ')
+              : null;
+
+            order = await createOrder(
+              {
+                workflow: 'cart',
+                product_key: firstKey,
+                product_name: productNames || firstProduct?.name || 'Cart order',
+                buyer_name: session.customer_details?.name || '',
+                buyer_email: session.customer_details?.email || '',
+                buyer_phone: session.customer_details?.phone || null,
+                billing_address: billingAddress,
+                project_address: session.metadata?.project_address || null,
+                amount_total_cents: typeof session.amount_total === 'number' ? session.amount_total : null,
+                stripe_session_id: session.id,
+                status: 'initiated',
+                metadata: { cart_keys: session.metadata.cart_keys },
+              },
+              supabase
+            );
+            if (order) {
+              await recordOrderEvent(
+                {
+                  order_id: order.id,
+                  event_type: 'order.created_from_webhook',
+                  source: 'stripe_webhook',
+                  stripe_event_id: event.id,
+                  message: 'Order row created from the completed session — cart-checkout has no pre-payment order to find.',
+                  payload: { session_id: session.id },
+                },
+                supabase
+              );
+            }
+          }
+
           if (order) {
             const stripeCustomerId = typeof session.customer === 'string' ? session.customer : session.customer?.id ?? null;
             const paymentIntentId = typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id ?? null;
@@ -209,7 +262,7 @@ export async function POST(req: NextRequest) {
                     ? session.amount_total / 100
                     : 0,
                 project_address: session.metadata?.project_address || '',
-                order_id: session.metadata?.order_id || '',
+                order_id: order ? String(order.id) : '',
                 stripe_session_id: session.id,
                 stripe_payment_intent_id:
                   typeof session.payment_intent === 'string'
@@ -218,10 +271,10 @@ export async function POST(req: NextRequest) {
                 purchased_at: new Date().toISOString(),
               });
 
-              if (supabase && session.metadata?.order_id) {
+              if (supabase && order) {
                 await recordOrderEvent(
                   {
-                    order_id: Number(session.metadata.order_id),
+                    order_id: order.id,
                     event_type: ghlResult.ok ? 'ghl.contact.upserted' : 'ghl.forward.failed',
                     source: 'stripe_webhook',
                     message: ghlResult.ok

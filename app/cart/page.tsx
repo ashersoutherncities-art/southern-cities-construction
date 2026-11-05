@@ -20,6 +20,7 @@ function CartPageContent() {
   const [hydrated, setHydrated] = useState(false);
   const [checkoutState, setCheckoutState] = useState<'idle' | 'loading' | 'error'>('idle');
   const [checkoutError, setCheckoutError] = useState('');
+  const [projectAddress, setProjectAddress] = useState('');
 
   useEffect(() => {
     const sync = () => setCookieCart(getCartParamFromCookie());
@@ -45,6 +46,14 @@ function CartPageContent() {
   }, [queryCart, cookieCart]);
 
   const lineItems = useMemo(() => getCartLineItems(items), [items]);
+
+  // Deal Pack (either tier) is tied to one specific property -- the rest of
+  // the checkout flow (and the webhook that fires after payment) needs that
+  // address, and nothing on this generic cart page collects one otherwise.
+  const needsProjectAddress = useMemo(
+    () => items.some((item) => item.key === 'deal-pack-bid-ready' || item.key === 'deal-pack-build-ready'),
+    [items]
+  );
 
   const subtotal = useMemo(
     () => lineItems.reduce((sum, item) => sum + item.amount, 0),
@@ -103,13 +112,23 @@ function CartPageContent() {
 
   async function startCheckout() {
     if (!lineItems.length) return;
+    if (needsProjectAddress && !projectAddress.trim()) {
+      setCheckoutState('error');
+      setCheckoutError('Property address is required for Deal Pack / Bid-Ready — add it above before checking out.');
+      return;
+    }
     setCheckoutState('loading');
     setCheckoutError('');
     try {
       const res = await fetch('/api/cart-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: items, isolated: isIsolatedMode, fromLp: fromLpSlug }),
+        body: JSON.stringify({
+          cart: items,
+          isolated: isIsolatedMode,
+          fromLp: fromLpSlug,
+          projectAddress: needsProjectAddress ? projectAddress.trim() : undefined,
+        }),
       });
       const json = await res.json();
       if (!res.ok || !json.url) {
@@ -337,6 +356,25 @@ function CartPageContent() {
                   <span className="text-2xl font-extrabold text-navy-900">{formatPrice(subtotal)}</span>
                 </div>
               </div>
+
+              {needsProjectAddress ? (
+                <div className="mt-6 pt-5 border-t border-navy/[0.08]">
+                  <label htmlFor="project-address" className="block text-sm font-semibold text-navy-900">
+                    Property address
+                  </label>
+                  <p className="mt-1 text-xs text-ink/55">
+                    Deal Pack is tied to one property — we use this to schedule the walk and tag everything downstream.
+                  </p>
+                  <input
+                    id="project-address"
+                    type="text"
+                    value={projectAddress}
+                    onChange={(e) => setProjectAddress(e.target.value)}
+                    placeholder="123 Main St, Charlotte, NC 28202"
+                    className="mt-2.5 w-full rounded-xl border border-navy/[0.12] px-4 py-3 text-sm text-navy-900 placeholder:text-navy/35 focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange/20"
+                  />
+                </div>
+              ) : null}
 
               {cancelled ? (
                 <p className="mt-5 text-xs leading-relaxed text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">

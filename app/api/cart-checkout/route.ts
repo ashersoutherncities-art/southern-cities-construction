@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Stripe is not configured' }, { status: 500 });
   }
 
-  let body: { cart?: CartSelection[]; isolated?: boolean; fromLp?: string };
+  let body: { cart?: CartSelection[]; isolated?: boolean; fromLp?: string; projectAddress?: string };
   try {
     body = await req.json();
   } catch {
@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
   const lineItems = getCartLineItems(cartItems);
   const isolated = body.isolated === true;
   const fromLp = typeof body.fromLp === 'string' && body.fromLp.length > 0 ? body.fromLp : null;
+  const projectAddress = typeof body.projectAddress === 'string' ? body.projectAddress.trim() : '';
 
   if (!lineItems.length) {
     return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
@@ -80,6 +81,7 @@ export async function POST(req: NextRequest) {
           .map((l) => `${l.key}:${l.amount}:${l.quantity}`)
           .join(','),
         flow: 'multi-item-cart',
+        project_address: projectAddress,
       },
     });
 

@@ -27,7 +27,10 @@ function getHubClient(): SupabaseClient | null {
 // Realtor "review" products (cart keys) → the hub's realtor_reviews.review_type.
 // When a realtor buys one of these, we log an inspection review in their hub.
 const REVIEW_PRODUCT_MAP: Record<string, string> = {
-  'realtor-quick-read': 'quick_read',
+  // 'realtor-quick-read' was retired 2026-08-04, folded into
+  // 'realtor-inspection-review' (lib/cart.ts:324-327) — this key was never
+  // updated to match, so $299 purchases silently stopped logging a review row.
+  'realtor-inspection-review': 'quick_read',
   'realtor-gc-budget': 'gc_budget',
   'realtor-inspected-gc-read': 'full_report',
   'gc-grade-property-inspection': 'full_report',
