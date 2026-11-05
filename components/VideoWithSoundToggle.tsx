@@ -38,6 +38,7 @@ export default function VideoWithSoundToggle({ src, poster, videoId }: Props) {
   const unmute = () => {
     const el = videoRef.current;
     if (!el) return;
+    el.currentTime = 0;
     el.muted = false;
     el.volume = 1;
     el.play().catch(() => {});
