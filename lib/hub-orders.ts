@@ -76,6 +76,53 @@ export async function mirrorRealtorReviewToHub(input: {
   }
 }
 
+// Deal Pack (either tier) gets the client's portal opened immediately on
+// purchase, instead of waiting for a staff member to notice the sale and
+// manually create the client via the PM portal's New Deal panel. Calls a
+// dedicated client-hub endpoint (not a raw Supabase write, unlike the
+// mirror functions above) so the real provisioning logic -- client record,
+// milestone track, default access grants, the invite email -- lives in one
+// place and can't drift between the two repos. Fire-and-forget; never
+// breaks the Stripe pipeline if client-hub is down.
+const DEAL_PACK_PRODUCT_KEYS = new Set(['deal-pack-bid-ready', 'deal-pack-build-ready']);
+
+export function isDealPackProduct(productKey: string): boolean {
+  return DEAL_PACK_PRODUCT_KEYS.has(productKey);
+}
+
+export async function provisionDealPackPortal(input: {
+  buyer_email: string;
+  buyer_name: string;
+  project_address: string;
+  product_key: string;
+  amount_total_cents: number | null;
+  stripe_session_id: string;
+}): Promise<void> {
+  const base = process.env.HUB_BASE_URL;
+  const secret = process.env.DEAL_PACK_WEBHOOK_SECRET;
+  const email = input.buyer_email?.trim().toLowerCase();
+  if (!base || !secret || !email || !input.project_address) return;
+  try {
+    const res = await fetch(`${base.replace(/\/$/, '')}/api/webhooks/deal-pack-purchase`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${secret}` },
+      body: JSON.stringify({
+        clientEmail: email,
+        clientName: input.buyer_name || undefined,
+        address: input.project_address,
+        productKey: input.product_key,
+        amountPaidCents: input.amount_total_cents,
+        stripeSessionId: input.stripe_session_id,
+      }),
+    });
+    if (!res.ok) {
+      console.error('provisionDealPackPortal failed (non-fatal):', res.status, await res.text().catch(() => ''));
+    }
+  } catch (err) {
+    console.error('provisionDealPackPortal threw (non-fatal):', err);
+  }
+}
+
 export async function mirrorOrderToHub(input: MirrorInput): Promise<void> {
   const client = getHubClient();
   const email = input.buyer_email?.trim().toLowerCase();

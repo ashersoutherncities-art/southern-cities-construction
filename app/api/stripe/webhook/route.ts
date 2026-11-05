@@ -12,7 +12,7 @@ import {
   type OrderRow,
 } from '@/lib/orders';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { mirrorOrderToHub, mirrorRealtorReviewToHub, reviewTypeForProduct } from '@/lib/hub-orders';
+import { isDealPackProduct, mirrorOrderToHub, mirrorRealtorReviewToHub, provisionDealPackPortal, reviewTypeForProduct } from '@/lib/hub-orders';
 
 export const runtime = 'nodejs';
 
@@ -236,6 +236,19 @@ export async function POST(req: NextRequest) {
             for (const productKey of productKeys) {
               const product = CART_PRODUCTS[productKey] ?? null;
               const lineAmountCents = product?.price ?? 0;
+
+              // Deal Pack (either tier) opens the client's portal right now,
+              // instead of waiting on a staff member. Non-fatal, idempotent.
+              if (isDealPackProduct(productKey)) {
+                await provisionDealPackPortal({
+                  buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
+                  buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
+                  project_address: session.metadata?.project_address || '',
+                  product_key: productKey,
+                  amount_total_cents: cartKeys.length ? lineAmountCents : (typeof session.amount_total === 'number' ? session.amount_total : null),
+                  stripe_session_id: session.id,
+                });
+              }
 
               // If this is a realtor "review" product, log an inspection review
               // in the buyer's hub. Non-fatal, idempotent.
