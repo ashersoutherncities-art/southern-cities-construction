@@ -17,8 +17,7 @@ const doors = [
     label: 'For investors',
     sub: 'Fix-and-flip · buy-and-hold · wholesalers',
     title: 'Know the real number before you buy.',
-    meta:
-      'A committed rehab price sealed with the NC GC license — the number you can underwrite off, hand your lender, or transfer to your end buyer at closing.',
+    meta: 'A committed rehab price, sealed with the NC GC license, transferable to your buyer at closing.',
     price: '$1,997',
     priceNote: '$0 upfront for wholesalers · paid at closing',
     href: '/lp/investor-deal-pack',
@@ -27,8 +26,7 @@ const doors = [
     label: 'For real estate professionals',
     sub: 'Realtors · lenders · brokers',
     title: 'Attach a licensed GC to your client’s deal.',
-    meta:
-      'Committed rehab price plus finished-home renderings and a permit memo — everything a serious buyer or lender needs to move faster with confidence.',
+    meta: 'Committed rehab price, renderings, and a permit memo — what your buyer or lender needs to move fast.',
     price: '$1,997',
     priceNote: '$0 upfront for realtors · paid from commission at closing',
     href: '/lp/real-estate-professionals-deal-pack',
@@ -36,41 +34,11 @@ const doors = [
 ];
 
 const HOW_IT_WORKS = [
-  {
-    n: '01',
-    label: 'Screen',
-    body: 'Run any NC property through the free rehab budget range tool for an instant, market-adjusted read.',
-    cta: 'Screen a property',
-    href: '/lp/rehab-budget-range-execution-risk-snapshot',
-  },
-  {
-    n: '02',
-    label: 'Analyze',
-    body: 'A licensed GC personally reviews the deal — scope, risk flags, and finish-level recommendation — before you own it.',
-    cta: 'See the membership',
-    href: '/construction-department',
-  },
-  {
-    n: '03',
-    label: 'Plan',
-    body: 'The Build-Ready Deal Pack turns the analysis into a committed, sealed rehab price and a real scope of work.',
-    cta: 'See the Deal Pack',
-    href: '/deal-pack',
-  },
-  {
-    n: '04',
-    label: 'Procure',
-    body: 'That scope goes out to vetted local contractors as a real Bid Package — every proposal, including ours, compared side by side.',
-    cta: 'How procurement works',
-    href: '/construction',
-  },
-  {
-    n: '05',
-    label: 'Build',
-    body: 'Southern Cities executes the work, or you take the vetted, compared bids to the contractor you choose.',
-    cta: 'See build options',
-    href: '/construction',
-  },
+  { n: '01', label: 'Screen', href: '/lp/rehab-budget-range-execution-risk-snapshot' },
+  { n: '02', label: 'Analyze', href: '/construction-department' },
+  { n: '03', label: 'Plan', href: '/deal-pack' },
+  { n: '04', label: 'Procure', href: '/construction' },
+  { n: '05', label: 'Build', href: '/construction' },
 ];
 
 const subAudienceLinks = [
@@ -97,13 +65,12 @@ const testimonials = [
   { quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.', name: 'Jethro A.', role: 'Wholesaler · Greensboro' },
 ];
 
+// Full FAQ (6 Q&As) lives on /deal-pack where the detail is actually
+// relevant — this is a 3-item teaser pointing there.
 const faqs = [
-  { question: 'What is the Build-Ready Deal Pack?', answer: 'A licensed NC GC delivers a committed rehab price in writing, sealed with license #107724 and transferable once to your end buyer. Ships with as-built plans, future-state renovation plan, three photoreal renderings, a market study, an initial materials list, a vendor list, a permit memo, and an execution risk report.' },
-  { question: 'How does the wholesaler payment work?', answer: '$0 upfront. The fee is paid from your assignment proceeds at closing. No close, no pay. The specific fee is confirmed on a short scoping call.' },
-  { question: 'Is the committed price a guarantee?', answer: 'It is a committed bid for the defined scope, sealed with the NC GC license. Not a guarantee against every possible condition — change orders apply to concealed or hidden conditions discovered during work.' },
-  { question: 'How long is the committed price good for?', answer: '30 days from issue. Enough runway to underwrite, market, and close an assignment or investor buy.' },
-  { question: 'Can the committed price be transferred to my buyer?', answer: 'Yes, once. The Commitment Certificate transfers from the wholesaler to their end buyer at closing so the buyer inherits the licensed GC and the price on paper.' },
-  { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
+  { question: 'What is the Build-Ready Deal Pack?', answer: 'A committed rehab price, sealed with license #107724, plus plans, renderings, and a full scope — delivered in 3–4 days.' },
+  { question: 'How does the wholesaler payment work?', answer: '$0 upfront. The fee comes out of your assignment proceeds at closing. No close, no pay.' },
+  { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will — that’s the whole point.' },
 ];
 
 /**
@@ -279,26 +246,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS — the 5-stage journey: SCREEN → ANALYZE → PLAN → PROCURE → BUILD */}
+      {/* HOW IT WORKS — one compact strip, no per-step paragraphs */}
       <section id="how-it-works" className="im-band p-reveal scroll-mt-24">
         <div className="im-container im-section">
           <p className="im-eyebrow">How it works</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
             Five stages. One licensed GC the whole way through.
           </h2>
-          <p className="im-body mt-6 max-w-2xl text-lg">
-            Southern Cities plugs in wherever your deal is right now &mdash; from a property you
-            are still deciding on, to a rehab that is ready to go out to bid.
-          </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {HOW_IT_WORKS.map((step) => (
-              <div key={step.n} className="im-card">
-                <span className="im-mono text-[11px]" style={{ color: 'var(--accent)' }}>{step.n}</span>
-                <p className="mt-2 text-[13px] font-black uppercase tracking-[0.14em]" style={{ color: 'var(--ink-hi)' }}>{step.label}</p>
-                <p className="im-body mt-3 text-[14px] leading-[1.6]">{step.body}</p>
-                <Link href={step.href} className="im-door__cta mt-4 inline-block">
-                  {step.cta} &rarr;
+          <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-4">
+            {HOW_IT_WORKS.map((step, i) => (
+              <div key={step.n} className="flex items-center gap-3">
+                <Link href={step.href} className="flex items-center gap-2 group">
+                  <span className="im-mono text-[11px]" style={{ color: 'var(--accent)' }}>{step.n}</span>
+                  <span
+                    className="text-[14px] font-black uppercase tracking-[0.08em] group-hover:text-orange"
+                    style={{ color: 'var(--ink-hi)' }}
+                  >
+                    {step.label}
+                  </span>
                 </Link>
+                {i < HOW_IT_WORKS.length - 1 && (
+                  <span aria-hidden="true" style={{ color: 'var(--line-1)' }}>&rarr;</span>
+                )}
               </div>
             ))}
           </div>
@@ -452,6 +421,9 @@ export default function Home() {
               <FaqItem key={faq.question} faq={{ q: faq.question, a: faq.answer }} defaultOpen={idx === 0} />
             ))}
           </div>
+          <Link href="/deal-pack#faq" className="im-door__cta mt-6 inline-block">
+            See the full FAQ &rarr;
+          </Link>
         </div>
       </section>
 

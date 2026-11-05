@@ -4,6 +4,20 @@ import SiteFooter from '@/components/SiteFooter';
 import FounderStory from '@/components/FounderStory';
 import RealDeals from '@/components/RealDeals';
 import ProductJsonLd from '@/components/seo/ProductJsonLd';
+import FaqItem from '@/components/landing/FaqItem';
+import FaqJsonLd from '@/components/seo/FaqJsonLd';
+
+// Moved here from the homepage (2026-11-05 simplification pass) — this is
+// where the detail is actually relevant. The homepage keeps a 3-item
+// teaser that links to #faq.
+const FAQS = [
+  { question: 'What is the Build-Ready Deal Pack?', answer: 'A licensed NC GC delivers a committed rehab price in writing, sealed with license #107724 and transferable once to your end buyer. Ships with as-built plans, future-state renovation plan, three photoreal renderings, a market study, an initial materials list, a vendor list, a permit memo, and an execution risk report.' },
+  { question: 'How does the wholesaler payment work?', answer: '$0 upfront. The fee is paid from your assignment proceeds at closing. No close, no pay. The specific fee is confirmed on a short scoping call.' },
+  { question: 'Is the committed price a guarantee?', answer: 'It is a committed bid for the defined scope, sealed with the NC GC license. Not a guarantee against every possible condition — change orders apply to concealed or hidden conditions discovered during work.' },
+  { question: 'How long is the committed price good for?', answer: '30 days from issue. Enough runway to underwrite, market, and close an assignment or investor buy.' },
+  { question: 'Can the committed price be transferred to my buyer?', answer: 'Yes, once. The Commitment Certificate transfers from the wholesaler to their end buyer at closing so the buyer inherits the licensed GC and the price on paper.' },
+  { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
+];
 
 // Focus pass: /deal-pack surfaces ONE product — the Build-Ready Deal Pack.
 // Bid-Ready, Site Scan add-on, Pro subscription, and Plans à la carte still
@@ -296,6 +310,22 @@ export default function DealPackPage() {
       </section>
 
       <RealDeals />
+
+      {/* FAQ — full detail; homepage links here from its 3-item teaser */}
+      <section id="faq" className="im-paper scroll-mt-24">
+        <FaqJsonLd items={FAQS} />
+        <div className="im-container im-section max-w-4xl">
+          <p className="im-eyebrow">FAQ</p>
+          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem]">
+            Straight answers.
+          </h2>
+          <div className="mt-10 space-y-3">
+            {FAQS.map((faq, idx) => (
+              <FaqItem key={faq.question} faq={{ q: faq.question, a: faq.answer }} defaultOpen={idx === 0} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* TRUST */}
       <section className="im-shell">
