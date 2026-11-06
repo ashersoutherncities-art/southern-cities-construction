@@ -6,6 +6,7 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import RealDeals from '@/components/RealDeals';
+import GoogleReviews from '@/components/GoogleReviews';
 import FaqItem from '@/components/landing/FaqItem';
 import FaqJsonLd from '@/components/seo/FaqJsonLd';
 import { SplashCurtain } from '@/components/SplashCurtain';
@@ -338,6 +339,9 @@ export default function Home() {
 
       {/* REAL DEALS */}
       <div className="p-reveal"><RealDeals /></div>
+
+      {/* GOOGLE REVIEWS — live from Places API */}
+      <div className="p-reveal"><GoogleReviews /></div>
 
       {/* TESTIMONIAL GRID — 3 cards, hover lift */}
       <section className="im-band p-reveal">
