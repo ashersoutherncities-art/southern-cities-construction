@@ -176,32 +176,20 @@ export default function ConsultationPage() {
           Know What You&apos;re Getting Into Before You Buy or Build
         </h2>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2">
-          <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Bid-Ready Deal Pack</p>
-            <p className="mt-2 text-3xl font-black text-navy">$599</p>
-            <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
-              For investors and property owners seeking preliminary construction feasibility. The purpose is to help
-              you determine whether a potential project warrants further investigation.
-            </p>
-          </div>
+        <div className="mt-10 max-w-xl">
           <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Build-Ready Deal Pack</p>
             <p className="mt-2 text-3xl font-black text-navy">$1,997</p>
             <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
-              For customers needing comprehensive construction due diligence and preparation — suitable for
-              investors evaluating properties before purchase and owners preparing existing properties for
-              construction.
+              Comprehensive construction due diligence and preparation — for investors evaluating a property
+              before purchase, or owners preparing to build.
             </p>
           </div>
         </div>
 
         <p className="mt-6 max-w-2xl text-[13.5px] leading-relaxed text-stone-500">
-          You can purchase Build-Ready directly without first purchasing Bid-Ready, and can use either service before
-          or after acquiring a property. The right service depends on your project and the level of analysis you
-          need — we&apos;ll help you figure out which one on the call. We don&apos;t promise guaranteed construction
-          pricing or complete identification of concealed property conditions; the applicable service description
-          covers what each level does and doesn&apos;t cover.
+          We don&apos;t promise guaranteed construction pricing or complete identification of concealed property
+          conditions — the service description covers exactly what&apos;s included.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-4">

@@ -109,7 +109,7 @@ export default function ConstructionHubPage() {
             >
               <div className="flex items-center justify-between gap-4">
                 <span className="text-[12px] font-black uppercase tracking-[0.14em] text-white">Vetted GC Procurement</span>
-                <span className="text-[14px] font-bold text-white/75">Included in membership</span>
+                <span className="text-[14px] font-bold text-white/75">Priced per project</span>
               </div>
               <p className="mt-4 text-[15.5px] leading-[1.6] text-white/85">
                 Already have a scope? Southern Cities takes it to vetted local contractors,
@@ -161,24 +161,19 @@ export default function ConstructionHubPage() {
             <div className="rounded-[20px] border border-white/12 bg-white/[0.03] p-6">
               <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Vetted, not random</p>
               <p className="mt-3 text-[14.5px] leading-[1.6] text-white/80">
-                Contractors are checked for license, insurance, and real project history before
-                they ever see a Bid Package.
+                Checked for license, insurance, and real project history before they see a Bid Package.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/12 bg-white/[0.03] p-6">
               <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Southern Cities bids too — transparently</p>
               <p className="mt-3 text-[14.5px] leading-[1.6] text-white/80">
-                Our own offer sits in the same comparison as everyone else&apos;s. It is never
-                favored, hidden, or auto-recommended &mdash; you see every original proposal in
-                full, side by side.
+                Our offer sits in the same comparison as everyone else&apos;s, never favored or hidden.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/12 bg-white/[0.03] p-6">
               <p className="text-[11px] font-black uppercase tracking-[0.18em] text-orange">Decision support, not a ranking</p>
               <p className="mt-3 text-[14.5px] leading-[1.6] text-white/80">
-                Proposals are tagged &mdash; lowest price, most complete scope, fastest schedule
-                &mdash; so you can see the tradeoffs. Nobody is declared the &ldquo;winner.&rdquo; The
-                choice is yours.
+                Proposals tagged by price, scope, and schedule &mdash; nobody&apos;s declared the winner.
               </p>
             </div>
           </div>
@@ -207,9 +202,7 @@ export default function ConstructionHubPage() {
                   <span className="text-orange">$0 upfront.</span> Pay from your assignment at closing. No close, no pay.
                 </h2>
                 <p className="mt-3 text-[15px] leading-[1.6] text-white/80 sm:text-base">
-                  Wholesalers put nothing down. We put a licensed NC GC&apos;s committed rehab price on
-                  the deal, and the fee comes out of your assignment proceeds when the deal closes. Nothing
-                  closes, nothing owed. Fee confirmed on a short scoping call.
+                  Nothing down. The fee comes out of your assignment proceeds at closing — no close, no pay.
                 </p>
               </div>
               <Link
