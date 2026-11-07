@@ -7,6 +7,7 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import RealDeals from '@/components/RealDeals';
 import GoogleReviews from '@/components/GoogleReviews';
+import GoogleRatingBadge from '@/components/GoogleRatingBadge';
 import FaqItem from '@/components/landing/FaqItem';
 import FaqJsonLd from '@/components/seo/FaqJsonLd';
 import { SplashCurtain } from '@/components/SplashCurtain';
@@ -60,12 +61,6 @@ const galleryPreview = [
   { title: 'Standard builder-grade home exterior refresh', image: '/gallery/white-house-after.jpg' },
   { title: 'Farmhouse-style siding and deck transformation', image: '/gallery/farmhouse-after.jpg' },
   { title: 'Historic waterfront district home exterior transformation', image: '/gallery/red-house-after.jpg' },
-];
-
-const testimonials = [
-  { quote: 'They walked me through what was actually wrong before I sank more money into it. Saved me from a bad buy.', name: 'Madison M.', role: 'Broker / Investor · Charlotte' },
-  { quote: 'Scope and budget were all over the place when we called. After they walked through it, the project actually felt doable again.', name: 'Justin R.', role: 'Developer · Raleigh' },
-  { quote: 'I needed something concrete to bring back to my buyer, not a maybe. They gave me a straight read and the deal kept moving.', name: 'Jethro A.', role: 'Wholesaler · Greensboro' },
 ];
 
 // Full FAQ (6 Q&As) lives on /deal-pack where the detail is actually
@@ -224,11 +219,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="p-trust-row mt-10">
-            <div className="p-trust">
-              <span className="p-stars">★★★★★</span>
-              <span className="p-trust-num">4.9</span>
-              <span className="p-trust-label">Google reviews</span>
-            </div>
+            <GoogleRatingBadge />
             <div className="p-trust">
               <span className="p-trust-num">120+</span>
               <span className="p-trust-label">Deals reviewed</span>
@@ -342,26 +333,6 @@ export default function Home() {
 
       {/* GOOGLE REVIEWS — live from Places API */}
       <div className="p-reveal"><GoogleReviews /></div>
-
-      {/* TESTIMONIAL GRID — 3 cards, hover lift */}
-      <section className="im-band p-reveal">
-        <div className="im-container im-section">
-          <p className="im-eyebrow">Reviews</p>
-          <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-2xl">
-            What NC investors say.
-          </h2>
-          <div className="p-testimonial-grid">
-            {testimonials.map((t, i) => (
-              <blockquote key={i} className="p-testimonial">
-                <div className="p-stars">★★★★★</div>
-                <p className="p-testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
-                <div className="p-testimonial-name">{t.name}</div>
-                <div className="p-testimonial-role">{t.role}</div>
-              </blockquote>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* GALLERY */}
       <section className="im-paper p-reveal">
