@@ -6,6 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import AddToCartButton from '@/components/AddToCartButton';
 import RehabRiskSnapshotForm from '@/components/RehabRiskSnapshotForm';
 import ProjectSetupCTA from '@/components/ProjectSetupCTA';
+import GoogleReviews from '@/components/GoogleReviews';
 import { PLATFORM_STAGES, getPlatformStage } from '@/lib/investor-platform';
 
 type Params = { stage: string };
@@ -304,35 +305,8 @@ export default function PlatformStagePage({ params }: { params: Params }) {
         </div>
       </section>
 
-      {/* TESTIMONIALS — render only if data exists */}
-      {stage.testimonials && stage.testimonials.length > 0 ? (
-        <section className="bg-[#0a1428] py-14 sm:py-16 border-t border-white/8">
-          <div className="container-pro max-w-5xl">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Investors who used this</p>
-            <h2 className="mt-4 text-3xl font-black tracking-[-0.025em] text-white sm:text-4xl">What they said.</h2>
-            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {stage.testimonials.map((t) => (
-                <li
-                  key={t.attribution + t.quote.slice(0, 20)}
-                  className="flex flex-col gap-3 rounded-[20px] border border-white/10 bg-white/[0.03] p-5"
-                >
-                  <p className="text-[14.5px] leading-[1.6] text-white/90">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-3">
-                    <span className="text-[12px] font-semibold text-white/65">{t.attribution}</span>
-                    {t.dollar ? (
-                      <span className="rounded-md bg-orange/15 border border-orange/40 px-2 py-0.5 text-[11px] font-black tracking-[0.08em] text-orange">
-                        {t.dollar}
-                      </span>
-                    ) : null}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
+      {/* GOOGLE REVIEWS — live from Places API */}
+      <GoogleReviews theme="dark" eyebrow="Investors who used this" title="What they said." />
 
       {/* THIS IS / IS NOT */}
       <section className="bg-[#08111d] py-14 sm:py-16 border-t border-white/8">

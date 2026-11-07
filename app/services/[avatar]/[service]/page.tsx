@@ -200,14 +200,6 @@ function XIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function StarIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </svg>
-  );
-}
-
 function getDefaultDeliverable(service: ServiceCardData): { heading: string; items: string[] }[] {
   // Auto-build a 3-section sample deliverable from the existing
   // ServiceCardData fields when no override is provided.
@@ -328,7 +320,6 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
   const subheadline = override?.subheadline || service.summary;
   const whenToUse = override?.whenToUse || [service.fit, ...service.details.slice(0, 2)];
   const whatThisDoes = override?.whatThisDoes || service.details;
-  const testimonial = override?.testimonial;
 
   const isFixed = service.purchaseType === 'fixed' && !!service.itemKey;
   const isRecurring = service.purchaseType === 'recurring';
@@ -547,21 +538,7 @@ export default function ServiceDetailPage({ params }: { params: Params }) {
                 ) : null}
               </div>
 
-              {testimonial ? (
-                <blockquote className="rounded-2xl border border-white/10 bg-white/[0.05] p-8 backdrop-blur-sm">
-                  <div className="flex items-center gap-1 text-[#fa8c41]">
-                    {[1, 2, 3, 4, 5].map((i) => (<StarIcon key={i} />))}
-                  </div>
-                  <p className="mt-5 text-lg font-medium leading-[1.55] text-white/90">&ldquo;{testimonial.quote}&rdquo;</p>
-                  <footer className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#fa8c41] text-base font-black text-white">{testimonial.name.charAt(0)}</div>
-                    <div>
-                      <p className="font-extrabold text-white">{testimonial.name}</p>
-                      {testimonial.role ? <p className="text-[13px] text-white/60">{testimonial.role}</p> : null}
-                    </div>
-                  </footer>
-                </blockquote>
-              ) : service.proofTitle ? (
+              {service.proofTitle ? (
                 <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-8 backdrop-blur-sm">
                   <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Why it matters</p>
                   <p className="mt-4 text-xl font-bold leading-[1.4] text-white">{service.proofTitle}</p>

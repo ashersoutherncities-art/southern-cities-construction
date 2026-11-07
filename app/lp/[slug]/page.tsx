@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import AddToCartButton from '@/components/AddToCartButton';
 import FaqItem from '@/components/landing/FaqItem';
 import LpLeadForm from '@/components/LpLeadForm';
+import GoogleReviews from '@/components/GoogleReviews';
 
 type Params = { slug: string };
 
@@ -2876,43 +2877,8 @@ export default function LandingPage({ params }: { params: Params }) {
           </div>
         </section>
 
-        {/* TESTIMONIALS */}
-        <section className="relative overflow-hidden bg-[#08111d]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(245,130,32,0.12),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(80,120,255,0.12),transparent_50%)]" />
-          <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24">
-            <div className="max-w-3xl">
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#fa8c41]">Trust</p>
-              <h2 className="mt-3 text-4xl font-black tracking-[-0.03em] text-white sm:text-5xl">
-                From clients who actually used this.
-              </h2>
-            </div>
-
-            <div className="mt-12 grid gap-6 lg:grid-cols-3">
-              {config.testimonials.map((t) => (
-                <blockquote
-                  key={t.name + t.role}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm"
-                >
-                  <div className="flex items-center gap-1 text-[#fa8c41]">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <StarIcon key={i} />
-                    ))}
-                  </div>
-                  <p className="mt-5 text-[17px] font-medium leading-[1.55] text-white/90">&ldquo;{t.quote}&rdquo;</p>
-                  <footer className="mt-7 flex items-center gap-3 border-t border-white/10 pt-5">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-[#fa8c41] text-base font-black text-white">
-                      {t.name.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="font-extrabold text-white">{t.name}</p>
-                      <p className="text-[13px] text-white/60">{t.role}</p>
-                    </div>
-                  </footer>
-                </blockquote>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* GOOGLE REVIEWS — live from Places API */}
+        <GoogleReviews theme="dark" eyebrow="Trust" title="From clients who actually used this." />
 
         {/* WHAT THIS IS NOT */}
         <section className="bg-white">
