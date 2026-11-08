@@ -1,8 +1,7 @@
-import Image from "next/image";
+import GoogleReviewsMarquee from "./GoogleReviewsMarquee";
 import {
   fetchSccGoogleReviews,
   SCC_GOOGLE_MAPS_URL,
-  type GoogleReview,
 } from "@/lib/google-reviews";
 
 type Theme = "light" | "dark";
@@ -38,56 +37,6 @@ function GoogleG({ className = "h-4 w-4" }: { className?: string }) {
       <path fill="#FBBC05" d="M10.1 28.7c-.5-1.5-.8-3.1-.8-4.7s.3-3.2.8-4.7l-7.5-5.8C.9 16.6 0 20.2 0 24s.9 7.4 2.6 10.5l7.5-5.8z" />
       <path fill="#EA4335" d="M24 47.5c6 0 11-2 14.7-5.4l-7-5.4c-2 1.3-4.5 2.1-7.7 2.1-6.6 0-12.1-4.1-14.1-10l-7.5 5.8C6.5 42.2 14.6 47.5 24 47.5z" />
     </svg>
-  );
-}
-
-function ReviewCard({ r, theme }: { r: GoogleReview; theme: Theme }) {
-  const isDark = theme === "dark";
-  const card = isDark
-    ? "border-white/10 bg-white/[0.04] backdrop-blur-sm hover:border-white/20"
-    : "border-stone-200 bg-white shadow-[0_1px_0_rgba(15,23,42,0.04)] hover:border-stone-300 hover:shadow-md";
-  const nameColor = isDark ? "text-white" : "text-navy";
-  const metaColor = isDark ? "text-white/55" : "text-stone-500";
-  const textColor = isDark ? "text-white/85" : "text-stone-800";
-  const fallbackAvatar = isDark
-    ? "bg-gradient-to-br from-orange-400 to-[#fa8c41] text-white"
-    : "bg-navy text-white";
-  return (
-    <article
-      className={`flex h-full flex-col rounded-2xl border p-6 transition ${card}`}
-    >
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          {r.authorPhoto ? (
-            <Image
-              src={r.authorPhoto}
-              alt=""
-              width={40}
-              height={40}
-              unoptimized
-              className="h-10 w-10 rounded-full object-cover"
-            />
-          ) : (
-            <div
-              className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold ${fallbackAvatar}`}
-            >
-              {r.author.charAt(0)}
-            </div>
-          )}
-          <div>
-            <div className={`text-sm font-semibold ${nameColor}`}>{r.author}</div>
-            <div className={`text-[11px] uppercase tracking-wider ${metaColor}`}>
-              {r.relativeTime}
-            </div>
-          </div>
-        </div>
-        <GoogleG className="h-5 w-5" />
-      </div>
-      <Stars rating={r.rating} theme={theme} />
-      <p className={`mt-4 whitespace-pre-line text-[15px] leading-relaxed ${textColor}`}>
-        {r.text}
-      </p>
-    </article>
   );
 }
 
@@ -161,11 +110,7 @@ export default async function GoogleReviews({
             <span aria-hidden>&rarr;</span>
           </a>
         </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {summary.reviews.map((r) => (
-            <ReviewCard key={`${r.author}-${r.publishedAt}`} r={r} theme={theme} />
-          ))}
-        </div>
+        <GoogleReviewsMarquee reviews={summary.reviews} theme={theme} />
       </div>
     </section>
   );

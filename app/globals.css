@@ -329,6 +329,30 @@ input:focus, textarea:focus, select:focus {
   100% { transform: translateX(calc(-50% - 0.25rem)); }
 }
 
+@keyframes reviews-marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(calc(-50% - 0.5rem), 0, 0); }
+}
+
+.reviews-marquee-track {
+  animation-name: reviews-marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  width: max-content;
+  will-change: transform;
+}
+
+.reviews-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 @layer utilities {
   .animate-hero-rise {
     animation: heroRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
