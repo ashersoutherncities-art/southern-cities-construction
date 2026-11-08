@@ -63,39 +63,85 @@ const galleryPreview = [
   { title: 'Historic waterfront district home exterior transformation', image: '/gallery/red-house-after.jpg' },
 ];
 
-// Homepage FAQ — answers every obvious objection in one place so a reader
-// never has to leave to decide. Deeper product-specific detail still lives on
-// /deal-pack; the link below the list points there.
+// Homepage FAQ — comprehensive. Every answer is anchored to facts already
+// shipped on /deal-pack, /construction, /services, and the product catalogue.
+// Nothing new is asserted here; the homepage just surfaces the detail so a
+// cold reader can close every obvious objection without leaving the page.
 const faqs = [
   {
     question: 'What is the Build-Ready Deal Pack?',
     answer:
-      'A committed rehab price, in writing, delivered in 3–4 business days by a licensed North Carolina general contractor (NC GC license #107724) for $1,997. The pack ships with as-built plans, a future-state renovation plan, three photoreal renderings, a short market study, an initial materials list, a vendor list, a permit memo, and an execution-risk report. Investors and wholesalers use it to underwrite the deal and lock the number before buying; realtors attach it to a listing or buyer offer so the lender and buyer see a real GC’s number, not a guess.',
+      'A committed rehab price, in writing, delivered in 3–4 business days by a licensed North Carolina general contractor (NC GC license #107724) for $1,997. It is a decision-grade deliverable, not a bid-grade quote — meaning the number is good enough to underwrite the deal, run it past a lender, assign to a buyer, or sign a purchase contract on. The pack is designed around a single question: what will it actually cost to execute this rehab, with a real GC standing behind the number?',
   },
   {
-    question: 'How does the wholesaler payment work?',
+    question: 'What exactly ships with it?',
     answer:
-      'Zero dollars upfront. The $1,997 fee comes out of your assignment proceeds at the closing table, so there is no out-of-pocket to carry a deal through underwriting. If the deal does not close, you do not pay. Same structure for realtors: $0 upfront, paid from your commission at closing. We confirm the specific terms on a short scoping call before any work starts so there are no surprises.',
+      'As-built plans drawn from the current property, a future-state renovation plan showing the planned scope, three photoreal renderings of the finished look, a short market study grounding the ARV, an initial materials list, a vendor list of the trades we would use, a permit memo for the specific jurisdiction, an execution-risk report flagging the top cost-to-cure items, and the Commitment Certificate itself — a one-page document issued under NC GC license #107724 that names the property, the scope, the committed price, and the 30-day commitment window.',
+  },
+  {
+    question: 'How much does it cost?',
+    answer:
+      'The Build-Ready Deal Pack is $1,997. A lighter Bid-Ready version is available at $599 for cases where the deliverable list does not need the renderings and formal commitment — Bid-Ready gets you the committed number, the scope, the materials list, and the permit memo. Both are flat fees; no hourly, no per-page, no change in price based on property size. Prices are listed on /deal-pack and in the cart; no discounts offered on either tier outside of our Pro membership.',
+  },
+  {
+    question: 'How does payment work for wholesalers?',
+    answer:
+      'Zero dollars upfront. The $1,997 fee is paid from your assignment proceeds at the closing table, so no out-of-pocket is required to carry a deal through underwriting and buyer marketing. If the deal does not close, you do not pay. Terms are confirmed on a short scoping call before any work starts so both sides agree on the assignment-fee split and the closing instructions. The structure exists because we want wholesalers to use the pack without it becoming a bet against their own pipeline.',
+  },
+  {
+    question: 'How does payment work for realtors?',
+    answer:
+      'Same shape as the wholesaler path: $0 upfront, paid from your commission at closing. Realtors use the pack two ways — on a listing, to show lenders and buyers the rehab number before the property hits the MLS and get an above-asking offer for a distressed home; and on a buyer offer, to attach a real GC’s committed number to the paperwork so the buyer and lender move fast without a financing contingency hanging on repair cost guesses.',
+  },
+  {
+    question: 'How long does delivery take?',
+    answer:
+      'Three to four business days from the scoping call. In practice: scoping call Monday, property walk (in person for Charlotte-area and most of the Piedmont, remote video walk otherwise) Tuesday, pack drafted Wednesday, delivered Thursday. Urgent deals can be turned in 2 business days with a day-rate expedite — flagged on the scoping call. The 2-day deal-review turnaround on our stats row refers to the earlier Rehab-Budget-Range Snapshot (a free first pass) which precedes the full pack.',
   },
   {
     question: 'Can the committed price be transferred to my buyer?',
     answer:
-      'Yes — once, at closing. The Commitment Certificate is written so a wholesaler can transfer it to their end buyer, meaning the buyer inherits a licensed NC GC on the deal and the exact rehab number on paper. The commitment is good for 30 days from issue, which is enough runway to underwrite, market, assign, and close. Change orders only apply to concealed or hidden conditions discovered once walls open — the scoped work stays at the committed price.',
+      'Yes — once, at closing. The Commitment Certificate is written so a wholesaler can transfer it to their end buyer, meaning the buyer inherits a licensed NC GC on the deal and the exact rehab number on paper. That gives the buyer something concrete to show their own lender rather than a projection. The transfer is a single assignment event at closing, not a reusable right to pass the number down a chain.',
+  },
+  {
+    question: 'Is the committed price a guarantee?',
+    answer:
+      'It is a committed bid for the defined scope, sealed with the NC GC license — meaning if we build it and the work is in that scope, the price is the price. Change orders only apply to concealed or hidden conditions discovered once walls open: unexpected rot behind sheathing, undisclosed structural issues, outdated electrical in walls that we could not see from the walk. Everything visible and within the written scope stays at the committed number.',
+  },
+  {
+    question: 'How long is the committed price good for?',
+    answer:
+      'Thirty days from issue. That is enough runway to underwrite, market the deal, line up the buyer, and close. If you need more time, we can re-issue the commitment after a quick re-check of materials pricing — most of the pack (plans, renderings, permit memo, execution risk) carries forward; only the number updates if trade-network costs have moved. The re-issue is a flat $249.',
   },
   {
     question: 'Do you review a deal I don’t own yet?',
     answer:
-      'Yes, and that is the whole point. Most GCs refuse because scoping an unowned property is work they cannot bill for if the deal dies. We charge for the pack, which is why we are able to do it: a licensed NC GC pulls comps, pulls local permitting rules, walks the property (in person when the market is nearby, remotely via video otherwise), and delivers the full committed number plus the supporting documents. You get a real contractor’s read before you sign a purchase contract, not after.',
+      'Yes, and that is the whole point. Most GCs refuse because scoping an unowned property is unbillable time if the deal dies — we charge for the pack, which is what makes doing the work before the purchase viable. A licensed NC GC pulls comps, pulls local permitting rules for the specific jurisdiction, walks the property, and delivers the full committed number plus every supporting document. You get a real contractor’s read before the purchase contract, not after.',
   },
   {
     question: 'How is this different from an inspection or an appraisal?',
     answer:
-      'An inspection lists what is wrong with a property. An appraisal gives a comp-based value. Neither tells you what the repairs will actually cost to execute, who will do the work, or how long it will take. The Deal Pack is the rehab-execution answer: a licensed GC scoping the exact work, pricing it with real NC trade-network unit costs, and standing behind the number. You can hand the appraisal, the inspection, and the Deal Pack to a lender together and the deal underwrites.',
+      'An inspection lists what is wrong with a property. An appraisal gives a comp-based value. Neither tells you what the repairs will actually cost to execute, who will do the work, how long it will take, or whether the scope is feasible under local permitting. The Deal Pack is the rehab-execution answer: a licensed GC scoping the exact work, pricing it with real NC trade-network unit costs, and standing behind the number in writing. You can hand the appraisal, the inspection, and the Deal Pack to a lender together and the deal underwrites.',
+  },
+  {
+    question: 'What markets do you serve?',
+    answer:
+      'Southern Cities Construction is a North Carolina general contractor; we operate across the state. In-person property walks are routine for the Charlotte metro, Triad, Triangle, Fayetteville, Wilmington, and the coastal corridor. Deals further out (far-western NC, remote parcels) use a remote video walk — the resulting pack carries the same license seal and the same committed number. We do not operate in South Carolina or any other state.',
+  },
+  {
+    question: 'What kinds of projects do you handle?',
+    answer:
+      'Residential only, no commercial. Within residential, there is no lower square-footage cutoff — small tiny-home projects through full four-bedroom rehabs all fit. The product grade we work to is workforce / mid-market finish — the kind of build that resells cleanly, cash-flows as a rental, or satisfies a buyer at the local comp-band price point. We do not do ultra-luxury custom finishes, and we will say so on the scoping call if that is the ask.',
   },
   {
     question: 'What happens after I have the Deal Pack — do you also build?',
     answer:
-      'You are not obligated to build with us. The pack is a standalone deliverable you own and can take to any licensed GC. If you do want us to execute, we are the GC of record on the project and the committed price becomes the contract price — no re-pricing exercise, no re-scoping. Southern Cities also offers Permit Administration and Construction Oversight for projects where you want us on the build side after the pack.',
+      'You are not obligated to build with us. The pack is a standalone deliverable you own and can take to any licensed GC. If you do want us to execute, we become the GC of record and the committed price becomes the contract price — no re-pricing exercise, no re-scoping. Southern Cities also offers Permit Administration ($1,499 starting) and Construction Oversight for projects where you want us only on the back end after you have the pack.',
+  },
+  {
+    question: 'How do I start?',
+    answer:
+      'Either analyze a deal (that routes to the Rehab-Budget-Range + Execution-Risk Snapshot, a free first pass) or go straight to the Deal Pack if you already know the property and are ready for the committed number. Both start with a short intake form; a licensed NC GC reviews it and either schedules the scoping call or flags why a specific property is not a fit. First response is same business day, Monday through Friday.',
   },
 ];
 
