@@ -58,15 +58,23 @@ export async function fetchSccGoogleReviews(): Promise<PlaceSummary | null> {
   if (!res.ok) return null;
   const data = (await res.json()) as PlacesApiResponse;
 
-  const reviews: GoogleReview[] = (data.reviews ?? []).map((r) => ({
-    author: r.authorAttribution.displayName,
-    authorPhoto: r.authorAttribution.photoUri,
-    authorProfileUrl: r.authorAttribution.uri,
-    rating: r.rating,
-    text: r.text?.text ?? r.originalText?.text ?? "",
-    relativeTime: r.relativePublishTimeDescription,
-    publishedAt: r.publishTime,
-  }));
+  // Sort newest-first. The Places API (new) Place Details endpoint does not
+  // accept a reviews sort parameter — it always returns up to 5 by Google's
+  // own ranking. Google has 6+ reviews total; which 5 we get is up to Google,
+  // but we can guarantee the 5 we show are rendered most-recent-first so new
+  // reviews appear immediately when the cache revalidates.
+  const reviews: GoogleReview[] = (data.reviews ?? [])
+    .slice()
+    .sort((a, b) => new Date(b.publishTime).getTime() - new Date(a.publishTime).getTime())
+    .map((r) => ({
+      author: r.authorAttribution.displayName,
+      authorPhoto: r.authorAttribution.photoUri,
+      authorProfileUrl: r.authorAttribution.uri,
+      rating: r.rating,
+      text: r.text?.text ?? r.originalText?.text ?? "",
+      relativeTime: r.relativePublishTimeDescription,
+      publishedAt: r.publishTime,
+    }));
 
   return {
     name: data.displayName?.text ?? "Southern Cities Construction",
