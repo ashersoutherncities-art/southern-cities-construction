@@ -63,12 +63,40 @@ const galleryPreview = [
   { title: 'Historic waterfront district home exterior transformation', image: '/gallery/red-house-after.jpg' },
 ];
 
-// Full FAQ (6 Q&As) lives on /deal-pack where the detail is actually
-// relevant — this is a 3-item teaser pointing there.
+// Homepage FAQ — answers every obvious objection in one place so a reader
+// never has to leave to decide. Deeper product-specific detail still lives on
+// /deal-pack; the link below the list points there.
 const faqs = [
-  { question: 'What is the Build-Ready Deal Pack?', answer: 'A committed rehab price, sealed with license #107724, plus plans, renderings, and a full scope — delivered in 3–4 days.' },
-  { question: 'How does the wholesaler payment work?', answer: '$0 upfront. The fee comes out of your assignment proceeds at closing. No close, no pay.' },
-  { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will — that’s the whole point.' },
+  {
+    question: 'What is the Build-Ready Deal Pack?',
+    answer:
+      'A committed rehab price, in writing, delivered in 3–4 business days by a licensed North Carolina general contractor (NC GC license #107724) for $1,997. The pack ships with as-built plans, a future-state renovation plan, three photoreal renderings, a short market study, an initial materials list, a vendor list, a permit memo, and an execution-risk report. Investors and wholesalers use it to underwrite the deal and lock the number before buying; realtors attach it to a listing or buyer offer so the lender and buyer see a real GC’s number, not a guess.',
+  },
+  {
+    question: 'How does the wholesaler payment work?',
+    answer:
+      'Zero dollars upfront. The $1,997 fee comes out of your assignment proceeds at the closing table, so there is no out-of-pocket to carry a deal through underwriting. If the deal does not close, you do not pay. Same structure for realtors: $0 upfront, paid from your commission at closing. We confirm the specific terms on a short scoping call before any work starts so there are no surprises.',
+  },
+  {
+    question: 'Can the committed price be transferred to my buyer?',
+    answer:
+      'Yes — once, at closing. The Commitment Certificate is written so a wholesaler can transfer it to their end buyer, meaning the buyer inherits a licensed NC GC on the deal and the exact rehab number on paper. The commitment is good for 30 days from issue, which is enough runway to underwrite, market, assign, and close. Change orders only apply to concealed or hidden conditions discovered once walls open — the scoped work stays at the committed price.',
+  },
+  {
+    question: 'Do you review a deal I don’t own yet?',
+    answer:
+      'Yes, and that is the whole point. Most GCs refuse because scoping an unowned property is work they cannot bill for if the deal dies. We charge for the pack, which is why we are able to do it: a licensed NC GC pulls comps, pulls local permitting rules, walks the property (in person when the market is nearby, remotely via video otherwise), and delivers the full committed number plus the supporting documents. You get a real contractor’s read before you sign a purchase contract, not after.',
+  },
+  {
+    question: 'How is this different from an inspection or an appraisal?',
+    answer:
+      'An inspection lists what is wrong with a property. An appraisal gives a comp-based value. Neither tells you what the repairs will actually cost to execute, who will do the work, or how long it will take. The Deal Pack is the rehab-execution answer: a licensed GC scoping the exact work, pricing it with real NC trade-network unit costs, and standing behind the number. You can hand the appraisal, the inspection, and the Deal Pack to a lender together and the deal underwrites.',
+  },
+  {
+    question: 'What happens after I have the Deal Pack — do you also build?',
+    answer:
+      'You are not obligated to build with us. The pack is a standalone deliverable you own and can take to any licensed GC. If you do want us to execute, we are the GC of record on the project and the committed price becomes the contract price — no re-pricing exercise, no re-scoping. Southern Cities also offers Permit Administration and Construction Oversight for projects where you want us on the build side after the pack.',
+  },
 ];
 
 /**
