@@ -1,6 +1,22 @@
 export const SCC_PLACE_ID = "ChIJsYjxs8qhVogRPORmsSZR3q0";
 export const SCC_GOOGLE_MAPS_URL = "https://maps.google.com/?cid=12528540440018215996";
 
+// Last-name privacy mask applied to every Google reviewer name before it
+// reaches the UI. Mirrors the convention their own Google Business snippet
+// often shows: full first name, last-name initial + period. Single-token
+// names (handles, first-name-only reviewers) pass through unchanged so we
+// never fabricate an initial they didn't give.
+export function abbreviateAuthorName(raw: string): string {
+  const name = (raw ?? "").trim().replace(/\s+/g, " ");
+  if (!name) return "";
+  const tokens = name.split(" ");
+  if (tokens.length === 1) return tokens[0];
+  const first = tokens[0];
+  const lastInitial = tokens[tokens.length - 1].charAt(0).toUpperCase();
+  if (!lastInitial) return first;
+  return `${first} ${lastInitial}.`;
+}
+
 export interface GoogleReview {
   author: string;
   authorPhoto?: string;
@@ -58,16 +74,16 @@ export async function fetchSccGoogleReviews(): Promise<PlaceSummary | null> {
   if (!res.ok) return null;
   const data = (await res.json()) as PlacesApiResponse;
 
-  // Sort newest-first. The Places API (new) Place Details endpoint does not
-  // accept a reviews sort parameter — it always returns up to 5 by Google's
-  // own ranking. Google has 6+ reviews total; which 5 we get is up to Google,
-  // but we can guarantee the 5 we show are rendered most-recent-first so new
-  // reviews appear immediately when the cache revalidates.
+  // Sort newest-first AND mask reviewer surnames. The Places API (new) Place
+  // Details endpoint returns up to 5 reviews in Google's own order (no sort
+  // parameter exists), so we sort client-side to guarantee the most recent
+  // appear first whichever 5 Google picks. abbreviateAuthorName applies the
+  // first-name + last-initial privacy convention across every surface.
   const reviews: GoogleReview[] = (data.reviews ?? [])
     .slice()
     .sort((a, b) => new Date(b.publishTime).getTime() - new Date(a.publishTime).getTime())
     .map((r) => ({
-      author: r.authorAttribution.displayName,
+      author: abbreviateAuthorName(r.authorAttribution.displayName),
       authorPhoto: r.authorAttribution.photoUri,
       authorProfileUrl: r.authorAttribution.uri,
       rating: r.rating,
