@@ -20,9 +20,16 @@ function ctEqual(a: string, b: string): boolean {
 }
 
 function matchKey(provided: string): string | null {
-  const keys = [process.env.MARKETING_PORTAL_ACCESS_KEY, process.env.REHAB_SNAPSHOT_ADMIN_KEY].filter(
-    (k): k is string => !!k,
-  );
+  // Keep this list aligned with every `hasPortalAccess(...)` call site: a key
+  // that pages accept but the middleware doesn't recognize is a dead switch.
+  // CD_PROCUREMENT_ADMIN_KEY powers the Construction Department procurement
+  // actions in app/portal/bid-packages/[id]/actions.ts — if it isn't in this
+  // list, `?key=<CD_PROCUREMENT_ADMIN_KEY>` cannot produce a session.
+  const keys = [
+    process.env.MARKETING_PORTAL_ACCESS_KEY,
+    process.env.REHAB_SNAPSHOT_ADMIN_KEY,
+    process.env.CD_PROCUREMENT_ADMIN_KEY,
+  ].filter((k): k is string => !!k);
   for (const k of keys) if (ctEqual(provided, k)) return k;
   return null;
 }

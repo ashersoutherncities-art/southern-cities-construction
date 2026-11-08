@@ -24,7 +24,20 @@ export type CdMember = {
   strategy_calls_used: number;
   site_visit_credits_used: number;
   gc_procurement_used: number;
+  // Annual benefits track their own year-start so they aren't zeroed every
+  // monthly billing cycle. See supabase/cd_members_annual_counters.sql.
+  gc_procurement_year_start: string | null;
+  site_visit_year_start: string | null;
 };
+
+const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+
+function annualPeriodElapsed(yearStart: string | null | undefined): boolean {
+  if (!yearStart) return true;
+  const start = new Date(yearStart).getTime();
+  if (Number.isNaN(start)) return true;
+  return Date.now() - start >= ONE_YEAR_MS;
+}
 
 export async function getMemberByEmail(
   supabase: SupabaseClient,
@@ -60,10 +73,21 @@ export type UpsertMemberInput = {
 };
 
 /**
- * Create or update a member from a Stripe subscription event. Every allocated
- * counter (screening_used, cma_credits_used, desk_reviews_used,
- * strategy_calls_used, site_visit_credits_used, gc_procurement_used) resets to
- * 0 whenever the billing period advances, so each paid period starts fresh.
+ * Create or update a member from a Stripe subscription event.
+ *
+ * Reset cadence depends on the counter:
+ *   - MONTHLY counters (screening_used, cma_credits_used, desk_reviews_used,
+ *     strategy_calls_used) reset whenever `current_period_end` advances —
+ *     these correspond to credits sold per-month.
+ *   - ANNUAL counters (gc_procurement_used, site_visit_credits_used) reset
+ *     only when their own `*_year_start` is at least 365 days old. These
+ *     correspond to allowances sold per-year.
+ *   - Any existing usage is preserved on plan changes / upgrades so a member
+ *     who already consumed their annual allowance cannot regain it by
+ *     switching tiers mid-year.
+ *
+ * New members start all year_starts at now(), so their annual allowance
+ * windows start on signup.
  */
 export async function upsertMemberFromSubscription(
   supabase: SupabaseClient,
@@ -71,12 +95,19 @@ export async function upsertMemberFromSubscription(
 ): Promise<void> {
   const existing = await getMemberBySubscriptionId(supabase, input.stripeSubscriptionId);
   const periodEndIso = input.currentPeriodEnd ? input.currentPeriodEnd.toISOString() : null;
+  const nowIso = new Date().toISOString();
 
   const periodAdvanced =
     !existing ||
     (periodEndIso != null && existing.current_period_end !== periodEndIso);
 
-  const row = {
+  // Annual counters are independent of the monthly billing cycle.
+  const gcAnnualExpired = annualPeriodElapsed(existing?.gc_procurement_year_start);
+  const siteVisitAnnualExpired = annualPeriodElapsed(existing?.site_visit_year_start);
+  const resetGcProcurement = !existing || gcAnnualExpired;
+  const resetSiteVisits = !existing || siteVisitAnnualExpired;
+
+  const row: Record<string, unknown> = {
     email: input.email.trim(),
     stripe_customer_id: input.stripeCustomerId,
     stripe_subscription_id: input.stripeSubscriptionId,
@@ -84,19 +115,27 @@ export async function upsertMemberFromSubscription(
     status: input.status,
     current_period_end: periodEndIso,
     screening_limit: input.tier.screeningLimit,
-    updated_at: new Date().toISOString(),
-    ...(periodAdvanced
-      ? {
-          screening_used: 0,
-          cma_credits_used: 0,
-          desk_reviews_used: 0,
-          strategy_calls_used: 0,
-          site_visit_credits_used: 0,
-          gc_procurement_used: 0,
-          usage_period_start: new Date().toISOString(),
-        }
-      : {}),
+    updated_at: nowIso,
   };
+
+  if (periodAdvanced) {
+    Object.assign(row, {
+      screening_used: 0,
+      cma_credits_used: 0,
+      desk_reviews_used: 0,
+      strategy_calls_used: 0,
+      usage_period_start: nowIso,
+    });
+  }
+
+  if (resetGcProcurement) {
+    row.gc_procurement_used = 0;
+    row.gc_procurement_year_start = nowIso;
+  }
+  if (resetSiteVisits) {
+    row.site_visit_credits_used = 0;
+    row.site_visit_year_start = nowIso;
+  }
 
   await supabase
     .from('cd_members')

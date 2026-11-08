@@ -547,3 +547,30 @@ export function formatPrice(cents: number): string {
     maximumFractionDigits: 0,
   }).format(cents / 100);
 }
+
+// Parse the `cart_summary` metadata string that /api/cart-checkout stamps on
+// each Stripe Checkout Session. Format: `key:amount_cents:quantity` per line
+// item, comma-separated. Falls back to an empty list on anything malformed.
+// This is the authoritative per-item carrier for quantities inside the
+// Stripe webhook (`cart_keys` is a deduped product list with no quantity).
+export function parseCartSummary(raw: string | null | undefined): Array<{
+  key: string;
+  amountCents: number;
+  quantity: number;
+}> {
+  if (!raw) return [];
+  return raw
+    .split(',')
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
+    .map((chunk) => {
+      const [key, amountStr, quantityStr] = chunk.split(':');
+      if (!key || !CART_PRODUCTS[key]) return null;
+      const amountCents = Number.parseInt(amountStr ?? '0', 10);
+      const quantity = Number.parseInt(quantityStr ?? '1', 10);
+      if (!Number.isFinite(amountCents) || amountCents < 0) return null;
+      if (!Number.isFinite(quantity) || quantity < 1) return null;
+      return { key, amountCents, quantity };
+    })
+    .filter((v): v is { key: string; amountCents: number; quantity: number } => v !== null);
+}

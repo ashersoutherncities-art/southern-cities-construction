@@ -218,7 +218,18 @@ export async function recordBidPackageDocumentAction(input: {
   revalidate(input.bidPackageId);
 }
 
+// Mint a signed /bid-comparison/<token> URL for an existing bid package.
+// MUST stay authorized: the token grants read-only access to the comparison
+// page for 90 days, so an unauthenticated caller must never be able to
+// generate one for an arbitrary (or guessed) bid package id.
 export async function generateComparisonLinkAction(bidPackageId: string): Promise<string> {
+  if (!authorized()) throw new Error('unauthorized');
+  if (!bidPackageId || typeof bidPackageId !== 'string') throw new Error('invalid bid_package_id');
+  // Confirm the package exists before signing — stops attackers from using
+  // this action as a signing oracle for arbitrary strings.
+  const supabase = getServiceClient();
+  const pkg = await getBidPackage(supabase, bidPackageId);
+  if (!pkg) throw new Error('bid package not found');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const token = signBidComparisonToken(bidPackageId);
   return `${baseUrl}/bid-comparison/${encodeURIComponent(token)}`;

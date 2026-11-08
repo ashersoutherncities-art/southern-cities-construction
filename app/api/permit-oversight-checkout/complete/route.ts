@@ -73,19 +73,35 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const workflow = session.metadata?.workflow || 'permit_oversight';
-
+    // Explicit workflow routing: only run permit-oversight onboarding when
+    // the Stripe session was tagged for it. Previously this defaulted to
+    // 'permit_oversight' when metadata was missing, which risked running
+    // permit onboarding against unrelated cart sessions that happened to land
+    // on the same completion URL. Normal cart / CMA / pro-reorder sessions
+    // exit here.
+    const workflow = session.metadata?.workflow;
     if (workflow !== 'permit_oversight') {
       return NextResponse.json({
         success: true,
-        workflow,
+        workflow: workflow ?? 'unspecified',
         message: 'Order persisted; no permit oversight onboarding required for this product.',
       });
     }
 
+    const internalSecret = process.env.INTERNAL_API_SECRET;
+    if (!internalSecret) {
+      // Fail closed: the downstream endpoint fail-closes too; emitting a
+      // clear error beats a silent 401 at the callee.
+      return NextResponse.json({ error: 'INTERNAL_API_SECRET not configured' }, { status: 500 });
+    }
+
     const orderRes = await fetch(`${baseUrl}/api/permit-oversight-orders`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        // Required by /api/permit-oversight-orders fail-closed internal gate.
+        'x-internal-secret': internalSecret,
+      },
       body: JSON.stringify({
         buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
         buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
