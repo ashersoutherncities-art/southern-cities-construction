@@ -14,7 +14,7 @@ import { SITE_CONFIG, logoFor } from '@/lib/site-config';
 export const metadata: Metadata = {
   title: 'Schedule a Construction Consultation | Southern Cities Construction',
   description:
-    'Construction expertise for real estate investors and property owners — from evaluating potential investments to executing construction projects. Licensed NC GC #107724.',
+    'Get a rehab budget, prepare your project for construction, or have Southern Cities Construction manage your North Carolina investment property renovation from start to finish. Licensed NC GC #107724.',
   alternates: { canonical: '/consultation' },
   openGraph: {
     type: 'website',
@@ -57,6 +57,42 @@ const REAL_PROJECTS = [
   },
 ];
 
+const DEAL_PACKS = [
+  {
+    name: 'Bid Ready',
+    price: '$599',
+    turnaround: '2–3 business days',
+    description: 'Get a written rehab scope and budget range so you can decide whether the deal makes sense.',
+    credit: 'Your $599 Bid Ready payment credits toward Build Ready when you upgrade for the same property.',
+    inclusions: [
+      { title: 'Draft scope of work', detail: 'A written breakdown of the repairs and improvements we accounted for.' },
+      { title: 'Line-item rehab budget range', detail: 'Estimated costs by work item, with quantities where available.' },
+      { title: 'Allowances and assumptions', detail: 'See what the estimate is based on, where we used placeholder amounts, and what still needs verification.' },
+      { title: 'Execution risk report and lender flags', detail: 'See what could change the scope or cost and which findings may matter to your lender.' },
+      { title: 'Shareable PDF reviewed by a licensed general contractor', detail: 'Keep the report, share it with your team, or carry it into Build Ready.' },
+    ],
+    note: 'Site work is optional. We’ll confirm whether the project needs a scan, photos or video, or an inspection during intake.',
+  },
+  {
+    name: 'Build Ready',
+    price: '$1,997',
+    turnaround: '3–4 business days',
+    description: 'Get a verified scope, a design you can see, and a written price Southern Cities will commit to for the defined work.',
+    inclusions: [
+      { title: 'Site verification', detail: 'We check existing conditions and measurements, document the site with a scan and photos or video, and arrange a licensed inspection unless the general contractor waives it.' },
+      { title: 'Comparable property research', detail: 'We review local comparable properties to guide the layout and finish choices.' },
+      { title: 'Existing and proposed floor plans plus three renderings', detail: 'See the current layout, the proposed layout with furniture shown, and three views of the finished property.' },
+      { title: 'Materials and finish list', detail: 'Get an initial materials spreadsheet with quantities and proposed finishes, including items such as flooring, cabinets, and fixtures.' },
+      { title: 'Verified, trade-by-trade scope and pricing', detail: 'See what each trade is pricing based on the site conditions, design, and materials.' },
+      { title: 'Permit requirements memo', detail: 'See which permits the scope calls for, who issues them, and the expected timeline.' },
+      { title: 'Vetted vendor list and coordinated quotes', detail: 'We check insurance, past work, and availability, then have the trades price the same final scope.' },
+      { title: 'Final risk review', detail: 'See the site, permit, cost, and trade issues that could affect construction.' },
+      { title: 'Written construction price', detail: 'Southern Cities commits to a price for the defined scope. You keep the package and choose whether to hire us to build it.' },
+    ],
+    note: 'The turnaround above is for clients who start directly with Build Ready. Changes to the agreed scope or concealed conditions are handled through written approval during construction.',
+  },
+];
+
 const ctaBase =
   'inline-flex items-center justify-center gap-2 rounded-xl bg-orange px-7 py-4 text-[15px] font-black text-white shadow-elev-1 transition hover:bg-orange-bright';
 
@@ -95,12 +131,11 @@ export default function ConsultationPage() {
         <div className="container-pro flex flex-col items-center gap-10 text-center">
           <div className="max-w-2xl">
             <h1 className="text-[2.1rem] leading-[1.08] font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Reliable Statewide Hands-Off Rehabs &amp; New Builds — Done For You, Start to Finish
+              Hands-Off Renovations for North Carolina Real Estate Investors
             </h1>
             <p className="mt-5 text-[17px] leading-relaxed text-white/75 sm:text-lg">
-              From evaluating potential investments to planning and executing construction projects, Southern Cities
-              Construction helps you understand what needs to be done, what it may cost, and how to move forward
-              with confidence.
+              Get the rehab numbers before you buy. When you&apos;re ready to build, we can verify the scope,
+              price the work, and run the renovation through the final walkthrough.
             </p>
             <div className="mt-7 flex justify-center">
               <ConsultationCTA eventLabel="hero" className={ctaBase}>
@@ -122,7 +157,7 @@ export default function ConsultationPage() {
                 <path d="M16 8.5a4.5 4.5 0 010 7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
                 <path d="M18.5 6a8 8 0 010 12" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
               </svg>
-              Tap Below To Watch First!
+              See How It Works
             </div>
             <div className="relative aspect-video overflow-hidden rounded-b-2xl bg-black shadow-elev-2">
               <VideoWithSoundToggle
@@ -136,103 +171,61 @@ export default function ConsultationPage() {
         </div>
       </section>
 
-      {/* Section 2 — What We Help You Accomplish */}
-      <Section className="border-t border-stone-200">
-        <p className="eyebrow">What We Help You Accomplish</p>
+      <Section className="border-t border-stone-200 bg-white">
+        <p className="eyebrow">Compare the Deal Packs</p>
         <h2 className="mt-3 max-w-2xl text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-          From Property Evaluation to Construction Completion
+          Know What You&apos;re Getting Before You Buy or Build
         </h2>
         <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-stone-700">
-          Whether you&apos;re evaluating an investment opportunity or preparing to begin construction, SCC provides
-          the technical planning and construction services needed to move forward.
+          Start with Bid Ready if you need a budget to evaluate the deal. Go straight to Build Ready if you
+          want a verified plan and a price we can commit to for the work.
         </p>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-3">
-          {[
-            {
-              title: 'Evaluate Potential Investments',
-              body: 'Understand preliminary construction requirements, renovation costs, and potential risks before making significant financial commitments.',
-            },
-            {
-              title: 'Prepare for Construction',
-              body: 'Develop comprehensive scopes of work, construction budgets, project plans, and supporting documentation.',
-            },
-            {
-              title: 'Execute Construction Projects',
-              body: 'Work with a licensed general contractor to coordinate and execute residential renovation, rehabilitation, and new-construction projects.',
-            },
-          ].map((item) => (
-            <div key={item.title} className="rounded-2xl border border-stone-200 bg-white p-7 shadow-elev-1">
-              <h3 className="text-lg font-extrabold tracking-tight text-navy">{item.title}</h3>
-              <p className="mt-3 text-[14.5px] leading-relaxed text-stone-700">{item.body}</p>
-            </div>
+        <div className="mt-8 grid items-start gap-5 lg:grid-cols-2">
+          {DEAL_PACKS.map((pack) => (
+            <article key={pack.name} className="rounded-2xl border border-stone-200 bg-stone-50 p-5 sm:p-7">
+              <h3 className="text-xl font-extrabold text-navy">{pack.name}</h3>
+              <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <p className="text-3xl font-black text-navy">{pack.price}</p>
+                <p className="text-sm font-semibold text-stone-600">{pack.turnaround} after completed intake</p>
+              </div>
+              <p className="mt-4 text-[15px] leading-relaxed text-stone-700">{pack.description}</p>
+              {pack.credit && (
+                <p className="mt-4 rounded-lg border border-orange/30 bg-white px-4 py-3 text-sm font-bold leading-relaxed text-navy">
+                  {pack.credit}
+                </p>
+              )}
+              <h4 className="mt-6 text-sm font-extrabold text-navy">What&apos;s included</h4>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-stone-700 marker:text-orange">
+                {pack.inclusions.map(({ title, detail }) => (
+                  <li key={title}><strong className="text-navy">{title}.</strong> {detail}</li>
+                ))}
+              </ul>
+              <p className="mt-5 text-sm leading-relaxed text-stone-600">{pack.note}</p>
+            </article>
           ))}
         </div>
 
-        <div className="mt-10">
-          <ConsultationCTA eventLabel="accomplish" className={ctaBase}>
-            Schedule a Consultation
-          </ConsultationCTA>
-        </div>
-      </Section>
-
-      {/* Section 3 — Preconstruction Services */}
-      <Section className="border-t border-stone-200 bg-white">
-        <p className="eyebrow">Our Preconstruction Services</p>
-        <h2 className="mt-3 max-w-2xl text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-          Know What You&apos;re Getting Into Before You Buy or Build
-        </h2>
-
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl">
-          <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Build-Ready Deal Pack</p>
-            <p className="mt-2 text-3xl font-black text-navy">$1,997</p>
-            <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
-              Comprehensive construction due diligence and preparation — for investors evaluating a property
-              before purchase, or owners preparing to build.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-stone-200 bg-white p-7">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-navy">Bid-Ready Deal Pack</p>
-            <p className="mt-2 text-3xl font-black text-navy">$599</p>
-            <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
-              A GC-certified rehab budget range and scope — for when you just need the number to evaluate or pass
-              along a deal. Credits toward Build-Ready if you upgrade.
-            </p>
-          </div>
-        </div>
-
-        <p className="mt-6 max-w-2xl text-[13.5px] leading-relaxed text-stone-500">
-          We don&apos;t promise guaranteed construction pricing or complete identification of concealed property
-          conditions — the service description covers exactly what&apos;s included.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-4">
+        <div className="mt-8">
           <ConsultationCTA eventLabel="preconstruction" className={ctaBase}>
             Schedule a Consultation
           </ConsultationCTA>
-          <a
-            href="/deal-pack"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 px-7 py-4 text-[15px] font-black text-navy transition hover:border-navy/30"
-          >
-            Explore Preconstruction Services
-          </a>
         </div>
       </Section>
 
       {/* Section 4 — How Our Process Works */}
       <Section className="border-t border-stone-200">
-        <p className="eyebrow">How Our Process Works</p>
+        <p className="eyebrow">Full-Service Construction</p>
         <h2 className="mt-3 max-w-2xl text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
-          A Clear Path From Evaluation to Execution
+          What Happens When You Hire Us to Build
         </h2>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { n: '1', title: 'Tell Us About Your Project', body: 'Share your property location, objectives, budget, and anticipated timeline.' },
-            { n: '2', title: 'Speak With Our Team', body: 'Schedule a consultation to discuss your project and determine the appropriate next steps.' },
-            { n: '3', title: 'Develop Your Construction Plan', body: "Our team evaluates available property information and provides the agreed level of scope development, estimating, and planning." },
-            { n: '4', title: 'Move Forward With Confidence', body: 'Use the information to evaluate your investment, prepare for construction, or engage SCC to execute an approved project.' },
+            { n: '1', title: 'Approve the Plan', body: 'We agree on the scope, price, and schedule. Your project manager confirms site access, trade availability, and permits before releasing the work.' },
+            { n: '2', title: 'We Run the Job', body: 'Your project manager coordinates crews and materials, tracks the budget and schedule, and checks the work as it progresses.' },
+            { n: '3', title: 'Stay Informed From Anywhere', body: 'See weekly photos and progress in your portal. If something changes the price or schedule, we explain what happened and get your written approval before proceeding with the affected work.' },
+            { n: '4', title: 'Walk the Finished Job', body: 'We verify the work and required inspections, handle the punch list, and provide your closeout documents.' },
           ].map((step) => (
             <div key={step.n}>
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange text-[14px] font-black text-white">
@@ -333,7 +326,7 @@ export default function ConsultationPage() {
               Pick a time that works for you.
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-stone-600">
-              Tell us a bit about your project and grab a time directly on the calendar — no pressure, no spam.
+              Bring the North Carolina property address and tell us what you plan to do with it. We&apos;ll help you decide where to start.
             </p>
           </div>
           <BookingCalendarEmbed />
