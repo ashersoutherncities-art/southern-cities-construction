@@ -22,6 +22,7 @@ const doors = [
     meta: 'A committed rehab price, sealed with the NC GC license, transferable to your buyer at closing.',
     price: '$1,997',
     priceNote: '$0 upfront for wholesalers · paid at closing',
+    altNote: 'Not sure yet? Bid-Ready from $599',
     href: '/lp/investor-deal-pack',
   },
   {
@@ -31,6 +32,7 @@ const doors = [
     meta: 'Committed rehab price, renderings, and a permit memo — what your buyer or lender needs to move fast.',
     price: '$1,997',
     priceNote: '$0 upfront for realtors · paid from commission at closing',
+    altNote: 'Not sure yet? Bid-Ready from $599',
     href: '/lp/real-estate-professionals-deal-pack',
   },
 ];
@@ -295,6 +297,9 @@ export default function Home() {
                     <span className="text-[1.75rem] font-black tracking-[-0.02em]" style={{ color: 'var(--ink-hi)' }}>{d.price}</span>
                     <span className="im-mono text-[11px] uppercase tracking-[0.06em]" style={{ color: 'var(--ink-lo)' }}>{d.priceNote}</span>
                   </div>
+                  {d.altNote ? (
+                    <p className="mt-2 text-[12.5px]" style={{ color: 'var(--ink-lo)' }}>{d.altNote}</p>
+                  ) : null}
                   <span className="im-door__cta mt-4">Enter &rarr;</span>
                 </div>
               </Link>
