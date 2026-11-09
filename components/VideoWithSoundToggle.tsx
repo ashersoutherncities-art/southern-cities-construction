@@ -10,6 +10,11 @@ type Props = {
   poster: string;
   /** Stable id for this video across analytics events — see schema.ts. */
   videoId: string;
+  /** 'cover' fills the box and crops overflow; 'contain' letterboxes the
+   * whole frame in view — use 'contain' when the container's aspect ratio
+   * doesn't match the source video's (e.g. a portrait source in a
+   * landscape box). Defaults to 'cover'. */
+  fit?: 'cover' | 'contain';
 };
 
 const PCT_MILESTONES = [25, 50, 75, 90, 100] as const;
@@ -30,7 +35,7 @@ const CHECKPOINT_INTERVAL_SECONDS = 10;
  * fire just because the playhead jumped there. See schema.ts for the full
  * event contract.
  */
-export default function VideoWithSoundToggle({ src, poster, videoId }: Props) {
+export default function VideoWithSoundToggle({ src, poster, videoId, fit = 'cover' }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [muted, setMuted] = useState(true);
@@ -305,7 +310,7 @@ export default function VideoWithSoundToggle({ src, poster, videoId }: Props) {
         playsInline
         preload="auto"
         poster={poster}
-        className="h-full w-full object-cover"
+        className={`h-full w-full ${fit === 'contain' ? 'object-contain' : 'object-cover'}`}
       >
         <source src={src} type="video/mp4" />
       </video>

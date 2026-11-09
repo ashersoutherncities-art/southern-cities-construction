@@ -7,6 +7,7 @@ import BookingCalendarEmbed from '@/components/BookingCalendarEmbed';
 import ConsultationCTA from '@/components/ConsultationCTA';
 import HideChatWidget from '@/components/HideChatWidget';
 import RealDeals from '@/components/RealDeals';
+import GoogleReviews from '@/components/GoogleReviews';
 import VideoWithSoundToggle from '@/components/VideoWithSoundToggle';
 import { SITE_CONFIG, logoFor } from '@/lib/site-config';
 
@@ -84,19 +85,24 @@ export default function ConsultationPage() {
         </div>
       </header>
 
-      {/* Section 1 — Hero */}
+      {/* Section 1 — Hero: header block above, VSL below in a landscape rectangle.
+         Source video (consultation-intro.mp4) is a 720x1280 portrait phone
+         recording, so the rectangle frame uses object-contain + a navy
+         background (pillarboxed) rather than object-cover — a true edge-to-edge
+         16:9 crop would cut off the top/bottom of the subject. Re-cut the
+         source in landscape if a full-bleed rectangle is wanted later. */}
       <section className="bg-navy pt-10 pb-14 lg:pt-16 lg:pb-20">
-        <div className="container-pro grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="min-w-0 text-center lg:text-left">
+        <div className="container-pro flex flex-col items-center gap-10 text-center">
+          <div className="max-w-2xl">
             <h1 className="text-[2.1rem] leading-[1.08] font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Construction Expertise for Real Estate Investors &amp; Property Owners
+              Reliable Statewide Hands-Off Rehabs &amp; New Builds — Done For You, Start to Finish
             </h1>
             <p className="mt-5 text-[17px] leading-relaxed text-white/75 sm:text-lg">
               From evaluating potential investments to planning and executing construction projects, Southern Cities
               Construction helps you understand what needs to be done, what it may cost, and how to move forward
               with confidence.
             </p>
-            <div className="mt-7">
+            <div className="mt-7 flex justify-center">
               <ConsultationCTA eventLabel="hero" className={ctaBase}>
                 Schedule a Construction Consultation
               </ConsultationCTA>
@@ -109,7 +115,7 @@ export default function ConsultationPage() {
             </p>
           </div>
 
-          <div className="mx-auto w-full max-w-[320px] lg:mx-0">
+          <div className="w-full max-w-2xl">
             <div className="flex items-center justify-center gap-2 rounded-t-xl bg-orange px-4 py-2.5 text-[12.5px] font-black uppercase tracking-wide text-white">
               <svg className="h-4 w-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M3 10v4h4l5 5V5L7 10H3z" />
@@ -118,11 +124,12 @@ export default function ConsultationPage() {
               </svg>
               Tap Below To Watch First!
             </div>
-            <div className="relative aspect-[9/16] overflow-hidden rounded-b-2xl bg-black shadow-elev-2">
+            <div className="relative aspect-video overflow-hidden rounded-b-2xl bg-black shadow-elev-2">
               <VideoWithSoundToggle
                 src="/video/consultation-intro.mp4"
                 poster="/video/consultation-intro-poster.jpg"
                 videoId="consultation-intro"
+                fit="contain"
               />
             </div>
           </div>
@@ -176,13 +183,21 @@ export default function ConsultationPage() {
           Know What You&apos;re Getting Into Before You Buy or Build
         </h2>
 
-        <div className="mt-10 max-w-xl">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl">
           <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Build-Ready Deal Pack</p>
             <p className="mt-2 text-3xl font-black text-navy">$1,997</p>
             <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
               Comprehensive construction due diligence and preparation — for investors evaluating a property
               before purchase, or owners preparing to build.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-stone-200 bg-white p-7">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-navy">Bid-Ready Deal Pack</p>
+            <p className="mt-2 text-3xl font-black text-navy">$599</p>
+            <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
+              A GC-certified rehab budget range and scope — for when you just need the number to evaluate or pass
+              along a deal. Credits toward Build-Ready if you upgrade.
             </p>
           </div>
         </div>
@@ -306,6 +321,8 @@ export default function ConsultationPage() {
       </Section>
 
       <RealDeals theme="light" audience="buyer" />
+
+      <GoogleReviews />
 
       {/* Booking section */}
       <section id="book" className="border-t border-stone-200 bg-stone-100">
