@@ -86,6 +86,24 @@ type Tier = {
 // and SF Ballpark is reachable via /start.
 const TIERS: Tier[] = [
   {
+    badge: 'START HERE',
+    badgeColor: 'white',
+    name: 'Bid-Ready Deal Pack',
+    price: '$599',
+    priceNote: '2–3 day turnaround · credits toward Build-Ready',
+    promise:
+      'Not sure of your numbers yet? Get the GC-certified budget range and scope first — use it to evaluate or pass along the deal. Upgrade to Build-Ready later and this fee credits toward it.',
+    includes: [
+      'GC-certified rehab budget range',
+      'Dollarized scope of work',
+      'Lender-killer risk flags',
+      'Execution risk report',
+      'Branded PDF, sealed with NC GC License #107724',
+    ],
+    cta: 'Order Bid-Ready · $599 →',
+    ctaHref: '/cart?cart=deal-pack-bid-ready',
+  },
+  {
     badge: 'FLAGSHIP',
     badgeColor: 'orange',
     name: 'Build-Ready Deal Pack',
@@ -108,24 +126,6 @@ const TIERS: Tier[] = [
     ctaHref: '/cart?cart=deal-pack-build-ready',
     highlight: true,
     sample: { pdfUrl: '/resources/samples/build-ready-deal-pack-sample.pdf', pages: 9 },
-  },
-  {
-    badge: 'START HERE',
-    badgeColor: 'white',
-    name: 'Bid-Ready Deal Pack',
-    price: '$599',
-    priceNote: '2–3 day turnaround · credits toward Build-Ready',
-    promise:
-      'Not sure of your numbers yet? Get the GC-certified budget range and scope first — use it to evaluate or pass along the deal. Upgrade to Build-Ready later and this fee credits toward it.',
-    includes: [
-      'GC-certified rehab budget range',
-      'Dollarized scope of work',
-      'Lender-killer risk flags',
-      'Execution risk report',
-      'Branded PDF, sealed with NC GC License #107724',
-    ],
-    cta: 'Order Bid-Ready · $599 →',
-    ctaHref: '/cart?cart=deal-pack-bid-ready',
   },
 ];
 
@@ -248,7 +248,7 @@ export default function DealPackPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-2 items-stretch">
+          <div className="mt-12 grid gap-6 lg:grid-cols-2 items-stretch max-w-4xl mx-auto">
             {TIERS.map((tier) => (
               <div
                 key={tier.name}

@@ -183,21 +183,21 @@ export default function ConsultationPage() {
           Know What You&apos;re Getting Into Before You Buy or Build
         </h2>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl">
-          <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
-            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Build-Ready Deal Pack</p>
-            <p className="mt-2 text-3xl font-black text-navy">$1,997</p>
-            <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
-              Comprehensive construction due diligence and preparation — for investors evaluating a property
-              before purchase, or owners preparing to build.
-            </p>
-          </div>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl mx-auto">
           <div className="rounded-2xl border border-stone-200 bg-white p-7">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-navy">Bid-Ready Deal Pack</p>
             <p className="mt-2 text-3xl font-black text-navy">$599</p>
             <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
               A GC-certified rehab budget range and scope — for when you just need the number to evaluate or pass
               along a deal. Credits toward Build-Ready if you upgrade.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Build-Ready Deal Pack</p>
+            <p className="mt-2 text-3xl font-black text-navy">$1,997</p>
+            <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
+              Comprehensive construction due diligence and preparation — for investors evaluating a property
+              before purchase, or owners preparing to build.
             </p>
           </div>
         </div>

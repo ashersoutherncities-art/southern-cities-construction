@@ -22,16 +22,17 @@ const doors = [
     meta: 'A committed rehab price, sealed with the NC GC license, transferable to your buyer at closing.',
     options: [
       {
-        name: 'Build-Ready',
-        price: '$1,997',
-        note: '$0 upfront for wholesalers · paid at closing',
-        href: '/lp/investor-deal-pack',
-      },
-      {
         name: 'Bid-Ready',
         price: '$599',
         note: 'Just need the number · credits toward Build-Ready',
         href: '/deal-pack#tiers',
+      },
+      {
+        name: 'Build-Ready',
+        price: '$1,997',
+        note: '$0 upfront for wholesalers · paid at closing',
+        href: '/lp/investor-deal-pack',
+        flagship: true,
       },
     ],
   },
@@ -42,16 +43,17 @@ const doors = [
     meta: 'Committed rehab price, renderings, and a permit memo — what your buyer or lender needs to move fast.',
     options: [
       {
-        name: 'Build-Ready',
-        price: '$1,997',
-        note: '$0 upfront for realtors · paid from commission at closing',
-        href: '/lp/real-estate-professionals-deal-pack',
-      },
-      {
         name: 'Bid-Ready',
         price: '$599',
         note: 'Just need the number · credits toward Build-Ready',
         href: '/deal-pack#tiers',
+      },
+      {
+        name: 'Build-Ready',
+        price: '$1,997',
+        note: '$0 upfront for realtors · paid from commission at closing',
+        href: '/lp/real-estate-professionals-deal-pack',
+        flagship: true,
       },
     ],
   },
@@ -298,7 +300,7 @@ export default function Home() {
             contracts &mdash; and for the <b style={{ color: 'var(--ink-hi)' }}>real estate professionals</b> who
             serve them: realtors, lenders, and brokers.
           </p>
-          <div className="im-doors mt-12" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+          <div className="im-doors mt-12 max-w-4xl mx-auto" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
             {doors.map((d) => (
               <div
                 key={d.label}
@@ -322,8 +324,8 @@ export default function Home() {
                       <div>
                         <div className="flex items-baseline gap-2 flex-wrap">
                           <span
-                            className={i === 0 ? 'text-[1.5rem] font-black tracking-[-0.02em]' : 'text-[1.15rem] font-black tracking-[-0.02em]'}
-                            style={{ color: i === 0 ? 'var(--ink-hi)' : 'var(--ink-mid)' }}
+                            className={o.flagship ? 'text-[1.5rem] font-black tracking-[-0.02em]' : 'text-[1.15rem] font-black tracking-[-0.02em]'}
+                            style={{ color: o.flagship ? 'var(--ink-hi)' : 'var(--ink-mid)' }}
                           >
                             {o.price}
                           </span>
