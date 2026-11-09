@@ -20,20 +20,40 @@ const doors = [
     sub: 'Fix-and-flip · buy-and-hold · wholesalers',
     title: 'Know the real number before you buy.',
     meta: 'A committed rehab price, sealed with the NC GC license, transferable to your buyer at closing.',
-    price: '$1,997',
-    priceNote: '$0 upfront for wholesalers · paid at closing',
-    altNote: 'Not sure yet? Bid-Ready from $599',
-    href: '/lp/investor-deal-pack',
+    options: [
+      {
+        name: 'Build-Ready',
+        price: '$1,997',
+        note: '$0 upfront for wholesalers · paid at closing',
+        href: '/lp/investor-deal-pack',
+      },
+      {
+        name: 'Bid-Ready',
+        price: '$599',
+        note: 'Just need the number · credits toward Build-Ready',
+        href: '/deal-pack#tiers',
+      },
+    ],
   },
   {
     label: 'For real estate professionals',
     sub: 'Realtors · lenders · brokers',
     title: 'Attach a licensed GC to your client’s deal.',
     meta: 'Committed rehab price, renderings, and a permit memo — what your buyer or lender needs to move fast.',
-    price: '$1,997',
-    priceNote: '$0 upfront for realtors · paid from commission at closing',
-    altNote: 'Not sure yet? Bid-Ready from $599',
-    href: '/lp/real-estate-professionals-deal-pack',
+    options: [
+      {
+        name: 'Build-Ready',
+        price: '$1,997',
+        note: '$0 upfront for realtors · paid from commission at closing',
+        href: '/lp/real-estate-professionals-deal-pack',
+      },
+      {
+        name: 'Bid-Ready',
+        price: '$599',
+        note: 'Just need the number · credits toward Build-Ready',
+        href: '/deal-pack#tiers',
+      },
+    ],
   },
 ];
 
@@ -188,7 +208,7 @@ export default function Home() {
     return () => disposers.forEach((d) => d());
   }, []);
 
-  const onDoorMove = useCallback((e: ReactMouseEvent<HTMLAnchorElement>) => {
+  const onDoorMove = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
     trackCardMouse(e.currentTarget, e);
   }, []);
 
@@ -271,7 +291,7 @@ export default function Home() {
         <div className="im-container im-section">
           <p className="im-eyebrow">Who this is for</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
-            Two audiences. One committed rehab price.
+            Two audiences. Two ways to start.
           </h2>
           <p className="im-body mt-6 max-w-2xl text-lg">
             Built for NC <b style={{ color: 'var(--ink-hi)' }}>investors</b> &mdash; including wholesalers assigning
@@ -280,9 +300,8 @@ export default function Home() {
           </p>
           <div className="im-doors mt-12" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
             {doors.map((d) => (
-              <Link
+              <div
                 key={d.label}
-                href={d.href}
                 className="im-door"
                 onMouseMove={onDoorMove}
               >
@@ -292,17 +311,31 @@ export default function Home() {
                   <p className="im-door__title mt-3">{d.title}</p>
                   <p className="im-door__meta">{d.meta}</p>
                 </div>
-                <div className="mt-4 pt-4 border-t border-dashed" style={{ borderColor: 'var(--line-2)' }}>
-                  <div className="flex items-baseline gap-2 flex-wrap">
-                    <span className="text-[1.75rem] font-black tracking-[-0.02em]" style={{ color: 'var(--ink-hi)' }}>{d.price}</span>
-                    <span className="im-mono text-[11px] uppercase tracking-[0.06em]" style={{ color: 'var(--ink-lo)' }}>{d.priceNote}</span>
-                  </div>
-                  {d.altNote ? (
-                    <p className="mt-2 text-[12.5px]" style={{ color: 'var(--ink-lo)' }}>{d.altNote}</p>
-                  ) : null}
-                  <span className="im-door__cta mt-4">Enter &rarr;</span>
+                <div className="mt-4 pt-4 border-t border-dashed flex flex-col divide-y divide-dashed" style={{ borderColor: 'var(--line-2)' }}>
+                  {d.options.map((o, i) => (
+                    <Link
+                      key={o.name}
+                      href={o.href}
+                      className={`flex items-center justify-between gap-3 rounded-lg px-3 -mx-3 transition hover:bg-black/[0.03] ${i === 0 ? 'pb-3' : 'pt-3'}`}
+                      style={{ borderColor: 'var(--line-2)' }}
+                    >
+                      <div>
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span
+                            className={i === 0 ? 'text-[1.5rem] font-black tracking-[-0.02em]' : 'text-[1.15rem] font-black tracking-[-0.02em]'}
+                            style={{ color: i === 0 ? 'var(--ink-hi)' : 'var(--ink-mid)' }}
+                          >
+                            {o.price}
+                          </span>
+                          <span className="text-[13px] font-semibold" style={{ color: 'var(--ink-hi)' }}>{o.name}</span>
+                        </div>
+                        <p className="im-mono text-[10.5px] uppercase tracking-[0.06em] mt-1" style={{ color: 'var(--ink-lo)' }}>{o.note}</p>
+                      </div>
+                      <span className="im-door__cta shrink-0">Enter &rarr;</span>
+                    </Link>
+                  ))}
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13.5px]" style={{ color: 'var(--ink-lo)' }}>
