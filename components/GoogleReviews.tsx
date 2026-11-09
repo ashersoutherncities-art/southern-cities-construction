@@ -161,10 +161,14 @@ export default async function GoogleReviews({
             <span aria-hidden>&rarr;</span>
           </a>
         </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {summary.reviews.map((r) => (
-            <ReviewCard key={`${r.author}-${r.publishedAt}`} r={r} theme={theme} />
-          ))}
+        <div className="relative mt-8 -mx-6 overflow-hidden sm:-mx-8 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+          <div className="flex w-max animate-marquee gap-4 px-6 [animation-direction:reverse] hover:[animation-play-state:paused] sm:px-8">
+            {[...summary.reviews, ...summary.reviews].map((r, i) => (
+              <div key={`${r.author}-${r.publishedAt}-${i}`} className="w-[320px] shrink-0 sm:w-[360px]">
+                <ReviewCard r={r} theme={theme} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

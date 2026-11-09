@@ -19,10 +19,10 @@ const FAQS = [
   { question: 'Do you review a deal I don’t own yet?', answer: 'Yes. Most GCs won’t. We will. That’s the whole point of the pack — you get a real GC read before you sign.' },
 ];
 
-// Focus pass: /deal-pack surfaces ONE product — the Build-Ready Deal Pack.
-// Bid-Ready, Site Scan add-on, Pro subscription, and Plans à la carte still
-// exist in lib/cart.ts and remain reachable by direct URL, but they no
-// longer appear in the JSON-LD or on the page.
+// Restored 2026-11-09 (Asher) — Bid-Ready is back on the page as the second
+// public path, alongside Build-Ready. Site Scan add-on, Pro subscription,
+// and Plans à la carte stay out of the primary funnel per the strategic
+// plan, but remain reachable by direct URL via lib/cart.ts.
 const DEAL_PACK_PRODUCTS = [
   {
     name: 'Build-Ready Deal Pack',
@@ -32,6 +32,15 @@ const DEAL_PACK_PRODUCTS = [
     priceUsd: 1997,
     category: 'Deal Pack',
     sku: 'deal-pack-build-ready',
+  },
+  {
+    name: 'Bid-Ready Deal Pack',
+    description:
+      'A GC-certified rehab budget range, dollarized scope of work, lender-killer risk flags, and an execution risk report, delivered as a branded PDF sealed with NC GC License #107724. Credits toward Build-Ready if you upgrade.',
+    url: '/deal-pack',
+    priceUsd: 599,
+    category: 'Deal Pack',
+    sku: 'deal-pack-bid-ready',
   },
 ];
 
@@ -70,13 +79,14 @@ type Tier = {
   sample?: { pdfUrl: string; pages: number };
 };
 
-// Focus pass: /deal-pack now shows ONE offer — the Build-Ready Deal Pack.
-// Bid-Ready ($599), SF Ballpark (free), and Site Scan add-on ($699) still
-// exist in lib/cart.ts and are reachable by direct URL, but they no longer
-// clutter the primary funnel.
+// Restored 2026-11-09 (Asher) — two public paths again: Build-Ready
+// (flagship, full pack) and Bid-Ready (lighter, for when you just need the
+// number). SF Ballpark (free) and the $699 Site Scan add-on stay out of
+// this grid — the Site Scan is already surfaced below in "How it works",
+// and SF Ballpark is reachable via /start.
 const TIERS: Tier[] = [
   {
-    badge: 'THE OFFER',
+    badge: 'FLAGSHIP',
     badgeColor: 'orange',
     name: 'Build-Ready Deal Pack',
     price: '$1,997',
@@ -98,6 +108,24 @@ const TIERS: Tier[] = [
     ctaHref: '/cart?cart=deal-pack-build-ready',
     highlight: true,
     sample: { pdfUrl: '/resources/samples/build-ready-deal-pack-sample.pdf', pages: 9 },
+  },
+  {
+    badge: 'START HERE',
+    badgeColor: 'white',
+    name: 'Bid-Ready Deal Pack',
+    price: '$599',
+    priceNote: '2–3 day turnaround · credits toward Build-Ready',
+    promise:
+      'Not sure of your numbers yet? Get the GC-certified budget range and scope first — use it to evaluate or pass along the deal. Upgrade to Build-Ready later and this fee credits toward it.',
+    includes: [
+      'GC-certified rehab budget range',
+      'Dollarized scope of work',
+      'Lender-killer risk flags',
+      'Execution risk report',
+      'Branded PDF, sealed with NC GC License #107724',
+    ],
+    cta: 'Order Bid-Ready · $599 →',
+    ctaHref: '/cart?cart=deal-pack-bid-ready',
   },
 ];
 
@@ -205,26 +233,31 @@ export default function DealPackPage() {
         </div>
       </section>
 
-      {/* THE OFFER — single flagship, no tiers, no downsells */}
+      {/* THE OFFER — two paths: Build-Ready flagship + Bid-Ready */}
       <section id="tiers" className="im-paper">
         <div className="im-container im-section">
           <div className="max-w-3xl">
             <p className="im-eyebrow">The offer</p>
             <h2 className="im-h2 mt-4 text-[2.5rem] sm:text-[3.5rem]">
-              One deal pack. One committed price.
+              Two paths. One licensed GC.
             </h2>
             <p className="im-body mt-6 max-w-2xl text-lg">
-              A licensed NC GC (#107724) produces the full pre-construction package on your deal.
-              $1,997 &mdash; and wholesalers + realtors pay $0 upfront, from proceeds at closing.
+              A licensed NC GC (#107724) stands behind both. Not sure of your numbers yet? Start
+              with Bid-Ready. Ready to move? Go straight to Build-Ready &mdash; and wholesalers +
+              realtors pay $0 upfront either way, from proceeds at closing.
             </p>
           </div>
 
-          <div className="mt-12 max-w-3xl mx-auto">
+          <div className="mt-12 grid gap-6 lg:grid-cols-2 items-stretch">
             {TIERS.map((tier) => (
               <div
                 key={tier.name}
                 className="group relative flex flex-col p-8 sm:p-12 border"
-                style={{ background: 'var(--ink-hi)', color: '#ffffff', borderColor: 'var(--ink-hi)' }}
+                style={
+                  tier.highlight
+                    ? { background: 'var(--ink-hi)', color: '#ffffff', borderColor: 'var(--ink-hi)' }
+                    : { background: 'var(--paper)', color: 'var(--ink-hi)', borderColor: 'var(--line-1)' }
+                }
               >
                 <span
                   className="im-mono text-[10.5px] font-bold uppercase tracking-[0.22em]"
@@ -232,13 +265,34 @@ export default function DealPackPage() {
                 >
                   {tier.badge}
                 </span>
-                <h3 className="mt-6 text-[2rem] sm:text-[2.5rem] font-black tracking-[-0.02em]" style={{ color: '#ffffff' }}>{tier.name}</h3>
-                <div className="mt-4 pt-4 border-t flex items-baseline gap-3 flex-wrap" style={{ borderColor: 'rgba(255,255,255,0.14)' }}>
+                <h3
+                  className="mt-6 text-[2rem] sm:text-[2.5rem] font-black tracking-[-0.02em]"
+                  style={{ color: tier.highlight ? '#ffffff' : 'var(--ink-hi)' }}
+                >
+                  {tier.name}
+                </h3>
+                <div
+                  className="mt-4 pt-4 border-t flex items-baseline gap-3 flex-wrap"
+                  style={{ borderColor: tier.highlight ? 'rgba(255,255,255,0.14)' : 'var(--line-1)' }}
+                >
                   <span className="text-[2.5rem] sm:text-[3rem] font-black tracking-[-0.02em]" style={{ color: 'var(--accent)' }}>{tier.price}</span>
-                  <span className="im-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.6)' }}>{tier.priceNote}</span>
+                  <span
+                    className="im-mono text-[11px] uppercase tracking-[0.14em]"
+                    style={{ color: tier.highlight ? 'rgba(255,255,255,0.6)' : 'var(--ink-lo)' }}
+                  >
+                    {tier.priceNote}
+                  </span>
                 </div>
-                <p className="mt-5 text-[15.5px] leading-[1.65]" style={{ color: 'rgba(255,255,255,0.85)' }}>{tier.promise}</p>
-                <ul className="mt-6 space-y-3 text-[14.5px] leading-[1.55]" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                <p
+                  className="mt-5 text-[15.5px] leading-[1.65]"
+                  style={{ color: tier.highlight ? 'rgba(255,255,255,0.85)' : 'var(--ink-mid)' }}
+                >
+                  {tier.promise}
+                </p>
+                <ul
+                  className="mt-6 space-y-3 text-[14.5px] leading-[1.55]"
+                  style={{ color: tier.highlight ? 'rgba(255,255,255,0.85)' : 'var(--ink-mid)' }}
+                >
                   {tier.includes.map((item) => (
                     <li key={item} className="flex gap-3">
                       <span className="im-tick mt-0.5">/</span>
@@ -256,7 +310,7 @@ export default function DealPackPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 im-mono text-[11.5px] font-bold uppercase tracking-[0.14em]"
-                      style={{ color: 'rgba(255,255,255,0.75)' }}
+                      style={{ color: tier.highlight ? 'rgba(255,255,255,0.75)' : 'var(--ink-lo)' }}
                     >
                       See a {tier.sample.pages}-page sample &nearr;
                     </a>
