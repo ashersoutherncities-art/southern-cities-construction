@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     for (const day of days) {
       const started = new Date().toISOString();
       try {
-        const snapshot = await collectDay(cfg, account, day, async (start, end) => {
+        const snapshot = await collectDay(cfg, account, day, async (start: string, end: string) => {
           const events = [];
           for (let offset = 0; offset < 10_000; offset += 250) {
             const { data, error } = await db.from('scc_webhook_events')
