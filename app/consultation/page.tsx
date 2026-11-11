@@ -86,11 +86,8 @@ export default function ConsultationPage() {
       </header>
 
       {/* Section 1 — Hero: header block above, VSL below in a landscape rectangle.
-         Source video (consultation-intro.mp4) is a 720x1280 portrait phone
-         recording, so the rectangle frame uses object-contain + a navy
-         background (pillarboxed) rather than object-cover — a true edge-to-edge
-         16:9 crop would cut off the top/bottom of the subject. Re-cut the
-         source in landscape if a full-bleed rectangle is wanted later. */}
+         Source video (consultation-intro.mp4) is native 1920x1080, so it
+         fills the rectangle edge-to-edge via object-cover (the default). */}
       <section className="bg-navy pt-10 pb-14 lg:pt-16 lg:pb-20">
         <div className="container-pro flex flex-col items-center gap-10 text-center">
           <div className="max-w-2xl">
@@ -129,7 +126,6 @@ export default function ConsultationPage() {
                 src="/video/consultation-intro.mp4"
                 poster="/video/consultation-intro-poster.jpg"
                 videoId="consultation-intro"
-                fit="contain"
               />
             </div>
           </div>
