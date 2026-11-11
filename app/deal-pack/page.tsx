@@ -6,6 +6,7 @@ import RealDeals from '@/components/RealDeals';
 import ProductJsonLd from '@/components/seo/ProductJsonLd';
 import FaqItem from '@/components/landing/FaqItem';
 import FaqJsonLd from '@/components/seo/FaqJsonLd';
+import VideoWithSoundToggle from '@/components/VideoWithSoundToggle';
 
 // Moved here from the homepage (2026-11-05 simplification pass) — this is
 // where the detail is actually relevant. The homepage keeps a 3-item
@@ -77,6 +78,7 @@ type Tier = {
   ctaHref: string;
   highlight?: boolean;
   sample?: { pdfUrl: string; pages: number };
+  video?: { src: string; poster: string; videoId: string };
 };
 
 // Restored 2026-11-09 (Asher) — two public paths again: Build-Ready
@@ -102,6 +104,11 @@ const TIERS: Tier[] = [
     ],
     cta: 'Order Bid-Ready · $599 →',
     ctaHref: '/cart?cart=deal-pack-bid-ready',
+    video: {
+      src: '/video/bid-ready-intro.mp4',
+      poster: '/video/bid-ready-intro-poster.jpg',
+      videoId: 'bid-ready-intro',
+    },
   },
   {
     badge: 'FLAGSHIP',
@@ -283,6 +290,15 @@ export default function DealPackPage() {
                     {tier.priceNote}
                   </span>
                 </div>
+                {tier.video ? (
+                  <div className="relative mt-6 aspect-video overflow-hidden rounded-lg bg-black">
+                    <VideoWithSoundToggle
+                      src={tier.video.src}
+                      poster={tier.video.poster}
+                      videoId={tier.video.videoId}
+                    />
+                  </div>
+                ) : null}
                 <p
                   className="mt-5 text-[15.5px] leading-[1.65]"
                   style={{ color: tier.highlight ? 'rgba(255,255,255,0.85)' : 'var(--ink-mid)' }}
