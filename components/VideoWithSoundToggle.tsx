@@ -15,6 +15,12 @@ type Props = {
    * doesn't match the source video's (e.g. a portrait source in a
    * landscape box). Defaults to 'cover'. */
   fit?: 'cover' | 'contain';
+  /** Set false for a secondary video on a page with multiple players (e.g.
+   * several VSLs stacked together) — avoids every video fetching and
+   * playing at once. Shows the poster with a tap-to-play/unmute overlay
+   * instead; clicking it both starts playback and turns on sound, since
+   * there's no autoplay state to unmute from. Defaults to true. */
+  autoPlay?: boolean;
 };
 
 const PCT_MILESTONES = [25, 50, 75, 90, 100] as const;
@@ -35,7 +41,7 @@ const CHECKPOINT_INTERVAL_SECONDS = 10;
  * fire just because the playhead jumped there. See schema.ts for the full
  * event contract.
  */
-export default function VideoWithSoundToggle({ src, poster, videoId, fit = 'cover' }: Props) {
+export default function VideoWithSoundToggle({ src, poster, videoId, fit = 'cover', autoPlay = true }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [muted, setMuted] = useState(true);
@@ -304,7 +310,7 @@ export default function VideoWithSoundToggle({ src, poster, videoId, fit = 'cove
       <video
         ref={videoRef}
         controls
-        autoPlay
+        autoPlay={autoPlay}
         muted
         loop
         playsInline
