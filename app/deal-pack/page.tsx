@@ -133,6 +133,11 @@ const TIERS: Tier[] = [
     ctaHref: '/cart?cart=deal-pack-build-ready',
     highlight: true,
     sample: { pdfUrl: '/resources/samples/build-ready-deal-pack-sample.pdf', pages: 9 },
+    video: {
+      src: '/video/build-ready-intro.mp4',
+      poster: '/video/build-ready-intro-poster.jpg',
+      videoId: 'build-ready-intro',
+    },
   },
 ];
 
