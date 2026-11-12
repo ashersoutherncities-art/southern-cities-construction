@@ -120,7 +120,7 @@ const TIERS: Tier[] = [
       'A licensed NC GC puts your rehab price in writing, sealed with the license and transferable once to your end buyer at closing. The full pack: everything a serious buyer or lender needs to underwrite the deal.',
     includes: [
       'Committed rehab price in writing, sealed with the NC GC license (Commitment Certificate — see below)',
-      'Field Agent House Scan — licensed on-site inspection of the property',
+      'Field Agent House Scan & licensed pre-rehab inspection',
       'Trade-by-trade dollarized scope of work, backed by the licensed pre-rehab inspection',
       'As-built floor plan + future-state renovation plan (PDF + editable)',
       '3 photoreal renderings of the finished home',
