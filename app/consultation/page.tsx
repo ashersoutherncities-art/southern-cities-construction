@@ -85,13 +85,11 @@ export default function ConsultationPage() {
         </div>
       </header>
 
-      {/* Section 1 — Hero: header block above, three VSLs below, stacked in
-         ascending-price order (Overview free intro -> Bid-Ready $599 ->
-         Build-Ready $1,997) so a viewer watches the general pitch first,
-         then picks a path. Only the Overview video autoplays; the tier
-         explainers are tap-to-play (VideoWithSoundToggle autoPlay={false})
-         so three videos don't all fetch/play at once. Each source video is
-         native 1920x1080, so object-cover (the default) fills edge-to-edge. */}
+      {/* Section 1 — Hero: header block above, VSL below in a landscape rectangle.
+         Source video (consultation-intro.mp4) is native 1920x1080, so it
+         fills the rectangle edge-to-edge via object-cover (the default).
+         The Bid-Ready/Build-Ready explainers live down in Section 3, next
+         to their own pricing cards — not here. */}
       <section className="bg-navy pt-10 pb-14 lg:pt-16 lg:pb-20">
         <div className="container-pro flex flex-col items-center gap-10 text-center">
           <div className="max-w-2xl">
@@ -116,51 +114,21 @@ export default function ConsultationPage() {
             </p>
           </div>
 
-          <div className="w-full max-w-2xl space-y-8">
-            <div>
-              <div className="flex items-center justify-center gap-2 rounded-t-xl bg-orange px-4 py-2.5 text-[12.5px] font-black uppercase tracking-wide text-white">
-                <svg className="h-4 w-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3 10v4h4l5 5V5L7 10H3z" />
-                  <path d="M16 8.5a4.5 4.5 0 010 7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
-                  <path d="M18.5 6a8 8 0 010 12" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
-                </svg>
-                Tap Below To Watch First!
-              </div>
-              <div className="relative aspect-video overflow-hidden rounded-b-2xl bg-black shadow-elev-2">
-                <VideoWithSoundToggle
-                  src="/video/consultation-intro.mp4"
-                  poster="/video/consultation-intro-poster.jpg"
-                  videoId="consultation-intro"
-                />
-              </div>
+          <div className="w-full max-w-2xl">
+            <div className="flex items-center justify-center gap-2 rounded-t-xl bg-orange px-4 py-2.5 text-[12.5px] font-black uppercase tracking-wide text-white">
+              <svg className="h-4 w-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 10v4h4l5 5V5L7 10H3z" />
+                <path d="M16 8.5a4.5 4.5 0 010 7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+                <path d="M18.5 6a8 8 0 010 12" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+              </svg>
+              Tap Below To Watch First!
             </div>
-
-            <div>
-              <div className="flex items-center justify-center gap-2 rounded-t-xl bg-white/10 px-4 py-2.5 text-[12.5px] font-black uppercase tracking-wide text-white">
-                Bid-Ready Deal Pack &middot; $599 &middot; Start Here
-              </div>
-              <div className="relative aspect-video overflow-hidden rounded-b-2xl bg-black shadow-elev-2">
-                <VideoWithSoundToggle
-                  src="/video/bid-ready-intro.mp4"
-                  poster="/video/bid-ready-intro-poster.jpg"
-                  videoId="bid-ready-intro-consultation"
-                  autoPlay={false}
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-center gap-2 rounded-t-xl bg-orange px-4 py-2.5 text-[12.5px] font-black uppercase tracking-wide text-white">
-                Build-Ready Deal Pack &middot; $1,997 &middot; Flagship
-              </div>
-              <div className="relative aspect-video overflow-hidden rounded-b-2xl bg-black shadow-elev-2">
-                <VideoWithSoundToggle
-                  src="/video/build-ready-intro.mp4"
-                  poster="/video/build-ready-intro-poster.jpg"
-                  videoId="build-ready-intro-consultation"
-                  autoPlay={false}
-                />
-              </div>
+            <div className="relative aspect-video overflow-hidden rounded-b-2xl bg-black shadow-elev-2">
+              <VideoWithSoundToggle
+                src="/video/consultation-intro.mp4"
+                poster="/video/consultation-intro-poster.jpg"
+                videoId="consultation-intro"
+              />
             </div>
           </div>
         </div>
@@ -217,6 +185,14 @@ export default function ConsultationPage() {
           <div className="rounded-2xl border border-stone-200 bg-white p-7">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-navy">Bid-Ready Deal Pack</p>
             <p className="mt-2 text-3xl font-black text-navy">$599</p>
+            <div className="relative mt-4 aspect-video overflow-hidden rounded-xl bg-black">
+              <VideoWithSoundToggle
+                src="/video/bid-ready-intro.mp4"
+                poster="/video/bid-ready-intro-poster.jpg"
+                videoId="bid-ready-intro-consultation"
+                autoPlay={false}
+              />
+            </div>
             <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
               A GC-certified rehab budget range and scope — for when you just need the number to evaluate or pass
               along a deal. Credits toward Build-Ready if you upgrade.
@@ -225,6 +201,14 @@ export default function ConsultationPage() {
           <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Build-Ready Deal Pack</p>
             <p className="mt-2 text-3xl font-black text-navy">$1,997</p>
+            <div className="relative mt-4 aspect-video overflow-hidden rounded-xl bg-black">
+              <VideoWithSoundToggle
+                src="/video/build-ready-intro.mp4"
+                poster="/video/build-ready-intro-poster.jpg"
+                videoId="build-ready-intro-consultation"
+                autoPlay={false}
+              />
+            </div>
             <p className="mt-4 text-[14.5px] leading-relaxed text-stone-700">
               Comprehensive construction due diligence and preparation — for investors evaluating a property
               before purchase, or owners preparing to build.
