@@ -197,6 +197,20 @@ export default function ConsultationPage() {
               A GC-certified rehab budget range and scope — for when you just need the number to evaluate or pass
               along a deal. Credits toward Build-Ready if you upgrade.
             </p>
+            <ul className="mt-5 space-y-2.5 text-[13.5px] leading-relaxed text-stone-700">
+              {[
+                'GC-certified rehab budget range',
+                'Dollarized scope of work',
+                'Lender-killer risk flags',
+                'Execution risk report',
+                'Branded PDF, sealed with NC GC License #107724',
+              ].map((item) => (
+                <li key={item} className="flex gap-2.5">
+                  <span className="mt-0.5 text-orange font-black">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="rounded-2xl border border-stone-200 bg-stone-50 p-7">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] text-orange">Build-Ready Deal Pack</p>
@@ -213,6 +227,24 @@ export default function ConsultationPage() {
               Comprehensive construction due diligence and preparation — for investors evaluating a property
               before purchase, or owners preparing to build.
             </p>
+            <ul className="mt-5 space-y-2.5 text-[13.5px] leading-relaxed text-stone-700">
+              {[
+                'Committed rehab price in writing, sealed with the NC GC license (Commitment Certificate)',
+                'Trade-by-trade dollarized scope of work',
+                'As-built floor plan + future-state renovation plan (PDF + editable)',
+                '3 photoreal renderings of the finished home',
+                'Market study report — finishes and fixtures in demand in that market (6 months of sold comps)',
+                'Initial materials list with quantities (spreadsheet)',
+                'Vendor list with proximity / drive time to the project',
+                'Permit memo — which permits, which jurisdiction, expected timeline',
+                'Execution risk report',
+              ].map((item) => (
+                <li key={item} className="flex gap-2.5">
+                  <span className="mt-0.5 text-orange font-black">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
