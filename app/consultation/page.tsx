@@ -230,7 +230,8 @@ export default function ConsultationPage() {
             <ul className="mt-5 space-y-2.5 text-[13.5px] leading-relaxed text-stone-700">
               {[
                 'Committed rehab price in writing, sealed with the NC GC license (Commitment Certificate)',
-                'Trade-by-trade dollarized scope of work',
+                'Field Agent House Scan — licensed on-site inspection of the property',
+                'Trade-by-trade dollarized scope of work, backed by the licensed pre-rehab inspection',
                 'As-built floor plan + future-state renovation plan (PDF + editable)',
                 '3 photoreal renderings of the finished home',
                 'Market study report — finishes and fixtures in demand in that market (6 months of sold comps)',

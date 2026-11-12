@@ -28,7 +28,7 @@ const DEAL_PACK_PRODUCTS = [
   {
     name: 'Build-Ready Deal Pack',
     description:
-      'A licensed NC GC puts a committed rehab price on your deal in writing, sealed with the license and transferable once to your end buyer. Ships with as-built + future-state plans, three photoreal renderings, a local market study, an initial materials list, a vendor list with drive time, a permit memo, and an execution risk report.',
+      'A licensed NC GC puts a committed rehab price on your deal in writing, sealed with the license and transferable once to your end buyer. Backed by a Field Agent House Scan and a licensed pre-rehab inspection. Ships with as-built + future-state plans, three photoreal renderings, a local market study, an initial materials list, a vendor list with drive time, a permit memo, and an execution risk report.',
     url: '/deal-pack',
     priceUsd: 1997,
     category: 'Deal Pack',
@@ -120,7 +120,8 @@ const TIERS: Tier[] = [
       'A licensed NC GC puts your rehab price in writing, sealed with the license and transferable once to your end buyer at closing. The full pack: everything a serious buyer or lender needs to underwrite the deal.',
     includes: [
       'Committed rehab price in writing, sealed with the NC GC license (Commitment Certificate — see below)',
-      'Trade-by-trade dollarized scope of work',
+      'Field Agent House Scan — licensed on-site inspection of the property',
+      'Trade-by-trade dollarized scope of work, backed by the licensed pre-rehab inspection',
       'As-built floor plan + future-state renovation plan (PDF + editable)',
       '3 photoreal renderings of the finished home',
       'Market study report — finishes and fixtures in demand in that market (6 months of sold comps)',
