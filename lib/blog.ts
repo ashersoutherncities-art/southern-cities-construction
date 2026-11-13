@@ -1,3 +1,4 @@
+import newPosts from '@/content/blog/posts.json';
 export type BlogPost = {
   slug: string;
   title: string;
@@ -9,6 +10,11 @@ export type BlogPost = {
   author: string;
   coverImage: string;
   content: BlogBlock[];
+  status?: 'draft' | 'published';
+  updatedAt?: string;
+  tags?: string[];
+  sources?: { title: string; url: string }[];
+  takeaway?: string;
 };
 
 export type BlogBlock =
@@ -17,7 +23,7 @@ export type BlogBlock =
   | { type: 'list'; items: string[] }
   | { type: 'callout'; title: string; text: string };
 
-export const BLOG_POSTS: BlogPost[] = [
+const LEGACY_POSTS: BlogPost[] = [
   {
     slug: 'north-carolina-residential-permit-process',
     title: 'How a residential permit actually moves through a North Carolina jurisdiction',
@@ -364,15 +370,22 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+export const BLOG_POSTS: BlogPost[] = [...LEGACY_POSTS, ...(newPosts as BlogPost[])];
+
+export function getPublishedPosts(now = new Date()): BlogPost[] {
+  return BLOG_POSTS.filter((post) => post.status !== 'draft' && new Date(post.publishedAt).getTime() <= now.getTime())
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((post) => post.slug === slug);
+  return getPublishedPosts().find((post) => post.slug === slug);
 }
 
 export function getAllPostSlugs(): string[] {
-  return BLOG_POSTS.map((post) => post.slug);
+  return getPublishedPosts().map((post) => post.slug);
 }
 
 export function formatDate(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 }

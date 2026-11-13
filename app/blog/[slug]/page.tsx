@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { BLOG_POSTS, formatDate, getAllPostSlugs, getPostBySlug } from '@/lib/blog';
+import { getPublishedPosts, formatDate, getAllPostSlugs, getPostBySlug } from '@/lib/blog';
+
+export const revalidate = 300;
 
 type Params = { slug: string };
 
@@ -25,6 +27,8 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
       title: post.title,
       description: post.excerpt,
       publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt || post.publishedAt,
+      images: [{url: post.coverImage}],
       authors: [post.author],
     },
   };
@@ -34,13 +38,24 @@ export default function BlogPostPage({ params }: { params: Params }) {
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
 
-  const others = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const others = getPublishedPosts().filter((p) => p.slug !== post.slug)
+    .sort((a, b) => Number(b.category === post.category) - Number(a.category === post.category)).slice(0, 3);
+  const headings = post.content.flatMap((block, index) => block.type === 'heading' ? [{text: block.text, id: `section-${index}`}] : []);
+  const structuredData = {
+    '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.title,
+    description: post.excerpt, datePublished: post.publishedAt, dateModified: post.updatedAt || post.publishedAt,
+    mainEntityOfPage: `https://southerncitiesconstruction.com/blog/${post.slug}`,
+    image: `https://southerncitiesconstruction.com${post.coverImage}`,
+    author: { '@type': 'Organization', name: post.author, url: 'https://southerncitiesconstruction.com' },
+    publisher: { '@type': 'Organization', name: 'Southern Cities Construction', url: 'https://southerncitiesconstruction.com' },
+  };
 
   return (
     <>
       <SiteNav />
       <main className="min-h-screen bg-white overflow-x-hidden">
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\u003c') }} />
       {/* Hero */}
       <article>
         <header className="relative overflow-hidden bg-navy-900 pt-32 pb-16 sm:pt-40 sm:pb-20">
@@ -98,6 +113,8 @@ export default function BlogPostPage({ params }: { params: Params }) {
         {/* Body */}
         <div className="container-pro pb-16 sm:pb-24">
           <div className="max-w-3xl mx-auto">
+            {post.takeaway && <aside className="mb-8 border-l-4 border-orange bg-orange/5 p-6 rounded-r-xl"><p className="text-xs font-bold uppercase tracking-widest text-orange mb-2">The takeaway</p><p className="text-lg text-navy font-semibold">{post.takeaway}</p></aside>}
+            {headings.length > 0 && <nav aria-label="In this article" className="mb-10 rounded-2xl bg-stone-50 border border-stone-200 p-6"><h2 className="font-bold text-navy mb-4">In this article</h2><ol className="space-y-2">{headings.map(h => <li key={h.id}><a className="text-sm text-stone-600 hover:text-orange underline underline-offset-4" href={`#${h.id}`}>{h.text}</a></li>)}</ol></nav>}
             <div className="space-y-7">
               {post.content.map((block, i) => {
                 if (block.type === 'paragraph') {
@@ -111,6 +128,8 @@ export default function BlogPostPage({ params }: { params: Params }) {
                   return (
                     <h2
                       key={i}
+                      id={`section-${i}`}
+                      style={{scrollMarginTop: 110}}
                       className="pt-6 text-2xl sm:text-[28px] font-extrabold text-navy tracking-tight leading-tight"
                     >
                       {block.text}
@@ -146,6 +165,8 @@ export default function BlogPostPage({ params }: { params: Params }) {
               })}
             </div>
 
+            {post.sources && post.sources.length > 0 && <section className="mt-12 rounded-2xl border border-stone-200 p-6" aria-label="Sources"><h2 className="text-xl font-bold text-navy mb-4">Sources & further reading</h2><ul className="space-y-3">{post.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-orange underline underline-offset-4">{source.title} ↗</a></li>)}</ul></section>}
+            {post.updatedAt && <p className="mt-6 text-sm text-stone-500">Updated {formatDate(post.updatedAt)}</p>}
             {/* Sign off */}
             <div className="mt-14 pt-10 border-t border-stone-200">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-stone-400 mb-3">
@@ -175,7 +196,7 @@ export default function BlogPostPage({ params }: { params: Params }) {
                   Ready to run your project on a real workflow?
                 </h3>
                 <p className="mt-4 text-white/65 leading-relaxed max-w-xl">
-                  Start with Permit Administration + Construction Oversight, or request a quote for scope-based work.
+                  Get help turning your scope, budget and open questions into a practical next step for your North Carolina project.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 lg:flex-col lg:items-stretch">

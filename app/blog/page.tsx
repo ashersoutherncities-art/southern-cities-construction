@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { BLOG_POSTS, formatDate } from '@/lib/blog';
+import BlogExplorer from '@/components/BlogExplorer';
+import { getPublishedPosts, formatDate } from '@/lib/blog';
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Blog | North Carolina Construction Education — Southern Cities Construction',
@@ -28,9 +31,9 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 export default function BlogIndexPage() {
-  const posts = [...BLOG_POSTS].sort((a, b) => (a.publishedAt > b.publishedAt ? -1 : 1));
+  const posts = getPublishedPosts();
   const featured = posts[0];
-  const rest = posts.slice(1);
+
 
   return (
     <>
@@ -59,11 +62,12 @@ export default function BlogIndexPage() {
               Education for NC Construction
             </div>
             <h1 className="mb-6 text-4xl sm:text-5xl lg:text-[64px] font-extrabold tracking-tight text-white leading-[1.05]">
-              Construction writing for owners, investors, and trades working in North Carolina.
+              Build smarter. Rehab with a plan.
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-white/65">
-              Practical, specific writing on permits, inspections, licensing, and execution — the things that actually move a residential project from idea to certificate of occupancy.
+              Practical field guides for North Carolina investors, owners and builders. Get clearer scopes, stronger budgets and fewer surprises, from your first walkthrough to the final punch list.
             </p>
+            <div className="mt-8 flex flex-wrap gap-5 text-sm font-semibold"><a href="#articles" className="text-orange">Explore the library ↓</a><a href="/blog/feed.xml" className="text-white/70 hover:text-white">RSS feed</a></div>
           </div>
         </div>
       </section>
@@ -114,56 +118,7 @@ export default function BlogIndexPage() {
         </div>
       </section>
 
-      {/* Grid */}
-      <section className="py-16 sm:py-20 bg-stone-50 border-t border-stone-200">
-        <div className="container-pro">
-          <div className="max-w-2xl mb-12">
-            <Eyebrow>Latest</Eyebrow>
-            <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold text-navy tracking-tight">
-              More writing on North Carolina construction
-            </h2>
-            <p className="mt-4 text-stone-500 leading-relaxed">
-              Each article is written from active residential project work — Charlotte metro, greater Mecklenburg, and surrounding counties.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {rest.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group flex h-full flex-col rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-elev-1 card-hover"
-              >
-                <div className="aspect-[16/10] overflow-hidden bg-stone-100">
-                  <img
-                    src={post.coverImage}
-                    alt=""
-                    className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="inline-flex rounded-full bg-orange/10 text-orange px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em]">
-                      {post.category}
-                    </span>
-                    <span className="text-[11px] text-stone-400 tracking-wide">{post.readTime}</span>
-                  </div>
-                  <h3 className="text-[19px] font-bold text-navy tracking-tight leading-snug group-hover:text-orange transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="mt-3 text-[14.5px] text-stone-500 leading-relaxed line-clamp-3">{post.excerpt}</p>
-                  <div className="mt-auto pt-5 flex items-center gap-3 text-[12px] text-stone-400">
-                    <span>{formatDate(post.publishedAt)}</span>
-                    <span className="w-1 h-1 rounded-full bg-stone-300" />
-                    <span>{post.audience}</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BlogExplorer posts={posts.map(({ content: _content, ...summary }) => summary)} />
 
       {/* CTA strip */}
       <section className="py-20 sm:py-24 bg-white">
@@ -180,7 +135,7 @@ export default function BlogIndexPage() {
                   Reading only gets the project so far.
                 </h3>
                 <p className="mt-4 text-white/65 leading-relaxed max-w-xl">
-                  If you are ready to put structure on a real project, start with Permit Administration + Construction Oversight or browse the full services catalog.
+                  Turn the reading into a clearer scope, budget and execution plan. Explore our construction support or talk through your North Carolina project.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 lg:flex-col lg:items-stretch">

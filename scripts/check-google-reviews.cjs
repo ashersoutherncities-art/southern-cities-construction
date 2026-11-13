@@ -1,0 +1,23 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const ts = require('typescript');
+const source = fs.readFileSync('lib/google-reviews.ts', 'utf8');
+assert(source.includes('import "server-only"'));
+const js = ts.transpileModule(source.replace('import "server-only";', ''), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const env = {};
+let fetchImpl = () => {throw new Error('unexpected fetch')};
+const context = { require: (name) => { assert.equal(name, "react"); return { cache: fn => fn }; }, exports: {}, process: {env}, AbortSignal, fetch: (...args) => fetchImpl(...args) };
+vm.runInNewContext(js,context);
+(async()=>{
+const get = context.exports.fetchSccGoogleReviews;
+assert.equal(await get(), null);
+env.GOOGLE_PLACES_API_KEY = 'test-not-a-real-key';
+fetchImpl = async (url, options) => {assert.equal(options.next.revalidate,21600); assert(options.signal);return {ok:true,json:async()=>({rating:4.8,userRatingCount:8,reviews:[{rating:5,publishTime:'2026-11-13',relativePublishTimeDescription:'today',authorAttribution:{displayName:'Test'},originalText:{text:'Original'}}]})}};
+const value=await get();assert.equal(value.userRatingCount,8);assert.equal(value.reviews[0].text,'Original');
+fetchImpl=async()=>({ok:false});assert.equal(await get(),null);
+fetchImpl=async()=>{throw new Error('network timeout')};assert.equal(await get(),null);
+const page=fs.readFileSync('app/page.tsx','utf8');assert(!page.includes('use client'));assert(page.includes('revalidate = 21600'));
+const client=fs.readFileSync('components/HomeContent.tsx','utf8');assert(!client.includes("from '@/components/Google"));assert(!client.includes('fetchSccGoogleReviews'));
+console.log('PASS: review mapping, missing credentials, API/network failures, six-hour cache, server/client boundary');
+})().catch(e=>{console.error(e);process.exitCode=1});

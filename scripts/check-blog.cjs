@@ -1,0 +1,18 @@
+const ts = require('typescript');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const code = ts.transpileModule(fs.readFileSync('lib/blog.ts','utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS, esModuleInterop:true, target:ts.ScriptTarget.ES2020}}).outputText;
+const api = {};
+vm.runInNewContext(code, {exports:api, require:()=>JSON.parse(fs.readFileSync('content/blog/posts.json','utf8')), Date});
+const sample = api.BLOG_POSTS[0];
+api.BLOG_POSTS.push({...sample, slug:'test-draft', status:'draft'});
+api.BLOG_POSTS.push({...sample, slug:'test-future', publishedAt:'2999-01-01T00:00:00Z'});
+assert(!api.getPostBySlug('test-draft'));
+assert(!api.getPostBySlug('test-future'));
+assert(!api.getPostBySlug('nonexistent'));
+const published = api.getPublishedPosts();
+assert(published.every(p=>p.status !== 'draft' && Date.parse(p.publishedAt)<=Date.now()));
+assert(published.every((p,i)=>i===0 || p.publishedAt<=published[i-1].publishedAt));
+assert(api.getAllPostSlugs().length === published.length);
+console.log('PASS: drafts/future posts excluded, missing slugs, sorting, public slug consistency');
