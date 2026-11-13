@@ -134,7 +134,7 @@ export async function POST(req: NextRequest) {
   const stripe = new Stripe(stripeSecretKey, { apiVersion: '2026-03-25.dahlia' });
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const rawBody = await req.text();
-  const signature = headers().get('stripe-signature');
+  const signature = (await headers()).get('stripe-signature');
   if (!signature) {
     return NextResponse.json({ error: 'Missing Stripe signature' }, { status: 400 });
   }

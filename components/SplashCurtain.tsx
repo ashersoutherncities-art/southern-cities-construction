@@ -3,12 +3,14 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { SITE_CONFIG } from '@/lib/site-config';
+import { useBrowserSnapshot } from '@/lib/use-browser-snapshot';
 
 interface SplashProps {
   onReveal?: () => void;
 }
 
 export function SplashCurtain({ onReveal }: SplashProps) {
+  const reducedMotion = useBrowserSnapshot(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, false);
   const [exiting, setExiting] = useState(false);
   const [gone, setGone] = useState(false);
 
@@ -20,9 +22,8 @@ export function SplashCurtain({ onReveal }: SplashProps) {
   };
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (reducedMotion) {
       onReveal?.();
-      setGone(true);
       return;
     }
     const revealTimer = window.setTimeout(() => {
@@ -34,9 +35,9 @@ export function SplashCurtain({ onReveal }: SplashProps) {
       window.clearTimeout(revealTimer);
       window.clearTimeout(removeTimer);
     };
-  }, [onReveal]);
+  }, [onReveal, reducedMotion]);
 
-  if (gone) return null;
+  if (gone || reducedMotion) return null;
 
   return (
     <div

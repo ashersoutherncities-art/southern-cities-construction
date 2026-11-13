@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import DealAnalyzer from './DealAnalyzer';
 
 const NAVY = '#132452';
@@ -109,7 +110,12 @@ function addrPart(place: NewPlace, type: string, short = false): string | undefi
 }
 
 export default function ConstructionDepartmentApp() {
-  const [token, setToken] = useState<string | null>(null);
+  return <Suspense fallback={<div role="status">Loading…</div>}><DepartmentContent /></Suspense>;
+}
+
+function DepartmentContent() {
+  const params = useSearchParams();
+  const [token] = useState(() => params.get('token'));
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ mao: MaoResult; remaining: number | null; delivered: boolean; address: string; squareFeet: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -120,7 +126,7 @@ export default function ConstructionDepartmentApp() {
   const [lookupLoading, setLookupLoading] = useState(false);
   const [cmaLoading, setCmaLoading] = useState(false);
   const [cmaMsg, setCmaMsg] = useState<string | null>(null);
-  const [cmaOrdered, setCmaOrdered] = useState(false);
+  const [cmaOrdered] = useState(() => params.get('cma') === 'ordered');
   const [googleOn, setGoogleOn] = useState(false);
   const [addressValidated, setAddressValidated] = useState(false);
   const [suggestions, setSuggestions] = useState<NewSuggestion[]>([]);
@@ -135,27 +141,21 @@ export default function ConstructionDepartmentApp() {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sessionTokenRef = useRef<unknown>(null);
 
-  const loadHistory = useCallback(async (t: string) => {
-    try {
-      const res = await fetch('/api/deal-desk/history', {
+  const loadHistory = useCallback((t: string) => {
+    return fetch('/api/deal-desk/history', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ token: t }),
-      });
-      const data = await res.json();
+      }).then((res) => res.json()).then((data) => {
       if (Array.isArray(data.snapshots)) setHistory(data.snapshots);
-    } catch {
+    }).catch(() => {
       /* ignore */
-    }
+    });
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const t = params.get('token');
-    if (params.get('cma') === 'ordered') setCmaOrdered(true);
-    setToken(t);
-    if (t) loadHistory(t);
-  }, [loadHistory]);
+    if (token) loadHistory(token);
+  }, [token, loadHistory]);
 
   // Load the new Google Places API — only activates if a key is configured.
   useEffect(() => {
@@ -282,7 +282,7 @@ export default function ConstructionDepartmentApp() {
         body: JSON.stringify({ token, address }),
       });
       const data = await res.json();
-      if (data.url) window.location.href = data.url;
+      if (data.url) window.location.assign(data.url);
       else if (data.free) setCmaMsg(data.message);
       else setCmaMsg(data.detail || 'Could not start the CMA order.');
     } catch {

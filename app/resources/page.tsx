@@ -269,7 +269,7 @@ export default function ResourcesPage() {
               </div>
               <div className="flex flex-col sm:flex-row md:flex-col gap-3">
                 <Link
-                  href="/#contact"
+                  href="/start"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-orange hover:bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-orange transition-colors"
                 >
                   Request a Custom Quote

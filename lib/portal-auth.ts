@@ -25,8 +25,8 @@ export function ctEqual(a: string, b: string): boolean {
  * keys (lets a portal accept either its own key or a master key). Server
  * Components and Server Actions only.
  */
-export function hasPortalAccess(...expectedKeys: Array<string | undefined | null>): boolean {
-  const cookie = cookies().get(PORTAL_COOKIE)?.value;
+export async function hasPortalAccess(...expectedKeys: Array<string | undefined | null>): Promise<boolean> {
+  const cookie = (await cookies()).get(PORTAL_COOKIE)?.value;
   if (!cookie) return false;
   return expectedKeys.some((k) => !!k && ctEqual(cookie, k));
 }

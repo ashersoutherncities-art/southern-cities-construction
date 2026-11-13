@@ -2,20 +2,16 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import { avatarPages, getAllServices, type ServicePurchaseType } from '@/lib/services-data';
+import { getAllServices, type ServicePurchaseType } from '@/lib/services-data';
 
 export const metadata: Metadata = {
   title: 'Services & Pricing — Everything in One Place | Southern Cities Construction',
   description:
-    'The full Southern Cities Construction catalog on one page — fixed-price services, custom-quoted construction work, and monthly support plans for homeowners, investors, realtors, contractors, and developers. NC GC License #107724.',
+    'The full Southern Cities Construction catalog on one page — fixed-price services, custom-quoted construction work, and monthly support plans. NC GC License #107724.',
   alternates: { canonical: '/services/all' },
 };
 
 type Row = ReturnType<typeof getAllServices>[number];
-
-const shortLabel: Record<string, string> = Object.fromEntries(
-  avatarPages.map((p) => [p.slug, p.shortLabel.replace(/^For\s+/i, '')]),
-);
 
 const GROUPS: { type: ServicePurchaseType; label: string; blurb: string }[] = [
   { type: 'fixed', label: 'Buy now — fixed price', blurb: 'A clear deliverable at a clear price. Purchase it and we get started.' },
@@ -35,7 +31,13 @@ function hrefFor(s: Row): string {
 }
 
 export default function AllServicesPage() {
-  const all = getAllServices();
+  const seen = new Set<string>();
+  const all = getAllServices().filter((service) => {
+    const key = service.itemKey || service.detailHref;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
   return (
     <>
@@ -47,16 +49,16 @@ export default function AllServicesPage() {
             <h1 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">Everything we do, on one page.</h1>
             <p className="mt-5 text-base leading-relaxed text-stone-700 sm:text-lg">
               Every Southern Cities service in one place — grouped by how you buy it, from clear fixed-price help to
-              custom-quoted construction work and monthly support plans. Not sure where to start? Jump to your role.
+              custom-quoted construction work and monthly support plans. Choose the work you need and how you want to get started.
             </p>
             <div className="mt-7 flex flex-wrap gap-2.5">
-              {avatarPages.map((p) => (
+              {GROUPS.map((group) => (
                 <Link
-                  key={p.slug}
-                  href={`/services/${p.slug}`}
+                  key={group.type}
+                  href={`#${group.type}`}
                   className="rounded-full border border-stone-300 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange"
                 >
-                  {p.shortLabel}
+                  {group.label}
                 </Link>
               ))}
             </div>
@@ -78,13 +80,13 @@ export default function AllServicesPage() {
                 </p>
                 <span className="mt-5 inline-block text-sm font-semibold text-navy group-hover:text-orange">Start free →</span>
               </Link>
-              <Link href="/deal-desk" className="group rounded-[24px] border border-stone-200 bg-white p-7 transition hover:border-orange">
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Membership</p>
-                <h3 className="mt-3 text-xl font-extrabold tracking-tight">Deal Desk Membership</h3>
+              <Link href="/deal-pack" className="group rounded-[24px] border border-stone-200 bg-white p-7 transition hover:border-orange">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange">Price &amp; Plan</p>
+                <h3 className="mt-3 text-xl font-extrabold tracking-tight">Compare Deal Packs</h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-stone-700">
-                  GC-verified rehab numbers plus your Max Allowable Offer on every NC deal — all month long.
+                  Start with Bid-Ready at $599 or choose the full Build-Ready package at $1,997. Compare the scope and deliverables in one place.
                 </p>
-                <span className="mt-5 inline-block text-sm font-semibold text-navy group-hover:text-orange">See plans →</span>
+                <span className="mt-5 inline-block text-sm font-semibold text-navy group-hover:text-orange">Compare packages →</span>
               </Link>
             </div>
           </div>
@@ -111,9 +113,6 @@ export default function AllServicesPage() {
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="font-bold text-navy group-hover:text-orange">{s.title}</span>
-                            <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[11px] font-semibold text-stone-500">
-                              {shortLabel[s.avatar] || s.avatarLabel}
-                            </span>
                           </div>
                           <p className="mt-1 line-clamp-1 text-[13.5px] leading-relaxed text-stone-600">{s.summary}</p>
                         </div>

@@ -116,7 +116,7 @@ export default function ContractingPage() {
               For projects that need one company carrying the work from planning through execution. Renovations, rehabs, additions, and new builds that need real coordination, permit handling, and accountable delivery.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4 motion-safe:animate-[heroRise_1300ms_ease-out_0.4s_both]">
-              <Link href="/#contact" className="inline-flex min-h-[56px] min-w-[240px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
+              <Link href="/start" className="inline-flex min-h-[56px] min-w-[240px] items-center justify-center gap-2 rounded-full bg-[#fa8c41] px-7 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white shadow-[0_14px_30px_-6px_rgba(245,130,32,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#ffa463]">
                 Request Full Contracting Review <span aria-hidden="true">→</span>
               </Link>
               <Link href="/cart?cart=execution-consultation" className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/5">
@@ -302,7 +302,7 @@ export default function ContractingPage() {
               Send the address, scope, timeline, and current status. We review fit, identify the right next step, and tell you whether this should move forward as full contracting &mdash; and on which structure &mdash; or start as a smaller support engagement first.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/#contact" className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white transition hover:-translate-y-0.5 hover:bg-orange-500">
+              <Link href="/start" className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-orange px-6 py-3.5 text-sm font-black uppercase tracking-[0.06em] text-white transition hover:-translate-y-0.5 hover:bg-orange-500">
                 Request Full Contracting Review
               </Link>
               <a href="tel:+19804737249" className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3.5 text-sm font-bold text-navy transition hover:border-orange hover:text-orange">

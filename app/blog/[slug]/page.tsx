@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -13,7 +14,8 @@ export function generateStaticParams(): Params[] {
   return getAllPostSlugs().map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
+export async function generateMetadata(props: { params: Promise<Params> }): Promise<Metadata> {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
   if (!post) return { title: 'Article not found' };
   const url = `https://southerncitiesconstruction.com/blog/${post.slug}`;
@@ -34,7 +36,8 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-export default function BlogPostPage({ params }: { params: Params }) {
+export default async function BlogPostPage(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
 
@@ -105,8 +108,8 @@ export default function BlogPostPage({ params }: { params: Params }) {
 
         {/* Cover image */}
         <div className="container-pro -mt-10 sm:-mt-14 relative z-20 mb-14">
-          <div className="aspect-[16/8] rounded-[1.75rem] overflow-hidden shadow-elev-3 bg-stone-100">
-            <img src={post.coverImage} alt="" className="w-full h-full object-cover" />
+          <div className="relative aspect-[16/8] rounded-[1.75rem] overflow-hidden shadow-elev-3 bg-stone-100">
+            <Image fill sizes="(min-width: 1024px) 50vw, 100vw" src={post.coverImage} alt="" preload className="w-full h-full object-cover" />
           </div>
         </div>
 
@@ -207,7 +210,7 @@ export default function BlogPostPage({ params }: { params: Params }) {
                   Browse Services
                 </Link>
                 <Link
-                  href="/#contact"
+                  href="/start"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.06] hover:bg-white/[0.12] px-6 py-3.5 text-sm font-semibold text-white transition-colors"
                 >
                   Request a Quote
@@ -235,8 +238,8 @@ export default function BlogPostPage({ params }: { params: Params }) {
                 href={`/blog/${other.slug}`}
                 className="group flex flex-col rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-elev-1 card-hover"
               >
-                <div className="aspect-[16/10] overflow-hidden bg-stone-100">
-                  <img
+                <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
+                  <Image fill sizes="(min-width: 1024px) 50vw, 100vw"
                     src={other.coverImage}
                     alt=""
                     className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"

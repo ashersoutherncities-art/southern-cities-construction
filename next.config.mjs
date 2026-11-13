@@ -42,6 +42,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Preserve exact legacy hub URLs while keeping product details and
+      // campaign-specific payment terms available at their existing URLs.
+      ...['investors', 'wholesalers', 'realtors', 'homeowners', 'contractors', 'developers-landowners'].map((role) => ({
+        source: `/services/${role}`, destination: '/services', permanent: false,
+      })),
       // Booking funnel consolidated into the universal /start intake form.
       // Every "Get Started" CTA points to /start; keep old /book links working.
       { source: '/book', destination: '/start', permanent: false },
@@ -88,7 +93,6 @@ const nextConfig = {
       // Legacy /services/investors/* detail pages still resolve by direct
       // URL; only the hub entry point moves to /construction. Temporary
       // (307) while the investor migration settles — flip to permanent later.
-      { source: '/services/investors', destination: '/construction', permanent: false },
 
       // /platform folded into /construction per the founder's Construction
       // Department repositioning (supersedes the investor-catalog

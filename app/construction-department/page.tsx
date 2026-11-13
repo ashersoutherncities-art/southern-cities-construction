@@ -26,7 +26,7 @@ export default function ConstructionDepartmentPage() {
         body: JSON.stringify({ tier }),
       });
       const data = await res.json();
-      if (data.url) window.location.href = data.url;
+      if (data.url) window.location.assign(data.url);
       else alert(data.detail || 'Checkout is not available yet.');
     } catch {
       alert('Something went wrong starting checkout.');

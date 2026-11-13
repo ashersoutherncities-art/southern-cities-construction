@@ -8,14 +8,14 @@ import { getMemberByEmail } from '@/lib/construction-department/members';
 import { signAccessToken } from '@/lib/construction-department/token';
 import { sendDeskReviewDeliveredEmail } from '@/lib/construction-department/email';
 
-function authorized(): boolean {
-  return hasPortalAccess(process.env.CD_DESK_REVIEW_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY);
+async function authorized(): Promise<boolean> {
+  return (await hasPortalAccess(process.env.CD_DESK_REVIEW_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY));
 }
 
 export async function claimDeskReviewAction(formData: FormData) {
   const id = String(formData.get('id') || '');
   const reviewerEmail = String(formData.get('reviewer_email') || '').trim();
-  if (!authorized() || !id || !reviewerEmail) return;
+  if (!(await authorized()) || !id || !reviewerEmail) return;
 
   const supabase = getServiceClient();
   await claimDeskReview(supabase, id, reviewerEmail);
@@ -24,7 +24,7 @@ export async function claimDeskReviewAction(formData: FormData) {
 
 export async function saveDeskReviewNotesAction(formData: FormData) {
   const id = String(formData.get('id') || '');
-  if (!authorized() || !id) return;
+  if (!(await authorized()) || !id) return;
 
   const supabase = getServiceClient();
   await saveDeskReviewNotes(supabase, id, {
@@ -39,7 +39,7 @@ export async function deliverDeskReviewAction(formData: FormData) {
   const id = String(formData.get('id') || '');
   const email = String(formData.get('email') || '');
   const propertyAddress = String(formData.get('property_address') || '');
-  if (!authorized() || !id || !email) return;
+  if (!(await authorized()) || !id || !email) return;
 
   const supabase = getServiceClient();
   await markDeskReviewDelivered(supabase, id);

@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import SmsConsent from '@/components/SmsConsent';
+import { useBrowserSnapshot } from '@/lib/use-browser-snapshot';
 
 const TRADES = [
   'General / Framing',
@@ -145,12 +146,8 @@ export default function PartnersPage() {
   // Meta/social in-app browsers (opened from a Facebook/Instagram ad) break fetch()
   // form submits with "Failed to fetch". Detect them and prompt the user to open in
   // a real browser.
-  const [inApp, setInApp] = useState(false);
+  const inApp = useBrowserSnapshot(() => /FBAN|FBAV|FB_IAB|Instagram|Line\/|Twitter|Snapchat|TikTok|musical_ly|Pinterest/i.test(navigator.userAgent), false);
   const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
-    setInApp(/FBAN|FBAV|FB_IAB|Instagram|Line\/|Twitter|Snapchat|TikTok|musical_ly|Pinterest/i.test(ua));
-  }, []);
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);

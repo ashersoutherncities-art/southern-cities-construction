@@ -4,24 +4,24 @@ import { revalidatePath } from 'next/cache';
 import { createMarketingAsset, createMarketingLink, syncMarketingInfrastructure } from '@/lib/marketing';
 import { hasPortalAccess } from '@/lib/portal-auth';
 
-function ensureAccessKey(_formData: FormData) {
+async function ensureAccessKey(_formData: FormData) {
   if (!process.env.MARKETING_PORTAL_ACCESS_KEY) {
     throw new Error('MARKETING_PORTAL_ACCESS_KEY is not configured.');
   }
   // Authenticate from the httpOnly portal session cookie, not a form field.
-  if (!hasPortalAccess(process.env.MARKETING_PORTAL_ACCESS_KEY)) {
+  if (!(await hasPortalAccess(process.env.MARKETING_PORTAL_ACCESS_KEY))) {
     throw new Error('Invalid access key.');
   }
 }
 
 export async function syncMarketingAction(formData: FormData) {
-  ensureAccessKey(formData);
+  await ensureAccessKey(formData);
   await syncMarketingInfrastructure();
   revalidatePath('/portal/marketing-assets');
 }
 
 export async function addMarketingAssetAction(formData: FormData) {
-  ensureAccessKey(formData);
+  await ensureAccessKey(formData);
 
   await createMarketingAsset({
     asset_key: String(formData.get('asset_key') || ''),
@@ -41,7 +41,7 @@ export async function addMarketingAssetAction(formData: FormData) {
 }
 
 export async function addMarketingLinkAction(formData: FormData) {
-  ensureAccessKey(formData);
+  await ensureAccessKey(formData);
 
   await createMarketingLink({
     slug: String(formData.get('slug') || ''),

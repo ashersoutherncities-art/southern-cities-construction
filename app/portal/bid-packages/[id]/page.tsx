@@ -42,8 +42,9 @@ function money(n: number | null) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 }
 
-export default async function BidPackageDetailPage({ params }: { params: { id: string } }) {
-  if (!hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY)) {
+export default async function BidPackageDetailPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  if (!(await hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY))) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

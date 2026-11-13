@@ -7,43 +7,36 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import { buildCartHref, CART_QUERY_KEY, formatPrice, getCartLineItems, parseCartParam, type CartSelection } from '@/lib/cart';
 import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
+import { useBrowserSnapshot } from '@/lib/use-browser-snapshot';
 
 const CART_SYNC_EVENT = 'scc:cart-sync';
+function subscribeCart(onChange: () => void) {
+  const events = ['focus', 'pageshow', CART_SYNC_EVENT];
+  for (const event of events) window.addEventListener(event, onChange);
+  return () => { for (const event of events) window.removeEventListener(event, onChange); };
+}
 
 function CartPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryCart = searchParams.get(CART_QUERY_KEY);
   const cancelled = searchParams.get('checkout') === 'cancelled';
-  const [cookieCart, setCookieCart] = useState('');
-  const [items, setItems] = useState<CartSelection[]>([]);
-  const [hydrated, setHydrated] = useState(false);
+  const isolationFlag = searchParams.get('lp') === '1';
+  const cookieCart = useBrowserSnapshot<string | null>(getCartParamFromCookie, null, subscribeCart);
+  const hydrated = cookieCart !== null;
+  const readItems = () => {
+    return queryCart !== null || isolationFlag ? parseCartParam(queryCart) : parseCartParam(cookieCart);
+  };
+  const [items, setItems] = useState<CartSelection[]>(readItems);
+  const source = JSON.stringify([queryCart, cookieCart]);
+  const [previousSource, setPreviousSource] = useState(source);
+  if (source !== previousSource) {
+    setPreviousSource(source);
+    setItems(readItems());
+  }
   const [checkoutState, setCheckoutState] = useState<'idle' | 'loading' | 'error'>('idle');
   const [checkoutError, setCheckoutError] = useState('');
   const [projectAddress, setProjectAddress] = useState('');
-
-  useEffect(() => {
-    const sync = () => setCookieCart(getCartParamFromCookie());
-    sync();
-    window.addEventListener('focus', sync);
-    window.addEventListener('pageshow', sync);
-    window.addEventListener(CART_SYNC_EVENT, sync);
-    return () => {
-      window.removeEventListener('focus', sync);
-      window.removeEventListener('pageshow', sync);
-      window.removeEventListener(CART_SYNC_EVENT, sync);
-    };
-  }, []);
-
-  // Initialize items from URL query (if present) or cookie. URL wins on first
-  // load so deep links work; subsequent changes are local state and sync back
-  // to the cookie.
-  useEffect(() => {
-    const queryItems = parseCartParam(queryCart);
-    const cookieItems = parseCartParam(cookieCart);
-    setItems(queryItems.length ? queryItems : cookieItems);
-    setHydrated(true);
-  }, [queryCart, cookieCart]);
 
   const lineItems = useMemo(() => getCartLineItems(items), [items]);
 
@@ -65,7 +58,6 @@ function CartPageContent() {
   // - queryCart presence (backwards compat for old direct-lp URLs without lp=1)
   // Do NOT sync to cookie in isolated mode so the customer's broader-site cart
   // stays untouched.
-  const isolationFlag = searchParams.get('lp') === '1';
   const fromLpSlug = searchParams.get('from');
   const isIsolatedMode = isolationFlag || queryCart !== null;
 
@@ -85,29 +77,26 @@ function CartPageContent() {
   // "Back to landing page" link stays available. Cart param gets dropped so
   // refresh doesn't resurrect the removed item. In non-isolated mode, just
   // drop the cart param.
-  const navigateAfterCartChange = useCallback(() => {
-    if (!queryCart && !isolationFlag) return;
-    if (!isolationFlag) {
-      router.replace('/cart');
-      return;
-    }
-    const params = new URLSearchParams();
+  const navigateAfterCartChange = useCallback((nextItems: CartSelection[]) => {
+    if (!isIsolatedMode) return;
+    const params = new URLSearchParams(buildCartHref(nextItems).split('?')[1] || '');
     params.set('lp', '1');
     if (fromLpSlug) params.set('from', fromLpSlug);
     router.replace(`/cart?${params.toString()}`);
-  }, [queryCart, isolationFlag, fromLpSlug, router]);
+  }, [isIsolatedMode, fromLpSlug, router]);
 
   const removeItem = useCallback(
     (key: string) => {
-      setItems((prev) => prev.filter((item) => item.key !== key));
-      navigateAfterCartChange();
+      const nextItems = items.filter((item) => item.key !== key);
+      setItems(nextItems);
+      navigateAfterCartChange(nextItems);
     },
-    [navigateAfterCartChange]
+    [items, navigateAfterCartChange]
   );
 
   const clearCart = useCallback(() => {
     setItems([]);
-    navigateAfterCartChange();
+    navigateAfterCartChange([]);
   }, [navigateAfterCartChange]);
 
   async function startCheckout() {
@@ -198,7 +187,7 @@ function CartPageContent() {
                   Browse Services
                 </Link>
                 <Link
-                  href="/#contact"
+                  href="/start"
                   className="inline-flex items-center justify-center rounded-full border border-navy/15 bg-white hover:bg-stone-50 px-6 py-3 text-sm font-semibold text-navy-900 transition-colors"
                 >
                   Request a Quote

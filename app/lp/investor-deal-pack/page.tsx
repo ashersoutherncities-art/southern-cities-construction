@@ -103,7 +103,7 @@ export default function InvestorDealPackPage() {
               flipping it, or assigning it as a wholesaler.
             </p>
             <p className="mt-4 im-mono text-[12px] uppercase tracking-[0.14em]" style={{ color: 'rgba(242,239,231,0.55)' }}>
-              Wholesaler? Same pack, <a href="/lp/wholesaler-deal-pack" className="underline underline-offset-4" style={{ color: 'var(--accent)' }}>$0-upfront terms &rarr;</a>
+              Wholesaler? Same pack, <Link href="/lp/wholesaler-deal-pack" className="underline underline-offset-4" style={{ color: 'var(--accent)' }}>$0-upfront terms &rarr;</Link>
             </p>
             <div className="mt-10">
               <a href="#form" className="im-btn im-btn--primary">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import { computeDeal, defaultDealInputs, DealInputs, DealMode } from '@/lib/construction-department/dealmath';
 
 type NumericKey = { [K in keyof DealInputs]: DealInputs[K] extends number ? K : never }[keyof DealInputs];
@@ -22,6 +22,32 @@ const inputStyle: React.CSSProperties = {
 };
 const labelStyle: React.CSSProperties = { fontSize: 12, fontWeight: 600, color: NAVY, display: 'block', marginBottom: 3 };
 
+// Free-text numeric field (no spinner arrows; type a full number). Shows empty
+// when the value is 0 so you don't have to clear a leading "0". `scale` of 100
+// displays a stored fraction (e.g. 0.15) as a percent (15).
+function Num({ label, k, scale = 1, inputs, setInputs }: { label: string; k: NumericKey; scale?: number; inputs: DealInputs; setInputs: Dispatch<SetStateAction<DealInputs>> }) {
+  const raw = inputs[k];
+  const display = raw === 0 ? '' : String(Math.round(raw * scale * 100) / 100);
+  return (
+    <label style={{ display: 'block' }}>
+      <span style={labelStyle}>{label}</span>
+      <input
+        type="text"
+        inputMode="decimal"
+        value={display}
+        placeholder="0"
+        onChange={(e) => {
+          const cleaned = e.target.value.replace(/[^0-9.]/g, '');
+          const num = cleaned === '' ? 0 : Number(cleaned);
+          setInputs((p) => ({ ...p, [k]: (Number.isFinite(num) ? num : 0) / scale }));
+        }}
+        style={inputStyle}
+      />
+    </label>
+  );
+}
+
+
 export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; rehab: number; squareFeet: number }) {
   const [inputs, setInputs] = useState<DealInputs>(() => defaultDealInputs({ mode: 'rehab', arv, rehab, squareFeet }));
   const m = useMemo(() => computeDeal(inputs), [inputs]);
@@ -29,31 +55,6 @@ export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; 
   function up<K extends keyof DealInputs>(key: K, value: DealInputs[K]) {
     setInputs((p) => ({ ...p, [key]: value }));
   }
-  // Free-text numeric field (no spinner arrows; type a full number). Shows empty
-  // when the value is 0 so you don't have to clear a leading "0". `scale` of 100
-  // displays a stored fraction (e.g. 0.15) as a percent (15).
-  function Num({ label, k, scale = 1 }: { label: string; k: NumericKey; scale?: number }) {
-    const raw = inputs[k];
-    const display = raw === 0 ? '' : String(Math.round(raw * scale * 100) / 100);
-    return (
-      <label style={{ display: 'block' }}>
-        <span style={labelStyle}>{label}</span>
-        <input
-          type="text"
-          inputMode="decimal"
-          value={display}
-          placeholder="0"
-          onChange={(e) => {
-            const cleaned = e.target.value.replace(/[^0-9.]/g, '');
-            const num = cleaned === '' ? 0 : Number(cleaned);
-            setInputs((p) => ({ ...p, [k]: (Number.isFinite(num) ? num : 0) / scale }));
-          }}
-          style={inputStyle}
-        />
-      </label>
-    );
-  }
-
   const isNew = inputs.mode === 'new_build';
 
   return (
@@ -82,25 +83,25 @@ export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; 
 
       {/* Inputs */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 12 }}>
-        <Num label="ARV (resale value)" k="arv" />
-        <Num label="Square feet" k="squareFeet" />
-        <Num label={isNew ? 'Land / lot cost' : 'Purchase price'} k="acquisition" />
+        <Num inputs={inputs} setInputs={setInputs} label="ARV (resale value)" k="arv" />
+        <Num inputs={inputs} setInputs={setInputs} label="Square feet" k="squareFeet" />
+        <Num inputs={inputs} setInputs={setInputs} label={isNew ? 'Land / lot cost' : 'Purchase price'} k="acquisition" />
         {isNew ? (
           <>
-            <Num label="Hard build cost" k="buildCost" />
-            <Num label="Site work" k="siteWork" />
-            <Num label="Soft costs (plans/permits/fees)" k="softCosts" />
-            <Num label="Contingency %" k="contingencyPct" scale={100} />
-            <Num label="Builder's-risk insurance" k="builderRiskInsurance" />
+            <Num inputs={inputs} setInputs={setInputs} label="Hard build cost" k="buildCost" />
+            <Num inputs={inputs} setInputs={setInputs} label="Site work" k="siteWork" />
+            <Num inputs={inputs} setInputs={setInputs} label="Soft costs (plans/permits/fees)" k="softCosts" />
+            <Num inputs={inputs} setInputs={setInputs} label="Contingency %" k="contingencyPct" scale={100} />
+            <Num inputs={inputs} setInputs={setInputs} label="Builder's-risk insurance" k="builderRiskInsurance" />
           </>
         ) : (
-          <Num label="Rehab cost" k="rehab" />
+          <Num inputs={inputs} setInputs={setInputs} label="Rehab cost" k="rehab" />
         )}
-        <Num label="Hold (months)" k="holdMonths" />
-        <Num label="Monthly carry (tax/ins/util)" k="monthlyCarry" />
-        <Num label="Buy-side closing" k="buyClosing" />
-        <Num label="Sell closing %" k="sellClosingPct" />
-        <Num label="Brokerage %" k="brokeragePct" />
+        <Num inputs={inputs} setInputs={setInputs} label="Hold (months)" k="holdMonths" />
+        <Num inputs={inputs} setInputs={setInputs} label="Monthly carry (tax/ins/util)" k="monthlyCarry" />
+        <Num inputs={inputs} setInputs={setInputs} label="Buy-side closing" k="buyClosing" />
+        <Num inputs={inputs} setInputs={setInputs} label="Sell closing %" k="sellClosingPct" />
+        <Num inputs={inputs} setInputs={setInputs} label="Brokerage %" k="brokeragePct" />
         <div style={{ gridColumn: '1 / -1', fontSize: 12, color: '#6b7280', alignSelf: 'center' }}>
           Target profit auto-set by ARV tier: <strong>15%</strong> under $200k · <strong>10%</strong> $200–300k · <strong>5%</strong> above $300k.
         </div>
@@ -114,9 +115,9 @@ export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; 
         </label>
         {inputs.financed ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 12, marginTop: 8 }}>
-            <Num label="Loan amount" k="loanAmount" />
-            <Num label="Interest rate % /yr" k="ratePct" />
-            <Num label="Points %" k="pointsPct" />
+            <Num inputs={inputs} setInputs={setInputs} label="Loan amount" k="loanAmount" />
+            <Num inputs={inputs} setInputs={setInputs} label="Interest rate % /yr" k="ratePct" />
+            <Num inputs={inputs} setInputs={setInputs} label="Points %" k="pointsPct" />
           </div>
         ) : null}
       </div>
@@ -129,7 +130,7 @@ export default function DealAnalyzer({ arv, rehab, squareFeet }: { arv: number; 
         </label>
         {inputs.assignmentApplies ? (
           <div style={{ marginTop: 8, maxWidth: 200 }}>
-            <Num label="Assignment fee $" k="assignmentFee" />
+            <Num inputs={inputs} setInputs={setInputs} label="Assignment fee $" k="assignmentFee" />
           </div>
         ) : null}
       </div>

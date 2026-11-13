@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Edge-safe portal auth bootstrap. When someone opens a /portal/* page with
+// Portal auth bootstrap. When someone opens a /portal/* page with
 // `?key=SECRET`, validate it (constant-time) against the configured admin
 // keys; if valid, set an httpOnly session cookie and redirect to the same URL
 // WITHOUT the key. After that the portal pages authenticate from the cookie,
 // so the secret never lingers in the URL / history / logs.
 //
-// NOTE: runs on the Edge runtime — no node:crypto. Uses a manual constant-time
-// compare and stores the matched key in an httpOnly + Secure + SameSite=Strict
+// Uses a manual constant-time comparison and stores the matched key in an
+// httpOnly + Secure + SameSite=Strict
 // cookie (never readable by client JS, never in a URL).
 
 const PORTAL_COOKIE = 'sc_portal';
@@ -27,7 +27,7 @@ function matchKey(provided: string): string | null {
   return null;
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const url = req.nextUrl;
   const key = url.searchParams.get('key');
   if (!key) return NextResponse.next();

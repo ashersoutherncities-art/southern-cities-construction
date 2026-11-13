@@ -14,45 +14,23 @@ const CONSULTATION_CTA_HREF = '/start';
 
 const doors = [
   {
-    label: 'For investors',
-    sub: 'Fix-and-flip · buy-and-hold · wholesalers',
-    title: 'Know the real number before you buy.',
-    meta: 'A committed rehab price, sealed with the NC GC license, transferable to your buyer at closing.',
+    label: 'Price & plan',
+    sub: 'Before you buy or commit to construction',
+    title: 'Know the scope and the real rehab number.',
+    meta: 'Choose the level of detail your project needs. The same licensed NC GC stands behind the defined scope.',
     options: [
-      {
-        name: 'Bid-Ready',
-        price: '$599',
-        note: 'Just need the number · credits toward Build-Ready',
-        href: '/deal-pack#tiers',
-      },
-      {
-        name: 'Build-Ready',
-        price: '$1,997',
-        note: '$0 upfront for wholesalers · paid at closing',
-        href: '/lp/investor-deal-pack',
-        flagship: true,
-      },
+      { name: 'Bid-Ready', price: '$599', note: 'Start with the number · credits toward Build-Ready', href: '/deal-pack#tiers' },
+      { name: 'Build-Ready', price: '$1,997', note: 'Committed scope, plans, renderings, and execution risks', href: '/deal-pack', flagship: true },
     ],
   },
   {
-    label: 'For real estate professionals',
-    sub: 'Realtors · lenders · brokers',
-    title: 'Attach a licensed GC to your client’s deal.',
-    meta: 'Committed rehab price, renderings, and a permit memo — what your buyer or lender needs to move fast.',
+    label: 'Build & deliver',
+    sub: 'When you are ready to put the plan to work',
+    title: 'Carry the plan through construction.',
+    meta: 'Move from a defined scope into execution, procurement, and project delivery with one accountable licensed builder.',
     options: [
-      {
-        name: 'Bid-Ready',
-        price: '$599',
-        note: 'Just need the number · credits toward Build-Ready',
-        href: '/deal-pack#tiers',
-      },
-      {
-        name: 'Build-Ready',
-        price: '$1,997',
-        note: '$0 upfront for realtors · paid from commission at closing',
-        href: '/lp/real-estate-professionals-deal-pack',
-        flagship: true,
-      },
+      { name: 'Construction', price: 'Scoped', note: 'Review the stages and construction support available', href: '/construction' },
+      { name: 'Discuss your project', price: 'Start here', note: 'Tell us the property, scope, and timing', href: '/start', flagship: true },
     ],
   },
 ];
@@ -67,9 +45,9 @@ const HOW_IT_WORKS = [
   { n: '03', label: 'Build', href: '/construction' },
 ];
 
-const subAudienceLinks = [
-  { label: 'Wholesaler-specific terms ($0 upfront)', href: '/lp/wholesaler-deal-pack' },
-  { label: 'Realtor listing package ($0 upfront)', href: '/lp/realtor-deal-pack' },
+const nextStepLinks = [
+  { label: 'Screen a project with the free rehab tool', href: '/lp/rehab-budget-range-execution-risk-snapshot' },
+  { label: 'Compare services and next steps', href: '/services' },
 ];
 
 const stats = [
@@ -286,19 +264,18 @@ export default function HomeContent({ reviews, ratingBadge }: { reviews: ReactNo
         </div>
       </section>
 
-      {/* DOORS — two-audience umbrella (Investors · RE Professionals) */}
+      {/* Choose the work you need */}
       <section className="im-paper p-reveal">
         <div className="im-container im-section">
-          <p className="im-eyebrow">Who this is for</p>
+          <p className="im-eyebrow">Where to start</p>
           <h2 className="im-h2 mt-4 text-[2.25rem] sm:text-[3rem] max-w-3xl">
-            Two audiences. Two ways to start.
+            Start with the work your project needs.
           </h2>
           <p className="im-body mt-6 max-w-2xl text-lg">
-            Built for NC <b style={{ color: 'var(--ink-hi)' }}>investors</b> &mdash; including wholesalers assigning
-            contracts &mdash; and for the <b style={{ color: 'var(--ink-hi)' }}>real estate professionals</b> who
-            serve them: realtors, lenders, and brokers.
+            Get a clear construction plan before committing to the work, or bring a ready project
+            to the team that can build it. Start with the scope and stage of your project.
           </p>
-          <div className="im-doors mt-12 max-w-4xl mx-auto" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+          <div className="im-doors mt-12 max-w-4xl mx-auto" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))' }}>
             {doors.map((d) => (
               <div
                 key={d.label}
@@ -340,7 +317,7 @@ export default function HomeContent({ reviews, ratingBadge }: { reviews: ReactNo
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13.5px]" style={{ color: 'var(--ink-lo)' }}>
             <span className="im-mono text-[11px] uppercase tracking-[0.14em]">Direct paths</span>
-            {subAudienceLinks.map((l, i) => (
+            {nextStepLinks.map((l, i) => (
               <span key={l.href} className="flex items-center gap-4">
                 {i > 0 && <span aria-hidden="true" style={{ color: 'var(--line-1)' }}>·</span>}
                 <Link href={l.href} className="underline underline-offset-4 hover:text-orange" style={{ color: 'var(--ink-mid)' }}>

@@ -6,8 +6,8 @@ import { getServiceClient } from '@/lib/supabase';
 import { hasPortalAccess } from '@/lib/portal-auth';
 import { createBidPackage } from '@/lib/gc-procurement';
 
-function authorized(): boolean {
-  return hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY);
+async function authorized(): Promise<boolean> {
+  return (await hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY));
 }
 
 function str(formData: FormData, key: string): string | null {
@@ -16,7 +16,7 @@ function str(formData: FormData, key: string): string | null {
 }
 
 export async function createBidPackageAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const propertyAddress = str(formData, 'property_address');
   const propertyState = str(formData, 'property_state') || 'NC';
   const scopeSummary = str(formData, 'scope_summary');

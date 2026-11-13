@@ -239,7 +239,7 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
           if (['-', '+', 'e', 'E'].includes(e.key)) e.preventDefault();
           props.onKeyDown?.(e);
         },
-        onInput: (e: React.FormEvent<HTMLInputElement>) => {
+        onInput: (e: React.InputEvent<HTMLInputElement>) => {
           const t = e.currentTarget;
           if (t.value !== '' && Number(t.value) < 0) t.value = '';
           props.onInput?.(e);

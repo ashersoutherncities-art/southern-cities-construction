@@ -288,7 +288,8 @@ export function generateStaticParams() {
   });
 }
 
-export function generateMetadata({ params }: { params: Params }) {
+export async function generateMetadata(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const service = getServiceBySlug(params.avatar, params.service);
   const avatar = avatarPages.find((page) => page.slug === params.avatar);
   if (!service || !avatar) return { title: 'Service not found | Southern Cities Construction' };
@@ -308,7 +309,8 @@ export function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-export default function ServiceDetailPage({ params }: { params: Params }) {
+export default async function ServiceDetailPage(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const service = getServiceBySlug(params.avatar, params.service);
   const avatar = avatarPages.find((page) => page.slug === params.avatar);
   if (!service || !avatar) notFound();

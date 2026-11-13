@@ -17,7 +17,7 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 export default async function BidPackagesAdminPage() {
-  if (!hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY)) {
+  if (!(await hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY))) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

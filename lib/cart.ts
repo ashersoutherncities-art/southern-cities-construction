@@ -452,7 +452,7 @@ function normalizeAmount(value: string | undefined): number | undefined {
 function sanitizeCartSelections(items: CartSelection[]): CartSelection[] {
   const grouped = new Map<string, CartSelection>();
   for (const item of items) {
-    if (!CART_PRODUCTS[item.key]) continue;
+    if (!Object.hasOwn(CART_PRODUCTS, item.key)) continue;
     const existing = grouped.get(item.key);
     const nextQuantity = Math.max(1, item.quantity ?? 1);
 

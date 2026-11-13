@@ -13,7 +13,8 @@ export function generateStaticParams() {
     .map((service) => ({ slug: service.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const service = getAllServices().find(
     (entry) => entry.slug === params.slug && entry.purchaseType === 'priced'
   );
@@ -33,7 +34,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function PricingPage({ params }: { params: { slug: string } }) {
+export default async function PricingPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const service = getAllServices().find((entry) => entry.slug === params.slug && entry.purchaseType === 'priced');
 
   if (!service) notFound();

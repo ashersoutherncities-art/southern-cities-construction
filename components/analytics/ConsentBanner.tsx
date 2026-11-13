@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useBrowserSnapshot } from '@/lib/use-browser-snapshot';
 import posthog from 'posthog-js';
 import { getStoredConsent, setConsent } from '@/lib/analytics/consent';
 import { posthogReady } from '@/components/analytics/PostHogProvider';
@@ -9,24 +10,21 @@ import { posthogReady } from '@/components/analytics/PostHogProvider';
  * for why core anonymous analytics isn't gated behind it. Shows once per
  * browser until a choice is made. */
 export default function ConsentBanner() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return; // nothing to consent to
-    setVisible(getStoredConsent() === null);
-  }, []);
+  const consent = useBrowserSnapshot<ReturnType<typeof getStoredConsent> | 'pending'>(getStoredConsent, 'pending');
+  const [dismissed, setDismissed] = useState(false);
+  const visible = !!process.env.NEXT_PUBLIC_POSTHOG_KEY && !dismissed && consent === null;
 
   if (!visible) return null;
 
   const accept = () => {
     setConsent('accepted');
     if (posthogReady()) posthog.startSessionRecording();
-    setVisible(false);
+    setDismissed(true);
   };
 
   const decline = () => {
     setConsent('declined');
-    setVisible(false);
+    setDismissed(true);
   };
 
   return (
