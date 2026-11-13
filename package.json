@@ -6,9 +6,10 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint app components lib tests proxy.ts",
+    "lint": "eslint app components lib tests proxy.ts --max-warnings 0",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:eslint-parser": "node scripts/check-eslint-parser.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.5.1",
@@ -33,5 +34,10 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "vitest": "^4.1.11"
+  },
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.8"
+    }
   }
 }
