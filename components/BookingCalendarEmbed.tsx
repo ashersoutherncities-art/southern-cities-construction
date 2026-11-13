@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useBrowserSnapshot } from '@/lib/use-browser-snapshot';
 import CalendarViewTracker from '@/components/CalendarViewTracker';
 import { buildGhlAttributionQueryString } from '@/lib/analytics/attribution';
 
@@ -27,12 +27,8 @@ export default function BookingCalendarEmbed() {
   // would make it load twice (once unparameterized, once with the
   // attribution query string). Rendering the iframe for the first time
   // only once the final src is known means exactly one load.
-  const [src, setSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    const qs = buildGhlAttributionQueryString();
-    setSrc(qs ? `${BASE_SRC}?${qs}` : BASE_SRC);
-  }, []);
+  const qs = useBrowserSnapshot<string | null>(buildGhlAttributionQueryString, null);
+  const src = qs === null ? null : qs ? `${BASE_SRC}?${qs}` : BASE_SRC;
 
   return (
     <div className="mx-auto mt-5 max-w-3xl overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-elev-1">

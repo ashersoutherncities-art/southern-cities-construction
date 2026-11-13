@@ -186,7 +186,8 @@ function lpRouteSlug(resourceSlug: string): string {
   return resourceSlug.replace(/^gc-certified-/, '');
 }
 
-export default function LeadMagnetLandingPage({ params }: { params: Params }) {
+export default async function LeadMagnetLandingPage(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const config = LEAD_MAGNET_LPS.find((lp) => lpRouteSlug(lp.resourceSlug) === params.slug);
   if (!config) notFound();
 
@@ -326,7 +327,8 @@ export default function LeadMagnetLandingPage({ params }: { params: Params }) {
   );
 }
 
-export function generateMetadata({ params }: { params: Params }) {
+export async function generateMetadata(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const config = LEAD_MAGNET_LPS.find((lp) => lpRouteSlug(lp.resourceSlug) === params.slug);
   if (!config) return {};
   const resource = getResourceBySlug(config.resourceSlug);

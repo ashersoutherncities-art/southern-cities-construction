@@ -12,7 +12,7 @@ export async function updateRehabSnapshotLeadStatusAction(formData: FormData) {
 
   // Authenticate from the httpOnly portal session cookie.
   if (
-    !hasPortalAccess(process.env.REHAB_SNAPSHOT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY) ||
+    !(await hasPortalAccess(process.env.REHAB_SNAPSHOT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY)) ||
     !leadId ||
     !isLeadStatus(status)
   ) {

@@ -27,12 +27,11 @@ export default function SiteFooter() {
           <div>
             <h4 className="mb-5 text-sm font-semibold tracking-wide text-white">Company</h4>
             <ul className="space-y-3">
-              <li><Link href="/deal-pack" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Pack — Wholesalers</Link></li>
+              <li><Link href="/deal-pack" className="text-sm text-white/50 transition-colors hover:text-orange">Deal Pack — Price &amp; Plan</Link></li>
               <li><Link href="/construction" className="text-sm text-white/50 transition-colors hover:text-orange">Construction — Build &amp; Procure</Link></li>
               <li><Link href="/services" className="text-sm text-white/50 transition-colors hover:text-orange">Services Overview</Link></li>
               <li><Link href="/services/all" className="text-sm text-white/50 transition-colors hover:text-orange">All Services &amp; Pricing</Link></li>
-              <li><Link href="/services/realtors" className="text-sm text-white/50 transition-colors hover:text-orange">For Realtors</Link></li>
-              <li><Link href="/services/contractors" className="text-sm text-white/50 transition-colors hover:text-orange">For Contractors</Link></li>
+              <li><Link href="/lp/rehab-budget-range-execution-risk-snapshot" className="text-sm text-white/50 transition-colors hover:text-orange">Free Rehab Budget Tool</Link></li>
               <li><Link href="/gallery" className="text-sm text-white/50 transition-colors hover:text-orange">Project Gallery</Link></li>
               <li><Link href="/about" className="text-sm text-white/50 transition-colors hover:text-orange">About</Link></li>
               <li><Link href="/recurring-support" className="text-sm text-white/50 transition-colors hover:text-orange">Support Plans</Link></li>

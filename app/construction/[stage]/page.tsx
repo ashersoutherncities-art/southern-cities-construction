@@ -17,7 +17,8 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: Params }) {
+export async function generateMetadata(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const stage = getPlatformStage(params.stage);
   if (!stage) return {};
   const path = `/construction/${stage.slug}`;
@@ -41,7 +42,8 @@ export function generateMetadata({ params }: { params: Params }) {
 // paid execution stage is now a public, publicly upsellable cross-sell.
 const CLEARED_UPSELL_TARGETS = new Set(['co2', 'co3', 'co4', 'co5']);
 
-export default function PlatformStagePage({ params }: { params: Params }) {
+export default async function PlatformStagePage(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const stage = getPlatformStage(params.stage);
   if (!stage) notFound();
 

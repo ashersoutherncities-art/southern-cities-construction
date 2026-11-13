@@ -5,8 +5,8 @@ import { getServiceClient } from '@/lib/supabase';
 import { hasPortalAccess } from '@/lib/portal-auth';
 import { createContractor, updateContractor, appendContractorDocument, type ContractorStatus } from '@/lib/gc-procurement';
 
-function authorized(): boolean {
-  return hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY);
+async function authorized(): Promise<boolean> {
+  return (await hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY));
 }
 
 const MAX_DOC_BYTES = 15 * 1024 * 1024; // 15MB — matches the standardized cap from the plan's §5.1 fix
@@ -17,7 +17,7 @@ function str(formData: FormData, key: string): string | null {
 }
 
 export async function createContractorAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const companyName = str(formData, 'company_name');
   if (!companyName) return;
 
@@ -38,7 +38,7 @@ export async function createContractorAction(formData: FormData) {
 }
 
 export async function updateContractorStatusAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const id = String(formData.get('id') || '');
   const status = String(formData.get('status') || '') as ContractorStatus;
   if (!id || !status) return;
@@ -49,7 +49,7 @@ export async function updateContractorStatusAction(formData: FormData) {
 }
 
 export async function saveContractorVettingAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const id = String(formData.get('id') || '');
   if (!id) return;
 
@@ -69,7 +69,7 @@ export async function saveContractorVettingAction(formData: FormData) {
 }
 
 export async function uploadContractorDocumentAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const id = String(formData.get('id') || '');
   const label = String(formData.get('label') || 'Document');
   const file = formData.get('file');

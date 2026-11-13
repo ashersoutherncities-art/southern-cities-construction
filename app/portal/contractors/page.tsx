@@ -25,7 +25,7 @@ const STATUSES: ContractorStatus[] = ['new', 'vetting', 'approved', 'suspended',
 export default async function ContractorsAdminPage() {
   const expectedKey = process.env.CD_PROCUREMENT_ADMIN_KEY || process.env.MARKETING_PORTAL_ACCESS_KEY;
 
-  if (!expectedKey || !hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY)) {
+  if (!expectedKey || !(await hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY))) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

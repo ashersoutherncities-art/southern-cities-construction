@@ -302,7 +302,6 @@ export default function VideoWithSoundToggle({ src, poster, videoId, fit = 'cove
       document.removeEventListener('visibilitychange', onVisibilityChange);
       window.removeEventListener('pagehide', flush);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoId]);
 
   return (

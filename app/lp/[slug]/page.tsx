@@ -2555,7 +2555,8 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: Params }) {
+export async function generateMetadata(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const config = getConfig(params.slug);
   if (!config) return { title: 'Landing page not found | Southern Cities Construction' };
   const path = `/lp/${config.slug}`;
@@ -2575,7 +2576,8 @@ export function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-export default function LandingPage({ params }: { params: Params }) {
+export default async function LandingPage(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const config = getConfig(params.slug);
   if (!config) notFound();
 

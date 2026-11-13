@@ -6,22 +6,26 @@ import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import CartNavLink from '@/components/CartNavLink';
 import { SITE_CONFIG } from '@/lib/site-config';
+import { useBrowserSnapshot } from '@/lib/use-browser-snapshot';
+
+function subscribeScroll(onChange: () => void) {
+  window.addEventListener('scroll', onChange, { passive: true });
+  return () => window.removeEventListener('scroll', onChange);
+}
 
 type NavLink = { href: string; label: string };
 type NavGroup = { label: string; href: string; children: NavLink[] };
 
-// Dropdown organized by avatar (who is this for?) rather than by
-// service category. The /services page is the avatar-router hub.
+// Organize the shared offer by the work a visitor needs done.
 const SERVICES_GROUP: NavGroup = {
   label: 'Services',
   href: '/services',
   children: [
-    { href: '/services', label: 'All roles overview' },
-    { href: '/lp/investor-deal-pack', label: 'For investors' },
-    { href: '/lp/wholesaler-deal-pack', label: 'For wholesalers' },
-    { href: '/lp/realtor-deal-pack', label: 'For realtors' },
-    { href: '/lp/real-estate-professionals-deal-pack', label: 'For lenders + brokers' },
-    { href: '/lp/rehab-budget-range-execution-risk-snapshot', label: 'Free rehab tool' },
+    { href: '/services', label: 'Services overview' },
+    { href: '/lp/rehab-budget-range-execution-risk-snapshot', label: 'Screen · Free rehab tool' },
+    { href: '/deal-pack', label: 'Plan · Deal Pack' },
+    { href: '/construction', label: 'Build · Construction' },
+    { href: '/services/all', label: 'All services & pricing' },
   ],
 };
 
@@ -40,27 +44,19 @@ const PRIMARY_LINKS: NavLink[] = [
 
 export default function SiteNav({ variant = 'transparent' }: { variant?: 'transparent' | 'solid' }) {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(variant === 'solid');
+  const scrolled = useBrowserSnapshot(() => window.scrollY > 32, false, subscribeScroll);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (variant === 'solid') {
-      setScrolled(true);
-      return;
-    }
-    const onScroll = () => setScrolled(window.scrollY > 32);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [variant]);
-
-  useEffect(() => {
+  const [previousPath, setPreviousPath] = useState(pathname);
+  if (previousPath !== pathname) {
+    setPreviousPath(pathname);
     setServicesOpen(false);
     setMobileOpen(false);
-  }, [pathname]);
+    setMobileServicesOpen(false);
+  }
 
   useEffect(() => {
     return () => {
@@ -117,21 +113,25 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                   </Link>
                 );
               })}
-              <div className="relative" onMouseEnter={openServicesMenu} onMouseLeave={closeServicesMenu}>
+              <div className="relative" onMouseEnter={openServicesMenu} onMouseLeave={closeServicesMenu}
+                onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false); }}
+                onKeyDown={(event) => { if (event.key === 'Escape') setServicesOpen(false); }}>
                 <div className={`flex items-center ${linkClass(servicesActive)}`}>
                   <Link href={SERVICES_GROUP.href} className="pr-1">
                     {SERVICES_GROUP.label}
                   </Link>
                   <button
                     type="button"
-                    onClick={() => {
+                    onClick={(event) => {
                       if (closeTimerRef.current) {
                         clearTimeout(closeTimerRef.current);
                         closeTimerRef.current = null;
                       }
-                      setServicesOpen((v) => !v);
+                      setServicesOpen(event.detail === 0 ? !servicesOpen : true);
                     }}
                     aria-label="Toggle Services menu"
+                    aria-expanded={servicesOpen}
+                    aria-controls="services-menu"
                     className="rounded p-1 hover:bg-white/10"
                   >
                     <svg className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -141,7 +141,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
                 </div>
 
                 {servicesOpen && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 border border-white/12 bg-[#08111d] p-2" style={{ borderRadius: '2px' }}>
+                  <div id="services-menu" className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 border border-white/12 bg-[#08111d] p-2" style={{ borderRadius: '2px' }}>
                     <p className="px-3 pb-2 pt-2 text-[10.5px] font-bold uppercase tracking-[0.22em] text-orange">Services</p>
                     <div className="space-y-0">
                       {SERVICES_GROUP.children.map((item) => {
@@ -179,7 +179,7 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
               </Link>
             </div>
 
-            <button onClick={() => setMobileOpen((v) => !v)} className="lg:hidden ml-auto -mr-2 rounded-lg p-2 text-white hover:bg-white/5" aria-label={mobileOpen ? 'Close menu' : 'Open menu'}>
+            <button onClick={() => setMobileOpen((v) => !v)} className="lg:hidden ml-auto -mr-2 rounded-lg p-2 text-white hover:bg-white/5" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileOpen} aria-controls="mobile-navigation">
               {mobileOpen ? (
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -194,21 +194,23 @@ export default function SiteNav({ variant = 'transparent' }: { variant?: 'transp
         </div>
 
         {mobileOpen && (
-          <div className="lg:hidden border-t border-white/12 bg-[#08111d]">
+          <div id="mobile-navigation" className="lg:hidden border-t border-white/12 bg-[#08111d]">
             <div className="container-pro space-y-1 py-5">
               <div className="border border-white/12 bg-white/[0.03]" style={{ borderRadius: '2px' }}>
                 <button
                   type="button"
                   onClick={() => setMobileServicesOpen((v) => !v)}
+                  aria-expanded={mobileServicesOpen}
+                  aria-controls="mobile-services"
                   className={`flex w-full items-center justify-between px-3 py-3 text-left text-base font-medium transition-colors ${servicesActive ? 'text-white' : 'text-white/85 hover:text-orange'}`}
                 >
-                  <span>Find Your Path</span>
+                  <span>Services</span>
                   <svg className={`h-5 w-5 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="m19 9-7 7-7-7" />
                   </svg>
                 </button>
                 {mobileServicesOpen && (
-                  <div className="space-y-1 px-2 pb-2">
+                  <div id="mobile-services" className="space-y-1 px-2 pb-2">
                     {SERVICES_GROUP.children.map((item) => {
                       const active = pathname === item.href;
                       return (

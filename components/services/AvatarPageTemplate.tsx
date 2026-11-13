@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 import { useState } from 'react';
 import SiteNav from '@/components/SiteNav';
@@ -321,9 +322,9 @@ export default function AvatarPageTemplate({ data }: { data: AvatarPageData }) {
             Southern Cities can help you choose the right next step before you lose time, spend in the wrong place, or push a project forward too casually.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
+            <Link href="/services" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
               Back to All Services
-            </a>
+            </Link>
             {data.recurring?.length ? (
               <a href="/recurring-support" className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-navy transition hover:border-orange hover:text-orange">
                 Review Monthly Support Plans

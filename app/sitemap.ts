@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
     { url: `${baseUrl}/services`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/services/all`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/deal-pack`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/contracting`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/recurring-support`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
@@ -34,14 +35,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
   ];
-
-  // All /services/{role} avatar pages
-  const avatarRoutes: MetadataRoute.Sitemap = avatarPages.map((avatar) => ({
-    url: `${baseUrl}/services/${avatar.slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.85,
-  }));
 
   // All /services/{avatar}/{service} dynamic service detail pages
   const serviceDetailRoutes: MetadataRoute.Sitemap = avatarPages.flatMap((avatar) => {
@@ -97,7 +90,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes,
-    ...avatarRoutes,
     ...serviceDetailRoutes,
     ...pricingRoutes,
     ...reviewRoutes,

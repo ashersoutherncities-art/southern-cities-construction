@@ -21,11 +21,12 @@ const STATUS_COLOR: Record<CdDeskReviewStatus, string> = {
   canceled: 'bg-stone-200 text-stone-600',
 };
 
-export default async function DeskReviewsAdminPage({
-  searchParams,
-}: {
-  searchParams?: { status?: string };
-}) {
+export default async function DeskReviewsAdminPage(
+  props: {
+    searchParams?: Promise<{ status?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const expectedKey = process.env.CD_DESK_REVIEW_ADMIN_KEY || process.env.MARKETING_PORTAL_ACCESS_KEY;
 
   if (!expectedKey) {
@@ -43,7 +44,7 @@ export default async function DeskReviewsAdminPage({
     );
   }
 
-  if (!hasPortalAccess(process.env.CD_DESK_REVIEW_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY)) {
+  if (!(await hasPortalAccess(process.env.CD_DESK_REVIEW_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY))) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

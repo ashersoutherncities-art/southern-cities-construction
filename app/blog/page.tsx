@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
@@ -106,7 +107,7 @@ export default function BlogIndexPage() {
               </span>
             </div>
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-stone-100">
-              <img
+              <Image fill sizes="(min-width: 1024px) 50vw, 100vw"
                 src={featured.coverImage}
                 alt=""
                 className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
@@ -146,7 +147,7 @@ export default function BlogIndexPage() {
                   Browse Services
                 </Link>
                 <Link
-                  href="/#contact"
+                  href="/start"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.06] hover:bg-white/[0.12] px-6 py-3.5 text-sm font-semibold text-white transition-colors"
                 >
                   Request a Quote

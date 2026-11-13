@@ -1,6 +1,7 @@
 "use client";
 
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { buildCartHref, CART_PRODUCTS, parseCartParam } from '@/lib/cart';
 import { getCartParamFromCookie, setCartParamCookie } from '@/lib/cart-client';
 
@@ -33,6 +34,7 @@ export default function AddToCartButton({
   mode = 'continue',
   lpSlug,
 }: AddToCartButtonProps) {
+  const router = useRouter();
   const [justAdded, setJustAdded] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -53,7 +55,7 @@ export default function AddToCartButton({
         const directHref = buildCartHref([{ key: itemKey, quantity: 1 }]);
         const separator = directHref.includes('?') ? '&' : '?';
         const fromParam = lpSlug ? `&from=${encodeURIComponent(lpSlug)}` : '';
-        window.location.assign(`${directHref}${separator}lp=1${fromParam}`);
+        router.push(`${directHref}${separator}lp=1${fromParam}`);
         return;
       }
 
@@ -84,7 +86,7 @@ export default function AddToCartButton({
       }
 
       if (mode === 'checkout') {
-        window.location.assign('/cart');
+        router.push('/cart');
         return;
       }
 
@@ -93,7 +95,7 @@ export default function AddToCartButton({
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => setJustAdded(false), 1800);
     },
-    [itemKey, mode, lpSlug]
+    [itemKey, mode, lpSlug, router]
   );
 
   return (

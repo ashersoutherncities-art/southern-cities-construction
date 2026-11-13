@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import SiteFooter from '@/components/SiteFooter';
 import SiteNav from '@/components/SiteNav';
 import { getServiceClient } from '@/lib/supabase';
@@ -7,9 +8,9 @@ import { updateRehabSnapshotLeadStatusAction } from './actions';
 export const dynamic = 'force-dynamic';
 
 type PageProps = {
-  searchParams?: {
+  searchParams?: Promise<{
     key?: string;
-  };
+  }>;
 };
 
 function currency(value: number) {
@@ -48,7 +49,7 @@ export default async function RehabBudgetSnapshotsAdminPage(_props: PageProps) {
     );
   }
 
-  if (!hasPortalAccess(process.env.REHAB_SNAPSHOT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY)) {
+  if (!(await hasPortalAccess(process.env.REHAB_SNAPSHOT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY))) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />
@@ -138,12 +139,12 @@ export default async function RehabBudgetSnapshotsAdminPage(_props: PageProps) {
               Review every Rehab Budget Range & Execution Risk Snapshot submission, delivery status, confidence signal, and follow-up stage from one internal dashboard.
             </p>
           </div>
-          <a
+          <Link
             href="/lp/rehab-budget-range-execution-risk-snapshot"
             className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-navy-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy"
           >
             Open public landing page
-          </a>
+          </Link>
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-4">

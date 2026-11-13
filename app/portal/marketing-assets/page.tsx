@@ -18,9 +18,9 @@ import {
 export const dynamic = 'force-dynamic';
 
 type PageProps = {
-  searchParams?: {
+  searchParams?: Promise<{
     key?: string;
-  };
+  }>;
 };
 
 const INDUSTRY_UPDATES = [
@@ -134,7 +134,7 @@ export default async function MarketingAssetsPage(_props: PageProps) {
     );
   }
 
-  if (!hasPortalAccess(expectedKey)) {
+  if (!(await hasPortalAccess(expectedKey))) {
     return (
       <main className="min-h-screen bg-stone-50">
         <SiteNav variant="solid" />

@@ -24,8 +24,8 @@ import {
 import { signBidComparisonToken } from '@/lib/gc-procurement-token';
 import { sendBidComparisonReadyToGhl } from '@/lib/ghl';
 
-function authorized(): boolean {
-  return hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY);
+async function authorized(): Promise<boolean> {
+  return (await hasPortalAccess(process.env.CD_PROCUREMENT_ADMIN_KEY, process.env.MARKETING_PORTAL_ACCESS_KEY));
 }
 
 function str(formData: FormData, key: string): string | null {
@@ -38,7 +38,7 @@ function revalidate(bidPackageId: string) {
 }
 
 export async function addLineItemAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const bidPackageId = String(formData.get('bid_package_id') || '');
   const description = str(formData, 'description');
   if (!bidPackageId || !description) return;
@@ -60,7 +60,7 @@ export async function addLineItemAction(formData: FormData) {
 }
 
 export async function deleteLineItemAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const id = String(formData.get('id') || '');
   const bidPackageId = String(formData.get('bid_package_id') || '');
   if (!id) return;
@@ -70,7 +70,7 @@ export async function deleteLineItemAction(formData: FormData) {
 }
 
 export async function inviteContractorAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const bidPackageId = String(formData.get('bid_package_id') || '');
   const contractorId = String(formData.get('contractor_id') || '');
   if (!bidPackageId || !contractorId) return;
@@ -81,7 +81,7 @@ export async function inviteContractorAction(formData: FormData) {
 }
 
 export async function setInvitationStatusAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const id = String(formData.get('id') || '');
   const bidPackageId = String(formData.get('bid_package_id') || '');
   const status = String(formData.get('status') || '') as InviteStatus;
@@ -96,7 +96,7 @@ export async function setInvitationStatusAction(formData: FormData) {
 // else in this repo; only Bid Package DRAWINGS/SPECS need the signed-URL
 // bypass since proposal PDFs are typically a few pages).
 export async function addProposalAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const bidPackageId = String(formData.get('bid_package_id') || '');
   const totalAmount = Number(formData.get('total_amount') || 0);
   const file = formData.get('original_document');
@@ -136,7 +136,7 @@ export async function addProposalAction(formData: FormData) {
 }
 
 export async function setProposalStatusAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const id = String(formData.get('id') || '');
   const bidPackageId = String(formData.get('bid_package_id') || '');
   const status = String(formData.get('status') || '') as ProposalStatus;
@@ -147,7 +147,7 @@ export async function setProposalStatusAction(formData: FormData) {
 }
 
 export async function toggleProposalTagAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const proposalId = String(formData.get('proposal_id') || '');
   const bidPackageId = String(formData.get('bid_package_id') || '');
   const tag = String(formData.get('tag') || '') as ProposalTag;
@@ -160,7 +160,7 @@ export async function toggleProposalTagAction(formData: FormData) {
 }
 
 export async function moveToComparingAction(formData: FormData) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const bidPackageId = String(formData.get('bid_package_id') || '');
   if (!bidPackageId) return;
   const supabase = getServiceClient();
@@ -192,7 +192,7 @@ export async function createBidPackageUploadUrlAction(
   bidPackageId: string,
   fileName: string
 ): Promise<{ signedUrl: string; token: string; path: string } | { error: string }> {
-  if (!authorized()) return { error: 'unauthorized' };
+  if (!(await authorized())) return { error: 'unauthorized' };
   const supabase = getServiceClient();
   const safeName = fileName.replace(/[^a-z0-9.\-_]+/gi, '_').slice(0, 80);
   const path = `${bidPackageId}/${Date.now()}-${safeName}`;
@@ -207,7 +207,7 @@ export async function recordBidPackageDocumentAction(input: {
   path: string;
   fileType: string;
 }) {
-  if (!authorized()) return;
+  if (!(await authorized())) return;
   const supabase = getServiceClient();
   await recordBidPackageDocument(supabase, {
     bid_package_id: input.bidPackageId,

@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 
@@ -25,84 +26,83 @@ const initialForm = {
 const inputBase =
   'w-full rounded-xl border border-navy/12 bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:border-orange/60 focus:bg-white transition-colors';
 
+function formForQuery(params: Pick<URLSearchParams, 'get'>) {
+  const item = params.get('item');
+  const amount = params.get('amount');
+  const defaults: Record<string, { amount: string; scope_notes: string }> = {
+    'flagship-permit-oversight': {
+      amount: amount || '4500',
+      scope_notes: 'Permit administration and construction oversight selected from cart.',
+    },
+    'permit-management-service': {
+      amount: amount || '1499',
+      scope_notes: 'Permit administration service selected from cart.',
+    },
+    'pre-listing-renovation': {
+      amount: amount || '5000',
+      scope_notes: 'Pre-listing renovation selected from cart.',
+    },
+    'inspection-response-service': {
+      amount: amount || '299',
+      scope_notes: 'Inspection response service selected from cart.',
+    },
+    'home-assessment': {
+      amount: amount || '299',
+      scope_notes: 'Home assessment selected from cart.',
+    },
+    'realtor-inspection-review': {
+      amount: amount || '299',
+      scope_notes: 'Realtor inspection review selected from cart.',
+    },
+    'investor-review': {
+      amount: amount || '499',
+      scope_notes: 'Investor deal and scope review selected from cart.',
+    },
+    'permit-local-compliance-review': {
+      amount: amount || '399',
+      scope_notes: 'Permit and local compliance review selected from cart.',
+    },
+    'budget-review': {
+      amount: amount || '599',
+      scope_notes: 'Budget & scope review selected from cart.',
+    },
+    'draw-review-support': {
+      amount: amount || '599',
+      scope_notes: 'Draw management selected from cart.',
+    },
+    'owner-consultation': {
+      amount: amount || '349',
+      scope_notes: 'Owner consultation selected from cart.',
+    },
+    'contractor-fit-consultation': {
+      amount: amount || '349',
+      scope_notes: 'Contractor fit consultation selected from cart.',
+    },
+  };
+
+
+  const selected = item ? defaults[item] : null;
+  return selected && item ? { ...initialForm, item, ...selected } : initialForm;
+}
+
 export default function PortalPage() {
+  return <Suspense fallback={<div role="status">Loading…</div>}><PortalContent /></Suspense>;
+}
+
+function PortalContent() {
+  const params = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginSubmitted, setLoginSubmitted] = useState(false);
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState(() => formForQuery(params));
   const [checkoutState, setCheckoutState] = useState<'idle' | 'loading' | 'error'>('idle');
   const [checkoutMessage, setCheckoutMessage] = useState('');
-  const [completionMessage, setCompletionMessage] = useState('');
+  const [completionMessage, setCompletionMessage] = useState(() => params.get('checkout') === 'cancelled' ? 'Checkout was cancelled before payment completed.' : '');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const status = params.get('checkout');
     const sessionId = params.get('session_id');
-    const item = params.get('item');
-    const amount = params.get('amount');
-
-    if (item) {
-      const defaults: Record<string, { amount: string; scope_notes: string }> = {
-        'flagship-permit-oversight': {
-          amount: amount || '4500',
-          scope_notes: 'Permit administration and construction oversight selected from cart.',
-        },
-        'permit-management-service': {
-          amount: amount || '1499',
-          scope_notes: 'Permit administration service selected from cart.',
-        },
-        'pre-listing-renovation': {
-          amount: amount || '5000',
-          scope_notes: 'Pre-listing renovation selected from cart.',
-        },
-        'inspection-response-service': {
-          amount: amount || '299',
-          scope_notes: 'Inspection response service selected from cart.',
-        },
-        'home-assessment': {
-          amount: amount || '299',
-          scope_notes: 'Home assessment selected from cart.',
-        },
-        'realtor-inspection-review': {
-          amount: amount || '299',
-          scope_notes: 'Realtor inspection review selected from cart.',
-        },
-        'investor-review': {
-          amount: amount || '499',
-          scope_notes: 'Investor deal and scope review selected from cart.',
-        },
-        'permit-local-compliance-review': {
-          amount: amount || '399',
-          scope_notes: 'Permit and local compliance review selected from cart.',
-        },
-        'budget-review': {
-          amount: amount || '599',
-          scope_notes: 'Budget & scope review selected from cart.',
-        },
-        'draw-review-support': {
-          amount: amount || '599',
-          scope_notes: 'Draw management selected from cart.',
-        },
-        'owner-consultation': {
-          amount: amount || '349',
-          scope_notes: 'Owner consultation selected from cart.',
-        },
-        'contractor-fit-consultation': {
-          amount: amount || '349',
-          scope_notes: 'Contractor fit consultation selected from cart.',
-        },
-      };
-
-      const selected = defaults[item];
-      if (selected) {
-        setForm((prev) => ({
-          ...prev,
-          item,
-          amount: selected.amount,
-          scope_notes: prev.scope_notes || selected.scope_notes,
-        }));
-      }
-    }
 
     if (status === 'success' && sessionId) {
       fetch('/api/permit-oversight-checkout/complete', {
@@ -125,9 +125,6 @@ export default function PortalPage() {
         });
     }
 
-    if (status === 'cancelled') {
-      setCompletionMessage('Checkout was cancelled before payment completed.');
-    }
   }, []);
 
   async function startCheckout(e: React.FormEvent) {

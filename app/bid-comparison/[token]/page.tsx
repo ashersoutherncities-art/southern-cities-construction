@@ -25,7 +25,8 @@ function money(n: number | null) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 }
 
-export default async function BidComparisonPage({ params }: { params: { token: string } }) {
+export default async function BidComparisonPage(props: { params: Promise<{ token: string }> }) {
+  const params = await props.params;
   const verified = verifyBidComparisonToken(decodeURIComponent(params.token));
   if (!verified) {
     return (

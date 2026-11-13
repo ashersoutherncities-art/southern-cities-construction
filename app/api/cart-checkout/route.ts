@@ -30,8 +30,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
 
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return NextResponse.json({ error: 'Invalid cart body' }, { status: 400 });
+  }
   const cartItems = Array.isArray(body.cart) ? body.cart : [];
+  if (cartItems.some((item) => !item || typeof item !== 'object' || typeof item.key !== 'string' ||
+    (item.quantity !== undefined && (!Number.isSafeInteger(item.quantity) || item.quantity < 1)))) {
+    return NextResponse.json({ error: 'Invalid cart item' }, { status: 400 });
+  }
   const lineItems = getCartLineItems(cartItems);
+  if (lineItems.some((item) => !Number.isSafeInteger(item.amount) || !Number.isSafeInteger(item.quantity))) {
+    return NextResponse.json({ error: 'Invalid cart total' }, { status: 400 });
+  }
   const isolated = body.isolated === true;
   const fromLp = typeof body.fromLp === 'string' && body.fromLp.length > 0 ? body.fromLp : null;
   const projectAddress = typeof body.projectAddress === 'string' ? body.projectAddress.trim() : '';
