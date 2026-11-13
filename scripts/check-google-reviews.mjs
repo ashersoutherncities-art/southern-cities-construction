@@ -1,7 +1,7 @@
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const vm = require('node:vm');
-const ts = require('typescript');
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import ts from 'typescript';
 const source = fs.readFileSync('lib/google-reviews.ts', 'utf8');
 assert(source.includes('import "server-only"'));
 const js = ts.transpileModule(source.replace('import "server-only";', ''), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;

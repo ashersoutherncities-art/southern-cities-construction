@@ -1,7 +1,7 @@
-const ts = require('typescript');
-const fs = require('node:fs');
-const vm = require('node:vm');
-const assert = require('node:assert/strict');
+import ts from 'typescript';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
 const code = ts.transpileModule(fs.readFileSync('lib/blog.ts','utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS, esModuleInterop:true, target:ts.ScriptTarget.ES2020}}).outputText;
 const api = {};
 vm.runInNewContext(code, {exports:api, require:()=>JSON.parse(fs.readFileSync('content/blog/posts.json','utf8')), Date});
