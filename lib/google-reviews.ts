@@ -22,6 +22,14 @@ export interface PlaceSummary {
   reviews: GoogleReview[];
 }
 
+/** Google occasionally returns fewer total ratings than distinct selected reviews. */
+export function hasConsistentReviewCount(summary: PlaceSummary): boolean {
+  const uniqueReviews = new Set(summary.reviews.map((r) =>
+    `${r.authorProfileUrl || r.author}|${r.publishedAt}`
+  ));
+  return summary.userRatingCount >= uniqueReviews.size;
+}
+
 interface PlacesApiReview {
   rating: number;
   relativePublishTimeDescription: string;

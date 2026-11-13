@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {
   fetchSccGoogleReviews,
+  hasConsistentReviewCount,
   SCC_GOOGLE_MAPS_URL,
   type GoogleReview,
 } from "@/lib/google-reviews";
@@ -144,10 +145,10 @@ export default async function GoogleReviews({
               <span className={`text-sm font-semibold ${titleColor}`}>
                 {summary.rating.toFixed(1)}
               </span>
-              <span className={`text-sm ${metaColor}`}>
+              {hasConsistentReviewCount(summary) ? <span className={`text-sm ${metaColor}`}>
                 from {summary.userRatingCount} Google review
                 {summary.userRatingCount === 1 ? "" : "s"}
-              </span>
+              </span> : null}
               <GoogleG />
             </div>
           </div>
