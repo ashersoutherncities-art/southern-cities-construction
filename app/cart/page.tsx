@@ -161,7 +161,7 @@ function CartPageContent() {
             Review your selected services
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-ink/65">
-            Purchasable services route into the portal checkout flow with the selected offer preloaded. Quote-based work is handled separately through the services request form.
+            Pay for your selected services through secure Stripe checkout. Quote-based work is handled separately through the services request form.
           </p>
         </div>
 
@@ -338,10 +338,10 @@ function CartPageContent() {
                 </div>
                 <div className="flex items-baseline justify-between">
                   <span className="text-sm font-medium text-navy/65">Tax</span>
-                  <span className="text-sm text-navy/55">Calculated at checkout</span>
+                  <span className="text-sm text-navy/55">$0</span>
                 </div>
                 <div className="pt-3 border-t border-navy/[0.08] flex items-baseline justify-between">
-                  <span className="text-sm font-semibold uppercase tracking-[0.14em] text-navy/55">Total before tax</span>
+                  <span className="text-sm font-semibold uppercase tracking-[0.14em] text-navy/55">Total</span>
                   <span className="text-2xl font-extrabold text-navy-900">{formatPrice(subtotal)}</span>
                 </div>
               </div>
@@ -392,11 +392,11 @@ function CartPageContent() {
               </button>
 
               <p className="mt-4 text-[11px] leading-relaxed text-ink/55 text-center">
-                Secure checkout powered by Stripe. Billing address, phone, and payment details are collected on the next page. Sales tax (if applicable) is calculated from your billing address.
+                Secure checkout powered by Stripe. Billing address, phone, and payment details are collected on the next page. Review the final amount before paying.
               </p>
 
               <p className="mt-3 text-[11px] leading-relaxed text-ink/55">
-                Final project price may change after scope review when scope-based work is involved. Some services, including Permit Administration, collect job variables on the next page before the checkout amount is finalized.
+                Quote-based work requires a separate scope review and quote.
               </p>
             </div>
           </div>

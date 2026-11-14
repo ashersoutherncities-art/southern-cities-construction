@@ -6,14 +6,11 @@ export const runtime = 'nodejs';
 
 /**
  * Multi-item cart checkout. Takes the cart payload from /cart, builds one
- * Stripe Checkout session with one line_item per cart entry, enables
- * automatic_tax (Stripe Tax computes per billing address), and returns
+ * Stripe Checkout session with one line_item per cart entry and returns
  * the Stripe-hosted checkout URL. Stripe handles billing address, phone,
  * and email collection on its own page.
  *
- * Requires Stripe Tax to be enabled in the Stripe Dashboard. If it is not,
- * the session.create call will return an error and we surface it to the
- * client.
+ * Automatic tax is currently disabled; the cart shows the configured total.
  */
 export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
