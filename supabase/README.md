@@ -37,3 +37,12 @@ idempotent (`create table if not exists`, `add column if not exists`,
 - `leads`, `projects`, `project_scope_inputs`, `estimate_rules`, and
   `estimate_reports` — the Rehab Budget Range & Execution Risk Snapshot
   pipeline, including file uploads and PDF report delivery.
+
+For delayed payment methods, the Stripe endpoint must also subscribe to
+`checkout.session.async_payment_succeeded` alongside completion, expiration,
+async failure, and refund events. Keep sandbox endpoints separate from live endpoints.
+
+`server_only_grants.sql` removes client-role grants from existing server-only
+tables and makes `contractors_public` use the caller's row-level security.
+It preserves service-role access and skips tables absent from a preview branch.
+Apply it alongside the delivery-lease migration during rollout.

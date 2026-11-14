@@ -6,14 +6,11 @@ export const runtime = 'nodejs';
 
 /**
  * Multi-item cart checkout. Takes the cart payload from /cart, builds one
- * Stripe Checkout session with one line_item per cart entry, enables
- * automatic_tax (Stripe Tax computes per billing address), and returns
+ * Stripe Checkout session with one line_item per cart entry and returns
  * the Stripe-hosted checkout URL. Stripe handles billing address, phone,
  * and email collection on its own page.
  *
- * Requires Stripe Tax to be enabled in the Stripe Dashboard. If it is not,
- * the session.create call will return an error and we surface it to the
- * client.
+ * Automatic tax is currently disabled; the cart shows the configured total.
  */
 export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
@@ -50,6 +47,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
   }
 
+  if (lineItems.some(line => ['deal-pack-bid-ready','deal-pack-build-ready'].includes(line.key)) && !projectAddress) {
+    return NextResponse.json({error:'Property address is required for Deal Pack purchases'}, {status:400});
+  }
+
   const stripe = new Stripe(stripeSecretKey, {
     apiVersion: '2026-03-25.dahlia',
   });
@@ -73,7 +74,7 @@ export async function POST(req: NextRequest) {
       automatic_tax: { enabled: false },
       billing_address_collection: 'required',
       phone_number_collection: { enabled: true },
-      success_url: `${baseUrl}/portal?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${baseUrl}/checkout/complete?session_id={CHECKOUT_SESSION_ID}`,
       // Preserve the cart param on cancel so the customer returns to the
       // ISOLATED cart view (no main-site nav), not the global cart. Without
       // this param the cart page falls back to non-isolated chrome and
@@ -91,6 +92,7 @@ export async function POST(req: NextRequest) {
           .map((l) => `${l.key}:${l.amount}:${l.quantity}`)
           .join(','),
         flow: 'multi-item-cart',
+        workflow: 'cart',
         project_address: projectAddress,
       },
     });

@@ -155,7 +155,8 @@ export async function hasProcessedStripeEvent(
 
 export async function findOrderByStripeSession(
   sessionId: string,
-  client?: SupabaseClient
+  client?: SupabaseClient,
+  strict = false
 ): Promise<OrderRow | null> {
   const supabase = client ?? getServiceClient();
   const { data, error } = await supabase
@@ -165,6 +166,7 @@ export async function findOrderByStripeSession(
     .maybeSingle();
   if (error) {
     console.error('orders lookup error:', error);
+    if (strict) throw new Error('Order lookup failed');
     return null;
   }
   return (data as OrderRow | null) ?? null;

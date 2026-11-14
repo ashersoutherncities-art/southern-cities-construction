@@ -21,7 +21,7 @@ function request(body: unknown) {
 
 describe('checkout boundary', () => {
   it('charges the server catalog price even when the browser supplies a lower amount', async () => {
-    const result = await POST(request({ cart: [{ key: 'deal-pack-bid-ready', amount: 1 }] }));
+    const result = await POST(request({ cart: [{ key: 'deal-pack-bid-ready', amount: 1 }], projectAddress: 'TEST ONLY property' }));
     expect(result.status).toBe(200);
     expect(stripe.create).toHaveBeenCalledWith(expect.objectContaining({
       line_items: [expect.objectContaining({ quantity: 1, price_data: expect.objectContaining({ unit_amount: 59900 }) })],
@@ -29,7 +29,7 @@ describe('checkout boundary', () => {
   });
 
   it('keeps quantity and isolated return navigation in the Stripe request', async () => {
-    await POST(request({ cart: [{ key: 'deal-pack-bid-ready', quantity: 2 }], isolated: true, fromLp: 'realtor-deal-pack' }));
+    await POST(request({ cart: [{ key: 'deal-pack-bid-ready', quantity: 2 }], projectAddress: 'TEST ONLY property', isolated: true, fromLp: 'realtor-deal-pack' }));
     expect(stripe.create).toHaveBeenCalledWith(expect.objectContaining({
       line_items: [expect.objectContaining({ quantity: 2, price_data: expect.objectContaining({ unit_amount: 59900 }) })],
       cancel_url: expect.stringContaining('&lp=1&from=realtor-deal-pack'),
@@ -52,6 +52,11 @@ describe('checkout boundary', () => {
 
   it('returns an error when Stripe does not provide a checkout destination', async () => {
     stripe.create.mockResolvedValue({});
-    expect((await POST(request({ cart: [{ key: 'deal-pack-bid-ready' }] }))).status).toBe(502);
+    expect((await POST(request({ cart: [{ key: 'deal-pack-bid-ready' }], projectAddress: 'TEST ONLY property' }))).status).toBe(502);
   });
+});
+
+it.each([undefined, '', '   '])('requires a Deal Pack address on the server: %s', async (projectAddress) => {
+ expect((await POST(request({cart:[{key:'deal-pack-bid-ready'}],projectAddress}))).status).toBe(400);
+ expect(stripe.create).not.toHaveBeenCalled();
 });
