@@ -1,3 +1,8 @@
+import {
+  claimStripeDelivery,
+  finishStripeDelivery,
+  releaseStripeDelivery,
+} from '@/lib/stripe-delivery';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
@@ -12,9 +17,16 @@ import {
   type OrderRow,
 } from '@/lib/orders';
 import { tryGetServiceClient } from '@/lib/supabase';
-import { isDealPackProduct, mirrorOrderToHub, mirrorRealtorReviewToHub, provisionDealPackPortal, reviewTypeForProduct } from '@/lib/hub-orders';
+import {
+  isDealPackProduct,
+  mirrorOrderToHub,
+  mirrorRealtorReviewToHub,
+  provisionDealPackPortal,
+  reviewTypeForProduct,
+} from '@/lib/hub-orders';
 
 export const runtime = 'nodejs';
+export const maxDuration = 300;
 
 export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
@@ -22,7 +34,10 @@ export async function POST(req: NextRequest) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
   if (!stripeSecretKey || !webhookSecret) {
-    return NextResponse.json({ error: 'Stripe webhook is not configured' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Stripe webhook is not configured' },
+      { status: 500 }
+    );
   }
 
   const stripe = new Stripe(stripeSecretKey, {
@@ -33,7 +48,10 @@ export async function POST(req: NextRequest) {
   const signature = (await headers()).get('stripe-signature');
 
   if (!signature) {
-    return NextResponse.json({ error: 'Missing Stripe signature' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Missing Stripe signature' },
+      { status: 400 }
+    );
   }
 
   let event: Stripe.Event;
@@ -45,7 +63,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
+  const supported = new Set([
+    'checkout.session.completed',
+    'checkout.session.async_payment_succeeded',
+    'checkout.session.expired',
+    'checkout.session.async_payment_failed',
+    'charge.refunded',
+  ]);
+  if (!supported.has(event.type))
+    return NextResponse.json({ received: true, ignored: true });
   const supabase = tryGetServiceClient();
+  if (!supabase)
+    return NextResponse.json(
+      { error: 'Order storage is not configured' },
+      { status: 503 }
+    );
+  let deliveryToken: string | null = null;
+  let completedOrderId: number | null = null;
 
   // Idempotency: Stripe retries webhooks on slow/failed responses. If we've
   // already recorded this event_id in order_events, return 200 immediately
@@ -55,13 +89,23 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    const claim = await claimStripeDelivery(supabase, event.id, event.type);
+    if (claim.state === 'completed')
+      return NextResponse.json({ received: true, deduped: true });
+    if (claim.state === 'busy')
+      return NextResponse.json(
+        { error: 'Delivery is processing' },
+        { status: 503, headers: { 'Retry-After': '30' } }
+      );
+    deliveryToken = claim.token;
     switch (event.type) {
-      case 'checkout.session.completed': {
+      case 'checkout.session.completed':
+      case 'checkout.session.async_payment_succeeded': {
         const session = event.data.object as Stripe.Checkout.Session;
         let order: OrderRow | null = null;
 
         if (supabase) {
-          order = await findOrderByStripeSession(session.id, supabase);
+          order = await findOrderByStripeSession(session.id, supabase, true);
 
           // The multi-item cart checkout (/api/cart-checkout) never pre-creates
           // an order row the way permit-oversight-checkout does -- it has no
@@ -71,40 +115,59 @@ export async function POST(req: NextRequest) {
           // real row instead of silently no-op'ing (this was the gap: Deal
           // Pack / Bid-Ready purchases never showed up in the Hub Orders tab).
           if (!order && session.metadata?.cart_keys) {
-            const cartKeys = (session.metadata.cart_keys || '').split(',').map((s) => s.trim()).filter(Boolean);
+            const cartKeys = (session.metadata.cart_keys || '')
+              .split(',')
+              .map((s) => s.trim())
+              .filter(Boolean);
             const firstKey = cartKeys[0] ?? '';
             const firstProduct = CART_PRODUCTS[firstKey] ?? null;
-            const productNames = cartKeys.map((k) => CART_PRODUCTS[k]?.name).filter(Boolean).join(' + ');
+            const productNames = cartKeys
+              .map((k) => CART_PRODUCTS[k]?.name)
+              .filter(Boolean)
+              .join(' + ');
             const billing = session.customer_details?.address;
             const billingAddress = billing
-              ? [billing.line1, billing.line2, billing.city, billing.state, billing.postal_code].filter(Boolean).join(', ')
+              ? [
+                  billing.line1,
+                  billing.line2,
+                  billing.city,
+                  billing.state,
+                  billing.postal_code,
+                ]
+                  .filter(Boolean)
+                  .join(', ')
               : null;
 
             order = await createOrder(
               {
                 workflow: 'cart',
                 product_key: firstKey,
-                product_name: productNames || firstProduct?.name || 'Cart order',
+                product_name:
+                  productNames || firstProduct?.name || 'Cart order',
                 buyer_name: session.customer_details?.name || '',
                 buyer_email: session.customer_details?.email || '',
                 buyer_phone: session.customer_details?.phone || null,
                 billing_address: billingAddress,
                 project_address: session.metadata?.project_address || null,
-                amount_total_cents: typeof session.amount_total === 'number' ? session.amount_total : null,
+                amount_total_cents:
+                  typeof session.amount_total === 'number'
+                    ? session.amount_total
+                    : null,
                 stripe_session_id: session.id,
                 status: 'initiated',
                 metadata: { cart_keys: session.metadata.cart_keys },
               },
               supabase
             );
+            if (!order) throw new Error('Could not persist checkout order');
             if (order) {
               await recordOrderEvent(
                 {
                   order_id: order.id,
                   event_type: 'order.created_from_webhook',
                   source: 'stripe_webhook',
-                  stripe_event_id: event.id,
-                  message: 'Order row created from the completed session — cart-checkout has no pre-payment order to find.',
+                  message:
+                    'Order row created from the completed session — cart-checkout has no pre-payment order to find.',
                   payload: { session_id: session.id },
                 },
                 supabase
@@ -113,83 +176,148 @@ export async function POST(req: NextRequest) {
           }
 
           if (order) {
-            const stripeCustomerId = typeof session.customer === 'string' ? session.customer : session.customer?.id ?? null;
-            const paymentIntentId = typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id ?? null;
-            await updateOrder(
+            completedOrderId = order.id;
+            if (
+              order.status === 'refunded' ||
+              (order.payment_status === 'paid' &&
+                session.payment_status !== 'paid')
+            )
+              break;
+            const stripeCustomerId =
+              typeof session.customer === 'string'
+                ? session.customer
+                : (session.customer?.id ?? null);
+            const paymentIntentId =
+              typeof session.payment_intent === 'string'
+                ? session.payment_intent
+                : (session.payment_intent?.id ?? null);
+            const savedOrder = await updateOrder(
               order.id,
               {
-                status: session.payment_status === 'paid' ? 'paid' : order.status,
+                status:
+                  session.payment_status === 'paid'
+                    ? order.status === 'partially_refunded'
+                      ? order.status
+                      : 'paid'
+                    : order.status,
                 payment_status: session.payment_status,
-                paid_at: session.payment_status === 'paid' ? (order.paid_at ?? new Date().toISOString()) : order.paid_at,
-                amount_total_cents: typeof session.amount_total === 'number' ? session.amount_total : order.amount_total_cents,
-                stripe_customer_id: stripeCustomerId ?? order.stripe_customer_id,
-                stripe_payment_intent_id: paymentIntentId ?? order.stripe_payment_intent_id,
+                paid_at:
+                  session.payment_status === 'paid'
+                    ? (order.paid_at ?? new Date().toISOString())
+                    : order.paid_at,
+                amount_total_cents:
+                  typeof session.amount_total === 'number'
+                    ? session.amount_total
+                    : order.amount_total_cents,
+                stripe_customer_id:
+                  stripeCustomerId ?? order.stripe_customer_id,
+                stripe_payment_intent_id:
+                  paymentIntentId ?? order.stripe_payment_intent_id,
               },
               supabase
             );
+            if (!savedOrder) throw new Error('Could not update checkout order');
             await recordOrderEvent(
               {
                 order_id: order.id,
-                event_type: 'stripe.checkout.session.completed',
+                event_type: `stripe.${event.type}`,
                 source: 'stripe_webhook',
-                stripe_event_id: event.id,
-                payload: { session_id: session.id, payment_status: session.payment_status },
+                payload: {
+                  session_id: session.id,
+                  payment_status: session.payment_status,
+                },
               },
               supabase
             );
 
             // Mirror the paid order into the Client Hub's orders table so it
-            // shows in the client's Orders tab. Non-fatal, idempotent.
+            // shows in the client's Orders tab. Failures remain retryable.
             if (session.payment_status === 'paid') {
               await mirrorOrderToHub({
                 buyer_email: order.buyer_email,
                 product_name: order.product_name,
-                amount_total_cents: typeof session.amount_total === 'number' ? session.amount_total : order.amount_total_cents,
+                amount_total_cents:
+                  typeof session.amount_total === 'number'
+                    ? session.amount_total
+                    : order.amount_total_cents,
                 stripe_session_id: session.id,
                 order_id: order.id,
+                status: savedOrder.status,
               });
             }
           }
         }
 
-        if (session.metadata?.workflow === 'permit_oversight' && session.payment_status === 'paid') {
-          const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-            expand: ['payment_intent', 'payment_intent.latest_charge'],
-          });
-          const paymentIntent = (fullSession.payment_intent && typeof fullSession.payment_intent !== 'string')
-            ? (fullSession.payment_intent as Stripe.PaymentIntent)
-            : null;
-          const charge = paymentIntent?.latest_charge && typeof paymentIntent.latest_charge !== 'string'
-            ? (paymentIntent.latest_charge as Stripe.Charge)
-            : null;
-          const stripeCustomerId = typeof fullSession.customer === 'string' ? fullSession.customer : fullSession.customer?.id ?? null;
+        if (
+          session.metadata?.workflow === 'permit_oversight' &&
+          session.payment_status === 'paid'
+        ) {
+          const fullSession = await stripe.checkout.sessions.retrieve(
+            session.id,
+            {
+              expand: ['payment_intent', 'payment_intent.latest_charge'],
+            }
+          );
+          const paymentIntent =
+            fullSession.payment_intent &&
+            typeof fullSession.payment_intent !== 'string'
+              ? (fullSession.payment_intent as Stripe.PaymentIntent)
+              : null;
+          const charge =
+            paymentIntent?.latest_charge &&
+            typeof paymentIntent.latest_charge !== 'string'
+              ? (paymentIntent.latest_charge as Stripe.Charge)
+              : null;
+          const stripeCustomerId =
+            typeof fullSession.customer === 'string'
+              ? fullSession.customer
+              : (fullSession.customer?.id ?? null);
 
-          const orderRes = await fetch(`${baseUrl}/api/permit-oversight-orders`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-internal-secret': process.env.INTERNAL_API_SECRET || '',
-            },
-            body: JSON.stringify({
-              buyer_name: fullSession.metadata?.buyer_name || fullSession.customer_details?.name || '',
-              buyer_email: fullSession.metadata?.buyer_email || fullSession.customer_details?.email || '',
-              buyer_phone: fullSession.metadata?.buyer_phone || fullSession.customer_details?.phone || '',
-              billing_address: fullSession.metadata?.billing_address || '',
-              project_address: fullSession.metadata?.project_address || '',
-              project_manager_role: fullSession.metadata?.project_manager_role || '',
-              project_manager_name: fullSession.metadata?.project_manager_name || '',
-              project_manager_email: fullSession.metadata?.project_manager_email || '',
-              project_manager_phone: fullSession.metadata?.project_manager_phone || '',
-              entity_type: fullSession.metadata?.entity_type || '',
-              project_timeline: fullSession.metadata?.project_timeline || '',
-              scope_notes: fullSession.metadata?.scope_notes || '',
-              payment_reference: fullSession.id,
-              amount_paid: typeof fullSession.amount_total === 'number' ? fullSession.amount_total / 100 : null,
-              stripe_customer_id: stripeCustomerId,
-              stripe_payment_intent_id: paymentIntent?.id ?? null,
-              stripe_charge_id: charge?.id ?? null,
-            }),
-          });
+          const orderRes = await fetch(
+            `${baseUrl}/api/permit-oversight-orders`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-internal-secret': process.env.INTERNAL_API_SECRET || '',
+              },
+              body: JSON.stringify({
+                buyer_name:
+                  fullSession.metadata?.buyer_name ||
+                  fullSession.customer_details?.name ||
+                  '',
+                buyer_email:
+                  fullSession.metadata?.buyer_email ||
+                  fullSession.customer_details?.email ||
+                  '',
+                buyer_phone:
+                  fullSession.metadata?.buyer_phone ||
+                  fullSession.customer_details?.phone ||
+                  '',
+                billing_address: fullSession.metadata?.billing_address || '',
+                project_address: fullSession.metadata?.project_address || '',
+                project_manager_role:
+                  fullSession.metadata?.project_manager_role || '',
+                project_manager_name:
+                  fullSession.metadata?.project_manager_name || '',
+                project_manager_email:
+                  fullSession.metadata?.project_manager_email || '',
+                project_manager_phone:
+                  fullSession.metadata?.project_manager_phone || '',
+                entity_type: fullSession.metadata?.entity_type || '',
+                project_timeline: fullSession.metadata?.project_timeline || '',
+                scope_notes: fullSession.metadata?.scope_notes || '',
+                payment_reference: fullSession.id,
+                amount_paid:
+                  typeof fullSession.amount_total === 'number'
+                    ? fullSession.amount_total / 100
+                    : null,
+                stripe_customer_id: stripeCustomerId,
+                stripe_payment_intent_id: paymentIntent?.id ?? null,
+                stripe_charge_id: charge?.id ?? null,
+              }),
+            }
+          );
 
           if (!orderRes.ok) {
             const text = await orderRes.text();
@@ -233,19 +361,49 @@ export async function POST(req: NextRequest) {
                 ? [session.metadata.item]
                 : [];
 
+            const paidLineAmounts = new Map<string, number>();
+            if (cartKeys.length) {
+              const lines = await stripe.checkout.sessions.listLineItems(
+                session.id,
+                { limit: 100, expand: ['data.price.product'] }
+              );
+              for (const line of lines.data) {
+                const item = line.price?.product;
+                const key =
+                  item && typeof item !== 'string' && 'metadata' in item
+                    ? item.metadata.product_key
+                    : null;
+                if (key)
+                  paidLineAmounts.set(
+                    key,
+                    (paidLineAmounts.get(key) ?? 0) + line.amount_total
+                  );
+              }
+            }
             for (const productKey of productKeys) {
               const product = CART_PRODUCTS[productKey] ?? null;
-              const lineAmountCents = product?.price ?? 0;
+              const lineAmountCents =
+                paidLineAmounts.get(productKey) ?? product?.price ?? 0;
 
               // Deal Pack (either tier) opens the client's portal right now,
               // instead of waiting on a staff member. Non-fatal, idempotent.
               if (isDealPackProduct(productKey)) {
                 await provisionDealPackPortal({
-                  buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
-                  buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
+                  buyer_email:
+                    session.metadata?.buyer_email ||
+                    session.customer_details?.email ||
+                    '',
+                  buyer_name:
+                    session.metadata?.buyer_name ||
+                    session.customer_details?.name ||
+                    '',
                   project_address: session.metadata?.project_address || '',
                   product_key: productKey,
-                  amount_total_cents: cartKeys.length ? lineAmountCents : (typeof session.amount_total === 'number' ? session.amount_total : null),
+                  amount_total_cents: cartKeys.length
+                    ? lineAmountCents
+                    : typeof session.amount_total === 'number'
+                      ? session.amount_total
+                      : null,
                   stripe_session_id: session.id,
                 });
               }
@@ -255,18 +413,36 @@ export async function POST(req: NextRequest) {
               const reviewType = reviewTypeForProduct(productKey);
               if (reviewType) {
                 await mirrorRealtorReviewToHub({
-                  buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
-                  buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
+                  buyer_email:
+                    session.metadata?.buyer_email ||
+                    session.customer_details?.email ||
+                    '',
+                  buyer_name:
+                    session.metadata?.buyer_name ||
+                    session.customer_details?.name ||
+                    '',
                   review_type: reviewType,
-                  property_address: session.metadata?.project_address || session.metadata?.property_address || null,
+                  property_address:
+                    session.metadata?.project_address ||
+                    session.metadata?.property_address ||
+                    null,
                   stripe_session_id: session.id,
                 });
               }
 
               const ghlResult = await sendOrderToGhl({
-                buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
-                buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
-                buyer_phone: session.metadata?.buyer_phone || session.customer_details?.phone || '',
+                buyer_name:
+                  session.metadata?.buyer_name ||
+                  session.customer_details?.name ||
+                  '',
+                buyer_email:
+                  session.metadata?.buyer_email ||
+                  session.customer_details?.email ||
+                  '',
+                buyer_phone:
+                  session.metadata?.buyer_phone ||
+                  session.customer_details?.phone ||
+                  '',
                 product_key: productKey,
                 product_name: product?.name || '',
                 amount_paid: cartKeys.length
@@ -280,7 +456,7 @@ export async function POST(req: NextRequest) {
                 stripe_payment_intent_id:
                   typeof session.payment_intent === 'string'
                     ? session.payment_intent
-                    : session.payment_intent?.id ?? null,
+                    : (session.payment_intent?.id ?? null),
                 purchased_at: new Date().toISOString(),
               });
 
@@ -288,23 +464,38 @@ export async function POST(req: NextRequest) {
                 await recordOrderEvent(
                   {
                     order_id: order.id,
-                    event_type: ghlResult.ok ? 'ghl.contact.upserted' : 'ghl.forward.failed',
+                    event_type: ghlResult.ok
+                      ? 'ghl.contact.upserted'
+                      : 'ghl.forward.failed',
                     source: 'stripe_webhook',
                     message: ghlResult.ok
                       ? `Forwarded to GHL with tag ${ghlResult.tag}`
-                      : `GHL forward failed for ${productKey}: ${JSON.stringify(ghlResult.body).slice(0, 200)}`,
-                    payload: { contactId: ghlResult.contactId, tag: ghlResult.tag, status: ghlResult.status, productKey },
+                      : `GHL forward failed for ${productKey}: ${JSON.stringify(ghlResult.body ?? null).slice(0, 200)}`,
+                    payload: {
+                      contactId: ghlResult.contactId,
+                      tag: ghlResult.tag,
+                      status: ghlResult.status,
+                      productKey,
+                      amount_total_cents: lineAmountCents,
+                    },
                   },
                   supabase
                 );
               }
 
               if (!ghlResult.ok) {
-                console.error('GHL forward returned non-ok for', productKey, ':', ghlResult.status, ghlResult.body);
+                console.error(
+                  'GHL forward returned non-ok for',
+                  productKey,
+                  ':',
+                  ghlResult.status,
+                  ghlResult.body
+                );
               }
             }
           } catch (ghlErr) {
-            console.error('GHL forward threw (non-fatal):', ghlErr);
+            console.error('Post-purchase fulfillment failed:', ghlErr);
+            throw ghlErr;
           }
         }
 
@@ -314,23 +505,44 @@ export async function POST(req: NextRequest) {
       case 'checkout.session.async_payment_failed': {
         const session = event.data.object as Stripe.Checkout.Session;
         if (supabase) {
-          const order = await findOrderByStripeSession(session.id, supabase);
+          const order = await findOrderByStripeSession(
+            session.id,
+            supabase,
+            true
+          );
+          if (
+            !order &&
+            event.type === 'checkout.session.async_payment_failed' &&
+            session.metadata?.cart_keys
+          )
+            throw new Error('Failed payment is waiting for its checkout order');
           if (order) {
-            await updateOrder(
+            if (
+              ['paid', 'partially_refunded', 'refunded'].includes(order.status)
+            )
+              break;
+            const savedOrder = await updateOrder(
               order.id,
               {
-                status: event.type === 'checkout.session.expired' ? 'cancelled' : 'failed',
+                status:
+                  event.type === 'checkout.session.expired'
+                    ? 'cancelled'
+                    : 'failed',
                 payment_status: session.payment_status,
-                cancelled_at: event.type === 'checkout.session.expired' ? new Date().toISOString() : order.cancelled_at,
+                cancelled_at:
+                  event.type === 'checkout.session.expired'
+                    ? new Date().toISOString()
+                    : order.cancelled_at,
               },
               supabase
             );
+            if (!savedOrder) throw new Error('Could not update checkout order');
+            completedOrderId = order.id;
             await recordOrderEvent(
               {
                 order_id: order.id,
                 event_type: `stripe.${event.type}`,
                 source: 'stripe_webhook',
-                stripe_event_id: event.id,
                 payload: { session_id: session.id },
               },
               supabase
@@ -342,31 +554,69 @@ export async function POST(req: NextRequest) {
       case 'charge.refunded': {
         const charge = event.data.object as Stripe.Charge;
         if (supabase) {
-          const intentId = typeof charge.payment_intent === 'string' ? charge.payment_intent : charge.payment_intent?.id;
+          const intentId =
+            typeof charge.payment_intent === 'string'
+              ? charge.payment_intent
+              : charge.payment_intent?.id;
           if (intentId) {
-            const { data: order } = await supabase
+            const { data: order, error: refundLookupError } = await supabase
               .from('orders')
               .select('*')
               .eq('stripe_payment_intent_id', intentId)
               .maybeSingle();
+            if (refundLookupError)
+              throw new Error('Refund order lookup failed');
+            if (!order) {
+              const sessions = await stripe.checkout.sessions.list({
+                payment_intent: intentId,
+                limit: 1,
+              });
+              const linked = sessions.data[0];
+              if (
+                linked?.metadata?.cart_keys ||
+                linked?.metadata?.workflow === 'permit_oversight'
+              )
+                throw new Error('Refund is waiting for its checkout order');
+            }
             if (order) {
-              await updateOrder(
+              if (
+                order.status === 'refunded' &&
+                charge.amount_refunded !== charge.amount
+              )
+                break;
+              const savedRefund = await updateOrder(
                 order.id as number,
                 {
-                  status: charge.amount_refunded === charge.amount ? 'refunded' : 'partially_refunded',
+                  status:
+                    charge.amount_refunded === charge.amount
+                      ? 'refunded'
+                      : 'partially_refunded',
                   refunded_at: new Date().toISOString(),
                   stripe_charge_id: charge.id,
                 },
                 supabase
               );
+              if (!savedRefund)
+                throw new Error('Could not update refunded order');
+              completedOrderId = order.id as number;
+              await mirrorOrderToHub({
+                buyer_email: order.buyer_email,
+                product_name: order.product_name,
+                amount_total_cents: order.amount_total_cents,
+                stripe_session_id: order.stripe_session_id,
+                order_id: order.id,
+                status: savedRefund.status,
+              });
               await recordOrderEvent(
                 {
                   order_id: order.id as number,
                   event_type: 'stripe.charge.refunded',
                   source: 'stripe_webhook',
-                  stripe_event_id: event.id,
                   message: `Refunded ${charge.amount_refunded} of ${charge.amount} ${charge.currency}`,
-                  payload: { charge_id: charge.id, amount_refunded: charge.amount_refunded },
+                  payload: {
+                    charge_id: charge.id,
+                    amount_refunded: charge.amount_refunded,
+                  },
                 },
                 supabase
               );
@@ -379,9 +629,20 @@ export async function POST(req: NextRequest) {
         break;
     }
 
+    await finishStripeDelivery(
+      supabase,
+      event.id,
+      deliveryToken,
+      completedOrderId
+    );
     return NextResponse.json({ received: true });
   } catch (err) {
+    if (deliveryToken)
+      await releaseStripeDelivery(supabase, event.id, deliveryToken);
     console.error('Stripe webhook handling error:', err);
-    return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Webhook processing failed' },
+      { status: 500 }
+    );
   }
 }

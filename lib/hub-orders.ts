@@ -2,8 +2,8 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Mirrors a completed order into the Client Hub's `orders` table (a SEPARATE
 // Supabase project — clients.southerncitiesconstruction.com) so the hub's
-// Orders tab shows real purchases. Fire-and-forget: never breaks the Stripe
-// pipeline. Idempotent via a stripe_session_id existence check.
+// Orders tab shows real purchases. Required writes throw on failure so Stripe
+// can retry; the unique stripe_session_id absorbs concurrent inserts.
 
 type MirrorInput = {
   buyer_email: string;
@@ -20,7 +20,8 @@ function getHubClient(): SupabaseClient | null {
   const url = process.env.HUB_SUPABASE_URL;
   const key = process.env.HUB_SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
-  if (!hubClient) hubClient = createClient(url, key, { auth: { persistSession: false } });
+  if (!hubClient)
+    hubClient = createClient(url, key, { auth: { persistSession: false } });
   return hubClient;
 }
 
@@ -82,9 +83,12 @@ export async function mirrorRealtorReviewToHub(input: {
 // dedicated client-hub endpoint (not a raw Supabase write, unlike the
 // mirror functions above) so the real provisioning logic -- client record,
 // milestone track, default access grants, the invite email -- lives in one
-// place and can't drift between the two repos. Fire-and-forget; never
-// breaks the Stripe pipeline if client-hub is down.
-const DEAL_PACK_PRODUCT_KEYS = new Set(['deal-pack-bid-ready', 'deal-pack-build-ready']);
+// place and can't drift between the two repos. Failures propagate so a delivery
+// is completed only after required Hub provisioning succeeds.
+const DEAL_PACK_PRODUCT_KEYS = new Set([
+  'deal-pack-bid-ready',
+  'deal-pack-build-ready',
+]);
 
 export function isDealPackProduct(productKey: string): boolean {
   return DEAL_PACK_PRODUCT_KEYS.has(productKey);
@@ -101,40 +105,62 @@ export async function provisionDealPackPortal(input: {
   const base = process.env.HUB_BASE_URL;
   const secret = process.env.DEAL_PACK_WEBHOOK_SECRET;
   const email = input.buyer_email?.trim().toLowerCase();
-  if (!base || !secret || !email || !input.project_address) return;
+  if (!base || !secret || !email || !input.project_address)
+    throw new Error(
+      'Deal Pack portal provisioning is not configured or missing purchase details'
+    );
   try {
-    const res = await fetch(`${base.replace(/\/$/, '')}/api/webhooks/deal-pack-purchase`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${secret}` },
-      body: JSON.stringify({
-        clientEmail: email,
-        clientName: input.buyer_name || undefined,
-        address: input.project_address,
-        productKey: input.product_key,
-        amountPaidCents: input.amount_total_cents,
-        stripeSessionId: input.stripe_session_id,
-      }),
-    });
+    const res = await fetch(
+      `${base.replace(/\/$/, '')}/api/webhooks/deal-pack-purchase`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${secret}`,
+        },
+        body: JSON.stringify({
+          clientEmail: email,
+          clientName: input.buyer_name || undefined,
+          address: input.project_address,
+          productKey: input.product_key,
+          amountPaidCents: input.amount_total_cents,
+          stripeSessionId: input.stripe_session_id,
+        }),
+      }
+    );
     if (!res.ok) {
-      console.error('provisionDealPackPortal failed (non-fatal):', res.status, await res.text().catch(() => ''));
+      throw new Error(`Deal Pack portal provisioning failed: ${res.status}`);
     }
   } catch (err) {
-    console.error('provisionDealPackPortal threw (non-fatal):', err);
+    console.error('provisionDealPackPortal failed:', err);
+    throw err;
   }
 }
 
 export async function mirrorOrderToHub(input: MirrorInput): Promise<void> {
   const client = getHubClient();
   const email = input.buyer_email?.trim().toLowerCase();
-  if (!client || !email) return;
-  try {
-    const { data: existing } = await client
-      .from('orders')
-      .select('id')
-      .eq('stripe_session_id', input.stripe_session_id)
-      .maybeSingle();
-    if (existing) return; // already mirrored
-    await client.from('orders').insert({
+  if (!client || !email)
+    throw new Error('Hub order storage is not configured or missing buyer');
+  const existing = await client
+    .from('orders')
+    .select('id')
+    .eq('stripe_session_id', input.stripe_session_id)
+    .maybeSingle();
+  if (existing.error) throw new Error('Hub order lookup failed');
+  if (existing.data) {
+    if (input.status) {
+      const updated = await client
+        .from('orders')
+        .update({ status: input.status })
+        .eq('id', existing.data.id);
+      if (updated.error) throw new Error('Hub order status update failed');
+    }
+    return;
+  }
+  const inserted = await client
+    .from('orders')
+    .insert({
       client_email: email,
       order_number: `SCC-${input.order_id}`,
       item: input.product_name || 'Order',
@@ -142,7 +168,6 @@ export async function mirrorOrderToHub(input: MirrorInput): Promise<void> {
       status: input.status ?? 'paid',
       stripe_session_id: input.stripe_session_id,
     });
-  } catch (err) {
-    console.error('mirrorOrderToHub failed (non-fatal):', err);
-  }
+  if (inserted.error && inserted.error.code !== '23505')
+    throw new Error('Hub order insert failed');
 }
