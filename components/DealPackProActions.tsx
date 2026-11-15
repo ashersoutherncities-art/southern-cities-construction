@@ -12,6 +12,7 @@ import { useState } from 'react';
 export default function DealPackProActions() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [projectAddress, setProjectAddress] = useState('');
   const [reordering, setReordering] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -41,7 +42,7 @@ export default function DealPackProActions() {
       const res = await fetch('/api/deal-pack/pro-reorder', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, projectAddress }),
       });
       const data = await res.json();
       if (res.ok && data.url) {
@@ -73,6 +74,7 @@ export default function DealPackProActions() {
           Used your 2 included Bid-Readys this month? Reorder at your $399 member rate — enter the email on your membership.
         </p>
         <form onSubmit={reorder} className="mt-3 flex flex-col gap-2">
+          <input aria-label="Deal Pack property address (optional)" value={projectAddress} onChange={e=>setProjectAddress(e.target.value)} placeholder="Property address (optional)" className="min-h-[44px] rounded-lg border border-white/20 bg-white/[0.06] px-3.5 text-sm text-white placeholder:text-white/40" />
           <input
             type="email"
             required

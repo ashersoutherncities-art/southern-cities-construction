@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { prepareDealPackPurchase } from '@/lib/deal-pack/purchase-agreement';
 import { CART_PRODUCTS } from '@/lib/cart';
 import { createOrder, recordOrderEvent, updateOrder } from '@/lib/orders';
 import { tryGetServiceClient } from '@/lib/supabase';
@@ -37,6 +38,10 @@ export async function POST(request: NextRequest) {
       item,
     } = body;
 
+    const selectedProduct = CART_PRODUCTS[item] ?? CART_PRODUCTS['flagship-permit-oversight'];
+    if(['deal-pack-bid-ready','deal-pack-build-ready'].includes(selectedProduct.key)) {
+      return NextResponse.json(await prepareDealPackPurchase({items:[{key:selectedProduct.key,name:selectedProduct.name,description:selectedProduct.description.slice(0,2000),unitAmount:selectedProduct.price,quantity:1}],projectAddress:typeof project_address==='string'?project_address:'',cancelPath:`/cart?cart=${selectedProduct.key}`}));
+    }
     if (!buyer_name || !buyer_email || !project_address || !project_manager_role) {
       return NextResponse.json(
         { error: 'Buyer name, buyer email, project address, and project manager role are required.' },
@@ -44,7 +49,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const selectedProduct = CART_PRODUCTS[item] ?? CART_PRODUCTS['flagship-permit-oversight'];
     const unitAmount = selectedProduct.price;
     const workflow =
       selectedProduct.key === 'flagship-permit-oversight' || selectedProduct.key === 'permit-management-service'

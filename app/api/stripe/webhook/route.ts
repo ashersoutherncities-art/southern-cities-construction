@@ -7,6 +7,7 @@ import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { CART_PRODUCTS } from '@/lib/cart';
+import { confirmDealPackAgreementPayment,confirmDealPackRefund } from '@/lib/deal-pack/purchase-agreement';
 import { sendOrderToGhl, tagMembershipInGhl } from '@/lib/ghl';
 import {
   createOrder,
@@ -102,6 +103,7 @@ export async function POST(req: NextRequest) {
       case 'checkout.session.completed':
       case 'checkout.session.async_payment_succeeded': {
         const session = event.data.object as Stripe.Checkout.Session;
+        if(session.payment_status==='paid')await confirmDealPackAgreementPayment(session);
         let order: OrderRow | null = null;
 
         if (supabase) {
@@ -144,8 +146,8 @@ export async function POST(req: NextRequest) {
                 product_key: firstKey,
                 product_name:
                   productNames || firstProduct?.name || 'Cart order',
-                buyer_name: session.customer_details?.name || '',
-                buyer_email: session.customer_details?.email || '',
+                buyer_name: session.metadata?.buyer_name || session.customer_details?.name || '',
+                buyer_email: session.metadata?.buyer_email || session.customer_details?.email || '',
                 buyer_phone: session.customer_details?.phone || null,
                 billing_address: billingAddress,
                 project_address: session.metadata?.project_address || null,
@@ -387,7 +389,7 @@ export async function POST(req: NextRequest) {
 
               // Deal Pack (either tier) opens the client's portal right now,
               // instead of waiting on a staff member. Non-fatal, idempotent.
-              if (isDealPackProduct(productKey)) {
+              if (isDealPackProduct(productKey) && !session.metadata?.purchase_intent_id) {
                 await provisionDealPackPortal({
                   buyer_email:
                     session.metadata?.buyer_email ||
@@ -579,6 +581,7 @@ export async function POST(req: NextRequest) {
                 throw new Error('Refund is waiting for its checkout order');
             }
             if (order) {
+              if(order.stripe_session_id)await confirmDealPackRefund(order.stripe_session_id);
               if (
                 order.status === 'refunded' &&
                 charge.amount_refunded !== charge.amount

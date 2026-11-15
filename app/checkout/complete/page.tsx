@@ -63,7 +63,7 @@ export default async function CheckoutComplete({
           {fullyRefunded
             ? 'This payment has been refunded. Contact our team if you have questions about the order.'
             : paid
-              ? 'Thank you. Your order is being prepared. For a Deal Pack purchase, check your email for portal access and project updates.'
+              ? 'Thank you. For a Deal Pack purchase, open your Hub to use your credit. Any property entered at checkout carries into the intake. Submit the property when ready; purchase alone does not start work.'
               : session
                 ? 'Your payment has not completed. No paid confirmation has been issued. You can return to your cart or contact us for help.'
                 : 'We could not confirm this checkout. Contact orders@southerncitiesconstruction.com if you need help with a payment.'}
@@ -88,7 +88,7 @@ export default async function CheckoutComplete({
         <div className="mt-8 flex flex-wrap gap-4">
           {paid && (
             <a
-              href={hub}
+              href={session?.metadata?.purchase_intent_id ? `${hub.replace(/\/$/,'')}/purchase/deal-pack/${session.metadata.purchase_intent_id}?session_id=${encodeURIComponent(session.id)}` : hub}
               className="rounded-xl bg-orange px-5 py-3 font-semibold text-white"
             >
               Open Client Hub

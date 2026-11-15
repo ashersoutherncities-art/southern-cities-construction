@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getCartLineItems, type CartSelection } from '@/lib/cart';
+import { prepareDealPackPurchase } from '@/lib/deal-pack/purchase-agreement';
 
 export const runtime = 'nodejs';
 
@@ -47,15 +48,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
   }
 
-  if (lineItems.some(line => ['deal-pack-bid-ready','deal-pack-build-ready'].includes(line.key)) && !projectAddress) {
-    return NextResponse.json({error:'Property address is required for Deal Pack purchases'}, {status:400});
-  }
+
 
   const stripe = new Stripe(stripeSecretKey, {
     apiVersion: '2026-03-25.dahlia',
   });
 
   try {
+    if(lineItems.some(line=>['deal-pack-bid-ready','deal-pack-build-ready'].includes(line.key))) {
+      return NextResponse.json(await prepareDealPackPurchase({items:lineItems.map(line=>({key:line.key,name:line.product.name,description:line.product.description.slice(0,2000),unitAmount:Math.round(line.amount/line.quantity),quantity:line.quantity})),projectAddress,
+        cancelPath:`/cart?cart=${encodeURIComponent(lineItems.map(line=>line.quantity>1?`${line.key}::${line.quantity}`:line.key).join(','))}${isolated?'&lp=1':''}${fromLp?`&from=${encodeURIComponent(fromLp)}`:''}`}));
+    }
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: lineItems.map((line) => ({

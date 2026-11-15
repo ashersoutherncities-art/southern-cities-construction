@@ -101,11 +101,6 @@ function CartPageContent() {
 
   async function startCheckout() {
     if (!lineItems.length) return;
-    if (needsProjectAddress && !projectAddress.trim()) {
-      setCheckoutState('error');
-      setCheckoutError('Property address is required for Deal Pack / Bid-Ready — add it above before checking out.');
-      return;
-    }
     setCheckoutState('loading');
     setCheckoutError('');
     try {
@@ -349,11 +344,12 @@ function CartPageContent() {
               {needsProjectAddress ? (
                 <div className="mt-6 pt-5 border-t border-navy/[0.08]">
                   <label htmlFor="project-address" className="block text-sm font-semibold text-navy-900">
-                    Property address
+                    Property address (optional)
                   </label>
                   <p className="mt-1 text-xs text-ink/55">
-                    Deal Pack is tied to one property — we use this to schedule the walk and tag everything downstream.
+                    Buy your Deal Pack credit now. Add a property here to carry it into your Hub intake, or choose one after purchase.
                   </p>
+                  <p className="mt-2 text-xs text-ink/65">Next, sign in to your Hub account to review the purchase agreement. Your saved LLC and authorized signer fill automatically. No payment starts until you accept the scope, fee and cancellation terms.</p>
                   <input
                     id="project-address"
                     type="text"
@@ -383,7 +379,7 @@ function CartPageContent() {
                 disabled={checkoutState === 'loading'}
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange hover:bg-orange-500 px-6 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-glow-orange transition-colors disabled:opacity-60 disabled:cursor-wait"
               >
-                {checkoutState === 'loading' ? 'Opening secure checkout…' : 'Continue to Checkout'}
+                {checkoutState === 'loading' ? 'Preparing your purchase…' : needsProjectAddress ? 'Review agreement & continue' : 'Continue to Checkout'}
                 {checkoutState !== 'loading' ? (
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
