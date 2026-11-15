@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { proPriceId, PRO_ADDITIONAL_BID_READY_CENTS } from '@/lib/deal-pack/pro';
+import { prepareDealPackPurchase } from '@/lib/deal-pack/purchase-agreement';
+import { CART_PRODUCTS } from '@/lib/cart';
 
 export const runtime = 'nodejs';
 
@@ -26,12 +28,11 @@ async function hasActiveProSubscription(stripe: Stripe, email: string, priceId: 
 
 export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   if (!stripeSecretKey) {
     return NextResponse.json({ error: 'Stripe is not configured' }, { status: 500 });
   }
 
-  let body: { email?: string; quantity?: number } = {};
+  let body: { email?: string; quantity?: number; projectAddress?: string } = {};
   try {
     body = await req.json();
   } catch {
@@ -39,6 +40,7 @@ export async function POST(req: NextRequest) {
   }
 
   const email = (body.email || '').trim().toLowerCase();
+  const projectAddress=typeof body.projectAddress==='string'?body.projectAddress.trim():'';
   if (!email || !email.includes('@')) {
     return NextResponse.json({ error: 'invalid_email', detail: 'Enter the email on your Pro membership.' }, { status: 400 });
   }
@@ -60,31 +62,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      customer_email: email,
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Additional Bid-Ready Deal Pack — Pro member rate',
-              metadata: { product_key: 'deal-pack-bid-ready-pro-member' },
-            },
-            unit_amount: PRO_ADDITIONAL_BID_READY_CENTS,
-            tax_behavior: 'exclusive',
-          },
-          quantity,
-        },
-      ],
-      automatic_tax: { enabled: false },
-      billing_address_collection: 'required',
-      metadata: { flow: 'deal-pack-pro-reorder', member_email: email, quantity: String(quantity) },
-      success_url: `${baseUrl}/portal?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/deal-pack?pro=reorder#pro`,
-    });
+    const product=CART_PRODUCTS['deal-pack-bid-ready'];
+    return NextResponse.json(await prepareDealPackPurchase({items:[{key:product.key,name:'Additional Bid-Ready Deal Pack — Pro member rate',description:product.description,unitAmount:PRO_ADDITIONAL_BID_READY_CENTS,quantity}],projectAddress,boundEmail:email,cancelPath:'/cart?cart=deal-pack-bid-ready'}));
 
-    return NextResponse.json({ url: session.url });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Stripe error';
     return NextResponse.json({ error: 'reorder_failed', detail: message }, { status: 502 });

@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { POST } from '@/app/api/stripe/webhook/route';
 const s = vi.hoisted(() => ({
+  verifyAgreement:vi.fn(),refundCredit:vi.fn(),
   construct: vi.fn(),
   processed: vi.fn(),
   create: vi.fn(),
@@ -17,6 +18,7 @@ const s = vi.hoisted(() => ({
   refundOrder: null as Record<string, unknown> | null,
   dbEnabled: true,
 }));
+vi.mock('@/lib/deal-pack/purchase-agreement',()=>({confirmDealPackAgreementPayment:s.verifyAgreement,confirmDealPackRefund:s.refundCredit}))
 vi.mock('next/headers', () => ({
   headers: async () => new Headers({ 'stripe-signature': 'synthetic' }),
 }));
@@ -218,7 +220,7 @@ it('does not regress a paid order on a late unpaid completion', async () => {
   expect((await POST(request())).status).toBe(200);
   expect(s.update).not.toHaveBeenCalled();
 });
-it('synchronizes refund status to Hub', async () => {
+it('synchronizes refund status and credit hold to Hub', async () => {
   s.construct.mockReturnValue({
     id: 'refund-event',
     type: 'charge.refunded',
@@ -232,6 +234,7 @@ it('synchronizes refund status to Hub', async () => {
     },
   });
   expect((await POST(request())).status).toBe(200);
+  expect(s.refundCredit).toHaveBeenCalledWith('synthetic-session');
   expect(s.mirror).toHaveBeenCalledWith(
     expect.objectContaining({
       status: 'refunded',
@@ -264,3 +267,10 @@ it('does not reprovision a fully refunded purchase', async () => {
   expect((await POST(request())).status).toBe(200);
   expect(s.provision).not.toHaveBeenCalled();
 });
+
+it('new agreement purchases verify fulfillment without creating a property engagement before intake',async()=>{
+ const event=structuredClone(paid);Object.assign(event.data.object.metadata,{purchase_intent_id:'qa-intent',purchase_agreement_id:'qa-agreement'});s.construct.mockReturnValue(event);expect((await POST(request())).status).toBe(200);expect(s.verifyAgreement).toHaveBeenCalled();expect(s.provision).not.toHaveBeenCalled();
+})
+it('failed agreement payment verification retries before recording orders or triggering fulfillment',async()=>{
+ s.verifyAgreement.mockRejectedValue(new Error('QA payment mismatch'));expect((await POST(request())).status).toBe(500);expect(s.create).not.toHaveBeenCalled();expect(s.provision).not.toHaveBeenCalled();expect(s.notify).not.toHaveBeenCalled();expect(s.release).toHaveBeenCalled();
+})
