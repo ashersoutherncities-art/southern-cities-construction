@@ -87,7 +87,7 @@ function CartPageContent() {
 
   const removeItem = useCallback(
     (key: string) => {
-      const nextItems = items.filter((item) => item.key !== key);
+      const nextItems = items.filter((item) => item.key !== key && (key !== 'deal-pack-bid-ready' || item.key !== 'deal-pack-site-scan'));
       setItems(nextItems);
       navigateAfterCartChange(nextItems);
     },
@@ -325,6 +325,33 @@ function CartPageContent() {
                   </div>
                 ))}
               </div>
+
+              {lineItems.some((line) => line.key === 'deal-pack-bid-ready') &&
+                !lineItems.some((line) => line.key === 'deal-pack-build-ready') ? (
+                  <label className="mt-6 flex cursor-pointer gap-3 rounded-xl border border-orange/30 bg-orange/5 p-4">
+                    <input
+                      type="checkbox"
+                      aria-label="Add Site Scan and Inspection for $699"
+                      checked={lineItems.some((line) => line.key === 'deal-pack-site-scan')}
+                      onChange={(event) => {
+                        const nextItems = event.currentTarget.checked
+                          ? [...items.filter((item) => item.key !== 'deal-pack-site-scan'), { key: 'deal-pack-site-scan' }]
+                          : items.filter((item) => item.key !== 'deal-pack-site-scan');
+                        setItems(nextItems);
+                        navigateAfterCartChange(nextItems);
+                      }}
+                      className="mt-1 h-4 w-4 shrink-0 accent-orange"
+                    />
+                    <span>
+                      <span className="block text-sm font-bold text-navy-900">Add Site Scan + Inspection · $699</span>
+                      <span className="mt-1 block text-xs leading-relaxed text-ink/65">
+                        Optional field-agent 3D LiDAR scan, video/photos and independent house inspection.
+                        We aim to schedule both visits within 24–48 hours after intake and access are ready.
+                        Your Bid-Ready delivery window begins after required site inputs are complete.
+                      </span>
+                    </span>
+                  </label>
+                ) : null}
 
               <div className="mt-6 pt-5 border-t border-navy/[0.08] space-y-2.5">
                 <div className="flex items-baseline justify-between">
