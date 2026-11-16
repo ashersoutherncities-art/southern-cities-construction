@@ -476,5 +476,162 @@
         "text": "Sources checked November 15, 2026. This is educational construction-planning guidance, not medical, legal, environmental or engineering advice. Testing and mitigation recommendations are not a complete statement of building, rental or disclosure obligations. Verify current requirements with qualified professionals and the relevant local authority."
       }
     ]
+  },
+  {
+    "slug": "rehab-draw-request-review-checklist-north-carolina",
+    "title": "Before the next rehab payment: a draw-review checklist for NC investors",
+    "excerpt": "Separate work claimed, work verified and money already paid. A practical way to review contractor payment requests without confusing progress with cash spent.",
+    "category": "Project Oversight",
+    "audience": "Investors · Owners",
+    "readTime": "6 min read",
+    "publishedAt": "2026-11-16T16:32:32.500389+00:00",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-1.jpg",
+    "status": "published",
+    "tags": [
+      "construction payments",
+      "draw review",
+      "project oversight",
+      "rehab budget",
+      "North Carolina"
+    ],
+    "takeaway": "Review each payment request against the contract, the documented work and prior payments, not just a percentage-complete headline.",
+    "sources": [
+      {
+        "title": "NC Licensing Board for General Contractors: After the Storm, Comes the Scam: Protect Yourself",
+        "url": "https://www.nclbgc.org/2025/06/03/after-the-storm-comes-the-scam-protect-yourself/"
+      },
+      {
+        "title": "NC Department of Justice: Home Improvement",
+        "url": "https://ncdoj.gov/protecting-consumers/home-repair-and-products/home-improvement/"
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "A contractor sends a payment request saying the renovation is 60 percent complete. The house looks much better than it did last week, and several trades have been on site. Is that enough information to approve the request? Not by itself. A percentage needs a defined scope, a consistent method of measurement and a record of what has already been paid."
+      },
+      {
+        "type": "paragraph",
+        "text": "For an investor managing a North Carolina rehab, a draw review is a reconciliation exercise: compare the amount requested with the agreed payment terms and the evidence supporting this particular request. The workflow below is an owner-management framework. It does not determine legal entitlement to payment or replace a lender’s requirements, professional inspection or your construction contract."
+      },
+      {
+        "type": "heading",
+        "text": "1. Start with the payment agreement, not the invoice date"
+      },
+      {
+        "type": "paragraph",
+        "text": "The North Carolina Licensing Board for General Contractors recommends a written contract with a completion-based payment schedule and written approval for extra work before it begins. Its consumer guidance also advises evaluating completed work before final payment. The NC Department of Justice recommends a detailed written home-improvement contract and warns against large advance fees. These are useful starting principles, not a universal payment template for every project."
+      },
+      {
+        "type": "paragraph",
+        "text": "Before work starts, turn the agreed schedule into a review sheet. Give each milestone a recognizable label and describe what evidence the agreement expects. “Draw 2” is a tracking label, not a description of completion. If the signed terms are unclear, resolve that ambiguity with the contractor and appropriate advisers rather than silently adding new conditions when an invoice arrives."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Keep the current signed contract and approved changes together.",
+          "Record invoice dates, review deadlines and contractual payment due dates separately.",
+          "Identify who reviews progress, who approves payment and who actually releases funds.",
+          "Record the lender’s separate inspection and funding steps if financing is involved."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "2. Use the same work breakdown every time"
+      },
+      {
+        "type": "paragraph",
+        "text": "Create one row for each agreed work package, such as demolition, kitchen cabinets or a specific bathroom scope. Keep that breakdown stable across requests. If a package changes, document the revision rather than moving dollars between rows until the totals look right. Consistency makes it easier to see whether an apparent increase reflects actual progress, a new scope or simply a different presentation."
+      },
+      {
+        "type": "paragraph",
+        "text": "For each row, show the current agreed amount, the cumulative amount claimed, the cumulative amount supported by the review, prior payments and the current amount requested. Add a short evidence reference and an exception note. These columns answer different questions. Money spent by a contractor, materials ordered and installed work should not be treated as interchangeable measures."
+      },
+      {
+        "type": "callout",
+        "title": "Keep the financing question separate",
+        "text": "A contractor invoice, a lender’s approved draw and cash received into your account can occur on different dates and use different rules. Track all three. Do not assume lender reimbursement automatically changes what your construction contract requires."
+      },
+      {
+        "type": "heading",
+        "text": "3. Match evidence to the claim"
+      },
+      {
+        "type": "paragraph",
+        "text": "A wide-angle photo can show that a room has changed, but may not establish quantities, hidden work, installation quality or inspection status. Ask the reviewer to identify what the evidence actually supports and where a site visit or qualified trade review is needed. Keep location and date labels so that yesterday’s image is not mistaken for today’s condition."
+      },
+      {
+        "type": "list",
+        "items": [
+          "For an installation claim, identify the location and the specific scope being claimed.",
+          "For a material-related request, distinguish an order confirmation, a paid supplier invoice, delivery and installation. Confirm how the contract treats each stage.",
+          "For a milestone involving an inspection, keep the actual result and unresolved corrections with the review.",
+          "For inaccessible or concealed work, label the verification limit and ask the appropriate professional what further evidence is needed."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "This is not a license for an owner to certify technical work outside their competence. A project manager’s progress record and a building official’s inspection serve different purposes. A photo log does not replace either the professional review or the approvals required for the job."
+      },
+      {
+        "type": "heading",
+        "text": "4. Reconcile prior payments before calculating the next one"
+      },
+      {
+        "type": "paragraph",
+        "text": "Consider an illustrative work package with an agreed value of $12,000. Suppose the contract’s valuation method and the reviewer’s evidence support $9,000 cumulatively, and $6,000 has already been paid against that package. The simple difference is $3,000 before any applicable contractual adjustments. A new $9,000 invoice would not mean another $9,000 is due merely because the supported cumulative value is $9,000."
+      },
+      {
+        "type": "paragraph",
+        "text": "These figures are hypothetical bookkeeping, not a recommended price, payment schedule or legal conclusion. Actual amounts can depend on deposits, credits, retainage, taxes, approved changes and the agreement’s treatment of materials. Reconcile those items explicitly. Do not count a deposit twice or assume a change-order amount has been approved just because it appears on an invoice."
+      },
+      {
+        "type": "heading",
+        "text": "5. Turn exceptions into specific questions"
+      },
+      {
+        "type": "paragraph",
+        "text": "Avoid an unexplained “rejected” label. State the exact mismatch: a quantity cannot be reconciled, the request refers to an obsolete scope, or prior payment is not reflected. Assign someone to answer and a review date. An exception log helps the contractor respond to a finite question instead of guessing why payment is stalled."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Request or invoice number and work-package reference.",
+          "Amount or condition requiring clarification.",
+          "Evidence received and the specific information still needed.",
+          "Responsible person, response date and resolution record."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Keep disputed and undisputed items identifiable, and handle them according to the contract and applicable advice. This checklist does not create a right to withhold money, miss a payment deadline or impose new retainage. If the disagreement concerns entitlement, defective work, termination or lien rights, involve qualified legal counsel rather than trying to settle it through spreadsheet formulas."
+      },
+      {
+        "type": "heading",
+        "text": "6. Make the last payment part of closeout"
+      },
+      {
+        "type": "paragraph",
+        "text": "The NC Department of Justice advises documenting unfinished or corrective items in a punch list with a completion deadline. The licensing board also recommends obtaining confirmation that subcontractors and suppliers have been paid before final payment. Ask your attorney or other appropriate adviser which documentation your specific project requires; a contractor’s statement should not be treated as a universal guarantee against lien claims."
+      },
+      {
+        "type": "paragraph",
+        "text": "Build the closeout checklist early enough that it is not a surprise at the end. Identify applicable final inspections, outstanding corrections, product information, warranties and the agreed handoff responsibilities. Give each missing item an owner. Keep the list focused on the actual contract and project, not a generic packet of documents nobody agreed to provide."
+      },
+      {
+        "type": "heading",
+        "text": "Your next coordination meeting"
+      },
+      {
+        "type": "paragraph",
+        "text": "Bring one payment request, the current scope and the prior-payment ledger. Ask the team to walk through one work package from claim to evidence to calculation. If that cannot be explained clearly, improve the review sheet before the next cycle. Bring those records to Southern Cities Construction when discussing project oversight so the conversation starts with the specific gap, not a vague concern that spending is moving faster than the work."
+      },
+      {
+        "type": "callout",
+        "title": "Educational planning guidance",
+        "text": "Sources checked November 16, 2026. This article is not legal, lending, accounting or inspection advice. Payment rights, deadlines, lien documentation and lender conditions vary. Follow your actual agreements and obtain qualified project-specific advice."
+      }
+    ]
   }
 ]
