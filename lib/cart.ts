@@ -357,8 +357,8 @@ export const CART_PRODUCTS: Record<string, ConstructionCartProduct> = {
     name: 'Site Scan + As-Built + Inspection',
     shortName: 'Site Scan + Inspection',
     price: 69900,
-    priceLabel: '$699 add-on or standalone',
-    description: 'NC field agent dispatched for a full 3D site scan, converted into a Chief Architect as-built floorplan by our designer, plus a licensed third-party inspector service. Required when there are no existing plans or dimensions AND you want a high-accuracy Deal Pack rather than an SF-based estimate. 5 business day turnaround.',
+    priceLabel: '$699 optional Bid-Ready add-on',
+    description: 'Optional Bid-Ready add-on: a field agent captures photos, video, measurements and a 3D LiDAR scan for an as-built floorplan, while an independent qualified inspector evaluates the house’s structural and functional condition. We aim to schedule both visits within 24–48 hours after completed intake and site access; partner availability may affect timing. Bid-Ready delivery is targeted 2–3 business days after all required inputs, scans and inspection reports are available.',
     checkoutAmount: '699',
   },
   // ---- Stage B: Realtor read/report ladder additions ----

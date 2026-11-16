@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getCartLineItems, type CartSelection } from '@/lib/cart';
+import { validateSiteScanBundle } from '@/lib/deal-pack-cart-policy';
 import { prepareDealPackPurchase } from '@/lib/deal-pack/purchase-agreement';
 
 export const runtime = 'nodejs';
@@ -39,6 +40,10 @@ export async function POST(req: NextRequest) {
   const lineItems = getCartLineItems(cartItems);
   if (lineItems.some((item) => !Number.isSafeInteger(item.amount) || !Number.isSafeInteger(item.quantity))) {
     return NextResponse.json({ error: 'Invalid cart total' }, { status: 400 });
+  }
+  const bundle = validateSiteScanBundle(lineItems);
+  if (!bundle.ok) {
+    return NextResponse.json({ error: bundle.error }, { status: 400 });
   }
   const isolated = body.isolated === true;
   const fromLp = typeof body.fromLp === 'string' && body.fromLp.length > 0 ? body.fromLp : null;
