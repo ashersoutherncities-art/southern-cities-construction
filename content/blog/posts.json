@@ -777,5 +777,153 @@
       "text": "Sources checked November 17, 2026. Requirements and exceptions depend on the building, activity and applicable programs. Consult the NC Health Hazards Control Unit and qualified professionals for project-specific direction. This article does not provide sampling, removal, cleanup, medical or legal advice."
     }
   ]
+},
+{
+  "slug": "hvac-replacement-bid-checklist-north-carolina-rehab",
+  "title": "Replacing HVAC during a rehab? Compare the whole installation, not just the unit",
+  "excerpt": "A practical bid-review checklist for North Carolina investors: sizing assumptions, ductwork, trade coordination and documented startup before approving an HVAC replacement.",
+  "category": "Construction Planning",
+  "audience": "Investors · Owners",
+  "readTime": "5 min read",
+  "publishedAt": "2026-11-18T16:13:22.113198+00:00",
+  "author": "Southern Cities Construction",
+  "coverImage": "/project-real-2.jpg",
+  "status": "published",
+  "tags": [
+    "HVAC replacement",
+    "rehab budget",
+    "contractor bids",
+    "North Carolina"
+  ],
+  "takeaway": "An equipment model and a price are not a complete installation scope. Compare the design basis, supporting work and handoff evidence.",
+  "sources": [
+    {
+      "title": "ENERGY STAR: HVAC Quality Installation",
+      "url": "https://www.energystar.gov/saveathome/heating-cooling/hvac-quality-installation"
+    },
+    {
+      "title": "US Department of Energy: Proper Sizing of HVAC Systems",
+      "url": "https://bsesc.energy.gov/energy-basics/hvac-proper-sizing-hvac-systems"
+    },
+    {
+      "title": "Air Conditioning Contractors of America: Manual S Residential Equipment Selection",
+      "url": "https://www.acca.org/standards/technical-manuals/manual-s"
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Two heating and cooling proposals can name similar equipment while covering very different jobs. One may include duct repairs, controls and startup documentation. Another may assume the existing supporting systems are suitable and leave those items outside the price. For a North Carolina rehab investor, the useful comparison is the complete installation scope, not just the equipment brand or the total on page one."
+    },
+    {
+      "type": "paragraph",
+      "text": "Use this owner-side review before approving a replacement. It helps organize questions for the qualified heating, ventilation and air conditioning (HVAC) contractor. It is not a system design, a diagnosis of existing equipment or a recommendation to replace equipment that has not been evaluated."
+    },
+    {
+      "type": "heading",
+      "text": "1. Give the contractor the finished-home plan"
+    },
+    {
+      "type": "paragraph",
+      "text": "Describe the property as it will operate after the renovation, not only as it looks during the walkthrough. Share the proposed room layout, areas to be conditioned and planned changes to windows, insulation or the building enclosure. Identify what is confirmed and what is still an option. Ask the designer which changes affect the analysis and when a revised decision is needed."
+    },
+    {
+      "type": "paragraph",
+      "text": "The US Department of Energy explains that proper sizing begins with heating and cooling load calculations, and identifies the Air Conditioning Contractors of America’s Manual J as a residential calculation method. Its guidance warns that rules of thumb can produce oversized systems. The old equipment label and the house’s square footage alone should not be your complete design record."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Keep a dated version of the proposed layout with the request for proposals.",
+        "List any rooms being added or converted, without assuming they are approved for the proposed use.",
+        "Ask which site observations and building characteristics the contractor still needs to verify.",
+        "Record who will notify the HVAC contractor if the renovation plan changes."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "2. Separate load calculation from equipment selection"
+    },
+    {
+      "type": "paragraph",
+      "text": "Ask for the basis of the recommended capacity and the specific indoor and outdoor components being proposed. A load calculation addresses the building’s needs; selecting equipment is a further step. ACCA describes Manual S as guidance for using loads, manufacturer performance information and design conditions to choose residential equipment. Do not interpret a model number or a nominal capacity as proof that this process was completed."
+    },
+    {
+      "type": "paragraph",
+      "text": "Your comparison sheet should include a short “design basis” field, the proposed equipment identifiers and any assumptions awaiting confirmation. You do not need to reproduce the contractor’s engineering work. You need a clear record of who prepared the recommendation, what it relies on and what would cause it to change."
+    },
+    {
+      "type": "heading",
+      "text": "3. Make the supporting work visible"
+    },
+    {
+      "type": "paragraph",
+      "text": "ENERGY STAR’s quality-installation guidance addresses equipment sizing, airflow, refrigerant charge and duct evaluation together. It recommends checking airflow against manufacturer specifications and evaluating ducts for leakage and needed repairs. These are reasons to ask about the installation as a system, not instructions for an owner to perform technical testing."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Ducts: what is being retained, evaluated, repaired or replaced, and what remains inaccessible?",
+        "Controls: which thermostat or controls are included, and who explains operation at handoff?",
+        "Related trades: who confirms and prices any electrical, plumbing, framing or finish work the installation needs?",
+        "Access and restoration: who opens affected areas, protects the property and restores finishes?",
+        "Approvals: who confirms the local permit and inspection requirements for the actual scope and coordinates them?"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "For every line, mark included, excluded, allowance or clarification needed. Ask for the price and schedule implications of an exclusion before treating a low bid as a complete solution. Permit and inspection requirements must be confirmed with the responsible local authority; this article does not establish an exemption or a statewide approval path."
+    },
+    {
+      "type": "heading",
+      "text": "4. Resolve renovation dependencies before ordering"
+    },
+    {
+      "type": "paragraph",
+      "text": "Consider an illustrative project where the owner requests a replacement quote and later decides to finish a previously unconditioned room. Instead of simply adding a supply outlet to the original scope, ask the responsible designer and contractor to review the revised plan and identify the consequences. The example illustrates change control, not a design recommendation for any particular home."
+    },
+    {
+      "type": "paragraph",
+      "text": "Create a decision list with four fields: open item, responsible person, date needed and affected work. A pending layout decision might affect equipment selection; an unresolved access question might affect labor and restoration. Keep “expected delivery,” “ready for installation” and “ready for use” as separate milestones. Confirm each with the people responsible rather than assuming an equipment delivery completes the project."
+    },
+    {
+      "type": "heading",
+      "text": "5. Agree on handoff evidence while reviewing bids"
+    },
+    {
+      "type": "paragraph",
+      "text": "Ask the contractor what startup checks and records will be provided for the proposed system, including applicable airflow and refrigerant-charge verification. ENERGY STAR specifically highlights these installation checks. Have the qualified contractor explain appropriate procedures and limitations; do not substitute an owner’s quick observation that the air feels cold for that work."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Keep final equipment identifiers, manuals and warranty information together.",
+        "Record applicable inspection results and any outstanding corrections separately from contractor startup records.",
+        "Ask who handles product registration, if applicable, and retain confirmation rather than assuming it happened.",
+        "Document controls orientation, maintenance information and the contact process for a concern after handoff."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "A manufacturer warranty, an installation workmanship commitment and an inspection result are different records. Read the actual terms rather than relying on a verbal promise that “everything is covered.” Put unresolved handoff items on a dated list with a named owner and follow the signed agreement when reviewing completion and payment."
+    },
+    {
+      "type": "heading",
+      "text": "Your next bid-review conversation"
+    },
+    {
+      "type": "paragraph",
+      "text": "Put competing proposals beside the same five questions: what home was evaluated, how was the equipment selected, what supporting work is included, what must happen before installation and what evidence closes the job? Send unanswered questions back in writing. This makes the next conversation about specific scope gaps rather than whether one brand sounds more impressive."
+    },
+    {
+      "type": "paragraph",
+      "text": "Bring that comparison and your renovation plan to Southern Cities Construction when discussing scope development or project coordination. The goal is to fit the HVAC package into a coherent rehab plan while leaving system design, regulated trade work and technical verification to the appropriate qualified professionals."
+    },
+    {
+      "type": "callout",
+      "title": "Planning guidance, not equipment or code advice",
+      "text": "Sources checked November 18, 2026. This article does not specify equipment capacity, installation methods, prices, savings, rebates or code compliance. Obtain project-specific design and trade advice and verify current requirements with the local authority."
+    }
+  ]
 }
 ]
