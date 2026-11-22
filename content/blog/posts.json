@@ -1322,5 +1322,108 @@
         "text": "Sources checked November 21, 2026. This is a planning checklist, not a diagnosis or a permit determination. Confirm responsibility and required approvals with the serving utility and permitting authority, and use a qualified plumbing professional to evaluate the line."
       }
     ]
+  },
+  {
+    "slug": "electrical-panel-replacement-vs-service-upgrade-north-carolina",
+    "title": "Panel replacement or service upgrade? How to scope an NC rehab bid",
+    "excerpt": "Compare electrical bids by separating panel work, service changes and new circuits. Find out who handles the permit, power shutoff, inspection and reconnection before work starts.",
+    "category": "Rehab Planning",
+    "audience": "Investors · Owners",
+    "readTime": "5 min read",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-2.jpg",
+    "status": "published",
+    "tags": [
+      "electrical scope",
+      "service upgrade",
+      "contractor bids",
+      "renovation budget",
+      "North Carolina"
+    ],
+    "takeaway": "Get the equipment scope and the utility handoff in writing. A price for a new panel is not automatically a price for a service upgrade or new circuits.",
+    "sources": [
+      {
+        "title": "North Carolina General Assembly: G.S. 160D-1110, Building permits",
+        "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_160D/GS_160D-1110.html"
+      },
+      {
+        "title": "Mecklenburg County Code Enforcement: Trade Internet Permitting",
+        "url": "https://code.mecknc.gov/permitting/tip"
+      },
+      {
+        "title": "Piedmont Electric Cooperative: Inspection and reconnection policy",
+        "url": "https://pemc.coop/important-changes-about-inspection-rules/"
+      },
+      {
+        "title": "North Carolina Board of Examiners of Electrical Contractors: Verify a license",
+        "url": "https://arls-public.ncbeec.org/Public/Search"
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Two bids say “replace panel.” One prices the breaker panel and assumes the existing service can stay. The other includes work at the meter and a scheduled utility shutoff. They aren't two prices for the same job. Before you pick one, ask what changes, what stays and what has to happen before the house gets power back."
+      },
+      {
+        "type": "heading",
+        "text": "Start with what the renovation will add"
+      },
+      {
+        "type": "paragraph",
+        "text": "Give the electrical contractor the proposed kitchen, heating and cooling, water heating, laundry and any other equipment changes. Tell them which loads are definite and which are optional. Ask them to evaluate the existing service and expected demand, then explain whether their recommendation is driven by equipment condition, circuit space or service capacity. A panel with open breaker spaces doesn’t by itself tell you that the existing service can support the plan."
+      },
+      {
+        "type": "list",
+        "items": [
+          "New circuits: Which specific rooms or appliances need circuits, and where does the bid assume walls or ceilings are open?",
+          "Panel replacement: Is the contractor changing the breaker panel while keeping the existing service capacity and meter location? List the equipment that remains.",
+          "Service change: Is capacity increasing, is the meter moving, or does other service equipment need work? Ask which changes are on the customer side and what, if anything, the utility must approve or perform."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Put the permit, inspection and utility on the schedule"
+      },
+      {
+        "type": "paragraph",
+        "text": "North Carolina’s permit statute covers a range of electrical installations, alterations and repairs and includes limited exceptions for certain work. Don’t assume “same amperage” answers the permit question. Give the local inspection office the actual work description. Mecklenburg County, for example, lists a service upgrade as a project where electrical can be the primary trade under its online trade-permit process when the job fits that process."
+      },
+      {
+        "type": "paragraph",
+        "text": "Confirm the utility serving the address. If a disconnect is needed, ask who requests it, what the utility requires before restoring power, who transmits any inspection release and who confirms the reconnect window. Piedmont Electric Cooperative, for example, explains that it generally needs the final electrical inspection submitted before it reconnects, subject to its release process. That is an example from one provider, not a statewide procedure or a promised turnaround."
+      },
+      {
+        "type": "callout",
+        "title": "Track three milestones separately",
+        "text": "Write down when the electrician expects to finish, when the required inspection is scheduled, and when the utility expects to restore power. If one slips, identify which work or occupancy depends on power. Don’t promise same-day restoration based on an electrician’s finish date."
+      },
+      {
+        "type": "heading",
+        "text": "Ask every bidder to price the same scope"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Field work: Identify the panel, meter equipment and circuits being replaced or added. List what will be reused and which existing wiring has not been evaluated.",
+          "Permit and utility: Name the party responsible for obtaining the permit, scheduling inspections and coordinating disconnect and reconnection. Say whether permit fees, utility charges and return visits are included.",
+          "Access and restoration: Assign wall openings, patching, painting, exterior finish repairs and any trench or surface restoration that applies. If another trade owns the work, include it in that trade’s budget.",
+          "Unresolved work: If the utility has not confirmed its requirements or a concealed condition remains, mark that item as a pending price, allowance or exclusion. State who will resolve it and before which decision.",
+          "Closeout: Ask for the permit number, applicable inspection records, confirmation that power is restored and an updated circuit directory. Verify the electrical contractor’s active license with the state board."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "A quick test before you accept a bid"
+      },
+      {
+        "type": "paragraph",
+        "text": "Say a rental renovation adds an electric range and a heat pump. The first bidder offers to replace the panel but leaves new circuits out. A second includes the circuits and assumes the utility can keep the existing service equipment. Neither has priced a confirmed service change. Give both the same equipment list, ask each to identify the service assumption and request a separate alternate if the utility requires more work. If that answer could change your offer or closing decision, leave it visible as a due-diligence item rather than burying it in the electrical total."
+      },
+      {
+        "type": "paragraph",
+        "text": "Sources checked November 22, 2026. This is a bid and scheduling guide, not installation advice. Use a licensed electrical contractor and confirm the requirements and timing for the address with the local inspection office and serving utility."
+      }
+    ],
+    "publishedAt": "2026-11-22T16:40:37.126Z"
   }
 ]
