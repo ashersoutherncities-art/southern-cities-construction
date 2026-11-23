@@ -1425,5 +1425,108 @@
       }
     ],
     "publishedAt": "2026-11-22T16:40:37.126Z"
+  },
+  {
+    "slug": "rehab-change-order-checklist-north-carolina",
+    "title": "Before you approve a rehab change order: a checklist for NC investors",
+    "excerpt": "Ask what changed, what the original bid already covered, and who has to sign off. Then price the added work, the schedule impact and the cash you may need before the next draw.",
+    "category": "Project Management",
+    "audience": "Investors · Owners",
+    "readTime": "5 min read",
+    "publishedAt": "2026-11-23T16:39:27.485Z",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-3.jpg",
+    "status": "published",
+    "tags": [
+      "change orders",
+      "rehab budget",
+      "holding costs",
+      "project management",
+      "North Carolina"
+    ],
+    "takeaway": "A signed change order should tell you what gets added or removed, how the contract price and schedule move, and which approvals are still needed.",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "The crew opens a bathroom wall and finds damage that wasn’t visible during the walkthrough. The contractor sends a photo and asks you to approve extra work so the next trade can start. That photo explains why there’s a decision to make. It doesn’t tell you what the repair includes, what the original bid already paid for, or whether you’ll miss the next inspection. Ask for those answers before authorizing the permanent repair."
+      },
+      {
+        "type": "heading",
+        "text": "Compare the proposed change with the signed scope"
+      },
+      {
+        "type": "paragraph",
+        "text": "Start with the room, the condition found and the matching line in the signed scope. Ask for photos or a marked-up drawing and a brief explanation of why the proposed work is needed. Is this a newly discovered condition, something you asked to add, a selection above an allowance, or a correction that may already be the contractor’s responsibility? The answer affects what you should review and whether a price adjustment is appropriate under your contract."
+      },
+      {
+        "type": "paragraph",
+        "text": "If the cause or extent isn’t known, ask for a separate investigation scope and price, and a point at which the team stops for a decision. For urgent conditions, ask the contractor how to protect people and the property promptly while following the contract’s emergency and notice provisions. Keep that immediate response separate from authorization for the permanent fix."
+      },
+      {
+        "type": "heading",
+        "text": "Get the price, schedule and approvals in writing"
+      },
+      {
+        "type": "paragraph",
+        "text": "The North Carolina Licensing Board for General Contractors recommends documenting changes in writing and keeping them with the contract and job records. AIA Contract Documents offers a useful distinction: a proposal request asks for a price; a change order records an agreement. Use the procedure and authorized signers in your own contract rather than assuming a quote, text or field conversation gives permission to proceed."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Scope: List the work being added, removed or substituted, including who will restore the surrounding finishes and what is still excluded.",
+          "Net contract price: Break out additions, any credits for deleted work or unused allowances, and any markup allowed by the contract. Show the revised contract total.",
+          "Timing: Ask which inspection, trade start or turnover date actually moves. Three extra workdays do not necessarily mean three extra days on the completion date.",
+          "Approvals: Identify who approves price and time, who checks for design and permit revisions, and whether your lender must accept a revised scope or draw budget.",
+          "Billing: Give the change an ID and specify when it can be billed. Keep requested, approved and invoiced amounts separate so the same work doesn’t appear twice."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Keep contract approval separate from permit approval"
+      },
+      {
+        "type": "paragraph",
+        "text": "An owner’s signature does not amend an issued building permit. Under North Carolina General Statutes § 160D-1112, once a building permit is issued, deviations from the application, plans and specifications, or permit generally need specific written approval from the inspection department before the changed work proceeds. The statute makes an exception when the deviation is clearly permissible under the North Carolina State Building Code. If the change touches approved plans or permit terms, have the permit holder check with the local inspection department about what to submit and whether inspection timing changes."
+      },
+      {
+        "type": "heading",
+        "text": "Put the change through your project numbers"
+      },
+      {
+        "type": "paragraph",
+        "text": "Illustration only: A proposed change adds $3,200 in work and removes $600 of work already in the base scope. The move-out date for the crew stays put, but the revised inspection and trade sequence pushes rental turnover back four days. At an assumed $85 per day in incremental holding costs, the net contract increase is $2,600, and the added project cost is $2,940 before any lost rent, financing fees or other effects you have not counted. These are example inputs, not quotes or typical prices."
+      },
+      {
+        "type": "callout",
+        "title": "Budget approval is not cash in the bank",
+        "text": "Even if you have $2,600 in contingency, ask when the contractor can bill and whether the lender will include the change in its next draw. If the bill comes due before reimbursement, plan for the cash you may need in the meantime."
+      },
+      {
+        "type": "heading",
+        "text": "Close the loop after the decision"
+      },
+      {
+        "type": "paragraph",
+        "text": "Record what you approved or rejected, update the remaining contingency and move the affected schedule dates. Keep the signed order, evidence and any permit approval with the project records. Before paying the next draw, match the invoice to the approved change and the work completed."
+      },
+      {
+        "type": "paragraph",
+        "text": "Sources checked November 23, 2026. This is a project-management checklist, not legal, engineering or permitting advice. Follow your signed contract and confirm project-specific requirements with the appropriate professionals and local inspection department."
+      }
+    ],
+    "sources": [
+      {
+        "title": "North Carolina Licensing Board for General Contractors: Remodeling and home improvement contracts",
+        "url": "https://nclbgc.org/remodeling-home-improvement-contracts/"
+      },
+      {
+        "title": "AIA Contract Documents: Contract administration forms, including G701 and G709",
+        "url": "https://learn.aiacontracts.com/contract-doc-pages/27516-contract-administration-and-project-management-forms/"
+      },
+      {
+        "title": "North Carolina General Assembly: G.S. 160D-1112, Changes in work",
+        "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_160D/GS_160D-1112.html"
+      }
+    ]
   }
 ]
