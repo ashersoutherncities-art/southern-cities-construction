@@ -1528,5 +1528,99 @@
         "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_160D/GS_160D-1112.html"
       }
     ]
+  },
+  {
+    "slug": "before-covering-walls-rough-in-inspections-north-carolina-rehab",
+    "title": "Before drywall goes up: plan the inspection handoff on a North Carolina rehab",
+    "excerpt": "Give the next crew a clear release point. Track which rough-in, framing and insulation checks apply, who gets approval, and what stays open if something fails.",
+    "category": "Project Management",
+    "audience": "Investors · Owners",
+    "readTime": "3 min read",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-3.jpg",
+    "status": "published",
+    "tags": [
+      "rough-in inspection",
+      "drywall",
+      "construction sequencing",
+      "rehab schedule",
+      "North Carolina"
+    ],
+    "takeaway": "Schedule drywall against documented clearance to cover, not the day an inspector is booked or the day a subcontractor says they are finished.",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Your electrician and plumber say they’re done, the drywall crew has an opening, and the walls still show every pipe and wire. Those are three different milestones, and none tells you the work is cleared to cover. On a permitted rehab, agree on what needs to stay visible, who will verify the official results, and when the crew can start before you pay anyone to mobilize."
+      },
+      {
+        "type": "heading",
+        "text": "Start with the permit record, not a universal checklist"
+      },
+      {
+        "type": "paragraph",
+        "text": "North Carolina General Statutes § 160D-1113 provides for inspections of work in progress. Ask the permit holder to pull the current building and trade permits and confirm with the local inspection department which steps apply to your scope. Pull the approved plans and revisions, too. The sequence on a kitchen wiring alteration may not be the same as the sequence on a full addition."
+      },
+      {
+        "type": "paragraph",
+        "text": "Mecklenburg County lists concealed electrical, plumbing, and heating and cooling rough-ins before interior finishes or insulation hide the work. Its insulation inspection follows approved framing and trade rough-ins, and precedes wall or ceiling covering. Raleigh’s residential guidance likewise separates trade rough-ins, framing, and insulation. These are jurisdiction examples, not a promise about your permit or what can be inspected together."
+      },
+      {
+        "type": "heading",
+        "text": "Make one short list for every area that will be covered"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Record the permit number, room or floor, specific inspection name, and the person responsible for requesting it.",
+          "Write down what must be complete and visible. Confirm that access and the approved plans will be available to the inspector.",
+          "Track requested, scheduled, inspected, and approved as different statuses. Save the official result and any written restrictions or corrections.",
+          "Put one person in charge of telling the insulation or drywall crew which area, if any, can actually be covered. Label all unresolved areas separately."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "If one area fails, protect the schedule without hiding the work"
+      },
+      {
+        "type": "paragraph",
+        "text": "Assign the correction to the right trade, keep the affected work visible, and have the permit holder confirm whether a follow-up inspection or other clearance is needed. If the team wants to proceed elsewhere, ask the inspection department what can be inspected or released separately and document the exact boundary. The North Carolina Office of State Fire Marshal’s April 2026 interpretation discusses partial inspections under Section 107; do not treat a result for one trade or section as approval of everything behind the wall."
+      },
+      {
+        "type": "callout",
+        "title": "A job photo is a record, not an approval",
+        "text": "Take useful dated photos before covering, but use them to document location and progress, not as a substitute for the department’s approval or written direction."
+      },
+      {
+        "type": "heading",
+        "text": "Price the gap instead of taking an avoidable chance"
+      },
+      {
+        "type": "paragraph",
+        "text": "Illustration only: If a correction pushes your earliest permitted start back two days and you expect $85 per day in incremental carry, the delay costs $170 before any crew costs. Compare that with the contractor’s actual remobilization and reopening costs if you put the finish trade on site too early. Ask for a tentative crew slot and a clear release deadline rather than telling the next crew to start while approval is still open."
+      },
+      {
+        "type": "paragraph",
+        "text": "This planning guide is not a permit determination or an instruction for performing trade work. Confirm the requirements, inspections and release with the permit holder and the inspection department that has jurisdiction over your project. Sources checked November 24, 2026."
+      }
+    ],
+    "sources": [
+      {
+        "title": "North Carolina General Assembly: G.S. 160D-1113, inspections of work in progress",
+        "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_160D/GS_160D-1113.html"
+      },
+      {
+        "title": "Mecklenburg County Code Enforcement: residential inspection schedule",
+        "url": "https://code.mecknc.gov/inspections/schedule"
+      },
+      {
+        "title": "City of Raleigh: residential inspections",
+        "url": "https://raleighnc.gov/permits/services/residential-inspections"
+      },
+      {
+        "title": "North Carolina Office of State Fire Marshal: April 2026 formal interpretation of Section 107",
+        "url": "https://www.ncosfm.gov/formal-interpretations/2026-0420-nchba-2018-ncacp-section-107-inspections/open"
+      }
+    ],
+    "publishedAt": "2026-11-24T16:25:33Z"
   }
 ]
