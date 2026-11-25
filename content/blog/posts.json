@@ -1622,5 +1622,108 @@
       }
     ],
     "publishedAt": "2026-11-24T16:25:33Z"
+  },
+  {
+    "slug": "replacement-window-bids-insert-vs-full-frame-north-carolina",
+    "title": "Insert vs. full-frame windows: how to compare bids on a North Carolina rehab",
+    "excerpt": "Use a window-by-window scope to compare what stays, what comes out, who repairs the wall, and what has to be confirmed before you order.",
+    "category": "Estimating",
+    "audience": "Investors · Owners",
+    "readTime": "4 min read",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-6.jpg",
+    "status": "published",
+    "tags": [
+      "replacement windows",
+      "rehab estimating",
+      "water intrusion",
+      "North Carolina"
+    ],
+    "takeaway": "Compare what each contractor will leave in place and restore, not just the number of windows and the price per opening.",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Two contractors can quote eight new windows and price entirely different jobs. One may install new units inside the old frames. The other may remove the frames, expose the wall openings and restore the trim and siding after installation. If the scope just says “replace eight windows,” the lower bid may leave the exact repair you need out of the price."
+      },
+      {
+        "type": "heading",
+        "text": "Decide what can stay, opening by opening"
+      },
+      {
+        "type": "paragraph",
+        "text": "An insert fits inside an existing frame. It can reduce disruption to surrounding finishes when the frame and sill are sound and the opening can accept the new unit. The extra frame can reduce visible glass area, so compare the size of the finished opening, especially on small windows. Ask the installer to show how the new unit will be sealed to what remains."
+      },
+      {
+        "type": "paragraph",
+        "text": "Full-frame replacement removes the existing frame and exposes the rough opening, the framed space in the wall. It gives the crew access to evaluate the opening and coordinate new flashing with the wall’s drainage layers. It may also mean removing and restoring adjacent siding or trim. Ask exactly how much is included. “Full-frame” alone does not price damaged framing, sheathing or matching paint."
+      },
+      {
+        "type": "callout",
+        "title": "Price the cause, not the stain",
+        "text": "A recurring stain below a window is a reason to investigate, not proof the window itself leaks. The opening, wall above it or condensation may be involved. Define who will investigate, what can be inspected before ordering and how concealed damage will be documented and approved before repair."
+      },
+      {
+        "type": "heading",
+        "text": "Give each bidder the same window schedule"
+      },
+      {
+        "type": "paragraph",
+        "text": "Number each opening on a photo or plan. For each number, record the room, the observed condition, the proposed method and anything still unknown. Then ask each bidder to return the same schedule with these fields filled in:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Unit: Manufacturer, model, operation, glass package and who verifies field dimensions before the order.",
+          "Scope: Insert or full-frame at that opening, existing materials that stay, the planned air sealing and, where applicable, what flashing and drainage work is included.",
+          "Restoration: Interior casing, exterior trim, siding patch, paint, disposal, access and protection for occupied rooms. Name who owns each excluded item.",
+          "Unknowns: What damage is included, what is an allowance or a defined unit price, and who approves extra work. Require photos and a written price before additional work proceeds.",
+          "Timing: Ordering lead time, installation sequence, and who keeps the opening protected if concealed damage delays completion."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Use a mixed scope when the conditions differ"
+      },
+      {
+        "type": "paragraph",
+        "text": "On a hypothetical eight-window rehab, six dry openings with sound frames might be insert candidates. A seventh with a soft sill needs investigation and a price for the affected assembly. An eighth beneath an old leak needs a diagnosis before either method is locked in. Compare bidders against that same breakdown, rather than asking one to quote eight inserts and another to quote eight full-frame replacements."
+      },
+      {
+        "type": "heading",
+        "text": "Check the product and opening before ordering"
+      },
+      {
+        "type": "paragraph",
+        "text": "If you are comparing energy performance, ask for the exact unit’s National Fenestration Rating Council label. The U-factor indicates how readily heat passes through the unit; the solar heat gain coefficient indicates the share of solar heat it admits. If you want ENERGY STAR certification, use its county lookup and confirm the exact product qualifies there. Product ratings do not answer how the installation will manage water."
+      },
+      {
+        "type": "paragraph",
+        "text": "Ask the installer and local inspections office what applies before ordering if the work changes an opening or affects a window used for emergency escape. If the property is in a historic district, confirm any applicable local review before committing to a product or changing exterior appearance. This is an estimating guide, not an installation specification or a determination of permit or code requirements."
+      },
+      {
+        "type": "callout",
+        "title": "What to ask for before signing",
+        "text": "Get one agreed schedule showing the installation method at every opening, the exact unit, the finishes the crew will restore and how you will approve concealed repairs. If those lines differ between bids, reconcile them before comparing totals."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Building America Solution Center: Insert Replacement Window",
+        "url": "https://basc.pnnl.gov/resource-guides/insert-replacement-window"
+      },
+      {
+        "title": "Building America Solution Center: Complete Window and Frame Replacement",
+        "url": "https://basc.pnnl.gov/resource-guides/complete-window-and-frame-replacement"
+      },
+      {
+        "title": "ENERGY STAR: Residential Window Performance Criteria",
+        "url": "https://www.energystar.gov/products/res_windows_doors_skylights/key-product-criteria"
+      },
+      {
+        "title": "ENERGY STAR: Window Climate Zone Finder",
+        "url": "https://www.energystar.gov/products/building_products/residential_windows_doors_and_skylights/climate_zone/search"
+      }
+    ],
+    "publishedAt": "2026-11-25T16:49:16.270Z"
   }
 ]
