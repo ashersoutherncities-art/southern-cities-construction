@@ -1725,5 +1725,128 @@
       }
     ],
     "publishedAt": "2026-11-25T16:49:16.270Z"
+  },
+  {
+    "slug": "open-expired-permit-before-buying-north-carolina-rehab",
+    "title": "Open or expired permits: what to check before buying a North Carolina rehab",
+    "excerpt": "Match the seller’s completed work to permits and inspections, then price the actual resolution path before you commit.",
+    "category": "Permitting",
+    "audience": "Investors · Owners",
+    "readTime": "6 min read",
+    "publishedAt": "2026-11-26T16:12:41.938Z",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-4.jpg",
+    "status": "published",
+    "tags": [
+      "expired permits",
+      "due diligence",
+      "permit history",
+      "final inspection",
+      "North Carolina"
+    ],
+    "takeaway": "Before relying on a finished room, find out what was approved, what was inspected and what it would take to resolve missing approvals.",
+    "sources": [
+      {
+        "title": "North Carolina General Assembly: Building permit expiration, G.S. 160D-1111",
+        "url": "https://library.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_160D/GS_160D-1111.html"
+      },
+      {
+        "title": "North Carolina General Assembly: Final inspections and certificates, G.S. 160D-1116",
+        "url": "https://library.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_160D/GS_160D-1116.html"
+      },
+      {
+        "title": "Mecklenburg County Code Enforcement: Expired permits",
+        "url": "https://code.mecknc.gov/site-menu/permitting/expired-permits"
+      },
+      {
+        "title": "Mecklenburg County Code Enforcement: Customer tools and permit records",
+        "url": "https://code.mecknc.gov/customer-tools"
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "The listing calls the downstairs space a finished suite. The lights work, the bathroom looks new, and the seller remembers pulling a permit. Those details do not tell you what the permit covered or whether the inspections were completed. If your resale or rental plan depends on that suite, check the records while you still have time to investigate and negotiate."
+      },
+      {
+        "type": "heading",
+        "text": "1. Match the records to the work you can see"
+      },
+      {
+        "type": "paragraph",
+        "text": "Identify the inspection department for the property and search its records by street address and, if supported, parcel number. Ask the seller for permit numbers, approved plans and inspection results for major past work. Compare the scope on each record with what you saw at the property. An electrical service permit, for example, may tell you about the panel but nothing about the bathroom next to it."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Record the permit number, scope, holder, issue date and current status. Save the record and the date you checked it.",
+          "Look for separate building, electrical, plumbing and mechanical records when the work spans those trades. Read the inspection history, not just the status at the top.",
+          "Check for the applicable final inspection and certificate, and verify that their address and scope match the work you are relying on.",
+          "If the portal has no result, ask about legacy records or address changes. An empty search alone cannot tell you whether a permit was required or obtained."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Mecklenburg County is one example of why the date matters: its customer tools page directs you to different record searches depending on when the project began. Start with the agency that issued the permit rather than assuming the same portal or status labels apply across North Carolina."
+      },
+      {
+        "type": "heading",
+        "text": "2. Identify what is actually unresolved"
+      },
+      {
+        "type": "paragraph",
+        "text": "An issued permit describes authorized work. Inspection results show which stages the department checked. Under North Carolina General Statute 160D-1116, the appropriate inspector conducts a final inspection after work under a building permit is complete and issues a certificate of compliance if the work meets applicable requirements and permit terms. If a temporary certificate applies, check its scope, conditions and expiration before relying on it for occupancy. Ask the department which documentation applies to your project."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Open: find the last inspection result, remaining items and who can request the next inspection.",
+          "Expired: verify the dates and ask the department about the process for work already performed or still unfinished.",
+          "No matching permit: ask whether one was required for the actual work and what the department needs to determine the next step.",
+          "Closed or canceled: read the record to learn why. A cancellation for work never performed does not document a passed inspection."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "State law generally makes a building permit expire if work has not started within six months after issuance, or sooner if an ordinance sets a shorter period. It also provides for expiration after a 12-month interruption once work has started and bars further work under an expired building permit until a new permit is obtained. Have the issuing department confirm the status and the path forward rather than calculating it from an old inspection date."
+      },
+      {
+        "type": "heading",
+        "text": "3. Get a resolution path before pricing the risk"
+      },
+      {
+        "type": "paragraph",
+        "text": "Send the department the address, permit number and a short description of what appears to have been done. Ask whether the existing permit can be completed, whether another permit or permit holder is needed, which inspections remain and what evidence is acceptable for concealed work. Ask about related permits and whether the outstanding work affects your intended use. A seller’s invoice can help reconstruct the work, but it does not establish how the department will resolve the record."
+      },
+      {
+        "type": "paragraph",
+        "text": "Mecklenburg County illustrates how the facts change the next step. Its published process distinguishes work never performed, work completed with inspections missing, and cases where the original contractor will not finish. Some paths involve a replacement permit and further inspections. Follow the instructions from the authority for the specific property before moving crews or changing finished areas."
+      },
+      {
+        "type": "heading",
+        "text": "4. Carry two timelines when the answer is uncertain"
+      },
+      {
+        "type": "paragraph",
+        "text": "Suppose an expired plumbing permit covers a bathroom that now looks complete. In the narrow case, the department confirms a replacement permit and a final inspection, with no other work identified. In the wider case, it needs evidence about concealed work or requires corrections before final approval. Ask a qualified contractor to price each confirmed requirement, including permit administration, access and finish restoration if needed. Keep holding costs and any lease or sale delay separate from the construction line item so you can see the full consequence."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Track each missing item as a separate row: observed work, permit number, missing evidence, responsible party, cost range and date needed.",
+          "Put any seller resolution or document delivery in writing with your transaction team. Define what evidence counts as resolution and when it must be delivered.",
+          "If your return depends on using or marketing the altered space, run a version that excludes its rent or resale contribution until you can substantiate it. If that changes the decision, resolve the issue before the relevant contract deadline or evaluate whether to proceed without the space."
+        ]
+      },
+      {
+        "type": "callout",
+        "title": "A practical handoff",
+        "text": "Give your construction team the permit history, relevant plans, photos and the department’s response. Ask for separate pricing for confirmed work and possible follow-up. A clean estimate shows which items still depend on inspection or agency direction."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a due diligence guide, not a determination about a specific property. Confirm the permit, approval and occupancy requirements with the issuing department, and use your transaction and construction professionals to evaluate contract and cost implications."
+      }
+    ]
   }
 ]
