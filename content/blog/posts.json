@@ -1848,5 +1848,107 @@
         "text": "This is a due diligence guide, not a determination about a specific property. Confirm the permit, approval and occupancy requirements with the issuing department, and use your transaction and construction professionals to evaluate contract and cost implications."
       }
     ]
+  },
+  {
+    "slug": "asbestos-check-before-demolition-north-carolina-rehab",
+    "title": "Asbestos before demolition: what to check on a North Carolina rehab",
+    "excerpt": "Get the right areas assessed, compare what demo bids exclude, and make asbestos findings a decision point before work starts.",
+    "category": "Rehab Planning",
+    "audience": "Investors · Owners",
+    "readTime": "5 min read",
+    "publishedAt": "2026-11-27T16:13:50.471Z",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-2.jpg",
+    "status": "published",
+    "tags": [
+      "asbestos",
+      "demolition",
+      "rehab budget",
+      "due diligence",
+      "North Carolina"
+    ],
+    "takeaway": "Before demolition, match the materials your crew will disturb to a professional assessment, a written scope and a clear go-ahead.",
+    "sources": [
+      {
+        "title": "NC Division of Public Health: What homeowners should know about asbestos",
+        "url": "https://www.dph.ncdhhs.gov/programs/environmental-health/health-hazards-control-unit/asbestos-hazard-management/renovating-your-home-what-know-about-asbestos"
+      },
+      {
+        "title": "NC Division of Public Health: Demolition, renovation and asbestos requirements",
+        "url": "https://www.dph.ncdhhs.gov/programs/environmental-health/health-hazards-control-unit/asbestos/before-you-demo-or-renovate"
+      },
+      {
+        "title": "U.S. Environmental Protection Agency: Protect your family from asbestos exposure",
+        "url": "https://www.epa.gov/asbestos/protect-your-family-exposures-asbestos"
+      },
+      {
+        "title": "U.S. Environmental Protection Agency: Asbestos and large-scale residential demolition",
+        "url": "https://www.epa.gov/large-scale-residential-demolition/asbestos-containing-materials-acm-and-demolition"
+      },
+      {
+        "title": "Mecklenburg County: Asbestos program and regulations",
+        "url": "https://code.mecknc.gov/Asbestos-NESHAP-Program-and-Regulations"
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Two contractors quote the same kitchen demo. One includes flooring removal but excludes hazardous materials. The other assumes the old flooring stays. Those prices are for different jobs. Before you pick a bid or set a start date, find out which materials the rehab will actually disturb and which unknowns neither quote covers."
+      },
+      {
+        "type": "heading",
+        "text": "1. Give the inspector the demolition scope"
+      },
+      {
+        "type": "paragraph",
+        "text": "Start with the work you plan to do, not just the age of the house. Mark where flooring, walls, ceilings, siding or old mechanical materials will be disturbed. Ask a North Carolina-accredited asbestos inspector to review that scope. The state's homeowner guidance lists older floor tile, some adhesives, textured ceilings, joint compound and pipe insulation among potential sources. These are reasons to investigate, not ways to identify asbestos by sight."
+      },
+      {
+        "type": "paragraph",
+        "text": "Send any past inspection report and ask whether it covers the materials and layers in the new scope. A result for one sampled material does not tell you what is underneath it or in another room. Ask which areas were inaccessible and how to handle those unknowns before a crew opens them. Don't collect your own samples or ask the demo crew to tear out suspect material to find out what it is."
+      },
+      {
+        "type": "heading",
+        "text": "2. Check which rules apply to the whole job"
+      },
+      {
+        "type": "paragraph",
+        "text": "A single-home interior rehab and several houses demolished as part of one redevelopment are not automatically treated alike. Federal asbestos demolition and renovation rules generally exclude residential buildings with four or fewer units, but small residential buildings can be covered when they are part of a larger regulated project. That distinction does not settle state, local or worker-protection requirements. Give your inspector the intended use, number of structures, exact scope and address, and confirm the applicable requirements with the North Carolina Health Hazards Control Unit and any local air program."
+      },
+      {
+        "type": "paragraph",
+        "text": "For a demolition covered by the federal asbestos rule, absence of asbestos does not by itself remove the notice requirement. Keep local building or demolition permits separate from any asbestos notices or permits. If notice, permitting or abatement is required, have the responsible professional identify who files, when the work can start, and what documentation the crew needs before returning."
+      },
+      {
+        "type": "heading",
+        "text": "3. Compare bids by responsibility, not just price"
+      },
+      {
+        "type": "list",
+        "items": [
+          "List what each demo bid will disturb, what will stay, and any suspect or untested areas the bid excludes.",
+          "Price the inspection and lab work separately from ordinary demolition. If findings call for abatement, get a written specialist scope and price rather than treating a general allowance as coverage.",
+          "Confirm who owns required filings, disposal records and any required or specified post-work verification. Put those handoffs on the schedule.",
+          "Carry the resulting cost and any delay in the rehab budget. If financing or resale depends on a short schedule, test what happens if the affected work must wait."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "4. Set a written stop-work rule"
+      },
+      {
+        "type": "paragraph",
+        "text": "Suppose a flooring bid assumes the kitchen has one layer, but another layer turns up beneath it. The affected work stops. Keep people out of that area and have the qualified professional evaluate the finding before anyone continues. Do not sweep, vacuum or otherwise clean up suspected asbestos debris yourself. If the plan changes, document the revised scope, cost and timing before releasing that work."
+      },
+      {
+        "type": "callout",
+        "title": "Before you authorize demolition",
+        "text": "Before authorizing demo, be able to answer four questions: What are we disturbing? What was actually assessed? Who handles any asbestos work and filings? What has to happen before the crew starts or returns?"
+      },
+      {
+        "type": "paragraph",
+        "text": "If you're still under contract, use the answers to decide what you can price, what you need the seller's permission to investigate, and what makes the deal too uncertain. If you already own the property, resolve the affected scope before putting demolition on the critical path. A defined exclusion is manageable; a low bid that leaves the responsibility unclear is not."
+      }
+    ]
   }
 ]
