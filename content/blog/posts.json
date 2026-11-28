@@ -1950,5 +1950,103 @@
         "text": "If you're still under contract, use the answers to decide what you can price, what you need the seller's permission to investigate, and what makes the deal too uncertain. If you already own the property, resolve the affected scope before putting demolition on the critical path. A defined exclusion is manageable; a low bid that leaves the responsibility unclear is not."
       }
     ]
+  },
+  {
+    "slug": "framing-material-quote-checklist-north-carolina-additions",
+    "title": "How to compare framing material quotes for a North Carolina addition",
+    "excerpt": "Turn an approved takeoff into comparable lumberyard quotes, check substitutions before ordering, and get the right materials to the site on time.",
+    "category": "Rehab Planning",
+    "audience": "Investors · Owners",
+    "readTime": "5 min read",
+    "publishedAt": "2026-11-28T16:36:53Z",
+    "author": "Southern Cities Construction",
+    "coverImage": "/project-real-2.jpg",
+    "status": "published",
+    "tags": [
+      "materials takeoff",
+      "framing",
+      "lumber",
+      "additions",
+      "North Carolina"
+    ],
+    "takeaway": "Compare the cost of getting the same approved materials onto the site when the crew needs them, not just the subtotal on the quote.",
+    "sources": [
+      {
+        "title": "APA: Subfloor and underlayment panel selection",
+        "url": "https://www.apawood.org/applications-systems/floor-systems/underlaymentsubfloor/"
+      },
+      {
+        "title": "American Wood Council: Lumber floor joists and grade marks",
+        "url": "https://awc.org/resources/wood-products/floor/lumber-joists/"
+      },
+      {
+        "title": "APA: Builder tips for handling and protecting structural panels",
+        "url": "https://www.apawood.org/builder-tips-1"
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Two lumberyards can price the same addition and return different orders. One may include floor sheathing and jobsite delivery. The other may price only framing lumber or swap in a panel with a different rating. Before you accept the low number, check what will arrive, whether it matches the plans, and who pays if it does not."
+      },
+      {
+        "type": "heading",
+        "text": "1. Give every supplier the same takeoff"
+      },
+      {
+        "type": "paragraph",
+        "text": "Send the same dated drawing revision and item list to each yard. Group floor framing, walls, roof framing, sheathing and hardware so missing sections stand out. For each line, state the unit of measure: pieces, sheets, boxes or linear feet. If a wall plate is listed in linear feet, ask for a piece count by stock length as well. A total length alone does not show whether the order has the pieces your cut list needs."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Give each item a line number. Ask the yard to repeat that number, the proposed product and quantity, and mark any item it cannot supply.",
+          "Use the grade and species called for in the project documents, not just a nominal size. The American Wood Council notes that the lumber grade mark identifies both.",
+          "Show quantity from the takeoff separately from extra material for cuts or damage. Tie any extra to the layout and return policy instead of having each yard guess.",
+          "List unconfirmed items as alternates or pending. Do not release an order for hardware, treated lumber, or other specified items while the needed dimensions or product details are still unknown."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "2. Treat substitutions as decisions, not clerical changes"
+      },
+      {
+        "type": "paragraph",
+        "text": "A tongue-and-groove panel is not a complete specification. APA distinguishes panel grades and span ratings. Have the builder match the quoted product to the floor assembly, supports and finish requirements in the project documents. Ask for the panel stamp or product data if the quote lists only thickness and sheet size."
+      },
+      {
+        "type": "paragraph",
+        "text": "If a supplier proposes a different joist, panel, connector or fastening product, get the proposed item and price difference in writing. Route it to the person responsible for the design or specification before approving the order. Choosing the cheapest item with the same dimensions is not a design review."
+      },
+      {
+        "type": "heading",
+        "text": "3. Compare the delivered scope before comparing price"
+      },
+      {
+        "type": "paragraph",
+        "text": "Here is a fictional example: Yard A quotes $4,950 for the listed materials plus $350 delivery. Yard B quotes $5,150 delivered, but leaves out a $280 hardware package needed for the same scope. Before any tax difference, Yard A is $5,300 and Yard B is $5,430 on an equivalent basis. These figures illustrate the method, not North Carolina prices."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Confirm tax, separate trips, unloading, any fuel or handling fee, and quote expiration.",
+          "Check whether delivery is curbside or includes placing bundles at an agreed location. Flag street access and overhead clearance in advance; let the carrier confirm what its equipment can safely do.",
+          "Ask which items are in stock, which need a special order, and what can be returned. Treat any estimated return credit separately from the upfront cost."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "4. Plan who receives and checks the order"
+      },
+      {
+        "type": "paragraph",
+        "text": "Set a delivery window with the crew lead and assign one person to compare the packing slip and actual bundles to the approved order. Have them record shortages, unexpected substitutions and damage, and notify the yard promptly under its terms. Arrange dry, supported staging and keep panels protected in accordance with the manufacturer’s guidance. If the schedule is tight, confirm the critical framing items before promising a crew start."
+      },
+      {
+        "type": "callout",
+        "title": "Your order-release check",
+        "text": "Before releasing the order, confirm five things: drawing revision, approved item list, delivered total, receiving contact and date. Get those in writing and keep them with the quote."
+      }
+    ]
   }
 ]
